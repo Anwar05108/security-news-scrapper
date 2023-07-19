@@ -1,0 +1,214 @@
+Sophos Home protects every Mac and PC in your home 
+A ROGUES’ GALLERY
+Rogue software packages. Rogue “sysadmins”. Rogue keyloggers. Rogue authenticators.
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Scambaiting, rogue 2FA apps, and we haven’t heard the last of LastPass. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today?
+DUCK.  Chilly, Doug.
+Apparently, March is going to to be colder than February.
+DOUG.  We are having the same problem here, the same challenge. 
+So, fret not –  I have a very interesting This Week in Tech History segment. 
+This week, on 05 March 1975, the first gathering of the Homebrew Computer Club took place in Menlo Park, California, hosted by Fred Moore and Gordon French. 
+The first meeting saw around 30 technology enthusiasts discussing, among other things, the Altair. 
+And about a year later, on 01 March 1976, Steve Wozniak showed up to a meeting with a circuit board he created, aiming to give away the plans.
+Steve Jobs talked him out of it, and the two went on to start Apple. 
+And the rest is history, Paul.
+DUCK.  Well, it certainly is history, Doug! 
+Altair, eh? 
+Wow! 
+The computer that persuaded Bill Gates to drop out of Harvard. 
+And in true entrepreneurial fashion, together with Paul Allen and Monty Davidoff – I think that was the trio who wrote the Altair Basic – decamped to New Mexico. 
+Go and work at the hardware vendor’s property in Albuquerque!
+DOUG.  Perhaps something that’s maybe not going to make history…
+…we’ll start the show off with an unsophisticated yet interesting scambaiting campaign, Paul.
+NPM JavaScript packages abused to create scambait links in bulk
+
+DUCK.  Yes, I wrote this up on Naked Security, Doug, under the headline NPM JavaScript packages abused to create scambait links in bulk (it’s a lot wordier to say than it seemed at the time when I wrote it)…
+…because I felt it was an interesting angle on the sort of web property that we tend to associate directly, and only, with so-called supply-chain source code attacks. 
+And in this case, the crooks figured, “Hey, we don’t want to distribute poisoned source code. We’re not into that kind of supply-chain attack. What we’re looking for is just a series of links that people can click on that won’t arouse any suspicions.” 
+So, if you want a Web page that someone can visit that has a load of links to dodgy sites… like “Get your free Amazon bonus codes here” and “Get your free bingo spins” – there were literally tens of thousands of these…
+…why not choose a site like the NPM Package Manager, and create a whole load of packages? 
+Then you don’t even need to learn HTML, Doug! 
+You could just use good old Markdown, and there you’ve got essentially a good-looking, trusted source of links you can click through to.
+And those links that they were using, as far as I can make out, went off to essentially unsuspicious blog sites, community sites, whatever, that had unmoderated or poorly moderated comments, or where they were easily able to create accounts and then make comments that had links in.
+So they’re basically building a chain of links that wouldn’t arouse suspicion.
+DOUG.  So, we have some advice: Don’t click freebie links, even if you find you are interested or intrigued.
+DUCK.  That’s my advice, Doug.
+Maybe there are some free codes, or maybe there’s some coupon stuff that I could get… maybe there’s no harm in having a look. 
+But if there’s some kind of affiliated ad revenue with that, that the cooks are making just by enticing you bogusly to a particular site? 
+No matter how minuscule the amount is that they’re making, why give them anything for nothing? 
+That’s my advice. 
+“Best way to avoid punch is no be there,” as always.
+DOUG.  [LAUGHS] And then we have: Don’t fill in online surveys, no matter how harmless they seem.
+DUCK.  Yes, we’ve said that many times on Naked Security. 
+For all you know, you might be giving your name here, your phone number there, you maybe give your date of birth to something for a free gift there, and you think, “What’s the harm?” 
+But if all that information is actually ending up in one giant bucket, then, over time, the crooks are just getting more and more about you, sometimes perhaps including data that it’s very difficult to change. 
+You can get a new credit card tomorrow, but it’s rather harder to get a new birthday or to move house!
+DOUG.  And last, but certainly not least: Don’t run blogs or community sites that allow unmoderated posts or comments.
+And if anyone’s ever run, say, a WordPress site, the thought of allowing unmoderated comments is just short of mind-blowing, because there will be thousands of them. 
+It is an epidemic.
+DUCK.  Even if you’ve got an automated anti-spamming service on your comment system, that will do a great job… 
+…but don’t let the other stuff through and think, “Oh, well, I’ll go back and remove it, if I see that it looks dodgy afterwards,” because, like you said, it’s at epidemic proportions…
+DOUG.  That’s a full time job, yes!
+DUCK.  …and has been for ages.
+DOUG.  And you were able, I’m delighted to see, to work in two of our favourite mantras around here.
+At the end of the article: Think before you click, and:  If in doubt…
+DUCK.  …don’t give it out.
+It really is as simple as that.
+DOUG.  Speaking of giving things out, three youngsters allegedly made off with millions in extortion money:
+Dutch police arrest three cyberextortion suspects who allegedly earned millions
+
+DUCK.  Yes. 
+They were busted in the Netherlands for crimes that they are alleged to have started committing… I think it’s two years ago, Doug.
+And they are 18 years, 21 years, and 21 years old now. 
+So they were pretty young when they started. 
+And the prime suspect, who is 21 years old… the cops allege he has made about two-and-a-half-million Euros. 
+That is a lot of money for a youngster, Doug. 
+It’s a lot of money for anybody!
+DOUG.  I don’t know what you were making at 21, but I was not making that much, not even close. [LAUGHS]
+DUCK.  Maybe two Euros fifty an hour? [LAUGHTER]
+It seems that their modus operandi was not to end up with ransomware, but to leave you with the *threat* of ransomware because they were already in. 
+So they’d come in, they’d do all the data theft, and then instead of actually bothering to encrypt your files, it sounds as though what they’d do is they’d say, “Look, we’ve got the data; we can come back and ruin everything, or you can pay.” 
+And the demands were somewhere between €100,000 and €700,000 per victim. 
+And if it’s true that one of them made €2,500,000 in the past two years out of his cybercriminality, you can imagine that they probably blackmailed quite a few victims into paying up, for fear of what might get revealed…
+DOUG.  We’ve said around here, “We’re not going to judge, but we urge people not to pay up in instances like this, or in instances like ransomware.” 
+And for good reason!
+Because, in this case, the police note that paying the blackmail didn’t always work out. 
+They said: 
+In many cases, stolen data was leaked online even after the affected companies had paid up.
+DUCK.  So. if you ever thought, “I wonder if I can trust those guys not to leak the data, or for it not to appear online?”…
+…I think you’ve got your answer there! 
+And bear in mind that it may not be that these particular crooks were just ultra-duplicitous, and that they took the money and leaked it anyway. 
+We don’t know that *they* were necessarily the people who leaked it. 
+They could have just been so bad at security themselves that they stole it; they had to put it somewhere; and while they were negotiating, telling you, “We’ll delete the data”…
+…for all we know, someone else could have stolen it in the meantime.
+And that’s always a risk, so paying for silence rarely works out well.
+DOUG.  And we’ve seen more and more attacks like this where ransomware actually looks a little bit more straightforward: “Pay me for the decryption key; you pay me; I’ll give it to you; you can unlock your files.” 
+Well, now they’re going in and saying, “We’re not going to lock anything up, or we’re going to lock it up but we’re also going to leak it online if you don’t pay…”
+DUCK.  Yes, it’s three sorts of extortion, isn’t it? 
+There’s, “We locked up your files, pay the money or your business will stay derailed.” 
+There’s, “We stole your files. Pay up or we’ll leak them, and then we might come back and ransomware you anyway.” 
+And there’s the double-ground that some crooks seem to like, where they steal your data *and* they scramble the files, and they say, “You might as well pay up to decrypt your files, and no extra charge, Doug, we’ll delete the data as well!” 
+So, can you trust them? 
+Well, here’s your answer… 
+Probably not!
+DOUG.  All right, head over and read about that. 
+There’s further insight and context at the bottom of that article… Paul, you did an interview with our own Peter Mackenzie, who is the Director of Incident Response here at Sophos. (Full transcript available.)
+No audio player below? Listen directly on Soundcloud.
+And, as we always say in cases like these, if you’re affected by this, report the activity to the police so that they have as much information as they can get in order to put their case together. 
+I’m happy to report that we said we’d keep an eye on it; we did; and we’ve got a LastPass update:
+LastPass: Keylogger on home PC led to cracked corporate password vault
+
+DUCK.  We have indeed, Doug! 
+This is indicating how the breach of their corporate passwords allowed the attack to go from being a “little thing” where they got source code to something rather more dramatic. 
+LastPass seem to have figured out how that actually happened… and in this report, there are effectively, if not words of wisdom, at least words of warning. 
+And I did repeat, in the article I wrote about this, what we said on last week’s podcast promo video, Doug, namely: 
+“As simple as the attack was, it would be a bold company that would claim that not one of their users, ever, would fall for this kind of thing…”
+Listen now – Learn more!https://t.co/CdZpuDSW2f pic.twitter.com/0DFb4wALhi
+— Naked Security (@NakedSecurity) February 24, 2023
+
+Sadly, it seems that one of the developers, who just happened to have the password to unlock the corporate password vault, was running some kind of media-related software that they hadn’t patched.
+And the crooks were able to use an exploit against it… to install a keylogger, Doug! 
+From which, of course, they got that super-secret password that opened the next stage of the equation. 
+If you’ve ever heard the term lateral movement –  that’s a Jargon term you’ll hear a lot. 
+The analogy you have with conventional criminality is…
+..get into the lobby of the building; hang around a little bit; then sneak into a corner of the security office; wait in the shadows so nobody sees you until the guards go and make a cup of tea; then go to the shelf next to the desk and grab one of those access cards; that gets you into the secure area next to the bathroom; and in there, you’ll find the key to the safe. 
+You see how far you can get, and then you work out probably what you need, or what you’ll do, to get you the next step, and so on. 
+Beware the keylogger, Doug! [LAUGHS]
+DOUG.  Yes!
+DUCK.  Good, old-school, non-ransomware malware is [A] alive and well, and [B] can be just as harmful to your business.
+DOUG.  Yes! 
+And we’ve got some advice, of course. 
+Patch early, patch often, and patch everywhere.
+DUCK.  Yes. 
+LastPass were very polite, and they didn’t blurt out, “It was XYZ software that had the vulnerability.” 
+If they’d said, “Oh, the software that was hacked was X”…
+…then people who didn’t have X would go, “I can stand down from blue alert; I don’t use that software.” 
+In fact, that’s why we say not just patch early, patch often… but patch *everywhere*. 
+Just patching the software that affected LastPass is not going to be enough in your network. 
+It does need to be something you do all the time.
+DOUG.  And then we’ve said this before, and we’ll continue to say it until the sun burns out: Enable 2FA wherever you can.
+DUCK.  Yes.
+It is *not* a panacea, but at least it means that passwords alone are not enough. 
+So it doesn’t raise the bar all the way, but it definitely doesn’t make it easier for the crooks.
+DOUG.  And I believe we’ve said this recently: Don’t wait to change credentials or reset 2FA seeds after a successful attack.
+DUCK.  As we’ve said before, a rule that says, “You have to change your password – change for change’s sake, do it every two months regardless”…
+…we don’t agree with that. 
+We just think that is getting everybody into the habit of a bad habit. 
+But if you think there might be a good reason to change your passwords, even though it’s a real pain in the neck to do it…
+…if you think it might help, why not just do it anyway? 
+If you’ve got a reason to start the change process, then just go through with the whole thing. 
+Don’t delay/Do it today. 
+[QUIETLY] See what I did there, Doug?
+DOUG.  Perfect! 
+Alright, let’s stay on the subject of 2FA. 
+We are seeing a spike in rogue 2FA apps in both app stores. 
+Could this be because of the Twitter 2FA kerfuffle, or some other reason?
+Beware rogue 2FA apps in App Store and Google Play – don’t get hacked!
+
+DUCK.  I don’t know that it’s specifically due to the Twitter 2FA kerfuffle, where Twitter have said, for whatever reasons they have, “Ooh, we’re not going to use SMS two-factor authentication anymore, unless you pay us money.! 
+And since the majority of people aren’t going to be Twitter Blue badge holders, they’re going to have to switch. 
+So I don’t know that that’s caused a surge in rogue apps in App Store and Google Play, but it certainly drew the attention of some researchers who are good friends to Naked Security: @mysk_co, if you want to find them on Twitter. 
+They thought, “I bet lots of people are actually looking for 2FA authenticator apps right now. I wonder what happens if you go to the App Store or Google Play and just type in Authenticator app?” 
+And if you go to the article on Naked Security, entitled “Beware rogue 2FA apps”, you will see a screenshot that those researchers prepared. 
+It’s just row after row after row of identically-looking authenticators. [LAUGHS]
+DOUG.  [LAUGHS] They’re all called Authenticator, all with a lock and a shield!
+DUCK.  Some of them are legit, and some of them aren’t.
+Annoyingly. When I went – even after this had got into the news… when I went to the App Store, the top app that came up was, as far as I could see, one of these rogue apps.
+And I was really surprised!
+I thought, “Crikey – this app is signed in the name of a very well known Chinese mobile phone company.” 
+Luckily, the app looked rather unprofessional (the wording was very bad), so I didn’t for a moment believe that it really was this mobile phone company. 
+But I thought, “How on earth did they manage to get a code-signing certificate in the name of a legitimate company, when clearly they wouldn’t have had any documentation to prove that they were that company?” (I won’t mention its name.) 
+Then I read the name really carefully… and it was, in fact, a typosquat, Doug! 
+One of the letters in the middle of the word had, how can I say, a very similar shape and size to the one belonging to the real company. 
+And so, presumably, it had therefore passed automated tests. 
+It didn’t match any known brand name that somebody already had a code signing certificate for.
+And even I had to read it twice… even though I knew that I was looking at a rogue app, because I’d been told to go there! 
+On Google Play, I also came across an app that I was alerted to by the chaps who did this research…
+…which is one that doesn’t just ask you to pay $40 a year for something you could get for free built into iOS, or directly from Play Store with Google’s name on it for free. 
+It also stole the starting seeds for your 2FA accounts, and uploaded them to the developer’s analytics account. 
+How about that, Doug?
+So that’s at best extreme incompetence. 
+And, at worst, it’s just outright malevolent. 
+And yet, there it was… top result when the researchers went looking in the Play Store, presumably because they splashed a little bit of ad love on it. 
+Remember, if someone gets that starting seed, that magic thing that’s in the QR code when you set up app-based 2FA…
+…they can generate the right code for you, for any 30-second login window in the future, forever and ever, Doug. 
+It’s as simple as that. 
+That shared secret is *literally* the key to all your future one-time codes.
+DOUG.  And we’ve got a reader comment on this rogue 2FA story. 
+Naked Security reader LR comments, in part:
+I dumped Twitter and Facebook ages ago. 
+Since I am not using them, do I need to be concerned about the two-factor situation?
+DUCK.  Yes, that’s an intriguing question, and the answer is, as usual, “It depends.” 
+Certainly if you’re not using Twitter, you could still choose badly when it comes to installing a 2FA app…
+…and you might be more inclined to go and get one, now 2FA has been in the news because of the Twitter story, than you would have weeks, months, or years ago. 
+And if you *are* going to go and opt for 2FA, just make sure you do it as safely as you can. 
+Don’t just go and search, and download what seems like the most obvious app, because here is strong evidence that you could put yourself very much in harm’s way.
+Even if you’re on the App Store or on Google Play, and not sideloading some made-up app that you got from somewhere else! 
+So, if you are using SMS-based 2FA but you don’t have Twitter, then you don’t need to switch away from it. 
+If you choose to do so, however, make sure you pick your app wisely.
+DOUG.  Alright, great advice, and thank you very much, LR, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can kind comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

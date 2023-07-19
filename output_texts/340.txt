@@ -1,0 +1,204 @@
+Sophos Home protects every Mac and PC in your home 
+WHEN MALWARE COMES FROM WITHIN
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Wi-Fi hacks, World Backup Day, and supply chain blunders. 
+All that, and more, on the Naked Security podcast.
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth and he is Paul Ducklin.
+Paul, how do you do?
+DUCK.  Looking forward to a full moon ride tonight, Doug!
+DOUG.  We like to begin our show with This Week in Tech History, and we’ve got a lot of topics to choose from. 
+We shall spin the wheel.
+The topics today include: first spacecraft to orbit the moon, 1966; first cellphone call, 1973; Microsoft founded, 1975; birth of Netscape, 1994; SATAN (the network scanner, not the guy), 1995… I think the guy came before that. 
+And Windows 3.1, released in 1992. 
+I’ll spin the wheel here, Paul…
+[FX: WHEEL OF FORTUNE SPINS]
+DUCK.  Come on, moon – come on, moon…
+..come on, moon-orbiting object thing!
+[FX: WHEEL SLOWS AND STOPS]
+DOUG.  We got SATAN. 
+[FX: HORN BLAST]
+All right…
+DUCK.  Lucifer, eh?
+“The bringer of light”, ironically.
+DOUG.  [LAUGHS] This week, on 05 April 1995, the world was introduced to SATAN: Security Administrator Tool for Analyzing Networks, which was a free tool for scanning potentially vulnerable networks. 
+It was not uncontroversial, of course. 
+Many pointed out that making such a tool available to the general public could lead to untoward behaviour. 
+And, Paul, I’m hoping you can contextualise how far we’ve come since the early days of scanning tools like this…
+DUCK.  Well, I guess they’re still controversial in many ways, Doug, aren’t they? 
+If you think of tools that people are used to these days, things like NMap (network mapper), where you go out across the network and try and find out…
+…what servers are there?
+What ports are they listening on? 
+Maybe even poke a knitting needle in and say, “What kind of things are they doing on that port? Is it really a web port, or are they secretly using it to funnel out traffic of another sort?”
+And so on. 
+I think we’ve just come to realise that most security tools have a good side and a dark side, and it’s more about how and when you use them and whether you have the authority – moral, legal, and technical – to do so, or not.
+DOUG.  Alright, very good. 
+Let us talk about this big supply chain issue. 
+I hesitate to say, “Another day, another supply chain issue”, but it feels like we’re talking about supply chain issues a lot. 
+This time it’s telephony company 3CX. 
+So what has happened here?
+Supply chain blunder puts 3CX telephone app users at risk
+
+DUCK.  Well, I think you’re right, Doug. 
+It is a sort of “here we go again” story. 
+The initial malware appears to have been built, or signed, or given the imprimatur, of the company 3CX itself. 
+In other words, it wasn’t just a question of, “Hey, here’s an app that looks just like the real deal, but it’s coming from some completely bogus site, from some alternative supplier you’ve never heard of.” 
+It looks as though the crooks were able to infiltrate, in some way, some part of the source code repository that 3CX used – apparently, the part where they stored the code for a thing called Electron, which is a huge programming framework that’s very popular. 
+It’s used by products like Zoom and Visual Studio Code… if you’ve ever wondered why those products are hundreds of megabytes in size, it’s because a lot of the user interface, and the visual interaction, and the web rendering stuff, is done by this Electron underlayer. 
+So, normally that’s just something you suck in, and then you add your own proprietary code on top of it. 
+And it seems that the stash where 3CX kept their version of Electron had been poisoned.
+Now, I’m guessing the crooks figured, “If we poison 3CX’s own proprietary code, the stuff that they work on every day, it’s much more likely that someone in code review will notice. It’s proprietary; they feel proprietarial about it. But if we just put some dodgy stuff in this giant sea of code that they suck in every time and kind of largely believe in… maybe we’ll get away with it.” 
+And it looks like that’s exactly what happened. 
+Seems that the people who got infected either downloaded the 3CX telephony app and installed it fresh during the window that it was infected, or they updated officially from a previous version, and they got the malware. 
+The main app loaded a DLL, and that DLL, I believe, went out to GitHub, and it downloaded what looked like an innocent icon file, but it wasn’t. 
+It was actually a list of command-and-control servers, and then it went to one of those command-and-control servers, and it downloaded the *real* malware that the crooks wanted to deploy and injected it directly into memory. 
+So that never appeared as a file. 
+Something of a mix of different tools may have been used; the one that you can read about on news.sophos.com is an infostealer.
+In other words, the cooks are after sucking information out of your computer.
+Update 2: 3CX users under DLL-sideloading attack: What you need to know
+
+DOUG.  Alright, so check that out. 
+As Paul said, Naked Security and news.sophos.com have two different articles with everything you need. 
+Alright, from a supply chain attack where the bad guys inject all the nastiness at the beginning…
+…to a WiFi hack where they try to extract information at the end. 
+Let’s talk about how to bypass Wi-Fi encryption, if only for a brief moment.
+Researchers claim they can bypass Wi-Fi encryption (briefly, at least)
+
+DUCK.  Yes, this was a fascinating paper that was published by a bunch of researchers from Belgium and the US. 
+I believe it’s a preprint of a paper that’s going to be presented at the USENIX 2023 Conference. 
+They did come up with a sort of funky name… they called it Framing Frames, as in so-called wireless frames or wireless packets. 
+But I think the subtitle, the strapline, is a little more meaningful, and that says: “Bypassing Wi-Fi encryption by manipulating transmit queues.” 
+And very simply put, Doug, it has to do with how many or most access points behave in order to give you a higher quality of service, if you like, when your client software or hardware goes off the air temporarily. 
+“Why don’t we save any left-over traffic so that if they do reappear, we can seamlessly let them carry on where they left off, and everyone will be happy?” 
+As you imagine there’s a lot that can go wrong when you’re saving up stuff for later…
+…and that’s exactly what these researchers found.
+DOUG.  Alright, it looks like there’s two different ways this could be carried out. 
+One just wholesale disconnects, and one where it drops into sleep mode. 
+So let’s talk about the “sleep mode” version first.
+DUCK.  It seems that if your WiFi card decides, “Hey, I’m going to go into power saving mode”, it can tell the access point in a special frame (thus the attack name Framing Frames)… “Hey, I’m going to sleep for a while. So you decide how you want to deal with the fact that I’ll probably wake up and come back online in a moment.”
+And, like I said, a lot of access points will queue up left-over traffic. 
+Obviously, there are not going to be any new requests that need replies if your computer is asleep. 
+But you might be in the middle of downloading a web page, and it hasn’t quite finished yet, so wouldn’t it be nice if, when you came out of power-saving mode, the web page just finished transmitting those last few packets? 
+After all, they’re supposed to be encrypted (if you’ve got Wi-Fi encryption turned on), not just under the network key that requires the person to authenticate to the network first, but also under the session key that’s agreed for your laptop for that session. 
+But it turns out there’s a problem, Doug.
+An attacker can send that, “Hey, I’m going to sleepy-byes” frame, pretending that it came from your hardware, and it doesn’t need to be authenticated to the network at all to do so.
+So not only does it not need to know your session key, it doesn’t even need to know the network key. 
+It can basically just say, “I am Douglas and I’m going to have a nap now.”
+DOUG.  [LAUGHS] I’d love a nap!
+DUCK.  [LAUGHS] And the access points, it seems, don’t buffer up the *encrypted* packets to deliver to Doug later, when Doug wakes up.
+They buffer up the packets *after they’ve been decrypted*, because when your computer comes back online, it might decide to negotiate a brand new session key, in which case they’ll need to be re-encrypted under that new session key. 
+Apparently, in the gap while your computer isn’t sleeping but the access point thinks it is, the crooks can jump in and say, “Oh, by the way, I’ve come back to life. Cancel my encrypted connection. I want an unencrypted connection now, thank you very much.” 
+So the access point will then go, “Oh, Doug’s woken up; he doesn’t want encryption anymore. Let me drain those last few packets left over from the last thing he was looking at, without any encryption.”
+Whereupon the attacker can sniff them out! 
+And, clearly, that shouldn’t really happen, although apparently it seems to be within the specifications. 
+So it’s legal for an access point to work that way, and at least some do.
+DOUG.  Interesting! 
+OK. the second method does involve what looks like key-swapping…
+DUCK.  Yes, it’s a similar sort of attack, but orchestrated in a different way. 
+This revolves around the fact that if you’re moving around, say in an office, your computer may occasionally disassociate itself from one access point and reassociate to another. 
+Now, like sleep mode, that disassociating (or kicking a computer off the network)… that can be done by someone, again, acting as an impostor. 
+So it’s similar to the sleep mode attack, but apparently in this case, what they do is they reassociate with the network.
+That means they do need to know the network key, but for many networks, that’s almost a matter of public record.
+And the crooks can jump back in, say, “Hey, I want to use a key that I control now to do the encryption.” 
+Then, when the reply comes back, they’ll get to see it. 
+So it’s a tiny bit of information that might be leaked…
+…it’s not the end of the world, but it shouldn’t happen, and therefore it must be considered incorrect and potentially dangerous.
+DOUG.  We’ve had a couple of comments and questions on this. 
+And over here, on American television, we’re seeing more and more commercials for VPN services saying, [DRAMATIC VOICE] “You cannot, under any circumstance ever, connect – don’t you dare! – to a public Wi-Fi network without using a VPN.” 
+Which, by the nature of those commercials being on TV, makes me think it’s probably a little bit overblown. 
+So what are your thoughts on using a VPN for public hotspots?
+DUCK.  Well, obviously that would sidestep this problem, because the idea of a VPN is there’s essentially a virtual, a software-based, network card inside your computer that scrambles all the traffic, then spits it out through the access point to some other point in the network, where the traffic gets decrypted and put onto the internet. 
+So that means that even if someone were to use these Framing Frames attacks to leak occasional packets, not only would those packets potentially be encrypted (say, because you were visiting an HTTPS site), but even the metadata of the packet, like the server IP address and so on, would be encrypted as well. 
+So, in that sense, VPNs are a great idea, because it means that no hotspot actually sees the contents of your traffic. 
+Therefore, a VPN… it solves *this* problem, but you need to make sure that it doesn’t open you up to *other* problems, namely that now somebody else might be snooping on *all* your traffic, not just the occasional, left-over, queued-up frames at the end of an individual reply.
+DOUG.  Let’s talk now about World Backup Day, which was 31 March 2023. 
+Don’t think that you have to wait until next March 31st… you can still participate now! 
+We’ve got five tips, starting with my very favourite: Don’t delay, do it today, Paul.
+World Backup Day is here again – 5 tips to keep your precious data safe
+
+DUCK.  Very simply put, the only backup you will ever regret is the one you did not make.
+DOUG.  And another great one: Less is more. 
+Don’t be a hoarder, in other words.
+DUCK.  That’s difficult for some people. 
+DOUG.  It sure is.
+DUCK.  If that’s the way your digital life is going, that it’s overflowing with stuff you almost certainly aren’t going to look at again…
+…then why not take some time, independently of the rush that you are in when you want to do the backup, to *get rid of the stuff you don’t need*.
+At home, it will declutter your digital life.
+At work, it means you aren’t left holding data that you don’t need, and that, if it were to get breached, would probably get you in bigger trouble with rules like the GDPR, because you couldn’t justify or remember why you’d collected it in the first place. 
+And, as a side effect, it also means your backups will go faster and take up less space.
+DOUG.  Of course!
+And here’s one that I can guarantee not everyone is thinking of, and may have never thought of. 
+Number three is: Encrypt in flight; encrypt at rest. 
+What does that mean, Paul?
+DUCK.  Everyone knows that it’s a good idea to encrypt your hard disk… your BitLocker or your File Vault password to get in. 
+And many people are also in the habit, if they can, of encrypting the backups that they make onto, say, removable drives, so they can put them in a cupboard at home, but if they have a burglary and someone steals the drive, that person can’t just go and read off the data because it’s password-protected. 
+It also makes a lot of sense, while you’re going to the trouble of encrypting the data when it’s stored, of making sure that it’s encrypted if you’re doing, say, a cloud backup *before it leaves* your computer, or as it leaves your computer.
+That means if the cloud service gets breached, it cannot reveal your data. 
+And even under a court order, it can’t recover your data.
+DOUG.  Alright, this next one sounds straightforward, but it’s not quite as easy: Keep it safe.
+DUCK.  Yes, we see, in lots of ransomware attacks, that victims think they’re going to recover without paying easily because they’ve got live backups, either in things like Volume Shadow Copy, or cloud services that automatically sync every few minutes. 
+And so they think, “I’ll never lose more than ten minutes’ work. If I get hit by ransomware, I’ll log into the cloud and all my data will come back. I don’t need to pay the crooks!” 
+And then they go and have a look and realise, “Oh, heck, the crooks got in first; they found where I kept those backups; and they either filled them with garbage, or redirected the data somewhere else.” 
+So now they’ve stolen your data and you don’t have it, or otherwise messed up your backups before they do the attack. 
+Therefore, a backup that is offline and disconnected… that’s a great idea. 
+It’s a little less convenient, but it does keep your backups out of harm’s way if the crooks get in. 
+And it does mean that, in a ransomware attack, if your live backups have been trashed by the crooks on purpose, because they found them before they unleashed the ransomware, you’ve got a second chance to go and recover the stuff.
+And, of course, if you can, keep that offline backup somewhere that is offsite.
+That means that if you’re locked out of your business premises, for example due to a fire, or a gas leak, or some other catastrophe…
+…you can still actually start the backup going.
+DOUG.  And last but absolutely, positively, certainly not least: Restore is part of backup.
+DUCK.  Sometimes the reason you need the backup is not simply to avoid paying crooks money for ransomware. 
+It might be to recover one lost file, for example, that’s important right now, but by tomorrow, it will be too late. 
+And the last thing you want to happen, when you’re trying to restore your precious backup, is that you’re forced to cut corners, use guesswork, or take unnecessary risks. 
+So: practise restoring individual files, even if you’ve got a huge amount of backup. 
+See how quickly you can and reliably you can get just *one* file for *one* user, because sometimes that will be key to what your restoration is all about. 
+And also make sure that you are fluent and fluid when you need to do huge restores. 
+For example, when you need to restore *all* the files belonging to a particular user, because their computer got trashed by ransomware, or stolen, or dropped in Sydney Harbour, or whatever fate befell it.
+DOUG.  [LAUGHS] Very good. 
+And, as the sun begins to set on our show for the day, it’s time to hear from our readers on the World Backup Day article. 
+Richard writes, “Surely there ought to be two World Backup Days?”
+DUCK.  You saw my response there. 
+I put [:drum emoji:] [:cymbal emoji:].
+DOUG.  [LAUGHS] Yes, sir!
+DUCK.  As soon as I’d done that, I thought, you know what?
+DOUG.  There should be!
+DUCK.  It’s not really a joke. 
+It encapsulates this deep and important truth… [LAUGHS]
+As we said at the end of that article on Naked Security, “Remember: World Backup Day isn’t the one day every year when you actually do a backup. It’s the day you build a backup plan right into your digital lifestyle.”
+DOUG.  Excellent. 
+Alright, thank you very much for sending that in, Richard. 
+You made a lot of people laugh with that, myself included!
+DUCK.  It’s great.
+DOUG.  Really good.
+DUCK.  I’m laughing again now… it’s amusing me just as much as it did when the comment first came in.
+DOUG.  Perfect. 
+OK, if you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The title of this page doesn’t match the content.  Looks like just a click bait.
+The main item (straight after the brief “This week in tech history” segment in the intro) is about a so-called supply chain attack in which an official download of the widely-used 3CX
+softphone VoIP app was booby-trapped by attackers to inject fileless infostealing malware directly into memory on unsuspecting victims’ computers.
+Whether the crooks did this for surveillance reasons, intellectual property theft, or to learn about company activities and decisions we don’t know…
+…but it certainly sounds like “spyware that arrived from a trusted source” to me.  (The letters spi in industrial espionage are from the same root as the letters spy in the terms spy, spy plane, and, er, spyware.)
+As we explain in the discussion, victims didn’t need to get lured into downloading a bogus app. Typically, infections arrived via an official fresh install or via an update from the official download location, and then started snooping around in your stuff.
+Very interesting details on the 3CX hack. I thought I’d see what VirusTotal had to say about the threat actor URLs so posted one of them (https://akamaitechcloudservices.com/). Of the 60+ AV vendors, only 21 identified the URL as malicious. Of these, it looks like only Sophos characterized it as command and control,
+Detection lists may vary between vendors depending on which sites were still alive when the vendor updated their list, or a range of factors.
+If you follow the links in the transcript to the articles on Naked Security and Sophos News, you wil find your way to the SophosLabs “Indicators of Compromise” pages on GitHub… that will provide a biggish list of sites that are associated with this malware, though I can’t tell you if all of them ever were actually used before the attack was spotted.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

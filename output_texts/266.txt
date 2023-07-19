@@ -1,0 +1,44 @@
+Sophos Home protects every Mac and PC in your home 
+Just before the Christmas weekend – in fact, at about the same time that beleaguered password management service LastPass was admitting that, yes, your password vaults were stolen by criminals after all – we noticed a serious-sounding Linux kernel vulnerability that hit the news.
+The alerts came from Trend Micro’s Zero Day Initiative (ZDI), probably best known for buying up zero-day security bugs via the popular Pwn2Own competitions, where bug-bounty hunting teams compete live on stage for potentially large cash prizes.
+In return for sponsoring the prize money, the vendors of products ranging from operating systems and browsers to networked printers and internet routers hope to buy up brand new security flaws, so they can fix the holes responsibly. (To collect their prizes, participants have to provide a proper write-up, and agree not to share any information about the flaw until the vendor has had a fair chance to fix it.)
+But ZDI doesn’t just deal in competitive bug hunting in its twice-a-year contests, so it also regularly puts out vulnerability notices for zero-days that were disclosed in more conventional ways, like this one, entitled Linux Kernel ksmbd Use-After-Free Remote Code Execution Vulnerability.
+SMB is short for server message block, and it’s the protocol that underpins Windows networking, so almost any Linux server that provides network services to Windows computers will be running software to support SMB.
+As you can therefore imagine, SMB-related security bugs, especially ones that can be exploited over the network without the attacker needing to logon first, as is the case here, are potentially serious issues for most large corporate networks.
+SMB support is also generally needed in home and small-business NAS (network attached storage) devices, which generally run Linux internally, and provide easy-to-use, plug-it-in-and-go file server features for small networks.
+No need to learn Linux yourself, or to set up a full-blown server, or to learn how to configure Linux networking – just plug-and-play with the NAS device, which has SMB support built-in and ready to go for you.
+In this case, the bug wasn’t deliberately disclosed on the night before the night before the night before Christmas in a not-so-ho-ho-ho bid to spoil your festive season by freaking you out.
+And it wasn’t reported just before the weekend in a bid to bury bad PR by hoping you’d be vacation-minded enough either to miss the story completely or to shrug it off until the New Year.
+The good news is that, as usually happens under the umbrella of responsible disclosure, the date for ZDI’s report was agreed in advance, presumably when the flaw was disclosed, thus giving the Linux kernel team sufficient time to fix the problem properly, while nevertheless not allowing them to put the issue off indefinitely.
+In this case, the bug report is listed as having happened on 2022-07-26, and what ZDI refers to as the “co-ordinated public release of [the] advisory” was set for 2022-12-22, which turns out to be a gap of exactly 150 days, if you count old-school style and include the full day at each end.
+So, even though this bug has had some dramatic coverage over the holiday weekend, given that it was a remote code execution (RCE) hole in the Linux kernel itself, and came with a so-called CVSS score of 10/10, considered Critical…
+…it was patched in the Linux source code within just two days of disclosure, and the fix was accepted and packaged into the official Linux kernel source code in time for the release of Linux 5.15.61, back on 2022-08-17, just 23 days after the report first came in.
+In other words, if you’ve updated your Linux kernel any time since then, you’re already safe, no matter what kernel configuration settings you or your distro used when compiling the kernel. 
+This period includes 24 subsequent updates to the kernel 5.15 series, now at 5.15.85, along with any versions of kernel 6.0, kernel 6.1 and the still-in-candidate-stage kernel 6.2, all of which had their first releases after August 2022.
+Also, although it sounds at first glance as though this bug will inevitably affect any Linux server or device supporting Windows networking, that’s not true either.
+Most sysadmins, and in our experience most NAS programmers, provide Windows SMB support via a long-running and well-respected open source toolkit called Samba, where the name Samba is simply the closest pronounceable word that the original developer, open-source luminary Andrew “Tridge” Tridgell OAM, could find to represent the abbreviation SMB.
+Anyone who has used Samba will know that the software runs as a regular application, in what’s known as user space – in other words, without needing its own code running inside the kernel, where even modest bugs could have dangerous repercussions.
+Indeed, the main Samba program file is called smbd, where the trailing -D is a typical Unixism standing for daemon, or background process – what Windows admins would call a service.
+But this bug, as you can see from the ZDI report, is in a kernel module called ksmbd, where the -D denotes a background service, the -SMB- denotes Windows networking support, and the K- means runs in kernel space, i.e. right inside the kernel itself.
+At this point, you’re probably asking yourself, “Why bury the complexity of supporting SMB right into the kernel, given that we’ve already got a reliable and well-respected user-space product in the form of Samba, and given that the risks are much greater?”
+Why, indeed?
+As so often, there seem to be two main reasons: [A] because we can! and [B] because performance.
+By pushing what are typically high-level software features down into the kernel, you can often improve performance, though you almost always pay the price of a corresponding, and possibly considerable, decrease in safety and security.
+COMMANDS YOU CAN USE TO CHECK YOUR EXPOSURE
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I was looking for Linux mint to install in my HP netbook and wondered what best to add as Anti virus and in several forums they wrote Linux never gets that problem – That is like the yesterday years of MacOS  claiming its impossible.
+Ironically, Unix suffered a global computer virus mega-outbreak long before the Microsoft world (DOS as was, then Windows of various ilks) ever did:
+https://nakedsecurity.sophos.com/2013/11/02/memories-of-the-internet-worm-25-years-later/
+https://nakedsecurity.sophos.com/2021/11/04/s3-ep57-europol-v-ransomware-shrootless-bug-and-linux-browser-flamewars-podcast/
+I thought we were over that “no such thing as Linux malware” nonsense in 2022. Apparently not…
+(There used to be a Sophos Anti-Virus for Linux standalone download, 100% free for home or work, but with the cloud being the thing now, the standalone download no longer exists, free or not. In case anyone was wondering where it went.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

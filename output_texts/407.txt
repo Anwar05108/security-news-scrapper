@@ -1,0 +1,61 @@
+Sophos Home protects every Mac and PC in your home 
+This Tuesday, 2023-07-11, was Microsoft’s Patch Tuesday for July 2023, so here’s a brief reminder to do two things:
+ More than 100 vulnerabilities were patched this month, including four zero-day security holes for which working exploit code already exists. 
+Even though everyone was at risk until Tuesday, it’s important not to be one of those people who remains at risk longer than necessary. 
+When defenders close off holes that cybercriminals are already abusing, you should assume one thing: those crooks are going to focus their attention on the stragglers against whom those now-patched attacks are still effective, in order to extract the last “value” out of their former zero-day holes.
+We’ve published an unavoidably lengthy list, based on Microsoft’s official data, to help you navigate through the many CVE numbers and bug explanations relevant to the numerous products and services affected. 
+We think you’ll find the information easier to work with, as a starting point, than Redmond’s own tables and charts. 
+We’ve also published an in-depth article about an ongoing security issue that was serious enough to be addressed in a Microsoft Advisory (ADV230001). 
+We’ve given you important, interesting and informative detail about the ongoing saga of malicious kernel drivers, many of them signed and approved by Microsoft itself, that have finally been blocked by Windows.
+As we’ve mentioned above, you can read up about this month’s Microsoft security fixes on Sophos News, but there are two parts of this month’s patch set that we thought we’d cover here.
+The first important item is the matter of those four zero-days that we already referred to.
+CVE-2023-32049 and CVE-2023-35311 are security bypass exploits, meaning that criminals can abuse these bugs to sidestep security protections that would otherwise jump in to help you avoid malware infection or a possible attack.
+Between them, these bugs allow criminals to present you with booby-trapped web URLs in your browser, or malicious email content in Outlook, that would usually pop up a warning to remind you of the risks, and to give you a chance to bail out and protect yourself…
+…without those warnings appearing at all.
+Although this isn’t as dangerous as a true remote code execution (RCE) hole, where an outsider could trick you into running a rogue program just by viewing a web page or by starting a particular network service, you can see why security bugs of this sort are gold dust to cybercriminals.
+Bypasses for security warnings that users have come to expect, and perhaps to rely upon, provide a simple and effective way of luring even well-informed and careful users into making costly mistakes.
+There are also patches for two zero-day elevation of privilege (EoP) exploits.
+EoP exploits mean that crooks who are already in your network, but without the ability to do much damage or to steal much data, can promote themselves to sysadmin level and thus essentially issue themselves “access all areas” security badges.
+The second important item is the matter of ADV230001, Microsoft’s advisory entitled Guidance on Microsoft signed drivers being used maliciously.
+This saga started back at the end of 2022, when Sophos researchers came across something that you don’t see anywhere near as often as you used to, namely rogue Windows kernel drivers:
+Signed driver malware moves up the software trust chain
+
+
+The great thing about kernel drivers is that they provide a way for third-party software to get usefully involved at the very lowest levels of the operating system, such as supporting esoteric computer hardware, providing additional cybersecurity protection, monitoring and managing otherwise invisible details including memory allocation and resource utilisation, and more.
+A kernel-level anti-virus program, for example, can jump in before every program runs, and not merely report but also actively block rogue software from loading at all.
+The not-so-great thing about kernel drivers is that they offer the very same super-low-level, mega-dangerous and potentially subversive capabilities to malware creators and cybercriminals, too.
+Indeed, kernel-level malware tools, often known as a rootkits, can work the same sort of low-level magic in reverse, for example by watching out for known-bad programs and preventing them from being blocked in the first place, and even making them apparently invisible to scanning tools, directory listing software and inventory-taking applications.
+The name rootkit comes from early Unix malware, and references the idea of a kit of software tools that helps you not only to get administrator-level access in the first place (known as root on Unix and Unix-like systems), but also to go unnoticed for as long as possible.
+As a result of the proliferation and abuse of rootkits on Windows XP, Microsoft started clamping down on kernel drivers, starting back in Windows Vista.
+Indeed, in current versions of Windows where Secure Boot is enabled, you can only load kernel drivers that have been officially reviewed and digitally signed by Microsoft itself. (There are exceptions to this rule, but you can’t easily create and load a kernel driver today without sending it to Microsoft for scrutiny first.)
+Although you may, albeit reluctantly, accept that code validation services such as Apple’s App Store and Google’s Play Store will inevitably be permeable to malware, given that their goal is to examine and approve huge numbers of third-party apps quickly, automatically and objectively…
+…you might reasonably expect that kernel drivers, given their dangerous powers and their comparative rarity compared to regular applications, would be as good as impossible to sneak past the Windows vetting process.
+Last December’s rogue driver discoveries by SophosLabs, however, ultimately turned up a significant list of kernel-level malware, including 100 drivers signed “personally” by Microsoft itself.
+68 of the Microsoft-approved rogue drivers were anti-anti-virus tools, aimed at killing off security software “from underneath” by abusing  the power and authority of the operating system.
+The rest were more general rootkits aimed at spying on and manipulating data inside the operating system, where information as intimate as individual network packets to and from every running program can be snooped, surveilled and sneakily altered.
+To learn more about the fascinating backstory of these wrongly-signed crimeware drivers, please read our article entitled Microsoft revokes malicious drivers in Patch Tuesday Culling:
+Microsoft Revokes Malicious Drivers in Patch Tuesday Culling
+
+
+We said it at the top, albeit in slightly different words: Don’t delay; do it today.
+If you’re responsible for your own computer, just go to Settings > Windows Update > Check for updates to see if you’re up-to-date or not.
+Don’t forget that the updates won’t be completed until you reboot your computer, so aim to do that sooner rather than later.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Now I’m curious: What might happen if one of these anti-anti-virus malware programs tried to stop the process of an anti-virus program, if both of them had root/admin access via these kernel drivers?
+Would the malware’s success or failure of stopping the anti-virus program’s process depend on which process happened to successfully start first on a given boot?
+Or could the anti-virus program essentially just say “This process doesn’t have higher authority then me, so I’m not doing what it says”?
+The simple answer is that the “war” between the drivers will result in the most ruinous outcome possible from the least carefully coded driver.
+Given that the primary goal of the rootkit is to break all the rules in the first place, and to enforce a “my way or the highway” outcome…
+…you should probably expect a blue screen of disaster. If you’re lucky :-)
+Intriguingly, rootkittery is sometimes its own enemy, given that it’s designed to create a two-faced view your system (a happy view, where some files, processes or resources are suppressed and therefore can’t be found… and a nasty view, where malicious materials are alive and active).
+Therefore you can, with care, turn rootkits against themselves by tricking them into exposing their duplicity and thus revealing their hidden presence by their otherwise inexplicable side-effects.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

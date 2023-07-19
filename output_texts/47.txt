@@ -1,0 +1,45 @@
+Sophos Home protects every Mac and PC in your home 
+On Saturday 2022-03-05, Mozilla published Firefox 97.0.2, an “out-of-band” update that closed two bugs officially listed as critical.
+Mozilla reports that both of these holes are already actively being exploited, making them so-called zero-day bugs, which means, in simple terms, that the crooks got there first:
+We have had reports of attacks in the wild abusing [these] flaw[s].
+Access to information about the bugs is still restricted to Mozilla insiders, presumably to make it harder for attackers to get at the technical details of how to exploit these security holes.
+Assuming that the existing zero-day exploits are not widely known (these days, true zero-days are often jealously guarded by their discoverers because they’re considered both scarce and valuable), temporarily limiting access to the source code changes does provide some protection against copycat attacks.
+As we’ve mentioned many times before on Naked Security, finding and exploiting a zero-day hole when you know where to start looking, and what to start looking for, is very much easier than discovering such a bug from scratch.
+Just how urgent Mozilla considered this update can be inferred from the fact that it came out just three days before the next scheduled “in band” update was due anyway.
+Indeed, by the time you read this, you may find you’re already on, or being offered, Firefox 98.0, which officially comes out on Tuesday 2022-03-08. 
+(In-band updates to Firefox are conventionally scheduled to arrive on every fourth Tuesday, rather than on the second Tuesday of each month, like Microsoft’s and Adobe’s Patch Tuesday updates. Every few months, Patch Tuesday and Firefox Tuesday coincide, as they do in March 2022,)
+The bugs are listed as:
+Use-after-free bugs occur when one part of a program signals its intention to stop using a chunk of memory that was allocated to it…
+…but carries on using it anyway, thus potentially trampling on data that other parts of the program are now relying on.
+In the best case, a use-after-free bug typically leads to corrupted data or to a program crash, either of which can be considered a security problems in its own right.
+In the worst case, a use-after-free leads to remote code execution, where the data that’s trampled on is wilfully modified by the attackers to trick the program into running untrusted code from outside.
+Go to the About Firefox dialog to check your current version.
+If you are out of date then Firefox will offer to fetch the update and then present a [Restart Firefox] button; click the button, or exit and restart the browser, to deploy the update.
+The version numbers you want are: Firefox 97.0.2 or greater (if you are using the regular release), or Firefox 91.6.1 ESR or greater (if you are using the extended support release), or Firefox 97.3.0 for Android.
+(Firefox 98.0 and Firefox 91.7 ESR are officially expected on 2022-03-08, just three days after this emergency fix.)
+If you’re on Android, check for updates via the Play Store.
+If you’re a Linux user where Firefox is managed by your distro, check your distro creator.
+Note that if you are not yet on the latest major version (97.0 for regular Firefox, or 91.6 for the Extended Support Release), you may need to complete the update in multiple stages, so be sure to re-visit the About Firefox dialog after each update has been installed, to make sure you have finished all needed update-and-restart cycles.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+There’s a Mozilla Thunderbird update as well.
+Indeed, I got that one via my distro (Slackware) over the weekend: Thunderbird 91.6.2 is what I’m on. I haven’t had a Tor update yet. Tor still says it’s “based on Mozilla Firefox 91.6.0esr”. 
+[This comment added at 2022-03-07T21:54Z.]
+I seem to be getting version 98.0 instead of 97.0.2
+Ha, you’re nice and early… 98.0 is officially out this Tuesday (2022-03-08), which is currently just 2.5 hours away in the UK.
+ESR will go to 91.7 (those two numbers add up to 98 to denote that the ESR has the feature set of 91 plus 7 intermediate security updates, thus making it”security equivalent” to 98.0 non-ESR).
+I will update the article to be clear that 97.0.2 *or later* is what you are really looking for.
+I guess the fact that Mozilla did an emergency “out-of-band” update build with just 3 days to go before the regular “in-band” four-weekly update gives you a good idea of how critical these holes are.
+Yes, I now have 98.0 too [2022-03-07T22:40Z]. 
+My “About Firefox” dialog said I was up to date at 97.0.2, and the regular Firefox “latest download” page was offering up 97.0.2 as well. But a visit to the Firefox “releases server” showed that the 98.0 build was uploaded at 2022-03-07T13:34Z.
+If you want to jump the queue (and you aren’t tied to a distro-specific version) then go here:
+https://ftp.mozilla.org/pub/firefox/releases/
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

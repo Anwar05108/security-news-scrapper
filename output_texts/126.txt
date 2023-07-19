@@ -1,0 +1,60 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re an OpenSSL user, you’re probably aware of the most recent high-profile bugfix release, which came out back in March 2022.
+That fix brought us OpenSSS 3.0.2 and 1.1.1n, updates for the two current fully-supported flavours of the product.
+(There’s a legacy version, 1.0.2, but updates to that version are only available to customers paying for premium support, and given the changes and improvements in the product since the days of 1.0.2, we urge you to jump ahead to a mainstream version even – perhaps especially – if you plan to continue paying for support.)
+The March 2022 update was a vital reminder that deeply-buried code with unusual bugs may end up getting overlooked for years, especially if that code is part of a complex, specialised, low-level function.
+OpenSSL patches infinite-loop DoS bug in certificate verification
+
+
+The bug fixed back then related to a special-purpose algorithm for computing what are known as modular square roots, which are more complicated to calculate than regular square roots.
+Unfortunately, the code to perform this calculation, using an algorithm first discovered in the 1890s, was clumsily coded, tortuously written, poorly commented, and hard to follow.
+However, given that it wasn’t in an obvious “externally-facing” part of OpenSSL, and given that rewriting it would have been a daunting task, we’re assuming that it was tested carefully for the correctness of its answers when presented with well-formed numbers, but not probed for its robustness when faced with unlikely input.
+Because, when faced with digital certificates that had been booby-trapped to produce ill-formed numbers, OpenSSL’s BN_mod_sqrt() function could be tricked into looping forever, trying to close in on an answer that didn’t exist. 
+When you work only with integers, and disallow fractions of any sort, you find that many numbers don’t have modular square roots, just as you find that many integers don’t have regular square roots. Thus 7×7 = 49, so 49 has a square root that is a whole number, namely 7. But there’s no integer that can be multiplied by itself to give 50, or 51, because the next “perfect square” is 8×8 = 64. You can try for as long as you like, but you will never find a whole-number answer for √51.
+In other words, although OpenSSL’s BigNumber code (many encryption algorithms rely on working with numbers that are hundreds or even thousands of digits long) never gave a wrong answer, it sometimes didn’t realise that there wasn’t an answer to find, and would get stuck in an infinite loop.
+This infinite loop, which could be abused to provoke what’s known as a Denial-of-Service attack (DoS), could be triggered if a malevolent website sent across a booby-trapped digital certificate.
+This meant, ironically, that software that was scrupulous about validating digital certificates could be brought to its knees via this bug, dubbed CVE-2022-0778, while programs that didn’t bother with certificate validation at all weren’t affected by it.
+Given the important “teachable moments” revealed by this bug, we covered it in detail not only on Naked Security, where we explained how to write a better style of code, but also on Sophos News, where SophosLabs showed the gory details of how a booby-trapped certificate could trigger the flaw, and how to debug the code to understand the bug.
+Analyzing CVE-2022-0778: When Square Root Results in a Denial of Service
+
+
+The next OpenSSL update was 3.0.3, or 1.1.1o for users of the previous release, which patched a bug that wasn’t considered a major flaw (at least, we didn’t cover it on Naked Security), mainly because the bug wasn’t in the OpenSSL encryption library code itself.
+Instead of affecting all software that relied on OpenSSL as its crytographic provider, CVE-2022-1292 just affected a utility script, written in Perl, that came along with the OpenSSL toolkit.
+This script, known as c_rehash (short for certificate directory rehash) is a little-known tool that takes a directory of cryptographic certificate files, such as the ones maintained as trusted certificate authorities (CAs) by Mozilla, and creates a list of file hashes that can help software find specific certificates more quickly than searching an alphabetical list of names.
+For example, Mozilla’s CA certificate directory looks like this…
+…while OpenSSL’s c_rehash script generates a list of symbolic links that allow individual certificates to be located via hashes based on the issuer’s name in the certificate itself, rather than via its filename:
+Some software relies on these “hash links” to act as a kind of basic database system for indexing and finding specific certificates.
+Furthermore, some operating system distros automatically invoke the c_rehash script in the background to keep these special-purpose links up to date.
+Unfortunately, the script relied on the Perl system() function (or an equivalent command) to calculate the file hashes, and the system() system automatically launches a command shell, such as Bash, to launch any needed sub-programs.
+And, as you probably know, command shells don’t always treat their command-line arguments literally, so that if you put special characters in those arguments, the shell handles them in potentially dangerous ways.
+For example, the command echo runthis literally prints the text runthis, but the command echo $(runthis) doesn’t directly print out the characters $(runthis).
+Instead, the so-called metacommand $(runthis) means command substitution, so it says, “Run the command runthis and replace the $(...) part with the output of that command when it’s finished”:
+If the risk posed by $(...) sounds familiar, that’s because it was the metacommand vulnerability that was exploited in the recent “Follina” bug on Windows. To learn more, and see that bug live in action, you can watch our recorded webinar. Just click on the image below. [Registration required, access is immedidate thereafter.]
+
+Scripts that accepts untrusted input from someone else – whether that’s a string typed into a web form or a made-up filename supplied from outside – need to be very careful not to allow these special metacommands to leak out as shell arguments when relying on the command shell for running external utilities.
+Below, you can see the code that was changed from 1.1.1n to 1.1.1o:
+
+A Perl command of the form `...` (a command between backticks, such as `runthis`, is simply an old-fashioned way of writing the $(runthis) command substitution) was replaced with a dedicated internal function called compute_hash that takes greater care with weird metacharacters in the constructed command string.
+Well, it turns out that the maintainers didn’t quite catch all the places in this utility script where an external commands was run without due care and attention.
+This week therefore saw the release of OpenSSL 3.0.4 and 1.1.1p, to fix another risky system command in the c_rehash utility:
+
+This time, it was a call-out to the cp (copy file) command via the shell-based system() function that was replaced with a safer, dedicated internal function called copy_file.
+This bugfix has the official identifier CVE-2022-2068.
+As the OpenSSL changelog warns:
+[The c_rehash] script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script.
+Programmers often produce (or reproduce) the same sort of bug many times, usually for perfectly innocent and understandable reasons.
+Either they weren’t aware of that class of bug at the time they worked on the code, or they took a “temporary shortcut” to speed up prototype work but never went back and tidied up later, or they copied-and-pasted someone else’s flawed code and made it their own…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+…Special characters in command shells…
+https://xkcd.com/327/
+An old favourite … from October 2007.  Plus ça change …
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,97 @@
+Sophos Home protects every Mac and PC in your home 
+Owners of Honda cars of a certain age – apparently somewhere between 10 and 16 years old – have spent the first few days of the New Year reporting a weird “millennium bug style” problem.
+Apparently, for many cars that are a decade or so old, New Year’s Day 2022 was ushered in with their in-car clocks…
+…showing 01 January 2002, exactly twenty years in the past.
+In case you’re wondering what life was like back then, it probably won’t help to be reminded that one of the top songs of the year was the unforgettable Can’t Get You Out of My Head, by Aussie superpopstar Kylie Minogue.
+(As Kylie said at the time, “La la la, la la la-la la/La la la, la-la la la-la” – a refrain that still ranks, according to some studies, as one of the top earworms in history.)  
+The burning question is, “Why?”
+In the infamous millennium bug, the error jump was 100 years, and the reason was obvious: programmers often used just two digits for the century (i.e. storing AD1999 as 99) as a simple shortcut to save on RAM and disk space.
+Don’t forget that even by 1999, most computers had just a few megabytes of RAM, and 20 years before that, they had at most a few kilobytes, amounts that are a jaw-dropping one thousand and one million times smaller than we take for granted today.
+But every shortcut comes with a cost, and the Y2K shortcut paid the price that, because 99+1 = 100, and because 100 crammed into two digits comes out as 00…
+…people were afraid that the date 31 December 1999 (Baby One More Time by B. Spears) might confusingly be followed by 01 January 1900 (I Can’t Tell Why I Love You But I Do by H. Macdonough).
+But why just 20 years in Honda cars? Why only in certain older-but-not-too-old models? And why two decades exactly?
+Even more weirdly, why would Honda say, as some journalists are alleging:
+We have escalated the issue of the navigation clock in our team of engineers and they informed us that you will face the problem from January 2022 to August 2022 and then it will be fixed automatically.
+One good guess, backed up by a commenter on UK IT news site El Reg (The Register) who goes by VRocker, is that this particular glitch is GPS-related
+Until recently, GPS time data – based on ultra-precise time signals beamed out by an array of orbiting satellites designed in the 1970s, when every individual bit of bandwidth really counted, let alone every decimal digit – was limited to a date window 1024 weeks wide.
+Serious Security: GPS week rollover and the other sort of “zero day”
+
+
+Where Y2K-constrained dates had a maximum of two decimal digits for the year number, limiting them to a decimal century…
+…GPS timecodes originally had just 10 bits (bit is short for binary digit, by the way) for the week number.
+And in 10 bits you can represent numbers from 0 to 1023, giving you a 1024-week period (a “Kiloweekary”, we’ll call it) that covers nearly, but not quite, 20 years.
+We’re currently in the Third Kiloweekary of the GPS era: 
+Of course, if your software – like the automatic time-setting software in many navigational devices – relies on GPS dates of this sort, you don’t inevitably suffer from computational wraparound glitches only at the exact changeover points betweem the Kiloweekaries listed above.
+You aren’t locked to precisely the date ranges shown, but rather to the maxumum length (7168 days, or 1024 weeks, or about 19 years 7½ months) of each range.
+That’s because you can add or subtract any offset you like to or from the starting point of each Kiloweekary, and do your own 19.6 year relative calculations from your new starting point.
+This is the same trick that that many old-school programs did with two-digit calendar years: some software, for instance, allowed you treat 00-49 as representing AD2000 to AD2049, with 50-99 representing AD1950 to AD1999, thus shifting that software’s “millennium bug event” along by 50 years.
+The Reg commenter called VRover whom we mentioned above claims that the GPS itself (not the clock) in his Honda CR-V is reporting that it’s currently May 2002 (which is, as he points out, 1024 weeks ago), while the clock is essentially stuck at 01 January 2002.
+(According to reports, it seems that the clock resets to a time of midnight, modulo your timezone, on a date 01 January 2002, every time you restart the vehicle, regardless of the actual time of day; after this, the time can’t be adjusted manually.)
+That GPS detail is what led VRover to infer that this behaviour does indeed relate to a recent rollover of the Kiloweekary date range inside Honda’s software.
+But why did the clock roll back in January 2022? 
+And why the auto-correction implied by Honda in August 2022?
+VRover’s sugestions is that on 2022-08-17 by his calculation (this coming August), his rolled-over GPS date (which currently sits somewhere in May 2002) will think that 2003 just started.
+And if the clock software is set so that it assumes it should disregard the time and date offered by the GPS unit if the year comes out earlier than 2003, in one of those “something must have gone wrong” error situations, then at least the time displayed – but not the date! – may well correct itself as suggested by Honda when the car thinks it has once again reached what it thinks is a valid date range.
+We’re guessing liberally now, but if we assume that whoever created the software used in the affected range of vehicles knew that the first version definitely wouldn’t ship until 2003, then they’d know that using a Second Kiloweekary that represented its regular date range (from 1999 to 2019, as listed above) would waste the first few years of available dates.
+But if they simply shifted the starting offset of their date range by 1000 days, they could then use the first 1000 days of the official GPS Kiloweekary (which would already be in the past when the unit shipped) to denote an additional 1000 days at the end of the range.
+In other words, if they decided to use the dates from 1999-08-22 to 2002-05-17 (a 1000-day period) to represent the first 1000 days of the THIRD Kiloweekary instead of the first 1000 days of the SECOND Kiloweekary (much like a Y2K coder electing to use 00-19 to represent AD2000 to AD2019 instead of AD1900 to AD1919), they’d be able to represent dates in the following ranges:
+In simple terms, they’d be able to cover all years in full from 2003 to 2021 inclusive, with their “sideslipped” Kiloweekary ending conveniently on the last day of 2021 instead of mid-April in 2019.
+If, therefore, as VRover suggests, the clock software was coded simply to discard the year 2002 (which is incompletely covered, and could in any case never be correct if the first units didn’t sell until at least 2003), and to default back to 01 January of that year if it ever faced dates outside the supported range…
+…then his GPS date would indeed have flipped back from 2021-12-31 to 2002-05-18 when New Year arrived, which is a symptom he says he observed.
+And then his clock – assuming that the sudden “reappareance” of 2002 would imply rollover or some other error – might thus repeatedly default back to 2002-01-01, in the same way that many digital oven clocks decide it’s exactly noon o’clock every time there’s a power failure.
+Or course, if VRover is right about this – and we have no way of telling until Honda makes an official statement – then when his GPS thinks it’s 2003, his clock will start accepting the “sideslipped” data provided by the GPS once again, and the clock will start working, but although the time will be correct, the date won’t.
+(Indeed, if VRover is right, his clock will start keeping time, and not resetting to 01 January every day, starting from 17 August 2022, but it will show the date commencing at 01 January 2003 from that point.)
+And if that part of his guesswork is correct, the code in the clock that figures out daylight saving will be confused – presumably thinking it’s the Greenwich Mean Time period of the year (November to March in the UK), when in fact it should be the British Summer Time period (April to October), with the clocks turned forward by an hour.
+What’s your explanation? How will this pan out? Let us know in the comments below…
+(How time flies when you’re having fun!)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Duck, I’m fortuitously unfamiliar with the Minogue tune, and while curiosity keeps cracking at me me, I’m pleased to report that thus far self preservation has prevailed–despite your rather insidious intent.  I did however click the Macdonough link while doing my best to keep my brain from lingering back to Miss Spears–or possibly in support of that effort.
+As a musician I like to consider myself open-minded and fairly good at projecting my ears into contemporary conventional wisdom when hearing historical music.
+Maybe I’m decent at it and maybe not…I can appreciate the 1900 piece but wouldn’t have selected it from a pile of supercentenarian songs as a chart topper.  Lucky for them therefore that I wasn’t an A&R guy in 1899.
+It looks as though I’ll escape your evil earworm yet today.
+And of course I’ve appreciated the non-sinister aspects of your article–thanks again Duck!
+I seem to recall that MS Excel was going to have a similar problem sometime in 2024 (right year?). Has this been addressed? I have a complex spreadsheet that has been running for over 20 years – is this going to keep going OK?
+Sounds like a logical explanation.  I started my programming career full time back in 1985, when our systems had a whopping 128 kB of RAM and a 5 MB hard drive.  All kinds of tricks were done to try to save both memory and drive space, even storing dollar amounts as integers (multiply input by 100 to save to hard drive and dividing by 100 to retrieve).  I remember doing the similar Y2K shift discussions, considering if we’d handle the two digit year values by some type of sliding (we ultimately decided, since our systems had RAM up to about 16 MB and hard drives in the 10’s of GB).
+Google for “Y2K22 bug” and see that the signed integer field used for date over-flowed the 31bit field when 20220101 came around.  A found notices where someone said Honda had set themselves a deadline to fix it by August (presumably August 2022),
+That still won’t fix the Linux problem with 32 bit date field that will overflow on 19 January 2038.
+https://en.wikipedia.org/wiki/Year_2038_problem
+(Linux is counting the number of seconds since January 1, 1970 in a 32 bit field)
+Programmers need to look at time in a less limited fashion.
+Integers exist far beyond what’ll fit in a 32bit field.
+I have no doubt that whatever solution they come up with will work just fine until January 31, 2999 at 23:59 – then BOOM!  Unless they switch over now to use 64 bit dates.  Then they could count seconds until the sun burns out and probably until the universe goes cold.
+I’m not buying that “signed integer overflow at 2^31” story. It would require the date to be stored in some weird kind of binary coded decimal form with two digits for the year. And it contradicts two interesting observations, namely [1] that Honda implied the problem would ‘fix itself’ automatically in August, which won’t happen if there’s a simple integer overflow of the sort you suggest [2] VRover’s note that his GPS rolled back to a time that was 1024 weeks in the past, which supports a connection with GPS rollover.
+As for Linux, only 32-bit Linuxes are still counting the epoch using signed 32-bit numbers, so the 2038 problem does not apply generically *to *Linux, only to some builds of it. 
+For example, here are some output strings from strftime() on my x64 Linux system. I used Lua’s library function os.date(format,timestamp) for various timestamps, starting at the highest signed number you can fit in 31 bits, which is where your 09 January 2038 date comes from:
+Safely crossing the 2038 “boundary” in 1-second increments:
+> os.date(‘!%Y-%m-%dT%H:%M:%SZ’,2^31-1) <– 32-bit signed integer seconds limit
+2038-01-19T03:14:07Z
+> os.date(‘!%Y-%m-%dT%H:%M:%SZ’,2^31) <– one second after the 31-bit limit (note correct text string)
+2038-01-19T03:14:08Z
+> os.date(‘!%Y-%m-%dT%H:%M:%SZ’,2^31+1) <– and another second after that
+2038-01-19T03:14:09Z
+And going ahead N days at a time (given that there are 86400 seconds in a day):
+> os.date(‘!%Y-%m-%dT%H:%M:%SZ’,2^31-1 + 86400*1)  <– one day (note correct advance of day)
+2038-01-20T03:14:07Z
+> os.date(‘!%Y-%m-%dT%H:%M:%SZ’,2^31-1 + 86400*365) <– one year (not correct increment of year)
+2039-01-19T03:14:07Z
+> os.date(‘!%Y-%m-%dT%H:%M:%SZ’,2^31-1 + 86400*365*100) <– one century (ignoring leap years)
+2137-12-26T03:14:07Z
+> os.date(‘!%Y-%m-%dT%H:%M:%SZ’,2^31-1 + 86400*(365*100+24))  <– one century (including 24 extra days for leap years)
+2138-01-19T03:14:07Z
+The Y2K22  problem affected more than just Microsoft Exchange servers and some Honda system that depended entirely upon GPS to set their date.  Some 911 systems had calls blocked.  It’s also possible that hospital equipment using embedded OS that can’t be updated will be affected.  I’m sure more fallout from this programming oversight will be discovered as weeks go by.
+Yes, every time I start my Honda the clock resets to Jan 01, 2002 and (usually) 7:15 am.  The digital clock from the radio only shows HH:MM, bit it’s also wrong and seems (usually) show 10-something.  The nav system clock will not stay set after being manually reset.  The radio clock (in the 2008 Honda Odyssey EX-L with nav and dvd) has no way to be manually set.
+I’m just hoping there isn’t someone on a computer-controlled life support system that got affected by this glitch who mysteriously died on 1/1/22 00:01 from the problem shutting off their machine or messing up their automated IV drip.   The 911 messages being blocked by the Y2K22 glitch was bad enough!  That problem was the topic of this article: https://hackaday.com/2022/01/07/this-week-in-securityy2k22-accidentally-blocking-911and-bug-alert/
+Bad programming can kill !!!
+Note that GPS rollover isn’t *of necessity* tied to New Year 2022, as explained in the article. In theory, it could cause a problem any time in a 19.6 year window in the same way that Y2K rollover might happen anywhere in a window of one century. Most Y2K fears focused on “unshifted” Y2K problems, i.e. at the midnight dividing 1999 from 2000. The last “unshifted” GPS rollover was in 2019, for reasons explained above. If you have code that is vulnerable to GPS rollover and it *didn’t* happen in 2019, then you might as well assume it could happen any time between the first time your know your GPS was telling you the date correctly and 19.6 years from then (unless the code gets updated in the interim, of course).
+Like magic today, right on 17 Aug 2022 as expected, the digital clock again works, off by 1 hour, with today as 01 Jan 2003.   It would be great to have the working date and calendar function again, but I’ll take the working 24 hour Clock for now!
+Is it an hour ahead or an hour behind? Do you think the one-hour error is some kind of daylight savings thing?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,222 @@
+Sophos Home protects every Mac and PC in your home 
+A PYTHON PERSPECTIVE VORTEX
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Cybercrime after cybercrime, some Apple updates, and an attack on a source code repository. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  Very well, thank you. Douglas!
+Was that cheery enough?
+DOUG.  That was pretty good.
+ Like, a 7/10 on the happiness scale, which is a pretty good baseline.
+DUCK.  Oh, I wanted it to feel higher than that.
+What I said, plus 2.5/10.
+DOUG.  [EXAGGERATED AMAZEMENT] Oh, Paul, you sound great!
+DUCK.  [LAUGHS] Thank you, Doug.
+DOUG.  Well, this might push you up to a 10/10, then… This Week in Tech History. 
+On 22 May, 1973, at the Xerox Palo Alto Research Center [PARC], researcher Robert Metcalfe wrote a memo proposing a new way to connect computers together.
+Inspired by its precursor, AlohaNet, which Metcalfe studied as part of his PhD dissertation, the new technology would be called Ethernet, a nod to the substance “luminiferous aether”, which was once believed to be a medium for propagating light waves.
+DUCK.  It was certainly a lot faster than 160 KB, single sided, single density floppy diskettes! [LAUGHTER]
+DOUG.  Could be worse! 
+Anyhow, speaking of “worse” and “badness”, we’ve got our first crime update of the day. 
+The US is offering a $10 million bounty for a Russian ransomware suspect. 
+US offers $10m bounty for Russian ransomware suspect outed in indictment
+
+That’s a lot of money, Paul!
+This guy must have done something pretty bad. 
+The DOJ’s statement: 
+[This person and his fellow conspirators] allegedly used these types of ransomware to attack thousands of victims in the United States and around the world. These victims include law enforcement and other government agencies, hospitals and schools. 
+Total ransom demands allegedly made by the members of these three global ransomware campaigns to their victims amount to as much as $400 million, while total victim ransom payments amount to as much as $200 million.
+Big time attacks… lots of money changing hands here, Paul.
+DUCK.  When you’re trying to track down somebody who’s doing dastardly stuff overseas and you think, “How on earth are we going to do this? They’re never going to show up in court here”… 
+Maybe we just offer some filthy lucre to people in that other person’s country, and somebody will turn him in? 
+And if they’re offering $10 million (well, that’s the maximum you can get), they must be quite keen. 
+And my understanding, in this case, is the reason that they are keen is this particular suspect is accused of being, if not the heart and the soul, at least one of the two of those things for three different ransomware strains: LockBit, Hive and Babuk.
+Babuk famously had its source code leaked (if I’m not wrong, by a disaffected affiliate), and has now found its way onto GitHub, where anybody who wants to can grab the encryption part. 
+And although it’s hard to feel any sympathy at all for people who are in the sights of the DOJ and the FBI for ransomware attacks…
+…if there were any latent, droplets of sympathy left, they evaporate pretty quickly when you start reading about hospitals and schools amongst their many victims.
+DOUG.  Yes.
+DUCK.  So you have to assume it’s unlikely that they’ll ever see him in a US Court…
+…but I guess they figured it’s too important not to try.
+DOUG.  Exactly. 
+We will, as we like to say, keep an eye on that. 
+And while we’re waiting, please go and take a look at our State of Ransomware 2023 report. 
+It’s got a bunch of facts and figures that you can use to help protect your organisation against attacks.
+That’s available at: sophos.com/ransomware2023.
+DUCK.  One little hint that you can learn from the report: “Surprise, surprise; it costs you about half as much to recover from backups as it does from paying the ransom.” 
+Because even after you’ve paid the ransom, you still have as much work as you would have to restore your backup still to do. 
+And it also means you don’t pay the crooks.
+DOUG.  Exactly! 
+Alright, we have another crime update. 
+This time, it’s our friends over at iSpoof, who, I have to admit, have a pretty good marketing team.
+Except for everyone getting busted and all that kind of stuff…
+Phone scamming kingpin gets 13 years for running “iSpoof” service
+
+DUCK.  Yes, this is a report from the Metropolitan Police in London about a case that’s been going on since November 2022, when we first wrote about this on nakedsecurity.sophos.com.
+A chap called Tejay Fletcher, and I think 169 other people who thought they were anonymous but it turned out they weren’t, got arrested. 
+And this Fletcher fellow, who was the kingpin of this, has just been sentenced to 13 years and 4 months in prison, Doug. 
+That is a pretty big sentence by any country’s standards! 
+And the reason is that this service was all about helping other cybercriminals, in return for bitcoinage, to scam victims very believably. 
+You didn’t need any technical ability. 
+You could just sign up for the service, and then start making phone calls where you could choose what number would show up at the other end. 
+So if you had an inkling that somebody banked with XYZ Banking Corporation, you could make their phone light up saying, “Incoming call from XYZ Banking Corporation”, and then launch into your schpiel. 
+It seems, from the National Crime Agency’s reports at the time, that their “customers” made millions of calls through this service. and they had something like a 10% success rate, where success is measured that the caller was on the line for at least a minute. 
+And when you think something is a scam call… you hang up pretty jolly quickly, don’t you?
+DOUG.  A minute is a long time!
+DUCK.  And that means they’ve probably hooked the person. 
+And you can see why, because everything seems believable. 
+If you are not aware that the Caller ID (or Calling Line Identification) number that shows up on your phone is nothing more than a hint, that anybody can put in anything, and that anybody with your worst interests at heart who wants to stalk you can, for a modest monthly outlay, buy into a service that will help them do it automatically…
+If you don’t know that that’s the case, you’re probably going to have your guard way, way down when that call comes through and says, “I’m calling from the bank. You can see that from the number. Oh dear, there’s been fraud on your account”, and then the caller talks you into doing a whole load of things that you wouldn’t listen to for a moment otherwise.
+The reach of this service, the large number of people who used it (he had tens of thousands of “customers”, apparently), and the sheer number of calls and amount of financial damage done, which ran into the millions, is why he got such a serious sentence.
+DOUG.  Part of the reason they were able to attract so many customers is that this was on a public facing website.
+It wasn’t on the dark web, and it was pretty slick marketing. 
+If you head over to the article, there’s a 53-second marketing video that’s got a professional voiceover actor, and some fun animations. 
+It’s a pretty well done video!
+DUCK.  Yes!
+I spotted one typo in it… they wrote “end to encryption” rather than “end-to-end encryption”, which I noticed because it was quite an irony.
+Because the whole premise of that video – it says, “Hey, as a customer you’re completely anonymous.” 
+They made a big pitch of that.
+DOUG.  I think it probably was an “end to encryption”. [LAUGHS]
+DUCK.  Yes… you may have been anonymous to your victims, but you weren’t anonymous to the service provider. 
+Apparently the cops, in the UK at least, decided to start with anybody who had already spent more than £100’s worth of Bitcoins with the service. 
+So there may be people who dabbled in this, or used it just for a couple of things, who are still on the list. 
+The cops want people to know that they started at the top and they’re working their way down. 
+The anonymity promised in the video was illusory.
+DOUG.  Well, we do have some tips, and we have said these tips before, but these are great reminders.
+Including one of my favourites, because I think people just assume that Caller ID is an accurate reporter…. tip number one is: Treat Caller ID as nothing more than a hint. 
+What do you mean by that, Paul?
+DUCK.  If you still get snail-mail at your house, you’ll know that when you get an envelope, it has your address on the front, and usually, when you turn it over, on the back of the envelope, there’s a return address. 
+And everyone knows that the sender gets to choose what that says… it might be genuine; it might all be a pack of lies. 
+That is how much you can trust Caller ID. 
+And as long as you bear that in mind, and think of it as a hint, then you’re golden. 
+But if it comes up and says “XYZ Banking Corporation” because the crooks have deliberately picked a number that you specially put in your contact list to come up to tell you it’s the bank… that doesn’t mean anything. 
+And the fact that they start telling you that they’re from the bank doesn’t mean that they are. 
+And that segues nicely into our second tip, doesn’t it, Doug?
+DOUG.  Yes. 
+Always initiate official calls yourself, using a number you can trust.
+So, if you get at one of these calls, say, “I’m going to call you right back”, and use the number on the back of your credit card.
+DUCK.  Absolutely. 
+If there’s any way in which they have led you to believe this is the number you should call… don’t do it! 
+Find it out for yourself. 
+Like you said, for reporting things like bank frauds or bank problems, the number on the back of your credit card is a good start. 
+So, yes, be very, very careful. 
+It’s really easy to believe your phone, because 99% of the time, that Caller ID number will be telling the truth.
+DOUG.  Alright, last but certainly not least, not quite as technical, but more a softer skill, tip number three is: Be there for vulnerable friends and family. 
+That’s a good one.
+DUCK.  There are obviously people who are more at risk of this kind of scam.
+So it’s important that you let people in your circle of friends and family, who you think might be at risk of this kind of thing… let them know that if they have any doubt, they should get in touch with you and ask you for advice. 
+As every carpenter or joiner will tell you, Douglas, “Measure twice, cut once.”
+DOUG.  I like that advice. [LAUGHS]
+I tend to measure once, cut thrice, so don’t follow my lead there.
+DUCK.  Yes. You can’t “cut things longer”, eh? [LAUGHTER]
+DOUG.  Nope, you sure can’t!
+DUCK.  We’ve all tried. [LAUGHS]
+DOUG.  That’s two updates down; one to go. 
+We’ve got an update…  if you recall, earlier this month, Apple surprised us with a new Rapid Security Response, but it didn’t say what the updates actually fixed, but now we know, Paul.
+Apple’s secret is out: 3 zero-days fixed, so be sure to patch now!
+
+DUCK.  Yes.
+Two 0-days, plus a bonus 0-day that wasn’t fixed before. 
+So if you had, what was it, macOS 13 Ventura (the latest), and if you had iOS/iPadOS 16, you got the Rapid Security Response
+You got that “version number (a)” update, and “here is the detail about this update: (blank text string)”. 
+So you had no idea what was fixed. 
+And you, like us, probably thought, “I bet you it’s a zero-day in WebKit. That means a drive-by install. That means someone could be using it for spyware.”
+Lo and behold, that’s exactly what those two 0-days were. 
+And there was a third zero-day, which was, if you like, another part of that equation, or another type of exploit that often goes along with the first two zero-days that were fixed. 
+This one was a Google Threat Response/Amnesty International thing that certainly smells of spyware to me… someone investigating a real-life incident.
+That bug was what you call in the jargon a “sandbox escape”. 
+It sounds as though the three zero-days that are now fixed for all Apple platforms were…
+One that might allow a crook to figure out what was where on your computer.
+In other words, they’re greatly increasing the chance that their subsequent exploits will work. 
+A second exploit that does remote code execution inside your browser, as I say, aided and abetted by that data leakage in the first bug that might tell you what memory addresses to use.
+And then a third zero day that essentially lets you jump out of the browser and do much worse. 
+Well, I’m going to say, Patch early, patch often, aren’t I, Doug?
+DOUG.  Do it! 
+Yes.
+DUCK.  Those are not the only reasons why you want these patches. 
+There are a bunch of proactive fixes as well. 
+So even if they weren’t the zero-days, I’d say it again anyway.
+DOUG.  OK, great. 
+Our last story of the day… I had written my own little intro here, but I’m throwing that in the trash and I’m going to go with your headline, because it’s much better. 
+And it really captures the essence of this story: PyPI open source code repository deals with manic malware maelstrom.
+That is what happened, Paul!
+PyPI open-source code repository deals with manic malware maelstrom
+
+DUCK.  Yes, I have to admit, I did have to work on that headline to get it to fit exactly onto two lines in the nakedsecurity.sophos.com WordPress template. [LAUGHTER]
+The PyPI team now have got over this, and I think they’ve got rid of all the stuff. 
+But it seems that somebody had an automated system that was just generating new accounts, then, in those accounts, creating new projects… 
+…and just uploading poisoned source package after poisoned source package. 
+And remember that in most of these repositories (PyPI is an example),  you can have malware that’s in the actual code that you want to download and later use as a module in your code (in other words, the programming library), and/or you can have malware in the actual installer or update script that delivers the thing to you. 
+So, unfortunately, it’s easy for crooks to clone a legitimate project, give it a realistic looking name and hope that if you download it by mistake…
+…then after you’ve installed it, and once you start using it in your software, and once you start shipping it to your customers, it will all be fine, and you won’t find any malware in it.
+Because the malware will have already infected your computer, by being in the script that ran to get the thing installed properly in the first place. 
+So there’s a double-whammy for the crooks. 
+What we don’t know is…
+Were they hoping to upload so many infectious packages that some of them wouldn’t get spotted, and they’d have a fighting chance that a couple would just get left behind? 
+Or were they actually hoping that they could freak out the PyPI team so much that they had to take the whole site off the air, and that would be a full-on denial of service attack?
+Neither of those were the outcome. 
+The PyPI team were able to mitigate the attack by shutting down just some aspects of the site. 
+Namely, for a while, you couldn’t create a new account, and you couldn’t add a new project, but you could still get old ones. 
+And that gave them just enough breathing room, over a 24-hour period, that it looks as though they were able to clean up entirely.
+DOUG.  We do have some advice for attacks like this where it doesn’t get cleaned up in time. 
+So if you’re pulling from repositories like this, the first thing you can do is: Don’t choose a repository package just because the name looks right. 
+That’s a tactic used by the attackers often.
+DUCK.  Indeed, Douglas. 
+It’s basically what we used to call in the jargon “typosquatting” for websites. 
+Instead of registering example.com, you might register something like examole.com, because O is next to P on the keyboard, in the hope that someone will go to type “example”, make a slight mistake and you’ll grab their traffic and get them onto a lookalike site. 
+Be careful what you choose. 
+It’s a little bit like our advice about Caller ID: it tells you something, but only so much. 
+And, for the rest, you really have to do your due diligence.
+DOUG.  Such as: Don’t blindly download package updates into your own development or build systems.
+DUCK.  Yes, DevOps and Continuous Integration is all the thing these days, isn’t it, where you automate everything? 
+And there’s something appealing about saying, “Well, I don’t want to fall behind, so why don’t I just tell my build system to take my code from my local repository where I’m looking after it, and then just always automatically get the latest version from the public repository of all the other people’s code I’m using?” 
+The problem is, if any of those third-party packages that you’re using get pwned, then your build system is going to get itself into trouble entirely automatically.
+So don’t do that if you can possibly avoid it.
+DOUG.  Which leads us to: Don’t make it easy for attackers to get into your own packages.
+DUCK.  Yes.
+Nobody can really stop someone who’s determined to set up, by hand, 2000 new PyPI accounts and put 1000 new packages into each of those. 
+But you can make attacks where crooks take over existing packages and compromise them… you can do your bit to help the rest of the community by making it as hard as possible for your projects to get compromised. 
+Do go and revisit the security you have on this account or on that package, just in case someone decides it would be a masterful place to insert badware that could affect other people… and of course that would at least temporarily tarnish your reputation at the same time.
+DOUG.  And our last tip may fall on some deaf ears, but if it’s enough to just change a few minds, we’ve done some good work here today: Don’t be a you-know-what.
+DUCK.  Proving how clever you are by reminding us all about supply-chain attacks by making unnecessary work for volunteer teams… like the Linux kernel crew (they’ve suffered from this in the past), PyPI and other popular open source repositories?
+If you have a genuine reason why you think you need to tell them about a security vulnerability, find their security disclosure contact details and contact them properly, professionally, responsibly. 
+Don’t be a ****.
+DOUG.  Excellemt.
+Alright, good advice, and as the sun begins to set on our show for the day, it’s time to hear from one of our readers. 
+On the previous episode of the podcast, you may recall we talked a bit about the trials and tribulations of the Apple III computer. Let’s take a listen:
+I don’t know whether this is an urban legend or not, but I have read that the early [Apple III] models did not have their chips seated properly in the factory, and that recipients who were reporting problems were told to lift the front of the computer off their desk a few centimeters and let it crash back, which would bang them into place like they should have been in the first place. Which apparently did work, but was not the best sort of advert for the quality of the product.
+DOUG.  In response, listener S31064 (not sure if that’s a true birth name) chimes in: 
+I don’t know about that, but the company I was working for at the time was using them for offline library circulation terminals. And nine times out of ten, if there was a problem with it, the fix was to reseat the chips.
+DUCK.  Yes, going over your motherboard and (crackle, crackle) pressing all the chips down… that was considered routine maintenance back then. 
+But it seems that for the Apple III, it was not just routine maintenance, preventative maintenance, it was actually a recognised recovery technique. 
+So I was fascinated to read that, Doug. 
+Someone who had actually been there, and done that!
+DOUG.  Well, thank you very much, dear listener, for sending that in.
+And if you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure.
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+There I’ve done it.
+After almost two years of binge listening, I finished listening to all of the Naked Security podcast episodes, I’m all caught up! (Well, at least all the episodes on Spotify anyways)
+I enjoyed it from the beginning. Starting with the long running Chet Chat, then to the UK crew, Oh No it’s Kim was next, then I finally reached the present days “This week in tech history”! What a ride!
+I really enjoyed the nostalgia of revisiting those past cybersecurity events, many of those events happened while I was still in uni. Quite often, my understanding of these events was limited to just the headlines. Even more often, the podcast made me realised how dangerously exposed to threats I was, back in the Windows XP and 7 days! I do not work in IT-related industry, Naked Security Podcast corrected many of my errors in securing my own home network.
+I still remember when Chester came back on to the pod for the first time after a very long break (can’t pinpoint which episode this was), and at the end he finished with “Until next time, stay secure.” alongside Duck, I was like “YESSS!” and my hands were in the air. Love your work!
+Thanks for the kind words. Glad you enjoy the podcast… here’s to plenty more episodes yet!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

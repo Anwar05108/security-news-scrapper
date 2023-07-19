@@ -1,0 +1,272 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Deadbolt – it’s back!
+Patches galore!
+And timezones… yes, timezones. 
+All that, and more, on the Naked Security Podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everyone. 
+I’m Doug Aamoth. 
+With me, as always, is Paul Ducklin. 
+Paul, a very happy 100th episode to you, my friend!
+DUCK.  Wow, Doug! 
+You know, when I started my directory structure for Series 3, I boldly used -001 for the first episode.
+DOUG.  I did not. [LAUGHS]
+DUCK.  Not -1 or -01.
+DOUG.  Smart…
+DUCK.  I had great faith! 
+And when I save today’s file, I’m going to be rejoicing in it.
+DOUG.  Yes, and I will be dreading it because it’ll pop up to the top.
+Well, I’m going to have to deal with that later…
+DUCK.  [LAUGHS] You could rename all the other stuff.
+DOUG.  I know, I know.
+[MUTTERING] Not looking forward to that… there goes my Wednesday. 
+Anyway, let’s start the show with some Tech History.
+This week, on 12 September 1959, Luna 2, also known as the Second Soviet Cosmic Rocket, became the first spacecraft to reach the surface of the Moon, and the first human-made object to make contact with another celestial body. 
+Very cool.
+DUCK.  What was that long name? 
+“The Second Soviet Cosmic Rocket”?
+DOUG.  Yes.
+DUCK.  Luna Two is much better. 
+DOUG.  Yes, much better!
+DUCK.  Apparently, as you can imagine, given that it was the space-race era, there was some concern of, “How will we know they’ve actually done it? They could just say they’ve landed on the Moon, and maybe they’re making it up.” 
+Apparently, they devised a protocol that would allow independent observation. 
+They predicted the time that it would arrive on the Moon, to crash into the Moon, and they sent the exact time that they expected this to an astronomer in the UK. 
+And he observed independently, to see whether what they said *would* happen at that time *did* happen. 
+So they even thought about, “How do you verify something like this?”
+DOUG.  Well, on the subject of complicated things, we have patches from Microsoft and Apple. 
+So what’s notable here in this latest round?
+DUCK.  We certainly do – it’s patch Tuesday this week, the second Tuesday of the month. 
+There are two vulnerabilities in Patch Tuesday that were notable to me. 
+A lighter Patch Tuesday, but one heavy with remote code execution bugs
+
+
+One is notable because it is apparently in the wild – in other words, it was a zero-day. 
+And although it’s not remote code execution, it is a little worrying because it’s a [COUGHS APOLOGETICALLY] log file vulnerability, Doug! 
+It’s not quite as bad as Log4J, where you could not only get the logger to misbehave, you could also get it to run arbitrary code for you. 
+But it seems that if you send some kind of malformed data into the Windows Common Log File System driver, the CLFS, then you can trick the system into promoting you to system privileges. 
+Always bad if you’ve got in as a guest user, and you are then able to turn yourself into a sysadmin…
+DOUG.  [LAUGHS] Yes!
+DUCK.  That is CVE-2022-37969. 
+And the other one that I found interesting…
+…fortunately not in the wild, but this is the one that you really need to patch, because I bet you it’s the one that cybercriminals will be focusing on reverse engineering:
+“Windows TCP/IP remote code execution vulnerability”, CVE-2022-34718.
+If you remember Code Red, and SQL Slammer, and those naughty worms of the past, where they just arrived in a network packet, and jammed their way into the system….
+The Code Red worm 20 years on – what have we learned?
+
+
+This is an even lower level than that. 
+Apparently, the bug’s in the handling of certain IPv6 packets. 
+So anything where IPv6 is listening, which is pretty much any Windows computer, could be at risk from this. 
+Like I said, that one is not in the wild, so the crooks haven’t found it yet, but I don’t doubt that they will be taking the patch and trying to figure out if they can reverse engineer an exploit from it, to catch out people who haven’t patched yet. 
+Because if anything says, “Whoa! What if someone wrote a worm that used this?”… that is the one I would be worried about.
+DOUG.  OK.
+And then to Apple…
+Apple patches zero-day holes – even in the brand new iOS 16
+
+
+DUCK.  We’ve written two stories about Apple patches recently, where, out of the blue, suddenly, there were patches for iPhones and iPads and Macs against two in-the-wild zero-days. 
+One was a browser bug, or a browsing-related bug, so that you could wander into an innocent-looking website and malware could land on your computer, plus another one that gave you kernel-level control…
+…which, as I said in the last podcast, smells like spyware to me – something that a spyware vendor or a really serious “surveillance cybercrook” would be interested in. 
+Then there was a second update, to our surprise, for iOS 12, which we all thought had been long abandoned.
+There, one of those bugs (the browser related one that allowed crooks to break in) got a patch. 
+And then, just when I was expecting iOS 16, all these emails suddenly started landing in my inbox – right after I checked, “Is iOS 16 out yet? Can I update to it?” 
+It wasn’t there, but then I got all these emails saying, “We’ve just updated iOS 15, and macOS Monterey, and Big Sur, and iPadOS 15″…
+… and it turned out there were a whole bunch of updates, plus a brand new kernel zero-day this time as well.
+And the fascinating thing is that, after I got the notifications, I thought, “Well, let me check again…”
+(So you can remember, it’s Settings > General > Software Update on your iPhone or iPad.)
+Lo and behold, I was being offered an update to iOS 15, which I already had, *or* I could jump all the way to iOS 16. 
+And iOS 16 also had this zero-day fix in it (even though iOS 16 theoretically wasn’t out yet), so I guess the bug also existed in the beta. 
+It wasn’t listed as officially being a zero-day in Apple’s bulletin for iOS 16, but we can’t tell whether that’s because the exploit Apple saw didn’t quite work properly on iOS 16, or whether it’s not considered a zero-day because iOS 16 was only just coming out.
+DOUG.  Yes, I was going to say: no one has it yet. [LAUGHTER]
+DUCK.  That was the big news from Apple. 
+And the important thing is that when you go to your phone, and you say, “Oh, iOS 16 is available”… if you’re not interested in iOS 16 yet, you still need to make sure you’ve got that iOS 15 update, because of the kernel zero-day. 
+Kernel zero days are always a problem because it means somebody out there knows how to bypass the much-vaunted security settings on your iPhone. 
+The bug also applies to macOS Monterey and macOS Big Sur – that’s the previous version, macOS 11.
+In fact, not to be outdone, Big Sur actually has *two* kernel zero-day bugs in the wild. 
+No news about iOS 12, which is kind of what I expected, and nothing so far for macOS Catalina. 
+Catalina is  macOS 10, the pre-previous version, and once again, we don’t know whether that update will come later, or whether it’s fallen off the edge of the world and won’t be getting updates anyway.
+Sadly, Apple doesn’t say, so we don’t know. 
+Now, most Apple users will have automatic updates turned on, but, as we always say, do go and check (whether you’ve got a Mac or an iPhone or an iPad), because the worst thing is just to assume that your automatic updates worked and kept you safe…
+…when in fact, something went wrong.
+DOUG.  OK, very good. 
+Now, something I’ve been looking forward to, moving right along, is: “What do timezones have to do with IT security?”
+DUCK.  Well, quite a lot, it turns out, Doug.
+DOUG.  [LAUGHING] Yessir!
+How to deal with dates and times without any timezone tantrums…
+
+
+DUCK.  Timezones are very simple in concept. 
+They’re very convenient for running our lives so that our clocks roughly match what’s happening in the sky – so it’s dark at night and light in the day. (Let’s ignore daylight saving, and let’s just assume that we only have one-hour timezones all around the world so that everything is really simple.) 
+The problem comes when you’re actually keeping system logs in an organisation where some of your servers, some of your users, some parts of your network, some of your customers, are in other parts of the world. 
+When you write to the log file, do you write the time with the timezone factored in? 
+When you’re writing your log, Doug, do you subtract the 5 hours (or 4 hours at the moment) that you need because you’re in Boston, whereas I add one hour because I’m on London time, but it’s summer?
+Do I write that in the log so that it makes sense to *me* when I read the log back? 
+Or do I write a more canonical, unambiguous time using the same timezone for *everybody*, so when I compare logs that come from different computers, different users, different parts of the world on my network, I can actually line up events?
+It’s really important to line events up, Doug, particularly if you’re doing threat response in a cyberattack.
+You really need to know what came first. 
+And if you say, “Oh, it didn’t happen until 3pm”, that doesn’t help me if I’m in Sydney, because my 3pm happened yesterday compared to your 3pm.
+So, I wrote an article on Naked Security about some ways that you can deal with this problem when you log data. 
+My personal recommendation is to use a simplified timestamp format called RFC 3339, where you put a four digit year, dash [hyphen character, ASCII 0x2D], two digit month, dash, two digit day, and so on, so that your timestamps actually sort alphabetically nicely.
+And that you record all your time zones as a tme zone known as Z (zed or zee), short for Zulu time. 
+That means basically UTC or Coordinated Universal Time. 
+That’s nearly-but-not-quite Greenwich Mean Time,  and it’s the time that almost every computer’s or phone’s clock is actually set to internally these days. 
+Don’t try and compensate for timezones when you’re writing to the log, because then someone will have to decompensate when they’re trying to line up your log with everybody else’s – and there’s many a slip twixt the cup and the lip, Doug.
+Keep it simple. 
+Use a canonical, simple text format that delineates exactly the date and time, right down to the second – or, these days, timestamps can even go down these days to the nanosecond if you want. 
+And get rid of timezones from your logs; get rid of daylight saving from your logs; and just record everything, in my opinion, in Coordinated Universal Time…
+…confusingly abbreviated UTC, because the name’s in English but the abbreviation’s in French – something of an irony. 
+DOUG.  Yes.
+DUCK.  
+I’m tempted to say, “Not that I feel strongly about it, again”, as I usually do, laughingly…
+…but it really is important to get things in the right order, particularly when you’re trying to track down cyber criminals.
+DOUG.  All right, that’s good – great advice. 
+And if we stick on the subject of cybercriminals, you’ve heard of Manipulator-in-the-Middle attacks; you’ve heard of Manipulator-in-the-Browser attacks… 
+..now get ready for Browser-in-the-Browser attacks.
+Serious Security: Browser-in-the-browser attacks – watch out for windows that aren’t!
+
+
+DUCK.  Yes, this is a new term that we’re seeing.
+I wanted to write this up because researchers at a threat intelligence company called Group-IB recently wrote an article about this, and the media started talking about, “Hey, Browser-in-the-Browser attacks, be very afraid”, or whatever…
+You’re thinking, “Well, I wonder how many people actually know what is meant by a Browser-in-the-Browser attack?”
+And the annoying thing about these attacks, Doug, is that technologically, they’re terribly simple. 
+It’s such a simple idea.
+DOUG.  They’re almost artistic.
+DUCK.  Yes! 
+It’s not really science and technology, it’s art and design, isn’t it? 
+Basically, if you’ve ever done any JavaScript programming (for good or for evil), you’ll know that one of the things about stuff that you stick into a web page  is that it’s meant to be constrained to that web page. 
+So, if you pop up a brand new window, then you’d expect it to get a brand new browser context. 
+And if it loads its page from a brand new site, say a phishing site, then it won’t have access to all the JavaScript variables,  context, cookies and everything that the main window had. 
+So, if you open a separate window, you’re kind of limiting your hacking abilities if you’re a crook. 
+Yet if you open something in the current window, then you’re significantly limited as to how exciting and “system-like” you can make it look, aren’t you? 
+Because you can’t overwrite the address bar… that’s by design. 
+You can’t write anything outside the browser window, so you can’t sneakily put a window that looks like wallpaper on the desktop, like it’s been there all along. 
+In other words, you’re corralled inside the browser window that you started with.
+So the idea of a Browser-in-the-Browser attack is that you start with a regular website, and then you create, inside the browser window you’ve already got, a web page that itself looks exactly like an operating system browser window. 
+Basically, you show someone a *picture* of the real thing, and convince them it *is* the real thing. 
+It’s that simple at heart, Doug! 
+But the problem is that with a little bit of careful work, particularly if you’ve got good CSS skills, you *can* actually make something that’s inside an existing browser window look like a browser window of its own. 
+And with a bit of JavaScript, you can even make it so that it can resize, and so that it can move around on the screen, and you can populate it with HTML that you fetch from a third party website. 
+Now, you may wonder… if the crooks get it dead right, how on earth can you ever tell? 
+And the good news is that there’s an absolutely simple thing you can do. 
+If you see what looks like an operating system window and you are suspicious of it in any way (it would essentially appear to pop up over your browser window, because it has to be inside it)…
+…try moving it *off the real browser window*, and if it’s “imprisoned” inside the browser, you know it’s not the real deal! 
+The interesting thing about the report from the Group-IB researchers is that when they came across this, the crooks were actually using it against players of Steam games. 
+And, of course, it wants you to log into your Steam account…
+…and if you were fooled by the first page, then it would even follow up with Steam’s two-factor authentication verification. 
+And the trick was that if those truly *were* separate windows, you could have dragged them to one side of your main browser window, but they weren’t.
+In this case, fortunately, the cooks had not done their CSS very well. 
+Their artwork was shoddy. 
+But, as you and I have spoken about many times on the podcast, Doug, sometimes there are crooks who will put in the effort to make things look pixel-perfect. 
+With CSS, you literally can position individual pixels, can’t you?
+DOUG.  CSS is interesting. 
+It’s Cascading Style Sheets… a language you use to style HTML documents, and it’s really easy to learn and it’s even harder to master.
+DUCK.  [LAUGHS] Sounds like IT, for sure.
+DOUG.  [LAUGHS] Yes, it’s like many things!
+But it’s one of the first things you learn once you learn HTML. 
+If you’re thinking, “I want to make this web page look better”, you learn CSS. 
+So, looking at some of these examples of the source document that you linked to from the article, you can tell it’s going to be really hard to do a really good fake, unless you’re really good at CSS.
+But if you do it right, it’s going to be really hard to figure out that it’s a fake document…
+…unless you do as you say: try to pull it out of a window and move it  around your desktop, stuff like that. 
+That leads into your second point here: examine suspect windows carefully. 
+A lot of them are probably not going to pass the eye test, but if they do, it’s going to be really tough to spot. 
+Which leads us to the third thing…  
+“If in doubt/Don’t give it out.”
+If it just doesn’t quite look right, and you’re not able to definitively tell that something is strange is afoot, just follow the rhyme!
+DUCK.  And it’s worth being suspicious of unknown websites, websites you haven’t used before, that suddenly say, “OK,we’re going to ask you to log in with your Google account in a Google Window, or Facebook in a Facebook window.” 
+Or Steam in a Steam window.
+DOUG.  Yes. 
+I hate to use the B-word here, but this is almost brilliant in its simplicity. 
+But again, it’s going to be really hard to pull off a pixel perfect match using CSS and stuff like that.
+DUCK.  I think the important thing to remember is that, because part of the simulation is the “chrome” [jargon for the browser’s user interface components] of the browser, the address bar will look right. 
+It may even look perfect. 
+But the thing is, it isn’t an address bar…
+…it’s a *picture* of an address bar.
+DOUG.  Exactly! 
+All right, careful out there, everyone! 
+And, speaking of things that are not what they seem, I’m reading about DEADBOLT ransomware, and QNAP NAS devices, and it feels to me like we just discussed this exact story not long ago.
+DEADBOLT ransomware rears its head again, attacks QNAP devices
+
+
+DUCK.  Yes, we’ve written about this several times on Naked Security so far this year, unfortunately.
+It’s one of those cases where what worked for the crooks once turns out to have worked twice, thrice, four times, five times. 
+And NAS, or Network Attached Storage devices, are, if you like, black-box servers that you can go and buy – they typically run some kind of Linux kernel. 
+The idea is that instead of having to buy a Windows licence, or learn Linux, install Samba, set it up, learn how to do file sharing on your network…
+…you just plug in this device and, “Bingo”, it starts working. 
+It’s a web-accessible file server and, unfortunately, if there’s a vulnerability in the file server and you have (by accident or design) made it accessible over the internet, then crooks may be able to exploit that vulnerability, if there is one in that NAS device, from a distance.
+They may be able to scramble all the files on the key storage location for your network, whether it’s a home network or small business network, and basically hold you to ransom without ever having to worry about attacking individual other devices like laptops and phones on your network.
+So, they don’t need to mess around with malware that infects your laptop, and they don’t need to break into your network and wander around like traditional ransomware criminals.
+They basically scramble all your files,  and then – to present the ransom note – they just change (I shouldn’t laugh, Doug)… they just change the login page on your NAS device. 
+So, when you find all your files are messed up and you think, “That’s funny”, and you jump in with your web browser and connect there, you don’t get a password prompt!
+You get a warning: “Your files have been locked by DEADBOLT. What happened? All your files have been encrypted.” 
+And then come the instructions on how to pay up.
+DOUG.  And they have also kindly offered that QNAP could put up a princely sum to unlock the files for everybody.
+DUCK.  The screenshots I have in the latest article on nakedsecurity.­sophos.com show:
+1. Individual decryptions at 0.03 bitcoins, originally about US$1200 when this thing first became widespread, now about US$600.
+2. A BTC 5.00 option, where QNAP get told about the vulnerability so they can fix it, which clearly they’re not going to pay because they already know about the vulnerability. (That’s why there’s a patch out in this particular case.)
+3. As you say, there’s a BTC 50 option (that’s $1m now; it was $2m when this first story first broke). Apparently if QNAP pay the $1,000,000 on behalf of anybody who might have been infected, the crooks will provide a master decryption key, if you don’t mind. 
+And if you look at their JavaScript, it actually checks whether the password you put in matches one of *two* hashes. 
+One is unique to your infection – the crooks customise it every time, so the JavaScript has the hash in it, and doesn’t give away the password.
+And there’s another hash that, if you can crack it, looks as though it would recover the master password for everyone in the world…
+… I think that was just the crooks thumbing their noses at everybody.
+DOUG.  It’s interesting too that the $600 bitcoin ransom for each user is… I don’t want to say “not outrageous”, but if you look in the comments section of this article, there are several people who are not only talking about having paid the ransom…
+…but let’s skip ahead to our reader question here. 
+Reader Michael shares his experience with this attack, and he’s not alone – there are other people in this comment section that are reporting similar things.
+Across a couple of comments, he says (I’m going to kind of make a frankencomment out of that): 
+“I’ve been through this, and came out OK after paying the ransom. Finding the specific return code with my decryption key was the hardest part. Learned the most valuable lesson.” 
+In his next comment he goes through all the steps he had to take to actually get things to work again. 
+And he dismounts with: 
+“I’m embarrassed to say I work in IT, have been for 20+ years, and got bitten by this QNAP uPNP bug. Glad to be through it.”
+DUCK.  Wow, yes, that’s quite a statement, isn’t it? 
+Almost as though he’s saying, “I would have backed myself against these crooks, but I lost the bet and it cost me $600 and a whole load of time.”
+Aaargh!
+DOUG.  What does he mean by “the specific return code with his description key”?
+DUCK.  Ah, yes, that is a very interesting… very intriguing. (I’m trying not to say amazing-slash-brilliant here.) [LAUGHTER]
+I don’t want to use the C-word, and say it’s “clever”, but kind-of it is. 
+How do you contact these crooks? Do they need an email address? Could that be traced? Do they need a darkweb site? 
+These crooks don’t.
+Because, remember, there’s one device, and the malware is customised and packaged when it attacks that device so that has a unique Bitcoin address in it. 
+And, basically, you communicate with these crooks by paying the specified amount of bitcoin into their wallet. 
+I guess that’s why they’ve kept the amount comparatively modest…
+…I don’t want to suggest that everyone’s got $600 to throw away on a ransom, but it’s not like you’re negotiating up front to decide whether you’re going to pay $100,000 or $80,000 or $42,000. 
+You pay them the amount… no negotiation, no chat, no email, no instant messaging, no support forum. 
+You just send the money to the designated bitcoin address, and they’ll obviously have a list of those bitcoin addresses they’re monitoring. 
+When the money arrives, and they see it’s arrived, they know that you (and you alone) paid up, because that wallet code is unique.
+And they then do what is, effectively (I’m using the biggest air-quotes in the world) a “refund” on the blockchain, using a bitcoin transaction to the amount, Doug, of zero dollars. 
+And that reply, that transaction, actually includes a comment. (Remember the Poly Networks hack? They were using Ethereum blockchain comments to try and say, “Dear, Mr. White Hat, won’t you give us all the money back?”)
+So you pay the crooks, thus giving the message that you want to engage with them, and they pay you back $0 plus a 32-hexadecimal character comment…
+…which is 16 raw binary bytes, which is the 128 bit decryption key you need. 
+That’s how you talk to them. 
+And, apparently, they’ve got this down to a T – like Michael said, the scam does work.
+And the only problem Michael had was that he wasn’t used to buying bitcoins, or working with blockchain data and extracting that return code, which is basically the comment in the transaction “payment” that he gets back for $0. 
+So, they’re using technology in very devious ways. 
+Basically, they’re using the blockchain both as a payment vehicle and as a communications tool.
+DOUG.  All right, a very interesting story indeed. 
+We will keep an eye on that. 
+And thank you very much, Michael, for sending in that comment. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today – thanks very much for listening.
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to…
+BOTH.  Stay secure.
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Congratulations!
+Thanks, John!
+(Technically, given various splinter episodes, minisodes and so on, we hit 100 items in the S3 playlist a month or three ago, but now it’s officially three digits… and will be for a while :-)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,58 @@
+Sophos Home protects every Mac and PC in your home 
+Even if you haven’t heard of the venerable Ghostscript project, you may very well have used it without knowing.
+Alternatively, you may have it baked into a cloud service that you offer, or have it preinstalled and ready to go if you use a package-based software service such as a BSD or Linux distro, Homebrew on a Mac, or Chocolatey on Windows.
+Ghostscript is a free and open-source implementation  of Adobe’s widely-used PostScript document composition system and its even-more-widely-used PDF file format, short for Portable Document Format. (Internally, PDF files rely on PostScript code to define how to compose a document.)
+For example, the popular open-source graphics program Inkscape uses Ghostscript behind the scenes to import EPS (Embedded PostScript) vector graphics files, such as you might download from an image library or receive from a design company.
+Loosely put, Ghostscript reads in PostScript (or EPS, or PDF) program code, which describes how to construct the pages in a document, and converts it, or renders it (to use the jargon word), into a format more suitable for displaying or printing, such as raw pixel data or a PNG graphics file.
+Unfortunately, until the latest release of Ghostscript, now at version 10.01.2, the product had a bug, dubbed CVE-2023-36664, that could allow rogue documents not only to create pages of text and graphics, but also to send system commands into the Ghostscript rendering engine and trick the software into running them.
+The problem came about because Ghostscript’s handling of filenames for output made it possible to send the output into what’s known in the jargon as a pipe rather than a regular file.
+Pipes, as you will know if you’ve ever done any programming or script writing, are system objects that pretend to be files, in that you can write to them as you would to disk, or read data in from them, using regular system functions such as read() and write() on Unix-type systems, or ReadFile() and WriteFile() on Windows…
+…but the data doesn’t actually end up on disk at all.
+Instead, the “write” end of a pipe simply shovels the output data into a temporary block of memory, and the “read” end of it sucks in any data that’s already sitting in the memory pipeline, as though it had come from a permanent file on disk.
+This is super-useful for sending data from one program to another.
+When you want to take the output from program ONE.EXE and use it as the input for TWO.EXE, you don’t need to save the output to a temporary file first, and then read it back in using the > and < characters for file redirection, like this:
+There are several hassles with this approach, including these:
+With a memory-based intermediate “pseudofile” in the form of a pipe, you can condense this sort of process chain into:
+You can see from this notation where the names pipe and pipeline come from, and also why the vertical bar symbol (|) chosen to represent the pipeline (in both Unix and Windows) is more commonly known in the IT world as the pipe character.
+Because files-that-are-actually-pipes-at-the-operating-system-level are almost always used for communicating between two processes, that magic pipe character is generally followed not by a filename to write into for later use, but by the name of a command that will consume the output right away.
+In other words, if you allow remotely-supplied content to specify a filename to be used for output, then you need to be careful if you allow that filename to have a special form that says, “Don’t write to a file; start a pipeline instead, using the filename to specify a command to run.”
+Apparently, Ghostscript did have such a “feature”, whereby you could say you wanted to send output to a specially-formatted filename starting with %pipe% or simply |, thereby giving you a chance of sneakily launching a command of your choice on the victim’s computer.
+(We haven’t tried this, but we’re guessing that you can also add command-line options as well as a command name to execute, thus giving you even finer control over what sort of rogue behaviour to provoke at the other end.)
+Amusingly, if that is the right word, the “sometimes patches need patches” problem popped up again in the process of fixing this bug.
+In yesterday’s article about a WordPress plugin flaw, we described how the makers of the buggy plugin (Ultimate Member) have recently and rapidly gone through four patches trying to squash a privilege escalation bug:
+WordPress plugin lets users become admins – Patch early, patch often!
+
+
+We’ve also recently written about file-sharing software MOVEit pushing out three patches in quick succession to deal with a command injection vulnerability that first showed up as a zero-day in the hands of ransomware crooks:
+MOVEit mayhem 3: “Disable HTTP and HTTPS traffic immediately”
+
+
+In this case, the Ghostscript team first added a check like this, to detect the presence of the dangerous text %pipe... at the start of a filename:
+Then the programmers realised that their own code would accept a plain | character as well as the prefix %pipe%, so the code was updated to deal with both cases.
+Here, instead of checking that the variable path doesn’t start with %pipe... to detect that that the filename is “safe”, the code declares the filename unsafe if it starts with either a pipe character (|) or the dreaded text %pipe...:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I’ve a Mac and I am perplexed about how to determine if I have Ghostscript – I definitely haven’t downloaded it as a stand-a-lone. But how do I know if it is bundled with other software? I did run a search looking for Ghostscript and some randomePDF files and  .php files popped up.:
+– class-wp-debug-data.php
+– Mimetypes.php
+– and a few random pdf files (older PDFs: 2011 and 2015) 
+When I ran a search for Homebrew (jhaven’t downloaded that either), some .php files popped up:
+– CaBundle.php
+– functions.php
+– README.md
+Should I be concerned about the above and delete them?  Or, should I be looking for other apps? And, what other apps might those be?
+you haven’t installed Homebrew then you won’t have any Homebrew packages, because you need the ‘brew’ program to acquire and install them.
+If Ghostscript is installed (which is admittedly unusual on a Mac because Macs have had excellent Postscript and PDF support built in for decades) you should almost certainly find a program file called simply ‘gs’, short for Ghostscript. So you could try searching for that…
+If you have installed homebrew then run brew list to show what packages you have downloaded so you can check Ghostscript isn’t among them. If it is then either upgrade it or remove it.
+Found this in our system, being updated today.
+Thank you
+Thanks, glad the info was useful!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

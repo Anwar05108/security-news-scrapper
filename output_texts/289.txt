@@ -1,0 +1,260 @@
+Sophos Home protects every Mac and PC in your home 
+BREACHES, PATCHES, LEAKS AND TWEAKS 
+Latest epidode – listen now.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Breaches, breaches, patches, and typios. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Daul Pucklin…
+…I’m sorry, Paul!
+DUCK.  I think I’ve worked it out, Doug. 
+“Typios” is an audio typo.
+DOUG.  Exactly!
+DUCK.  Yes… well done, that man!
+DOUG.  So, what do typos have to do with cybersecurity? 
+We’ll get into that… 
+But first – we like to start with our This Week in Tech History segment. 
+This week, 23 January 1996, version 1.0 of the Java Development Kit said, “Hello, world.” 
+Its mantra, “Write once, run anywhere”, and its release right as the web’s popularity was really reaching a fever pitch, made it an excellent platform for web-based apps. 
+Fast-forward to today, and we’re at version 19, Paul.
+DUCK.  We are!
+Java, eh?
+Or “Oak”.
+I believe that was its original name, because the person who invented the language had an oak tree growing outside his office. 
+Let us take this opportunity, Doug, to clear up, for once and for all, the confusion that lots of people have between Java and JavaScript.
+DOUG.  Ooooooh…
+DUCK.  A lot of people think that they are related. 
+They’re not related, Doug. 
+They’re *exactly the same* – one is just the shortened… NO, I’M COMPLETELY KIDDING YOU!
+Java is not JavaScript – tell your friends!
+
+DOUG.  I was, like, “Where is this going?” [LAUGHS]
+DUCK.  JavaScript basically got that name because the word Java was cool…
+…and programmers run on coffee, whether they’re programming in Java or JavaScript.
+DOUG.  Alright, very good. 
+Thank you for clearing that up. 
+And on the subject of clearing things up, GoTo, the company behind such products as GoToMyPC, GoToWebinar, LogMeIn, and (cough, cough) others says that they’ve “detected unusual activity within our development environment and third party cloud storage service.” 
+Paul, what do we know?
+GoTo admits: Customer cloud backups stolen together with decryption key
+
+DUCK.  That was back on the last day of November 2022. 
+And the (cough, cough) that you mentioned earlier, of course, is GoTo’s affiliate/subsidiary, or company that’s part of their group, LastPass. 
+Of course, the big story over Christmas was LastPass’s breach. 
+Now, this breach seems to be a different one, from what Goto has come out and said now.
+They admit that the cloud service that ultimately got breached is the same one that is shared with LastPass. 
+But the stuff that got breached, at least from the way they wrote it, sounds to have been breached differently. 
+And it took until this week – nearly two months later – for GoTo to come back with an assessment of what they found. 
+And the news is not good at all, Doug.
+Because a whole load of products… I’ll read them out: Central, Pro, join.me, Hamachi and RemotelyAnywhere. 
+For all of those products, encrypted backups of customer stuff, including account data, got stolen. 
+And, unfortunately, the decryption key for at least some of those backups was stolen with them. 
+So that means they’re essentially *not* encrypted once they’re in the hands of the crooks. 
+And there were two other products, which were Rescue and GoToMyPC, where so-called “MFA settings” were stolen, but were not even encrypted.
+So, in both cases we have, apparently: hashed-and-salted passwords missing, and we have these mysterious “MFA (multifactor authentication) settings”. 
+Given that this seems to be account-related data, it’s not clear what those “MFA settings” are, and it’s a pity that GoTo was not a little bit more explicit. 
+And my burning question is…
+..do those settings include things like the phone number that SMS 2FA codes might be sent to?
+The starting seed for app-based 2FA codes?
+And/or those backup codes that many services let you create a few of, just in case you lose your phone or your SIM gets swapped?
+SIM swapper sent to prison for 2FA cryptocurrency heist of over $20m
+
+DOUG.  Oh, yes – good point!
+DUCK.  Or your authenticator program fails.
+DOUG.  Yes.
+DUCK.  So, if they are any of those, then that could be big trouble. 
+Let’s hope those weren’t the “MFA settings”…
+…but the omission of the details there means that it’s probably worth assuming that they were, or might have been, in amongst the data that was stolen.
+DOUG.  And, speaking of possible omissions, we’ve got the requisite, “Your passwords have leaked. But don’t worry, they were salted and hashed.”
+But not all salting-and-hashing-and-stretching is the same, is it?
+Serious Security: How to store your users’ passwords safely
+
+DUCK.  Well, they didn’t mention the stretching part! 
+That’s where you don’t just hash the password once. 
+You hash it, I don’t know… 100,100 times, or 5000 times, or 50 times, or a million times, just to make it a bit harder for the crooks. 
+And as you say… yes., not all salting-and-hashing is made equal. 
+I think you spoke fairly recently on the podcast about a breach where there were some salted-and-hashed passwords stolen, and it turned out, I think, that the salt was a two digit code, “00” to “99”!
+So, 100 different rainbow tables is all you need…
+…a big ask, but it’s do-able. 
+And where the hash was *one round* of MD5, which you can do at billions of hashes a second, even on modest equipment. 
+So, just as an aside, if you’re ever unfortunate enough to suffer a breach of this sort yourself, where you lose customers’ hashed passwords, I recommend that you go out of your way to be definitive about what algorithm and parameter settings you are using.
+Because it does give a little bit of comfort to your users about how long it might take crooks to do the cracking, and therefore how frenziedly you need to go about changing all your passwords!
+DOUG.  Alright. 
+We’ve got some advice, of course, starting with: Change all passwords that relate to the services that we talked about earlier.
+DUCK.  Yes, that is something that you should do. 
+It’s what we would normally recommend when hashed passwords are stolen, even if they’re super-strongly hashed.
+DOUG.  OK. 
+And we’ve got: Reset any app-based 2FA code sequences that you’re using on your accounts.
+DUCK.  Yes, I think you might as well do that.
+DOUG.  OK.
+And we’ve got: Regenerate new backup codes.
+DUCK.  When you do that with most services, if backup codes are a feature, then the old ones are automatically thrown away, and the new ones replace them entirely.
+DOUG.  And last, but certainly not least: Consider switching to app-based 2FA codes if you can.
+DUCK.  SMS codes have the advantage that there’s no shared secret; there’s no seed. 
+It’s just a truly random number that the other end generates each time. 
+That’s the good thing about SMS-based stuff.
+As we said, the bad thing is SIM-swapping. 
+And if you need to change either your app-based code sequence or where your SMS codes go…
+…it’s much, much easier to start a new 2FA app sequence than it is to change your mobile phone number! [LAUGHS]
+DOUG.  OK. 
+And, as I’ve been saying repeatedly (I might get this tattooed on my chest somewhere), we will keep an eye on this.
+But, for now, we’ve got a leaky T-Mobile API responsible for the theft of…
+(Let me check my notes here: [LOUD BELLOW OFF-MIC] THIRTY-SEVEN MILLION!?!??!)
+…37 million customer records:
+T-Mobile admits to 37,000,000 customer records stolen by “bad actor”
+
+DUCK.  Yes. 
+That’s a little bit annoying, isn’t it? [LAUGHTER]
+Because 37 million is an incredibly large number… and, ironically, comes after 2022, the year in which T-Mobile paid out $500 million to settle issues relating to a data breach that T-Mobile had suffered in 2021. 
+Now, the good news, if you can call it that, is: last time, the data that got breached included things like Social Security Numbers [SSNs] and driving licence details. 
+So that’s really what you might call “high-grade” identity theft stuff. 
+This time, the breach is big, but my understanding is that it’s basic electronic contact details, including your phone number, along with date of birth. 
+That goes some way towards helping crooks with identity theft, but nowhere near as far as something like an SSN or a scanned photo of your driving licence.
+DOUG.  OK, we’ve got some tips if you are affected by this, starting with: Don’t click “helpful” links in emails or other messages. 
+I’ve got to assume that a tonne of spam and phishing emails are going to be generated from this incident.
+DUCK.  If you avoid the links, as we always say, and you find your own way there, then whether it’s a legitimate email or not, with a genuine link or a bogus one…
+…if you don’t click the good links, then you won’t click the bad links either!
+DOUG.  And that dovetails nicely with our second tip: Think before you click. 
+And then, of course, our last tip: Report those suspicious emails to your work IT team.
+DUCK.  When crooks start phishing attacks, the crooks generally don’t send it to one person inside the company. 
+So, if the first person that sees a phish in your company happens to raise the alarm, then at least you have a chance of warning the other 49!
+DOUG.  Excellent. 
+Well, for you iOS 12 users out there… if you were feeling left out from all the recent zero-day patches, have we got a story for you today!
+Apple patches are out – old iPhones get an old zero-day fix at last!
+
+DUCK.  We have, Doug! 
+I’m quite happy, because everyone knows I love my old iOS 12 phone. 
+We went through some excellent times, and on some lengthy and super-cool bicycle rides together until… [LAUGHTER]
+…the fateful one where I got injured well enough to recover, and the phone got injured well enough that you can barely see through the cracks of the screen anymore, but it still works!
+I love it when it gets an update!
+DOUG.  I think this was when I learned the word prang.
+DUCK.  [PAUSE] What?! 
+That’s not a word to you? 
+DOUG.  No!
+DUCK.  I think it comes from the Royal Air Force in the Second World War… that was “pranging [crashing] a plane”. 
+So, there’s a ding, and then, well above a ding, comes a prang, although they both have the same sound.
+DOUG.  OK, gotcha.
+DUCK.  Surprise, surprise – after having no iOS 12 updates for ages, the pranged phone got an update…
+…for a zero-day bug that was the mysterious bug fixed some time ago in iOS 16 only… [WHISPER] very secretively by Apple, if you remember that. 
+DOUG.  Oh, I remember that!
+Apple pushes out iOS security update that’s more tight-lipped than ever
+
+DUCK.  There was this iOS 16 update, and then some time later updates came out for all the other Apple platforms, including iOS 15.
+And Apple said, “Oh, yes, actually, now we think about it, it was a zero-day. Now we’ve looked into it, although we rushed out the update for iOS 16 and didn’t do anything for iOS 15, it turns out that the bug only applies to iOS 15 and earlier.” [LAUGHS]
+Apple patches everything, finally reveals mystery of iOS 16.1.2
+
+So, wow, what a weird mystery it was!
+But at least they patched everything in the end. 
+Now, it turns out, that old zero-day is now patched in iOS 12. 
+And this is one of those WebKit zero-days that sounds as though the way it’s been used in the wild is for malware implantation. 
+And that, as always, smells of something like spyware. 
+By the way, that was the only bug fixed in iOS 12 that was listed – just that one 0-day.
+The other platforms got loads of fixes each. 
+Fortunately, those all seem to be proactive; none of them are listed by Apple as “actively being exploited.” 
+[PAUSE]
+Right, let’s move on to something super-exciting, Doug! 
+I think we’re into the “typios”, aren’t we?
+DOUG.  Yes! 
+The question I’ve been asking myself… [IRONIC] I can’t remember how long, and I’m sure other people are asking, “How can deliberate typos improve DNS security?”
+Serious Security: How dEliBeRaTe tYpOs might imProVe DNS security
+
+DUCK.  [LAUGHS] 
+Interestingly, this is an idea that first surfaced in 2008, around the time that the late Dan Kaminsky, who was a well-known security researcher in those days, figured out that there were some significant “reply guessing” risks to DNS servers that were perhaps much easier to exploit than people thought. 
+Where you simply poke replies at DNS servers, hoping that they just happen to match an outbound request that hasn’t had an official answer yet. 
+You just think, “Well, I’m sure somebody in your network must be interested in going to the domain naksec.test just about now. So let me send back a whole load of replies saying, ‘Hey, you asked about naksec.test; here it is”…
+…and they send you a completely fictitious server [IP] number.
+That means that you come to my server instead of going to the real deal, so I basically hacked your server without going near your server at all! 
+And you think, “Well, how can you just send *any* reply? Surely there’s some kind of magic cryptographic cookie in the outbound DNS request?” 
+That means the server could notice that a subsequent reply was just someone making it up. 
+Well, you’d think that… but remember that DNS first saw the light of day in 1987, Doug.
+And not only was security not such a big deal then, but there wasn’t room, given the network bandwidth of the day, for long-enough cryptographic cookies. 
+So DNS requests, if you go to RFC 1035, are protected (loosely speaking, Doug) by a unique identification number, hopefully randomly generated by the sender of the request. 
+Guess how long they are, Doug…
+DOUG.  Not long enough?
+DUCK.  16 bits. 
+DOUG.  Ohhhhhhhh.
+DUCK.  That’s kind-of quite short… it was kind-of quite short, even in 1987! 
+But 16 bits is *two whole bytes*.
+Typically the amount of entropy, as the jargon has it, that you would have in a DNS request (with no other cookie data added – a basic,original-style, old-school DNS request)…
+…you have a 16-bit UDP source port number (although you don’t get to use all 16 bits, so let’s call it 15 bits). 
+And you have that 16-bit, randomly-chosen ID number… hopefully your server chooses randomly, and doesn’t use a guessable sequence. 
+So you have 31 bits of randomness. 
+And although 231 [just over 2 billion] is a lot of different requests that you’d have to send, it’s by no means out of the ordinary these days.
+Even on my ancient laptop, Doug, sending 216 [65,536] different UDP requests to a DNS server takes an almost immeasurably short period of time. 
+So, 16 bits is almost instantaneous, and 31 bits is do-able. 
+So the idea, way back in 2008 was…
+What if we take the domain name you’re looking up, say, naksec.test, and instead of doing what most DNS resolvers do and saying, “I want to look up n-a-k-s-e-c dot t-e-s-t,” all in lowercase because lowercase looks nice (or, if you want to be old-school, all in UPPERCASE, because DNS is case-insensitive, remember)? 
+What if we look up nAKseC.tESt, with a randomly chosen sequence of lowercase, UPPERCASE, UPPERCASE, lower, et cetera, and we remember what sequence we used, and we wait for the reply to come back? 
+Because DNS replies are mandated to have a copy of the original request in them.
+What if we can use some of the data in that request as a kind of “secret signal”?
+By mashing up the case, the crooks will have to guess that UDP source port; they will have to guess that 16-bit identification number in the reply; *and* they will have to guess how we chose to miS-sPEll nAKsEc.TeST. 
+And if they get any of those three things wrong, the attack fails.
+DOUG.  Wow, OK!
+DUCK.  And Google decided, “Hey, let’s try this.” 
+The only problem is that in really short domain names (so they’re cool, and easy to write, and easy to remember), like Twitter’s t.co, you only get three characters that can have their case changed. 
+It doesn’t always help, but loosely speaking, the longer your domain name, the safer you’ll be! [LAUGHS]
+And I just thought that was a nice little story…
+DOUG.  As the sun begins to set on our show for today, we have a reader comment. 
+Now, this comment came on the heels of last week’s podcast, S3 Ep118.
+S3 Ep118: Guess your password? No need if it’s stolen already! [Audio + Text]
+
+Reader Stephen writes… he basically says:
+I’ve been hearing you guys talk about password managers a lot recently – I decided to roll my own. 
+I generate these secure passwords; I could store them on a memory stick or sticks, only connecting the stick when I need to extract and use a password. 
+Would the stick approach be reasonably low risk? 
+I guess I could become familiar with encryption techniques to encode and decode information on the stick, but I can’t help feeling that may take me way beyond the simple approach I am seeking.
+So, what say you, Paul?
+DUCK.  Well, if it takes you way beyond the “simple” approach, then that means it’s going to be complicated. 
+And if it’s complicated, then that’s a great learning exercise… 
+…but maybe password encryption is not the thing where you want to do those experiments. [LAUGHTER]
+DOUG.  I do believe I’ve heard you say before on this very programme several different times: “No need to roll your own encryption; there are several good encryption libraries out there you can leverage.”
+DUCK.  Yes… do not knit, crochet, needlepoint, or cross-stitch your own encryption if you can possibly help it! 
+The issue that Stephen is trying to solve is: “I want to dedicate a removable USB drive to have passwords on it –  how do I go about encrypting the drive in a convenient way?” 
+And my recommendation is that you should go for something that does full-device encryption [FDE] *inside the operating system*. 
+That way, you’ve got a dedicated USB stick; you plug it in, and the operating system says, ‘”That’s scrambled – I need the passcode.” 
+And the operating system deals with decrypting the whole drive. 
+Now, you can have encrypted *files* inside the encrypted *device*, but it means that, if you lose the device, the entire disk, while it’s unmounted and unplugged from your computer, is shredded cabbage. 
+And instead of trying to knit your own device driver to do that, why not use one built into the operating system? 
+That is my recommendation. 
+And this is where it gets both easy and very slightly complicated at the same time. 
+If you’re running Linux, then you use LUKS [Linux Unified Key Setup].
+On Macs, it’s really easy: you have a technology called FileVault that’s built into the Mac.
+On Windows, the equivalent of FileVault or LUKS is called BitLocker; you’ve probably heard of it. 
+The problem is that if you have one of the Home versions of Windows, you can’t do that full-disk encryption layer on removable drives. 
+You have to go and spend the extra to get the Pro version, or the business-type Windows, in order to be able to use the BitLocker full-disk encryption. 
+I think that’s a pity. 
+I wish Microsoft would just say, “We encourage you to use it as and where you can – on all your devices if you want to.” 
+Because even if most people don’t, at least some people will. 
+So that’s my advice. 
+The outlier is that if you have Windows, and you bought a laptop, say, at a consumer store with the Home version, you’re going to have to spend a little bit of extra money.
+Because, apparently, encrypting removable drives, if you’re a Microsoft customer, isn’t important enough to build into the Home version of the operating system.
+DOUG.  Alright, very good. 
+Thank you, Stephen, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity.
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+To reader Stephen:
+Why not just store your passwords on a USB stick with hardware encryption and a keypad in a portable password manager such as KeePass? No need to invent your own, just Shell out a few bucks and keep a backup somewhere like in a safe.
+True stand-alone-encrypted USB devices are indeed another option.
+Not the regular sort of USB stick that comes “with add-on software”, but one with its own processor and mini-keypad (often two rows of five or six keys each). The idea is that you have to “unlock” the device via its own keypad first. Too many wrong PINs and the device overwrites its internal stored keys, which effectively wipes your data instantly. (The actual raw encryption key typically cannot be extracted from the device so there are no copies of it to lose, and the PIN is only ever typed in on the device, which avoids phishing problems or laptop keyloggers. The device typically locks automatically a short while after it’s unplugged, so it soon “rests” into a secure state even if you forget to lock it yourself.)
+But they are significantly more expensive for a much smaller capacity that regular USBs, although for passwords you don’t need a lot of space. And anyway a modestly-sized one probably isnn’t as expensive as a Windows update!
+The trick is… which brands to trust? 
+I’m interested in this approach for my bootloader and /boot files (no partitions, boot sector or unencrypted content on my internal disk at all) – anyone care to share their thoughts or experiences?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

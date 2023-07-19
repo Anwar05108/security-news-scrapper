@@ -1,0 +1,69 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at browser identification company FingerprintJS recently found and disclosed a fascinating data leakage bug in Apple’s web browser software.
+Technically, the bug exists in Apple’s open source WebKit browser engine, which means it affects any browser that relies on WebKit.
+As you might expect, this includes all versions of Apple’s own Safari browser, whether you’re running it on macOS, your iPhone or your iPad.
+But on iOS and iPadOS, even non-Apple browsers that don’t usually use WebKit at all are required by Apple’s own App Store rules to ditch their regular underpinnings and use WebKit.
+On Windows and Linux, for example, Firefox uses its own Gecko rendering engine; Microsoft Edge, Google Chrome and many other browsers are based on Google’s Blink renderer.
+Although Blink was originally derived from WebKit, the forked-off project is now separate from, and very different to, Apple’s current WebKit codebase.
+So Safari on macOS, and pretty much any browser you’re using on an iPhone or iPad, is affected by this bug.
+At first telling, the bug sounds both undramatic and unimportant: although it allows private data to leak between separate browser tabs that contain content from unrelated websites, the amount of data that leaks is minuscule.
+So, let’s start at the beginning.
+WebKit, like all other modern browser engines, lets websites set and store what’s called stateful data – information that’s carried from one visit to a site to the next, traditionally via web cookies.
+Cookies are used for information such as remembering display settings (e.g. light mode versus dark mode), keeping track of repeat visits (e.g. by assigning you a unique visitor ID that can be matched up next time), and letting you log in with a password (e.g. by recording a secret temporary access code known as an authentication token).
+Cookies, historically, are sent along in the headers of every web request to the site that originally set them, so they’re not a very efficient way of recording the status of a web session: whenever you visit site X, you’re supposed to send every cookie ever set by site X, even cookies that aren’t relevant to the page you’re currently visiting.
+Modern browsers therefore also provide a client-side database known as Web Storage that can be accessed only when needed by JavaScript code in the pages of a website.
+(You’ll often hear the term “cookie” used to encompass both cookies sent in every web request, and thus usable even when JavaScript is turned off, and web storage, used only as needed, but unavilable unless JavaScript is enabled.)
+As you can imagine, the sort of data stored in cookies and web storage isn’t suitable for disclosing to anyone, given that it often identifies you loosely, and frequently identifies you exactly – for example, cookies may grant access to private data in an online account, such as your name, address, contact details, credit card data, as well as the password reset page for that account.
+Therefore browsers are expected to enforce what’s called the Same Origin Policy (SOP), whereby web data that is created by website X can only every be read back by site X.
+Actually, the SOP is stricter than that: the protocol used must match (this prevents an HTTPS cookie such as a password or your real name from being exposed via HTTP); the server name must match (so that services from two different customers that happen to be hosted at the same cloud IP number can’t match by mistake); and the TCP port used must match (this makes it harder for an imposter who has only partial access to your network to set up a parallel service on an existing server that differs only by using a different port).
+Unfortunately, and ironically, today’s cloud-centric world means that we’re running more and more apps inside our browsers.
+Even the web storage system that we mentioned above, specially concocted to get around the performance limitations of old-school HTTP cookies…
+…turns out to be inadequate when browser-based apps such as document processing systems or image editors need to manage and process large amounts of locally-cached data.
+So, we now have THREE types of local storage: cookies, which are great for simple settings such as pagestyle=dark; web storage, fine for larger-sized chunks of data such as configuration settings and modestly-sized documents; and a local database system known as IndexedDB, when you need to keep large amounts of data and to access it efficiently.
+As Mozilla’s excellent reference pages put it:
+IndexedDB is a low-level API for client-side storage of significant amounts of structured data, including files [and binary chunks]. This API uses indexes to enable high-performance searches of this data. While Web Storage is useful for storing smaller amounts of data, it is less useful for storing larger amounts of structured data. IndexedDB provides a solution.
+IndexedDB isn’t quite a full-blown SQL database, but it’s capable of storing, indexing, searching and retrieving much larger local databases than you can manage efficiently using web storage.
+You can guess where this is going, given that complexity is the enemy of security.
+It turns out that Apple’s implementation of the IndexedDB feature includes a function called, simply, indexedDB.databases(), which returns a list of all IndexedDB databases currently known to the browser.
+And although your website can only access databases that match the SOP (so you can’t open an IndexedDB that was created by a different website and read it willy-nilly)…
+…you can access the full list of current database names, regardless of which web page originally created those databases.
+Your first thought here is probably, “So what? A database name doesn’t give away much, if indeed it reveals anything at all.”
+But now stop to think of the issue another way.
+Imagine that you had a special directory on your hard disk called PersonalData, and inside that you had files that were really important to you, such as ReplyToTaxAudit2016.docs, SpeedingFineLegalAppeal.pdf, PasswordsForHostingCompany.txt, JobApplicationToNewCo.pdf and DNSCoRenewalInfo.xls.
+You wouldn’t willingly publish those filenames, because the names themselves – although much less useful to a crook than the actual contents – nevertheless reveal personal information that could easily assist in future attacks against you.
+Even in the artificial example above, the filenames alone give away something about your relationship with the Tax Office; hint that you have been in trouble with criminal charges related to driving; tell your current emplyer something they might not know, and expose information about some of the IT companies you use.
+In the case of IndexedDB database names, FingerprintJS noticed that some services – Google, for example – use an identifier unique to your account (your Google User ID) in the string that names the Google-specific IndexedDB. 
+Even if an attacker has no way of telling who you are from that Google User ID, the fact that it’s consistent whenver you’re logged into Google means that, at best, it serves as a kind of “supercookie” that identifies that you’re the same user visiting other websites.
+Even when you’ve turned tracking protection on, in order to prevent websites automatically sharing cookie data with each other, you reveal yourself as “the same person every time” whenever you visit a web page that invokes the pesky indexedDB.databases() function via JavaScript.
+And FingerprintJS reports that the “filenames” (for want of a better word) chosen as IndexedDB identifiers by other services often uniquely identify that service, even if they don’t uniquely identify a specific user.
+That means the list of names exposed by the indexedDB.databases() function could act as a history list of your recent web browsing: by extracting the list of IndexedDB names in your browser, crooks can easily learn more than you would expect about the web apps and online services you’ve used recently.
+That’s a bit like a situation in which anyone who is able to get a glimpse of just the cover of your passport – not even the picture page, just the outside of it! – immediately comes away with a complete list of all the countries you’ve visited lately.
+It’s not a complete privacy disaster…
+…but it’s definitely not supposed to work that way!
+THE INDEXEDDB LEAK IN PICTURES
+ We used this Ncat script as a simple webserver for opening and listing IndexedDB files. 
+We set the script listening on port 7777 of a server named naksec.test, and on port 8888 of server named other.example, using the command ncat -k -vv -l [nnnn] --lua-exec script.lua, where the file below was saved as script.lua.
+The lines highlighted in blue denote the browser-based JavaScript calls ised to create and list IndexedDB databases:
+
+We used the /list URL to show the databases visible via the naksec.test server:
+
+And via the other.example server. At this point, neither site has a local IndexedDB database in the list:
+
+Then we called the JavaScript function that creates a uniquue, new IndexedDB database for each of the sites. We did this by visiting the /open URL on each site:
+
+
+And, finally, we re-visited the /list URL to see which database names each site could discover. You would not expect the naksec.test:7777 page to know about the existence of any other databases, let alone to be able to extract their names; likewise, other.example:8888 should only know about its own database (named 192.168.1.159_8888 below). 
+Due to this bug, however, each site can determine the existence and name of the other site’s database, despite the Same Origin Policy:
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

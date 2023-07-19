@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Apple just pushed out an emergency update for two zero-day bugs that are apparently actively being exploited.
+There’s a remote code execution hole (RCE) dubbed CVE-2022-32893 in Apple’s HTML rendering software (WebKit), by means of which a booby trapped web page can trick iPhones, iPads and Macs into running unauthorised and untrusted software code.
+Simply put, a cybercriminal could implant malware on your device even if all you did was to view an innocent-looking web page.
+Remember that WebKit is the part of Apple’s browser engine that sits underneath absolutely all web rendering software on Apple’s mobile devices.
+Macs can run versions of Chrome, Chromium, Edge, Firefox and other “non-Safari” browsers with alternative HTML and JavaScript engines (Chromium, for example, uses Blink and V8; Firefox is based on Gecko and SpiderMonkey).
+But on iOS and iPadOS, Apple’s App Store rules insist that any software that offers any sort of web browsing functionality must be based on WebKit, including browsers such as Chrome, Firefox and Edge that don’t rely on Apple’s browsing code on any other plaforms where you might use them.
+Additionally, any Mac and iDevice apps with popup windows such as Help or About screens use HTML as their “display language” – a programmatic convenience that is understandably popular with developers.
+Apps that do this almost certainly use Apple’s WebView system functions, and WebView is based directly on top of WebKit, so it is therefore affected by any vulnerabilities in WebKit.
+The CVE-2022-32893 vulnerability therefore potentially affects many more apps and system components than just Apple’s own Safari browser, so simply steering clear of Safari can’t be considered a workaround, even on Macs where non-WebKit browsers are allowed.
+There’s also a kernel code execution hole dubbed CVE-2022-32894, by which an attacker who has already gained a basic foothold on your Apple device by exploiting the abovementioned WebKit bug…
+…could jump from controlling just a single app on your device to taking over the operating system kernel itself, thus acquiring the sort of “admininstrative superpowers” normally reserved for Apple itself.
+This almost certainly means that the attacker could:
+…and much more.
+Apple hasn’t said how these bugs were found (other than to credit “an anonymous researcher”), hasn’t said where in the world they’ve been exploited, and hasn’t said who’s using them or for what purpose.
+Loosely speaking, however, a working WebKit RCE followed by a working kernel exploit, as seen here, typically provides all the functionality needed to mount a device jailbreak (therefore deliberately bypassing almost all Apple-imposed security restrictions), or to install background spyware and keep you under comprehensive surveillance.
+Patch at once!
+At the time of writing, Apple has published advisories for iPad OS 15 and iOS 15, which both get updated version numbers of 15.6.1, and for macOS Monterey 12, which gets an updated version number of 12.5.1.
+The older supported versions of macOS (Big Sur and Catalina) haven’t yet received kernel-level patches, so the operating systems themselves haven’t been updated.
+But there’s a standalone Safari update, taking you to Safari 15.6.1, that you need to get if you’re still running macOS 10 Big Sur or macOS 11 Catalina.
+There’s also an update that takes watchOS to version 8.7.1, but that update doesn’t list any CVE numbers, and doesn’t have a security advisory of its own.
+There’s no word yest on whether tvOS is immune, or is vulnerable but has not yet been patched.
+For further information, watch this space, and keep your eyes on Apple’s official Security Bulletin portal page, HT201222.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Error on article
+latest update MacOS 12.5.2 
+Revision – 12.5.1
+Fixed, thanks.
+CVE-20220-32893
+should be:
+ CVE-2022-32893
+Though. that’s pretty handy for SEO to see who’s using your post 😉
+[at}mcbazza
+It was a typo, not a tracking trick :-)
+Fixed, thanks.
+watchOS update is for series 3 only.
+What about iOS 16 beta, affected too?
+Who can say? (Keep checking for updates is my recommendation! Beta products don’t seem to get Security Advisories via the normal channel, i.e. HT201222.)
+It would be shocking if iOS/iPadOS16 needed patching as well but they didn’t bother. I can’t see any updates on beta on my iPad so I’m hoping that means they don’t need to.
+How would a user know if the exploits had both been executed on their phone?
+The problem is…
+…that it’s almost impossible to say. Apple’s security advisories don’t provide any details that might give anything away, so although there might be obvious signs or anomalies to look out for, [a] you don’t know for sure what they are and [b] they might not be obvious enough for you to find them independently without some reliable and official hints on where to start.
+If you genuinely think that you might have been targeted by this pair of bugs, then all I can suggest is that you read up on how to do an official Apple DFU (device firmware update), which basically wipes the device and reinstalls the entire operating system from scratch. You use a special sequence of button-presses to enter DFU mode; you need to tether the phone to a trusted laptop via a USB cable; and the process will *remove all apps, settings and data currently installed*, so you basically have to set up your phone all over again, as if you just bought it new.
+(I have had two Apple phones now, and I did a DFU myself each time after getting back from the shop with my new purchase. Because I could. It adds a fair chunk of time, but most of that is just sitting around waiting for the firmware image to download and get copied across.)
+If we assume that this bug pair relates to some sort of “commercial spyware” toolkit typically bought and used by governments, then the good news is that the exploits probably haven’t been used widely (to try to keep them off the radar and thus to extend their shelf life), but the bad news is that they probably work well if deployed (governments don’t like spending big money on high-end exploits only to find they’re a flop).
+If we come up with any tips or tricks that reliably indicate that these hacks have been deployed on a device, we’ll update the article.
+In the meantime, I suggest: patch ASAP, and then read up on DFU if you really are worried that you were one of the targets.
+IIRC, a DFU will automatically (and only) install the very latest firmware, so doing a DFU will essentially wipe-and-patch at the same time. Don’t forget, though, that a DFU will obliterate any 2FA code-generator sequences you’ve set up on your device, so make sure you have a secure way to get back in to any important accounts, just as you would have to do if you lost your phone or damaged it beyond repair.
+Would be good if Apple patched older iOS versions too, otherwise this leads to the question whether iPhones and Macs have become expensive short lifespan purchases.
+Apple doesn’t support any older versions of iOS at the moment. Only the very latest iOS (15) gets updates.
+If you have a phone that can be upgraded to iOS 15, then that is your path forward. If you have an older model that can’t, then you are sunk. Either you have to keep on using it with no more updates ever (because iPhones are locked down to prevent you patching them yourself or installing an alternative operating system), or send them for recycling.
+Mac users current have slightly more choice, depending on the age    of their product, with macOS 12 (Monterey, the latest version), macOS 11 (Catalina) and macOS 10 (Big Sur) all getting updates. 
+(If Apple follows its usual pattern then Big Sur will get dropped when the next macOS comes out.)
+This is great news! I always update my software as soon as new patches are released.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,31 @@
+Sophos Home protects every Mac and PC in your home 
+Right at the start of June 2023, well-known Russian cybersecurity outfit Kaspersky reported on a previously unknown strain of iPhone malware.
+Most notable about the original story was its strapline: Targeted attack on [Kaspersky] management with the Triangulation Trojan.
+Although the company ultimately said, “We’re confident that Kaspersky was not the main target of this cyberattack”, the threat hunting it was called upon to do wasn’t on customer devices, but on its own.
+Because the malware was apparently injected quietly and automatically onto infected devices, without needing users to make a security blunder or to “click the wrong button” to to give the malware its chance to activate, it was reasonable to assume that the attackers knew about one or more closely-guarded zero-day exploits that could be triggered remotely over the internet.
+Typically, iPhone malware that can compromise an entire device not only violates Apple’s strictures about software downloads being restricted to the “walled garden” of Apple’s own App Store, but also bypasses Apple’s much vaunted app separation, which is supposed to limit the reach (and thus the risk) of each app to a “walled garden” of its own, containing only the data collected by that app itself.
+Usually, bypassing both App Store restrictions and app separation rules means finding some sort of kernel-level zero-day bug.
+That’s because the kernel is responsible for all the “walled gardening” protection applied to the device.
+Therefore pwning the kernel generally means that attackers get to sidestep many or most of the security controls on the device, resulting in the broadest and most dangerous sort of compromise.
+Well, three weeks after Kasperky’s original article, as a sort-of solstice present on 2023-06-21, Apple has pushed out patches for all of its supported devices (except for Apple TVs running tvOS), fixing exactly two critical security holes:
+Intriguingly, although Apple states no more than that the kernel zero-day (which we are assuming is directly connected with Kaspersky’s Triangulation Trojan attack) “may have been exploited on iOS before version 15.7”…
+…every updated system, including watchOS and all three supported flavours of macOS, has been patched against this very kernel hole.
+In other words, all systems (with the possible exception of tvOS, though that may simply not have received an update yet) are vulnerable, and it’s wise to assume that because attackers figured out how to exploit the bug on iOS, they might already have a very good idea of how to extend their attack to other Apple platforms.
+Patch early, patch often.
+Or, if you prefer rhyme: Do not delay/Just do it today.
+Head to Settings > General > Software Update right now to check that you’ve already got the needed patches, or to download them if you haven’t, and to push your device through the update installation process.
+We force-updated our iPhone 16 and our (Intel) macOS 13 Ventura systems as soon as the updates showed up; the installation process took our devices out of action to complete the patches for approximately 10 and 15 minutes respectively.
+Note that on macOS 11 Big Sur and macOS 12 Monterey, you’ll actually receive two updates, because the patches for the abovementioned WebKit bug are packaged up in a special update named Safari 16.5.1.
+After you’ve updated, here are the version numbers to look for, along with the Apple Bulletins where they’re officially described:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+i think computers are like children, always of concern, especially if your own.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

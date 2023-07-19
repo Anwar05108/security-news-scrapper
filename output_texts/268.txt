@@ -1,0 +1,83 @@
+Sophos Home protects every Mac and PC in your home 
+Remember quantum computing, and the quantum computers that make it possible?
+Along with superstrings, dark matter, gravitons and controlled fusion (hot or cold), quantum computing is a concept that many people have heard of, even if they know little more about any of these topics than their names.
+Some us are vaguely better informed, or think we are, because we have an idea why they’re important, can recite short but inconclusive paragraphs about their basic underlying concepts, and broadly assume that they’ll either be proved, discovered or invented in due course.
+Of course, practice sometimes lags far behind theory – controlled nuclear fusion, such as you might use for generating clean(ish) electrical energy, is no more than 20 years away, as the old joke goes, and has been since the 1930s.
+And so it is with quantum computing, which promises to confront cryptographers with new and faster techniques for parallel password cracking.
+Indeed, quantum computing enthusiasts claim the performance improvements will be so dramatic that encryption keys that could once comfortably have held out against even the richest and most antagonistic governments in the world for decades…
+…might suddenly turn out to be breakable in half an afternoon by a modest group of spirited enthusiasts at your local makerspace.
+Serious Security: Post-Quantum Cryptography (and why we’re getting it)
+
+
+Quantum computers pretty much claim to allow certain collections of calculations – algorithms that would usually need to be computed over and over again with ever-varying inputs until a correct output turned up – to be performed in a single iteration that simultaneously “evaluates” all possible outputs internally, in parallel.
+This supposedly creates what’s known as a superposition, in which the correct answer appears right away, along with lots of wrong ones.
+Of course, that’s not terribly exciting on its own, given that we already know at least one of the possible answers will be correct, but not which one.
+In fact, we’re not much better off than Schrödinger’s famous cat, which is happily, if apparently impossibly, both dead AND alive until someone decides to check up on it, whereupon it immediately ends up alive XOR dead.
+But quantum computing enthusiasts claim that, with sufficiently careful construction, a quantum device could reliably extract the right answer from the superposition of all answers, perhaps even for calculations chunky enough to chew through cryptographic cracking puzzles that are currently considered computationally infeasible. 
+Computationally infeasible is a jargon term that loosely means, “You will get there in the end, but neither you, nor perhaps the earth, nor even – who knows? – the universe, will survive long enough for the answer to serve any useful purpose.
+Some cryptographers, and some physicists, suspect that quantum computers of this size and computational power may not actually be possible, but – in a nice analogue of Schrödinger’s cat in that unopened box – no one can currently be certain either way.
+As we wrote when we covered this topic earlier this year:
+Some experts doubt that quantum computers can ever be made powerful enough to [be used against] real-world cryptographic keys.
+They suggest that there’s an operational limit on quantum computers, baked into physics, that will eternally cap the maximum number of answers they can reliably calculate at the same time – and this upper bound on their parallel-processing capacity means they’ll only ever be any use for solving toy problems.
+Others say, “It’s only a matter of time and money.”
+
+Two main quantum algorithms are known that could, if reliably implemented, present a risk to some of the cryptographic standards we rely on today:
+Clearly, part of the risk here is not only that we might need new algorithms (or bigger keys, or longer hashes) in the future…
+…but also that digital secrets or attestations that we create today, and expect to remain secure for years or decades, might suddenly become crackable within the useful lifetime of the passwords or hashes concerned.
+That’s why the US National Institute of Standards and Technology (NIST), back in 2016, started a long-running public competition for unpatented, open-source, free-for-all-uses cryptographic algorithms that are considered “post-quantum”, meaning that they can’t usefully be accelerated by the sort of quantum computing tricks described above.
+The first algorithms to be accepted as standards in Post-Quantum Cryptography (PQC) emerged in mid-2022, with four secondary candidates put in the running for possible future official acceptance. 
+(Sadly, one of the four was cracked by Belgian cryptographers not long after the announcement, but that just drives home the importance of permitting global, long-term, public scrutiny of the standardisation process.)
+Post-quantum cryptography – new algorithm “gone in 60 minutes”
+
+
+Well, last week, on 2022-12-21, US President Joe Biden enacted legislation entitled HR 7535: The Quantum Computing Cybersecurity Preparedness Act.
+The Act doesn’t yet mandate any new standards, or give us a fixed time frame for switching away from any algorithms we’re currently using, so it’s more of a reminder than a regulation.
+Notably, the Act is a reminder that cybersecurity in general, and cryptography in particular, should never be allowed to stand still:
+Congress finds the following:
+(1) Cryptography is essential for the national security of the United States and the functioning of the economy of the United States.
+(2) The most widespread encryption protocols today rely on computational limits of classical computers to provide cybersecurity.
+(3) Quantum computers might one day have the ability to push computational boundaries, allowing us to solve problems that have been intractable thus far, such as integer factorization, which is important for encryption.
+(4) The rapid progress of quantum computing suggests the potential for adversaries of the United States to steal sensitive encrypted data today using classical computers, and wait until sufficiently powerful quantum systems are available to decrypt it.
+It is the sense of Congress that –
+(1) a strategy for the migration of information technology of the Federal Government to post-quantum cryptography is needed; and
+(2) the governmentwide and industrywide approach to post-quantum cryptography should prioritize developing applications, hardware intellectual property, and software that can be easily updated to support cryptographic agility.
+
+The last two words above are the ones to remember: cryptographic agility.
+That means you need not only to be able to switch algorithms, change key sizes, or adjust algorithm parameters quickly…
+…but also to be willing to do so, and to do so safely, possibly at short notice.
+As an example of what not to do, consider the recent LastPass announcement that its customers’ backed-up password vaults had been stolen, despite the company’s initial assumption that they hadn’t.
+Serious Security: How to store your users’ passwords safely
+
+
+LastPass claims to use 100,100 iterations of the HMAC-SHA256 algorithm in its PBKDF2 password generation process (we currently recommend 200,000, and OWASP apparently recommends 310,000, but let’s accept “more than 100,000” as satisfactory, if not exemplary)…
+…but that’s only for master passwords created since 2018.
+It seems that the company never got round to advising users with master passwords created before then that theirs had been processed with just 5000 iterations, let alone requiring them to change their passwords and thereby to adopt the new iteration strength.
+This leaves older passwords at much greater risk of exposure to attackers using contemporary cracking tools.
+In other words, keep yourself cryptographically nimble,  even if there never is a sudden quantum computing breakthrough. 
+And keep your customers nimble too – don’t wait for them to find out the hard way that they could have been safe, if only you’d kept them moving in the right direction.
+You probably guessed, right at the top of this article, what we’d say at the end, so we shan’t disappoint:
+CYBERSECURITY IS A JOURNEY, NOT A DESTINATION.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Best article I have read in a while. I especially liked the explanation of quantum computing, which has clarified the practical application. Thx.
+Thanks for your kind words. Glad you found it useful.
+In another universe they didn’t pass it. And if can’t observe the earth as it was passed then it is still in superposition to that observer and both probabilities still exist….Arrghh my brain just exploded…or did it?
+Very well explained the possible issues with cyber security.
+I think Quantum cryptography is there already and quantum computing has done in its practical sense too. But not in academic atmosphere, rather in military or in NSA or pentagon. Indeed, it is not something to announce publicly. John Preskill is one of the pioneers of QC, Seth Lloyd is another one. If one looks up in their papers in last decades, find out that we are not far from quantum supremacy even in academic societies.
+Using SHA256 for key stretching doesn’t seem very logical. There’s a huge and extremely well-funded hardware industry built around ultra high performance SHA256 ASICs.
+IBM, Google, Honeywell, Intel, and Microsoft top the list of gate model quantum computer innovators.
+MIT and others are also using primitive qubits (quantum computing). Comparing quantum computing to cold fusion is a bit of a stretch, since there are some qc’s in use vs. no cold fusion reactors in use.
+(2^N1) = S
+F = 1/S
+1 – (S/F) = J
+Some context is needed.
+If we assume N1 is N-subscript-1 (so let’s just write it here as N, given there is no N2, N3, etc.) then we can eliminate S and F to get J = 1 – 2^2N but it’s not obvious what J and N represent.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

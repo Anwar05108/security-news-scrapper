@@ -1,0 +1,114 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re a Google Chrome or Microsoft Edge browser fan, you’re probably getting updates automatically and you’re probably up to date already.
+However… 
+…just in case you’ve missed any updates recently, we suggest you go and check right now, because the Chromium browser core, on which both Edge and Chrome are based, has patched not one but two zero-day remote code execution (RCE) bugs recently.
+Google is keeping the details of these bugs quiet for the time being, presumably because they’re easy to exploit if you know exactly where to look.
+After all, a needle is easy to find even in a giant haystack if someone tells you which bale it’s in before you start.
+Browser-based security vulnerabilities that lead to remote code execution are always worth taking seriously, especially if they’re already known to, and in use by, cybercriminals.
+And zero-days, by definition, are bugs that the Bad Guys found first, so that there were zero days on which you could have patched proactively.
+RCE means just what it says: someone outside your network, outside your household, outside your company – perhaps even on the other side of the world – can tell your device, “Run this program of my choosing, in the way I tell you to, without giving anything away to any users who are currently logged in.”
+Usually, when you’re browsing and a remote website tries to foist potentially risky content on you, you will at least receive some sort of warning, such as a Do you want to download this file? dialog or a popup asking you Are you really sure (Yes/No)?
+Sometimes, depending on the browser settings that you’ve chosen, or based on restrictions that have been applied for you by your IT sysadmins, you might even get a notification along the lines of, Sorry, that option/file/download isn't allowed.
+But a browser RCE bug generally means that simply by looking at a web page, without clicking any buttons or seeing any warnings, you might provide attackerswith a security loophole through which they could trick your browser into running rogue program code without so much as a by-your-leave.
+Common ways that this sort of security hole can be triggered include: booby-trapped HTML content; deliberately malconstructed JavaScript code; and malformed images or other multimedia files that the browser chokes on while trying to prepare the content for display.
+For example, if an image appeared to need only a few kilobytes of memory, but later turned out to include megabytes of pixel data, you’d hope your browser would reliably detect this anomaly, and not try to stuff those megabytes of pixels into kilobytes of memory space.
+That would cause what’s known as a buffer overflow, corrupting system memory in a way that a well-prepared attacker might be able to predict and exploit for harm.
+Likewise, if JavaScript code arrived that told your browser, “Here’s a string representing a time and date that I want to you remember for later,” you’d hope that your browser would only ever allow that data to be treated as a block of text.
+But if the JavaScript system could later be tricked into using that very same data block as if it were a memory address (in C or C++ terminology, a pointer) that denoted where the program should go next, a well-prepared attacker might be able to trick the browser into treating what arrived as harmless data as a remotely-supplied mini-program to be executed.
+In the jargon, that’s known as shellcode, from time-honoured Unix terminology in which code refers to a sequence of program instructions, and shell is the general name for a control prompt where you can run a sequence of commands of your choice.
+Imagine opening the Terminal app on a Mac, or a PowerShell prompt on Windows – that’s the sort of power that cybercriminal typically gets over you and your network if they’re able to use an RCE hole to pop a shell, as it’s jocularly called in the trade, on your device.
+Worse still, a “popped” remote shell of this sort generally runs entirely in the background, invisible to anyone currently sitting in front of the computer, so there are few or no tell-tale signs that a rogue operator is poking around and exploiting your device behind your back.
+When we gave our RCE examples above, we didn’t choose booby-trapped image files and rogue JavaScript code by chance.
+We highlighted those as examples because the two zero-day Chrome bugs fixed in the past few days are as follows:
+In case you’re wondering, V8 is the name of Chromium’s open-source JavaScript engine, where JavaScript embedded into web pages gets processed.
+And Skia is an open-source graphics library created by Google and used in Chromium to turn HTML commands and any embedded graphical content into the on-screen pixels that represent the visual form of the page. (The process of turning HTML into on-screen graphics is known in the jargon as rendering a page.)
+A type confusion bug is one that works similarly to the text-treated-as-a-pointer example we presented above: a chunk of data that ought to be handled under one set of security rules inside the JavaScript process ends up being used in an unsafe way.
+That’s a bit like getting a guest pass at the reception desk of a building, then finding that if you hold up the pass with your thumb in just the right place to obscure the “I am only a guest” label, you can trick the security guards inside the building into letting you go where you shouldn’t, and doing things you’re not supposed to.
+And an integer overflow is where an arithmetic calculation goes awry because the numbers got too big, in the same sort of way that the time wraps round once or twice a day on your clock.
+When you put an analog clock forward an hour from, say, 10-past-12 o’clock, the time wraps around to 10-past-1 o’clock, because the clock face is only marked from 1 to 12; similarly, when a digital clock gets to midnight, it flips back from 23:59 to 00:00, because it can’t count as far as 24.
+Wouldn’t it be handy if there were a single version number you could check for in every Chromium-based browser, and on every supported platform?
+Sadly, there isn’t, so we’ve reported whay we found below.
+At the time of writing [2023-04-24T16:00Z], the official laptop versions of Chrome seem to be: 112.0.5615.137 or 112.0.5615.138 for Windows, 112.0.5615.137 for Mac, and 112.0.5615.165 for Linux.
+Anything at or later than those numbers will include patches for the two zero-days above.
+Edge on your laptop should be 112.0.1722.58 or later.
+Unfortunately, Chrome and Edge on Android (we just updated ours) still seem to be 112.0.5615.136 and 111.0.1661.59 respectively, so we can only advise you to keep your eye out for updates over the next few days.
+Likewise, on iOS, our just-updated versions of Chrome and Edge show up respectively as 112.0.5615.70 and 112.0.1722.49, so we assume those versions will soon get updated to ensure both these zero-days are patched.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Very informative and technically addressed.
+Thanks. Glad you found it useful. We always try to give a bit more that just “here are the version numbers” :-)
+Sorry, useless. Is it a scam. ? I have entered both my Email adresses and the only reply I get is  ‘Sorry something seems to have gone wrong ‘  Why do I get this unhelpful message,?
+Hi, Simon.
+If you are talking about the newsletter signup box… I don’t look after that part of the system, so I am not sure what to say. (I have had the same problem trying to sign myself up before. When I started trying to investigate, it suddenly worked and that was that, because I couldn’t get it not to work ny more, so I no longer had a symptom to chase down, if you know what I mean.)
+Would you mind contacting me directly by email (tips@sophos.com), so I can try to help you get it fixed? If you would like to subscribe to our newsletter than we should like to have you :-)
+HtH.
+“via a crafted HTML page”
+“booby-trapped HTML content”
+Still too vague.
+I guess I should assume since V8 is where the weakness lies, javascript + html and not just
+some corruptive html by itself can get hold of the CPU instruction pointer, right or wrong?
+If so, whose javascript code?   If it comes from the attacker,  then I might have a chance
+of suppressing it with my old friend UMatrix which always runs in whitelist mode.   No page-hijacking domains can run their javascript.  On the other hand, if it’s some screwy alien html messing with the good guy’s javascript, well that’s different.
+The CVE’s are useless to me, so far, in getting a clue on this.
+CVEs rarely include much, if any, detail (and in this case, it seems the details are being withheld on purpose anyway).
+Yes, it’s reasonable to assume that pure, plain HTML alone isn’t enough to trigger this bug, given that it is in V8, the JavaScript handler.
+But HTML files can either contain links to script files that get sucked down at runtime, or include embedded JavaScript code inline. 
+(Likewise, HTML files can link to or directly contain graphics such as SVG and PNG images.)
+I assume that’s why the CVE just mentions HTML files, given that’s generally the starting point for everything else that gets sucked into your browser when it renders a specific web page.
+I read “HTML content” simply as “the served-up files that constitute a web page you’ve visited”.
+You are right that a script blocking tool can help by keeping out rogue scripts from unknown sites, though many people find them quite hard work to set up (you may end up with a rather big allowlist of sites that you trust, and if a hosting company ends up in your allowlist, you could be letting through a lot more than you hoped).
+As for uMatrix… is that still going? I thought the project maintainer stopped working on it a couple of years ago? Last release on GitHub was 2021…
+Good to report, but this has been out for over 2 weeks now…
+Not quite.
+The patch-related links in the CVE entries linked to above will show you that the first 0-day was patched on 2023-04-14 and the second on 2023-04-18, both of which were under 2 weeks ago.
+Are the two bugs related? Are the same crooks using them in combination, or are two different groups using them separately? We don’t know, but they do sound as though they’d give pretty good service to spyware implanters if used in combination.
+Thus the article.
+We do start off by suggesting that most people are probably updated already, but that it’s worth checking anyway if you haven’t verified your updates for a while.
+And we thought we’d take the opportunity to explain some of the jargon in these bug reports while we were about it. 
+As a previous commenter pointed out, the CVEs alone aren’t going to teach you much. They’re just jargon rich micro-summaries for people who are already fluent in cybersecurity technobabble.
+So, we thought it was indeed “good to report”, as you put it. That was the point of the piece – not to break the news, which is indeed not new, but to report it and provide some handy additional information at the same time.
+HtH.
+Great piece, but especially the analogies for the mechanisms of the exploits. Explaining integer overflows via clock display wrapping is *chef’s kiss*.
+You used to be able to say, “It’s like a car’s odometer when it rolls over past 99,999 kilometres,” which was an instantly excellent visual metaphor.
+But most of today’s drivers have never seen odometers with digits that “roll”, in the same way they’ve never truly *dialled* a phone or *filmed* anything.
+So I decided that the time is the way to explain it these days, because there’s still no such thing as 24 o’clock, even on a clock that doesn’t “roll” (or rotate in any way).
+Even when a leap second happens, it is officially designated as 23:59:60, not 24:00:00. Both would make sense, but having 23:59:59 -> 23:59:60 -> 00:00:00 seems slightly less weird than having 23:59:59 -> 24:00:00 -> 00:00:00.
+Unfortunately, the Linux installer for 112.0.5615.165, hangs while trying to install this version.
+Any Linux Chrome users care to share their experience? Is this a download/update via Google itself (have never used Chrome on Linux, only Chromium) or is it a package provided by your distro?
+On my Install (Ubuntu 22.04 +LXDE) I have Chromium Version 112.0.5615.49 as a snap, and “sudo snap refresh chromium” reports “snap “chromium” has no available updates”. In the Software store, the .165 snap is reported as “development”.
+As it’s not my primary browser, I won’t force an update (presumably by downloading a copy direct or over-installing the development copy?) so I will wait for it to catch up.
+Snaps often seem to lag a number of days (occasionally weeks) behind release of new versions – which I find a bit disconcerting.
+Remember when Windows updates were as complicated as as could be, while Linux users used type in a command line likeslackpkg update; slackpkg install-new; slackpkg upgrade-all, and then go straight to the pub because it was Friday evening (as it is right now, co-incidentally)?
+How times change, eh :-)
+For me (using Ubuntu 20.04 for work), a package is provided by my distro.
+I don’t actively use Linux very much outside of work, though, so I can’t speak to how it is for most people.
+I’m old. Do you know how many titles of articles I’ve read over the years demand you run to your computer update because your attached to the internet?
+Guess what, they’re are exploits that exist now that you’re vulnerable to that won’t be fixed till next year. Go update whenever, it makes no difference. Odds are they would have gotten you by now.
+I hear you, but you’re neglecting one important thing: once patches come out, more people generally get to figure out ways to exploit the holes because they know where to focus. And, as the saying goes, “Attacks only ever get better.” Why let a zero-day remain a zero-day on your computer for a whole year longer than you need to?
+What you’re saying simply doesn’t add up. The odds are, in fact, that the crooks against whom these particular patches are aimed *didn’t* get to you by now. But if you wait another week/month/year to patch simply because they could have hit you already if they really wanted… sorry. To me, that does not compute. The odds that if they haven’t hit you yet but might hit you in the next year if you don’t patch are at the very best zero, but probably at least a bit hgher than that. So why expose yourself to risks you could prevent, if only you’d take a few minutes now.
+(I just got trolled, didn’t I?)
+Does this affect other Chromium-based browsers such as Brave?  If so, what versions number(s) should we be looking for?  Thanks.
+I’m assuming so. 
+Brave’s release notes for 2023-04-19 say “Upgraded Chromium to 112.0.5615.138”. That was Brave v1.50.121. There was a separate update for Linux, a day later, that says “Brave v1.50.125 (Linux only)”. 
+I looked here:
+https://brave.com/latest/
+HtH.
+Thanks, Paul.  I did some further digging and found that Vivaldi, another Chromium-based browser, has been updated for these vulnerabilities in Version 6.0 (2979.11).
+Also, according to another site, “Mobile browsers on iOS and iPadOS use Safari’s WebKit engine, rather than Chromium’s Blink and V8 engines. Therefore, this particular vulnerability does not affect the iOS or iPadOS versions of any Web browsers.”  If that’s correct, you may wish to revise your article accordingly.
+Thanks again for the heads up on these vulnerabilities.
+Yes, you’re right about iOS – to get in the App Store all iPhone (and iPad) software must dump its usual browser engine and use WebKit. I probably should have stated that above :-) There were other non-0-days fixed in recent Chrome/Edge patches, though, so keep those checks up! There’s still lot left in a browser even with the renderer and the JS engine unbolted and lifted out…
+I use Chrome but I know Edge is also on my laptop.  So should I check both for updated versions?
+I am old enough to have dialed a phone and gotten film developed after my vacations, so I’m just trying to be updated without actually understanding much of the article.
+Yes, both those browsers include their own copies of the core Chromium browser code (which in turn includes its own copies of V8 and Skia, the two subcomponents in which the bugs were found). 
+So you need to update both of them.
+All browsers on iOS are forced to use WebKit so this doesn’t effect the iOS versions of Chrome and Edge since they don’t use Chromium.
+Yes. Someone already pointed this out; see above for further discussion. (I call it a “discussion” somewhat grandly – a Q and a couple of As.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

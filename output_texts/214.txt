@@ -1,0 +1,76 @@
+Sophos Home protects every Mac and PC in your home 
+Sadly, we’ve needed to cover the DEADBOLT ransomware several times before on Naked Security.
+For almost two years already, this niche player in the ransomware cybercrime scene has been preying mainly on home users and small businesses in a very different way from most contemporary ransomware attacks:
+DEADBOLT ransomware rears its head again, attacks QNAP devices
+
+
+If you were involved in cybersecurity about ten years ago, when ransomware first started to become a massive money-spinner for the cyberunderworld, you will remember with no fondness at all the “big name brands” of ransomware back then: CryptoLocker, Locky, TeslaCrypt, and many more.
+Typically, the early players in the crime of ransomware relied on demanding just-about-affordable-if-you-skipped-going-to-the-pub-for-a-month-or-three blackmail payments from as many individuals as they could.
+Unlike today’s major-league ransomware crooks, whom you could summarise as “aim to extort companies for millions of dollars hundreds of times”, the early players went down a more consumer-minded route of “blackmail millions of people for $300 each” (or $600, or $1000 – the amounts varied).
+The idea was simple: by scrambling your files right there on your own laptop, the crooks didn’t need to worry about internet upload bandwidth and trying to steal all your files so they could sell them back to you later.
+They could leave all your files sitting in front of you, apparently in plain sight, yet totally unusable. 
+If you tried to open a scrambled document with your word processor, for instance, you’d either see useless pages full of digital shredded cabbage, or a popup message apologising that the app didn’t recognise the file type, and couldn’t open it at all.
+Usually, the crooks would go out of their way to leave your operating system and your apps intact, focusing on your data instead.
+They didn’t actually want your computer to stop working completely, for several important reasons.
+Firstly, they wanted you see and feel the pain of how near but yet so far away your precious files were: your wedding photos, baby videos, tax returns, university course work, accounts receivable, accounts payable, and all the other digital data you’d been meaning to back up for months but hadn’t quite got round to yet.
+Secondly, they wanted you to see the blackmail note they’d left IN HUGE LETTERS WITH DRAMATIC IMAGERY, installed as your desktop wallpaper so you couldn’t miss it, complete with instructions on how to acquire the cryptocoins you’d need to buy back the decryption key to unscramble your data.
+Thirdly, they wanted to make sure you could still get online in your browser, first to conduct a futile search for “how to recover from XYZ ransomware without paying”, and then, as despondency and desperation set in, to get hold of a buddy you knew could help you with the cryptocurrency part of the rescue operation.
+Unfortunately, the early players in this odious criminal plot, notably the CryptoLocker gang, turned out to be fairly reliable at replying quickly and accurately to victims who paid up, earning a sort of “honour amongst thieves” reputation.
+This seemed to convince new victims that, for all that paying up burned a giant hole in their finances for the near future, and that it was a bit like doing a deal with the devil, it would very likely get their data back.
+Modern ransomware attacks, in contrast, typically aim to put all the computers in entire companies (or schools, or hospitals, or municipalities, or charities) on the spot at the same time. But creating decryption tools that work reliably across a whole network is a surprisingly difficult software engineering task. In fact, getting your data back by relying on the crooks is a risky business. In the 2021 Sophos Ransomware Survey, 1/2 of victims who paid up lost at least 1/3 of their data, and 4% of them got back nothing at all. In 2022, we found  we found that the halfway point was even worse, with 1/2 of those who paid up losing 40% or more of their data, and only 4% of them getting all their data back. In the infamous Colonial Pipeline ransomware attack, the company said it wasn’t going to pay up, then notoriously forked over $4,400,000 anyway, only to find that the decryption tool the criminals provided was too slow to be any use. So they ended up with all the recovery costs they would have had if they hadn’t paid the crooks, plus a $4.4m outgoing that was as good as flushed down the drain. (Amazingly, and apparently due to poor operational cybersecurity by the criminals, the FBI ultimately recovered about 85% of the bitcoins paid out by Colonial. Don’t rely on that sort of result, however: such large-scale clawbacks are a rare exception, not the rule.)
+The DEADBOLT crooks, it seems, have found a lucrative niche of their own, whereby they don’t need to break into your network and work their way onto all the computers on it, and they don’t even need to worry about sneaking malware onto your laptop, or any of the regular computers in your household, office, or both.
+Instead, they use global network scans to identify unpatched NAS devices (network attached storage), typically those from major vendor QNAP, and directly scramble everything on your file server device, without touching anything else on your network.
+The idea is that if you’re using your NAS as most people do at home or in a small business – for backups, and as primary storage for large files such as music, videos and images – then losing access to everything on your NAS is likely to be at least as catastrophic as losing all the files on all your laptop and desktop computers, or perhaps even worse.
+Because you probably leave your NAS device turned on all the time, the crooks can break in whenever they like, including when you’re most likely to be asleep; they only need to attack one device; they don’t need worry whether you’re using Windows or Mac computers…
+…and by exploiting an unpatched bug in the device itself, they don’t need to trick you or anyone else in your network into downloading a suspicious file or clicking through to a dubious website to get their initial foothold.
+The crooks don’t even need to worry about getting a message to you via email or your desktop wallpaper: they deviously rewrite the login page in your NAS device’s web interface, so as soon as you next try to login, perhaps to find out why all your files are messed up, you get a faceful of blackmail demand.
+Even more sneakily, the DEADBOLT crooks have figured out a way to deal with you that avoids any email correspondence (possibly traceable), requires no dark web servers (potentially complicated), and sidesteps any negotiation: it’s their way, or the data highway.
+Simply put, each victim gets presented with a one-off Bitcoin address to which they are told to send BTC 0.03 (currently [2022-10-21] just under $600):
+
+The transaction itself acts both as a message (“I have decided to pay up”), and as the payment itself (“and here are the funds”).
+The crooks then send you $0 in return – a transaction that has no financial purpose, but that contains a 32-character comment. (Bitcoin transactions can contain additional data in  field known as OP_RETURN that doesn’t transfer any funds, but can be used to include comments or notes.)
+Those 32 characters are hexadecimal digits that represent a 16-byte AES decryption key that’s unique to your scrambled NAS device.
+You paste the hexadecimal code from the BTC transaction into the ransomware “login page”, and the process fires up a decryption program left behind by the crooks that unscrambles (you hope!) all your data.
+But here’s a fascinating twist to this tale.
+The Dutch police, working together with a company with cryptocurrency expertise, came up with a sneaky trick of their own to counteract the DEADBOLT criminals’ sneakiness.
+They noticed that if a victim sent a Bitcoin payment to buy back the decryption key, the crooks apparently replied with the decryption key as soon as the BTC payment transaction hit the Bitcoin network in search of someone to “mine” it…
+…rather than waiting until anyone in the Bitcoin ecosystem reported that they had actually mined the transaction and thus confirmed it for the first time.
+In other words, to use an analogy, the crooks let you walk out of their store with the product before waiting for your credit card payment to go through.
+And although you can’t explicitly cancel a BTC transaction, you can send two conflicting payments at the same time (what’s known in the jargon as a “double-spend”), as long as you’re happy that the first one to get picked up, mined, and “confirmed” is the one that will go through and ultimately get accepted by the blockchain.
+The other transaction will be ultimately be discarded, because Bitcoin doesn’t allow double-spending. (If it did, the system couldn’t work.)
+Loosely speaking, once Bitcoin miners see that a not-yet-processed transaction involves funds that someone else has already “mined”, they simply stop working on the unfinished transaction, on the grounds that it’s now worthless to them.
+There’s no altruism involved here: after all, if the majority of the network has already decided to accept the other transaction, and to embrace it into the blockchain as “the one the community accepts as valid”, the conflicting transaction that hasn’t gone through yet is worse than useless for mining purposes.
+If you carry on trying to process the conflicting transaction, then even if you do successfully “mine” it in the end, no one will accept your second-past-the-post confirmation, because there’s nothing in it for them to do so… 
+…so you know in advance that you’ll never get any transaction fees or Bitcoin bonus for your redundant mining work, and thus you know up front that there is no point in wasting any time or electricity on it.
+As long as no one person (or mining pool, or cartel of mining pools) ever controls more than 50% of the Bitcoin network, no one should ever be in a position to command enough time and energy to “deconfirm” an already-accepted transaction by creating a new chain of confirmations that outstrips all the existing ones.
+Given that we just mentioned transaction fees, you can probably see where this is going.
+When a miner successfully confirms a transaction that ultimately gets accepted onto the blockchain (in fact, a bundle of transactions), they get a reward in newly-minted bitcoins (currently, the amount is BTC6.25), plus all the fees offered for each transaction in the bundle.
+In other words, you can incentivise miners to prioritise your transaction by offering to pay a bit more in transaction fees than everyone else…
+…or if you aren’t in a hurry, you can offer a low transaction fee, and get slower service from the mining community.
+In fact, if you really don’t care how long it takes, you can offer to pay zero bitcoins as a transaction fee.
+Which is what the Dutch cops did for 155 victims from 13 different countries who had asked for help in getting their data back.
+They sent out 155 payments from their own selection of BTC addresses to the crooks, all offering to pay transaction fees of zero.
+The crooks, apparently relying on a scripted, automatic process, promptly sent back the decryption keys.
+Once the cops had each decryption key, they immediately sent out a “double-spend” transaction…
+…this time with a tempting fee offered in return for paying the very same funds that they originally offered to the crooks back to themselves instead!
+Guess which transactions got the attention of the miners first? Guess which ones got confirmed? Guess which transactions came to nothing?
+The proposed payments to the criminals got dropped like hot potatos by the Bitcoin community, before the crooks got paid, but after they’d revealed the decryption keys.
+Great news…
+…except, of course, that this trap (it’s not a trick if it’s lawfully done!) won’t work again.
+Unfortunately, all the crooks have to do in future is to wait until they can see their payments are confirmed before replying with the decryption keys, instead of triggering immediately on the first appearance of each transaction request.
+Nevertheless, the cops outwitted the crooks this time, and 155 people got their data back for nothing.
+Or at least for close to nothing – there’s the small matter of the transaction fees that were necessary to make the plan work, though at least none of that money went directly to the crooks. (The fees go to the miners of each transaction.)
+It may be a comparatively modest outcome, and it may be a one-off victory, but we commend it nevertheless!
+Short of time or expertise to take care of cybersecurity threat response? Worried that cybersecurity will end up distracting you from all the other things you need to do?
+Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+Google’s May 2022 updates for Android are out.
+As usual, the core of Android received two different patch versions.
+The first is dubbed 2022-05-01, and contains fixes for 13 CVE-numbered vulnerabilities.
+Fortunately, none of these are currently being exploited, meaning that there are no zero-day holes known this month; none of them directly lead to remote code execution (RCE); and none of them are flagged as Critical.
+Nevertheless, at least one of these vulnerabilties could allow an entirely innocent-looking app (one that needs no special privileges at all when you install it) to attain what amounts to root level access.
+If you’re wondering why we aren’t giving you specific CVE numbers for the most serious vulnerabilities, that’s because Google itself doesn’t detail which vulnerabilities present what risks, but instead merely states the potential side-effects of “the most severe vulnerability” in each group of bugs.
+The second tranche of updates is dubbed 2022-05-05, an official identifier that covers all the patches provided by 2022-05-01, plus 23 more CVE-numbered bugs in numerous parts of the operating system.
+Components affected by these bugs include the Android kernel itself, along with various closed-source software modules that are provided to Google by hardware makers MediaTek and Qualcomm.
+Ideally, Google wouldn’t split the monthly updates apart in this fashion, but would provide a single, unified set of patches and expect all vendors of Android devices to get up-to-date as soon as possible.
+However, as the company admits in its bulletins, there are “two security patch levels so that Android partners have the flexibility to fix a subset of vulnerabilities that are similar across all Android devices more quickly.” 
+We can understand Google’s approach, which presumably reflects the assumption that it’s better if everybody fixes at least something and some vendors fix everything…
+…than if some vendors fix everything but others fix nothing at all.
+Nevertheless, Google publicly notes that “Android partners are encouraged to fix all issues in this bulletin and use the latest security patch level.”
+In the modern vernacular, our opinion on this issue is simple and clear: +1.
+Although there’s an open-source distribution of Android known a AOSP (short for Android Open Source Project), the Android distribution  you’re running on your phone or tablet right now almost certainly includes numerous closed-source components.
+Google Android, for example, is a bit like Apple’s iOS inasmuch as it’s based on an open-source kernel and a plethora of low-level open source tools, but  with various proprietary modules, application programming interfaces and apps layered on top of that.
+But even third-party Android versions usually include numerous closed-source software modules, for example to operate the low-level hardware in the device, such as the mobile phone radio (code for which is strictly and variously regulated in most countries), Wi-Fi, Bluetooth and so on.
+Unfortunately, this month’s 2022-05-05 patches include a fix dubbed CVE-2021-35090 that is denoted Critical, but about which no public information is available.
+Google says no more that that this bug, plus a further ten 2021-era CVE bugs, are “vulnerabilities [that] affect Qualcomm closed-source components.”
+Not even Google, it seems, knows what was fixed in Qualcomm’s binary “blobs”, or if it does, it’s not saying. 
+We’re therefore assuming that any bug deemed Critical involves some sort of remote code execution (RCE), and could therefore result in a remote attacker sneaking spyware or other malware onto your device without needing any sort of tap-or-click assistance on your part.
+Blob, if you’re wondering, is a jargon word from BLOB, a comedy acronym for Binary Large Object, a name that’s meant to remind you that even though you need it and use it, you will probably never be quite sure how it works, how it’s structured, or even what it’s actually for.
+Owners who not only have Google Android but also use Google hardware (Pixel 3a and later) already have Pixel-specific updates available, including patches for 11 addditional CVE-numbered bugs, two of which are deemed Critical.
+Ironically, the two critical Pixel bugs are in critical low-level components, as follows:
+A bootloader bug, a data leakage hole in a dedicated security chip, a flaw that could allow the most innocent-looking app to go rogue, and a critical vulnerability in an undisclosed component used in an unknown range of Android devices means…
+…patch early, patch often. (And yes, we always say that, which is why we said it here!)
+On most Google devices, including many if not most non-Google Android variants (we’re using GrapheneOS), you can check for updates and fetch them on demand by going to System > System update > Check for updates.
+To find the exact details of your current Android kernel, version number and security patch level, go to System > About phone > Android version.
+Ideally, you’re looking for the 5 May 2022 security update (this corresponds to the all-encompassing 2022-05-05 patch level above), and a kernel showing a build date of early May 2022, as seen below.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“You can unlock the bootloader on Pixel devices to install an alternative, non-Google operating system, but every time you unlock (or re-lock) the bootloader, all user data is forcibly wiped from the device in a so-called factory reset.”
+Does it mean that a rogue franchisee of a cellphone company  can replace a Pixel phone’s OS and use it in targeted attacks without the victim noticing anything? After all, how hard it is for a foreign government to have their “people” become franchisee?
+In theory, yes, but the super-low-level bootstrap firmware in Pixels (well, in my 4a, anyway) will show a warning at boot time if you’re not booting a standard Google flavour of Android, before the modified firmware starts up. 
+This puts up a yellow warning telling you that you’re not booting a regular OS, which is fairly obvious, with a note that you can press Volume Up (I think it is) to give up booting altogether.
+The modified OS might also trigger warnings while running that it doesn’t pass Google’s own security checks if you try to use your Google account.
+So you could be sold a modified “new” phone that still looks Google-esque, but I don’t know of any hack to suppress the boot-time warning that you aren’t running an official Google firmware version. Therefore I assume it would be unlikely that you would not notice that you were running a sneakily reflashed firmware.
+Thanks Paul for the information.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

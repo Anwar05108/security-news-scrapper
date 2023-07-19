@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+When we woke up this morning, our cybersecurity infofeed was awash with “news” that Apple had just patched a security hole variously described a “gnarly bug”, a “critical flaw” that could leave your Macs “defenceless”, and the “Achilles’ heel of macOS”.
+Given that we usually check our various security bulletin mailing lists before even looking outside to check the weather, primarily to see if Apple has secretly unleashed a new advisory overnight…
+…we were surprised, if not actually alarmed, at the number of writeups of a bug report we hadn’t yet seen.
+Indeed, the coverage seemed to invite us to assume that Apple had just released yet another update, just a week after its previous “update for everything“, itself less than two weeks after a mysterious update for iOS 16, which turned out to have been a zero-day attack apparently being used to implant malware via booby-trapped web pages, though Apple neglected to mention that at the time:
+Apple pushes out iOS security update that’s more tight-lipped than ever
+
+
+This morning’s “news” semeed to imply that Apple had not merely pushed out another update, but also released it silently by not announcing it in an advisory email, and not even listing it on the company’s own HT201222 security portal page. 
+(Keep that link HT201222 link handy if you’re an Apple user – it’s a useful starting point when patch confusion arises.)
+The good news, however, is that if you followed our suggestion from a week ago to check your Apple devices had updated (even if you expected them to do so of their own accord), you’ve already got any fixes you may need to protect you from this “Achilles” bug, more particularly known as CVE-2022-42821.
+This isn’t a new bug, it’s just some new information about a bug that Apple fixed last week.
+To be clear, if Apple’s security bulletins have it right, this bug doesn’t apply to any of Apple’s mobile operating systems, and either never applied to, or had already been fixed, in the macOS 13 Ventura version.
+In other words, the bug described was relevant only to users of macOS 11 Big Sur and macOS 12 Monterey, was never a zero-day, and has already been patched.
+The reason for all the fuss seems to be the publication yesterday, now that the patch has been available for several days, of a paper by Microsoft rather dramatically entitled Gatekeeper’s Achilles heel: Unearthing a macOS vulnerability.
+Apple had, admittedly, given only a cursory summary of this bug in its own advisories a week ago:
+Exploiting this bug isn’t terribly difficult once you know what to do, and Microsoft’s report explains what’s needed pretty clearly.
+Despite some of the headlines, however, it doesn’t exactly leave your Mac “defenceless”.
+Simply put, it means a downloaded app that would normally provoke a pop-up warning that it wasn’t from a trusted source wouldn’t be correctly flagged by Apple’s Gatekeeper system.
+Gatekeeper would fail to record the app as a download, so that running it would sidestep the usual warning.
+(Any active anti-malware and threat-based behaviour monitoring software on your Mac would still kick in, as would any firewall settings or web filtering security software when you downloaded it in the first place.)
+It’s not exactly a “critical flaw” either, as one media report suggested, especially when you consider that Microsoft’s own Patch Tuesday updates for December 2022 fixed a very similar sort of bug that was rated merely “moderate”:
+Patch Tuesday: 0-days, RCE bugs, and a curious tale of signed malware
+
+
+Indeed, Microsoft’s similar vulnerability was actually a zero-day hole, meaning that it was known and abused outside the cybersecurity community before the patch came out.
+We described Microsoft’s bug as:
+Simply put, the Windows security bypass was caused by a failure in Microsoft’s so-called Mark of the Web (MOTW) system, which is supposed to add extended attributes to downloaded files to denote that they came from an untrusted source.
+Apple’s security bypass was a failure in the similar-but-different Gatekeeper system, which is supposed to add extended attributes to downloaded files to denote that they came from an untrusted source.
+To be fair to Microsoft, the researcher who responsibly disclosed the Gatekeeper flaw to Apple, and who wrote the just-published report, didn’t use the words “critical” or “defenceless” to describe either the bug or the condition in which it placed your Mac…
+…although naming the bug Achilles and headlining it as as an Achilles’ heel was probably a metaphorical leap too far.
+After all, in Ancient Greek legend, Achilles was almost totally immune to injury in battle due to his mother dipping him in the magical River Styx as a baby. 
+But she had to hold onto his heel in the process, leaving him with a single vulnerable spot that was ultimately exploited by Paris to kill Achilles – definitely a dangerous vulnerability and a critical exploit (as well as being a zero-day flaw, given that Paris seems to have known where to aim in advance).
+Fortunately, in both these cases – Microsoft’s own zero-day bug, and Apple’s bug as found by Microsoft – the security bypass flaws are now patched
+So, getting rid of both vulnerabilities (effectively dipping Achilles back into the River Styx while holding his other heel, which is probably what his mother should have done in the first place) is as easy as making sure you have the latet updates.
+You know in advance
+     What we’re going to say
+Which is, “Do not delay,
+     Simply patch it today.”
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+typo: simiilar
+Fixed, thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

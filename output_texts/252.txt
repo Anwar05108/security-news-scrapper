@@ -1,0 +1,66 @@
+Sophos Home protects every Mac and PC in your home 
+One of the first low-level network tools that any computer user learns about is the venerable ping utility.
+Named after the eponymous sound effect from any and every old-school war movie scene involving submarines, the command is a metaphorical echo (see what we did there?) of the underwater version of RADAR known as SONAR.
+You send out a p-i-n-g (more like a d-o-i-n-n-n-n-g noise, in reality) into the briny depths, and by measuring how long it takes for its eerie echo to come back to you, and by estimating the speed of sound in the surrounding ocean, you can compute the distance to the object that produced the echo.
+Intriguingly, given that you’ve probably heard the abbreviation TCP/IP used as a generic description of the protocol glue that powers the internet, ping doesn’t technically use TCP/IP at all.
+In fact, TCP/IP is short for transmission control protocol over the internet protocol, and refers to a fairly high-level mechanism for sending data over the internet in such a way that the network itself puts in a lot of the “did that actually work properly?” effort for you. 
+For example, in TCP connections, any chunks of data you send are guaranteed either to arrive intact at the other end or to cause an error so you know they didn’t make it.
+Furthermore, even if different data chunks end up taking different routes across the internet (for example due to load balancing, temporary outages, or other recoverable errors), and even if some chunks take longer to arrive than others, TCP data will be correctly buffered up and presented in the right order at the other end.
+The ping command, however, is typically used to verify if a computer you’re interested in is online at all, especially if it’s not accepting the sort of high-level TCP connections you’d expect, such as receiving email or allowing SSH logins.
+This quickly helps you determine whether an outage is likely to be due to the network or the server itself going down, or due to individual services running on that server failing to start correctly. 
+As a result, ping uses a much lower-level protocol than TCP.
+Indeed, ping doesn’t even use TCP’s more casual cousin UDP, short for user datagram protocol, which is a way of transmitting data chunks that is fast and easy, but is popularly referred to as send-and-hope (or, if you are a cynical sort, as spray-and-pray).
+UDP itself doesn’t inform you whether your data got to the other end or not, and even if it arrives intact, UDP doesn’t keep track of the order in which your packets were originally sent, so it can’t rearrange them at the other end if they get there out of sequence.
+Ping, for what it’s worth, uses a very-low-level-indeed protocol, specially designed for troubleshooting and network reconfiguration purposes, known as ICMP, or internet control message protocol.
+Typically handled right in the operating system kernel, so that ICMP/IP packets are almost certain to get through even if no higher-level networking software has come up correctly, ICMP notably includes two special message types:
+Like this:
+To see a ping in action at a slightly lower level, we’ll use the Lua code that you can find at the end of the article to construct an ICMP Echo packet of our own, and to read the reply that comes back, if any:
+By the way, we needed to use sudo above to run our script with superuser privileges, because we created what’s known as a raw IP socket – one that can be crafted into any underlying format we like, including TCP, UDP and, as needed here, ICMP.
+On many Linux/Unix systems, the ping command supplied by your distro works without explicitly being given root privileges, usually because it’s installed with special security capabilities, or with its setuid flag set, meaning it starts off with running under a different user account than the user who ran it.
+Well-designed ping programs, of course, will automatically discard their extra privileges once they’ve opened up the raw socket they need. 
+We omitted this privilege-dropping code from our sample script for the sake of brevity. You can use the posix.unistd.setpid() function to switch to an unprivileged account after creating the socket, but before sending or receiving any data.
+As you might recognise in the data dump from our script above, the network socket function we’re using to read back data from the responding server includes not only the ICMP Echo Reply data, but also the low-level IP (internet protocol headers) in the underlying packet.
+We haven’t tried to parse or otherwise process this data, but the FreeBSD ping program needs to do so in order to make sense of the reply, including making sense of any error messages that come back. 
+If the ping gets rejected in some way, the Echo Reply will typically include not only its own IP headers (as seen above) but also a reference copy of the IP headers and the ICMP data that appeared in the original outbound request.
+IPv4 packet headers usually look much like you see above, where the IP headers start with 45 00 00 37... and continue for 20 bytes in total, up to and including the bytes shown as ...XX XX XX XX, which is the IP address of my laptop.
+Like this:
+FreeBSD’s ping programmers, it seems, assumed that headers of this sort would, indeed, always be exactly 20 bytes long, based on that header-length value in the first byte of 0x45, denoting IPv4 (0x4?) with a 5-DWORD (0x?5), or 20-byte, header.
+With just 20 bytes to worry about, the programmers allocated fixed-size buffers on the stack where they could keep a copy of the IP headers in the reply, plus any embedded IP headers from the original request, if there was an error condition to handle.
+You can guess where this is going.
+That first byte in the IPv4 header can legally have any value from 0x45 (the minimum header size of 5 DWORDs, or 20 bytes, as shown) up to 0x4F (denoting 15 DWORDs, because 0xF is decimal 15, or 60 bytes of header data in total), thus neatly allowing for an optional extra 40 bytes of header data.
+Those rare, but legal, extra header bytes can be used for various funky and unusual “features” with curious names such as Selective Directed Broadcast, Experimental Flow Control and Upstream Multicast Packet – things that we’ve heard of but never knowingly used, or even seen.
+As you can imagine, given that those extra fields are almost never used, you might never see an IPv4 packet with anything other than 0x45 at the start, and with 20 bytes of header data in total, unless you’ve run into a bunch of cybercriminals who are ready to put you to the test.
+Sadly, there’s not much to stop an attacker from rigging up a server that guesses whether you’re using FreeBSD, and deliberately generates oversized ICMP/IP Echo Reply packets in order to provoke a stack buffer overflow inside your ping program.
+If ever you check to see if their server is active (which you might do even, or perhaps especially, if you think it’s suspicious!), you could be targeted with a booby-trapped reply.
+At best, your ping program will crash; at worst, however, as the FreeBSD security advisory generously admits, “it may be possible for a malicious host to trigger remote code execution in ping.”
+Fortunately, as the FreeBSD authors also point out, “[t]he ping process runs in a capability mode sandbox on all affected versions of FreeBSD and is thus very constrained in how it can interact with the rest of the system at the point where the bug can occur.”
+In other words, you definitely need to patch, but the risks can be considered modest.
+Notably, the ping program is not only locked in a sandbox, but isn’t running as root when the buggy code gets reached, as confirmed in the security advisory: “When ping runs, it creates the raw socket needed to do its work, and then revokes its elevated privileges.”
+As described above, superuser powers are required only to acquire a raw IP socket from the operating system, not to use the sendto() and recvfrom() functions on that socket afterwards.
+This bug has been given the official identifier CVE-2022-23093; it is documented in the security advisory FreeBSD-SA-22:15.ping.
+Take care out there!
+EXAMPLE CODE TO DEMONSTRATE PING TRAFFIC
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This was very interesting. Not being a programmer though, I’d like to know how to block IPv4 packets with IP headers that aren’t 20 bytes in size. 
+I do use Linux.  Can this be done with iptables?
+I am not an iptables expert (or even really an iptables non-expert) but from grubbing around a bit online and reading the output of man iptables-extensions, it seems that a command something like this might do the trick, for incoming packets, at least:
+iptables -A INPUT -m u32 ! --u32 '0 & 0xFF000000 = 0x45000000' -j DROP
+If I have this right, the command means to set an input rule to drop packets, using the u32 matching module (-m u32), and invoking the 32-bit unsigned integer mini-calculator language (--u32), where the calculation inside the quote marks goes like this:
+0 –> read in bytes 0,1,2,3 of the packet (first four bytes, first one is the most significant)
+& 0xFF000000 –> AND the four bytes with FF000000, which basically leaves byte 0 intact and zeros out bytes 1, 2 and 3
+= 0x45000000 –> check that the first byte was 0x45 (we know the zeros will always match after the AND operation)
+The ! at the start means match if the calculation is NOT true
+Thus if byte 0 in the packet is not 0x45 then drop it.
+Can any iptables experts out there advise if this is [a] right and [b] will work reliably?
+(Note. You will need to generate your own non-standard IP packets to test if it’s working. Doing that is an exercise for another day :-)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

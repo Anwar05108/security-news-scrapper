@@ -1,0 +1,258 @@
+Sophos Home protects every Mac and PC in your home 
+LOOPING THE LOOP
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Juicejacking, public psychotherapy, and Fun with FORTRAN. 
+All that and more on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today, Sir?
+DUCK.  I’m very well, Douglas. 
+I’m intrigued by your phrase “Fun with FORTRAN”. 
+Now, I do know FORTRAN myself, and fun is not the first adjective that springs to mind to describe it. [LAUGHS]
+DOUG.  Well, you might say, “You can’t spell ‘FORTRAN’ without ‘fun’.” 
+That’s not quite accurate, but…
+DUCK.  It’s actually astonishingly *inaccurate*, Doug! [LAUGHS]
+DOUG.  [LAUGHING] Keep that in mind, because this has to do with inaccuracies. 
+This week, on 19 April 1957, the first FORTRAN program ran.
+FORTRAN simplified programming, beginning with a program run at Westinghouse that threw an error on its first attempt – it produced a “missing comma” diagnostic.
+But the second attempt was successful. 
+How do you like that?
+DUCK.  That’s fascinating, Doug, because my own – what I always thought was ‘knowledge’, but turns out may well be an urban legend…
+…my own story about FORTRAN comes from about five years after that: the launch of the Mariner 1 space probe. 
+Spacecraft don’t always follow exactly where they’re supposed to go, and they’re supposed to correct themselves. 
+Now, you imagine the kind of calculations involved – that was quite hard in the 1960s.
+And I was told this semi-officially (meaning, “I heard it from a lecturer at university when I was studying computer science, but it wasn’t part of the syllabus”)…
+..apparently, that bug was down to a line in FORTRAN that was supposed to say DO 51 I = 1,100, which is a “for loop”. 
+It says, “Do 100 loops, up to and including line 51.”
+But the person typed DO 51 I = 1.100, with a dot, not a comma.
+FORTRAN ignores spaces, so it interpreted DO51I = as a variable assignment, assigned that variable the value 1.100, and then went round the loop once… because it hadn’t been told to loop at line 51, and line 51 just executed once. 
+I always assumed that that was the correction loop – it was supposed to have a hundred goes to get the spacecraft back on target, and it only had one go, and therefore it didn’t work.
+[LAUGHS] 
+And it seems it may not actually be true… may be a bit of an urban legend.
+Because there’s another story that says that actually the bug was down to a problem in the specifications, where someone wrote out the equations that needed to be coded. 
+And for one of the variables, they said, “Use the current value of this variable”, when in fact, you were supposed to smooth the value of that variable by averaging it over previous readings. 
+You can imagine why that would throw something off course if it had to do with course correction. 
+So I don’t know which is true, but I like the DO 51 I = 1,100 story, and I plan to keep dining out on it for as long as I can, Doug.
+DOUG.  [LAUGHS] Like I said, “Fun with FORTRAN”.
+DUCK.  OK, I take your point, Doug.
+DUCK.  Both those stories are fun…
+Something not so fun – an update to an update to an update. 
+I believe this is at least the third time we’ve talked about this story, but this is the psychotherapy clinic in Finland that housed all its patient data, including notes from sessions, online in the cloud under a default password, which was leveraged by evildoers. 
+Those evildoers tried to get some money out of the company. 
+And when the company said no, they went after the patients.
+Ex-CEO of breached pyschotherapy clinic gets prison sentence for bad data security
+
+DUCK.  How awful must that have been, eh? 
+Because it wasn’t just that they had the patients’ ID numbers and financial details for how they paid for their treatment. 
+And it wasn’t just that they had some notes… apparently, the sessions were recorded and transcribed, and *those* were uploaded. 
+So they basically had everything you’d said to your therapist… 
+…and one wonders whether you had any idea that your words would be preserved forever. 
+Might have been in the small print somewhere. 
+Anyway, as you say, that’s what happened.
+The blackmailer went after the company for, what, €450,000 (which was about half a million US dollars at the time), and they weren’t inclined to pay up. 
+So they thought, “Hey, why don’t I just contact all the patients? Because I’ve got all their contact details, *and* I’ve got all their deepest, darkest secrets and fears.” 
+The crook figured, “I can contact them and say, ‘You’ve got 24 hours to pay me €200; then I’ll give you 48 hours to pay me €500; and then I’m going to doxx you – I’m going to dump your data for everybody to see’.”
+And I did read one article that suggested that when the patients didn’t come up with the money, he actually found people who’d been mentioned in their conversations.
+DOUG.  Didn’t someone’s mother get roped into this, or something like that?
+DUCK.  Yes!
+They said, “Hey, we have conversations with your son; we’re going to dump everything that he said about you, from a private session.” 
+Anyway, the good news is that the victims decided they were definitely not going to take this lying down. 
+And loads of them did report it to the Finnish police, and that gave them impetus to take this as a serious case. 
+And the investigations have been ongoing ever since. 
+There’s somebody… I believe he’s still in custody in Finland; he hasn’t finished his trial yet for the extortion side. 
+But they also decided, “You know what, the CEO of the company that was so shabby with the data should bear some personal liability.”
+He can’t just go, “Oh, it was the company; we’ll pay a fine” (which they did, and ultimately went bankrupt). 
+That’s not enough – he’s supposed to be the boss of this company; he’s supposed to set the standards and determine how they operate. 
+So he went to trial as well. 
+And he’s just been found guilty and given a three month prison sentence, albeit a suspended one. 
+So if he keeps his nose clean, he can stay out of prison… but he did get taken to task for this in court, and given a criminal conviction.
+As light as the sentence might sound, that does sound like a good start, doesn’t it?
+DOUG.  A lot of comments on this post are saying they should force him to go to jail; he should actually spend time in jail. 
+But one of the commenters, I think rightly, points out that this is common for first-time offenders for non-violent crimes…
+…and he does now have a criminal record, so he may never work in this town again, as it were.
+DUCK.  Yes, and perhaps more importantly, it will give anybody pause before allowing him the authority to make this kind of poor decision in future. 
+Because it seems that it wasn’t just that he allowed his IT team to do shabby work or to cut corners. 
+It seems that they did know they’d been breached on two occasions, I think in 2018 and 2019, and decided, “Well, if we don’t say anything, we’ll get away with it.” 
+And then in 2020, obviously, a crook got hold of the data and abused it in a way that you couldn’t really doubt where it came from. 
+It wasn’t just, “Oh, I wonder where they got my email address and national identity number?” 
+You can only get your Clinic X private psychotherapy transcript from Clinic X, you would expect!
+DOUG.  Yes.
+DUCK.  So there’s also the aspect that if they’d come clean in 2018; if they’d disclosed the breach as they were supposed to, then…
+(A) They would have done the right thing by the law. 
+(B) They would have done the right thing by their patients, who could have started taking precautions in advance. 
+And (C), they would have had some compunction upon them to go and fix the holes instead of going, “Oh, let’s just keep quiet about it, because if we claim we didn’t know, then we don’t have to do anything and we could just carry on in the shabby way that we have already.”
+It was definitely not considered an innocent mistake. 
+And therefore, when it comes to cybercrime and data breaches, it is possible to be both a victim and a perpetrator at the same time.
+DOUG.  A good point well put! 
+Let’s move on. 
+Back in February 2023, we talked about rogue 2FA apps in the app stores, and how sometimes they just kind of linger.
+And linger they have.
+Paul, you’re going to be doing a live demo of how one of these popular apps works, so everyone can see… and it’s still there, right?
+Beware rogue 2FA apps in App Store and Google Play – don’t get hacked!
+
+DUCK.  It is. 
+Unfortunately, the podcast will come out just after the demo has been done, but this is some research that was done by a pair of independent Apple developers, Tommy Mysk and Talal Haj Bakry. 
+On Twitter, you can find them as @mysk_co. 
+They regularly look into cybersecurity stuff so that they can get cybersecurity right in their specialist coding. 
+They’re programmers after my own heart, because they don’t just do enough to get the job done, they do more than enough to get the job done well.
+And this was around the time, if you remember, that Twitter had said, “Hey, we’re going to be discontinuing SMS-based two-factor authentication. Therefore, if you’re relying on that, you will need to go and get a 2FA app. We’ll leave it to you to find one; there are loads.”
+Twitter tells users: Pay up if you want to keep using insecure 2FA
+
+Now, if you just went to the App Store or to Google Play and typed in Authenticator App, you got so many hits, how would you know which one to choose? 
+And on both stores, I believe, the top ones turned out to be rogues. 
+In the case of the top search app (at least on the Apple Store, and some of the top-ish apps on Google Play), it turns out that the app developers had decided that, in order to monitor their apps, they’d use Google Analytics to record how people use the apps – telemetry, as it’s called. 
+Lots of apps do this.
+But these developers were either sneakily malicious, or so ignorant or careless, that in amongst the stuff they collected about how the app was behaving, they also took a copy of the two-factor authentication seed that is used to generate all the codes for that account! 
+Basically, they had the keys to everybody’s 2FA castles… all, apparently innocently, through program analytics. 
+But there it was. 
+They’re collecting data that absolutely should never leave the phone. 
+The master key to every six-digit code that comes every 30 seconds, for evermore, for every account on your phone. 
+How about that, Doug?
+DOUG.  Sounds bad. 
+Well, we will be looking forward to the presentation. 
+We will dig up the recording, and get it out to people on next week’s podcast… I’m excited! 
+Alright, moving right along to our final topic, we’re talking about juicejacking. 
+It’s been a while… been about over ten years since we first heard this term. 
+And I have to admit, Paul, when I started reading this, I began to roll my eyes, and then I stopped, because, “Why are the FBI and the FCC issuing a warning about juicejacking? This must be something big.” 
+But their advice is not making a whole lot of sense. 
+Something must be going on, but it doesn’t seem that big a deal at the same time.
+FBI and FCC warn about “Juicejacking” – but just how useful is their advice?
+
+DUCK.  I think I’d agree with that, Doug, and that’s why I was minded to write this up. 
+The FCC… for those who aren’t in the United States, that’s the Federal Communications Commission, so when it comes to things like mobile networks, you’d think they know their oats.
+And the FBI, of course, are essentially the federal police. 
+So, as you say, this became a massive story. 
+It got traction all over the world.
+It was certainly repeated in many media outlets in the UK: [DRAMATIC VOICE] “Beware charging stations at airports.” 
+As you say, it did seem like a little bit of a blast from the past. 
+I wasn’t aware why it would be a clear and present “massive consumer-level danger” right now.
+I think it was 2011 that it was a term coined to describe the idea that a rogue charging station might just not provide power.
+It might have a hidden computer at the other end of the cable, or at the other side of the socket, that tried to mount your phone as a device (for example, as a media device), and suck files off it without you realising, all under the guise of just providing you with 5 volts DC. 
+And it does seem as though this was just a warning, because sometimes it pays to repeat old warnings.
+My own tests suggested that the mitigation still works that Apple put in place right back in 2011, when juicejacking was first demonstrated at the Black Hat 2011 conference.
+When you plug in a device for the first time,  you’re offered the choice Trust/Don't Trust. 
+So there are two things here. 
+Firstly, you do have to intervene. 
+And secondly, if your phone’s locked, somebody can’t get at the Trust/Don't Trust button secretly by just reaching over and tapping the button for you.
+On Android, I found something similar. 
+When you plug in a device, it starts charging, but you have to go into the Settings menu, enter the USB connection section, and switch from No Data mode into either “share my pictures” or “share all my files” mode. 
+There is a slight warning for iPhone users when you plug itinto a Mac. 
+If you do hit Trust by mistake, you do have the problem that in future, when you plug it in, even if the phone is locked, your Mac will interact with your phone behind your back, so it doesn’t require you to unlock the phone. 
+And the flip side to that, that I think listeners should be aware of is, on an iPhone, and I consider this a bug (others might just say, “Oh no, that’s an opinion. It’s subjective. Bugs can only be objective errors”)…
+…there is no way to review the list of devices you have trusted before, and delete individual devices from the list. 
+Somehow, Apple expects you to remember all the devices you’ve trusted, and if you want to distrust *one* of them, you have to go in and basically reset the privacy settings on your phone and distrust *all* of them. 
+And, also, that option is buried, Doug, and I’ll read it out here because you probably won’t find it by yourself. [LAUGHS]
+It’s under Settings > General > Transfer or Reset iPhone >  Reset Location and Privacy. 
+And the heading says “Prepare for New iPhone”. 
+So the implication is you’ll only ever need to use this when you’re moving from one iPhone to the next. 
+But it does seem, indeed, as you said at the outset, Doug, with juicejacking, that there is a possibility that someone has a zero-day that means plugging into an untrusted or unknown computer could put you at risk.
+DOUG.  I’m trying to imagine what it would entail to usurp one of these machines.
+It’s this big, garbage-can size machine; you’d have to crack into the housing. 
+This isn’t like an ATM skimmer where you can just fit something over. 
+I don’t know what’s going on here that we’re getting this warning, but it seems like it would be so hard to actually get something like this to work. 
+But, that being said, we do have some advice: Avoid unknown charging connectors or cables if you can. 
+That’s a good one.
+DUCK.  Even a charging station that was set up in perfectly good faith might not have the decency of voltage regulation that you would like. 
+And, as a flip side to that, I would suggest that if you are on the road and you realize, “Oh, I suddenly need a charger, I don’t have my own charger with me”, be very wary of pound-shop or dollar-shop super-cheap chargers. 
+If you want to know why, go to YouTube and search for a fellow called Big Clive. 
+He buys cheap electronic devices like this, takes them apart, analyses the circuitry and makes a video. 
+He’s got a fantastic video about a knockoff Apple charger…
+…[a counterfeit] that looks like an Apple USB charger, that he bought for £1 in a pound-shop in Scotland.
+ And when he takes it apart, be prepared to be shocked. 
+ He also prints out the manufacturer’s circuit diagram, and he actually goes through with a sharpie and puts it under his camera.
+“There’s a fuse resistor; they didn’t include that; they left that out [crosses out missing component].” 
+“Here’s a protective circuit; they left out all those components [crosses more out].”
+And eventually he’s down to about half the components that the manufacturer claimed were in the device.
+There’s a point where there’s a gap between the mains voltage (which in the UK would be 230 volts AC at 50 Hz) and a trace on the circuit board that would be at the delivery voltage (which for USB is 5 volts)… 
+…and that gap, Doug, is probably a fraction of a millimetre. 
+How about that? 
+So, yes, avoid unknown connectors.
+DOUG.  Great advice.
+DUCK.  Carry your own connectors!
+DOUG.  This is a good one, especially if you’re on the run and you need to charge quickly, aside from the security implications: Lock or turn off your phone before connecting it to a charger or computer.
+If you turn off your phone, it’ll charge much faster, so that’s something right there!
+DUCK.  It also ensures that if your phone does get stolen… which you could argue is a bit more likely at one of these multi-user charging stations, isn’t it?
+DOUG.  Yes!
+DUCK.  It also means that if you do plug it in and a Trust prompt does pop up, it’s not just sitting there for someone else to go, “Ha, that looks like fun,”and clicking the button you did not expect.
+DOUG.  Alright, and then we’ve got: Consider untrusting all devices on your iPhone before risking an unknown computer or charger. 
+That’s the setting you just walked through earlier under Settings > General > Transfer or Reset iPhone…
+DUCK.  Walked *down* into; way down into the pit of darkness. [LAUGHS]
+You don’t *need* to do that (and it’s a bit of a pain), but it does mean that you aren’t risking compounding a trust error that you may have made before. 
+Some people might consider that overkill, but it’s not, “You must do this”, merely a good idea because gets you back to square one.
+DOUG.  And last but not least: Consider acquiring a power-only USB cable or adapter socket. 
+Those are available, and they just charge, they don’t transfer data.
+DUCK.  Yes, I’m not sure whether such a cable is available in the USB-C format, but it’s easy to get them in USB-A. 
+You can actually peer into the socket, and if it’s missing the two middle connectors… I put a picture in the article on Naked Security of a bike light I have that only has the outer connectors. 
+If you can only see power connectors, then there’s no way for data to be transferred.
+DOUG.  Alright, very good. 
+And let us hear from one of our readers… something of a counterpoint on the juicejacking piece.
+Naked Security Reader NotConcerned writes, in part:
+This article comes off a bit naive. Of course, juicejacking isn’t some widespread problem, but to discount any warning based on a very basic test of connecting phones to a Windows and Mac PC and getting a prompt is kind of silly. That doesn’t prove there aren’t methods with zero clicks or taps needed.
+What say you, Paul?
+DUCK.  [SLIGHT SIGH] I get the point. 
+There could be an 0-day that means when you plug it in at a charging station, there might be a way for some models of phone, some versions of operating system, some configurations… where it could somehow magically bypass the Trust prompt or automatically set your Android into PTP mode or File Transfer mode instead of No Data mode. 
+It’s not impossible. 
+But if you’re going to include probably esoteric million-dollar zero-days in the list of things that organisations like the FCC and the FBI make blanket warnings about, then they should be warning, day after day after day: “Don’t use your phone; don’t use your browser; don’t use your laptop; don’t use your Wi-Fi; don’t press anything at all”, in my opinion. 
+So I think what worries me about this warning is not that you should ignore it. 
+(I think that the detail that we put in the article and the tips that we just went through suggest that we do take it more than seriously enough – we’ve got some decent advice in there that you can follow if you want.) 
+What worries me about this kind of warning is that it was presented as such a clear and present danger, and picked up all around the world so  that it sort-of implies to people, “Oh, well, that means that when I’m on the road, all I need to do is don’t plug my phone into funny places and I’ll be OK.”
+Whereas, in fact, there are probably 99 other things that would give you a lot more safety and security if you were to do those. 
+And you’re probably not at a significant risk, if you are short of juice, and you really *do* need to recharge your phone because you think, “What if I can’t make an emergency call?”
+DOUG.  Alright, excellent. 
+Well, thank you, NotConcerned, for writing that in.
+DUCK.  [DEADPAN] I presume that name was an irony?
+DOUG.  [LAUGHS] I think so.
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Featured image of punched computer card by Arnold Reinhold via Wikipedia under CC BY-SA 2.5
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+> But the person typed DO 51 I = 1.100, with a dot, not a comma.
+A lot of inconsistencies in the reports.
+–Naked  Security reports a comma mistakenly replaced by a dot
+–The Smithsonian reports “A single character had been left out of the guidance equations.”
+–Wired reports “a missing hyphen” or maybe “a missing overbar.”
+–Wikipedia reports “The errors were traced to a mistake in a specification of the hand-written guidance equations.”
+–NASA reports ” the omission of a hyphen in coded computer instructions in the data-editing program allowed transmission of incorrect guidance signals to the spacecraft.”
+I don’t think there are inconsistencies in the podcast. I made it clear that I heard it “as an urban legend” (which I have read elsewhere but that was years ago and I forget the time, place and context), and also “reported” (if you can call it that, which I don’t think you can) an alternative reading, namely the missing “use the average” sign, which you allude to as a hyphen or overbar.
+Both could be true – undamped correction (no averaging) and insufficient tries (missing loops).
+Thinking back, I now think the version I heard had “I = 1,10” (not 100) but the loop was definitely “DO 51”.
+It’s the weirdly specific but often irrelevant details in urban legends that seem to make them work…
+When writing both COBOL and FORTRAN, I found punched cards to be the best bookmark ever.
+Do not fold, spindle, or mutilate.
+I still use some of my ten-year-old Trenitalia tickets as bookmarks. They were IBM punchcard-sized — no holes in them, though — like many tickets were for many years after punchcards had become obsolete. Must have been lots of punchcard printers out there, I guess.
+According to slate, the Juice-jacking-warning was just someone from Denver-FBI reposting a 4 year old article without stating the source: https://slate.com/technology/2023/04/free-public-phone-chargers-fbi-warning-bad-actors-threat-bogus-debunked.html 
+Maybe you could check this legitimacy? Puts this whole warning into a different context in my eyes
+Showing my age here, I learned to program Fortran using MaCracken’s Guide to Fortran IV and  IBM (Hollerith) cards. We entered the code on the cards on a punch machine and then submitted them through a slot to the computer room. We waited for the cards and green bar paper to be returned, checked to see if we were successful or had to fix errors.
+Did you have an electromechanical card punch, or a 100% mechanical one, where you had to remember the hole combinations for each character and press the right keys, and nothing was printed at the top of the card?
+It must have been electromechanical, I don’t recall having to do the additional steps. I do recall the importance of numbering the cards, I think (though not absolutely certain) that they could be sorted, The computer was an IBM System/360.
+Basically, if it had a keyboard like a typewriter, it was the “easy” sort. 
+Mechanical card punches had 12 keys in a 3×4 grid (0,10,11/1,2,3/4,5,6/7,8,9) that each directly punched out individual chads. So you could punch any hole combinations, including invalid ones (the vast majority of hoke combos in one column were illegal – ICL, for example, used a six-bit character set; no lower case, just A-Z, 0-9, a modest selection of punctuations, and space, which was “no holes at all”).
+Same here, Tom. I started on Fortran IV at Worcester Polytechnic Institute (WPI) in the 1970s using cards on an RCA Spectra 70 then decided to switch to the DECsystem 10 (KA10, serial number 215) on Hazeltine 2000 or DECwriter(?) paper terminals. Damn, I’m old!  I think I used the MaCracken book too, but not sure. When I started work at Prime Computer in 1978, the systems programming language was an extended FORTRAN IV. Imagine an OS (PRIMOS) written mostly in Fortran!
+I used to work in the Image Processing department of a Research Lab and wrote a huge bunch of Fortran… it was fine if you were vaguely competent. BTW at Uni (UCL) my first-year programming homework was submitted to the IBM 360/165 on punched cards (I still have quite a bunch of them) via a batch system (strangely there was a fast and slow lane, never actually used the slow one), and you waited for the output so you could fix the typos… Oh and no keyboard ever had the response of an IBM Card Punch… you hit a key and it punched a bunch of holes in a card, felt amazingly tactile and bounced around a lot…
+BTW in my second year I wrote Macro-11 (excellent), Snobol (very poor), Lisp (best programming language ever) and APL (crazy – plus did it over a noisy dial-up line to ICL, which inserted random characters, okay mostly “@” signs, into the code…)
+APL programs *are* random character strings, aren’t they? 
+IIRC the 3270 terminals we had at university (some of them, anyway) had APL-ready keyboards, with a gloriously wacky set of alternate characters waiting to be summoned on every key, as if you would be sitting down to compose a 17th-century message using a nomenclator code, or settling in to write a novel in the mould of JRR Tolkien.
+As an aside, for those who like the retro look of the 3270 character set and would like to re-live it in their command shells:
+https://github.com/rbanffy/3270font
+It must be fun if you can write a game in it! The first text adventure (called Adventure) was written in FORTRAN in the 1970’s. Donald Knuth rewrote it in C and published it as an example of literate programming in his Selected Papers on Fun and Games.
+And not just any old ADVENTURE, but a COLOSSAL CAVE ADVENTURE!
+> go cave
+I don’t know where the cave is, but hereabouts no stream can run on the surface for very long. I would try the stream.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,176 @@
+Sophos Home protects every Mac and PC in your home 
+PUTTING THE X IN X-OPS
+First there was DevOps, then SecOps, then DevSecOps. Or should that be SecDevOps? 
+Paul Ducklin talks to Sophos X-Ops insider Matt Holdcroft about how to get all your corporate “Ops” teams working together, with cybersecurity correctness as a guiding light.
+No audio player below? Listen directly on Soundcloud.
+With Paul Ducklin and Matt Holdcroft. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DUCK.  Hello, everybody.
+Welcome to the Naked Security podcast.
+As you can hear, I am not Doug, I am Duck.
+Doug is on vacation this week, so I am joined for this episode by my long-term friend and cybersecurity colleague, Matt Holdcroft.
+Matt, you and I go back to the early days of Sophos…
+…and the field you work in now is the cybersecurity part of what’s known as “DevSecOps”.
+When it comes to X-Ops, you’ve been there for all possible values of X, you might say.
+Tell us something about how you got to where you are now, because it’s a fascinating story.
+MATT.  My first job at Sophos was Lotus Notes Admin and Developer, and I worked in the then Production Room, so I was responsible for duplicating floppy disks.
+These were REAL floppy disks, that you could actually flop!
+DUCK.  [LOUD LAUGHTER] Yes, the 5.25″ sort…
+MATT.  Yes!
+Back then, it was easy.
+We had physical security; you could see the network; you knew a computer was networked because it had a bit of cable coming out of the back.
+(Though it probably wasn’t networked because someone had lost the terminator off the end [of the cable].)
+So, we had nice, simple rules about who could go to where, and who could stick what in what, and life was fairly simple.
+DUCK.  These days, it’s almost the other way round, isn’t it?
+If a computer is not on the network, then it can’t do much in terms of helping the company achieve its goals, and it’s almost considered impossible to manage.
+Because it needs to be able to reach the cloud to do anything useful, and you need to be able to reach out to it, as a security operations person, via the cloud, to make sure it’s up to scratch.
+It’s almost a Catch-22 situation, isn’t it?
+MATT.  Yes.
+It’s completely flipped.
+Yes, a computer that’s not connected is secure… but it’s also useless, because it’s not fulfilling its purpose.
+It’s better to be continually online so it can continually get the latest updates, and you can keep an eye on it, and you can get real-life telemetry from it, rather than having something that you might check on every other day.
+DUCK.  As you say, it is an irony that going online is profoundly risky, but it’s also the only way to manage that risk, particularly in an environment where people don’t show up at the office every day.
+MATT.  Yes, the idea of Bring Your Own Device [BYOD] wouldn’t fly back in the day, would it?
+But we did have Build Your Own Device when I joined Sophos.
+You were expected to order the parts and construct your first PC.
+That was a rite of passage!
+DUCK.  It was quite nice…
+…you could choose, within reason, couldn’t you?
+MATT.  [LAUGHTER] Yes!
+DUCK.  Should I go for a little bit less disk space, and then maybe I can have [DRAMATIC VOICE] EIGHT MEGABYTES OF RAM!!?!
+MATT.  It was the era of 486es, floppies and faxes, when we started, wasn’t it?
+I remember the first Pentiums came into the company, and it was, “Wow! Look at it!”
+DUCK.  What are your three Top Tips for today’s cybersecurity operators?
+Because they’re very different from the old, “Oooh, let’s just watch out for malware and then, when we find it, we’ll go and clean it up.”
+MATT.  One of the things that’s changed so much since then, Paul, is that, back in the day, you had an infected machine, and everyone was desperate to get the machine disinfected.
+An executable virus would infect *all* the executables on the computer, and getting it back into a “good” state was really haphazard, because if you missed any infection (assuming you could disinfect), you’d be back to square one as soon as that file was invoked.
+And we didn’t have, as we have now, digital signatures and manifests and so on where you could get back to a known state.
+DUCK.  It’s as though the malware was the key part of the problem, because people expected you to clean it up, and basically remove the fly from the ointment, and then hand the jar of ointment back and say, “It’s safe to use now, folks.”
+MATT.  The motivation has changed, because back then the virus writers wanted to infect as many files as possible, generally, and they were often just doing it “for fun”.
+Whereas these days, they want to capture a system.
+So they’re not interested in infecting every executable.
+They just want control of that computer, for whatever purpose.
+DUCK.  In fact, there might not even be any infected files during the attack.
+They could break in because they’ve bought a password from somebody, and then, when they get in, instead of saying, “Hey, let’s let a virus loose that will set off all sorts of alarms”…
+…they’ll say, “Let’s just find what cunning sysadmin tools are already there that we can use in ways that a real sysadmin never would.”
+MATT.  In many ways, it wasn’t really malicious until…
+…I remember being horrified when I read the description of a particular virus called “Ripper”.
+Instead of just infecting files, it would go around and twiddle bits on your system silently.
+So, over time, any file or any sector on your disk could become subtly corrupt.
+Six months down the line, you might suddenly find that your system was unusable, and you’d have no idea what changes had been made.
+I remember that was quite shocking to me, because, before then, viruses had been annoying; some had political motives; and some were just people experimenting and “having fun”.
+The first viruses were written as an intellectual exercise.
+And I remember, back in the day, that we couldn’t really see any way to monetise infections, even though they were annoying, because you had that problem of, “Pay it into this bank account”, or “Leave the money under this rock in the local park”…
+…which was always susceptible to being picked up by the authorities.
+Then, of course, Bitcoin came along. [LAUGHTER]
+That made the whole malware thing commercially viable, which until then it wasn’t.
+DUCK.  So let’s get back to those Top Tips, Matt!
+What do you advise as the three things that cybersecurity operators can do that give them, if you like, the biggest band for the buck?
+MATT.  OK.
+Everyone’s heard this before: Patching.
+You’ve got to patch, and you’ve got to patch often.
+The longer you leave patching… it’s like not going to the dentist: the longer you leave it, the worse it’s going to be.
+You’re more likely to hit a breaking change.
+But if you’re patching often, even if you do hit a problem, you can probably cope with that, and over time you will make your applications better anyway.
+DUCK.  Indeed, it’s much, much easier to upgrade from, say, OpenSSL 3.0 to 3.1 than it is to upgrade from OpenSSL 1.0.2 to OpenSSL 3.1.
+MATT.  And if someone’s probing your environment and they can see that you’re not keeping up-to-date on your patching… it’s, well, “What else is there that we can exploit? It’s worth another look!”
+Whereas someone who’s fully patched… they’re probably more on top of things.
+It’s like the old Hitchhiker’s Guide to the Galaxy: as long as you’ve got your towel, they assume you’ve got everything else.
+So, if you’re fully patched, you’re probably on top of everything else.
+DUCK.  So, we’re patching.
+What’s the second thing we need to do?
+MATT.  You can only patch what you know about.
+So the second thing is: Monitoring.
+You’ve got to know your estate.
+As far as knowing what’s running on your machines, there’s been a lot of effort put in recently with SBOMs, the Software Bill of Materials.
+Because people have understood that it’s the whole chain…
+DUCK.  Exactly!
+MATT.  It’s no good getting an alert that says, “There’s a vulnerability in such-and-such a library,” and your response is, “OK, what do I do with that knowledge?”
+Knowing what machines are running, and what’s running on those machines… 
+…and, bringing it back to patching, “Have they actually installed the patches?”
+DUCK.  Or has a crook snuck in and gone, “Aha! They think they’re patched, so if they’re not double-checking that they’ve stayed patched, maybe I can downgrade one of these systems and open up myself a backdoor for ever more, because they think they’ve got the problem sorted.”
+So I guess the cliche there is, “Always measure, never assume.”
+Now I think I know what your third tip is, and I suspect it’s going to be the hardest/most controversial. 
+So let me see if I am right… what is it?
+MATT.  I would say it is: Kill. (Or Cull.)
+Over time, systems accrete… they’re designed, and built, and people move on.
+DUCK.  [LAUGHTER] Accrete! [LOUDER LAUGHTER]
+Sort of like calcification…
+MATT.  Or barnacles…
+DUCK.  Yes! [LAUGHTER]
+MATT.  Barnacles on the great ship of your company.
+They may be doing useful work, but they may be doing it with technology that was in vogue five years ago or ten years ago when the system was designed.
+We all know how developers love a new toolset or a new language.
+When you’re monitoring, you need to keep an eye on these things, and if that system is getting long in the tooth, you’ve got to take the hard decision and kill it off.
+And again, the same as with patching, the longer you leave it, the more likely you are to turn around and say, “What does that system even do?”
+It’s very important always to think about lifecycle when you implement a new system.
+Think about, “OK, this is my version 1, but how am I going to kill it? When is it going to die?”
+Put some expectations out there for the business, for your internal customers, and the same goes for external customers as well.
+DUCK.  So, Matt, what’s your advice for what I’m aware can be a very difficult job for someone who’s in the security team (typically this gets harder as the company gets larger) to help them sell the idea?
+For example, “You are no longer allowed to code with OpenSSL 1. You have to move to version 3. I don’t care how hard it is!”
+How do you get that message across when everyone else at the company is pushing back at you?
+MATT.  First of all… you can’t dictate.
+You need to give clear standards and those need to be explained.
+That sale you got because we shipped early without fixing a problem? 
+It’ll be overshadowed by the bad publicity that we had a vulnerability or that we shipped with a vulnerability.
+It’s always better to prevent than to fix.
+DUCK.  Absolutely!
+MATT.  I understand, from both sides, that it is difficult.
+But the longer you leave it, the harder it is to change.
+Setting these things out with, “I’m going to use this version and then I’m going to set-and-forget”?
+No!
+You have to look at your codebase, and to know what’s in your codebase, and say, “I’m relying on these libraries; I’m relying on these utilities,” and so on.
+And you have to say, “You need to be aware that all of those things are subject to change, and face up to it.”
+DUCK.  So it sounds as though you’re saying that whether the law starts to tell software vendors that they must provide a Software Bill of Materials (an SBOM, as you mentioned earlier), or not…
+…you really need to maintain such a thing inside your organisation anyway, just so you can measure where you stand on a cybersecurity footing.
+MATT.  You can’t be reactive about those things.
+It’s no good saying, “That vulnerability that was splashed all over the press a month ago? We have now concluded that we are safe.” 
+[LAUGHTER] That’s no good! [MORE LAUGHTER]
+The reality is that everyone’s going to be hit with these mad scrambles to fix vulnerabilities.
+There are some big ones on the horizon, potentially, with things like encryption.
+Some day, NIST might announce, “We no longer trust anything to do with RSA.”
+And everybody’s going to be in the same boat; everyone’s going to have to scramble to implement new, quantum-safe cryptography.
+At that point, it’s going to be, “How quickly can you get your fix out?”
+Everyone’s going to be doing the same thing.
+If you’re prepared for it; if you know what to do; if you’ve got a good understanding of your infrastructure and your code…
+…if you can get out there at the head of the pack and say, “We did it in days rather than weeks”?
+That’s a commercial advantage, as well as being the right thing to do.
+DUCK.  So, let me summarise your three Top Tips into what I think have become four, and see if I’ve got them right.
+Tip 1 is good old Patch early; patch often.
+Waiting two months, like people did back in the Wannacry days… that wasn’t satisfactory six years ago, and it’s certainly far, far too long in 2023.
+Even two weeks is too long; you need to think, “If I need to do this in two days, how could I do it?”
+Tip 2 is Monitor, or in my cliche-words, “Always measure, never assume.”
+That way you can make sure that the patches that are supposed to be there really are, and so that you can actually find out about those “servers in the cupboard under the stairs” that somebody forgot about.
+Tip 3 is Kill/Cull, meaning that you build a culture in which you are able to dispose of products that are no longer fit for purpose.
+And a sort-of auxiliary Tip 4 is Be nimble, so that when that Kill/Cull moment comes along, you can actually do it faster than everybody else.
+Because that’s good for your customers, and it also puts you (as you said) at a commercial advantage.
+Have it got that right?
+MATT.  Sounds like it!
+DUCK.  [TRIUMPHANT] Four simple things to do this afternoon. [LAUGHTER]
+MATT.  Yes! [MORE LAUGHTER]
+DUCK.  Like cybsecurity in general, they are journeys, are they not, rather than destinations?
+MATT.  Yes!
+And don’t let “best” be the enemy of “better”. (Or “good”.)
+So…
+Patch.
+Monitor.
+Kill. (Or Cull.)
+And: Be nimble… be ready for change.
+DUCK.  Matt, that’s a great way to finish.
+Thank you so much for stepping up to the microphone at short notice.
+As always, for our listeners, if you have any comments you can leave them on the Naked Security site, or contact us on social: @nakedsecurity.
+It now remains only for me to say, as usual: Until next time…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

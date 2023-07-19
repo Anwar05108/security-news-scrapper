@@ -1,0 +1,69 @@
+Sophos Home protects every Mac and PC in your home 
+Just when you hoped the week would quieten down and yield you some SecOps downtime over the weekend…
+…and along comes a brand new zero-day hole in Microsoft Exchange!
+More precisely, two zero-days that can apparently be chained together, with the first bug used remotely to open enough of a hole to trigger the second bug, which potentially allows remote code execution (RCE) on the Exchange server itself.
+Microsoft quickly published official guidance about these vulnerabilities, summarising the situation as follows:
+Microsoft is investigating two reported zero-day vulnerabilities affecting Microsoft Exchange Server 2013, 2016, and 2019. The first vulnerability, identified as CVE-2022-41040, is a Server-Side Request Forgery (SSRF) vulnerability, while the second, identified as CVE-2022-41082, allows remote code execution (RCE) when PowerShell is accessible to the attacker.  
+At this time, Microsoft is aware of limited targeted attacks using the two vulnerabilities to get into users’ systems.  In these attacks, CVE-2022-41040 can enable an authenticated attacker to remotely trigger CVE-2022-41082. It should be noted that authenticated access to the vulnerable Exchange Server is necessary to successfully exploit either of the two vulnerabilities.
+As far as we can see, there is a silver linings here:
+Update. The original version of this article listed a second “silver lining”, based on Microsoft’s recommendation to block TCP ports 5985 and 5986 on your Exchange server to shut off what’s known as PowerShell remoting. Microsoft claimed this would “limit” attackers from chaining from the first vulnerability to the second. That recommendation has now vanished without explanation from Microsoft’s own guidance, which now advises simply that you “disable remote PowerShell access for non-admin users”. There is no indication of whether this change specifically prevents this exploit, or is just a worthwhile security change anyway. [2022-10-08T20:00:00Z]
+If this attack reminds you of the ProxyShell vulnerability from about a year ago, you’re not alone in thinking that.
+According to GTSC, the Vietnamese cybersecurity company that first investigated and reported these new holes, researchers “detected exploit requests in IIS logs with the same format as [the] ProxyShell vulnerability”.
+Notably, the sort of threat-hunting query that we recommended for ProxyShell exploit spelunking back in 2021 seems to work for detecting abuse of these new zero-days, too:
+Microsoft, too, notes that “[the detection we] created in response to ProxyShell can be used for queries as there are similarities in function with this threat.”
+Of course, we don’t yet know whether the new attack can be pulled off without leaving this specific tell-tale sign in your logs.
+In other words, if you find trigger signs similar to those left behind by PowerShell exploits, you probably do have evidence of an attack, but absence of these signs is not evidence of absence.
+According to GTSC, in attacks they’ve investigated so far, the cybercriminals used their unauthorised RCE powers to implant and run a variety of follow-on malware, including:
+We will update this article as we learn more, including reporting when Microsoft gets patches out to close these holes.
+For threat hunting advice from GTSC, who discovered and reported the bugs, from Microsoft, and from Sophos, please see:
+▶ https://gteltsc.vn/blog/warning-new-attack-campaign-utilized-a-new-0day-rce-vulnerability-on-microsoft-exchange-server-12715.html
+▶ https://msrc-blog.microsoft.com/2022/09/29/customer-guidance-for-reported-zero-day-vulnerabilities-in-microsoft-exchange-server/
+▶ https://news.sophos.com/en-us/2021/08/23/proxyshell-vulnerabilities-in-microsoft-exchange-what-to-do/
+Mitigations include:
+So far [2022-09-30T13:30Z], it looks as though the most important things to bear in mind are: [a] the tips and techniques you learned for hunting down ProxyShell attacks are almost certainly going to be helpful here, if not the only tools you may need; [b] despite the similarities (and notwithstanding anything you may have seen online), this isn’t ProxyShell, so your your ProxyShell patches won’t protect you from it; and [c] when patches do arrive, assume that they will be reverse engineered back into working exploits very quickly, so don’t delay in applying them.
+LEARN MORE ABOUT WEBSHELLS AND HOW TO PREVENT THEM
+Serious Security: Webshells explained in the aftermath of HAFNIUM attacks
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Happy Friday, everyone
+Gives a whole new meaning to “month-end”. (Also “end of quarter”.) 
+Unlike the proverbial month-end for our chums in sales…
+…we don’t get to start off from scratch again tomorrow with everyone equalised back to $0 :-)
+I hear about new Exchange zero-days & vulnerabilities on blogs like yours regularly.
+At this point there’s clearly a problem with Exchange itself:
+– being exposed too much with mostly useless features that get enabled by default.
+Why so many exploits are found pretty often for Exchange?
+Especially this latest one you mentioned (but also others) that uses features that should simply never have been enabled by default at all.
+Perhaps one advice that some people might not like:
+– reconsider whether you really need Exchange for your business.
+If you just need Address Books & Calendars (CalDAV & CardDAV), there are better softwares for this.
+If you want a mail server, there are quite a few that do the job very well and are pretty much safer than Exchange by default.
+It seems that running Exchange on any server is at your own peril nowadays.
+Updating Exchange all the time as soon as possible cannot be a good safety practice.
+Why?
+Because you basically hope that if a zero-day is found, that enough other people get hacked first before you for Microsoft to find out later about the zero-day, such that you can patch before you get hacked yourself.
+This is a race you will NOT always win.
+We have countless examples of people thinking it’s ‘unlikely to happen to me first’ and getting screwed later.
+I believe that if you keep Exchange, then you need to research which features you need exactly with it and disable/block every single other one.
+Otherwise try using different softwares that allow you to only expose the features that you need – instead of taking the risk of being hacked using some obscure forgotten feature that you didn’t even know was enabled.
+Not going in to bat for Microsoft here, but although Exchange 0-days might vaguely be considered “regular”, they’re not exactly frequent…
+Why the suggestion to block ports 5985-5986 instead of disabling?  Is this for an internet firewall filter to block public access?  Or Windows firewall block?
+Why not suggest ‘Disable-PSRemoting’?  Would this break some management or patch/update between Exchange servers?
+Looking at Shodan, there are 1.4 million matches for searching country:”US” port:5985 .  Why would this be published to the internet?
+That’s Microsoft’s recommendation. I am not a PS expert but I assume that ‘Disable-PSRemoting’ (being itself a PS command) is prone to being only a temporary fix, in the same sort of way that ‘-ExecutionPolicy Bypass’ circumvents various Powershell “protection” settings.
+OTOH, blocking the TCP ports is an intervention that’s independent of PowerShell’s own behaviour, in the same way that powering your laptop down totally means you don’t have to worry about what your power management settings might do, or if and when your computer might arise from slumber unexpectedly.
+Any Windows/Exchange/PS1 gurus want to chime in?
+Apparently port 5985 (System/Windows Remote Management) is used in Azure instances (if I understood correctly) for remote management, so perhaps that’s why there are so many open ports showing:
+https://learn.microsoft.com/en-us/previous-versions/azure/windows-server-azure-pack/dn594513(v=technet.10)
+Not a PS1 expert, but enough of an armchair one to agree with you.  Enable-PSRemoting is a cmdlet that will do exactly what it says if you have the permission to do so.   If something can be done, it eventually will be done.   If you block the ports PSRemoting uses, then even if someone or some software tries to enable PSRemoting, the end result will be failure and the exploit shouldn’t open (per the article).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,58 @@
+Sophos Home protects every Mac and PC in your home 
+ASUS is a well-known maker of popular electronics products, ranging from laptops and phones to home routers and graphics cards.
+This week, the company published firmware updates for a wide range of its home routers, along with a strong warning that if you aren’t willing or able to update your firmware right now, then you need to:
+[Disable] services accessible from the WAN side to avoid potential unwanted intrusions. These services include remote access from WAN, port forwarding, DDNS, VPN server, DMZ, port trigger.
+We’re guessing that ASUS expects potential attackers to busy themselves probing exposed devices now that a lengthy list of bug-fixes has been published.
+(Of course, well-informed attackers might have known about some, many, or all of these holes already, but we’re not aware of any zero-day exploits in the wild.)
+As we’ve pointed out before on Naked Security, exploits are often much easier to figure out if you have signposts telling you where to look…
+…in the same way that it’s much quicker and easier to find a needle in a haystack if someone tells you which bale it’s in before you start.
+Annoyingly for ASUS customers, perhaps, two of the now-patched vulnerabilities have been around waiting to be patched for a long time.
+Both of these have a 9.8/10 “danger score” and a CRITICAL rating in the US NVD, or National Vulnerability Database (reports paraphrased by us):
+To explain.
+Netatalk is a software component that provides support for Apple-style networking, but this doesn’t mean an attacker would need to use a Macintosh computer or Apple software to trigger the bug. 
+In fact, given that a successful exploit would require deliberately malformed network data, legitimate Netatalk client software probably wouldn’t do the job anyway, so an attacker would use custom-created code and could theoretically mount an attack from any operating system on any computer with a network connection.
+HTTP escaping and unescaping is needed whenever a URL includes a data character that can’t be directly represented in the text of the URL. 
+For example, URLs can’t include spaces (to ensure that they always form a single, contiguous chunk of printable text), so if you want to reference a username or a file that contains a space, you need to escape the space character by converting it to a percent sign followed by its ASCII code in hexadecimal (0x20, or 32 in decimal).
+Similarly, because this gives a special meaning to the percent character itself, it too must be written as a percent sign (%) followed by its ASCII code (0x25 in hex, or 37 in decimal), as must other characters used distinctively in URLs, such as colon (:), slash (/), question mark (?) and ampersand (&).
+Once received by a web server (the program referred to as httpd in the CVE information above), any escaped characters are unescaped by converting them back from their percent-encoded forms to the original text characters.
+Why ASUS took so long to patch these particular bugs is not mentioned in the company’s official advisory, but handling HTTP “escape codes” is a fundamental part of any software that listens to and uses web URLs.
+Perhaps the most notable bug in this list is CVE-2023-28702, a command injection attack that sounds similar to the MOVEit bugs that have been all over the news lately.
+MOVEit mayhem 3: “Disable HTTP and HTTPS traffic immediately”
+
+
+As we explained in the wake of the MOVEit bug,s a command parameter that’s sent in a web URL, for example a request asking the server to start logging you on as the user DUCK, can’t be handed off directly to a system-level command by blindly and trustingly copying raw text from the URL.
+In other words, the request:
+…can’t simply be converted via a direct “copy-and-paste” process into a system command such as:
+Otherwise, an attacker could try to logon as:
+…and trick the system into running the command:
+…which is the same as issuing the two separate commands below, in sequence:
+…where the command on the second line shuts down the whole server. 
+(The semicolon acts as a command separator, not as part of the command-line arguments.)
+Another worrying bug is the session hijack issue caused by CVE-2023-31195.
+As you probably know, servers often handle web-based logins by sending a so-called session cookie to your browser to denote that “whoever knows this cookie is assumed to be the same person who just logged in”.
+As long as the server doesn’t give you one of these magic cookies until after you’ve identified yourself, for example by presenting a username, a matching password and a valid 2FA code, then an attacker would need to know your login credentials to get authenticated as you in the first place.
+And as long as neither the server nor your browser ever accidentally sends the magic cookie over a non-TLS, unencrypted, plain old HTTP connection, then an attacker won’t easily be able to lure your browser to an imposter server that’s using HTTP instead of HTTPS, and thus to read out the cookie from the intercepted web request.
+Remember that luring your browser to an imposter domain such as http://example.com/ is  comparatively easy if a crook can temporarily trick your browser into using the wrong IP number for the example.com domain.
+But luring you to https:/example.com/ means that the attacker also needs to come up with a convincingly forged web certificate, to provide fraudulent server validation, which is much harder to do.
+To prevent this sort of attack, cookies that are non-public (either for privacy or access control reasons) should be labelled Secure in the HTTP header that’s transmitted when they’re set, like this:
+…instead of simply:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Asus’s advisory is very confusing. They make it sound like they just now released firmware with patches for these vulnerabilities, but all of the router firmware pages I checked (including mine) have not had new firmware released for over a month, and my router’s self-upgrade feature said it was already up-to-date. Checking through the old changelogs, it looks like my router had CVE-2022-26376 patched in May 2022, and CVE-2018-1160 in August 2022. So they’ve actually had these fixed for a while (at least on some models), but I guess they’re trying to remind people to upgrade.
+December 2018 to August 2022 still seems weirdly long for shipping an update to Netatalk…
+Was your model one of the ones on  the ASUS list?
+If so… wonder why this notification came out now?
+Yep, ZenWiFi XT8 v1. Maybe they just now finished updating the last of their still-supported routers, so all of their models have the fix? That would be a very scattershot approach to fixing security vulnerabilities (a span of a year between different models!), but I suppose we shouldn’t expect any better from a company that somehow managed to push a really basic command injection vulnerability into production (CVE-2023-28702). Sanitizing user inputs is really Software Security 101, just ask little Bobby Tables.
+I’m thinking at nearly a year to patch a 9.8, this vendor will not be on my shopping list for at least 3 years. Response must be much better.
+I’ve got an RT-AC86U and a couple RT-AC68U’s behind it for my home network.  I seem to recall a couple firmware updates addressing quite a few CVE patches.
+Since installing the former one, I’ve noticed the router hasn’t crashed like it used to.  There was at least one firmware level where it seemed to crash almost daily, even with my programmed reboots and factory resets.  But once the CVE-patches came out this was greatly reduced.
+I’m guessing I was hacked back then.  The only ports I have open now are for my Tablo server and HTTPS: remote management.  It prompts for a CAPCHA code when using this remote login method,   Hopefully it is all up-to-snuff for remote access since 3.0.0.4.386_51529.  There’s noting newer available for about the last month.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

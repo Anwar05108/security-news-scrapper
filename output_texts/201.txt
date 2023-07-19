@@ -1,0 +1,55 @@
+Sophos Home protects every Mac and PC in your home 
+Joe Sullivan, who was Chief Security Officer at Uber from 2015 to 2017, has been convicted in a US federal court of covering up a data breach at the company in 2016.
+Sullivan was charged with obstructing proceedings conducted by the FTC (the Federal Trade Commission, the US consumer rights body), and concealing a crime, an offence known in legal terminology by the peculiar name of misprision.
+The jury found him guilty of both these offences.
+We first wrote about the breach behind this widely-watched court case back in November 2017, when news about it orignally emerged.
+Apparently, the breach followed a disappointingly familiar “attack chain”:
+Ironically, this breach happened while Uber was in the throes of an FTC investigation into a breach it had suffered in 2014.
+As you can imagine, having to report a massive data breach while you are in the middle of answering to the regulator about an earlier breach, and while you’re trying to reassure the authorities that it won’t happen again…
+…has got to be hard pill to swallow.
+Indeed, the 2016 breach was kept quiet until 2017, when new management at Uber uncovered the story and admitted to the incident.
+That’s when it emerged that the hackers who exfiltrated all those customer records and driver data the year before were paid $100,000 to delete the data and keep quiet about it:
+Uber suffered massive data breach, then paid hackers to keep quiet
+
+
+From a regulatory point of view, of course, Uber ought to have reported this breach right away in many jurisdictions around the world, rather than hushing it up for more than a year.
+In the UK, for example, the Information Commissioner’s Office variously commented at the time:
+Uber’s announcement about a concealed data breach last October raises huge concerns around its data protection policies and ethics. [2017-11-22T10:00Z]
+It’s always the company’s responsibility to identify when UK citizens have been affected as part of a data breach and take steps to reduce any harm to consumers. Deliberately concealing breaches from regulators and citizens could attract higher fines for companies. [2017-11-22T17:35Z]
+Uber has confirmed its data breach in October 2016 affected approximately 2.7 million user accounts in the UK. Uber has said the breach involved names, mobile phone numbers and email addresses. [2017-11-29]
+Naked Security readers wondered how that $100,000 hacker payment could have been made without making matters look even worse, and we speculated:
+It’ll be interesting to see how the story unfolds – if the current Uber leadership can unfold it at this stage, that is. I suppose you could wrap the $100,000 up as a “bug bounty payout”, but that still leaves the issue of very conveniently deciding for yourself that it wasn’t necessary to report it.
+It seems that’s exactly what did happen: the breach-that-came-at-exactly-the-wrong-time-in-the-middle-of-a-breach-investigation was written up as a “bug bounty”, something that usually depends on the initial disclosure being made responsibly, and not in the form of a blackmail demand.
+Typically, an ethical bug bounty hunter wouldn’t steal the data first and demand hush money not to publish it, as ransomware crooks often do these days. Instead, an ethical bounty hunter would document the path that led them to the data and the security weaknesses that allowed them access it, and perhaps download a very small but representative sample to satisfy themselves that it was indeed remotely retrievable. Thus they would not acquire the data in the first place to use as an extortion tool, and any potential public disclosure agreed as part of the bug bounty process would reveal the nature of the security hole, not the actual data that had been at risk. (Pre-arranged “disclose by” dates exist to give companies enough time to fix the problems of their own accord, while setting a deadline to ensure that they don’t try to sweep the issue under the carpet instead.)
+The fuss over Uber’s breach-and-cover-up eventually led to accusations against the CSO himself, and he was charged with the abovementioned crimes.
+Sullivan’s trial, which lasted just under a month, concluded at the end of last week.
+The case attracted plenty of interest in the cybersecurity community, not least because numerous cryptocurrency companies, faced with situations where hackers have made off with millions or hundreds of millions of dollars, seem increasingly (and publicly) willing to follow a very similar sort of “let’s rewrite breach history” path.
+“Give the money back that you stole,” they beg, often in an exchange of comments via the blockchain of the plundered cryptocurrency, “and we’ll let you keep a sizeable quantity of the money as a bug bounty payment, and we’ll do our best to keep law enforcement off your back.”
+If the final outcome of rewriting breach history in this fashion is that stolen data gets deleted, thus sidestepping any immediate harm to the victims, or that stolen cryptocoins that would otherwise be lost forever get returned, does the end justify the means?
+In Sullivan’s case, the jury apparently decided, after four days of deliberation, that the answer was “No”, and found him guilty.
+No date has yet been set for sentencing, and we’re guessing that Sullivan, who himself used to be a federal prosecutor, will appeal.
+Watch this space, because this saga seems sure to get yet more interesting…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+If the final outcome of rewriting breach history in this fashion is that stolen data gets deleted, thus sidestepping any immediate harm to the victims, or that stolen cryptocoins that would otherwise be lost forever get returned, does the end justify the means?
+No, particularly since you are relying on assurances from the hackers that they have deleted the data (and any copies that they may have made, and any copies that may have been hacked off them, etc.)?
+My own opinion is that if you have a known breach you should disclose it, for all the reasons you have given and more. Whether or not you also pay a blackmail demand (and whether you should disclose that payment if you do) seems secondary here…
+…if you suffered a breach and are aware of it.
+Indeed, I can’t see (my personal opinion) why a ransomware attack that only does the scrambling part should be considered “not reportable”, if that the crooks modified (i.e. tampered with) protected data. The regulator might decide that the risk of data disclosure or customer harm is small enough not to require disclosure… but it seems as a general principle that whether crooks peek at your copy of my data or deliberately change it so you have incorrect data on me in the future, the attack still violates the expectation that you will keep my data safe.
+Perhaps regulators will now make it clear what sort of disclosures are needed after a ransomware attack (or any incident involving non-trivial modification of important data)?
+Imagine a ransomware scrambler with file-specific intelligence, e.g. that uses a keyed stream of pseudorandom data to modify specific fields in a database, or to alter keywords in document files, so you are holding and processing incorrect data on everyone.
+Instead of buying a key to turn your database from shredded cabbage back into original form, what if you were buying a key to undo an extensive sequence of unauthorised changes?
+You know that someone has been in your system
+Unless deleted/scrambled, you probably don’t know if data has been tampered with or copied.
+As a customer/supplier/employee/stakeholder of an organisation, I would want to know – but there is no way that I can be offered any assurance beyond saying “we have looked at logs and cannot detect traffic consistent with a mass download of data”.
+I agree that the breach is what should be reported
+Esp. if you know there *was* a breach because someone calle you up and showed you some of your own data that they weren’t supposed to have, and (presumably) gave a believable explanation of how they came by it, even if they didn’t give away the details of exactly how they did it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

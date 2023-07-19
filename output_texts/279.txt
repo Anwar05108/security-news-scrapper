@@ -1,0 +1,62 @@
+Sophos Home protects every Mac and PC in your home 
+As far as we can tell, there are a whopping 2874 items in this month’s Patch Tuesday update list from Microsoft, based on the CSV download we just grabbed from Redmond’s Security Update Guide web page.
+(The website itself says 2283, but the CSV export contained 2875 lines, where the first line isn’t actually a data record but a list of the various field names for the rest of the lines in the file.)
+Glaringly obvious at the very top of the list are the names in the Product column of the first nine entries, dealing with an elevation-of-privilege (EoP) patch denoted CVE-2013-21773 for Windows 7, Windows 8.1, and Windows RT 8.1.
+Windows 7, as many people will remember, was extremely popular in its day (indeed, some still consider it the best Windows ever), finally luring even die-hard fans across from Windows XP when XP support ended.
+Windows 8.1, which is remembered more as a sort-of “bug-fix” release for the unlamented and long-dropped Windows 8 than as a real Windows version in its own right, never really caught on.
+And Windows RT 8.1 was everything people didn’t like in the regular version of Windows 8.1, but running on proprietary ARM-based hardware that was locked down strictly, like an iPhone or an iPad – not something that Windows users were used to, nor, to judge by the market reaction, something that many people were willing to accept.
+Indeed, you’ll sometimes read that the comparative unpopularity of Windows 8 is why the next major release after 8.1 was numbered Windows 10, thus deliberately creating a sense of separation between the old version and the new one. 
+Other explanations include that Windows 10 was supposed to be the full name of the product, so that the 10 formed part of the brand new product name, rather than being just a number added to the name to denote a version. The subsequent appearance of Windows 11 put something of a dent in that theory – but there never was a Windows 9.
+Shed your tears now, because this month sees the very last security updates for the old-school Windows 7 and Windows 8.1 versions.
+Windows 7 has now reached the end of its three-year pay-extra-to-get-ESU period (ESU is short for extended security updates), and Windows 8.1 simply isn’t getting extended updates, apparently no matter how much you’re willing to pay:
+As a reminder, Windows 8.1 will reach end of support on January 10, 2023 [2023-01-10], at which point technical assistance and software updates will no longer be provided. […]
+Microsoft will not be offering an Extended Security Update (ESU) program for Windows 8.1. Continuing to use Windows 8.1 after January 10, 2023 may increase an organization’s exposure to security risks or impact its ability to meet compliance obligations.
+So, it really is the end of the Windows 7 and Windows 8.1 eras, and any operating system bugs left on any computers still running those versions will be there forever.
+Remember, of course, that despite their ages, both those platforms have this very month received patches for dozens of different CVE-numbered vulnerabilities: 42 CVEs in the case of Windows 7, and 48 CVEs in the case of Windows 8.1.
+Even if contemporary threat researchers and cybercriminals aren’t explicitly looking for bugs in old Windows builds, flaws that are first found by attackers digging into the very latest build of Windows 11 might turn out to have been inherited from legacy code.
+In fact, the CVE counts of 42 and 48 above compare with a total of 90 different CVEs listed on Microsoft’s official January 2023 Release Notes page, loosely suggesting that about half of today’s bugs (in this month’s list, all 90 have CVE-2023-XXXX date designators) have been waiting around to be found in Windows for at least a decade.
+In other words, in the same way that bugs uncovered in old versions may turn out still to affect the latest and greatest releases, you will also often find that “new” bugs go way back, and can be retrofitted into exploits that work on old Windows versions, too.
+Ironically, “new” bugs may ultimately be easier to exploit on older versions, due to the less restrictive software build settings and more liberal run-time configurations that were considered acceptable back then. 
+Older laptops with less memory than today were typically set up with 32-bit versions of Windows, even if they had 64-bit processors. Some threat mitigation techniques, notably those that involve randomising the locations where programs end up in memory in order to to reduce predictability and make exploits harder to pull off reliably, are typically less effective on 32-bit Windows, simply because there are fewer memory addresses to choose from. Like hide-and-seek, the more possible places there are to hide, the longer it generally takes to find you.
+According to Bleeping Computer, only two of the vulnerabilities disclosed this month are listed as being in-the-wild, in other words known outside Microsoft and the immediate research community:
+Intriguingly, the CVE-2023-21674 bug, which is actively in use by attackers, isn’t on the Windows 7 patch list, but it does apply to Windows 8.1.
+The second bug, CVE-2023-21549, described as publicly known, applies to both Windows 7 and Windows 8.1.
+As we said above, newly discovered flaws often go a long way.
+CVE-2023-21674 applies all the way from Windows 8.1 to the very latest builds of Windows 11 2022H2 (H2, in case you were wondering, means “the release issued in the second half of the year”).
+Even more dramatically, CVE-2023-21549 applies right from Windows 7 to Windows 11 2022H2.
+If you’ve got Windows 7 or Windows 8.1 computers that you still consider usable and useful, consider switching to an open source operating system, such as a Linux distro, that is still getting both support and updates.
+Some community Linux builds specialise in keeping their distros small and simple
+Even though they may not have the latest and greatest collection of photo filters, video editing tools, chess engines and high-resolution wallpapers, minimalist distros are still suitable for browsing and email, even on old, 32-bit hardware with small hard disks and low memory.
+READ THE SOPHOSLABS REPORT ON THIS MONTH’S PATCHES
+January 2023 patch roundup: Microsoft tees up 98 updates
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+My recollection of the reason there was no Windows 9 was to avoid poorly written version checking code erroneously concluding that something reporting “Windows 9” was Windows 95 or Windows 98? That’s what I read at the time, anyway — I don’t know the veracity of the claim.,
+Hmmm. The GetVersion() function, in common use at the time, reported Windows numbers as follows: Windows Vista = 6.0, Windows 7 = 6.1, Windows 8 = 6.2.
+And for so-called “unmanifested” apps (e.g. if you build and run a plain EXE), that function has continued to return 6.2 from Windows 8.1 onwards, even on the latest Windows 11. 
+IIRC, the Windows 95 series, including Windows Me, all fell into the version 4.x range, because they came out earlier.
+So I’m not sure about that explanation, either, given that coders would apparently not have been checking for a major version number with a “9” in it for the Windows 95 series anyway.
+Try building and running this on Windows 11:
+You should get:
+Duck wrote “If you’ve got Windows 7 or Windows 8.1 computers that you still consider usable and useful, consider switching to an open source operating system, such as a Linux distro, that is still getting both support and updates.”
+If you max out the memory and replace the rotating HDD with an SSD, you can still run Windows 10 on those old machines. I am keeping my old 2007 Core 2 Duo laptop (which came with XP) around because I like the screen size. I jumped from XP to Windows 7 X64 (for a half-day) and then went right to Windows 10 X64 with Office X64. No performance difficulties to speak of.
+Yes, Windows 7 was the best of all of them – I call it the last grown-up version, as all the following ones are kids style due to their need to have big icons etc for touchscreen use. A great pity.
+I wouldn’t call myself a Windows connoisseur… but the icons on my Windows 11 desktop (1600×900 resolution) are about 48 pixels wide; in the task bar they are 24 pixels; in Explorer they’re a minuscule 12 pixels each (I use List mode). 
+Unlike Windows XP and 7, the window decorations are flat and natural-looking, like a printed page in a high-quality, full-colour coffee table book, instead of pretending to be exaggerated 3D (or 2.5D) objects protruding from the display surface as though they were cast out of cheap resin.
+Different people expect different visual metaphors, I guess. For me, leaner and cleaner and flatter seems a lot more natural and easier on the eyes. When macOS ditched its 3D window buttons and went for flat and unshaded, I rejoiced…
+(You do realise you can tweak the size of the Windows desktop components to suit your screen size and eyesight? Microsoft starts out fairly bulky, presumably on the grounds that it’s easier for a sharp-sighted person to find the “make it smaller” option than for someone with poor vision to find tiny options in tiny menus described using tiny text. There’s a slider for that…
+Linux for me, and I might try ReactOS on one of the old machines. I despise software monopolies who only produce for Windoze, but I don’t really need them anyways. I ditched Windoze completely  7 years ago already.
+I set a w10 box bios so it’s incompatible to upgrade to 11 🙂  not a fan, 10 is such a,,, widget infestation, 11 looks like it just doubled the TSRs to require more memory and CPU.
+My old W7  box with half the CPU of the w10 system is faster, hasn’t seen an update in at least 3 years, and is stable. Browsers are ran is a sandbox when needed, it is my audio studio, no reason to Downgrade to a newer OS.
+No need for w7 patch here. I expect this last patch includes a self-destruct of sorts to force upgrades. Like a serious bug that won’t get fixed. My old hardware is fine, if it wasn’t for sloppy bloated coding and data harvesting, new OSs might be pretty decent, and wouldn’t’ require brand new hardware. I agree with others, upgrades should go to linux, windows hasn’t gotten it right yet, and doesn’t look like it ever will. To much greed built in.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

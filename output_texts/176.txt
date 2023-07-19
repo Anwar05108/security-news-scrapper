@@ -1,0 +1,225 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  LastPass breached, Airgapping breached, and “Sanitizing” Chrome. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody, I’m Doug Aamoth. 
+With me, as always, is Paul Ducklin. 
+Paul, how do you do today, Sir?
+DUCK.  I’m very cheery, thank you, Doug. 
+Well, I’ve got a big smile on my face. 
+DOUG.  Great.
+DUCK.  Just because! 
+DOUG.  I’ve got something that will put an extra-big smile on your face. 
+We’re going to talk about This Week in Tech History…
+…on 20 August 1990, the Computer Misuse Act went into effect in your home, the UK. 
+The Act was meant to punish three types of offences: unauthorised access to computer material; unauthorised access meant to facilitate further offences; and unauthorised modification of computer material. 
+And the Act was spurred in part by two men accessing British Telecom’s voicemail system, including the personal mailbox of Prince Philip. 
+Paul, where were you when the Computer Misuse Act was enacted?
+DUCK.  Well, I wasn’t actually living in the UK at that time, Doug.
+But, all over the world, people were interested in what was going to happen in the UK, precisely because of that “Prestel Hacking” court case. 
+The two perpetrators were (actually, I don’t think I can call them that, because their conviction was overturned) Robert Schiffreen and Stephen Gold. 
+[Stephen] actually died a few years ago – silentmodems.com is a suitable-for-work memento to him. 
+They were tried for, I think, forging and uttering, which is where you create something fake and then convince someone it’s true, which was felt to be a bit of a legal stretch. 
+And although they were convicted and fined, they went to appeal and the court said, “No, this is nonsense, the law doesn’t apply.” 
+It was pretty obvious that, although sometimes it’s better to try and make old laws apply to new situations, rather than just churning out new legislation all the time, in this case, where computer intrusions were concerned…
+…perhaps taking analogues from the old physical days of things like “forging” and “breaking and entering” and “theft” just weren’t going to apply. 
+So that’s exactly what happened with the Computer Misuse act.
+It was meant to usher in rather different legislation than simply trying to say, “Well, taking data is kind of like stealing, and breaking into a computer is kind of like trespass.” 
+Those things didn’t really add up. 
+And so the Computer Misuse Act was famously meant to cross the bridge into the digital era, if you like, and begin to punish cybercrime in Britain.
+DOUG.  And the world’s toughest segue here to our first story!
+We go from the Computer Misuse Act to talking about static analysis of a dynamic language like JavaScript.
+DUCK.  That’s what you might call an anti-segue: “Let’s segue by saying there is no segue.”
+DOUG.  I try to pride myself on my segues and I just had nothing today. 
+There’s no way to do it. [LAUGHTER]
+DUCK.  I thought it was pretty good… 
+Yes, this is a nice little story that I wrote up on Naked Security, about a paper that was presented recently at the 2022 USENIX Conference.
+It’s entitled: Mining Node.js Vulnerabilities via Object Dependence Graph and Query. 
+JavaScript bugs aplenty in Node.js ecosystem – found automatically
+
+And the idea is to try to reintroduce and to reinvigorate what’s called static analysis, which is where you just look at the code and trying to intuit whether it has bugs in it. 
+It’s a great technique, but as you can imagine, somewhat limited. 
+There’s nothing quite like testing something by using it. 
+Which is why, for example, in the UK, where there’s an annual safety test for your car, a lot of it is  inspection…
+…but when it comes to the brakes, there’s actually a machine that spins up the wheels and checks that they really *do* slow things down properly. 
+So, static analysis has sort-of fallen out of favour, if you like, because according to some schools of thought, it’s a bit like trying to use, say, a simple spelling checker on a document to judge whether it is actually correct. 
+For example, you put a scientific paper into a spelling checker, and if none of the words are misspelled, then the conclusions must be true… clearly, that’s not going to work. 
+So, these chaps had the idea of trying to update and modernise static analysis for JavaScript, which is quite tricky because in dynamic languages like JavaScript, a variable could be an integer at one moment and a string the next, and you can add integers and strings and it just automatically works things out for you. 
+So a lot of the bugs that you can identify easily with classic static analysis?  
+They don’t apply with dynamic languages, because they’re meant to allow you to chop and change things at runtime, so what you see in the code is not necessarily what you get at runtime.
+But the [resesrchers] prove that there is what you might call “life in the old dog yet”, because they were able to take 300,000 packages from the NPM repository, and using their automated tools, fairly briskly I think, they found about 180 bugs, of which somewhere around 30 actually ended up getting CVEs. 
+And I thought this was interesting, because you can imagine – in a world of supply-chain attacks where we’re taking massive amounts of code from things like NPM, PyPI, RubyGems, PHP Packagist – it’s hard to subject every possible package to full dynamic analysis, compile it, run it and test it… before you even begin to decide, “Do I trust this package? Do I think that this development team is up to scratch?” 
+It’s nice to have some more aggressive tools that allow you to find bugs proactively in the giant, convoluted, straggly web of complication that is contemporary supply-chain source code dependencies.
+DOUG.  Well, that’s great! Great work everybody! 
+I’m very proud of these researchers, and this is a good addition to the computing community. 
+And speaking of an addition to the computing community, it seems that the “airgap” has been breached so badly that you might as well not even use it. 
+Am I right, Paul?
+Breaching airgap security: using your phone’s gyroscope as a microphone
+
+DUCK.  Sounds like you’ve read the PR stuff. Doug! 
+DOUG.  [LAUGHING] I can’t deny it!
+DUCK.  Regular Naked Security readers and podcast listeners will know what’s coming next… Ben-Gurion University of the Negev in Israel. 
+They have a team there who specialise in looking at how data can be leaked across airgaps. 
+Now, an airgap is where you actually want to create two deliberately separate networks for security purposes. 
+A good example might be, say, malware research. 
+You want to have a network where you can let viruses loose, and let them roam around and try stuff…
+…but you don’t want them to be able to escape onto your corporate network.
+And the best way to do that is not to try and set all kinds of special network filtering rules, but just say, “You know what, we’re actually going to have two separate networks.” 
+Thus the word airgap: there’s no physical interconnection between them at all, no wire connecting network A to network B. 
+Now, clearly, in a wireless era, things like Wi-Fi and Bluetooth are a disaster for segregated networks. 
+[LAUGHTER]
+There are ways that you can regulate that. 
+For example, let’s say you say, “Well, we are going to let people take mobile phones into the secure area – it’s not a *super* secure area, so we’ll let them take their mobile phones”, because they might need to get a phone call from home or whatever.
+“But we’re going to insist on their phones, and we’re going to verify that their phones, are in a specific lockdown condition.”
+And you can do that with things like mobile device management. 
+So, there are ways that you can actually have airgapped networks, separate networks, but still be a little bit flexible about the devices that you let people bring in. 
+The problem is that there are all sorts of ways that an untrustworthy insider can seem to work perfectly *within* the rules, seem to be 100% compliant, yet have gone rogue and exfiltrate data in sneaky ways. 
+And these researchers at Ben-Gurion University of the Negev… they’re great at PR as well. 
+They’ve done things in the past like LANTENNA, which is where they use a LAN cable as a sort of radio transmitter that leaks just enough electromagnetic radiation from the wire inside the network cabling that it can be picked up outside. 
+And they had the FANSMITTER. 
+That was where, by varying the CPU load deliberately on a computer, you can make the fan speed up and slow down. 
+And you can imagine, with a microphone even some distance away, you can kind of guess what speed a fan is doing on a computer on the other side of the airgap. 
+Even if you only get a tiny bit of data, even if it’s just one bit per second…
+…if all you want to do is surreptitiously leak, say, an encryption key, then you might be in luck.
+This time, they did it by generating sounds on the secure side of the airgap in a computer speaker. 
+But computer speakers in most computers these days, believe it or not, can actually generate frequencies high enough that the human ear can’t hear it.
+So you don’t have a giveaway that there’s suddenly this suspicious squawking noise that sounds like a modem going off. [LAUGHTER]
+So, that’s ultrasonic. 
+But then you say, “Well, all the devices with microphones that are on the other side of the airgap, they’re all locked down, nobody’s got a microphone on.”
+It’s not allowed, and if anyone were found with a mobile phone with a microphone enabled, they’d instantly be sacked or arrested or prosecuted or whatever… 
+Well, it turns out that the gyroscope chip in most mobile phones, because it works by detecting vibrations, can actually act as a really crude microphone! 
+Just enough to be able to detect the difference between, say, two different frequencies, or between two different amplitudes at the same frequency. 
+They were able to exfiltrate data using the gyroscope chip in a mobile phone as a microphone…
+… and they did indeed get as low as one bit per second.
+But if all you want to do is extract, say, an AES key or an RSA private key, which might be a few hundred or a few thousand bits, well, you could do it in minutes or hours using this trick. 
+So, airgaps are not always what they seem. Doug.
+It’s a fascinating read, and although it doesn’t really put your home network at great risk, it’s a fun thing to know about. 
+If you have anything to do with running secure networks that are meant to be separate, and you want to try and protect yourself against potentially rogue insiders, then this is the sort of thing that you need to be looking at and taking into account.
+DOUG.  OK, very good. 
+Moving right along, we are fans around here of saying “validate thine inputs” and “sanitise thine inputs”, and the newest version of Chrome has taken away the joy we will get from being able to say “sanitise thine inputs”, because it’s just going to do it automatically.
+Chrome patches 24 security holes, enables “Sanitizer” safety system
+
+DUCK.  Well, that’s great, it means we can say, “Sanitise thine inputs has become easier”! 
+Yes, Chrome 105 is the latest version; it just came out. 
+The reason we wrote it up on Naked Security is it patches no fewer than 24 security holes – one Critical, I think, with eight or nine of them  considered High, and more than half of them are down to our good friends memory mismanagement flaws.
+Therefore it’s important, even though none of them are zero-days this time (so there’s nothing that we know that the crooks have got onto yet)…
+…with 24 security holes fixed, including one Critical, the update is important on that account alone. 
+But what’s interesting is this is also the version, as you’re saying, which Google has turned on a feature called “Sanitizer”. 
+It’s been knocking around in browsers in the background experimentally for about a year. 
+In Firefox, it’s off by default – you can’t turn it on, but you still have to go into special settings and enable it. 
+The Google crew have decided, “We’re going to put it on by default in our browser”, so I don’t doubt that Firefox will follow suit. 
+And the idea of this “Sanitizer”…
+…it doesn’t fix any problems automatically on its own.
+It’s just a new programming function you have that, as a Web programmer, when you generate HTML and shove it into a web page…
+…instead of just setting some variable in JavaScript that makes the stuff appear on the web ppage, there’s now a special function called SetHTML, which will take that HTML and it will subject it to a whole load of “sanitise thine input” checks by default. 
+Notably, that if there’s anything in there, like script tags (even if what you are creating is like mashing together a whole load of variables – so, something that didn’t show up in static analysis, for example), by the time it comes to setting that in the browser, if there’s anything that is considered risky, the content will simply be removed.
+The page will be created without it. 
+So rather than trying to say, “Well, I see you put some angle brackets and then [the word] script –  you don’t really want to do that, so I’ll change the angle bracket to ampersand LT semicolon, so instead of *being* an angle bracket, it *displays* as an angle bracket,  so it’s a display character, not a control character. 
+What the Sanitizer does, it says, “That shouldn’t be there”, and it actually strips it out automatically.
+By default, the idea is if you use this function, you should be a lot safer than if you don’t. 
+And it means you don’t have to knit your own sanitisation checking every time you’re trying to process stuff. 
+You can rely on something that’s built into the browser, and knows what sort of things the browser thinks are important to remove automatically. 
+So the things to look out for are a new JavaScript function called SetHTML and a JavaScript object called Sanitizer. 
+And we’ve got links to Google’s pages and to MDN Web Docs in the article on Naked Security. 
+So, if you’re a Web programmer, be sure to check this out – it’s interesting *and* important.
+DOUG.  OK, very good. 
+Also interesting and important: LastPass has been breached, and according to some reports on the web (I’m paraphrasing the band REM here), “It’s the end of the world as we know it.”
+LastPass source code breach – do we still recommend password managers?
+
+DUCK.  When this news first broke, Doug, I wasn’t really inclined to write this up on Naked Security at all. 
+I figured, ” This is really embarrassing negative PR for LastPass”, but as far as I can tell, it was their source code and their proprietary stuff, their intellectual property, that got stolen. 
+It wasn’t customer data, and it certainly wasn’t passwords, which aren’t stored in the cloud in plaintext anyway. 
+So, as bad as it was, and as embarrassing as it was, for LastPass, my take on it was, “Well, it’s not an incident that directly puts their customers online accounts or passwords at risk, so it’s a battle they have to fight themselves, really.”
+DOUG.  That’s important to point out, because a lot of people, I think, who don’t understand how password managers work – and I wasn’t totally clear on this either… as you write in the article, your local machine is doing the heavy lifting, and all the decoding is done *on your local machine*, so LastPass doesn’t actually have access to any of the things you’re trying to protect anyway.
+DUCK.  Exactly. 
+So, the reason why I did ultimately write this up on Naked Security is htat  I received a lot of messages in comments, and emails, and on social media, from people who either weren’t sure, or people saying, “You know what, there’s an awful lot of guff floating around on social media about what this particular breach means.” 
+LastPass and other password managers have had security problems before, including bugs in the code that *could* have leaked passwords, and those got some publicity, but somehow they didn’t quite attract the attention of this: [DRAMATIC] “Oh golly, the crooks have got their source code!” 
+There was a lot of misinformation, I think, a lot of FUD [fear, uncertainty, doubt]  flying around on social media, as you say.
+People going, “Well, what do you expect when you entrust all your plaintext passwords to some third party?” 
+Almost as though the messages on social media where people say, “Well, that’s the problem with password managers. They’re not a necessary evil at all, they are an *unnecessary* evil. Get rid of them!” 
+So that’s why we wrote this up on Naked Security, as a sort of question and answer session, dealing with the key questions people are asking.
+Obviously, one of the questions that I asked, because couldn’t really avoid it, is: “Should I give up on Last pass and switch to a competitor?” 
+And my answer to that is: that’s a decision you have to make for yourself. 
+But if you’re going to make the decision, make sure you make it for the right reasons, not for the wrong reasons! 
+And ,more importantly, “Should I give up on password managers altogether? Because this is just proof that they can never possibly be secure because of breaches.” 
+And as you say, that represents a misunderstanding about how any decent password manager works, where the master password that unlocks all your sub-passwords is never shared with anybody. 
+You only ever put it in on your own computer, and it decrypts the sub-passwords, which you then have to share with the site that you’re logging into. 
+Basically, the password manager company doesn’t know your master password, and doesn’t store your master password, so it doesn’t have your master password to lose. 
+And that’s important, because it means not only can the master password not be stolen from the password manager site, it also means that even if law enforcement show up there and say, “Right, show us all the person’s passwords,” they can’t do that either.
+All they’re doing is acting as a storage location for, as you say, an encrypted BLOB. 
+And the idea is that it only ever should be decrypted on your device after you’ve put in your master password, and optionally after you’ve done some kind of 2FA thing. 
+So, as you say, all the live decryption and heavy lifting is done by you, with your password, entirely in the confines of your own device.
+DOUG.  Very helpful! 
+So the big question, “Do we still recommend using password managers?”…  I think we can safely say, “Yes.”
+DUCK.  Yes, there is a last question, which is I guess is a more reasonable one: “Does suddenly having all the source code, which they didn’t have before, put the crooks at such a significant advantage that it’s game over for LastPass?”
+DOUG.  Well, that is a great segue to our reader question! 
+If I may spike it over the net here in volleyball style…
+DUCK.  Oh, yes.
+DOUG.  On the LastPass article, Naked Security reader Hyua comments, in part: “What if the attackers somehow managed to modify the source code? Wouldn’t it become very risky to use LastPass? It’s like a SaaS service, meaning we can’t just not update our software to prevent the corrupted source code from working against us.”
+DUCK.  Well, I don’t think it’s just software-as-a-service, because there is a component that you put on your laptop or your mobile phone – I must say, I’m not a LastPass user myself, but my understanding is you can work entirely offline if you wish. 
+The issue, was, “What if the crooks modified the source code?” 
+I think we have to take LastPass at its word at the moment: they’ve said that the source code was accessed and downloaded by the crooks. 
+I think that if the source code had been modified and their systems had been hacked… I’d like to think they would have said so. 
+But even if the source code had been modified (which is essentially a supply chain attack, well…
+…you would hope, now LastPass knows that there’s been a breach, that their logs would show what changes had been made.
+And any decent source code control system would, you imagine, allow them to back out those changes. 
+You can be a little bit concerned – it’s not a good look when you’re a company that’s supposed to be all about keeping people from logging in inappropriately, and one of your developers basically gets their password or their access token hacked.
+And it’s not a good look when someone jumps in and grabs all your intellectual property.
+But my gut feeling is that’s more of a problem for LastPass’s own shareholders: “Oh golly, we were keeping it secret because it was proprietary information. We didn’t want competitors to know. We wanted to get a whole lot of patents,” or whatever.
+So, there might be some business value in it…
+..but in terms of “Does knowing the source code put customers at risk?” 
+Well, I think it was another commenter on Naked Security said, [IRONIC] “We’d better hope that the Linux source code doesn’t get leaked anytime soon, then!” 
+Which I think pretty much sums up that whole issue exactly.
+DOUG.  [LAUGHS]
+All right, thank you for sending in that comment, Hyua. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity.
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I think the whole password manager doesn’t store your master password online is a two-edged sword.  If your computer or your personal memory (as in Alzheimer’s disease) is damaged, you have lost access to everything unless you have squirrelled it away offline in a secure location.  Unfortunately, very few people do that.
+Of course, if you forget or lose your master password, then whether you store your password blob online in a cloud service, offline in a cupboard at home, or both…
+…you’re sunk anyway :-(
+On the contrary, most everyone I know using password managers has them installed on multiple devices—think desktop, laptop, tablet, phone. Any of those has the full database and can serve as a point for recovery should a failure of the kind you point out occur. 
+If you’re talking about *forgetting* the master password, well, yes, that should be in safe deposit box or similar location. 1Password let’s you print out an emergency recovery kit page to store away.
+Even if you use a password manager that doesn’t let you create recovery codes (sometimes encoded into words so they are longer to type in but easier to get right because there is no confusion between letters and digits), you can, as you suggest, literally write down your master password… as long as you genuinely keep it safe.
+There are also cryptographic tools that will let you encrypt your master password with keys from N different people, such that any M of them, where M >= 2 and M <= N, are needed to decrypt it. Thus in the event of you being incapacitated (including by death) your accounts can be accessed, but not by any one person acting alone.
+As you point out, most users of password managers face the issue of having multiple copies of their password database lying around, often including cloud backups they made of their own accord.
+So while I appreciate that cloud password services like LastPass and others might represent a big target, just avoiding the “big players” doesn’t automatically make your password database more *secure* – and though it might well be more *obscure*, that is not a reliable basis for cybersecurity all on its own.
+Thanks for this podcast and for answering my question once again 🙂
+It’s a pleasure. Thanks for asking it!
+Gents, now i’m curious.  If having “stolen” the source code, could the perps setup a false “LastPass” server and then attempt to obfuscate/redirect the URL to their own “faked” LastPass server in order to harvest user’s master passwords?  while also recording said user’s location and IP information (mac address?) for a reverse attack later to access the LastPass data residing on that device?
+*Disclaimer- i have no clue how LastPass works, but the above hypothetical seems like a reasonable use of the stolen source code from a nefarious perspective.
+Setting up fake servers for service X in order to trick X’s customers into handing over private data is phishing, and it happens all the time to brands of all types, including companies that go in for open source code, closed source code, both sorts of code, or no code..
+You could argue that suddenly having all the source code to wade through might make it easier to rustle up a fake client-side app (which is where your master password is handled, not on the server side) to act as a believable keylogger…
+…but [a] you don’t need source code to do that, as the crooks have shown us many times before, and [b] just having the source code probably doesn’t help as much as you might think, or else open source software would get keylogged way more than closed source software, and there is no evidence I know of to suggest that is the case.
+So the answer is that it *might* help an attacker , but it probably won’t make any statistically significant difference in the end.
+My 2c.
+Of course, there’s the option of using offline password managers. Just maintain your own backups on your own cloud storage platform, if you like. There, it’s just another encrypted file with a (hopefully) obscure name. Or just keep the backups on a thumb drive. When did it become absolutely necessary to store everything on someone else’s computer out in the cloud, anyway?
+I assmue that the popularity of “putting passwords in the cloud” is the convenience it offers when you are on the road, or buy a new phonw, or need to reinstall your laptop due to a borkewd update… no need to remember where you put the USB drive.
+Do you need a loan to pay off your bills, we borrow $2,000.00 US Dollars to Maximum of $10.Million. Hurry now and Contact Rev.Douglas McGaw Email: douglasmcgaw27@gmail.com
+No interest for 24MONTHS.
+There’s also the possibility that the source code is going to be analysed for exploits, or modified, to access a specific account or program. For instance, say someone has their storage covertly imaged. The perpetrator/s can now take the image & load it into a virtual machine to preserve their original image. The modified code may trigger an ‘update’ which is now downloaded from a virtual server configured to match what the original software is looking for. Now new code is running, which might not ‘pop the lock’, but might tolerate a lot more &/or faster lock picking.
+It could also be for sh*ts & giggles, or somewhere in between those reasons.
+Having the source code does (or at least may) make finding exploits a bit easier, which is always a concern when source code is stolen…
+…but if getting the source makes exploits significantly *more* likely then this suggests, as what you might call a corollary, that protecting the source makes exploits *less* likely, and thus that “security through obscurity” is a useful anti-exploit technique.
+But the regular publication of fixes both for Windows zero-days (closed source) and for zero-days in projects such as Linux, Chromium and so on suggests that absence of source code is less of a barrier to finding vulnerabilities than you might think.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

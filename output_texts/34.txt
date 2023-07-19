@@ -1,0 +1,74 @@
+Sophos Home protects every Mac and PC in your home 
+Storm conditions in November 2021 in northern and north-eastern parts of the UK brought down powerlines in some areas, leaving many homes without electricity for several days.
+British power companies, which, for better or worse, are privatised rather that state-run, are required to pay out compensation to customers who did not receive the service promised in their contract…
+…and so the after-effects of Storm Arwen left Northern Powergrid, which serves electricity consumers in north-east England, with payouts to make.
+“Storm season” in Ireland, the UK and The Netherlands officially starts in September each year, with severe storms referred to by names starting with a pre-arranged, multilingual list of names starting A, B, C, and so on (excluding Q, U, X, Y and Z). For 2021-2022, the list starts Arwen, Barra, Corrie; runs through Logan, Méabh, Nasim; and ends, if needed, with Tineke, Virgil and Willemien.
+Let’s hope that the software code controlling Northern Powergrid’s power delivery has been reviewed and tested more thoroughly than the account compensation software that runs when power delivery fails.
+That’s because the company recently issued some of the most astonishing refunds ever offered to customers anywhere.
+Gareth Hughes, for example, tweeted about his recent payout:
+Thank you for our compensation payment @Northpowergrid for the several days we were without power following #stormarwen Before I bank the cheque however, are you 100% certain you can afford this? #trillionpounds pic.twitter.com/z5MNc2Nxl1
+— Gareth Hughes (@gh230277) February 12, 2022
+
+Here’s a cropped image of the payment cheque itself, cleaned up and with perspective correction applied:
+There are two obvious problems with the software that generated this cheque:
+There’s a third exciting aspect to the software:
+According to a report on the Guardian website, 74 customers received absurd payments of this sort, which Northern Powergrid blamed on software that consumed the customer’s meter ID (in Gareth Hughes’s case, apparently some sort of 13-digit serial number) instead of the compensation amount.
+Whether that was down to a column mismatch in a hand-exported CSV file (we’ve all done it, though perhaps never quite as excitingly as this) created for the admittedly unusual circumstance of storm-related compensation, or a more fundamental software bug that could occur at other times…
+…we have no idea.
+Things could have worse. 
+For example, if the misaligned column used as the payment amount had been “time of last meter reading” (e.g. 14:30), then customers might have received cheques for, say, £1430 (we expect the actual amount due would be in the low hundreds of pounds) and have cashed them in good faith, only to be chased to refund the amount later on.
+Or a future bill could have had the numeric value of the last reading itself transposed into the amount due column, leaving customers whose meters showed, say, 493286, facing bills of £4932.86 that might leave them scrambling to prove they hadn’t used that much electricity in the past month.
+But how do you prove a negative? 
+It would be fairly easy to show that you had been busily mining cryptocoins at full-tilt for several weeks, simply by producing blockchain entries to supprt your claim; or to demonstrate that you had, indeed, been growing high-quality hydroponic vegetables for the artisan vegan restaurant market, by showing invoices from the eateries concerned.
+But if you’d been sitting quietly at home, using the energy consumed by a typical household for typical household purposes, how could you prove you hadn’t been doing any of those otherwise perfectly lawful things?
+At least Northern Powergrid apologised to affected customers, thanked them for reporting the glitch, and promised to figure out what happened.
+We’re interested to hear what went wrong: we hope the company shares its findings, because there’s probably something in the story from which we can all learn a lesson.
+In the meantime, our advice to programmers is:
+Oh, and if you do receive a payout from a company you do business with that is more than you expected, don’t be in too much of a hurry to spend it.
+In this case, the error was fortunately both obvious and amusing…
+….but if an overpayment is by hundreds or thousands instead of billions or trillions, it’s still not automatically yours.
+You’re very likely to have to pay it back unless you can show that you were reasonably expecting the amount at the time you received it, and thus that you were reasonable to assume it was yours.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Always in the wrong place/country, and miss the JACKPOT!
+Well, they gpt my compensation amount wrong too. They sent me a cheque for £170 (the compensation is payable in multiples of £70 so it could not be correct). When I phoned to point out their error, I was told to expect a further cheque for £40.
+But instead they sent a letter claiming that my power went off eleven hours later than it did, which meant I was entitled to less than they’d paid. They stated that that was the end of the matter: they would not accept further correspondence. Scoundrels!
+I guess my next step is Ofgem.
+I guess that you now have at least some evidence that the company is not necessarily to be trusted for collecting and collating compensation data entirely correctly. Perhaps those 11 missing hours were actually the month field of the date in which the outage occurred? Or a few stray joules that leaked over from the energy usage column? Or the hours field of one of the special times programmed into your smart meter for activating something-or-other of interest :-)
+smart meter, indeed
+Interesting story.
+I always act on iOS update warnings as soon as I read about then on your newsletter or the news. 
+Thanks
+If I saw an email from my power company telling me I’m getting 3 trillion, I’d dismiss it as every day spam and delete the email.
+This wasn’t an email – it was a through-the-letterbox snail mail with an actual, issued-by-the-sender cheque in it.
+Did you mean snail mail perhaps?
+Hahaha, ‘smail’… that became Exim, didn’t it? The last security update for Smail (more precisely, Smail-3) was a fix for CVE-2005-0892 :-)
+I have edited my original comment (smail -> snail), for those who arrive later and wonder what we are talking about.
+Notice the minus sign after the check amount.  Either this is always there (probably not), or it’s indicating a negative number, possibly as a result of some overflow.  Depends on how the code is written.
+It’s interesting that the numbers-to-words translation is robust enough to handle unexpectedly large numbers.  I’m also guessing that it actually generated the complete text, but the code that stuffed that text into the check area truncated it.  Notice that it truncated it at a space, not in the middle of a word.
+My guess is that whoever wrote the check generating/printing program was told that the numbers would always be validated at an earlier step and not to worry about it.  
+All of the above are guesses, of course, and I could be very wrong.  But it’s interesting to speculate.
+I interpreted the “minus sign” as a dash used to close out the numeric amount without displaying a fractional part (pence, the archaic British English word used as the official plural of the word “penny”, as you will see by comparing a 1p and a 2p coin), in a similar fashion to how “two shillings and zero ‘old’ pence” used to be written 2/- rather than 2/0, and five quid might have been written as £5/-/- [*]
+If all payouts are rounded to the nearest pound, no decimal fraction is needed, so writing £|*****2-| can be considered less liable to misinterpretation than, say, |£***2.00|
+But you may be right that this is some weird combination of undetected (or at least unreported) numerical blunders.
+Surely there should have been some form of managerial control that required the “signing” or other form or approval of the payment run total as some form of authority to the bank to pay out – much as payroll totals used to be signed off?
+A managerial control should be the final defence against fraud – someone to think “wait a moment, this does not look/smell/feel right”
+Well, as you can see from the image in the recipient’s tweet, the message *was* signed by a senior manager – Louise Lowes, Head of Customer Service. Their “personal signature” is right there on the page…
+If I cash it in (OK, smaller amounts) and then dutifully repay in full when requested, who legally owns any interest accrued whilst the money was in my possession?
+I am not a lawyer, so I can’t answer that. I assume that the attitude of the court (and the sort of trouble you’d be in) would depend on whether it accepted that you cashed the cheque because you reasonably expected it was your money, or formed the opinion that you were merely being an opportunist. 
+I also assume that the “reasonableness” would depend on numerous factors, e.g. were you genuinely expecting a payment from X? have you received money from X before? did the amount align with expectations? (E.g. if X occasionally paid you £50 or so every few months, would a reasonable person see the sudden arrival of £5000 as a possible payment, or a probable mistake?)
+I’ve never knowingly been paid money I wasn’t expecting, so I’ve never had the opportunity to put any of this to the test, though I think I would get written confirmation before launching myself at any money received in such circumstances :-)
+Do you know if Northern Powergrid  accepts customers from Canada?
+It would have been interesting to see the cashier’s face when it was handed in to a bank. Especially if you asked for cash.
+Would you like that in 10s or 20s?
+I was sent a demand to pay 0.0 once. And then a few week later, a penalty of 15 for not paying the bill of 0.0.
+Did you ever get to the bottom of this? Given that you explicitly write “0.0”, was this a case where the amount was (say) $0.07 but the “7” never showed up (which would at least have given you a hint of what had happened at the other end)? Was it one of those utility companies that can produce bills instantly but process payments only in days (which might mean that you had paid but ended on the debtors list anyway, yet when the “debt list” was later processed with outdated data, an account lookup revealed $0 left to pay but didn’t suppress the message)? Even more importantly, did you get the $15 back? (Replace $ with whatever currency code applies.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

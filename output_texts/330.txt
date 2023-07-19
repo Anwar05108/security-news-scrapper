@@ -1,0 +1,58 @@
+Sophos Home protects every Mac and PC in your home 
+Last week was aCropalypse week, where a bug in the Google Pixel image cropping app made headlines, and not just because it had a funky name. 
+(We formed the opinion that the name was a little bit OTT, but we admit that if we’d thought of it ourselves, we’d have wanted to use it for its word-play value alone, even though it turns out to be harder to say out loud than you might think.)
+The bug was the kind of programming blunder that any coder could have made, but that many testers might have missed:
+Google Pixel phones had a serious data leakage bug – here’s what to do!
+
+
+Image cropping tools are very handy when you’re on the road and you want to share an impulse photo, perhaps involving a cat, or an amusing screenshot, perhaps including a wacky posting on social media or a bizarre ad that popped up on a website.
+But quickly-snapped pics or hastily-grabbed screenshots often end up including bits that you don’t want other people to see.
+Sometimes, you want to crop an image because it simply looks better when you chop off any extraneous content, such as the graffiti-smeared bus stop on the left hand side.
+Sometimes, however, you want to edit it out of decency, such as cutting out details that could hurt your own (or somone else’s) privacy by revealing your location or situation unnecessarily.
+The same is true for screenshots, where the extraneous content might include the content of your next-door browser tab, or the private email directly below the amusing one, which you need to cut out in order to stay on the right side of privacy regulations.
+Simply put, one of the primary reasons for cropping photos and screenshots before you send them out is to get rid of content that you don’t want to share.
+So, like us, you probably assumed that if you chopped bits out of a photo or screenshot and hit [Save], then even if the app kept a record of your edits so you could revert them later and recover the exact original… 
+…those chopped-off bits would not be included in any copies of the edited file that you chose to post online, email to your chums, or send to a friend.
+The Google Pixel Markup app, however, didn’t quite do that, leading to a bug denoted CVE-2023-20136.
+When you saved a modified image over the old one, and then opened it back up to check your changes, the new image would appear in its cropped form, because the cropped data would be correctly written over the start of the previous version.
+Anyone testing the app itself, or opening the image to verify it “looked right now” would see its new content, and nothing more.
+But the data written at the start of the old file would be followed by a special internal marker to say, “You can stop now; ignore any data hereafter”, followed entirely incorrectly by all the data that used to appear thereafter in the old version of the file.
+As long as the new file was smaller than the old one (and when you chop the edges off an image, you expect the new version to be smaller), at least some chunks of the old image would escape at the end of the new file.
+Traditional, well-behaved image viewers, including the very tool you just used to crop the file, would ignore the extra data, but deliberately-coded data recovery or snooping apps might not.
+Google’s buggy Pixel phones were apparently patched in the March 2023 Android update, and although some Pixel devices received this month’s updates two weeks later than usual, all Pixels should now be up-to-date, or can be force-updated if you perform a manual update check.
+But this class of bug, namely leaving data behind in an old file that you overwrite by mistake, instead of truncating its old content first, could in theory appear in almost any app with a [Save] feature, notably including other image-cropping and screenshot-trimming apps.
+And it wasn’t long before both the Windows 11 Snipping Tool and the Windows 10 Snip & Sketch app were found to have the same flaw:
+Windows 11 also vulnerable to “aCropalypse” image data leakage
+
+
+You could crop a file quickly and easily, but if you did a [Save] over the old file and not a [Save As] to a new file, where there would be no previous content to leave behind, a similar fate would await you.
+The low-level causes of the bugs are different, not least because Google’s software is a Java-style app and uses Java libraries, while Microsoft’s apps are written in C++ and use Windows libraries, but the leaky side-effects are identical.
+As our friend and colleague Chester Wisniewski quipped in last week’s podcast, “I suspect there may be a lot of talks in August in Las Vegas discussing this in other applications.” (August is the season of the Black Hat and DEF CON events.)
+S3 Ep127: When you chop someone out of a photo, but there they are anyway…
+
+
+The good news for Windows users is that Microsoft has now assigned the identifier CVE-2023-28303 to its own flavour of the aCropalypse bug, and has uploaded patched versions of the affected apps to the Microsoft Store.
+In our own Windows 11 Enterprise Edition install, Windows Update showed nothing new or patched that we needed since last week, but manually updating the Snipping Tool app via the Microsoft Store updated us from 11.2302.4.0 to 11.2302.20.0.
+We’re not sure what version number you’ll see if you open the buggy Windows 10 Snip & Sketch app, but after updating from the Microsoft Store, you should be looking for 10.2008.3001.0 or later.
+Microsoft considers this a low-severity bug, on the grounds that “successful exploitation requires uncommon user interaction and several factors outside of an attacker’s control.”
+We’re not sure we quite agree with that assessment, because the problem is not that an attacker might trick you into cropping an image in order to steal parts of it. (Surely they’d just talk you into sending them the whole file without the hassle of cropping it first?) 
+The problem is that you might follow exactly the workflow that Microsoft considers “uncommon” as a security precaution before sharing a photo or screenshot, only to find that you unintentionally leaked into a public space the very data you thought you had chopped out. 
+After all, the Microsoft Store’s own pitch for the Snipping Tool describes it as a quick way to “save, paste or share with other apps.”
+In other words: Don’t delay, patch it today.
+It only takes a moment.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I have to say, I agree with Microsoft here, if I’m going to need to crop a snipping tool image, I’ll just re-snip it in almost any circumstance, because it’s quicker to hit the key combo again than to click into the image and click to crop.
+Laziness actually making me safer for once, huzzah?
+You can always select *exactly* the right area on screen the first time, pixel perfect? You never need to redact or paint over any private information within the image? 
+Screenshots of apps that you want to share with someone else (e.g. the developer or the user interface designer) very often include some details you don’t want to share at the same time – names, dates, phone numbers, personal comments, proprietary source code, customer info, etc.
+The app is supposed to be used for cropping and redacting screenshots and it should not leave  left-over data in the cut-down file when you save it one way but not another. (And it no longer does.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

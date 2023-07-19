@@ -1,0 +1,109 @@
+Sophos Home protects every Mac and PC in your home 
+Last week’s cyberintrusion at Australian telco Optus, which has about 10 million customers, has drawn the ire of the country’s government over how the breached company should deal with stolen ID details.
+Darkweb screenshots surfaced quickly after the attack, with an underground BreachForums user going by the plain-speaking name of optusdata offering two tranches of data, alleging that they had two databases as follows:
+The seller wrote, “Optus if you are reading! Price for us to not sale [sic] data is 1,000,000$US! We give you 1 week to decide.”
+Regular buyers, the seller said, could have the databases for $300,000 as a job lot, if Optus didn’t take up its $1m “exclusive access” offer within the week.
+The seller said they expected payment in the form of Monero, a popular cryptocurrency that’s harder to trace than Bitcoin.
+Monero transactions are mixed together as part of the payment protocol, making the Monero ecosystem into a sort-of cryptocoin tumbler or anonymiser in its own right.
+The data breach itself was apparently down to missing security on what’s known in the jargon as an API endpoint. (API is short for application programming interface, a predefined way for one part of an app, or collection of apps, to request some sort of service, or to retrieve data, from another.)
+On the web, API endpoints normally take the form of special URLs that trigger specific behaviour, or return requested data, instead of simply serving up a web page.
+For example, a URL like https://www.example.com/about might simply feed back a static web page in HTML form, such as:
+Visiting the URL with a browser would therefore result in a web page that looks as you would expect:
+
+But a URL such as https://api.example.com/userdata?id=23de­6731­e9a7 might return a database record specific to the specified user, as though you had done a function call in a C program along the lines of:
+Assuming the requested user ID existed in the database, calling the equivalent function via an HTTP request to the endpoint might produce a reply in JSON format, like this:   
+In an API of this sort, you’d probably expect several cybersecurity precautions to be in place, such as:
+Apparently, few or none of these protections were in place during the Optus attack, notably including the first one…
+…meaning that the attacker was able to access PII without ever needing to identify themselves at all, let alone to steal a legitimate user’s login code or authentication cookie to get in.
+Somehow, it seems, an API endpoint with access to sensitive data was opened up to the internet at large, where it was discovered by a cybercriminal and abused to extract information that should have been behind some sort of cybersecurity portcullis.
+Also, if the attacker’s claim to have retrieved a total of more than 20,000,000 database records from two databases is to be believed, we’re assuming [a] that Optus userid codes were easily computed or guessed, and [b] that no “database access has hit unusual levels” warnings went off.
+Unfortunately, Optus hasn’t been terribly clear about how the attack unfolded, saying merely:
+
+Q. How did this happen?
+A. Optus was the victim of a cyberattack. […]
+Q. Has the attack been stopped?
+A. Yes. Upon discovering this, Optus immediately shut down the attack.
+
+In other words, it looks as though “shutting down the attack” involved closing the loophole against further intrusion (e.g. by blocking access to the unauthenticated API endpoint) rather than intercepting the initial attack early on after only a limited number of records had been stolen.
+We suspect that if Optus had detected the attack while it was still under way, the company would have stated in its FAQ just how far the crooks had got before their access was shut down.
+What about customers whose passport or driving licence numbers were exposed?
+Just how much of a risk does leaking an ID document number, rather than more complete details of the document itself (such as a high-resolution scan or certified copy), pose to the victim of a data breach like this?
+How much identification value should we give to ID numbers alone, given how widely and frequently we share them these days?
+According to the Australian government, the risk is significant enough that victims of the breach are being advised to replace affected documents. 
+And with possibly millions of affected users, the document renewal charges alone could run to hundreds of millions of dollars, and necessitate the cancellation and reissuing of a significant proportion of the country’s driving licences. 
+We estimate than about 16 million Aussies have licences, and are inclined to use them as ID inside Australia instead of carrying round their passports. So, if the optusdata BreachForum poster was telling the truth, and close to 4 million licence numbers were stolen, close to 25% of all Australian licences might need replacing. We don’t know how useful this might actually be in the case of Australian driving licences, which are issued by individual states and territories. In the UK, for instance, your driving licence number is quite obviously derived algorithmically from your name and date of birth, with a very modest amount of shuffling and just a few random characters inserted. A new licence therefore gets a new number that is very similar to the previous one.
+Those without licences, or visitors who had bought SIM cards from Optus on the basis of a foreign passport, would need to replace their passports instead – an Australia passport replacement costs close to AU$193, a UK passport is £75 to £85, and a US renewal is $130 to $160.
+(There’s also the question of waiting times: Australia currently advises that replacement passport will take at least 6 weeks [2022-09-28T13:50Z], and that’s without a sudden surge caused by breach-related processing; in the UK, due to existing backlogs, His Majesty’s Government is presently telling applicants to allow 10 weeks for passport renewal.)
+Of course, if replacing all potentially compromised IDs is deemed necessary, the burning question is, “Who will pay?”
+According to the Australian Prime Minister, Anthony Albanese, there’s no doubt where the money to replace passports should come from:
+This afternoon @albomp gave the parliament an important update on the Optus security breach.
+Not only are we demanding Optus pay for replacement passports for those affected by the breach, but we're also committed to strengthening our privacy laws through the Privacy Act review. pic.twitter.com/JyoRJxyM3p
+— Clare O'Neil MP (@ClareONeilMP) September 28, 2022
+
+There’s no word from the federal legislature on on replacing driving licences, that being a matter handled by State and Territory governments…
+…and no word on whether “replace all documents” will become a routine reaction whenever a breach involving ID document is reported, something that could easily swamp the public service, given that licences and passports are usually expected to last 10 years each.
+Watch this space – this looks set to get interesting!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I do want to say that the cost of this huge mess should be properly shared between the gov & the Telco.
+The Telco should take a significant responsibility, but remember that it’s the gov that initially forced the Telco to enact SIM card registration and storage of passport, driver license IDs etc.
+Blaming entirely the Telco is unfair.
+Basically their gov told them that they must require and store sensitive data that shouldn’t technically be needed in the first place, but if they make any mistake they are solely responsible.
+I would say that sharing of the fines if any should be like 60% for the Telco & 40% for their gov.
+If someone forces you to store unneeded data you don’t even want to ask for, are you totally at fault if you accidentally get breached?
+Shouldn’t that someone share part of the responsibility as well?
+– If the Telco had refused to require this data it would be penalized.
+– If it does store this data and gets hacked it gets penalized.
+Go figure…
+I must admit I was half-surprised (and half-hopeful) to hear the PM talking about looking into overhauling Aussie privacy regulations. (The need to provide my passport and have the details permanently recorded in order to get a replacement SIM card rankled with me when I worked at Sophos Sydney.) Perhaps the issue of “over-collection” (what you might call privatised state surveillance) will get a hearing during the overhaul, if it ever happens.
+On the other hand, “know your customer” rules are enforced by lots of governments these days, and the private sector is largely expected to do the collection, storage or reporting on the government’s behalf… so it’s become a cost/requirement of doing business.
+Fred this is something that has been getting discussed within the industry heavily over the last few days and although the Gov does make Telco’s obtain this information as part of SIM Card Registration, the act also explicitly states that it should not be stored and is only to be used for verification with a service such as the Government’s DVS Service, which Optus do use.
+—- Relevant Section of said Legislation —-
+6.4 Restrictions on the recording and keeping of certain information
+(1) Subject to subsections (2) and (3), a carriage service provider must not, in connection with a requirement imposed by this Determination, record and keep:
+    (a) the identifying number of a government document; or
+    (b) a category A document or category B document.
+    (2) Subsection (1) does not prohibit the recording and keeping of information or a document if that recording and keeping is required or authorised by or under a law.
+(3) Subsection (1) does not prohibit the recording and keeping of the identifying number of a government document where:
+    (a) the carriage service provider records the identifying number of a government document for a permitted purpose; and
+    (b) the carriage service provider records the information only for such time as is reasonably necessary for the permitted purpose; and
+    (c) immediately after the carriage service provider verifies the service activator’s identity, the carriage service provider destroys the number; and
+    (d) the recording is not otherwise prohibited by law.
+        Example If a customer has unsuccessfully attempted to verify their identity online using a government online verification service, a carriage service provider may use the identifying number of that customer’s government document to assist that customer to verify his or her identity
+— End of relevant section —
+Now that is not to say that Optus wasn’t required to hold the information for another purpose but even if they were both the Privacy Act and the TCP Code (effectively streamlined rules for Telcos) state that any PII that must be held must be protected, by Optus having it available via an unsecured, unauthenticated, API End Point they breached those rules as well.
+— Quote —
+Basically their gov told them that they must require and store sensitive data that shouldn’t technically be needed in the first place, but if they make any mistake they are solely responsible.
+— End Quote
+That statement is factually incorrect, the Government explicitly told them not to store this sensitive data and then Optus proceeded to store it anyway.
+Yes, they need to find a better way to implement such systems to prevent this kind of thing from happening again. They most certainly deserve blame for this, they stored PII they weren’t required to (breach of the Privacy Act) and then proceeded to store it in an unsecure way (breach of the Privacy Act & TCP Code).
+Took a few days, but state and territory governments now all seem to have come round to replacement of drivers licenses at no cost to the person whose ID has been compromised.  Most are saying they’ll pass the normal replacement charges onto Optus.  
+The initial position of most states and territories was quite absurd – you had to prove, via a police report or some other form of official confirmation, that you were a victim of ID fraud to be eligible for the issue of a new ID number.  The fact your ID has been stolen was not sufficient grounds.  That was never a satisfactory approach in my view, so I guess that’s one improvement this event has triggered.  They do still require a copy of the advice Optus claims it has sent to all affected customers. 
+Unlike passports, where the number is different every time it’s issued, simply requesting a replacement drivers license (e.g. saying “I lost it”) wouldn’t get you a new ID number.  The drivers license in most places in Oz has become the preferred ID for all state level services, as well as most private services involving any sort of credit.
+Optus claims to have notified all affected customers (including past customers it still held data on), but that seems insufficient to my mind.  I was an Optus customer within the affected date range, but I haven’t received anything from them.  Does that mean my data was not compromised? Or could it be that they haven’t yet gotten round to advising me?  A better approach I think would be for them to proactively contact all customers saying either “sorry, your data was compromised” or “hoorah, your data wasn’t compromised”, or even perhaps “we’re still working to confirm”.  As things presently stand, all I’ve got is their public statement that they’ve contacted all affected customers, and I’m disinclined take as gospel public statements from an organisation that with each passing day seems more and more interested in damage control than doing the right thing by their customers.
+At last ! An intelligent discussion about what probably was (or wasn’t) going on. Thank you Duck & fellow commentators. Presumably this telco was not a Sophos client at the time!
+Hey Paul – in relation to cost of replacing the passport, due to the huge backlog the issuing offices have been facing, many Australians (before the hack) had opted from priority replacements to obtain docs prior to school holidays etc. In those instances, priority 10 year passports cost approximately $530 AUD. So the cost to Optus could go higher just in this area.
+As I understand it, GDPR doesn’t just apply only to the EU, it applies to any business, anywhere in the world, that processes personal data relating to an individual in the European Union.
+I think there’s a strong chance the GDPR will apply here and that will hurt a lot more than what the Australian Government might throw at Optus.
+Here’s hoping
+That’s the result of the monopolistic approach – have one, two suppliers for a given good or service – one fails, massive ripple waves will hit the society.
+Even if the Government forced them to retain the details, they MUST ensure those details are secure, to have a simple access point that did not require hacking someone’s details to get in is stupidity in it’s finest, eitherb that or a lacklustre approach to security, I am now faced with changing the entire families ID’s, Medicare numbers, licences, phone numbers, not to mention email addresses
+You change your email address every time it gets leaked? And your phone number? 
+I assume my email and phone number are a matter of public record, even though I may not want them to be, given how often I use them. 
+After all, every time anyone you ever sent an email to got malware on their computer, you should assume some crook scraped up your email address from their compromised computer…
+Not to excuse the breach, but cycling email addresses feels like overkill to me.
+Also, not sure where Medicare comes into it. Are you suggesting that even after giving Optus your licence number, they also insisted on capturing your Medicare number? 
+(When I lived in NSW, required mobile phone ID was either an NSW or other Aussie-issued licence, or if you had a foreign licence, a passport of any recognised country. I don’t recall ever being asked for a Medicare number by anyone, let alone a mobile phone company, as a way of proving my identity… indeed, I don’t recall my Medicare card having a photo on it, so it wouldn’t have been much use as ID anyway.)
+Thanks for the insight yet again Duck !
+This one is closer than normal as I’ve received an email from Optus.
+I’m curious or maybe it’s sceptical as they say in the email that my ID documents weren’t comprised.
+With Optus’s less than stellar handling of this and their ineptitude in letting it happen, how do I trust them saying my documents weren’t comprised?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

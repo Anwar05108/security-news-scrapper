@@ -1,0 +1,192 @@
+Sophos Home protects every Mac and PC in your home 
+2FA, HACKING, AND PATCHING
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Remote code execution, remote code execution, and 2FA codes in the cloud. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+[IRONIC] Paul, happy Remote Code Execution Day to you, my friend.
+DUCK.  Day, week, month, year, it seems, Doug.
+Quite a cluster of RCE stories this week, anyway. 
+DOUG.  Of course…
+But before we get into that, let us delve into our Tech History segment. 
+This week, on 26 April 1998, the computing world was ravaged by the CIH virus, also known as SpaceFiller. 
+That SpaceFiller name is probably most apt. 
+Instead of writing extra code to the end of a file, which is a tell-tale signature of virulent activity, this virus, which clocked in at about 1KB, instead filled in gaps in existing code. 
+The virus was a Windows executable that would fill the first megabyte of hard disk space with zeros, effectively wiping out the partition table. 
+A second payload would then try to write to the BIOS in order to destroy it.
+Seems malevolent, Paul!
+20 years ago today! What we can learn from the CIH virus…
+
+DUCK.  It certainly does. 
+And the fascinating thing is that 26 April was the one day when it actually *wasn’t* a virus – the rest of the year it spread. 
+And, indeed, not only, as you say, did it try and wipe out the first chunk of your hard disk…
+…you could probably or possibly recover, but it took out your partition table and typically a big chunk of your file allocation table, so certainly your computer was unbootable without serious help. 
+But if it managed to overwrite your BIOS, it deliberately wrote garbage right near the start of the firmware, so that when you turned your computer on next time, the second machine code instruction that it tried to execute on power-up would cause it to hang. 
+So you couldn’t boot your computer at all to recover the firmware, or to reflash it. 
+And that was just about the beginning of the era that BIOS chips stopped being in sockets, where you could pull them out of your motherboard if you knew what you were doing, reflash them, and put them back. 
+They were soldered onto the motherboard.
+If you like, “No user serviceable parts inside.” 
+So quite a few unlucky souls who got hit not only had their data wiped out and their computer made physically unbootable, but they couldn’t fix it and basically had to go and buy a new motherboard, Doug.
+DOUG.  And how advanced was this type of virus? 
+This seems like a lot of stuff that maybe either people hadn’t seen before, or that was really extreme.
+DUCK.  The space-filling idea was not new…
+…because people learned to memorise the sizes of certain key system files. 
+So you might memorise, if you were a DOS user, the size of COMMAND.COM, just in case it increased.
+Or you might memorise the size of, say, NOTEPAD.EXE, and then you could look back at it every now and then and go, “It hasn’t changed; it must be OK.” 
+Because, obviously, as a human anti-virus scanner, you weren’t digging into the file, you were just glancing at it. 
+So this trick was quite well known. 
+What we hadn’t seen before was this deliberate, calculated attempt not just to wipe out the contents of your hard disk (that was surprisingly, and sadly, very common in those days as a side effect), but actually to zap your whole computer, and make the computer itself unusable. 
+Unrecoverable. 
+And to force you to go to the hardware shop and replace one of the components.
+DOUG.  Not fun. 
+Not fun at all!
+So, let’s talk about something a little bit happier. 
+I would like to back up my Google Authenticator 2FA code sequences to Google’s Cloud…
+…and I’ve got nothing to worry about because they’re encrypted in transit, right, Paul?
+Google leaking 2FA secrets – researchers advise against new “account sync” feature for now
+
+DUCK.  This is a fascinating story, because Google Authenticator is very widely used. 
+The one feature it’s never had is the ability to backup your 2FA accounts and their so-called starting seeds (the things that help you generate the six-digit codes) into the cloud so that if you lose your phone, or you buy a new phone, you can sync them back to the new device without having to go and set up everything all over again. 
+And Google recently announced, “We’re finally going to provide this feature.”
+I saw one story online where the headline was Google Authenticator adds a critical, long-awaited feature after 13 years. 
+So everyone was terribly excited about this! 
+[LAUGHTER]
+And it is quite handy. 
+What people do is… 
+…you know, those QR codes that come up that let you establish the seed in the first place for an account?
+DOUG.  [LAUGHS] Of course, I take pictures of mine all the time.
+DUCK.  [GROANS] Yessss, you point your camera at it, it scans it in, then you think, “What if I need it again? Before I leave that screen, I’m going to snap a photo of it, then I’ve got a backup.”
+Well, don’t do that!
+Because it means that somewhere in amongst your emails, in amongst your photos, in amongst your cloud account, is essentially an unencrypted copy of that seed. 
+And that is the absolute key to your account. 
+So it would be a little bit like writing your password down on a piece of paper and taking a photo of it – probably not a great idea. 
+So for Google to build this feature (you’d hope securely) into their Authenticator program at last was seen by many as a triumph. 
+[DRAMATIC PAUSE]
+Enter @mysk_co (our good friend Tommy Mysk, whom we’ve spoken about several times before on the podcast). 
+They figured, “Surely there’s some kind of encryption that’s unique to you, like a passphrase… yet when I did the sync, the app didn’t ask me for a passcode; it didn’t offer me the choice to put one in, like the Chrome browser does when you sync things like passwords and account details.”
+And, lo and behold, @mysk_co found that when they took the app’s TLS traffic and decrypted it, as would happen when it arrived at Google…
+…there were the seeds inside!
+It is surprising to me that Google didn’t build in that feature of, “Would you like to encrypt this with a password of your choice so even we can’t get at your seeds?” 
+Because, otherwise, if those seeds get leaked or stolen, or if they get seized under a lawful search warrant, whoever gets the data from your cloud will be able to have the starting seeds for all your accounts. 
+And normally that’s not the way things work.
+You don’t have to be a lawless scoundrel to want to keep things like your passwords and your 2FA seeds secret from everybody and anybody. 
+So their advice, @mysk_co’s advice (and I would second this) is, “Don’t use that feature until Google comes to the party with a passphrase that you can add if you wish.” 
+That means that the stuff gets encrypted by you *before* it gets encrypted to be put into the HTTPS connection to send it to Google. 
+And that means that Google can’t read your starting seeds, even if they want to.
+DOUG.  Alright, my favourite thing in the world to say on this podcast: we will keep an eye on that. 
+Our next story is about a company called PaperCut. 
+It is also about a remote code execution. 
+But it’s really more a tip-of-the-cap to this company for being so transparent. 
+A lot going on in this story. Paul… let’s dig in, and see what we can find.
+PaperCut security vulnerabilities under active attack – vendor urges customers to patch
+
+DUCK.  Let me do a mea culpa to PaperCut-the-company.
+When I saw the words PaperCut, and then I saw people talking, “Ooohh, vulnerability; remote code execution; attacks; cyberdrama”…
+DOUG.  [LAUGHS] I know where this is going!
+DUCK.  … I thought PaperCut was a BWAIN, a Bug With An Impressive Name. 
+I thought, “That’s a cool name; I bet you it has to do with printers, and it’s going to be like a Heartbleed, or a LogJam, or a ShellShock, or a PrintNightmare – it’s a PaperCut!” 
+In fact, that is just the name of the company. 
+I think the idea is that it’s meant to help you cut down on waste, and unnecessary expense, and ungreenness in your paper usage, by providing printer administration in your network. 
+The “cut” is meant to be that you’re cutting your expenses. 
+Unfortunately, in this case, it meant that attackers could cut their way into the network, because there were a pair of vulnerabilities discovered recently in the admin tools in their server. 
+And one of those bugs (if you want to track it down, it is CVE-2023-27350) allows for remote code execution:
+This vulnerability potentially allows for an unauthenticated attacker to get remote code execution on a Papercut application server. This could be done remotely and without the need to log in.
+Basically, tell it the command you would like to run and it will run it for you.
+Good news: they patched both of these bugs, including this super-dangerous one.
+The remote code execution bug… they patched at the end of March 2023. 
+Of course, not everybody has applied the patches. 
+And, lo and behold, in the middle of about April 2023, they got reports that somebody was onto this. 
+I’m assuming that the crooks looked at the patches, figured out what had changed, and thought, “Oooh, that’s easier to exploit than we thought, let’s use it! What a convenient way in!” 
+And attacks started. 
+I believe the earliest one they found so far was 14 April 2023. 
+And so the company has gone out of its way, and even put a banner on the top of its website saying, “Urgent message for our customers: please apply the patch.” 
+The crooks have already landed on it, and it’s not going well. 
+And according to threat researchers in the Sophos X-Ops team, we already have evidence of different gangs of crooks using it. 
+So I believe we’re aware of one attack that looks like it was the Clop ransomware crew; another one that I believe was down to the LockBit ransomware gang; and a third attack where the exploit was being abused by crooks for cryptojacking – where they burn your electricity but they take the cryptocoins. 
+And even worse, I got notification from one of our threat researchers just this morning [2023-04-26] that somebody, bless their hearts, has decided that “for defensive purposes and for academic research”, it’s really important that we all have access to a 97-line Python script…
+…that lets you exploit this at will, [IRONIC] just so you can understand how it works. 
+DOUG.  [GROAN] Aaaaargh.
+DUCK.  So if you haven’t patched…
+DOUG.  Please hurry!
+That sounds bad!
+DUCK.  “Please hurry”… I think that’s the calmest way of putting it, Doug.
+DOUG.  We’ll stay on the remote code execution train, and the next stop is Chromium Junction.
+A double zero-day, one involving images, and one involving JavaScript, Paul.
+Double zero-day in Chrome and Edge – check your versions now!
+
+DUCK.  Indeed, Doug.
+I’ll read these out in case you want to track them down. 
+We’ve got CVE-2023-2033, and that is, in the jargon, Type confusion in V8 in Google Chrome. 
+And we have CVE-2023-2136, Integer overflow in Skia in Google Chrome. 
+To explain, V8 is the name of the open-source JavaScript “engine”, if you like, at the core of the Chromium browser, and Skia is a graphics handling library that is used by the Chromium project for rendering HTML and graphics content. 
+You can imagine that the problem with triggerable bugs in either the graphics rendering part or the JavaScript processing part of your browser…
+…is that those are the very parts that are designed to consume, process and present stuff that *comes in remotely from untrusted websites*, even when you just look at them. 
+And so, just by the browser preparing it for you to see, you could tickle not one, but both of these bugs.
+My understanding is that one of them, the JavaScript one, essentially gives remote code execution, where you can get the browser to run code it’s not supposed to. 
+And the other one allows what’s generally known as a sandbox escape.
+So, you get your code to run, and then you jump outside the strictures that are supposed to constrain code running inside a browser. 
+Although these bugs were discovered separately, and they were patched separately on 14 April 2023 and 18 April 2023 respectively, you can’t help but wonder (because they’re zero-days) if they were actually being used in combination by somebody. 
+Because you can imagine: one lets you break *into* the browser, and the other lets you break *out* of the browser. 
+So you’re in the same sort of situation that you were when we were talking recently about those Apple zero-days, where one was in WebKit, the browser renderer, so that meant that your browser could get pwned while you were looking at a page…
+…and the other was in the kernel, where code in the browser could suddenly leap out of the browser and bury itself right in the main control part of the system. 
+Apple zero-day spyware patches extended to cover older Macs, iPhones and iPads
+
+Now, we don’t know, in the Chrome and Edge bug cases, whether these were used together, but it certainly means that it is very, very well worth checking that your automatic updates really did go through!
+DOUG.  Yes, I would note that I checked my Microsoft Edge and it updated automatically. 
+But it could be that there’s an update toggle that’s off by default – if you have metered connections, which is if your ISP has a cap, or if you’re using a mobile network – such that you won’t get the updates automatically unless you proactively toggle that on.
+And the toggle doesn’t take effect until you restart your browser. 
+So if you’re one of those people that just keeps your browser open constantly, and never shuts it down or restarts it, then…
+…yes, it is worth to check! 
+Those browsers do a good job with automatic updates, but it’s not a given.
+DUCK.  That’s a very good point, Doug. 
+I hadn’t thought about that. 
+If you’ve got that metered connections setting off, you might not be getting the updates after all.
+DOUG.  OK, so the CVEs from Google are a little vague, as they often are from any company. 
+So, Phil (one of our readers) asked… he says that part of the CVE says is that something can come “via a crafted HTML page.” 
+He’s saying this is still too vague. 
+So, in part, he says:
+I guess I should assume, since V8 is where the weakness lies, JavaScript-plus-HTML, and not just some corrupted HTML by itself, can get hold of the CPU instruction pointer? Right or wrong? 
+And then he goes on to say the CVEs are “useless to me, so far, in getting a clue on this.” 
+So Phil is a little confused, as are probably many of the rest of us here. 
+Paul?
+DUCK.  Yes, I think that’s a great question.  
+I understand in this case why Google doesn’t want to say too much about the bugs. 
+They are in the wild; they are zero days; crooks already know about them; let’s try and keep it under our hat for a while. 
+Now, I presume the reason they just said a “crafted HTML page” was not to suggest that HTML alone ( pure play “angle bracket/tag/angle bracket” HTML code, if you like) could trigger the bug. 
+I think what Google is trying to warn you about is that simply looking – “read-only” browsing – can nevertheless get you into trouble. 
+The idea of a bug like this, because it’s remote code execution, is: you look; the browser attempts to present something in its controlled way; it should be 100% safe.
+But in this case, it could be 100% *dangerous*. 
+And I think that’s what they’re trying to say. 
+And unfortunately, that idea of “the CVEs being “useless to me”, sadly, I find that is often the case.
+DOUG.  [LAUGHS] You are not alone, Phil!
+DUCK.  They’re just a couple of sentences of cybersecurity babble and jargon. 
+I mean, sometimes, with CVEs, you go to the page and it just says, “This bug Identifier has been reserved and details will follow later,” which is almost worse than useless. [LAUGHTER]
+So what this is really trying to tell you, in a jargonistic way, is that *simply looking*, simply viewing a web page, which is supposed to be safe (you haven’t chosen to download anything; you haven’t chosen to execute anything; you haven’t authorised the browser to save a file)… just the process of preparing the page before you see it could be enough to put you in harm’s way. 
+That’s, I think, what they mean by “crafted HTML content.”
+DOUG.  All right, thank you very much, Paul, for clearing that up. 
+And thank you very much, Phil, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+For the whole disgruntlement over the PaperCut PoC script, I think it is important to also understand that PoC’s allow both good and bad actors to demonstrate risk. While it can be damaging to an organization, demonstrating risk or witnessing someone get owned over it is what drives remediation/patching. I can’t count the number of times I’ve seen vuln management teams light fires under their IT resources only after I’ve weaponized the 10-year-old CVE they have refused to patch.
+I hear you. But there’s a difference between showing just enough to prove your point, and enabling the world to gang up on a group of unfortunates.
+I understand the value of so-called full disclosure, but the fact that you can “light fires” and “weaponise” things (other metaphors are available, just saying) doesn’t mean it’s always the right thing to do. For a 10-year-old bug that someone refuses to fix, perhaps… but in this case, perhaps not.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,325 @@
+Sophos Home protects every Mac and PC in your home 
+STOP THE CROOKS BEFORE THEY STOP YOU!
+Paul Ducklin talks to world-renowned cybersecurity expert Fraser Howard, Director of Research at SophosLabs, in this fascinating episode, recorded during our recent Security SOS Week 2022. 
+When it comes to fighting cybercrime, Fraser truly is a “specialist in everything”, and he also has the knack of explaining this tricky and treacherous subject in plain English.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+[ROBOT VOICE: Sophos Security SOS]
+PAUL DUCKLIN.  Hello, everybody. 
+Welcome to the Sophos Security SOS week. 
+Today’s topic is:  Preventing cyber threats – stop them before they stop you! 
+And our guest today is none other than Mr. Fraser Howard, Director of Research at SophosLabs. 
+Now, those of you who have listened to SOS Week before will know that I like to describe Fraser as a “specialist in everything”, because his knowledge is not just broad, it is also incredibly deep. 
+He ticks every cell in the spreadsheet, you could say. 
+So, Fraser, welcome back to the SOS Week. 
+I wanted to start by focusing on something that goes by the name of LOLBIN, which I believe is short for “living-off-the-land binary”, which is jargon for software that’s there already that the cooks love to use.
+FRASER HOWARD.  Exactly that.
+DUCK.  And the big problem at the moment seems to be that the most likely LOLBIN, or the most likely pre-installed program that the crooks will dine out on, for want of a better phrase, is nothing other than PowerShell, which is built into Windows. 
+It’s available on every version of Windows as soon as you install it. 
+And it’s the medium of management these days for Windows itself. 
+So how do you live without it?
+FRASER.  Exactly – just like you described, from the attackers’ perspective, LOLBINs are brilliant. 
+They either bring their own knife to the fight, and their knife might look very different to everything else that’s on the system…
+…or they use a knife that just happens to be present on the system in the first place.
+And that is advantageous to the attacker, for obvious reasons.
+Any security software won’t see some brand new, shiny, unknown application suddenly being run and used in part of the attack. 
+But tools like PowerShell are already there – that’s when the games begin in terms of trying to work out, “Is it something good, or is it something bad?” 
+I wish there was a one-line answer to how we detect malicious PowerShell versus benign, but actually it’s quite a complex situation. 
+What exactly is the PowerShell process doing itself? 
+On one end of the spectrum, you could use technology like, for example, application control.
+ And as an admin, you could choose: “PowerShell, you should not be allowed to run in my environment.” 
+ That’s kind of a panacea, if you like, and it would stop PowerShell being abused, but it would also break lots of legitimate activity, including the core management of most Windows machines today.
+DUCK.  OK, so application control is Sophos’s name for the ability to detect, and optionally to block, software that is not malware, but that a well-informed administrator might not want to support in their environment?
+FRASER.  Exactly. 
+And it’s not just about admins and their choice of “Which application should my users be allowed to use?” 
+It’s about basics. 
+If you think about security, what’s one of the things that we’ve been telling people for the last 5 or 10 years? 
+“Patch!”
+If you’re an administrator and you’re allowing anybody to use whatever application they want for their browser, that’s maybe 5 to 10 different browsers that you have to patch.
+Actually, for admins, technologies like application control let them narrow that threat surface.
+DUCK.  But PowerShell… some people say, “Oh, just block PowerShell. Block all .PS1 files. Job done.”
+FRASER.  It’s not quite as simple as that!
+DUCK.  Could a sysadmin manage without PowerShell in a modern Windows network?
+FRASER.  [PAUSE] No. 
+[LAUGHTER]
+I mean, there are policy options that they could choose to only allow certain signed scripts, for example, to be run.
+But there’s a whole variety of tips and techniques that the attackers know that try to bypass those mechanisms as well. 
+Some of the older scripting engines… the best example is Windows Scripting Host – most people don’t know it’s there. 
+It’s not the one-stop shop for admin that PowerShell is, but WSCRIPT and CSCRIPT…
+…those binaries, again, are on every single Windows box. 
+They are a lot more feasible to outright block, and they get abused, again by malware.
+DUCK.  So the Windows Scripting Host includes things like JavaScript (not running in your browser, outside your browser), and good old Visual Basic Script?
+FRASER.  There’s a whole host of them.
+DUCK.  Now, Visual Basic script is discontinued by Microsoft, isn’t it? 
+But it’s still supported and still very widely used?
+FRASER.  It’s very popular with the Bad Guys, yes. 
+And it’s not just scripting engines. 
+I can’t remember exactly how many binaries are on some of the main LOLBIN lists that are out there.
+With the right combination of switches, all of a sudden, a binary that you might use to manage, for example, certificates locally…
+…actually can be used to download any content from a remote server, and save it to disk locally.
+DUCK.  Is that CERTUTIL.EXE?
+FRASER.  Yes, CERTUTIL, for example.
+DUCK.  Because that can also be used to do things like calculate file hashes.
+FRASER.  It could be used to download, for example, base64-encoded executable content, save it locally, and decode it. 
+And then that content could be run – as a way of potentially getting through your web gateways, for example.
+DUCK.  And that gets even worse with PowerShell, doesn’t it? 
+Because you can take a base64-encoded string and feed that into PowerShell as the input script, and it will quietly decode it for you. 
+And you can even put in a command line option, can you not, to say, “Hey, if the user said ‘don’t allow scripts to execute from the command line’, ignore it – I wish to override that”?
+FRASER.  You mentioned .PS1 files. 
+That’s a physical script file that might exist on disk. 
+Actually, PowerShell is pretty adept at doing things filelessly, so just the command line itself can contain the entirety of the PowerShell command.
+DUCK.  Now, my understanding is most so-called “fileless malware” does involve files, probably quite a lot of files in its operation…
+…but there will be a key point at which something you might detect *only exists in memory*. 
+So, security software that is only able to monitor disk access will miss out. 
+How do you deal with that kind of situation, where the crooks have got all this semi-suspicious stuff, and then they’ve disguised the really dangerous bit with this fileless, memory-only trick? 
+How do you deal with that?
+FRASER.  One of the ways we deal with that, particularly in regards to PowerShell, is Microsoft provides an interface which gives us visibility into the behaviour of PowerShell. 
+So AMSI is an interface which vendors, security vendors, can use to get a peep into malware.
+DUCK.  AMSI is… Anti-Malware Scanning Interface?
+FRASER.  Exactly.
+It gives us a window into the behaviour of PowerShell at any point in time. 
+So, as it might be doing things filelessly… any traditional interception points which are looking for files on disk, they won’t be coming into play. 
+But the behaviour of PowerShell itself will generate activity, if you like, within the AMSI interface, which gives us the ability to recognise and block certain types of malicious PowerShell activity. 
+The other thing is that, although “fileless” is seen as a bit of a panacea for the bad guys…
+…actually, one of the things that most attackers are after at some point is what we call persistence. 
+OK, they’ve got some code running on the machine… but what happens if that machine is restarted? 
+And so their fileless malware typically will seek to have add some level of persistence. 
+So, most of the fileless attacks that we’ve seen actually have interaction, typically with the Windows Registry – they use the registry as a way of achieving persistence. 
+Typically, they put some sort of BLOB [binary large object] of data in the registry, and modify some registry keys such that such that when that machine is restarted, that BLOB is decoded and malicious behaviour carries on again.
+Today’s products are all about a whole range of technologies, from simple, right through to quite extraordinarily complex. 
+DUCK.  That also helps to explain why people take files that are kind-of the precursors of malware, but not overtly malicious themselves,  upload them to an online service like, say, Virus Total…
+…and go, “Hey, nobody detects this. All security products are useless.” 
+But it doesn’t mean that file can spring into life and start doing bad stuff without getting stopped…
+FRASER.  That’s a very good point. 
+I think it’s something the security industry has tried… but the fact that we still talk about it – we’ve probably failed to get this point across:
+What is protection? 
+What do we actually mean? 
+What does protecting someone against a threat typically mean? 
+Most people tend to think of it like this… OK, they have a threat; they want a file that is “the threat”; and they want to see if that file gets detected.
+But that particular attack… let’s suppose it’s a bot. 
+There might be 10,000 of those files *every single day*, as the bad guys turn their handle and churn out lots of different replicas that are essentially all the same basic thing. 
+And so the fact that 1, or 10, or 100 of those files gets detected…
+…it doesn’t really tell you very much about how well a product might protect against that threat.
+DUCK.  “Bot” means software robot?.
+Essentially, that’s something that sits on your computer regularly, calling home or polling some random server?
+FRASER.  Exactly.
+DUCK.  That server may change from day to day… and the bot will  frequently download a list of instructions, such as “Here’s a list of email addresses to spam.” 
+Next, it could be, “Here is a list of file extensions I want you to scramble”, or it could be “Turn on the keylogger”?
+FRASER.  Exactly.
+DUCK.  Or “Take a screenshot right now, they’re in the banking app”.
+It’s essentially an active backdoor…
+FRASER.  It *is* a backdoor, yes. 
+And we spoke about backdoors 20 years ago… I remember doing customer presentations 20 years ago, talking about backdoors.
+DUCK.  “Back Orifice”, if you remember…
+FRASER.  Yes, yes!
+We were trying to convince customers that, actually, a lot of the backdoors out there were more important than the high-profile malware of the day. 
+What you don’t want to get infected with are the backdoors, which allow some miscreant somewhere the ability to control your machine and do bad stuff, such as have a look through your file system, or modify data on your system. 
+That’s a far more frightening threat than, for example, a self-replicating worm that just spreads from computer to computer. 
+That might get the press, and it might cause problems in and in and of itself…
+…but, actually, somebody having access to your system is arguably a much bigger threat indeed.
+DUCK.  And thinking back to Back Orifice in… what was it 1999? 2000? 
+That famously it listened on port 13337, didn’t it? 
+FRASER.  You’ve got a good memory [LAUGHS]… yes, “elite”!
+DUCK.  And as soon as people started getting onto DSL connections at home, and having a home router, Back Orifice was useless because inbound connections didn’t work. 
+And so people thought, “Oh, well, backdoors rely on inbound network connections – I’m protected by my ISP by default, so I don’t have to worry about it.” 
+But today’s zombies, today’s bots – they call home using some kind of encrypted or secretive channel, and they *download* the instructions…
+FRASER.  And because it’s on HTTPS, they basically hide that network activity amongst the million-and-one other web packets that go out every minute on most home connections.
+DUCK.  So that’s another reason why you want defence-in-depth or layered protection?
+FRASER.  Yes.
+DUCK.  Obviously, new files – you want to examine them; you don’t want to miss malware that you could have detected. 
+But the file could be innocent at the moment, and it could turn out to be rogue after it’s loaded; after it’s manipulated itself in memory; after it’s called out and downloaded stuff…
+FRASER.  And so, to get back to the original point: how we measure security products today is more complex than it ever has been.
+DUCK.  Because some people still have the idea that, well, if you really want to test a product, you just get a giant bucket full of malware, all in files…
+FRASER.  Commmonly called “a zoo”.
+DUCK.  …and you put that on a server in isolation somewhere.
+Then you scan it with a static scanner, and you find out how many it detects, and that tells you how the product behaves. 
+The “Virus Total” approach.
+But that: [A] will tend to underestimate good products, and [B] might overestimate bad products.
+FRASER.  Or products that specialise in detecting files only, for the purpose of primarily looking good in those sort of zoo-based tests.
+That doesn’t translate to a product in the real world that will actually provide good levels of protection! 
+In reality, we block files… of course we do – the file is still a very important currency, if you like, in terms of protection. 
+But there’s lots of other things, for example like the AMSI interface that lets us block malicious PowerShell activity, and a program’s behaviour itself. 
+So, within our product, the behavioural engine looks at the behaviour of processes, network, traffic, registry activity…
+…and that combined picture lets us spot potentially malicious behaviour for the purpose of blocking not necessarily a specific family, or even a particular kind of kind of threat, but just *malicious activity*. 
+If there are certain types of behaviour that we can determine are just outright malicious, we will often try and block that. 
+We can block a certain type of malicious behaviour today, and then a threat family that has not even yet been written – in three months time, it might use that same behaviour, and we will proactively detect it. 
+So that’s the Holy Grail of what we do: proactive protection.
+The ability for us to write something today that in the future will successfully block malicious behaviour.
+DUCK.  I suppose a good example of that, to go back to what we mentioned before, is CERTUTIL.EXE – that certificate validation utility. 
+You might be using that in your own scripts, in your own sysadministration tools, yet there are some behaviours that you would not expect, although that program can be made to do those things. 
+They would stand out.
+FRASER.  They would stand out, exactly.
+DUCK.  So you can’t say, “The program is bad”, but at some point in its behaviour you can go, “Aha, now it’s gone too far!”
+FRASER.  And that touches on another interesting aspect of today’s landscape. 
+Historically, EVIL.EXE runs; we might detect the file; we might detect some malicious behaviour; we clean it from your system. 
+You spoke about LOLBINs… obviously, when we detect PowerShell doing something malicious, we don’t remove POWERSHELL.EXE from that system. 
+DUCK.  “Ooh, I found Windows doing something bad – wipe the whole system!”
+[LAUGHTER]
+FRASER.  We basically block that process; we stop that process doing what it was about to do; and we terminate it. 
+But PowerShell still exists on the physical system. 
+Actually, today’s attackers are very different from yesterday’s attackers as well. 
+Today’s attackers are all about having a goal; having a purpose.
+The old model was more spray-and-pray, if you like. 
+If somebody blocks the attack… bad luck, they give up – there’s no human presence there. 
+If the attack works, data is stolen, a machine becomes compromised, whatever it happens to be, but if the attack was blocked, nothing else happens on the system. 
+In today’s attacks, there actually is much more of a human element. 
+So, typically, in a lot of attacks we see today – this is typified by lots of the ransomware attacks, where the crooks are specifically trying to target certain organisations with their ransomware creations… 
+…when something is blocked, they try again, and they keep on retrying.
+As we’re blocking stuff, and blocking different types of malicious behaviour, there’s something behind the scenes; some *person* behind the scenes; some threat group behind the scenes, retrying.
+DUCK.  So 10 or 15 years ago, it was, “Oh, we found this brand-new, previously unknown Word malware. We’ve deleted the file and cleaned it up, and we wrote it in the log”.
+And everyone goes into the meeting, and ticks it off, and pats each other on the back, “Great! Job done! Ready for next month.” 
+FRASER.  Now, it’s very different.
+DUCK.  Today, *that wasn’t the attack*. 
+FRASER.  No! 
+DUCK.  That was just a precusor, an “I wonder what brand of smoke detectors they use?” kind of test.
+FRASER.  Exactly.
+DUCK.  And they’re not planning on using that malware.
+They’re just trying to guess exactly what protection have you got? 
+What’s turned on; which directories are included; which directories are excluded from your scanning; what ambient settings have you got?
+FRASER.  And what we talk about today is active adversaries. 
+Active adversaries… they get lots of press. 
+That’s the concept of the whole MITRE ATT&CK framework – that’s is essentially a bible, a dictionary, if you like, of combinations of tactics.
+The tactics are the verticals; the horizontals are the techniques. 
+I think there are  14 tactics but I don’t know how many techniques… hundreds?
+DUCK.  It can be a bit dizzying, that MITRE grid!
+FRASER.  It’s essentially a dictionary of the different types of things, the different types of technique, that could be used on a system for good or bad, essentially. 
+But it’s essentially aligned to attackers and active adversaries. 
+If you like, it’s a taxonomy of what an active adversary might do when on the system.
+DUCK.  Right, because in the old days (you and I will remember this, because we both spent time writing comprehensive malware descriptions, the kind of things that were necessary 15 or 20 years ago – you were talking about EVIL.EXE)…
+…because most threats back then were viruses, in other words they spread themselves and they were self-contained. 
+Once we had it…
+FRASER.  …you could document, A-to-Z, exactly what it did on the system.
+DUCK.  So a lot of malware back in those days, if you look at how they hid themselves; how they went into memory; polymorphism; all that stuff – a lot of them were a lot more complicated to analyse that stuff today. 
+But once you knew how it worked, you knew what every generation would possibly look like, and you could write a complete description.
+FRASER.  Yes.
+DUCK.  Now, you just can’t do that. 
+“Well, this malware downloads some other malware.”
+What malware? 
+“I don’t know.”
+FRASER.  For example, consider  a simple loader: it runs; it periodically connects out. 
+The attacker has the ability to fire in some sort of encoded BLOB –  for example, let’s suppose it’s a DLL, a dynamic link library, a module… essentially, some executable code. 
+So, “What does that threat do?” 
+Well, it depends exactly and entirely on what the attacker sends down the wire.
+DUCK.  And that could change day by day. 
+It could change by source IP: “Are you in Germany? Are you in Sweden? Are you in Britain?”
+FRASER.  Oh, yes we see that quite often.
+DUCK.  It could also say, “Hey, you already connected, so we’ll feed you NOTEPAD or some innocent file next time.”
+FRASER.  Yes. 
+The attackers typically will have techniques they use to try and spot when it’s us [i.e. SophosLabs] trying to run their creation.
+So they don’t feed us what might be the ultimate payload.
+They don’t want us to see the payload – they only want victims to see that payload. 
+Sometimes things just exit quietly; sometimes they just run CALC, or NOTEPAD, or something obviously silly; sometimes we might get a rude message popping up. 
+But typically they’ll try and keep back the ultimate payload, and reserve that for their victims.
+DUCK.  And that also means… 
+…I glibly used the word “polymorphism” earlier; that was very common in viruses back in the day, where every time the virus copied itself to a new file it would basically permute its code, often in a very complicated way, even rewriting its own algorithm. 
+But you could get the engine that did the scrambling. 
+FRASER.  Yes.
+DUCK.  Now, the crooks keep that to themselves.
+FRASER.  That’s on a server somewhere else.
+DUCK.  And they’re turning the handle in the background.
+FRASER.  Yes.
+DUCK.  And also you mentioned loaders – people may have heard of things like BuerLoader, BazaarLoader, they’re sort of well-known “brand names”…
+..in some cases, there are gangs of crooks, and that’s all they do. 
+They don’t write the malware that comes next. 
+They just say, “What would you like us to load? Give us the URL and we’ll inject it for you.”
+FRASER.  The original bot operators from 15 or 20 years ago – how did they make money? 
+They compromised networks of machines – that’s essentially what a botnet is, lots of machines under their command – and then they could basically rent out that “network”.
+It could be for distributed denial of service – get all of these infected machines to hit one web server for example, and take out that web server. 
+It could be quite commonly for spam, as you’ve already mentioned. 
+And so the natural evolution of that, in some sense, is today’s loader. 
+If somebody has a system infected with a loader, and that loader is calling home, you essentially have a bot.
+You have the ability to run stuff on that machine…
+…so, just like you say, those cybercriminals don’t need to be concerned with what the ultimate payload is. 
+Is it ransomware? 
+Is it data theft? 
+They have a vehicle… and ransomware is almost the final payout. 
+“We’ve done everything we wanted to do.” (Or we failed in everything else we were hoping to do.)
+“Let’s just try ransomware…”
+DUCK.  “We’ve logged all the passwords now, there are no more to get.” [LAUGHS] 
+FRASER.  There’s nowhere else to go!
+DUCK.  “We’ve stolen all the data.”
+FRASER.  Exactly… the final cash-out is ransomware! 
+At that point, the user is aware, and the administrators aware, there’s data loss. 
+So, today’s loader is almost an extension of, an evolution of, yesterday’s bot.
+DUCK.  Fraser, I’m conscious of time…
+So, given that you’ve painted a picture that clearly requires full-time work, full-time understanding – you’re an expert researcher, you’ve been doing this for years. 
+Not everybody can give up their day job in IT or sysadministration to have *another* day job to be like you in the organisation. 
+If you had to give three simple tips for what you should do (or what you should not do) today to deal with what is a more complicated, more fragmented way of attacking from the crooks  – one that gives us many more planes on which we need to defend…
+… what would those three things be?
+FRASER.  That’s a tough question. 
+I think the first one has to be: having awareness and visibility into your organisation. 
+It sounds simple, but we quite often see attacks where the starting point of an attack was an unprotected box. 
+So, you have an organisation….
+…they have a wonderful IT policy; they have products deployed across that network, properly configured; they might have a team of people that are watching for all the little sensors, and all the data coming back from these products.
+But they have a domain controller that was unprotected, and the bad guys managed to get onto that. 
+And then, within the whole MITRE ATT&CK framework, there’s one technique called lateral movement… 
+…once the attackes are on a box, they will continue to try to laterally move from there across the organisation. 
+And that initial kind of foothold gives them a point from which they can do that. 
+So, visibility is the first point.
+DUCK.  You also have to know what you don’t know!
+FRASER.  Yes – having visibility into all the devices on your network. 
+Number two is: configuration.
+This is a bit of a thorny one, because no one likes to talk about policies and configuration – it’s frankly quite dull.
+DUCK.  It’s kind of important, though!
+FRASER.  Absolutely crucial.
+DUCK.  “If you can’t measure it, you can’t manage it,” as the old saying goes.
+FRASER.  I think my one recommendation for that would be: if at all possible, use the recommended defaults. 
+As soon as you deviate away from recommended defaults, you’re typically either turning stuff off (bad!), or you’re excluding certain things.
+DUCK.  Yes.
+FRASER.  For example, excluding a particular folder. 
+Now, that might be perfectly acceptable – you might have some custom application in it, some custom database application where you say, “I don’t want to scan files within this particular folder.” 
+It’s not quite so good if you’re excluding, for example, the Windows folder!
+DUCK.  “Exclude C:\*.* and all subdirectories.” [LAUGHS]
+FRASER.  It is.
+DUCK.  You add one, you add another, and then you don’t go and review it…
+…you end up where you basically have all the doors and all the windows propped open.
+FRASER.  It’s a bit like a firewall. 
+You block everything; you poke a few holes: fine. 
+You keep on poking holes for next three years, and before you know where you are…
+…you have Swiss cheese as your firewall. 
+[LAUGHTER]
+It’s not going to work! 
+So, configuration is really important, and, if at all possible stick to the defaults.
+DUCK.  Yes.
+FRASER.  Stick to defaults, because… those recommended defaults – they’re recommended for a reason! 
+Within our own products, for example, when you deviate from defaults, quite often you’ll get a red bar warning that you’re basically disabling protection.
+DUCK.  If you’re going to go off-piste, make sure you really meant to!
+FRASER.  Make sure you have good visibility.
+And I guess the third point, then, is: acknowledge the skill set required.
+DUCK.  Don’t be afraid to call for help?
+FRASER.  Yes: Don’t be afraid to call for help! 
+Security is complex.
+We like to think of it’s simple: “What three things can we do? What simple things can we do?” 
+Actually, the reality is that today’s security is very complicated. 
+Products might try to package that up in a fairly simple way, and provide good levels of protection and  good levels of visibility into different types of behaviour happening in a network. 
+But if you don’t have the skill set, or the resource for that matter, to work though the events that are coming in and hitting your dashboard… 
+…find someone that does!
+For example, using a managed service can make a massive difference to your security, and it can just remove that headache.
+DUCK.  That is not an admission of defeat, is it? 
+You’re not saying, “Oh, I can’t do it myself.”
+FRASER.  We’re talking 24 x 7 x 365. 
+So, for someone to do that in-house is a massive undertaking. 
+And we’re also talking about complex data – and we spoke about active adversaries, and that sort of attack. 
+We know the Bad Guys, even when we block stuff,  will continue to retry: they’ll change things up. 
+A good team that are looking at that data will recognise that type of behaviour, and they will not only know that something’s being blocked, those people will also think, “OK, there’s somebody repeatedly trying to get in through that door.”
+That’s quite a useful indicator to them, and they’ll take action, and they’ll resolve the attack. 
+[PAUSE]
+Three pretty good pieces of advice there!
+DUCK.  Excellent, Fraser! 
+Thank you so much, and thank you for sharing your experience and your expertise with us. 
+To everybody who’s listening, thank you so much. 
+And it remains now only for me to say: “Until next time, stay secure.”
+[MORSE CODE]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

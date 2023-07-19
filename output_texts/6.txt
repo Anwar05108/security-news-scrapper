@@ -1,0 +1,55 @@
+Sophos Home protects every Mac and PC in your home 
+Now that a patch has been circulated to vendors, researchers at Sentinel One have released details of a worrying bug in an IoT software driver called NetUSB.
+The product comes from a Taiwanese hardware and software maker called Kcodes, which describes itself as follows:
+[A] leading supplier and developer of USB over IP technology products. Today, over 20% of worldwide networking devices are embedded with KCodes solution.
+The idea is a neat one: NetUSB is a virtual connector for USB hardware, so that you can plug a range of different USB devices directly into your router, and then access them remotely from some, many or all of the other devices on your network.
+Instead of sharing a USB device such as a disk drive, a printer or a TV tuner by plugging it into your various laptops, desktops and mobile phones in turn, you hook up the USB device permanently at the virtual centre of your network by connecting it to your router.
+Then you share it out using a “virtual USB cable” that shuffles the USB data over your wireless network instead of over a physical cable – in much the same way that Windows lets you redirect drive letters, directories and files across the network with the NET USE command.
+Sentinel One researcher Max van Amerongen figured there might be code worth digging into when he examined a NetGear router during 2021 and found a kernel driver listening for network connections on TCP port 20005.
+Significantly, the driver was listening on the network interface 0.0.0.0, which is shorthand for “all interfaces”, thus covering localhost, the internal LAN, and the externally connected WAN interface.
+The networking interface used for localhost is accessible only to programs running directly on the router itself – indeed, the “network card” for this interface is implemented entirely in software, and typically gets the IP number 127.0.0.1 on IPv4 networks.
+The internal LAN typically has a so-called “private” IP number, usually 192.168.x.x or 10.x.x.x, that is valid only on the LAN itself and is therefore inacessible by default from the outside world.
+But your WAN interface, where WAN is short for wide-area network, and loosely means “the internet in its entirety”, typically has a public IP number, often issued automatically by your ISP every time your router starts up.
+You should assume that your WAN interface is both visible to and accessible from anywhere in the world.
+In other words, TCP network services that listen explicitly on the WAN port, or implicitly by specifying a catchall IP number of 0.0.0.0, are generally exposed to, can be probed by, and (if buggy) could be exploited by, almost anyone.
+Worse still, most computers that are listening out for connections from the outside world – whether they are listening by accident or design – will get found and poked at automatically, regularly and repeatedly.
+Even if you’re not openly advertising for visitors, as you might if you ran your own web server or blogging site, researchers and crooks alike will find you, without really trying, typically within minutes of your router booting up.
+The IPv4 network can support approximately 4 billion different simultaneously connected and uniquely identifiable devices (that’s because a 32-bit network number can take on a maximum of 232 different values, and 232 = 4,294,967,296)…
+…but at contemporary network speeds, even a comparatively modest commercial internet connection can try out all possible IP numbers – billions of them! – in hours or even minutes.
+Simply put, someone who wants to find your vulnerable router can and will do so, without needing to target you in particular, because it’s surprisingly easy to target anyone by quite literally trying everyone.
+It didn’t take long for van Amerongen to find a problem in the code that processed incoming network data in the Kcodes NetUSB driver.
+Like many TCP protocols, the first step is to read in and identify the command that the user wants to perform.
+If you’ve ever worked with HTTP, you’ll know that incoming commands are specified in the first few bytes of the first network packet, using human-readable byte sequences such as GET, HEAD, POST and OPTIONS.
+In NetUSB, commands are specified with numeric codes, not text strings, and van Amerongen discovered one numbered 0x805F (32,863), which was processed by a C function called SoftwareBus_dispatchNormalEPMsgOut. 
+(We don’t know what an EP message means in this context, but that doesn’t matter, because it’s not the command itself that creates the hole, it’s the preparation for processing the command.)
+After being selected by number, this function then reads in a 32-bit value that denotes the size of the message that the user wants to send, and allocates enough kernel memory to hold what’s coming next.
+Except that isn’t quite how the code works, because it actually asks for “as much memory as the user requested, plus an extra 17 bytes that we’ll use during processing”.
+Those extra 17 bytes are what introduces the security hole.
+In pseudocode, the driver does this:
+Later on, the code reads in data from the other end – up to, but not necessarily, size bytes’ worth – and then copies all the data it received into the allocated memory area buff.
+You’ve probably spotted the problem.
+If the user asks the driver to allocate a huge amount of RAM by setting size to, say, a value of 3 billion (which will fit into 32 bits – see above), the kernel_alloc() will almost certainly fail and the function will fail gracefully.
+But if the user asks for almost, but not quite, 232 bytes of RAM, then the amount actually requested will end up, for instance, as (0xFFFFFFFF + 17).
+Except that with just 32 bits to play with, the sum shown above exhibits a “millennium bug” problem, because (0xFFFFFFFF + 17) = 0x10000010, which is 33 bits long. 
+So the sum overflows, and gets “squashed” back into 32 bits as just 0x10 (16), in just the same way that AD1999+1 would wrap back to the year AD1900 due to the Y2K bug if you only had two digits available to represent the year.
+In other words, an attacker could ask for 232-1 bytes of data (0xFFFFFFFF); would incorrectly receive a buffer of just 16 bytes; and could then send as much data as they wanted, whether that was 100 bytes, 1000 bytes, or, indeed, any amount up to 0xFFFFFFFF bytes…
+…but any bytes from the 17th onwards would cause a buffer overflow.
+Sentinel One didn’t take this attack any further, considering it “difficult to write an exploit for this vulnerability,” although van Amerongen noted wisely that:
+We believe that it isn’t impossible and so those with Wi-Fi routers may need to look for firmware updates for their router.
+Underflow may sound confusing at first, but if you mix up signed and unsigned numbers, underflow typically leads to enormous overflow.
+You can visualise this by imagining an old-school car odometer that reads 00001 being reversed for 2km: after the first kilometre, it would correctly wind back to 00000, but after the second kilometre, it would apparently leap forwards to read 99999.
+The odometer doesn’t have any way to denote negative values, which puts 00000 and 99999 next to each other in its numeric cycle, with the result that it has its own “clock” style of arithmetic in which 99999 + 2 gives 1, and 1 – 2 gives 99999
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Ports 20005 and 33344 on some Netgear’s, another reason for OpenWrt. Then there’s that iffy WPS option, or net isolation that cannot be disabled for guest…
+Not sure if I’m missing something but when I used shodan to search port 20005, I see one result globally?
+Hope it’s not you :-)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

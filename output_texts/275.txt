@@ -1,0 +1,285 @@
+Sophos Home protects every Mac and PC in your home 
+LAST STRAW FOR LASTPASS? IS CRYPTO DOOMED?
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  LastPass again, fun with quantum computing, and cybersecurity predictions for 2023. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth. 
+He is Paul Ducklin. 
+Paul, let’s see if I remember how how to do this…
+It’s been a couple of weeks, but I hope you had a great holiday break – and I do have a post-holiday gift for you! 
+As you know, we like to be in the show with a This Week in Tech History segment.
+DUCK.  Is this the gift?
+DOUG.  This is the gift! 
+I believe you will be interested in this more than just about any other This Week in Tech History segment…
+…this week, on 04 January 1972, the HP-35 Portable Scientific Calculator, a world first, was born.
+Image from The Museum of HP Calculators.Click on calculator to visit Museum exhibit. 
+Named the HP-35 simply because it had 35 buttons, the calculator was a challenge by HP’s Bill Hewlett to shrink down the company’s desktop-size 9100A scientific calculator so it could fit in his shirt pocket. 
+The HP-35 stood out for being able to perform trigonometric and exponential functions on the go, things that until then had required the use of slide rules. 
+At launch, it sold for $395, almost $2500 in today’s money. 
+And Paul, I know you to be a fan of old HP calculators…
+DUCK.  Not *old* HP calculators, just “HP calculators”.
+DOUG.  Just in general? [LAUGHS]
+Yes, OK…
+DUCK.  Apparently, at the launch, Bill Hewlett himself was showing it off. 
+And remember, this is a calculator that is replacing a desktop calculator/computer that weighed 20kg…
+…apparently, he dropped it. 
+If you’ve ever seen an old HP calculator, they were beautifully built – so he picked it up, and,  of course, it worked. 
+And apparently all the salespeople at HP built that into their repartee. [LAUGHS]
+When they went out on the road to do demos, they’d accidentally (or otherwise) let their calculator fall, and then just pick it up and carry on regardless. 
+DOUG.  Love it! [LAUGHS]
+DUCK.  They don’t make ’em like they used to, Doug.
+DOUG.  They certainly don’t.
+Those were the days – incredible. 
+OK, let’s talk about something that’s not so cool. 
+DUCK.  Uh-oh!
+DOUG.  LastPass: we said we’d keep an eye on it, and we *did* keep an eye on it, and it got worse!
+LastPass finally admits: Those crooks who got in? They did steal your password vaults, after all…
+
+DUCK.  It turns out to be a long running story, where LastPass-the-company apparently simply did not realise what had happened. 
+And every time they scratched that rust spot on their car a little bit, the hole got bigger, until eventually the whole thing fell in. 
+So how did it start? 
+They said, “Look, the crooks got in, but they were only in for four days, and they were only in the development network. So it’s our intellectual property. Oh, dear. Silly us. But don’t worry, we don’t think they got into the customer data.” 
+Then they came back and said, “They *definitely* didn’t get into the customer data or the password vaults, because those aren’t accessible from the development network.” 
+Then they said, “W-e-e-e-e-e-l, actually, it turns out that they *were* able to do what’s known in the jargon as “lateral movement. Based on what they stole in incident one, there was incident two, where actually they did get into customer information.” 
+So, we all thought, “Oh, dear, that’s bad, but at least they haven’t got the password vaults!” 
+And then they said, “Oh, by the way, when we said ‘customer information’, let us tell you what we mean. We mean a whole lot of stuff about you, like: who you are; where you live; what your phone and email contact details are; stuff like that. *And* [PAUSE] your password vault.”
+DOUG.  [GASP] OK?!
+DUCK.  And *then* they said, “Oh, when we said ‘vault’,” where you probably imagined a great big door being shut, and a big wheel being turned, and huge bolts coming through, and everything inside locked up…
+“Well, in our vault, only *some* of the stuff was actually secured, and the other stuff was effectively in plain text. But don’t worry, it was in a proprietary format.” 
+So, actually your passwords were encrypted, but the websites and the web services and an unstated list of other stuff that you stored, well, that wasn’t encrypted. 
+So it’s a special sort of “zero-knowledge”, which is a phrase they’d used a lot. 
+[LONGISH SILENCE]
+[COUGHS FOR ATTENTION] I left a dramatic pause there, Doug. 
+[LAUGHTER]
+And *THEN* it turned out that…
+…you know how they’ve been telling everybody, “Don’t worry, there’s 100,100 iterations of HMAC-SHA-256 in PBKDF2“? 
+Well, *maybe*.
+DOUG.  Not for everyone!
+DUCK.  If you had first installed the software after 2018, that might be the case.
+DOUG.  Well, I first installed the software in 2017, so I was not privy to this “state-of-the-art” encryption. 
+And I just checked.
+I did change my master password, but it’s a setting – you’ve got to go into your Account Settings, and there’s an Advanced Settings button;  you click that and then you get to choose the number of times your password is tumbled…
+…and mine was still set at 5000. 
+Between that, and getting the email on the Friday before Christmas, which I read; then clicked through to the blog post; read the blog post…
+…and my impression of my reaction is as follows:
+[VERY LONG TIRED SIGH]
+Just a long sigh.
+DUCK.  
+But probably louder than that in real life…
+DOUG.  It just keeps getting worse. 
+So: I’m out!
+I think I’m done…
+DUCK.  Really?
+OK.
+DOUG.  That’s enough.
+I had already started transitioning to a different provider, but I don’t even want to say this was “the last straw”. 
+I mean, there were so many straws, and they just kept breaking. [LAUGHTER]
+When you choose a password manager, you have to assume that this is some of the most advanced technology available, and it’s protected better than anything. 
+And it just doesn’t seem like this was the case.
+DUCK.  [IRONIC] But at least they didn’t get my credit card number! 
+Although I could have got a new credit card in three-and-a-quarter days, probably more quickly than changing all my passwords, including my master password and *every* account in there.
+DOUG.  Ab-so-lutely!
+OK, so if we have people out there who are LastPass users, if they’re thinking of switching, or if they’re wondering what they can do to shore up their account, I can tell them firsthand…
+Go into your account; go to the general settings and then click the Advanced Settings tab, and see what the what the iteration count is. 
+You choose it. 
+So mine was set… my account was so old that it was set at 5000. 
+I set it to something much higher. 
+They give you a recommended number; I would go even higher than that. 
+And then it re-encrypts your whole account. 
+But like we said, the cat’s out of the bag…. if you don’t change all your passwords, and they manage to crack your [old] master password, they’ve got an offline copy of your account. 
+So just changing your master password and just re-encrypting everything doesn’t do the job completely.
+DUCK.  Exactly. 
+If you go in and your iteration count is still at 5000, that’s the number of times they hash-hash-hash-and-rehash your password before it’s used, in order to slow down password-guessing attacks. 
+That’s the number of iterations used *on the vault that the crooks now have*. 
+So even if you change it to 100,100…
+…strange number: Naked Security recommends 200,000 [date: October 2022]; OWASP, I believe, recommends something like 310,000, so LastPass saying, “Oh, well, we do a really, really sort of gung-ho, above average 100,100”? 
+Serious Security: How to store your users’ passwords safely
+
+I would call that somewhere in the middle of the pack – not exactly spectacular.
+But changing that now only protects the cracking of your *current* vault, not the one that the crooks have got.
+DOUG.  So, to conclude.
+Happy New Year, everybody; you’ve got your weekend plans already, so “you’re welcome” there. 
+And I can’t believe I’m saying this again, but we will keep an eye on this.
+Alright, we’ll stay on the cryptography train, and talk about quantum computing. 
+According to the United States of America, it’s time to get prepared, and the best preparation is…
+[DRAMATIC] …cryptographic agility.
+US passes the Quantum Computing Cybersecurity Preparedness Act – and why not?
+
+DUCK.  Yes!
+This was a fun little story that I wrote up between Christmas and New Year because I thought it was interesting, and apparently so did loads of readers because we’ve had active comments there… quantum computing is the cool thing, isn’t it? 
+It’s like nuclear fusion, or dark matter, or superstring theory, or gravitons, all that sort of stuff. 
+Everyone has a vague idea of what it’s about, but not many people really understand it.
+So, the theory of quantum computing, very loosely speaking, is that it’s a way of constructing an analog computing device, if you like, that is able to do certain types of calculation in such a way that, essentially, all the answers appear immediately inside the device.
+And the trick you have is that if you can coallpse this – what is called, I believe, a “superposition”, based on quantum mechanics…
+…if you can collapse this superposition such that the answer you actually want is the one that pops out, and all the others vanish in a puff of quantum smoke, then you can imagine what that might mean for cryptography.
+Because you might be able to reduce the time taken to do cryptographic cracking dramatically.
+And, in fact, there are two main sorts of algorithmic speedup that are possible, if powerful enough quantum computers come along.
+One of them deals with cracking things like symmetric-key encryption, like AES, or colliding hashes, like SHA-256, where, if you needed an effort in the amount of X before quantum computing, you might be able to do that cracking with an effort of just the square root of X afterwards.
+But even more importantly, for another class of cryptographic algorithm, notably some sorts of public-key cryptography, you could reduce the cracking effort required from X to the *logarithm* of X.
+And to give you an idea of how dramatic those changes can be, talking in base 10, let’s say you have a problem that would take you 1,000,000 units of effort.
+The square root of 1,000,000 is 1000 – sounds much more tractable, doesn’t it?
+And the logarithm of 1,000,000 [in base 10] is just 6!
+So, the concern about quantum computing and cryptography is not merely that today’s cryptographic algorithms might require replacing at some time in the future.
+The problem is actually that the stuff we are encrypting today, hoping to keep it secure, say, for a couple of years, or even for a couple of decades, might, *during the lifetime of that data*, suddenly become crackable almost in an instant…
+…especially to an attacker with plenty of money.
+So, in other words, we have to make the change of algorithm *before* we think that these quantum computers might come along, rather than waiting until they appear for the first time.
+You’ve got to be ahead in order to stay level, as it were. 
+We have to remain cryptographically agile so that we can adapt to these changes, and if necessary, so we can adapt proactively, well in advance. 
+And *that* is what I think they meant by cryptographic agility.
+Cybersecurity is a journey, not a destination. 
+And part of that journey is anticipating where you’re going next, not waiting until you get there.
+DOUG.  What a segue to our next story! 
+When it comes to predicting what will happen in 2023, we should remember that history has a funny way of repeating itself…
+Naked Security 33 1/3 – Cybersecurity predictions for 2023 and beyond
+
+DUCK.  It does, Doug. 
+And that is why I had a rather curious headline, where I was thinking, “Hey, wouldn’t it be cool if I could have a headline like ‘Naked Security 33 1/3’? 
+I couldn’t quite remember why I thought that was funny… and then I remembered it was Frank Drebin… it was ‘Naked *Gun* 33 1/3’. [LAUGHS]
+That wasn’t why I wrote it… the 33 1/3 was a little bit of a joke.
+It should really have been “just over 34”, but it’s something we’ve spoken about on the podcast at least a couple of times before. 
+The Internet Worm, in 1988 [“just over 34” years ago], relied on three main what-you-might-call hacking, cracking and malware-spreading techniques.
+Poor password choice.
+Memory mismanagement (buffer overflows).
+And not patching or securing your existing software properly. 
+The password guessing… it carried around its own dictionary of 400 or so words, and it didn’t have to guess *everybody’s* password, just *somebody’s* password on the system. 
+The buffer overflow, in this case, was on the stack –  those are harder to exploit these days, but memory mismanagement still accounts for a huge number of the bugs that we see, including some zero-days.
+And of course, not patching – in this case, it was people who’d installed mail servers that had been compiled for debugging. 
+When they realised they shouldn’t have done that, they never went back and changed it. 
+And so, if you’re looking for cybersecurity predictions for 2023, there will be lots of companies out there who will be selling you their fantastic new vision, their fantastic new threats…
+…and sadly, all of the new stuff is something that you have to worry about as well. 
+But the old things haven’t gone away, and if they haven’t gone away in 33 1/3 years, then it is reasonable to expect, unless we get very vigorous about it, as Congress is suggesting we do with quantum computing, that in 16 2/3 years time, we’ll still have those very problems. 
+So, if you want some simple cybersecurity predictions for 2023, you can go back three decades…
+DOUG.  [LAUGHS] Yes!
+DUCK.  …and learn from what happened then.
+Because, sadly, those who cannot remember history are condemned to repeat it.
+DOUG.  Exactly. 
+Let’s stay with the future here, and talk about machine learning. 
+But this isn’t really about machine learning, it’s just a good old supply chain attack involving a machine learning toolkit.
+PyTorch: Machine Learning toolkit pwned from Christmas to New Year
+
+DUCK.  Now, this was PyTorch – it’s very widely used – and this attack was on users of what’s called the “nightly build”. 
+In many software projects, you will get a “stable build”, which might get updated once a month, and then you’ll get “nightly builds”, which is the source code as the developers are working on it now. 
+So you probably don’t want to use it in production, but if you’re a developer, you might have the nightly build along with a stable build, so you can see what’s coming next. 
+So, what these crooks did is… they found a package that PyTorch depended upon (it’s called torchtriton), and they went to PyPI, the Python Package Index repository, and they created a package with that name. 
+Now, no such package existed, because it was normally just bundled along with PyTorch. 
+But thanks to what you could consider a security vulnerability, or certainly a security issue, in the whole dependency-satisfying setup for Python package management…
+…when you did the update, the update process would go, “Oh, torchtriton – that’s built into PyTorch. Oh, no, hang on! There’s a version on PyPI, there’s a version on the public Package Index; I’d better get that one instead! That’s probably the real deal, because it’s probably more up to date.”
+DOUG.  Ohhhhhhhh….
+DUCK.  And it was more “up to date”. 
+It wasn’t *PyTorch* that ended up infected with malware, it was just that when you did the install process, a malware component was injected into your system that sat and ran there independently of any machine learning you might do. 
+It was a program with the name triton. 
+And basically what it did was: it read a whole load of your private data, like the hostname; the contents of various important system files, like /etc/passwd (which on Linux doesn’t actually contain password hashes, fortunately, but it does contain a complete list of users on the system); and your .gitconfig, which, if you’re a developer, probably says a whole lot of stuff about projects that you’re working on. 
+And most naughtily-and-nastily of all: the contents of your .ssh directory, where, usually, your private keys are stored. 
+It packaged up all that data and it sent it out, Doug, as a series of DNS requests. 
+So this is Log4J all over again. 
+You remember Log4J attackers were doing this?
+Log4Shell explained – how it works, why you need to know, and how to fix it
+
+DOUG.  Yes.
+DUCK.  They were going, “I’m not going to bother using LDAP and JNDI, and all those .class files, and all that complexity. That’ll get noticed. I’m not going to try and do any remote code execution… I’m just going to do an innocent-looking DNS lookup, which most servers will allow. I’m not downloading files or installing anything. I’m just converting a name into an IP number. How harmful could that be?” 
+Well, the answer is that if I’m the crook, and I am running a domain, then I get to choose which DNS server tells you about that domain. 
+So if I look up, against my domain, a “server” (I’m using air-quotes) called SOMEGREATBIGSECRETWORD dot MYDOMAIN dot EXAMPLE, then that text string about the SECRETWORD gets sent in the request. 
+So it is a really, really, annoyingly effective way of stealing (or to use the militaristic jargon that cybersecurity likes, exfiltrating) private data from your network, in a way that many networks don’t filter.
+And much worse, Doug: that data was encrypted (using 256-bit AES, no less), so the string-that-actually-wasn’t-a-server-name, but was actually secret data, like your private key…
+…that was encrypted, so that if you were just looking through your logs, you wouldn’t see obvious things like, “Hey, what are all those usernames doing in my logs? That’s weird!”
+You’d just see crazy, weird text strings that looked like nothing much at all. 
+So you can’t go searching for strings that might have escaped.
+However: [PAUSE] hard-coded key and initialisation vector, Doug! 
+Therefore. anybody on your network path who logged it could, if they had evil intention, go and decrypt that data later. 
+There was nothing involving a secret known only to the crooks. 
+The password you use to decrypt the stolen data, wherever it lives in the world, is buried in the malware – it’s five minutes’ work to go and recover it. 
+The crooks who did this are now saying, [MOCK HUMILITY] “Oh, no, it was only research. Honest!” 
+Yeah, right. 
+You wanted to “prove” (even bigger air-quotes than before) that supply chain attacks are an issue. 
+So you “proved”( even bigger air-quotes than the ones I just used) that by stealing people’s private keys. 
+And you chose to do it in a way that anybody else who got hold of that data, by fair means or foul, now or later, doesn’t even have to crack the master password like they do with LastPass. 
+DOUG.  Wow.
+DUCK.  Apparently, these crooks, they’ve even said, “Oh, don’t worry, like, honestly, we deleted all the data.”
+Well…
+A) I don’t believe you. Why should I? 
+DOUG.  [LAUGHS]
+DUCK.  And B) [CROSS] TOO. LATE. BUDDY.
+DOUG.  So where do things stand now? 
+Everything’s back to normal? 
+What do you do?
+DUCK.  Well, the good news is that if none of your developers installed this nightly build, basically between Christmas and New Year 2022 (the exact times are in the article), then you should be fine.
+Because that was the only period that this malicious torchtriton package was on the PyPI repository. 
+The other thing is that, as far as we can tell, only a Linux binary was provided. 
+So, if you’re working on Windows, then I’m assuming, if you don’t have the Windows Subsystem for Linux (WSL) installed, then this thing would just be so much harmless binary garbage to you. 
+Because it’s an Elf binary, not a PE binary, to use the technical terms, so it wouldn’t run. 
+And there are also a bunch of things that, if you’re worried you can go and check for in the logs.
+If you’ve got DNS logs, then the crooks used a specific domain name.
+The reason that the thing suddenly became a non-issue (I think it was on 30 December 2022) is that PyTorch did the right thing… 
+…I imagine in conjunction with the Python Package Index, they kicked out the rogue package and  replaced it essentially with a “dud” torchtriton package that doesn’t do anything.
+It just exists to say, “This is not the real torchtriton package”, and it tells you where to get the real one, which is from PyTorch itself. 
+And this means that if you do download this thing, you don’t get anything, let alone malware. 
+We’ve got some Indicators of Compromise [IoCs] in the Naked Security article. 
+We have an analysis of the cryptographic part of the malware, so you can understand what might have got stolen. 
+And sadly, Doug, if you are in doubt, or if you think you might have got hit, then it would be a good idea, as painful as it’s going to be… you know what I’m going to say. 
+It’s exactly what you had to do with all your LastPass stuff. 
+Go and regenerate new private keys, or key pairs, for your SSH logins. 
+Because the problem is that what lots of developers do… instead of using password-based login, they use public/private key-pair login. 
+You generate a key pair, you put the public key on the server you want to connect to, and you keep the private key yourself. 
+And then, when you want to log in, instead of putting in a password that has to travel across the network(even though it might be encrypted along the way), you decrypt your private key locally in memory, and you use it to sign a message to prove that you’ve got the matching private key to the server… and it lets you in.
+The problem is that, if you’re a developer, a lot of the time you want your programs and your scripts to be able to do that private-key based login, so a lot of developers will have private keys that are stored unencrypted.
+DOUG.  OK.
+Well, I hesitate to say this, but we will keep an eye on this!
+And we do have an interesting comment from an anonymous reader on this story who asks in part:
+“Would it be possible to poison the crooks’ data cache with useless data, SSH keys, and executables that expose or infect them if they’re dumb enough to run them? Basically, to bury the real exfiltrated data behind a ton of crap they have to filter through?”
+DUCK.  Honeypots, or fake databases, *are* a real thing. 
+They’re a very useful tool, both in cybersecurity research… letting the crooks think they’re into a real site, so they don’t just go, “Oh, that’s a cybersecurity company; I’m giving up”, and don’t actually try the tricks that you want them to reveal to you. 
+And also useful for law enforcement, obviously. 
+The issue is, if you wish to do it yourself, just make sure that you don’t go beyond what is legally OK for you. 
+Law enforcement might be able to get a warrant to hack back…
+…but where the commenter said, “Hey, why don’t I just try and infect them in return?” 
+The problem is, if you do that… well, you might get a lot of sympathy, but in most countries, you would nevertheless almost certainly be breaking the law. 
+So, make sure that your response is proportionate, useful and most importantly, legal.
+Because there’s no point in just trying to mess with the crooks and ending up in hot water yourself. 
+That would be an irony that you could well do without!
+DOUG.  Alright, very good. 
+Thank you very much for sending that in, dear Anonymous Reader.
+If you have an interesting story, comment, or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today. 
+Thanks very much for listening.
+For Paul Ducklin, I’m Doug Aamoth reminding you,  until next time, to…
+BOTH.  Stay Secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Thanks for using crypto as an abbreviation for cryptography not crypto-currency. 🙂
+Guess Crypto-Currencies are not doomed, as they provide lots of value for criminals to scam people out of their money (but it’s definitely not a Ponzi-Sceme – for some reasons).
+I’m not Ned Ludd… I am willing to accept (because we all like to abbreviate at times) the portmanteau word “cryptocurrency” as shorthand for “currency-like stored-value token system relying on cryptography to work”.
+(If I were unwilling to tolerate that, I’d have to stop using “malware” to mean “malicious software”.)
+And from there I have to accept “crypto” as an abbreviation for “cryptocurrency”.
+In return, I expect to continue being allowed to use “crypto” as an abbreviation of “cryptography”, in the same way that I expect “dial” to mean both “dial” and “keypad”, or “gasket” to be both a “shaped physical seal with perforations” and a mathematical concept.
+Gentlemen, WRT to the late lamented LastPass PW Manager that I used forever, even with your wee tweak which is not accessible. I moved on to another PWM. In this case KeePassXC. Now, consider that the average number of passwords that the average user has may number in excess of 300 in 2022. If you started out changing the individual passwords for each account or resource, you’re looking at 2-3 days to work your way thru the list. Oi!
+“But at least they didn’t get your credit card number” (insert emoji of choice here) (insert another emoji of choice)
+Unless you were unlucky enough to use the Payment Cards feature of Lastpass. Then it’s your passwords and bank info relying on that Master Password!
+True, though I meant to refer to credit card data that you had used in a transaction with LP, not that you had stored for use with other sites.
+Regarding the info on LastPass, thankfully I am not with them but this incident has made me reconsider my own password strategy and PW manager.  Do you have a PW Manager recommendation?  Cloud vs non-Cloud? And any best practices in evaluating PW managers for the less knowledgeable?
+As an industry insider (we don’t sell a password management product but we do have a password vault option in our free mobile security products), I would feel a bit uncomfortable giving you a list, even one prepared while I was not wearing a Sophos shirt…
+…but there are loads of good comments, and plenty of ideas and advice (including some from me), at the bottom of this article:
+https://nakedsecurity.sophos.com/2022/12/23/lastpass-finally-admits-they-did-steal-your-password-vaults-after-all/
+HtH.
+Thank you Paul I’ll read through the comments, and understand your position.
+Why not share your password strategy, Porter? 
+How do you get the benefit of not falling for phishing sites without a password manager which copies passwords only into the correct URL?
+To be clear, the OP is asking for a password *manager* strategy, not for a strategy not to have one :-)
+As for avoiding phishing sites (password manager or not) before you get to the URL in the first place, my earnest advice is: simply never login on sites you reached from an email. Keep a record of the real pages for the services you actually use, based on information you already have from a source that it unlikely to have been tampered with (e.g. back of credit card, top of an official statement, official poster inside your bank). Visit the site independently… that way, if the email was genuine (though it probably wasn’t), you have lost nothing but a few seconds; if it was bogus, you have lost nothing, especially not your password!
+Most of this discussion has been about passwords in the LastPass Vault.  Is the data in Secure Notes any more or less secure?  Is that data compromised as well?  If my account has already been downloaded I can change my passwords but I cannot change the data I have stored in Secure Notes.  Could you please address this.  Thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,51 @@
+Sophos Home protects every Mac and PC in your home 
+Remember that zipped-lipped but super-fast update that Apple pushed out three weeks ago, on 2023-05-01?
+That update was the very first in Apple’s newfangled Rapid Security Response process, whereby the company can push out critical patches for key system components without going through a full-size operating system update that takes you to a new version number.
+As we pondered in the Naked Security podcast that week:
+Apple have just introduced “Rapid Security Responses.” People are reporting that they take seconds to download and require one super-quick reboot. [But] as for being tight-lipped [about the update], they are zipped-lipped. Absolutely no information what it was about. But it was nice and quick!
+Listen, laugh, and learn.. zombie malware, zippy patches, data stealers, and useful password tips that aren’t just the same old ones you’ve heard for years 🎧📖https://t.co/Z9rNjGR6Vj pic.twitter.com/4ZY1fsXlXs
+— Naked Security (@NakedSecurity) May 7, 2023
+
+
+Unfortunately, these new Rapid Security Responses were only available for the very latest version of macOS (currently Ventura) and the latest iOS/iPadOS (currently on version 16), which left users of older Macs and iDevices, as well as owners of Apple Watches and Apple TVs, in the dark.
+Apple’s description of the new rapid patches implied that they’d typically deal with zero-day bugs that affected core software such as the Safari browser, and WebKit, which is the web rendering engine that every browser is obliged to use on iPhones and iPads.
+Technically, you could create an iPhone or iPad browser app that used the Chromium engine, as Chrome and Edge do, or the Gecko engine, as Mozilla’s browsers do, but Apple wouldn’t let it into the App Store if you did. 
+And because the App Store is the one-and-only “walled garden” source of apps for Apple’s mobile devices, that’s that: it’s the WebKit way, or no way.
+The reason that critical WebKit bugs tend to be more dangerous than bugs in many other applications is that browsers quite intentionally spend their time fetching content from anywhere and everywhere on the internet.
+Browsers then process these untrusted files, supplied remotely by other people’s web servers, convert them into viewable, clickable content, and display them as web pages you can interact with.
+You expect that your browser will actively warn you, and explicitly request permission, before performing actions that are considered potentially dangerous, such as activating your webcam, reading in files already stored on your device, or installing new software.
+But you also expect content that’s not considered directly dangerous, such as images to be displayed, videos to be shown, audio files to be played, and so on, to be processed and presented to you automatically.
+Simply put, merely visiting a web page shouldn’t put you at risk of having malware implanted on your device, your data stolen, your passwords sniffed out, your digital life subjected to spyware, or any malfeasance of that sort.
+Unless, of course, there’s a bug in WebKit (or perhaps several bugs that can be strategically combined), so that merely by preparing a deliberately booby-trapped image file, or video, or JavaScript popup, your browser could be tricked into doing something it shouldn’t.
+If cybercriminals, or spyware sellers, or jailbreakers, or the security services of a government that doesn’t like you, or indeed anyone with your worst interests at heart, uncovers an exploitable bug of this sort, they may be able to compromise the cybersecurity of your entire device…
+…simply by luring you to an otherwise innocent-looking website that ought to be perfectly safe to visit.
+Well, Apple just followed up its latest Rapid Security Response patches with full-on updates for all its supported products, and among the security bulletins for those patches, we’ve finally found out what those Rapid Responses were there to fix.
+Two zero-days:
+Generally speaking, when two zero-days of this sort show up at the same time in WebKit, it’s a good bet that they’ve been combined by criminals to create a two-step takeover attack.
+Bugs that corrupt memory by overwriting data that shouldn’t be touched (e.g. CVE-2023-32373) are always bad, but modern operating systems include many runtime protections that aim to stop such bugs being exploited to take control of the buggy program.
+For example, if the operating system randomly chooses where programs and data end up in memory, cybercriminals often can’t do much more than crash the vulnerable program, because they can’t predict how the code they’re attacking is laid out in memory.
+But with precise information about what’s where, a crude, “crashtastic” exploit can sometimes be turned into a “crash-and-keep-control” exploit: what’s known by the self-descriptive name of a remote code execution hole.
+Of course, bugs that let attackers read from memory locations that they’re not supposed (e.g. CVE-2023-28204) can not only lead directly to data leakage and data theft exploits, but also lead indirectly to “crash-and-keep-control” attacks, by revealing secrets about the memory layout inside a program and making it easier to take over.
+Intriguingly, there’s a third zero-day patched in the latest updates, but this one apparently wasn’t fixed in the Rapid Security Response.
+As you can imagine, combining these three zero-days would be the equivalent of a home run to an attacker: the first bug reveals the secrets needed to exploit the second bug reliably, and the second bug allows code to be implanted to exploit the third…
+…at which point, the attacker has not merely taken over the “walled garden” of your current web page, but grabbed control of your entire browser, or worse.
+Make sure you’re patched! (Go to Settings > General > Software Update.)
+Even devices that already received a Rapid Security Response at the start of March 2023 have a zero-day still to be patched.
+And all platforms have received many other security fixes for bugs that could be exploited for attacks as varied as: bypassing privacy preferences; accessing private data from the lockscreen; reading your location information without permission; spying on network traffic from other apps; and more.
+After updating, you should see the following version numbers:
+Important note: if you have macOS Big Sur or macOS Monterey, those all-important WebKit patches aren’t bundled in with the operating system version update but are supplied in a separate update package called Safari 16.5.
+Have fun!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“But, but, ‘muh apple’ code is divine and invulnerable by definition!”  St. Jobs said so himself…or at least his marketing department did and he did nothing to set the record straight.
+Even after Apple added its own rudimentary anti-virus into its own OS, you could go into an, ahem, Genius Bar in a, ah, Apple Store, and be told that there was no need for an anti-malware system on your Mac. Allegedly.
+Excellent point
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

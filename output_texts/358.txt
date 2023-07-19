@@ -1,0 +1,83 @@
+Sophos Home protects every Mac and PC in your home 
+Apple’s AirTag system has famously been subjected to firmware hacking, used as a free low-bandwidth community radio network, and involved in a stalking incident that tragically ended in a murder charge.
+To be fair to Apple, the company has introduced various tricks and techniques to make AirTags harder for stalkers and criminals to exploit, given how given how easily the devices can be hidden in luggage, stuffed into the upholstery of a car, or squeezed into the gap under a bicycle saddle.
+Murder suspect admits she tracked cheating partner with hidden AirTag
+
+
+But with lots of similar devices already on the market, and Google said to be working on a product of its own to take advantage of the zillions of Bluetooth-enabled phones that are out and about running Google Android…
+…surely there should be safety and security standards that are encouraged, or perhaps even demanded and expected, throughout the “smart tag” market?
+Apple and Google seem to think so, because experts from both companies have been working together to propose an internet standard they’re calling Detecting Unwanted Location Trackers:
+
+Internet standards, to this day, retain their original, conciliatory designation Request For Comments, almost universally written simply as RFC. But when you want to ask for comments on a proposed new standard, it would be unwiedly to call it an RFCRFC, so they’re just known as Internet Drafts, or I-Ds, and have document names and URL slugs starting draft-. Each draft is typically published with a six-month commentary period, after which it may be abandoned, modified and re-proposed, or accepted into the fold and given a new, unique number in the RFC sequence, which is currently up to RFC 9411 [2023-05-03T19:47:00Z].
+The document introduces the term UT, short for Unwanted Tracking, and the authors hope that well-designed and correctly implemented tracking devices will take steps to make UT hard (though we suspect this risk can never be eliminated entirely).
+Apple and Google’s proposal starts by splitting trackers into exactly two classes: small ones, and large ones.
+Large devices are considered “easily discoverable”, which means that they’re hard to hide, and although they are urged to implement UT protection, they’re not obliged to do so.
+Small devices, on the other hand, are considered easily concealed, and the proposal demands that they provide at least a basic level of UT protection.
+In case you’re wondering, the authors tried to nail down the difference between small and large, and their attempt to do so reveals just how hard it can be to create unarguable, universal definitions of this sort:
+While we all probably agree than an AirTag is small and easily concealed, this definition also, probably very reasonably, considers our iPhone “small”, along with the Garmin we use on our bicycle, and our GoPro camera.
+Our MacBook Pro, however, comes in as “large” on all three counts: it’s more then 30cm wide; it’s more than 13cm deep; and it’s well over 250cc in volume (or three-dimensional space, as the document puts it, which presumably includes the extra overall “straight line” volume added by bits that stick out).
+You can try measuring some of your own portable electronic devices; you might be pleasantly surprised how chunky and apparently obvious a product can be, and yet still be considered small and “easily concealed” by the specifications.
+Loosely speaking, the proposed standards expect that all concealable devices:
+As you can see, these devices present two very different security risks: one where the tag shouldn’t bleat about itself when it’s with you and is supposed to be there; and the other where the tag needs to bleat about itself because it’s sticking with you suspiciously even though it’s not yours.
+Tags must switch from “I am keeping quiet because I am with my real owner” mode into “Here I am, in case anyone is suspicious of me” mode after no more than 30 minutes of not synching with their owner.
+Likewise they must switch back into “I’m holding my peace” after no more than 30 minutes of realising they’re back in safe hands.
+When with you, they need to change their machine identifier (known in the jargon as their MAC address, short for media access code) every 15 minutes at most, so they don’t give you away for too long.
+But they must hang onto their MAC address for 24 hours at a time when they’re parted from you, so they give everyone else plenty of chance to notice that the same unaccompanied tag keeps showing up nearby.
+And if you do spot any unwanted tags in your vicinity, they must respond to any “reveal yourself” probes you send them by bleeping 10 times, and vibrating or flashing if they can, at a sound level laid down very specifically:
+The [bleeper] MUST emit a sound with minimum 60 Phon peak loudness as defined by ISO 532-1:2017. The loudness MUST be measured in free acoustic space substantially free of obstacles that would affect the pressure measurement.  The loudness MUST be measured by a calibrated (to the Pascal) free field microphone 25 cm from the accessory suspended in free space.
+Very importantly, any tag you find must not only provide a way for you to stop it calling home with its location to its owner, but also provide clear instructions on how to do this:
+The accessory SHALL have a way to [be] disabled such that its future locations cannot be seen by its owner.  Disablement SHALL be done via some physical action (e.g., button press, gesture, removal of battery, etc.).
+The accessory manufacturer SHALL provide both a text description of how to disable the accessory as well as a visual depiction (e.g. image, diagram, animation, etc.) that MUST be available when the platform is online and OPTIONALLY when offline.
+In other words, when you think you’ve busted someone who’s trying to track you, you need a way to throw your stalker off the scent, while also being able to retain the suspicious device safely as evidence, instead of resorting to smashing it or flinging it in a lake to keep it quiet.
+If you wanted to, assuming that the device wasn’t jury rigged to turn tracking on just when you thought you’d turned it of, we guess you could even go off-track somewhere before turning it off, then backtrack to your original location and carry on from there, thus setting a false trail.
+If you’re interested in mobile device security; if you’re into privacy; if you’re worried about how tracking devices could be abused…
+…we recommend reading through these proposed standards.
+Although some of the specifications dig into technical details such as how to encrypt serial number data, others are as much social and cultural as they are technical, such as when, how and for whom such encrypted data should be unscrambled.
+There are also aspects of the proposal you might not agree with, such as the specification than “obfuscated owner information” must be emitted by the device on demand.
+For example, the proposal insists that this “obfuscated” data needs to include at least a partial phone number (the last four digits), or a hollowed-out email address (where tips@sophos.com would become t***@s*****.com, which obfuscates older, shorter email addresses much less usefully than newer, longer ones).
+The current draft only came out yesterday [2023-05-02], so there are still six months open for comment and feedback…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What happens when the owner legitimately loses the object is attached to or has it stolen. Now, anyone could just turn it off.
+Security at the expense of function. It’s a good trade off but we can’t have nice things 🙁
+You’ll still know where it was up until the person found it because it was bleating of its own accord or because they asked it to. (Tags already bleat to draw attention to themselves, so that’s hardly new.)
+If they think it’s genuinely a lost item they can either leave it alone, in case you come looking for it later or – if they have some goodwill feelings- they might look it up in the system and report it “missing”, which is entirely to your advantage. 
+Sure, they could turn the tag off for no reason other than to steal it, but that means they already found your bag, and so they could flush it down the toilet before stealing your bag anyway. (More likely, a thief would not turn it off, but would hide it somewhere to lead you on a wild goose chase later on, distracting you by luring to a place in the world where they, and your bag, definitely are not.)
+And if the other person finds your tag in a weird place, such as tucked into the owner’s manual in the glove box of their car… well, why shouldn’t they be allowed to turn it off, yet retain it otherwise unharmed as evidence?
+You beat me to it.  It basically negates the entire purpose of the tracker for most people.
+I don’t use any Bluetooth gadgets so I keep BT turned off on my i-devices to save battery.  Plus, I don’t want to be “discovered” by people two tables away in a restaurant.  All of these tracking prevention schemes rely on victims having active proprietary Bluetooth devices in their possession.  I consider that a major flaw.  It requires people to purchase devices they may not otherwise need or want or it forces them to operate existing devices in a way they may not desire.
+I don’t think the sort of people who buy AirTags “feel forced” to turn Bluetooth on. I suspect they feel they are missing out whenever they turn it off. And I don’t think they are buying iPhones to hook up to AirTags… I think that market works the other way round. Have iPhone, buy associated cool gadget. Because, errrrr, well, “because”!
+(To be fair to Apple, the crypto and the pricacy preservation behind the AirTag system is pretyy neat, and although it’s closed source, you can find out how it works.)
+But turning Bluetooth off whenever you don’t need it is highly recommended. Unfortunately if you have Bluetooth headphones (I do, because they are immensely useful for a lot of what I do, especially on podcast days) or a Bluetooth mouse (I do, because it works with both my USB-A and my USB-C laptop without caryying two dongles or an annoying adapter), it’s on quite a lot…
+If you were REALLY keen you could probably knit youraelf a tag tracker using a system-on-chip board such as an ESP32, powered by a phone powerbank battery, running code in somethging like Micropython, and then connect to the ESP32 for a data feed from your laptop or phone via Wi-Fi instead of Bluetooth. But I think that if you did that, it would primarily be for the sheer coolness of building the thing in the first place, not because you were especially keen on tracking devices… another example of because “because” :-)
+My response was from the perspective of an unsuspecting victim who doesn’t use Air Tags or other Bluetooth devices.  Because I keep Bluetooth turned off Apple’s “somebody may be tracking you” notification will not show up on my iPhone.  I have never heard the audio alert from an AirTag, so I don’t know what frequency they use.  But I wouldn’t be surprised if it is a relatively high frequency beep that might be hard for many older people to hear, especially in noisy environments.  
+I have no personal concern about being tracked, it just seems to me that if somebody decided to track me these proposals would do little to warn me of the problem.  And I don’t believe I am unique in that regard.
+Ah, I see what you mean – that you would need an active Bluetooth receiver, at the least, for this protection to be useful for you. 
+And therefore for those people who aren’t into Bluetooth, and don’t wish to carry around a device with Bluetooth turned on, this proposal is something of a false sense of security.
+As for the bleep, I admit I have never heard one (and the specifications in the proposal don’t mean much to me).
+The beginning of the Airtag sound is more of a wind chime than a beep. It is purposefully not too high pitched, since human ears have a harder time detecting the location of high pitched frequencies.
+Ambulances in some countries (I have heard this type of “siren” quite often in South Africa and occasionally in the UK) emit sort-of white-noise “belches” when hammering through urban areas. It seems to be a lot easier to figure out which direction it’s coming from that a Euro-style “nee nah” two-tone siren or an American-style wailing one, which can be confusing when Doppler shift and echoes off buildings are factored in.
+In response to the rash of car thefts (especially of Kias and Hondas, New York City’s Mayor has recommended that everyone hide an AirTag in their car ir to help recovering it if the car is stolen.  Wouldn’t the proposed security fix” actually help the car thief?
+The tags are already supposed to bleep to alert other people. If the crooks can hear the tag over the noise of the motor then they’d know it was there anyway and could just remove it and leave it somewhere useless (or toss it into the back of a car going past the other way).
+You already have the ability to “turn off” any found AirTag anyway (I doubt that Bluetooth works from the bottom of the Hudson River). Making it possible to do it while preserving the device for later analysis feels to me like something a stalked person would welcome, but a crook would not need, preferring either to leave the device working fine and laying a false trail, or to take the device out of any potential physical chain of evidence forever.
+Have I missed something?
+Apple AirTags, IIRC, already work much like the proposal suggests – the proposal is something to apply to the industry as a whole.
+“(or toss it into the back of a car going past the other way)”.
+The DaVinci Code, anyone?
+“New York City’s Mayor has recommended that everyone hide an AirTag in their car ir to help recovering it if the car is stolen”.  As opposed to actually allowing the police to do their jobs, thereby lowering the rampant crime rate?
+(Yes, I’m a dissatisfied NYC resident.)
+I bought my air tags for the sole purpose of tracking my trailers and ATV in the event they were stolen.
+I can find my wife and my wife can find me using the Find My app or Life360 app. I am not concerned she is cheating. If I ever thought she was cheating it would probably mean I was, and I’m not.
+The Air Tags are almost far enough from me when I am pulling the trailer they report themselves as no longer traveling with me sometimes so maybe a thief wouldn’t know. That was concerning the first time that happened. I was unhappy that it had fallen off and was laying on the side of the highway, but it hadn’t.
+They are like guns. They can be used for illegal purposes, but it’s not right to then take them away from people using them legally. Or make them useless for the intended legal purpose.
+Never heard of anyone getting shot by an AirTag. Anyway, many people live in countries where getting a gun is a privilege, not a right, and where guns have to be stored in safes, so AirTags are definitely not like guns.
+it “can” be as bad/ worse than a gun, because the criminal put the tracker on your daughters car, and now she can’t hide from him, doesn’t know he is following her for the weeks to wait for her to be alone/asleep. Sadly I expect if it was your daughter she wouldn’t have a method to defend herself. And in most countries,,, just another statistic now. These are a huge advantage to criminals, and a small helper tool for the rest.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

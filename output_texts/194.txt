@@ -1,0 +1,229 @@
+Sophos Home protects every Mac and PC in your home 
+CUTTING THROUGH CYBERSECURITY NEWS HYPE
+With Paul Ducklin and Chester Wisniewski
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+[MUSICAL MODEM]
+DUCK.  Hello, everybody. 
+Welcome to another episode of the Naked Security podcast. 
+I’m Paul Ducklin, and I’m joined by my friend and colleague Chester Wisniewski from Vancouver. 
+Hello, Chet!
+CHET.  Hello Duck. 
+Good to be back on the podcast.
+DUCK.  Unfortunately, the reason you’re back on this particular one is that Doug and his family have got the dreaded lurgy…
+..they’re having a coronavirus outbreak in their household. 
+Thank you so much for stepping up at very short notice, literally this afternoon: “Chet, can you jump in?”
+So let’s crack straight on to the first topic of the day, which is something that you and I discussed in part in the mini-podcast episode we did last week, and that’s the issue of the Uber breach, the Rockstar breach, and this mysterious cybercrime group known as LAPSUS$. 
+Where are we now with this ongoing saga?
+Uber and Rockstar – has a LAPSUS$ linchpin just been busted (again)?
+
+
+CHET.  Well, I think the answer is that we don’t know, but certainly there have been things that I will say have been perceived to be developments, which is…
+…I have not heard of any further hacks after the Rockstar Games hack or Take-Two Interactive hack that occurred just over a week ago, as of the time of this recording.
+An underage individual in the United Kingdom was arrested, and some people have drawn some dotted lines saying he’s sort of the linchpin of the LAPSUS$ group, and that that person is detained by the UK police. 
+But because they’re a minor, I’m not sure we really know much of anything.
+DUCK.  Yes, there were a lot of conclusions jumped to! 
+Some of them may be reasonable, but I did see a lot of articles that were talking as though facts had been established when they hadn’t. 
+The person who was arrested was a 17-year-old from Oxfordshire in England, and that is exactly the same age and location of the person who was arrested in March who was allegedly connected to LAPSUS$. 
+But we still don’t know whether there’s any truth in that, because the main source for placing a LAPSUS$ person in Oxfordshire is some other unknown cybercriminal that they fell out with who doxxed them online:
+UK police arrest 7 hacking suspects – have they bust the LAPSUS$ gang?
+
+
+So I think we have to be, as you say, very careful about claiming as facts things that may well be true but may well not be true… 
+…and in fact don’t really affect the precautions you should be taking anyway.
+CHET.  No, and we’ll talk about this again in one of the other stories in a minute. 
+But when the heat gets turned up after one of these big attacks, a lot of times people go to ground whether anyone’s been arrested or not. 
+And we certainly saw that before – I think in the other podcast we mentioned the Lulzsec hacking group that was quite famous ten years or so ago for doing similar… “stunt hacks”, I would call them – just things to embarrass companies and publish a bunch of information about them publicly, even if they perhaps didn’t intend to extort them or do some other crime to gain any financial advantage for themselves. 
+Several times, different members of that group… one member would be arrested, but there clearly were, I think, in the end, five or six different members of that group, and they would all stop hacking for a few weeks.
+Because, of course, the police were suddenly very interested. 
+So this is not unusual. 
+The fact is all of these organisations have succumbed to social engineering in some way, with the exception… I won’t say with “the exception” because, again, we don’t know -we don’t really understand how they got into Rockstar Games.
+But I think this is an opportunity to go back and review how and where you’re using multi-factor authentication [MFA] and perhaps to turn the dial up a notch on how you might have deployed it. 
+In the case of Uber, they were using a push notification system which displays a prompt on your phone that says, “Somebody’s trying to connect to our portal. Do you want to Allow or Block?” 
+And it’s as simple as just tapping the big green button that says [Allow]. 
+It sounds like, in this case, they fatigued someone into getting so annoyed after getting 700 of these prompts on their phone that they just said [Allow] to make it stop happening. 
+I wrote a piece on the Sophos News blog discussing a few of the different lessons that can be taken away from Uber’s lapse, and what Uber might be able to implement to prevent these same things from occurring again:
+Uber, Rockstar fall to social-engineering attacks; and you?
+
+
+DUCK.  Unfortunately, I think the reason that a lot of companies go for that, “Well, you don’t have to put in a six-digit code, you just tap the button” is that it’s the only way that they could make employees willing enough to want to do 2FA at all.
+Which seems a little bit of a pity…
+CHET.  Well, the way we’re asking you to do it today beats the heck out of carrying an RSA token on your keychain like we used to do before.
+DUCK.  One for every account! [LAUGHS]
+CHET.  Yes, I don’t miss carrying the little fob on my key ring. [LAUGHS]
+I think I have one around here somewhere that says “Dead bat” on the screen, but they didn’t spell “dead” with an A. 
+It was dEdbAt…
+DUCK.  Yes, it’s only six digits, right?
+CHET.  Exactly. [LAUGHS]
+But things have improved, and there’s a lot of very sophisticated multifactor tools out there now.
+I always recommend using FIDO tokens whenever possible. 
+But outside of that, even in software systems, these things can be designed to work in different ways for different applications. 
+Sometimes, maybe you just need to click [OK] because it’s not something super-sensitive. 
+But when you’re doing the sensitive thing, maybe you do have to enter a code. 
+And sometimes the code goes in the browser, or sometimes the code goes into your phone. 
+But all of it… I’ve never spent more than 10 seconds authorising myself to get into something when multifactor has popped up, and I can spare 10 seconds for the safety and security of not just my company’s data, but our employees and our customers data.
+DUCK.  Couldn’t agree more, Chester!
+Our next story concerns a very large telco in Australia called Optus:
+Optus breach – Aussie telco told it will have to pay to replace IDs
+
+
+Now, they got hacked. 
+That wasn’t a 2FA hack – it was perhaps what you might call “lower-hanging fruit”. 
+But in the background, there was a whole lot of shenanigans when law enforcement got involved, wasn’t there? 
+So… tell us what happened there, to the best of your knowledge.
+CHET.  Exactly – I’m not read-in on this in any detailed manner, because we’re not involved in the attack.
+DUCK.  And I think they’re still investigating, obviously, aren’t they? 
+Because it was, what, millions of records?
+CHET.  Yes.
+I don’t know the precise number of records that were stolen, but it impacted over 9 million customers, according to Optus. 
+And that could be because they’re not quite sure which customers information may have been accessed. 
+And it was sensitive data, unfortunately. 
+It included names, addresses, email addresses, birthdates and identity documents, which is presumably passport numbers and/or Australian-issued driving licences. 
+So that is a pretty good trove for somebody looking to do identity theft – it is not a good situation. 
+The advice to victims that receive a notification from Optus is that if they had used their passport, they ought to replace it. 
+That is not a cheap thing to do! 
+And, unfortunately, in this case, the perpetrator is alleged to have gotten the data by using an unauthenticated API endpoint, which in essence means a programmatic interface facing the internet that did not require even a password…
+…an interface that allowed him to serially walk through all of the customer records, and download and siphon out all that data.
+DUCK.  So that’s like I go to example.com/user­record/000001 and I get something and I think, “Oh, that’s interesting.” 
+And then I go, -2, -3, -4, 5, -6… and there they all are.
+CHET.  Absolutely. 
+And we were discussing, in preparation for the podcast, how this kind of echoed the past, when a hacker known as Weev had done a similar attack against AT&T during the launch of the original iPhone, enumerating many celebrities’ personal information from an AT&T API endpoint. 
+Apparently, we don’t always learn lessons, and we make the same mistakes again…
+DUCK.  Because Weev famously, or infamously, was charged for that, and convicted, and went to prison…
+…and then it was overturned on appeal, wasn’t it? 
+I think the court formed the opinion that although he may have broken the spirit of the law, I think it was felt that he hadn’t actually done anything that really involved any sort of digital “breaking and entering”.
+CHET.  Well, the precise law in the United States, the Computer Fraud and Abuse Act, is very specific about the fact that you’re breaching that Act when you exceed your authority or you have unauthorised access to a system. 
+And it’s hard to say it’s unauthorised when it’s wide open to the world!
+DUCK.  Now my understanding in the Optus case is that the person who is supposed to have got the data seemed to have expressed an interest in selling it…
+…at least until the Australian Federal Police [AFP] butted in. 
+Is that correct?
+CHET.  Yes. He had posted to a dark market forum offering up the records, which he claimed were on 11.2 million victims, offering it for sale for $1,000,000. 
+Well, I should say one million not-real-dollars… 1 million worth of Monero. 
+Obviously, Monero is a privacy token that is commonly used by criminals to avoid being identified when you pay the ransom or make a purchase from them.
+Within 72 hours, when the AFP began investigating and made a public statement, he seems to have rescinded his offer to sell the data. 
+So perhaps he’s gone to ground, as I said in the previous story, in hopes that maybe the AFP won’t find him. 
+But I suspect that whatever digital cookie crumbs he’s left behind, the AFP is hot on the trail.
+DUCK.  So if we ignore the data that’s gone, and the criminality or otherwise of accessing it, what’s the moral of the story for people providing RESTful APIs, web-based access APIs, to customer data?
+CHET.  Well, I’m not a programming expert, but it seems like some authentication is in order… [LAUGHTER]
+…to ensure that people are only accessing their own customer record if there’s a reason for that to be publicly accessible. 
+In addition to that, it would appear that a significant number of records were stolen before anything was noticed. 
+And no different than we should monitor, say, rate limiting on our own authentication against our VPNs or our web apps to ensure that somebody is not making a brute-force attack against our authentication services…
+…you would hope that once you queried a million records through a service that seems to be designed for you to look up one, perhaps some monitoring is in order!
+DUCK.  Absolutely. 
+That’s a lesson that we could all have learned from way back in the Chelsea Manning hack, isn’t it, where she copied, what was it? 
+30 years worth of State Department cables copied onto a CD… with headphones on, pretending it was a music CD?
+CHET.  Britney Spears, if I recall.
+DUCK.  Well, that was written on the CD, wasn’t it?
+CHET.  Yes. [LAUGHS]
+DUCK.  So it gave a reason why it was a rewriteable CD: “Well, I just put music on it.” 
+And at no point did any alarm bell go off. 
+You can imagine, maybe, if you copied the first month worth of data, well, that might be okay. 
+A year, a decade maybe? 
+But 30 years? 
+You’d hope that by then the smoke alarm would be ringing really loudly.
+CHET.  Yes.
+“Unauthorised backups”, you might call them, I guess.
+DUCK.  Yes…
+…and this is, of course, a huge issue in modern day ransomware, isn’t it, where a lot of the crooks are exfiltrating data in advance to give them extra blackmail leverage?
+So when you come back and say, “I don’t need your decryption key, I’ve got backups,” they say, “Yes, but we have your data, so we’ll spill it if you don’t give us the money.” 
+In theory, you’d hope that it would be possible to spot the fact that all your data was being backed up but wasn’t following the usual cloud backup procedure that you use. 
+It’s easy to say that… but it is the kind of thing that you need to look out for.
+CHET.  There was a report this week that, in fact, as bandwidth has become so prolific, one of the ransom groups is no longer encrypting. 
+They’re taking all your data off your network, just like the extortion groups have done for a while, but then they’re wiping your systems rather than encrypting it and going, “No, no, no, we’ll give you the data back when you pay.”
+DUCK.  That’s “Exmatter”, isn’t it?
+CHET.  Yes.
+DUCK. &nbsp”Why bother with all the complexity of elliptic curve cryptography and AES?
+There’s so much bandwidth out there that instead of [LAUGHING]… oh, dear, I shouldn’t laugh… instead of saying, “Pay us the money and we’ll send you the 16-byte decryption key”, it’s “Send us the money and we’ll give you the files back.”
+CHET.  It emphasises again how we need to be looking for the tools and the behaviours of someone doing malicious things in our network, because they may be authorised to do some things (like Chelsea Manning), or they may be intentionally open, unauthenticated things that do have some purpose.
+But we need to be watching for the behaviour of their abuse, because we can’t just watch for the encryption. 
+We can’t just watch for somebody password guessing. 
+We need to watch for these larger activities, these patterns, that indicate something malicious is occurring.
+DUCK.  Absolutely. 
+As I think you said in the minisode that we did, it’s no longer enough just to wait for alerts to pop up on your dashboard to say something bad happened. 
+You need to be aware of the kind of behaviours that are going on in your network that might not yet be malicious, but yet are a good sign that something bad is about to happen, because, as always, prevention is an awful lot better than cure:
+S3 Ep100.5: Uber breach – an expert speaks [Audio + Text]
+
+
+Chester, I’d like to move on to another item – that story is something I wrote up on Naked Security today, simply because I myself had got confused. 
+My newsfeed was buzzing with stories about WhatsApp having a zero-day:
+WhatsApp “zero-day exploit” news scare – what you need to know
+
+
+Yet when I looked into all the stories, they all seemed to have a common primary source, which was a fairly generic security advisory from WhatsApp itself going back to the beginning of the month. 
+The clear and present danger that the news headlines led me to believe…
+…turned out to be not at all true as far as I could see. 
+Tell us what happened there.
+CHET.  You say, “Zero-day.” 
+I say, “Show me the victims. Where are they?” [LAUGHTER]
+DUCK.  Well, sometimes you may not be able to reveal that, right?
+CHET.  Well, in that case, you would tell us that!
+That is a normal practice in the industry for disclosing vulnerabilities.
+You’ll frequently see, on Patch Tuesday, Microsoft making a statement such as, “This vulnerability is known to have been exploited in the wild”, meaning somebody out there figured out this flaw, started attacking it, then we found out and went back and fixed it. 
+*That’s* a zero-day. 
+Finding a software flaw that is not being exploited, or there’s no evidence has ever been exploited, and proactively fixing it is called “Good engineering practice”, and it’s something that almost all software does. 
+In fact, I recall you mentioning the recent Firefox update proactively fixing a lot of vulnerabilities that the Mozilla team fortunately documents and reports publicly – so we know they’ve been fixed despite the fact no one out there was known to ever be attacking them.
+DUCK.  I think it’s important that we keep back that word “zero-day” to indicate just how clear and present a danger is. 
+And calling everything a zero-day because it could cause remote code execution loses the effect of what I think is a very useful term. 
+Would you agree with that?
+CHET.  Absolutely. 
+That’s not to diminish the importance of applying these updates, of course – anytime you see “remote code execution”, somebody may now go back and figure out how to attack those bugs and the people that haven’t updated their app. 
+So it’s still an urgent thing to make sure that you do get the update. 
+But because of the nature of a zero-day, it really does deserve its own term.
+DUCK.  Yes. 
+Trying to make zero-day stories out of things that are interesting and important but not necessarily a clear and present danger is just confusing.
+Particularly if the fix actually came out a month before, and you’re presenting it as a story as though “this is happening right now”. 
+Anyone going to their iPhone or their Android is going to be saying, “I’ve a version number way ahead of that. What is going on here?” 
+Confusion does not help when it comes to trying to do the right thing in cybersecurity.
+CHET.  And if you find a security flaw that could be a zero-day, please report it, especially if there’s a bug bounty program offered by the organisation that develops the software. 
+I did see, this afternoon, somebody over the weekend discovered a vulnerability in OpenSea, which is a platform for trading non-fungible tokens or NFTs… which I can’t recommend to anyone, but somebody found an unpatched vulnerability that was critical in their system over the weekend, reported it, and received a $100,000 bug bounty today. 
+So it is worth being ethical and turning these things in when you do discover them, to prevent them from turning into a zero-day when somebody else finds them.
+DUCK.  Absolutely. 
+You protect yourself, you protect everybody else, you do the right thing by the vendor… yet through responsible disclosure you do provide that “mini-Sword of Damocles” that means that unethical vendors, who in the past might have swept bug reports under the carpet, can’t do so because they know that they’re going to get outed in the end.
+So they actually might as well do something about it now.
+Chester, let’s move on to our last topic for this week, and that is the issue of what happens to data on devices when you don’t really want them anymore. 
+And the story I’m referring to is the $35,000,000  fine that was issued to Morgan Stanley for an incident going all the way back to 2016:
+Morgan Stanley fined millions for selling off devices full of customer PII
+
+
+There are several aspects to the story… it’s fascinating reading, actually, the way it all unfolded, and the sheer length of time that this data lived on, floating around in unknown locations on the internet. 
+But the main part of the story is that they had… I think it was something like 4900 hard disks, including disks coming out of RAID arrays, server disks with client data on. 
+“We don’t want these anymore, so we’ll send them away to a company which will wipe them and then sell them, so we’ll get some money back.”
+And in the end, the company may have wiped some of them, but some of them they just sent for sale on an auction site without wiping them at all. 
+We keep making the same old mistakes!
+CHET.  Yes. 
+The very first HIPAA violation, I believe, that was found in the United States – the healthcare legislation about protecting patient information – was for stacks of hard disks in a janitorial closet that were unencrypted. 
+And that’s the key word to begin the process of what to do about this, right? 
+There’s not a disk in the world that should not be full-disk encrypted at this point. 
+Every iPhone has been for as long as I can remember. 
+Most all Androids have been for as long as I can remember, unless you’re still picking up Chinese burner phones with Android 4 on them. 
+And desktop computers, unfortunately, are not encrypted frequently enough. 
+But they should be no different than those server hard disks, those RAID arrays. 
+Everything should be encrypted to begin with, to make the first step in the process difficult, if not impossible… 
+…followed by the destruction of that device if and when it reaches the end of its useful life.
+DUCK.  For me, one of the key things in this Morgan Stanley story is that five years after this started… it started in 2016, and in June last year, disks from that auction site that had gone into the great unknown were still being bought back by Morgan Stanley. 
+They were still unwiped, unencrypted (obviously), working fine, and with all the data intact.
+Unlike bicycles that get thrown in the canal, or garden waste that you put in the compost bin, data on hard disks may not decay, possibly for a very long time. 
+So if in doubt, rub it out completely, eh?
+CHET.  Yes, pretty much. 
+Unfortunately, that’s the way it is. 
+I like to see things get reused as much as possible to reduce our e-waste. 
+But data storage is not one of those things where we can afford to take that chance…
+DUCK.  It could be a real data saver, not just for you, but for your employer, and your customers, and the regulator. 
+Chester, thank you so much for stepping up again at very, very, short notice.
+Thank you so much for sharing with us your insights, particularly your look at that Optus story. 
+And, as usual, until next time…
+BOTH.  Stay secure.
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

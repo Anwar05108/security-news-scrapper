@@ -1,0 +1,232 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Paul Ducklin and Chester Wisniewski.
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DUCK.  Chrome! Cybercrime! A missing cryptoqueen! Capturing 2FA tokens! 
+And the Curious Case Of Chester’s New Chums. 
+All that and more on the Naked Security podcast.
+[MUSICAL MODEM] 
+Hello everybody.
+Once again, it’s Duck in the chair, because Doug is on vacation. 
+I am joined by my friend and colleague Chester Wisniewski… 
+Czesław, a very good day to you.
+CHET.  Good day to you, Duck. 
+It’s good to be filling in for Doug again. 
+I like it when he takes vacation- we get to have an interesting chat planning out the podcast, and since it’s a little slow in the summertime, I’ve got the spare time and it’s really good to be back.
+DUCK.  Well, sadly, it’s not slow on the 0-day front. 
+Once again, we’ve just had the latest Chrome update. 
+Google patches “in-the-wild” Chrome zero-day – update now!
+
+
+Google has put out three essentially separate security bulletins: one for Android; one for Windows and Mac; and one for Windows and Mac, but on the previous version, the “extended stable channel”. 
+No mention of Linux, but they all share one common bug, which is “CVE-2022-2294: Buffer overflow in WebRTC.”
+Known to have been exploited in the wild, meaning the crooks got there first. 
+So, tell us more, Chester.
+CHET.  Well, I can confirm, at least on the Linux side, that they did do a release. 
+I don’t know what’s in that release, but the version number at least matches the version number that we expect to see on Windows and Mac, which is 103.0.5060.114.
+At any rate, on my Arch Linux running Chromium, that is the build number, and it matches the production Chrome release for Windows on my computer next to it. 
+So, at least we have version parity. We don’t know if we have bug parity.
+DUCK.  Yes, and annoyingly, the Android version, which supposedly has the same patches that were mentioned in the others, is basically the same version number except ends dot-71. 
+And of course, the 102 version… that’s completely different because it’s a completely different set of four numbers. 
+The only thing common to all of them is the zero in second position. 
+So it is quite confusing.
+CHET.  Yes, considering it was discovered having been used in the wild, which means somebody beat Google to the punch. 
+And this particular functionality is especially important to Google, as they’re promoting their Google Meet platform, which is their primary version of… I’ve heard people refer to it as “Google Zoom”.
+Google’s M-E-E-T platform, not the type of meat that you might have with dinner.
+DUCK.  My mind was boggling for a little bit there!
+To clarify, I found myself drifting towards Google Hangouts, which is apparently closing soon, and of course the late and, I think, unlamented Google Plus.
+CHET.  Well, if you want to fully go down the Google Messaging platform rabbit hole of how many things they’ve invented and uninvented and merged and cancelled and then reinvented again, there’s a great article on Vox.com that you can read on that!
+WebRTC… in essence, that’s the protocol that allows you to stream your webcam into platforms like Google Meet, and stream your microphone. 
+And I think it’s probably under more use than ever since the pandemic began. 
+Because many services may offer a fat client for enhanced screen sharing and these types of things, but also offer a web-only version, so you can access things like Zoom or Citrix and so on, often just through your browser. 
+So, I think this functionality is something that is very complex, which could lead to these types of vulnerabilities, and it also is under a lot of use these days. 
+I consider this one kind of the most important of the three bugs that you call out in the Naked Security story.
+DUCK.  Yes, there’s CVE-2022-2294, -2295 and -2296. 
+They’re all bugs that you’d kind of hope we were done and dusted with many years ago, aren’t they? 
+A buffer overflow, a type confusion, and a use after free – so they’ve all basically got to do with memory mismanagement.
+CHET.  And I thought Google was telling the world that all problems were solved by Go and Rust, and this suggests very little Go and Rust here.
+DUCK.  Even with a very careful language that encourages correct programming, the specs can let you down, can’t they? 
+In other words, if you if you implement something correctly, but where the specifications aren’t quite right, or leave a loophole, or put files in the wrong place, or treat data in an improper way, you can still have bugs of low, medium or high severity, even with the greatest memory safety enforcement in the world. 
+So, luckily, there’s a simple solution, isn’t there?
+For most people, Chrome will almost certainly have updated automatically. 
+But even if you think that’s happened, it is worthwhile – at least on Windows and Mac – to go to More > Help >  About Google Chrome > Update Google Chrome, and either it will say, “You don’t need to, you’ve got the latest one,” or it’ll go, “Whoa, I haven’t done it yet. Would you like to jump ahead?” 
+And of course, you would! 
+In Linux, as you found, your distro provided the update, so that will be, I imagine, the route for most Linux users who have Chrome. 
+So, it’s not perhaps as bad as it sounds, but it’s something that, as we always say, “Do not delay, do it today.”
+Onto the next… 
+Well, there are two stories, not one, but they’re both related to law enforcement busts. 
+One is a cybercriminal who pleaded guilty in the US, and the other is someone that the US would dearly love to get their hands on, but is missing somewhere, and has now joined the FBI’s Ten Top Wanted criminals worldwide – the only woman in the Top Ten. 
+“Missing Cryptoqueen” hits the FBI’s Ten Most Wanted list
+
+
+Let’s start with her – that’s Dr Ruja Ignatova of Bulgaria, the “Missing Cryptoqueen”. 
+Now, that’s a story of a lifetime, isn’t it?
+CHET.  Yes, it’s one of the things the cryptoworld seems to be introducing us to – it’s a little more inclusive of women. 
+There’s a lot of women also involved in the thieving and grafting, along with all the typical men that are involved in so many of the other stories that we cover. 
+Unfortunately, in this case, she allegedly created a new Bitcoin-like currency known as OneCoin, and allegedly convinced people to give her US$4 billion-with-a-B to invest in the nonexistent cryptocurrency, from everything I can read into this.
+DUCK.  $4 billion.. that’s what the FBI seems to think it can prove. 
+Other reports I’ve seen suggest that the real total may well be very much higher than that.
+CHET.  It does sort of make spending $6 million on the picture of a smoking ape seem almost downright sensible…
+DUCK.  Rather took me off my stride there. [LAUGHTER]
+CHET.  There’s a lot of FOMO, or Fear Of Missing Out.
+DUCK.  Absolutely.
+CHET.  And I think this entire crime is driven by that FOMO: “Oh, I didn’t get in on Bitcoin when you could buy a pizza for a Bitcoin. So I want to get on the next big thing. I want to be an early investor in Tesla, Uber, Apple.” 
+I think people perceive these cryptocurrencies to somehow actually have an air of legitimacy that might parallel these real company success stories, as opposed to being a pipe dream, which is exactly what it is.
+DUCK.  Yes, and like many pipes… up in smoke, Chester.
+I think the thing with cryptocurrencies is when people look at the Bitcoin story, there was actually an extended period where it wasn’t as though bitcoin was “only worth $10”. 
+It was that bitcoin was essentially so valueless that, apparently, in 2010, a guy – intriguingly called SmokeTooMuch – tried to make the first essentially public sale of Bitcoin, and he had 10,000 of them. 
+I guess he just mined them, as you did back then, and said, “I want $50 for them.” 
+So, he’s valuing them at one half of a US cent each… and nobody was willing to pay that much. 
+Then Bitcoin went to $10, and then at one point, they were, what, $60,000 plus. 
+So, I guess there’s this idea that if you get in *even before* it’s like Apple shares… if you get in in the early days when it doesn’t really exist yet, then that’s like getting in not just early in Bitcoin, but *right at the very beginning*. 
+And then you don’t just make 10x your money or 100x times your money… you make 1,000,000x your money. 
+And I think that, as you say, is the dream that many people are looking at.
+And that means, I suspect, that it makes them more willing to invest in things that don’t exist… ironically, precisely because they don’t yet exist, so they really are getting in the ground floor. 
+You still only get $100,000 in reward, apparently, for information leading to Ruja Ignatova’s conviction. 
+But she’s certainly up there: Top Ten Wanted!
+CHET.  I promise, if I find out where she’s at, and I get the $100,000 reward, I will not gamble it on cryptocurrencies. 
+I can assure you of that.
+DUCK.  So, Chester, now let us move on to the other law-and-order part of the podcast. 
+I know this is something that you specifically said you wanted to talk about it, and not just because it includes the word “Desjardins”, which we spoke about last time. 
+Canadian cybercriminal pleads guilty to “NetWalker” attacks in US
+
+
+This is Mr. Vachon-Desjardins, and we have spoken about him, or you have spoken about him, on the podcast before. 
+So tell us this story – it’s a fascinating and rather destructive one.
+CHET.  Yes. I found it quite coincidental that you invited me on this week, when just randomly a couple of years ago, you also happened to invite me on in the week that I believe he was extradited.
+DUCK.  No, that was this March this year when we last spoke about it!
+CHET.  Was it?
+DUCK.  Yes, I think when he had actually just landed in Florida…
+CHET.  Yes! He had just been extradited,  exactly! 
+He had been sent to the United States for prosecution, which is a quite common thing that we do here in Canada. 
+The US often has stricter laws in many cases, but more than that, the FBI [US federal law enforcement] does a really good job at getting the information together to prosecute these cases. 
+Not saying that the RCMP [Canadian federal law enforcement] is not capable of that, but the FBI is a little more experienced, so I think they often feel that the US will have a better crack at putting them behind bars.
+DUCK.  Having said that, the RCMP had prosecuted him in Canada, and he had a close to seven year jail sentence. 
+And as you said last time, “We’ve let him out of prison temporarily. We’ve lent him to the Americans. And if he goes to prison there, when he finishes up his time, then he’ll come back and we will put him back in prison for the remainder of his seven years.” 
+It looks like he will be out of circulation for a while.
+CHET.  Yes, I suspect so. 
+Although, in these types of non-violent crimes, when you’re cooperating with the authorities, they often will reduce sentences or let you out on parole early, that kind of stuff. 
+We’ll see what happens. 
+In fact, in his plea agreement, when he pled guilty in Florida, my understanding is it was noted that he was going to be cooperating with authorities on pretty much everything and anything he had access to that they desired… basically helping them build their case. 
+When we’re talking about these ransomware groups, I find this case particularly interesting because he’s Canadian and I’m in Canada. 
+But more than that, I think we have this perception that these crimes are committed by criminals in Russia, and they’re far away and they can never be touched, so there’s no point reporting these crimes because we can’t find these people – they’re too good at hiding; they’re on the dark web. 
+And the truth of the matter is some of them are in your backyard.  Some of them are your neighbours. They’re in every country in the world. 
+Crime knows no boundaries… people are greedy everywhere, and are willing to commit these crimes.
+And they’re well worth pursuing when we can pursue them, just as we ought to.
+DUCK.  Absolutely. 
+In fact, if you don’t mind, I’ll read from the plea agreement, because I agree with you: the FBI does a fantastic job not just of doing these investigations, but of putting the information together – even in something which is a conspicuously and formal legal document – in the kind of plain English that makes it easy for a court, for a judge, for a jury, and for anybody who wants to understand the ugly side of ransomware and how it works to learn a lot more. 
+These are very readable documents, even if you’re not interested in the legal side of the case. 
+And this is what they say:
+“NetWalker operated as a Ransomware-as-a-Service system featuring Russia-based developers, and affiliates who resided all over the world. Under the Ransomware-as-a-Service model, developers were responsible for creating and updating the ransomware and making it available to the affiliates. The affiliates were responsible for identifying and attacking high-value victims with the ransomware. After a victim paid, developers and affiliates split the ransom. Sebastian Vachon-Desjardins was one of the most prolific NetWalker ransomware affiliates.” 
+That’s a fantastic summary of the whole ransomware-as-a-service model, isn’t it, with a practical example of somebody far away from Russia who is actually very active in making the whole system work.
+CHET.  Absolutely. 
+He is accounted for, I believe, more than 50% of the alleged money pocketed by the NetWalker gang. 
+When he was captured, he had a little over $20 million in cryptocurrencies from these ransoms… and I thought I read that the total amount of ransom believed to be collected by NetWalker was somewhere in the $40 millio to $50 million range. 
+So it’s a significant amount of the profit –  he was maybe the prime affiliate.
+DUCK.  It’s clear, as you say, that he is facing a world of trouble…
+…but that he is very definitely expected to rat out his former chums. 
+And maybe that will be a good thing? 
+Maybe they’ll be able to close down more examples of this kind of criminality, or more people involved in this prolific group.
+CHET.  Maybe we should conclude this with a few more succinct words directly from the agreement, because I think that it really wraps this up well: 
+“The defendant is pleading guilty because he is, in fact, guilty.” 
+[LAUGHS]
+So that’s a pretty clear statement that he’s not using any weasel words, that he’s taking no responsibility for what he did, which I think is really important for the victims to hear. 
+And additionally, they say:
+“The defendant agrees to co-operate fully with the United States in the investigation and prosecution of other persons, including a full and complete disclosure of all relevant information, including production of any and all books, papers, documents and other objects in defendant’s possession or control.” 
+And I’m sure “other objects” might include things like cryptocurrency wallets, and chat forums, and things where the planning for all these dirty deeds were conducted.
+DUCK.  Yes, and then the good news is that it was due to the seizure of a server, I believe, that they were able to work backwards towards him , amongst other people. 
+Let’s move on to the last part of the podcast that relates to a story you can also read on Naked Security…
+That is about 2FA phishing of Facebook, something I was minded to write up because I myself received this scam. 
+Facebook 2FA phish arrives just 28 minutes after scam domain created
+
+
+When I went to investigate it, I thought, “That is one of the more believable fake websites I’ve ever seen.”
+There was one spelling mistake, but I had to go looking for it;  the workflow is quite believable; there are no obvious mistakes except the wrong domain name. 
+And when I looked at the time I got the email, wherever I was on the list of recipients – maybe not at the top, maybe in the middle, maybe at the bottom, who knows? –  it was only 28 minutes after the crooks had originally registered the fake domain that they were using in that scam. 
+So, they are not asleep – everything happens at lightning speed these days.
+CHET.  Exactly. 
+I’ve got a warning before I go into this, which is that  we in no way want to suggest to people that they shouldn’t use multifactor authentication. 
+But this does remind me… I was cheating on you with another podcast this morning, and while I was on that other podcast, the topic of multifactor came up. 
+And one of the challenges we have with multifactor that just consists of “secret number codes”, is that the criminals can act as a sort of proxy-in-the-middle, where they can just ask you nicely for the string of numbers, and if you are tricked into giving it to them, it doesn’t really provide any extra layer of protection. 
+There is a distinct difference between using some sort of a security key, like a Titan key from Google or a Yubikey, or FIDO authentication using things like an Android smartphone…
+There’s a difference between that, and something that displays six digits on the screen and says, “Give these to the website.” 
+The six digits on the screen is a major improvement over just using a password, but you still need to remain vigilant for these types of threats.
+DUCK.  If the crooks have already lured you to the point where you’re willing to type in your username and your password, then you are going to expect that two factor authentication code to arrive in an SMS; you’re going to expect to be consulting your app and to be retyping the code, aren’t you? 
+I’m not saying to people, “Stop using it,” because it definitely makes things harder for the crooks. 
+But it’s not a panacea – and, even more importantly, if you’ve got the second factor of authentication, it doesn’t mean you can get all casual with the first one. 
+The idea is it’s meant to take something that you’ve made as strong as you possibly can, e.g. by using a good password generated by a password manager, and then you add something that also has strength to it. 
+Otherwise you have half-FA plus half-FA equals 1FA all over again, don’t you?
+CHET.  Yes, absolutely. 
+And there are two things to combat this type of an attack, and one is certainly Using That Password Manager. 
+The idea there, of course, is the password manager is validating that the page asking you for the password *is actually the one that you originally stored it for*. 
+So that’s your first warning sign… when it doesn’t offer up your Facebook password because the site is not in fact facebook.com, that should be ringing alarm bells that something is wrong, if you need to go searching through your password manager to find the Facebook password. 
+So, it’s kind of your first chance here. 
+And then if you, like myself, use a FIDO token wherever it’s supported (also known as U2F, or Universal Second Factor), that also verifies that the site asking you is in fact the site that you originally set up that authentication with. 
+Many sites, especially large sites that are heavily fished, like Gmail and Twitter, do support these little USB tokens that you can carry on your keyring, or Bluetooth tokens that you can use with your mobile phone if you happen to use the brand of mobile phone that doesn’t like you plugging tokens into it.
+Those are an extra layer of security that are better than those six digits. 
+So, use the best thing you have available to you. 
+But when you get a hint such as, “That’s weird, my password manager is not auto-filling my Facebook password”… that’s your big flashing warning sign that something about this is not what it looks like.
+DUCK.  Absolutely, because your password manager is not trying to be an artificially intelligent,  sentient, “Hey, I can recognise that beautiful background photo I’ve seen so many times on the website.” 
+It doesn’t get fooled by appearance;  it just says, “Am I being asked to put in a password for a website that I already know about?” 
+If not, then it can’t even try and help you, and like you say, that’s a perfect warning. 
+But it was the speed of this that interested me.
+I know that everything happens super-quickly these days, but it was 28 minutes after the domain first went live that I received the email.
+CHET.  Yes, this is another indicator that we do use in SophosLabs when we’re analysing things: “Oh, that’s weird, this domain didn’t exist an hour ago. How likely is it that it’ll show up in an email within an hour of creation?” 
+Because even on the best of days that I bought a new domain name, I didn’t get around to even configuring my mail server with an MX record for at least an hour. [LAUGHS]
+DUCK.  Chester, let’s finish up with what I announced at the start as “The Curious Case Of Chester’s New Chums”. This is an intriguing sort of scammers. Meet Chester that’s just been happening to you in the last 24 hours, isn’t it?
+CHET.  Yes… 
+I have a certain type of follower, let’s say, and I can usually spot people following me that are bots quite easily… you have to be in a particular nerdy frame of mind to be interested in the things that I post on my Twitter account on social media. 
+And anybody that is in that frame of mind, and wants to know what I’m thinking about can follow me on Twitter (@chetwisniewski).
+But I block things that look suspicious to me, because I’ve been around the block a few times and know how information is often scraped by bots to lure people in with legitimate-sounding things. 
+When I see something suspicious, I block it. 
+Unfortunately, an acquaintance of mine was at the tragedy in the United States yesterday, on July Fourth, where there was a shooting, and he posted a tweet about how he fled with his daughters to safety.
+Fortunately, he and his family are okay, but it was a very traumatic and emotional event for them, and, as a result, his tweet sort of had a moment, right? 
+Tens of thousands of retweets; hundreds of thousands of likes… and he’s not normally a celebrity kind of person that gets that kind of attention on Twitter.
+And I responded with concern for his safety myself, from my Twitter account, and I didn’t put two-and-two together until we were planning this podcast…
+Suddenly, I started getting very random likes on an old tweet that had no relevance to any situation that’s current. 
+I posted something about meeting people in San Francisco at the RSA conference. 
+Of course, that event was more than a month ago and is long over now, and as a result that tweet is, in fact, completely uninteresting, even to people it might have been temporarily interesting to, who wanted to meet up with me at RSA, and it started getting all these likes.
+DUCK.  Even to people who *did* meet up with you at RSA exactly. [LAUGHTER]
+CHET.  Which wasn’t very many people, because after I got there and saw the COVID nightmare that was going on, I kind of thought better of meeting too many people at RSA. 
+But that tweet started getting random likes, and I started looking at the profiles of these people who are liking the tweet, and they were not my people… these are not people who would normally follow me. 
+One was professing how much love he had for different Nigerian soccer players, and another one was purporting to be a woman from New York City who was into the fashion scene and models and all this kind of stuff…
+DUCK.  Right up your street, Chester! [LAUGHTER]
+CHET.  Yes. [LAUGHS]
+And when I looked at who these accounts were following, they followed a very random set of people that were not thematic. 
+Most of the people who follow me follow me because of security things I tweet about; they often follow lots of other IT people. 
+I’ll see that they follow different “IT celebrity” kind of people, or they follow a lot of tech companies… those are signs to me that they’re legitimate followers. 
+But these accounts: when I looked at them, it was like a scattershot of random people they were following.
+There was no rhyme or reason to any of it, which is unlike most of us. 
+Most of us are into our favorite sporting teams, or whatever hobbies we have, and there’s always a theme running through the people we follow that you can spot very easily.
+DUCK.  Yes – when you get to the “16th degree of separation”, chasing someone down the Twitter rabbit hole, it’s a pretty good bet that they don’t really move in your circles in any way whatsoever!
+CHET.  Yes. 
+And what’s bizarre about this is that I’m not really sure what they’re doing, other than latching onto this horrible tragedy and trying to build some sort of reputation. 
+And my only guess was that perhaps they’re trying to get other people to follow back because they liked their tweet, or perhaps at least to like something that they’ve posted, to try to give them sort of social media boost.
+It’s just deplorable that people latch onto these tragedies to try to create anything other than some empathy and sympathy for the people involved. 
+Giving these accounts what they want may seem innocent enough… I know a lot of people that are like, “Oh, I always follow back.” 
+It’s quite dangerous to do this. 
+You’re building up reputations that make things look legitimate, that allow for the continued spread of disinformation and threats and scams.
+That little like or that follow back actually matters in a very bad way.
+DUCK.  I agree!
+Chester, thank you so much for sharing that story about what happened to you on Twitter, and in particular – just like the Facebook 2FA Scam in 28 Minutes story – the speed with which it happened. 
+Presumably crooks are just trying to milk a tiny bit of sympathy from people who feel it’s maybe a time for being a bit more loving than usual… without thinking about what the long-term effects of essentially blessing somebody who does doesn’t deserve it could have. 
+Thank you so much for stepping up for the whole podcast at short notice. 
+Thanks to everybody who listened. 
+And as usual, until next time…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

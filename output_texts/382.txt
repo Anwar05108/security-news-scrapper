@@ -1,0 +1,220 @@
+Sophos Home protects every Mac and PC in your home 
+BACKDOORS, EXPLOITS, AND LITTLE BOBBY TABLES
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Backdoors, exploits, and the triumphant return of Little Bobby Tables. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth, and he is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  I think he’s probably “Mr. Robert Tables” now, Douglas. [LAUGHTER]
+But you’re right, he has made an infamous return.
+DOUG.  Great, we will talk all about that. 
+But first, This Week in Tech History.
+On 7 June 1983, Michael Eaton was granted a patent for the AT command set for modems. 
+To this day, it’s still a widely used communication protocol for controlling modems. 
+It stands for ATTENTION, and is named after the command prefix used to initiate modem communication. 
+The AT command set was originally developed for Hayes modems, but has become a de facto standard and is supported by most modems available today. 
+Paul, how many technology things do we have that have survived since 1983 and are still in use?
+DUCK.  Errr…
+MS-DOS?
+Oh, no, sorry! [LAUGHTER]
+ATDT for “Attention, Dial, Tone”. 
+ATDP [P FOR PULSE] if you didn’t have a tone-dialling exchange… 
+…and you’d hear the modem.
+It had a little relay going click-click-click-click-click, click-click-click, click-click.
+You could count your way through to check the number it was dialling.
+ And you’re right: still used to this day. 
+ So, for example, on Bluetooth modems, you can still say things like AT+NAME= and then the Bluetooth name you want to display. 
+ Amazingly long-lived.
+DOUG.  Let’s get into our stories. 
+First, we kept an eye on this update… what’s going on with KeePass, Paul?
+Serious Security: That KeePass “master password crack”, and what we can learn from it
+
+DUCK.  If you remember, Doug, we spoke about a bug (that was CVE-2023-32784).
+That bug was where, as you typed in your password, the strings of blobs that indicated the number of password characters already entered inadvertently acted as sort of flags in memory that said, “Hey, those five blob characters that show you’ve already typed five characters of the password? Right near them in memory is the single character (that would otherwise be lost in time and space) that is the sixth character of your password.” 
+So the master password was never collected together in one place – the characters were littered all over memory. 
+How would you ever put them together? 
+And the secret was that you looked for the markers, the blob-blob-blob-blob, etc. 
+And the good news is that the author of KeePass promised that he would fix this, and he has. 
+So if you’re a KeePass user, go and get KeyPass 2.54.
+DOUG.  Yessir! 
+Alright, we will cease to keep an eye on this.
+Unless it crops up again, in which case we will cast a new eye on it. [LAUGHTER]
+Let’s get into our list of stories. 
+Paul, we’ve got a good old-fashioned SQL injection attack that heralds the return of our friend Little Bobby Tables. 
+What’s going on here?
+MOVEit zero-day exploit used by data breach gangs: The how, the why, and what to do…
+
+DUCK.  To quote the Original Mad Stuntman [dance artist Mark Quashie], “I like to move it, move it!” 
+It’s a surprisingly widely used file sharing-and-management product/service. 
+There are two flavours of it. 
+There’s MOVEit Transfer and MOVEit Cloud; they come from a company called Progress Software Corporation. 
+It’s a file sharing tool that includes, amongst other things, a web front end that makes it easy for you to access files that are shared in your team, department, company, maybe even in your supply chain.
+Problem… in the web front-end part, as you say, there was a SQL injection bug (dubbed CVE 2023-34362, if you want to track this one down). 
+And what that meant is somebody who could access your web interface without logging in could trick the server, the back-end server, into running some commands of their choice. 
+And amongst the things that they could do would be: finding out the structure of your internal databases, so they know what stored where; perhaps downloading and messing with your data; and, optionally for the crooks, injecting what’s known as a webshell.
+That’s basically a rogue file that you stick in the web server part so that when you go back to it later, it doesn’t serve up a web page to you, the visitor with an innocent looking browser.
+Instead, it actually triggers arbitrary commands on the server.
+And unfortunately, because this was a zero-day, it has apparently been fairly widely used to steal data from some very large organisations, and then blackmail them into paying money to have the data suppressed. 
+In the UK, we’re talking about hundreds of thousands of employees affected who were essentially hacked because of this MOVEit bug, because that was the software that their common payroll provider had chosen to use. 
+And you imagine, if you can’t break into XYZ Corp directly, but you can break into XYZ Corp’s outsourced payroll provider, you’ll probably end up with amazing amounts of personally identifiable information about all the staff in those businesses.
+The kind of information that is, unfortunately, really easy to abuse for identity theft. 
+So you’re talking things like Social Security numbers, National Insurance numbers, tax file numbers, home addresses, phone numbers, maybe bank account numbers, pension plan upload information, all of that stuff. 
+So, apparently, that seems to be the harm that was done in this case: companies who use companies that use this MOVEit software that have been deliberately, purposefully, targeted by these crooks. 
+And, according to reports from Microsoft, it appears that they either are, or are connected to, the notorious Clop ransomware gang.
+DOUG.  OK.
+It was patched quickly, including the cloud-based version, so you don’t have to do anything there… but if you’re running an on-premises version, you should patch. 
+But we’ve got some advice about what to do, and one of my favourites is: Sanitise thine inputs if you’re a programmer. 
+Which leads us to the Little Bobby Tables cartoon. 
+If you’ve ever seen the XKCD cartoon (https://xkcd.com/327), the school calls a mom and says, “We’re having some computer trouble.”
+And she says, “Is my son involved.”
+And they say, “Well, kind-of, not really. But did you name your son Robert Drop Table Students?” 
+And she says, “Oh, yes, we call him Little Bobby Tables.”
+And of course, inputting that command into an improperly sanitised database will delete the table of students. 
+Did I get that right?
+DUCK.  You did, Douglas. 
+And, in fact, as one of our commenters pointed out, a few years ago (I think it was back in 2016) there was the famous case of somebody who deliberately registered a company with Companies House in the UK called SEMICOLON (which is a command separator in SQL) [LAUGHTER] DROP TABLE COMPANIES SEMICOLON COMMENT SIGN LIMITED.
+Obviously, that was a joke, and to be fair to His Majesty’s Government’s website, you can actually go to that page and display the name of the company correctly. 
+So it doesn’t seem to have worked in that case… it looks like they were sanitising their inputs! 
+But the problem comes when you have web URLs or web forms that you can send to a server that include data *that the submitter gets to choose*, that then gets injected into a system command that is sent to some other server on your network. 
+So it’s rather an old-school mistake, but it’s rather easy to make, and it’s kind of quite hard to test for, because there are so many possibilities. 
+Characters in URLs and in command lines… things like single quote marks, double quote marks, backslash characters, semicolons (if they’re statement separators), and in SQL, if you can sneak a dash-dash (--) character sequence in there, then that says, “Whatever comes next is a comment.”
+Which means, if you can inject that into your now malformed data, you can make all the stuff that would be a syntax error at the end of the command disappear, because the command processor says, “Oh, I’ve seen dash-dash, so let me disregard it.”
+So, sanitising thine inputs? 
+You absolutely must do it, and you really have to test for it…
+…but beware: it’s really hard to cover all the bases, but you have to, otherwise one day someone will find out the base you forgot.
+DOUG.  Alright, and as we mentioned… 
+Good news, it’s been patched. 
+Bad news, it was a zero-day. 
+So, if you’re a MOVEit user, make sure that this has been updated if you’re running anything other than the cloud version. 
+And if you can’t patch right now, what can you do, Paul?
+DUCK.  You can just turn off the web-based part of the MOVEit front end. 
+Now, that may break some of the things that you’ve come to rely on in your system, and it means that people for whom the web UI is the only way they know to interact with the system… they will get cut off. 
+But it does seem that if you use the numerous other mechanisms, such as SFTP (Secure File Transfer Protocol) for interacting with the MOVEit service, you won’t be able to trigger this bug, so it’s specific to the web service.
+But patching is really what you need to do if you have an on-premises version of this. 
+Importantly, as with so many attacks these days, it’s not just that the bug existed and you’ve now patched it. 
+What if the crooks did get in? 
+What if they did something nasty? 
+As we’ve said, where the alleged Clop ransomware gang people have been in, tt seems there are some telltale signs that you can look for, and Progress Software has a list of those on its website (what we call Indicators of Compromise [IoCs] that you can go and search for). 
+But, as we’ve said so many times before, absence of evidence is not evidence of absence.
+So, you need to do your usual post-attack threat hunting.
+For example, looking for things like newly created user accounts (are they really supposed to be there?), unexpected data downloads, and all sorts of other changes that you might not expect and now need to reverse. 
+And, as we’ve also said many times, if you don’t have the time and/or the expertise to do that by yourself, please don’t be afraid to ask for help. 
+(Just go to https://sophos.com/mdr, where MDR, as you probably know, is short for Managed Detection and Response.) 
+It’s not just knowing what to look for, it’s knowing what it implies, and what you should do urgently if you find that it’s happened…
+…even though what happened might be unique in your attack, and other people’s attacks might have unfolded slightly differently.
+DOUG.  I think we will keep an eye on this!
+Let’s stick with exploits, and talk next about an in-the-wild zero-day affecting Chromium based browsers, Paul.
+Chrome and Edge zero-day: “This exploit is in the wild”, so check your versions now
+
+DUCK.  Yes, all we know about this one… it’s one of those times where Google, which normally likes to tell big stories about interesting exploits, is keeping its cards very close to its chest, because of the fact that this is a zero-day. 
+And the Google update notice to Chrome says simply, “Google is aware that an exploit for CVE-2023-3079 exists in the wild.” 
+That’s a step above what I call the two degrees of separation that companies like Google and Apple often like to trot out, that we’ve spoken about before, where they say, “We’re aware of reports that suggest that other people claim that they may have seen it.” [LAUGHTER] 
+They’re just saying, “There’s an exploit; we’ve seen it.”
+ And that’s not surprising, because apparently this was investigated and uncovered by Google’s own threat analysis team. 
+ That’s all we know…
+ …that, and the fact that it’s what’s known as a type confusion in V8, which is the JavaScript engine, the part of Chromium that processes and executes JavaScript inside your browser.
+DOUG.  I sure wish I knew more about type confusion. 
+I’m confused about type confusion. 
+Maybe someone could explain it to me?
+DUCK.  Ooooh, Doug, that’s just kind of segue I like! [LAUGHS]
+Simply explained, it’s where you provide data to a program and you say, “Here’s a chunk of data I want you to treat it as if it were, let’s say, a date.”
+A well written server will go, “You know what? I’m not going to blindly trust the data that you’re sending to me. I’m going to make sure that you’ve sent me something realistic”… 
+…thus avoiding the Little Bobby Tables problem. 
+But imagine if, at some future moment in the execution of the server, you can trick the server into saying, “Hey, remember that data that I sent you that I told you was a date? And you’ve verified that the number of days was not greater than 31, and that the month was not greater than 12, and that the year was between, say, 1920 and 2099, all of those error checks you’ve done? Well, actually, forget that! Now, what I want you to do is to take that data that I supplied, that was a legal date, but *I want you to treat it as if it were a memory address*. And I want you to start executing the program that runs there, because you’ve already accepted the data and you’ve already decided you trust it.”
+So we don’t know exactly what form this type confusion in V8 took, but as you can imagine, inside a JavaScript engine, there are lots of different sorts of data that JavaScript engines need to deal with and process at different times. 
+Sometimes there’ll be integers, sometimes there’ll be character strings, sometimes there’ll be memory addresses, sometimes there’ll be functions to execute, and so on. 
+So, when the JavaScript engine gets confused about what it’s supposed to do with the data it’s looking at right now, bad things can happen!
+DOUG.  The fix is simple. 
+You just need to update your Chromium-based browser. 
+We have instructions about how to do that for Google Chrome and Microsoft Edge. 
+And last, but certainly not least, we’ve got a so-called Windows “backdoor” that’s affecting Gigabyte motherboard owners. 
+The devil, as you like to say, is in the details, however, Paul. 
+Researchers claim Windows “backdoor” affects hundreds of Gigabyte motherboards
+
+DUCK.  [SIGH] Oh dear, yes!
+Now, let’s start at the end: the good news is that I’ve just seen Gigabyte has put out a patch for this. 
+The problem was that it is quite a handy feature, if you think about it. 
+It was a program called GigabyteUpdateService. 
+Well, guess what that did, Douglas?
+Exactly what it said on the tin – the feature is called APP Center (that’s Gigabyte’s name for this). 
+Great. 
+Except that the process of doing the updates was not cryptographically sound. 
+There was still some old-time code in there… this was a C# program, a .NET program. 
+It had, apparently, three  different URLs it could try to do the download. 
+One of them was plain old HTTP, Doug. 
+And the problem, as we’ve known since the days of Firesheep, is that HTTP downloads are [A] trivial to intercept and [B] trivial to modify along the way such that the recipient can’t detect you tampered with them. 
+The other two URLs did use HTTPS, so the download couldn’t easily be tampered with. 
+But there was no attempt on the other end to do even the most basic HTTPS certificate verification, which means that anybody could set up a server claiming that it had a Gigabyte certificate.
+And because the certificate did not need to be signed by a recognised CA (certificate authority), like GoDaddy or Let’s Encrypt, or someone like that, it means that anybody who wanted to, at a moment’s notice, could just mint their own certificate that would pass muster. 
+And the third problem was that after downloading the programs, Gigabyte could have, but didn’t, check that they were signed not only with a validated digital certificate, but with a certificate that was definitely one of theirs.
+DOUG.  OK, so those three things are bad, and that’s the end of the bad things, right? 
+There’s no more to it. 
+That’s all we have to worry about? [LAUGHTER]
+DUCK.  Well, unfortunately, there’s another level to this which makes it even worse. 
+The Gigabyte BIOS, their firmware, has a super-cool special feature in it. 
+(We’re not sure whether it’s on by default or not – some people are suggesting it’s off for some motherboards by default, and other commenters have said, “No, I bought a motherboard recently and this feature was on by default.”)
+This is a feature in the firmware itself that activates the APP Center automatic update process. 
+So you may have this software installed, and activated, and running, even though you didn’t install it yourself. 
+And worse, Doug, because it’s orchestrated by the firmware itself, that means if you go into Windows and say, “So, I’ll just rip this thing out”…
+…the next time you boot your computer, the firmware itself essentially injects the update thing back into your Windows folder!
+DOUG.  If we welcome in a bit early our Comment of the Week… we had an anonymous commenter on this article tell us:
+I just built a system with a Gigabyte ITX board a few weeks ago, and the Gigabyte APP Center was on out of the box (i.e. on by default). 
+I even deleted it a few times before I found out it was hidden in the BIOS settings. I’m not a fan of those shenanigans.
+So this person’s deleting this APP Center, but it just keeps coming back, and coming back, and coming back.
+DUCK.  It’s a little bit more complicated than I may have suggested.
+You imagine. “Oh, well, the firmware just goes online, downloads a file, and sticks it into your Windows folder.”
+But don’t most computers have BitLocker these days, or at least on corporate computers, don’t people have full disk encryption? 
+How on earth does your firmware, which runs before it even knows whether you’re going to run Windows or not…
+…how does the firmware inject a new file into a Windows C: drive that’s encrypted? 
+How on earth does that work? 
+And for better or for worse, Microsoft Windows actually has… I think it’s a feature, though when you hear how it works, you might change your mind. [LAUGHER]
+It’s called WPBT.
+And it stands for… [CAN’T REMEMBER]
+DOUG.  Windows Platform Binary Table.
+DUCK.  Ah, you remembered better than I did! 
+I almost can’t believe that it works like this…. 
+Basically, the firmware goes, “Hey, I’ve got a I’ve got an executable; I’ve got a program buried in my firmware.”
+It’s a Windows program, so the firmware can’t run it because you can’t run Windows programs during the UEFI firmware period. 
+But what the firmware does is that it reads the program into memory, and tells Windows, “Hey, there’s a program lying around in memory at address 0xABCDEF36C0, or whatever it is. Kindly implant this program into yourself when you’ve unlocked the drive and you’ve actually gone through the Secure Boot process.”
+DOUG.  What could possibly go wrong? [LAUGHTER]
+DUCK.  Well, to be fair to Microsoft, its own guidelines say the following:
+The primary purpose of WPBT is to allow critical software to persist even when the operating system has changed or been reinstalled clean. One use case is to enable anti-theft software, which is required to persist in case a device has been stolen, formatted or reinstalled. 
+So you kind of see where they’re coming from, but then they notice that:
+Because this feature provides the ability to persistently execute system software in the context of Windows, it is critical that these solutions are as secure as possible…
+(It’s not boldfaced;  I’m speaking like it’s boldfaced.)
+…and do not expose Windows users to exploitable conditions. In particular, these solutions must not include malware, i.e. malicious software, or unwanted software installed without adequate user consent. 
+And the consent, in this case, as our commenter said, is that there is a firmware option, a BIOS option on Gigabyte motherboards. 
+And if you dig around in the options long enough, you should find it;  it’s called APP Center Download and Install. 
+If you turn that option off, then you get to decide whether you want this thing installed, and then you can update it yourself if you want.
+DOUG.  OK, so the big question here…
+…is this really a backdoor?
+DUCK.  My own opinion is that the word “backdoor” really ought to be reserved for a very particular class of IT shenanigans, namely, more nefarious cybersecurity behaviours. 
+Things like: deliberately weakening encryption algorithms so they can be broken by people in the know; deliberately building in hidden passwords so people can log in even if you change your password; and opening up undocumented pathways for command-and-control. 
+Although you might not realise that this APP Center command-and-control pathway existed, it’s not exactly undocumented. 
+And there is an option, right there in the BIOS, that lets you turn it on and off. 
+Take yourself over to the Gigabyte website, to their news site, and you will find out about the latest version.
+DOUG.  I want to thank that anonymous commenter. 
+That was very helpful information that helped round out the story.
+DUCK.  Indeed!
+DOUG.  And I want to remind everyone: if you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

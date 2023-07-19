@@ -1,0 +1,63 @@
+Sophos Home protects every Mac and PC in your home 
+Thanks to the precise four-week length of February this year, last month’s coincidence of Firefox and Microsoft updates has happened once again.
+Last month, Microsoft dealt with three zero-days, by which we mean security holes that cybercriminals found first, and figured out how to abuse in real-life attacks before any patches were available.
+(The name zero-day, or just 0-day, is a reminder of the fact that even the most progressive and proactive patchers amongst us enjoyed precisely zero days during which we could have been ahead of the crooks.)
+In March 2023, there are two zero-day fixes, one in Outlook, and the other in Windows SmartScreen.
+Intriguingly for a bug that was discovered in the wild, albeit one reported rather blandly by Microsoft as Exploitation Detected, the Outlook flaw is jointly credited to CERT-UA (the Ukrainian Computer Emergency Response Team), Microsoft Incident Response, and Microsoft Threat Intelligence.
+You can make of that what you will.
+This bug, dubbed CVE-2023-23397: Microsoft Outlook Elevation of Privilege Vulnerability (EoP), is described as follows:
+An attacker who successfully exploited this vulnerability could access a user’s Net-NTLMv2 hash which could be used as a basis of an NTLM Relay attack against another service to authenticate as the user. […]
+The attacker could exploit this vulnerability by sending a specially crafted email which triggers automatically when it is retrieved and processed by the Outlook client. This could lead to exploitation BEFORE the email is viewed in the Preview Pane. […]
+External attackers could send specially crafted emails that will cause a connection from the victim to an external UNC location of attackers’ control. This will leak the Net-NTLMv2 hash of the victim to the attacker who can then relay this to another service and authenticate as the victim.
+To explain.
+Net-NTLMv2 authentication, which we’ll just call NTLM2 for short, works very roughly like this,:
+Actually, there’s a fair bit more to it than that, because there are actually two keyed hashes, one mixing in the two 8-byte random-challenge numbers and the other mixing in additional data including your username, domain name and the current time.
+But the underlying principle is the same.
+Neither your actual password or the stored hash of your password, for example from Active Directory, is ever transmitted, so it can’t leak in transit.
+Also, both sides get to inject 8 bytes of their own randomness every time, which prevents either party from sneakily re-using an old challenge string in the hope of ending up with the same the keyed hash as in a previous session.
+(Wrapping in the time and other logon-specific data adds extra protection against so-called replay attacks, but we’ll ignore those details here.)
+As you can imagine, given that the attacker can trick you into trying to “logon” to their fake server (either when you read the booby-trapped email or, worse, when Outlook starts processing it on your behalf, before you even get a glimpse of how bogus it might look), you end up leaking a single, valid NTLM2 response.
+That response is intended to prove to the other end not only that you really do know the password of the account you claim is yours, but also (because of the challenge data mixed in) that you’re not just re-using a previous answer.
+So, as Microsoft warns, an attacker who can time things right might be able to start authenticating to a genuine server as you, without knowing your password or its hash, just to get an 8-byte starting challenge from the real server…
+…and then pass that challenge back to you at the moment you get tricked into trying to login to their fake server.
+If you then compute the keyed hash and send it back as your “proof I know my own password right now”, the crooks might be able to relay that correctly-calculated reply back to the genuine server they’re trying to infiltrate, and thus to trick that server into accepting them as if they were you.
+In short, you definitely want to patch against this one, because even if the attack requires lots of tries, time and luck, and isn’t terribly likely to work, we already know that it’s a case of “Exploitation Detected”.
+In other words, the attack can be made to work, and has succeeded at least once against an unsuspecting victim who themelves did nothing risky or wrong.
+The second zero-day is CVE-2023-24880, and this one pretty much describes itself: Windows SmartScreen Security Feature Bypass Vulnerability.
+Simply put, Windows usually tags files that arrive via the internet with a flag that says, “This file came from outside; treat it with kid gloves and don’t trust it too much.”
+This where-it-came-from flag used to be known as a file’s Internet Zone identifier, and it reminds Windows how much (or how little) trust it should put in the content of that file when it is subsequently used.
+These days, the Zone ID (for what it’s worth, an ID of 3 denotes “from the internet”) is usually referred to by the more dramatic and memorable name Mark of the Web, or MotW for short.
+Technically, this Zone ID is stored in along with the file in what’s known as an Alternate Data Stream, or ADS, but files can only have ADS data if they’re stored on NTFS-formatted Wiindows disks. If you save a file to a FAT volume, for example, or copy it to a non-NTFS drive, the Zone ID is lost, so this protective label is not perrmanent.
+This bug means that some files that come in from outside – for example, downloads or email attachments – don’t get tagged with the right MotW identifier, so they sneakily sidestep Microsoft’s official security checks.  
+Microsoft’s public bulletin doesn’t say exactly what types of file (images? Office documents? PDFs? all of them?) can be infiltrated into your network in this way, but does warn very broadly that “security features such as Protected View in Microsoft Office” can be bypassed with this trick.
+We’re guessing this means that malicious files that would usually be rendered harmless, for example by having built-in macro code suppressed, might be able to spring into life unexpectedly when viewed or opened.
+Once again, the update will bring you back on par with the attackers, so: Don’t delay/Patch it today.
+A little something for everyone on a patchwork Patch Tuesday
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Hello Paul and friends
+I got this warning from Firefox the other day :
+Search results for your ******@hotmail.com account have detected that your email may have been exposed. We recommend you act now to resolve this breach.
+I’m on Linux and use the Thunderbird client for several email accounts. Is it sufficient to log onto my micro soft account in a web browser and change the password?
+cheers
+Ralph
+You might as well change your password (if you have a password manager it’s easy enough to invent and remember a new one)… and maybe consider turning on 2FA at the same time for a bit more protection?
+The problem with those “your email is on a list” warnings is that they don’t really tell you much more than “some crooks have data that includes your email address and perhaps other data that may or may not be correct.” (Did they get a password to go with it? A phone number? An address? Was any of that additional data actually correct? Who can say?)
+I already know that 100s or 1000s of crooks gave my email just from the quantity of spam, scam and phishing emails I get…
+It’s true, I get more junk in my junk folder than regular mail, I suspect even my former bank doxxed my email address to all their partners. I’ve had hotmail since 1998, it was my first email account so over the years before all this cyber insecurity blossomed, it was my main account. It is going to take a while to change my email address with my banks etc. over to my gandi.net email. I hope gandi is reputable.
+Why not just keep both addresses?
+I will keep hotmail, no point in throwing it away but I was thinking of moving my banking emails to my gandi account as there is a lot less spam there, let the spam go to the hotmail. Or should I just leave them with hotmail? I don’t recall having had a phishing email in my gandi account which I have had for a few years now. Hotmail is quite good at sending phishing to the junk folder. I have 2FA with both gandi and hotmail but hotmail gets far more spam and phishing. As you might know from my previous posts, I can spot a phishing email better that a phish phinder 🙂
+I’ve been very unhappy with this latest MS update. It updated Edge and that destroyed my Edge settings, toolbar, etc. This may have been because it is determined to make me use Bing rather than another well known search tool. The net result is that it has made me more determined than ever not to use Bing, and perhaps I will move over to Firefox as well!
+Could an attacker not just switch the port 445 to something not so obvious and grep the ntlm hash?
+The port is used by Windows SMB (server message block) network traffic. The port 445 traffic is generated by Outlook when it tries to access remote files, so the attacker doesn’t get to choose the port number that the NTLM2 packets use.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

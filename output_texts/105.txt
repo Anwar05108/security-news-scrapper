@@ -1,0 +1,45 @@
+Sophos Home protects every Mac and PC in your home 
+Just a short note to let you know that we were wrong about Firefox and Pwn2Own in our latest podcast…
+…but we were right about how Mozilla would react in our latest podcast promotional video:
+Latest podcast 🎧 Listen now! Firefox & Pwn2Own, Apple and an 0-day… and the mathematics that defeated Pythagoras.https://t.co/HDrZPQzlAQ pic.twitter.com/DxgdC8VM1j
+— Naked Security (@NakedSecurity) May 20, 2022
+
+In the video, we said (our own emphasis below):
+In the podcast, we speculated, “Was this [recent Firefox fix] pushed out just in time for Pwn2Own, in the hope that it would prevent the attack working?” If that was the reason, it didn’t work. […] But we do know that Mozilla will be rushing to fix this one as soon as they get the details out of the Pwn2Own competition.
+To explain.
+In an article last weekend, after our Linux distro had received an apparently-hurried out-of-band Firefox patch but the update still hadn’t shown on on Firefox’s website, we found ourselves wondering, “Is there some kind of cybersecurity scramble on here?”
+This update added a sandbox security feature known as Win32k Lockdown that had been months, if not years, in the making, but had just missed schedlued release 100.0.
+Accordingly, we speculated that Firefox 100.0.1, a mere point-release in which a brand new Windows security feature had suddenly been activated, was wrangled out specially, just in time for this year’s Pwn2Own hacking competition in Vancouver, Canada.
+Firefox out-of-band update to 100.0.1 – just in time for Pwn2Own?
+
+
+We were surprised that Mozilla didn’t simply wait until the next scheduled release, 101.0, to turn the new feature on and announce it as a feature, rather than as a “security fix”, givem that it wasn’t there to stop a clear and specific attack that was already known.
+Usually, point releases come out to deal with urgent issues that genuinely can’t wait, such as new features that flop, or zero-day bugs that suddenly show up in the wild and need dealing with before the next four-weekly major update deadline rolls around.
+But with Pwn2Own taking place this very week, and with Firefox in the firing line from experienced and successful bug hunter Manfred Paul, maybe Mozilla figured that it was worth squeezing out 100.0.1 in time for the contest? 
+Just in case the new sandbox feature might throw an unexpected spanner into Paul’s otherwise-certain-to-succeed hacking session, and save the day?
+Fast-forward to Wednesday, and Paul’s session started with 30’00” on the clock, counting downwards (a hard upper bound of 30 minutes is imposed for each entrant).
+After a brief pause, the adjudicator reached out and clicked a button to initiate the hacking attempt by visiting a URL that was ready to unleash Paul’s double-exploit remotely. (The server was remote in network terms; physically it was on the same table as the client under attack.)
+Loosely speaking, Paul planned to break into Firefox, earning $50,000’s worth of bug bounty for remote code execution, and then to break back out of it, earning another $50,000 for a full sandbox escape.
+About seven elapsed seconds later, with a fist pump of acknowledgment from the adjudicator (Pwn2Own is exciting for everyone, not just the hackers), and with an unsurprisingly happy smile from Manfred Paul, now $100,000 better off, the clock was stopped, having just flipped over to show 29’52”. 
+If Win32k Lockdown was supposed to stop the Pwn2Own attack, it didn’t, although we don’t doubt that the new sandbox protection will make plenty of future exploits harder to find and less reliable to use.
+To claim a Pwn2Own prize, the deal is that you have to “show your working” to the maker of the system you just cracked, and give them first dibs at fixing it. 
+All proper bug bounties require what’s known as responsible disclosure of this sort, of course, but Pwn2Own isn’t just about spotting possible bugs and calling them in with a crash log that suggests an exploit might be possible.
+Pwn2Own is about researching and writing up the bug and its dangers with careful and repeatable details, up to and including a working exploit.
+Well, that seven-second spectacular pwnage happened on Wednesday 2022-05-18.
+And on Friday 2022-05-20, about an hour before midnight UK time, Firefox popped up to tell us, “An update is available to 100.0.2”.
+Here are the associated security notes, from Mozilla Security Advisory 2022-19:
+We’ve patched already – how about you?
+For the fourth time in the past week, we’re going to say: Patch early, patch often.
+With a response time like this, it would be rude not to!
+Oh, and a vey big “well done and thanks” to everyone at every stage of this bug finding-and-fixing process. 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

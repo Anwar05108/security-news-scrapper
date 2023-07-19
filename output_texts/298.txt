@@ -1,0 +1,53 @@
+Sophos Home protects every Mac and PC in your home 
+Cybersecurity news, in Europe at least, is currently dominated by stories about “VMWare ESXi ransomware” that is doing the rounds, literally and (in a cryptographic sense at least) figuratively.
+CERT-FR, the French government’s computer emergency response team, kicked off what quickly turned into a mini-panic at the tail end of last week, with a bulletin entitled simply: Campagne d’exploitation d’une vulnérabilité affectant VMware ESXi (Cyberattack exploiting a VMWare ESXi vulnerability).
+Although the headline focuses directly on the high-level danger, namely that any remotely exploitable vulnerability typically gives attackers a path into your network to do something, or perhaps even anything, that they like…
+…the first line of the report gives the glum news that the something the crooks are doing in this case is what the French call rançongiciel.
+You probably don’t need to know that logiciel is the French word for “software” to guess that the word stem ranço- came into both modern French (rançon) and English (ransom) from the Old French word ransoun, and thus that the word translates directly into English as ransomware.
+Back in the Middle Ages, one occupational hazard for monarchs in time of war was getting captured by the enemy and held for a ransoun, typically under punitive terms that effectively settled the conflict in favour of the captors.
+These days, of course, it’s your data that gets “captured” – though, perversely, the crooks don’t actually need to go to the trouble of carrying it off and holding it in a secure prison on their side of the border while they blackmail you.
+They can simply encrypt it “at rest”, and offer to give you the decrpytion key in return for their punitive ransoun.
+Ironically, you end up acting as your own jailer, with the crooks needing to hold onto just a few secret bytes (32 bytes, in this case) to keep your data locked up in your very own IT estate for as long as they like.
+Here’s the good news: the current burst of attacks seem to be the work of a boutique gang of cybercriminals who are relying on two specific VMWare ESXi vulnerabilities that were documented by VMware and patched about two years ago.
+In other words, most sysadmins would expect to have been ahead of these attackers since early 2021 at the latest, so this is very definitely not a zero-day situation.
+Here’s the bad news: if you haven’t applied the needed patches in the extended time since they came out, you’re not only at risk of this specific ransomware attack, but also  at risk of cybercrimes of almost any sort – data stealing, cryptomining, keylogging, database poisoning, point-of-sale malware and spam-sending spring immediately to mind.
+Here’s some more bad news: the ransomware used in this attack, which you’ll see referred to variously as ESXi ransomware and ESXiArgs ransomware, seems to be a general-purpose pair of malware files, one being a shell script, and the other a Linux program (also known as a binary or executable file).
+In other words, although you absolutely need to patch against these old-school VMWare bugs if you haven’t already, there’s nothing about this malware that inextricably locks it to attacking only via VMWare vulnerabilities, or to attacking only VMWare-related data files.
+In fact, we’ll just refer to the ransomware by the name Args in this article, to avoid giving the impression that it is either specifically caused by, or can only be used against, VMWare ESXi systems and files.
+According to CERT-FR. the two vulnerabilities that you need to look out for right away are:
+In both cases, VMWare’s official advice was to patch if possible, or, if you needed to put off patching for a while, to disable the affected SLP (service location protocol) service.
+VMWare has a page with long-standing  guidance for working around SLP security problems, including script code for turning SLP off temporarily, and back on again once you’re patched.
+In this Args attack, the warhead that the crooks are apparently unleashing, once they’ve got access to your ESXi ecosystem, includes the sequence of commands below.
+We’ve picked the critical ones to keep this description short:
+Once the background encryption tasks have kicked off, the the malware script changes some system files to make sure you know what to do next.
+We don’t have our own copies of any actual ransom notes that the Args crooks have used, but we can tell you where to look for them if you haven’t seen them yourself, because the script:
+From what we’ve heard, the ransoms demanded are in Bitcoin, but vary both in the exact amount and the wallet ID they’re to be paid into, perhaps to avoid creating obvious payment patterns in the BTC blockchain.
+However, it seems that the blackmail payment is typically set at about BTC 2, currently just under US$50,000.
+LEARN MORE: PAYMENT PATTERNS IN THE BLOCKCHAIN
+You can also listen Soundcloud and Stitcher, or read a full transcript.
+The encrypt program is, effectively, a standalone, one-file-at-a-time scrambling tool. 
+Given how it works, however, there is no conceivable legitimate purpose for this file.
+Presumably to save time while encrypting, given that virtual machine images are typically many gigabytes, or even terabytes, in size, the program can be given parameters that tell it to scramble some chunks of the file, while leaving the rest alone.
+Loosely speaking, the Args malware does its dirty work with a function called encrypt_simple() (in fact, it’s not simple at all, because it encrypts in a complicated way that no genuine security program would ever use), which goes something like this.
+The values of FILENAME, PEMFILE, M and N below can be specified at runtime on the command line.
+Note that the malware contains its own implementation of the Sosemanuk cipher algorithm, though it relies on OpenSSL for the random numbers it uses, and for the RSA public-key processing it does:
+In the script file we looked at, where the attackers invoke the encrypt program, they seem to have chosen M to be 1MByte, and N to be 99Mbytes, so that they only actually scramble 1% of any files larger than 100MBytes.
+This means they get to inflict their damage quickly, but almost certainly leave your VMs unusable, and very likely unrecoverable.
+Overwriting the first 1MByte typically makes an image unbootable, which is bad enough, and scrambling 1% of the rest of the image, with the damage distributed throughout the file, represents a huge amount of corruption.
+That degree of corruption might leave some original data that you could extract from the ruins of the file, but probably not much, so we don’t advise relying on the fact that 99% of the file is “still OK” as any sort of precaution, because any data you recover this way should be considered good luck, and not good planning.
+If the crooks keep the private-key counterpart to the public key in their PEMFILE secret, there’s little chance that you could ever decrypt RNDKEY, which means you can’t recover the scrambled parts of the file yourself.
+Thus the ransomware demand.
+Very simply:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Following your analogy of a monarch being captured, I would liken ransomware to locking said monarch in their chambers, with the locking mechanism being so complicated or difficult to open that it can essentially only be opened by the ones who put it there.
+It is the attack that causes a lot of loss to companies. Especially when you do not have an external and immutable backup.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

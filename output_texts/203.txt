@@ -1,0 +1,181 @@
+Sophos Home protects every Mac and PC in your home 
+Naked Security meets Sophos X-Ops! (Read or listen according to your preference.)
+We dig into OAuth 2.0, a well-known protocol for authorization. 
+Microsoft calls it “Modern Auth”, though it’s a decade old, and is finally forcing Exchange Online customers to switch to it.
+We look at the what, the why and the how of the switch.
+With Paul Ducklin and Chester Wisniewski
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+Find us  on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+(Intro and outro music by Edith Mudge.)
+READ THE TRANSCRIPT
+[MUSICAL MODEM]
+DUCK.  Hello everybody. 
+Welcome to another Naked Security Podcast minisode! 
+I’m Paul Ducklin, joined as usual by my friend and colleague Chester Wisniewski from Vancouver. 
+Hello, Chet.
+CHET.  Hey Duck, good to be back!
+DUCK.  Now, I chose this topic because it just happened to coincide, inadvertently if you like, with the ProxyNotShell/ExchangeDoubleZeroDay problem that Microsoft ran into at the beginning of October 2022…
+…and because it involves a thing called OAuth 2, which I know that you are [A] well-informed about, and [B] keen on. 
+So I figured, “What better confluence of issues than that?”
+Exchange Online is finally forcing people to switch from what Microsoft referred to as Basic Auth to a thing called Modern Auth. 
+So, run us through what this change is all about, and why it is important.
+CHET.  Well, I like the word Modern, despite the fact that the RFC that we’re discussing is now ten years old… doesn’t feel incredibly modern! [LAUGHS] 
+But compared to HTTP Authentication, which was invented in the 1990s in the early browser days, I guess it *does* feel modern in comparison. 
+As you say, in OAuth, the “Auth” is not authentication, rather it’s authorization. 
+There’s a lot of complexity, but a lot of benefits that come along with that. 
+And so if we’re looking at HTTP Authentication, all we’re really talking about is asking you to present a credential ,which is, for most of us, a username and password in order to gain access to something.
+DUCK.  And, literally, you just take the username, then put a colon (so you’d better not have a colon in your username), then you put your actual password, then you base64 it…
+…and you send it along with the HTTP request and jolly well hope that it’s using TLS and that it’s encrypted, because your password is actually in the request every time.
+CHET.  Exactly. 
+And that’s problematic for all kinds of reasons, not to mention, like you say, that if somebody is able to decrypt the traffic then they in essence have access to your password. 
+The other problem, of course, is that the same password probably authenticates to many other things in your environment, especially if we’re talking about Microsoft Exchange, because that password is definitely my Active Directory password, which I also use to authenticate to every other service in the environment in most cases. 
+So it’s a very high risk operation to be transmitting [the password] that way. 
+OAuth decouples all of this a little bit, and says, “We’re not going to tell you how to do authentication, but you should probably do something more rigorous than just asking for a username and password. We’ll leave that up to the implementer.” 
+Because, as we’ve talked about in many other podcasts, there’s lots of different types of multifactor authentication – text messages, apps that show you six-digit codes, push apps, pull apps, tokens… 
+..there’s a lot of different things to do. 
+“We’re not going to tell you how to do it. We’re going to say you should do one of these strong authentication methods, and then, once you know who you’re talking to, we’ll use OAuth to grant you a token that’s independent of your proof of identity, that says what type of access you should have, and how long you should have it.”
+And I think that’s the really key part here. 
+Your password hopefully never expires when you authenticate normally, whereas in this case you can have some expirations involved, you can set limits, and you can also not just grant access to everything a user has access to. 
+Rather, you can say, “I only want to grant access to a subset or a specific set of permissions.” 
+And that’s really where the authorization is different than authentication.
+DUCK.  If you were trying to do the same thing with Basic Auth… 
+…if you wanted to have two ways of accessing the email system: one where you could just read the messages, and one where you could read and send messages, or maybe a third mode where you can read, write, and go and delete old messages. 
+With Basic Auth, you’d essentially need three separate usernames and passwords, wouldn’t you? 
+You’d need a duck-read, duck-readwrite, and a duck-dothelot.
+CHET.  Precisely. 
+And many of us have experienced this using social media apps or services like Google or Yahoo or other things, where you may authenticate using OAuth, and you’ll get a popup in your browser that says, “This application would like access to read your tweets, but not write your tweets.” 
+Or,”This application wants to be able to send tweets as you and access your address book.” 
+It’s basically, literally, listing or enumerating all the different permissions that you’re agreeing that you want this third party to be able to do on your behalf.
+ And that’s really what all this is about: being able to grant different programs different access to things, in a time-limited fashion as well. 
+ “I only want them to have access for seven days, or 1 hour, or forever, as long as I don’t tell you to revoke it.”
+DUCK.  So it’s almost as though the authorization is designed to work bidirectionally, isn’t it? 
+Which is very different from Basic Auth, where you log in and the other end says, “You need to prove who you are, put in your username and password”, and then you’re in.
+Here, with OAuth, the idea is that the server is giving you, the client, the chance to decide whether you agree with the kind of access that you would like that server to grant, possibly to somebody else. 
+So, that could be a Facebook app run on another server, or it could be authorizing some third party to do some stuff with your data, but not “all or nothing”. 
+You don’t have to grant somebody access to *everything* in order to grant them access to *something*.
+CHET.  Absolutely.
+That “division of permission” is really critical. 
+A lot of listeners to the podcast are probably administrators, so they’re familiar with having to log into their Domain Admin account in order to do administrative stuff, and then log out and log back in as their regular user to do other things, so that they’re not being over-privileged.
+And I think there’s a real issue with overprivilege, and when we’re only using usernames and passwords, you’re sort of over-privileged by default. 
+And OAuth is meant to resolve this, so I think it’s really important when you’re thinking about something like Exchange as well. 
+Clearly, when you’re logging in from Outlook as a user, you want to be able to read mail, send mail, etc. 
+But in a forensic investigation, say the lawyers subpoena someone’s email, you could grant an account access to read people’s mail but not tamper with it. 
+Or you could do different things like that that allow you a lot more granularity.
+DUCK.  And I guess another particular benefit is, because the authorization is granted via this access token, that means that whoever’s got that access token doesn’t need to know your password. 
+It also means that the access token could be revoked, or have an expiry time. 
+And when it expires, it doesn’t forcibly reset your password at the same time… which would really be the only way to do that with Basic Auth, wouldn’t it?
+CHET.  Yes, and it works the exact opposite direction as well.
+You may have granted the app on your phone access to something like your email or your Twitter, but you need to change your Twitter password for some reason…
+…now you can change your password independently of those tokens being expired, so you don’t automatically necessarily get logged out of everything just because you changed your password. 
+So that knife can cut both ways.
+DUCK.  And another feature, Chester, that OAuth 2 has is the idea of a thing called a “refresh token”, where you can have access tokens that are only valid for a limited time, just in case something goes wrong. 
+But to renew them, possibly even on a regular basis, the user doesn’t have to deal with a password pop-up or, “Hey, stick your Yubikey in all over again” prompt. 
+There’s a secure way of dealing with that as well, isn’t there?
+CHET.  Yes. 
+You can, in essence say, “Every half-an hour, I want to expire the token you have, and you can request a new one.” 
+But also means that if something fishy is going on and you suspect you may have something wrong, you can invalidate those tokens and intentionally force somebody to reauthenticate, just in case.
+DUCK.  So you have a mechanism for making long or medium term access what I guess you would call “frictionless”, but not to the point that you decide that, “Well, once I’ve seen the person’s password, it will remain valid until they decide to log out, at some possibly distant future time.”
+CHET.  Yes, that’s what the protocol calls for. 
+Now, it’s important to remember that some of these details are up to the implementer… so sometimes these tokens are signed, sometimes they’re not.
+It really depends on how it’s implemented. 
+There are some new standards that they’re moving toward, which I believe is going to be called OAuth 2.1, and the goal of that is to take more of these “implementer details” out, and put more of them into the specification to make it more uniform. 
+Not all the things we’re talking about are necessarily used in every OAuth transaction: some will have refresh tokens, some may not; some may digitally sign tokens, others may not. 
+And, obviously, those things all lead to different levels of security and flexibility. 
+But all of this is within the specification, and much of this is implemented in the examples we’ve used today, especially with regard to Microsoft, and social media networks, and Google, etc.
+DUCK.  I guess part of the reason that changes like this do take a long time, and can be controversial, is that Basic Auth *really is* basic; it really is easy. 
+It’s one RFC – once you’ve read it, you know how to do it; once you’ve implemented it, it’ll work everywhere. 
+Whereas OAuth 2 is indeed quite complicated, isn’t it? 
+I’m looking at the oauth.net site now, at the page to do with access tokens…
+…and I’ve got a page about one RFC,  reference to four other RFCs, and then three other articles I can read that are, “These are up to you, we’re not telling you how to do it”. 
+So it is a lot more complicated!
+CHET.  I think the good news is, because OAuth 2 is now ten years old, cloud providers have been using this for some time.
+They’ve made mistakes, they’ve found vulnerabilities, they’ve determined ways they thought were good that aren’t so good, and all of those things have gone into those RFCs that you’re referencing that solidify the best practice that’s been learned through this very flexible protocol. 
+I think the other issue for Microsoft here is that not all of Microsoft’s clients behave well with Modern Auth, depending on how old they are, and depending on your configuration. 
+And that can be challenging for a lot of environments as well. 
+Office 2010 did not support Modern Auth at all. 
+Office 2013 does support Modern Auth, but it’s turned off, so you need to use group policy or some other way to push registry changes to all the computers to enable it. 
+Office 2016 has it on, but it doesn’t use it by default, so I’m not quite sure what the thought process there was. [LAUGHTER]
+So you still have to push another registry key that says, “Use this first”,  or “Use it by default”,  rather than failing over to it. 
+And finally, in Office 2019 in Office 365, we see it being enabled and on by default.
+If you have to push out these registry keys, this might be a good time to review other Microsoft Office policies that you might want to modify. 
+We haven’t had a podcast on this yet, Duck, but maybe this will be the next minisode: talking about things like managing macros, and how and when they might be executed in Office as well. 
+So this could be a good time to review those policies if you need to push out some registry keys, if you’re still on Office 2016 or earlier.
+DUCK.  That’s a very good point and a very good idea, Chester! (So I think I’ve got a good idea for what’s coming in the near future.) 
+I’d just like to mention quickly a thing called OATH, O-A-T-H, that’s all capitals. 
+OAuth is capital O, capital A, little u, little t, little h. 
+Don’t confuse the two! 
+My understanding is that OATH… it deals with a little bit more than this, but basically it is a specification that defines the authentication procedure that we know as TOTP [Time-based One Time Password].
+That’s the six-digit hashed-secret-mixed-in-with-the-time. 
+So don’t confuse OATH with OAuth. 
+You might use TOTP two-factor authentication as part of your authentication when you are implementing open authorization.
+But they’re two completely different bodies, two completely different groups, and covered by completely different RFCs.
+CHET.  One other thing to consider about Exchange Online, if you move to it…
+…*when* you move (I shouldn’t say “if”), because you don’t have much choice – you *are* moving to Modern Auth. [LAUGHTER]
+The move will likely potentially cut off third-party email programs that only support Basic Authentication. 
+So there are several apps for Linux, Mac and Windows that allow people to access their Outlook mailboxes without using Microsoft Outlook, but most of those do not support OAuth. 
+Most of them only do HTTP Basic Authentication. 
+So those apps will likely break when you move. 
+You also have the challenge, if you’re still enabling IMAP or POP, that you’ve really made no progress at all. 
+As much of a fan of IMAP as I am (I’m an old school nerd of IMAP), it is time to move on, especially if you’re in an Exchange Online environment. 
+And I think you should embrace Modern Auth!
+DUCK.  I guess the kind of person who likes to stick to those time-honoured Linux and Unix tools – those amongst us who may still have elms and pines and mutts [LAUGHS], and software like that…
+…unfortunately they’re the people who are probably most passionate about it retaining those apps. 
+But it just isn’t going to be possible. 
+It simply doesn’t bring you the cybersecurity flexibility, the authorization flexibility, that you really need in a zero-trust era.
+CHET.  I hear you talking about me… because I was one of those people. 
+And when Sophos moved to Modern Authentication a few years ago, it broke my cobbled-together solution I had for accessing my mail the way I wanted to access my mail within the Exchange environment. 
+While I was sad that I lost access using my preferred method of reading my email, I was completely supportive of our team’s move because I knew how much more security it was going to provide to us as users of the product. 
+And that outweighs any convenience factor I had of playing with Thunderbird in my Outlook mail.
+DUCK.  [LAUGHS] Thunderbird?! That’s new-fangled, isn’t it, Chester? 
+Compared to elm [LAUGHTER], or mailx… or mail, even. 
+So, Chester, it may be Modern to Microsoft; it’s probably middle-aged to most IT departments…
+…but, whatever you do, don’t get left behind, because this flexibility in authorization is really the key to the so-called zero-trust world that we pretty much have to move towards, given that absolutely everything is online these days.
+Would you agree with that?
+CHET.  Absolutely!
+Flexibility in how we manage people’s permissions, and flexibility in how we authenticate them, which of course is decoupled from OAuth, as we talked about…
+…those things are really important so that we can continue with the best practice that’s going to keep our data safe.
+DUCK.  So this is kind of like a bigger version of the old argument that we eventually won, back in the XP days, of “Don’t make all your users administrators.” 
+It’s really convenient, because it means they can always do everything…
+…but it means *they can always do everything*, and that is very rarely what you actually want. 
+So, Chester, I think that’s a great point on which to end. 
+Thank you so much for sharing your expertise, and perhaps, more importantly, your passion for this whole issue of online authorization, as distinct from authentication. 
+Thanks to everybody for listening.
+And until next time…
+CHET.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I hope a future OAuth 2.1 revision will clearly specify how to acquire OAuth2 API keys, right now it’s mixed.
+Either your email provider requires a big enough project with high popularity before giving you one, or they don’t issue them anymore, or they give you API keys that only work with your individual email account and not any other if you have two or more.
+For Office 2013 & later, you can also download the Office 2013 (and others) administrative templates from Microsoft:
+Office 2010:
+https://www.microsoft.com/en-us/download/details.aspx?id=18968
+Office 2013:
+https://www.microsoft.com/en-us/download/details.aspx?id=35554
+Office 2016, 2019, 2021 & 365:
+https://www.microsoft.com/en-us/download/details.aspx?id=49030
+Looking for ‘Office 20XX Administrative Template files (ADMX/ADML) and Office Customization Tool’ in the Microsoft site’s search bar will help find the templates for the correct Office version.
+Better list at the Microsoft Wiki:
+https://social.technet.microsoft.com/wiki/contents/articles/4976.group-policy-administrative-templates-adm-and-admx-downloads-and-selected-content.aspx#MS_Office
+I also found that Outlook 2010 doesn’t support OAuth 2 and this blocked Gmail IMAP access, in May 2022 I think it was. Confused by the comment at 13:40 that you should move on from IMAP, quote “especially if you’re in an Exchange Online environment.”.
+Is “especially” correct here? Wouldn’t it be more correct to simply say, “if you’re in an Exchange Online environment” you can move on from IMAP – and indeed if you have purchased and paid for Exchange, why would you be using IMAP? I’m also a big fan of IMAP and the recommendation to move on from it seems as cross purposes to the point of this podcast i.e. using OAuth 2..
+IMAP predates OAuth by well over a decade, so if you’re in an Exchange Online environment with OAuth only, you’ll need to move on, not least because you don’t get to choose which mail access features get turned off, or when…
+…as for why you would use IMAP if you’ve paid for Exchange and thus don’t need to use it, well, convenience and habit are two strong reasons that spring to mind.
+The types of authentication (PLAIN, LOGIN, SASL, Kerberos, OAuth, etc ) an IMAP server supports varies, but most have supported OAuth2 for years with Exchange Online getting it a couple of years ago.  Same for SMTP Submission servers.
+Can a token be stolen?
+Your comment regards:
+” And I guess another particular benefit is, because the authorization is granted via this access token, that means that whoever’s got that access token doesn’t need to know your password.”
+Sounds worrying.
+Or to steal it someone would need access to the local machine or infrastructure from where the token was issued so in that case, they probably have all the access they need anyway?
+Getting the token granted typically means sharing your password with the server that grants the tokens, but not with the server or service that ultimately uses the token. 
+Generally speaking, if that token later gets stolen or abused, that’s better (or at least less bad) than your password getting abused.
+An analogy might be using a secure terminal to preauthorise a hotel to bill you credit card for a stay (you could get ripped off, but the transaction would tie back to the hotel), versus the hotel storing your actual card details for later use (that data could be stolen from the hotel itself, or sold on by a crooked employee, and used elsewhere.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

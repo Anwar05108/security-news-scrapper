@@ -1,0 +1,62 @@
+Sophos Home protects every Mac and PC in your home 
+Remember all those funkily named bugs of recent memory, such as Spectre, Meltdown, F**CKWIT and RAMbleed?
+Very loosely speaking, these types of bug – perhaps they’re better described as “performance costs” – are a side effect of the ever-increasing demand for ever-faster CPUs, especially now that the average computer or mobile phone has multiple processor chips, typically with multiple cores, or processing subunits, built into each chip.
+Back in the olden days (by which I mean the era of chips like the Inmos Transputer), received wisdom said that the best way to do what is known in the jargon as “parallel computing”, where you split one big job into lots of smaller ones and work on them at the same time, was to have a large number of small and cheap processors that didn’t share any resources.
+They each had their own memory chips, which means that they didn’t need to worry about hardware synchronisation when trying to dip into each others’ memory or to peek into the state of each others’ processor, because they couldn’t.
+If job 1 wanted to hand over an intermediate result to job 2, some sort of dedicated communications channel was needed, and accidental interference by one CPU in the behaviour of another was therefore sidestepped entirely.
+Transputer chips each had four serial data lines that allowed them to be wired up into a chain, mesh or web, and jobs had to be coded to fit the interconnection topology available.
+This model was called share-nothing, and it was predicated on the idea that allowing multiple CPUs to share the same memory chips, especially if each CPU had its own local storage for cached copies of recently-used data, was such a complex problem in its own right that it would dominate the cost – and crush the performance – of share-everything parallel computing.
+But share-everything computers turned out to much easier to program than share-nothing systems, and although they generally gave you a smaller number of processors, your computing power was just as good, or better, overall.
+So share-everything was the direction in which price/performance and thus market ultimately went.
+After all, if you really wanted to, you could always stitch together several share-everything parallel computers using share-nothing techniques – by exchanging data over an inexpensive LAN, for example – and get the best of both worlds.
+However, as Spectre, Meltdown and friends keep reminding us, system hardware that allows separate programs on separate processor cores to share the same physical CPU and memory chips, yet without treading on each others’ toes…
+…may leave behind ghostly remains or telltales of how other progams recently behaved.
+These spectral remnants can sometimes be used to figure out what other programs were actually doing, perhaps even revealing some of the data values they were working with, including secret information such as passwords or decryption keys.
+And that’s the sort of glitch behind CVE-2022-0330, a Linux kernel bug in the Intel i915 graphics card driver that was patched last week.
+Intel graphics cards are extremely common, either alone or alongside more specialised, higher-performance “gamer-style” graphics cards, and many business computers running Linux will have the i915 driver loaded.
+We can’t, and don’t really want to, think of a funky name for the CVE-2022-0330 vulnerability, so we’ll just refer to it as the drm/i915 bug, because that’s the search string recommended for finding the patch in the latest Linux kernel changelogs.
+To be honest, this probably isn’t a bug that will cause many people a big concern, given that an attacker who wanted to exploit it would already need:
+Simply put, the bug involves a processor component known as the TLB, short for Translation Lookaside Buffer.
+TLBs have been built into processors for decades, and they are there to improve performance.
+Once the processor has worked out which physical memory chip is currently assigned to hold the contents of the data that a user’s program enumerates as, say, “address #42”, the TLB lets the processor side-step the many repeated memory address calculations might otherwise be needed while a program was running in a loop, for example.
+The reason regular programs refer to so-called virtual addresses, such as “42”, and aren’t allowed to stuff data directly into specific storage cells on specific chips is to prevent security disasters. Anyone who coded in the glory days of 1970s home computers with versions of BASIC that allowed you to sidestep any memory controls in the system will know how catastrophic an aptly named but ineptly supplied POKE command could be.)
+Apparently, if we have understood the drm/i915 bug correctly, it can be “tickled” in the following way:
+At this point, even if the kernel maps User X’s second lot of GPU code onto a completely new, system-selected, chunk of memory, User X’s GPU code will still be accessing memory via the old TLB entries.
+So some of User X’s memory accesses will inadvertently (or deliberately, if X is malevolent) read out data from a stale physical address that no longer belongs to User X.
+That data could contain confidential data stored there by User Z, the new “owner” of buffer Y.
+So, User X might be able to sneak a peek at fragments of someone else’s data in real-time, and perhaps even write to some of that data behind the other person’s back.
+Clearly, exploiting this bug for cyberattack purposes would be enormously complex.
+But it is nevertheless a timely reminder that whenever security shortcuts are brought into play, such as having a TLB to sidestep the need to re-evaluate memory accesses and thus speed things up, security may be dangerously eroded.
+The solution is simple: always invalidate, or flush, the TLB whenever a user finishes running a chunk of code on the GPU. (The previous code waited until someone else wanted to run new GPU code, but didn’t always check in time to suppress the possible access control bypass.)
+This ensures that the GPU can’t be used as a “spy probe” to PEEK unlawfully at data that some other program has confidently POKEd into what it assumes is its own, exclusive memory area.
+Ironically, it looks as though the patch was originally coded back in October 2021, but not added to the Linux source code because of concerns that it might reduce performance, whilst fixing what felt at the time like a “misfeature” rather than an outright bug.
+By the way, if you don’t need and haven’t loaded the i915 driver (and it isn’t compiled it into your kernel), then you aren’t affected by this bug because it’s specific to that code module.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I just had a kernel update today, but I haven’t restarted the computer yet. Is today’s update affected?
+What’s the version number? If your distro lags behind a bit then you might not have this fix yet… if your distro tends to get the latest kernel version typically the same day (mine does) then today’s update could indeed be the latest.
+Current Kernel is Linux 5.4.0-96-generic #109-Ubuntu SMP Wed Jan 12 16:49:16 UTC 2022
+But anyways I ran the lsmod line and nothing showed up.
+Thanks for your interesting and informative newsletters.
+I have no idea how to read Ubuntu version numbers but the date of 2022-01-12 implies it’s well before the patches that fix this bug were published.
+If you don’t have an Intel graphics card (I have a business-style laptop with all-Intel chipsettery, so I do).
+Running ‘lspci’ should reveal your graphics card for confirmation.
+Study, “Anti-Aliasing.”
+Honestly, given the difficulty behind this, I’d just take the exploit. Even in my own house, I always lock my computer, and I have deny-all rules on by default on all my machines (meaning remote access is not available). Linux graphics performance is poor enough as is on less common machines, I’ll look after my machine myself and accept the consequences of my decisions.
+Besides that, there’s an age-old rule in computing: if you have gained physical access to the machine, it’s already as good as compromised. So ok, I’ve patched my graphics card driver, and I’ve locked my screen. Plug in a Bush Bunny, and I’m completely screwed, anyway.
+Well, it’s not the only vuln patched lately so it’s worth updating anyway, but I thought it was the funkiest one and thus worth writing about…
+We really need to expect “formal logic” proofs of program ideas and implementations.  I have studied it, off and on, for decades; and I can say that humans implementing it, is excruciating!  Things like the Iron Maiden come to mind 🙂
+And a friend of mine thought that the specification problem was NP complete; but it’s basically required for verification.
+But …  look at where we are at.  Don’t we need better programs instead of an endless series of bugs/updates/malware?
+Formal Program proving references
+http://www.cs.cornell.edu/courses/cs312/2008sp/lectures/logic.html
+https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/en-us-events-2013summerschool-nick-benton.pdf
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,47 @@
+Sophos Home protects every Mac and PC in your home 
+Remember the Log4Shell bug that showed up in Apache Log4j late in 2021?
+Log4j is one of the Apache Software Foundation’s many software projects (more than 350 at current count), and it’s a programming library that Java coders can use to  manage logfiles in their own products.
+Logfiles are a vital part of development, debugging, record keeping, program monitoring, and, in many industry sectors, of regulatory compliance.
+Unfortunately, not all text you logged – even if it was sent in by an external user, for example as a username in a login form – was treated literally.
+If you gave your name as MYNAME, it would be logged just like that, as the text string MYNAME, but any text wrapped in ${...} characters was treated as a command for the logger to run, which could cause what’s known as RCE, short for remote code execution.
+Log4Shell explained – how it works, why you need to know, and how to fix it
+
+
+Recently, we saw a similar sort of bug called Follina, which affected Microsoft Windows.
+There, the troublesome characters were $(...), with round brackets replacing squiggly ones, but with the same sort of side-effect.
+In the Follina bug, a URL that contained a directory name with the string SOMETEXT in it would be treated just as it was written, but any text wrapped in $(...) would be run as a Powershell command, once again causing a risk of remote code execution.
+Follina gets fixed – but it’s not listed in the Patch Tuesday patches!
+
+
+Well, the bug CVE-2022-33980, which doesn’t have a catchy name yet, is a very similar sort of blunder in the Apache Commons Configuration toolkit.
+The name’s quite a mouthful: Apache Commons is another Apache project that provides numerous Java utilities (sub-projects, if you like) that provide a wide range of handy programming toolkits.
+One of these is Commons Configuration, which lets Java apps work with configuration files of a wide range of different formats, including XML, INI, plist, and many more.
+As the project itself says, “the Commons Configuration software library provides a generic configuration interface which enables a Java application to read configuration data from a variety of sources.” 
+Unfortunately, this software treats text wrapped in ${...} specially, too.
+Instead of using the text literally, the following special “reprocessing” takes place, referred to rather confusingly in the jargon as interpolation:
+In other words, booby-trapped configuration data could, in theory, be used to run malicious code, leak data via DNS lookups, or fetch configuration settings from a rogue website.
+According to the Commons Configuration team, this “interpolation” bug was introduced in version 2.4 (released in late 2018) and patched in version 2.8.0 (released 2022-07-05, which is Tuesday this week).
+All updates going back to version 2.2 in 2017 are listed as “minor releases”, so we’re assuming that updating from any of the vulnerable versions 2.4, 2.5, 2.6 or 2.7 to the latest version ought to be uncontroversial.
+So, if you have any Java software that uses the Apache Commons Configuration library, update as soon as you can!
+Oh, and if you’re a programmer…
+…whether you call it “command substitution”, “live rewriting”, “reprocessing” or “interpolation”, use it sparingly, and don’t turn it on by default for data you haven’t already verified that you can trust.
+A quick way to look for the presence of a possibly-vulnerable Commons Configuration library on a computer is to search for filenames of the form commons-configuration2-*.jar, where * is a wildcard denoting “any text allowed here”.
+On Linux/Unix, try:
+On Windows, try:
+Vulnerable versions have the names:
+Earlier or later versions don’t have the bug.
+The latest, patched, version, is:
+If you find files with names like this:
+…those are the old (version 1) flavour of the library, which doesn’t have this bug.
+Note. The name Apache refers to the entire Software Foundation and all its projects. It’s not the name of a webserver, in the same way that Microsoft isn’t the name of an operating system. So, even though websites based on the Apache Webserver, also known as httpd, are often referred to as “running Apache”, this bug doesn’t apply to the web server, which is written in C, not in Java. 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

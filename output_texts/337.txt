@@ -1,0 +1,59 @@
+Sophos Home protects every Mac and PC in your home 
+Cybersecurity researchers in Belgium and the US recently published a paper scheduled for presentation later this year at the USENIX 2023 conference.
+The three co-authors couldn’t resist a punning title, dubbing their attack Framing Frames, with a slightly easier-to-follow strapline that says Bypassing Wi-Fi encryption by manipulating transmit queues.
+As security researchers are wont to do, the trio asked themselves, “What happens when a Wi-Fi user disconnects temporarily from the network, either accidentally or on purpose, but might very well reappear online after a short outage?”
+The wireless chip in a phone or laptop might temporarily drop into power-saving or “sleep” mode to conserve power, or drift out of range and then back in again…
+…during which time, access points often save up any reply packets that arrive for requests that were still unanswered at the time that the device powered down or went out of range.
+Given that a client that’s disconnected can’t initiate any new requests until it announces its return to active participation in the network, an access point isn’t likely to get bogged down with that many left-over reply packets for each inactive user.
+So, why not simply queue them up, as long as there’s enough free memory space left, and deliver them later when the device reconnects, to improve convenience and throughput?
+If memory runs low, or a device stays offline for too long, then queued-up packets can harmlessly be discarded, but as long as there’s space to keep them there “for later”, what harm could that cause?
+The answer, our researchers discovered, is that so-called active adversaries might be able to shake loose at least some queued-up data from at least least some access points.
+The queued-up data, it turned out, was stored in decrypted form, anticipating that it might need to be re-encrypted with a new session key for delivery later on.
+You can probably guess where this is going.
+The researchers figured out various ways of tricking some access points into releasing those queued-up network packets…
+…either without any encryption at all, or encrypted with a new session key that they chose for the purpose.
+In one attack, they simply told the access point that they were your wireless card, and that you were about to go into “sleep mode”, thus advising the access point to start queuing up data for a while. 
+Annoyingly, the “I am going taking a nap now” requests were not themselves encrypted, so the researchers didn’t even need to know the Wi-Fi network password, let alone to have sniffed out the setup of your original session key (the PMK, or pairwise master key).
+Shortly after that, they’d pretend that they were your laptop or phone “waking back up”.
+They’d ask to reassociate to the access point, but with no encryption key set this time, and sniff out any queued-up replies left over from before.
+They found that numerous access points didn’t worry about the fact that queued data that was originally requested in an encrypted format was now being released in unencrypted form, and so at least some data would leak out.
+In another attack, they used a slightly different technique.
+This time, they sent out spoofed packets to force your wireless network card to disconnect from the network, after which they quickly set up a new connection, with a new session key.
+For this attack, of course, the need to know the Wi-Fi network key, but in many coffee shops or shared workplaces, those keys are as good as public, typically written on a blackboard or shared in a welcome email.
+If they were able to kick you off the network at exactly the right moment (or the wrong moment from your perspective), for example just after you had sent out a request they were interested in…
+…and they managed to complete their spoofed reconnection in time, they might be able to decrypt a few reply fragments queued up from before.
+Even if you noticed you’d disconnected from the network, your computer would probably try to reconnect automatically.
+If the attackers had managed to “eat up” any queued-up replies in the interim, your own reconnection wouldn’t be entirely seamless – for example, you might see a broken web page or a failed download, rather than a trouble-free recovery from the outage.
+But gliches when you disconnect and then reconnect to wireless hotspots are common enough that you probably wouldn’t think much of it, if anything at all.
+For access point developers:
+For hotspot users:
+With an additional layer of application-level encryption, anyone who decrypts your Wi-Fi packets still can’t make sense of the data inside them. 
+The attackers may be able to figure out network-level details such as the IP numbers of servers you connected to, but if you stick to HTTPS while you are browsing, the content you send and receive will not be exposed by these admittedly limited attacks.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Also use a VPN for public hotspots.
+I rarely recommend that as what you might call a “standard precaution”, given that you need to put an awful lot of trust in your VPN provider – at least as much as you do in your home ISP, where your home ISP at least operates under the regulations and legal jurisdiction that you’re in yourself.
+If you run your own VPN at home then… sure, great idea! But just because you rent bandwidth from a VPN service doesn’t solve your security problems… it could just create lots of new ones, and leave you at the whim of a legal system in a country you weren’t aware was involved, or an attitude to data security that you can’t easily judge. (VPNs that include services to let you deliberately and illegally watch TV shows in countries where you normally wouldn’t be allowed to? VPNs that claim to “keep no logs”? How much can you trust them, if you even know where their core connectivity is located? )
+Do you see any benefit in using a VPN, for example in public WiFi?
+I have the impression that most advise comes from the pre-“encrypt everywhere” area and wasn’t checked for usefulness today. Some VPN try to promote malware protection but I don’t see anything they could offer, which I don’t get from Sophos App’s LinkChecker or Built in Browser protection.
+I’m not against the concept of a VPN when hotspotting, because it does encrypt everything that leaves your laptop or phone, and only decrypts it at an “internet on-ramp” somewhere else…
+…as long as you trust the internet link at the other end, which of necessity gets to see all your traffic concentrated in one place (just like the hotspot would).
+In other words, a VPN doesn’t implicitly and inevitably boost the trust you can have in your connection – it just shifts the trust you need to have somewhere else. 
+“No Logs” is technically true as the VPN provider generally won’t, but they fail to mention the security services “tap” just prior to them receiving the packets. Legally they are required to do this. All NDA’s.
+There are numerous cases, sadly, of VPNs that insisted they didn’t keep logs later being found to have kept them after all, either by mistake or on purpose. And, as you say, there are “logs” and there are “network taps that are required by law”… the latter may ultimately allow someone other than the VPN (e.g. nosy authorities) to keep logs and record traffic details at will, leaving the VPN company itself to “keep no logs” of its own.
+What’s the likelihood that wireless router manufacturers are going to release new firmware for their products?
+I guess some will (if these bugs apply to them) and some won’t…
+To be fair, the risks are pretty small, and if you are sending unencrypted traffic through a random, unknown router in a random coffee shop then these bugs probably aren’t increasing your overall risks in a statistically measurable way…
+I have a question about “Minimise the amount of unencrypted traffic you send. Here, we’re talking about a second level of encryption on top of your Wi-Fi session key, such as HTTPS for your web browsing, and DNS-over-HTTPS for your DNS requests.”   
+I do use, upon occasion a hotspot, my question is what the above means for the average user, I believe this means I should be sure I only access HTTPS browser sites when browsing using a hotspot,  and/or  how do I enable DNS-over-HTTP and should this be enabled on top of HTTPS browser site browsing?
+There are numerous ways to do this… Firefox, for example, has options for always using DNS-over-HTTPS (though only for Firefox’s own lookups, of course), and for always using HTTPS, even if you type http:// (or click an old link that isn’t HTTPS) by mistake.
+Sites that don’t support HTTPS will produce a warning so you can choose to continue if you really want to, but it won’t happen by default.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

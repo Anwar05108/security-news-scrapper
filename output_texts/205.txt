@@ -1,0 +1,54 @@
+Sophos Home protects every Mac and PC in your home 
+We use Apple’s Mail app all day, every day for handling work and personal email, including a plentiful supply of very welcome Naked Security comments, questions, article ideas, typo reports, podcast suggestions and much more. 
+(Keep ’em coming – we get far more positive and useful messages that we get trolls, and we’ve love to keep it that way: tips@sophos.com is how to reach us.)
+We’ve always found the Mail app to be a very useful workhorse that suits us well: it’s not especially fancy; it’s not full of features we never use; it’s visually simple; and (so far anyway), it’s been doggedly reliable.
+But there must have been a serious problem brewing in the latest version of the app, because Apple just pushed out a one-bug security patch for iOS 16, taking the version number to iOS 16.0.3, and fixing a vulnerability specific to Mail:
+One and only one bug is listed:
+In our experience, “one-bug” security bulletins from Apple, or at least N-bug bulletins for small N, are the exception rather than the rule, and often seem to arrive when there’s a clear and present danger such as a jailbreakable zero-day exploit or exploit sequence.
+Perhaps the best known recent emergency update of this sort was a double zero-day fix in August 2022 that patched against a two-barrelled attack consisting of a remote code execution hole in WebKit (a way in) followed by a local code execution hole in the kernel itself (a way to take over completely):
+Apple patches double zero-day in browser and kernel – update now!
+
+
+Those bugs were officially listed not only as known to outsiders, but also as being under active abuse, presumably for implanting some sort of malware that could keep tabs on everything you did, such as snooping on all your data, taking secret screenshots, listening in to phone calls, and snapping images with your camera.
+About two weeks later, Apple even slipped out an unexpected update for iOS 12, an old version that most of us assumed was effectively “abandonware”, having been conspicuously absent from Apple’s official security updates for almost a year before that:
+URGENT! Apple slips out zero-day update for older iPhones and iPads
+
+
+(Apparently, iOS 12 was affected by the WebKit bug, but not by the follow-on kernel hole that made the attack chain much worse on more recent Apple products.)
+This time, however, there’s no mention that the bug patched in the update to iOS 16.0.3 was reported by anyone outside Apple, or else we’d expect to see the finder named in the bulletin, even if only as “an anonymous researcher”.
+There’s also no suggestion that the bug might already be known to attackers and therefore already being used for mischief or worse…
+…but Apple nevertheless seems to think that it’s a vulnerability worth issuing a security bulletin about.
+So-called denial-of-service (DoS) or crash-me-at-will bugs are often regarded as the lightweights of the vulnerability scene, because they generally don’t provide a pathway for attackers to retrieve data they’re not supposed to see, or to acquire access privileges they shouldn’t have, or to run malicious code of their own choosing.
+But any DoS bug can quickly turn into a serious problem, especially if it keeps happening over and over again once it’s triggered for the first time.
+That situation can easily arise in messaging apps if simply accessing a booby-trapped message crashes the app, because you typically need to use the app to delete the troublesome message…
+…and if the crash happens quickly enough, you never quite get enough time to click on the trash-can icon or to swipe-delete the offending message before the app crashes again, and again, and again.
+Numerous stories have appeared over the years about iPhone “text-of-death” scenarios of this sort, including:
+Of course, the other problem with what we jokingly refer to as CRASH: GOTO CRASH bugs in messaging apps is that other people get to choose when to message you, and what to put in the message…
+…and even if you use some kind of automated filtering rule in the app to block messages from unknown or untrusted senders, the app will typically need to process your messages to decide which ones to get rid of. 
+(Note that this bug report explicitly refers to a crash due to “processing a maliciously crafted email message”.)
+Therefore the app may crash anyway, and may keep crashing every time it restarts as it tries to handle the messages it didn’t manage to deal with last time.
+Whether you’ve got automatic updates turned on or not, go to Settings > General > Software Update to check for (and, if needed, to install) the fix.
+The version you want to see after the update is iOS 16.0.3 or later.
+Given that Apple has pushed out a security patch for this one DoS bug alone, we’re guessing that something disruptive might be at stake if an attacker were to figure this one out.
+For example, you could end up with a barely usable device that you would need to wipe completely and reflash into order to restore it to healthy operation…
+LEARN MORE ABOUT VULNERABILITIES
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Not an apple user here, but isn’t there an option for apple users to log into their E-Mail-Account in a browser (which hopefully doesn’t crash like the app) and delete the mail there instead of wiping your device?
+Well, I use Outlook (work and personal), so if I knew which email was crashing my Mail app I assume I could remove it by logging in from my laptop (or via the browser in my phone, but OWA is pretty fiddly to use on an iPhone!)…
+…though it’s still an open question, given that this is a bit of a mystery bug, whether that would magically recover the phone if it were stuck in an CRASH: GO TO CRASH loop.
+I’d like to think it would solve the problem, but you can imagine a secnario in which the app didn’t reach the “now delete all redundant mails already deleted via the browser interface” until after it processed the emails already received but not yet diplayed on the phone since the last synch.
+(TL;DR: Not enough info. Can’t say. But I hope so.)
+Good point, maybe reinstalling the app (or removing and re-adding the account) would be an option before wiping the whole phone – in case the mail-app doesn’t prevent this by auto-crashing everything
+You can remove some iOS “built-in” apps these days, including Mail… so that might work, assuming (as you say) the Mail app itself doesn’t get in the way.
+Sort of a moot point in this case if you’ve updated. (I did it last night. Was quite a small download and went through pretty quickly.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

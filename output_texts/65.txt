@@ -1,0 +1,48 @@
+Sophos Home protects every Mac and PC in your home 
+VMware Spring is a open-source Java toolkit for building powerful Java apps, including cloud-based apps, without needing to write, manage, worry about, or even understand the “server” part of the process yourself.
+If you’ve heard the term serverless computing, then this is the sort of programming environment it refers to: the overall system isn’t serverless (no client-server or cloud solution could be, after all), but the programmers responsible for the data processing code can pretend that there aren’t any servers when designing and coding their apps.
+Simply put, you let the surrounding ecosystem do the server-centric stuff of accepting network traffic, setting up TLS connections, parsing HTTP requests, extracting input headers and data, deciding who’s asking for what from whom, calling the right “serverless code” (that’s where you come in!), packaging up the results, and sending them back over the network to the initiator of the request.
+You write the code that receives inputs and computes results from it, without needing to worry whether the input originated locally, arrived via your own LAN, or came in over the internet.
+You don’t need to worry about, or even care, what sort of server your code is running on: it could be a server of your own, set up and managed by your colleagues in IT; or a cloud instance hosted and executing on a popular cloud service provider; or both.
+Part of the Spring ecosystem is a set of components called Spring Cloud by which you can hook Spring code straight into well-known cloud services from Alibaba, Amazon, Azure, Netflix and many more.
+And there’s a subcomponent in Spring Cloud called Spring Cloud Function that lets you do so-called “functional” serveless programming, where you write the Java functions that get called when specific web requests come in, without worrying  how the surrounding Spring system figured out that your function was the right one to call.
+Unfortunately, there is a dangerous bug dubbed CVE-2022-22963, also known as the Spring Expression Resource Access Vulnerability, in the Spring Cloud Function component.
+If the person calling your Java function via the web (to look up a username in a database, for example, or to check if a specific SKU is in stock) inserts a specific HTTP header into their web request, and if that header contains Spring code structured in the right way…
+…then the code in that header gets executed on the server, right inside the Spring Cloud server world.
+In other words, unauthenticated, uncomplicated remote code execution (RCE).
+The code that an attacker could abuse in this way uses a feature called Spring Expression Language, or SpEL for short, so you will also see this bug referred to as the SPEL vulnerability.
+Proof-of-concept (PoC) code is already readily available on the internet showing how to inject unauthorised Java code into inbound Spring Cloud Function requests, and how to use that code to run an unwanted program.
+The PoCs we’ve seen so far have all simply popped up a calculator app, that being more than enough to prove the point, but it looks as though any command already installed on the server could easily be launched.
+This includes remotely triggering web downloader programs such as curl, launching command shells such as bash, or indeed doing both of those in sequence as a way of quietly and quickly implanting malware.
+If you use the Spring Cloud Function module in any of your services, update immediately to version 3.1.7 or 3.2.3, depending on whether you have the 3.1 or the 3.2 flavour of the module.
+Note that VMware’s official advisory for this bug states that Spring Cloud Function modules below version 3 are affected, but are no longer supported; you will therefore need to switch to one of the version 3 flavours to get the needed patch.
+If you use Spring in your business but someone else hosts and delivers the Spring Cloud framework for you, please check with them to find out if they’ve patched.
+For information about how Sophos products detect and block this threat, please check the SophosLabs writeup on our sister site, Sophos News.
+Second vulnerability in Spring Cloud casts shadow on popular Java framework
+
+
+Note for Sophos customers. No Sophos products or services are affected by this bug.For further advice and information, please see Sophos Security Advisory SA-20220401 (Spring RCE).
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“…and if that header contains Spring code structued in the right way…”
+[br]
+“Structured”
+Fixed, thanks!
+Serveless should be serverless
+connewctions should be connections
+Fixed, thanks!
+In the first sentence of the Spring Cloud Function section, ‘wich’ should be ‘which’.
+Fixed, thanks!
+From where to download 3.1.7 official image
+Try here:
+https://spring.io/projects/spring-cloud-function
+Github link included on that page. I am not a Spring user so you will have to follow your nose from there…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,277 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. 
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG. AirTag hacking, Y2K… [AMAZED] wait, Y2K?!?!! 
+And Instagram scams. 
+All that more on the Naked Security Podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug; he is Paul. 
+And Paul, we’ve got a great line up today, and I love starting the show with a Fun Fact. 
+And I don’t know if you’re a fan of the Bard, Bill Shakespeare, but I spotted a quote on the Shakespeare Quote of the Day website…
+…as you know, the Bard has a way with words, and although I’m not entirely sure which play this line comes from, I thought it was interesting and informative in these trying times. 
+The quote is as follows: “An SSL error has occurred and a secure connection to the server cannot be made.” 
+Beautiful.
+DUCK. Wow! 
+When that one’s on at the Globe [Theatre] in London, I think I might go! 
+Quite a lot of history in that, isn’t there? 
+Because, of course, if you were to modernise it, you’d say: “A TLS error has occurred.”
+DOUG. Yes.
+DUCK. Obviously, back in the 16th and 17th centuries… it was still SSL back then.
+DOUG. Let us talk about something new, then something old, then something kind-of in the middle. 
+So, we start with this AirTag story… Apple AirTags. 
+Now, my impression of how these work is: You buy this $29 device, which has got a Bluetooth Low Energy signal inside it, and then wherever it is, it leverages iPhones around it to relay the signal of this AirTag back to a central server somewhere, where only the location of AirTags that you own will be shown to you. 
+Yet it’ll use anyone else’s iPhone that’s nearby.
+DUCK. Apple calls it Find My. 
+So, you put the AirTag in your rucksack… “Find My rucksack.” 
+And it sounds like a surveillance nightmare! 
+You’ve got all these devices (A) identifying themselves, (B) relying on other people knowing where they are so they can call home and dob them into Apple, and (C) Apple knowing where every individual tag is at every moment. 
+But it is actually much more secure than that… 
+…because Apple knows where AirTags are, but not which ones they are, because they use a randomly generated code that changes every 15 minutes. 
+And since you, the owner of the AirTag, are the only person who knows the magic code that gives you the object to look up in Apple’s database, it means that *you* can check whether your AirTag turned up anywhere and was called in by anybody. 
+But neither Apple nor the person who called home with your AirTag’s identifier can put two and two together. 
+So, it’s actually quite a clever system.
+DOUG. OK, then there’s the anti-stalking feature, which is… 
+….someone puts *their* AirTag into *my* backpack.
+DUCK. Yes, that’s the naughty side of it, isn’t it? 
+They are the only person who can track that AirTag, for privacy and anonymity reasons, but if they deliberately put that AirTag into your bag, then actually they’re tracking *you*.
+DOUG. And my iPhone will say, “Hey, your phone keeps relaying someone else’s AirTag location. You might want to check it out.” 
+Right? Is that how it works?
+DUCK. Pretty much, Doug. 
+The easiest way to think of it is to use Apple’s own words.
+This is called Tracker Detect, and the idea is:
+If any AirTag, AirPod or other Find My network accessory separated from its owner is seen moving with you over time, you’ll be notified.
+So, Apple can’t tell you who’s tracking you, because there could be an innocent explanation. 
+But it’s a good indication that you might want to go looking through your bag to try and find this electronic item that you did not put there!
+DOUG. And there’s another built in protection, is there not?
+DUCK. Yes. 
+The AirTag knows if it hasn’t called its own registered “phone mothership” lately, and if it hasn’t been near your phone for a while, it will start emitting a high-pitched, annoying beeping noise. 
+And the idea is that this lets you discover AirTags that you’re wondering, “Where on Earth has that jolly thing gone?”
+Like those 1990s whistle-me key rings…
+DOUG. [LAUGHS]
+DUCK. …and this is quite a good idea.
+DOUG. [LAUGHS] It is… 
+DUCK. If you’ve lost your AirTag where it actually can’t see your phone but it’s still in your house, it’ll make a noise, and you’ll go, “Oh, golly, it’s down the back of the stove”, and you’ll dig it out with a stick. 
+But it also means that if someone plants an AirTag on you, it’s supposed to basically give itself away.
+DOUG. OK, and it’s a good thing that there are two of those features for a little redundancy.
+Because, as you say in the article, people are selling black market AirTags with the speaker disconnected.
+DUCK. Yes – it’s a regular AirTag, but when it decides that it needs to warn everybody that it’s not where it should be, you won’t be able to hear it. 
+So, we know that the noise doesn’t necessarily solve the problem, because noise can be silenced by snipping a little wire. 
+But the other question is, “What about this Tracker Detect feature that warns you when there are rogue or unexpected AirTags that keep popping up more frequently than you might reasonably expect?”
+DOUG. And so we get to the meat of our story!
+DUCK. Indeed, Doug!
+This research is from is Fabian Bräunlein. 
+He figured, “I wonder how sensitive Apple’s Tracker Detect is to what you might call ‘noise in the system’.” 
+And so he built a fake AirTag that pretended to be 2000 different AirTags at the same time.
+He was doing his broadcasts only every 30 seconds, and he had 2000 different device code sequences to cycle through. 
+And he found, with a volunteer who agreed to do this, that over a five-day period, he was able to generate consistent location messages that, of course, he could receive because he knew how to look them up in Apple’s privacy-preserving network…
+…but without triggering the Tracker Detect warning.
+Because, obviously, none of his pseudo-AirTags were ever visible often enough to trip Apple’s warning that, ” Hey, someone seems to be following you around.” 
+I don’t think he’s expecting Apple to come up with a magic solution… there might not be one.
+But it is just an important reminder that, sometimes, when you build privacy-preserving cryptography and anonymity into a network, then it does also lend itself to types of abuse that are quite hard to track, in exactly the same way as we find with technologies like TOR [The Onion Router].
+So, it’s an interesting observation on the tussle between privacy and law enforcement, if you like.
+DOUG. All right, we will keep an eye on that! 
+That is: Apple AirTag anti-stalking protection bypassed by researchers, on nakedsecurity.sophos.com.
+Apple AirTag anti-stalking protection bypassed by researchers
+
+
+And, Paul, we are on episode 72 of the podcast since I joined you in this venture, and I never thought we would be talking about Y2K this much! 
+It seems like we were just talking about Y2K… why are we talking about it again?
+DUCK. [IRONIC] Well, it’s only been 22 years, Doug, and lessons sometimes take a lot longer to learn. 
+The headline in the article on Naked Security is a little bit of a joke:  it isn’t actually Y2K- or date-related, but it *is* “number precision” related. 
+It turns out that, pretty much by coincidence, both Firefox and the Chromium series of browsers will go from version 99 to version 100 in the next few weeks or months. 
+Well, that means that a version number, which gets sent out in User-Agent strings and which gets parsed, recognized and used for who knows what purposes by web servers all over the world… 
+…it means that a two-digit number is suddenly going to become a three-digit number. 
+And *surely*, Doug, *surely* no web servers are going to trip up over the fact that 99 is followed by 100?
+I mean, how hard can that be?
+DOUG. What could possibly go wrong?
+DUCK. But it turns out that an admittedly small, but nevertheless worryingly non-zero, number of web servers *do* have a problem with this!
+Like this one… I don’t mean to pick on them; I just did this because they’re already on the official list that Mozilla programmers are building into a list of known exceptions “just in case”. 
+This was daimler.com. 
+I went there with the developer version of Edge, which is already on version 100 because it’s two versions ahead of the regular one. 
+And, Doug, daimler.com told me, “Your browser is a classic”, with a cute picture of an old, classic 1980s Merc-Benz. 
+It didn’t have a little picture of a Lynx browser running, which would have impressed me….
+DOUG. [LAUGHS]
+DUCK. …and yet when I visited with the regular version of Edge, which is still at version 98, it went, “Hello, visitor”, like nothing was wrong. 
+And it did make me stop to think… [SQUEAKY VOICE] seriously!?! 
+Choking because a number is carried over from 99 to 100? In the year 2022? Given what we learned in the year 1999?
+But surprises never cease, Doug.
+DOUG. So, one theory is that it’s taking the version number and, since it can only handle two digits, it’s truncating either the first digit or the last digit. 
+So it’s either zero-zero or ten, and it thinks you’re running a browser from decades ago
+DUCK.Is it about ten or twelve years since Firefox went to version 10? I forget… but quite a long time! 
+So, this is one of those mystifying bugs: it shouldn’t have happened.
+DOUG. All right, we have some advice for both web users and web programmers. 
+And my favourite, of course, is the advice you give to web programmers, which is [LAUGHS]… we’ll get to that. 
+But if you’re a user?
+DUCK. You don’t really have to do anything; that’s the good part. 
+And there isn’t much you can do. 
+But if, when your browser gets to version 100, there are some sites you absolutely need to visit and suddenly you can’t, and it’s telling you, “Your browser is too ancient”, this is something you might want to investigate. 
+And there are some workarounds that both Mozilla and the Chromium crews are looking at. 
+So just be aware of this… that is all I’m saying.
+DOUG. OK. 
+And if you’re a web programmer, you say, “Why…” [MUTTERS, LAUGHS]; “why are you having…”; basically, “Find a new job.”
+DUCK. [AGHAST] I didn’t say that, Doug!
+DOUG. [CONCILIATORY] I know, I know…
+DUCK. [PAUSE] I thought it… but I didn’t say it. 
+DOUG. [LAUGHS]
+DUCK. What can you say? 
+I just wrote, “If you’re a web programmer, then this shouldn’t be a problem.” 
+If you sit down, and you look in the mirror, and you think, “You know what, some of my code… maybe I have made too many hard-coded assumptions in there”…
+…then you need to rethink your programming practices. 
+Imagine if this does happen to your web server. 
+What kind of an impression does it give about your attention to detail? 
+I think the average user who’s thinking a little bit about cybersecurity is going to go, “You know what? If they can’t tell the difference between 99 and 100, how good are they going to be when they come to processing 16-digit credit card numbers?”
+DOUG. Or my username?
+Or my password? 
+Or my Social Security number? 
+DUCK. Exactly! 
+So, it’s not a very good look if you’ve got this problem. 
+I can think of better ways of advertising how strongly your company thinks of cybersecurity as a value!
+DOUG. All right: Did we learn nothing from Y2K? Why are some coders still stuck on two-digit numbers?,  on nakedsecurity.sophos.com.
+Did we learn nothing from Y2K? Why are some coders still stuck on two digit numbers?
+
+
+It’s time for our This Week in Tech History, segment, and this week, on 02 March 1969, the Concorde supersonic airliner made its first flight, before eventually spinning up commercial service in 1976. 
+The plane was able to cross the Atlantic in about half the time of a normal flight, all for the meagre sum of around $13,000 in today’s money for a round-trip ticket. 
+The Concorde operated until 2003, was eventually retired due to low demand and perceived danger, after an unfortunate crash in July of 2000. 
+And Paul, you have some great Concorde stories, although you have not ridden on it….
+DUCK. [WISTFUL] No, but I was tempted. 
+One of the Air France aircraft, unfortunately, as you say, crashed due to debris left on the runway, I think. 
+So, they were taken out of service and then eventually they were allowed to resume. 
+But I think the zest had gone out of it because [STAGE WHISPER] to be honest, they’re not very green (how can I put it?), for reasons we will discuss in a moment. 
+So, there was a chance, a very brief chance of a few months, when you could actually get a surprisingly inexpensive one-way ride. 
+Basically, they blast you to New York from London and you arrive before you take off! 
+You take off at 10:30, I think, and you arrive at 09:30 in the morning; then they just fly you back on a regular plane.
+You’re doing it so that you can sit, Doug, in a commercial passenger jetliner that has jet engines with reheat… or as you Americans perhaps more poetically put it, afterburner! 
+Can you imagine: a commercial airliner…
+DOUG. Amazing!
+DUCK. …”Oh, we need 20% more power”, WOARRRGH! 
+And it could exceed Mach 2! 
+55,000 feet, and you’d be going faster than 2000 kilometres an hour!
+DOUG. Amazing.
+DUCK. As far as I know, Concorde had half the thrust of an A380, but its maximum landing weight – obviously, once it has burned off all that fuel –  was somewhere around about one-quarter of an Airbus A380. 
+So, when it came to power to weight ratio… !!!?!?!
+I did see it come in to land twice… 
+…and, Doug, it’s just so different to any other plane you’ve seen that isn’t a jet fighter or something. 
+Modern planes are normally really long and really wide; this is really long and super thin. 
+It looks like something you might take into the pub in small scale and throw at a dartboard.. just incredible! 
+But I suppose we shan’t see that kind of thing again. 
+And given how much fuel it needed to transport 100 people across the Atlantic Ocean… maybe that is actually not such a bad thing.
+DOUG. Yes.
+Well, Concorde, we hardly knew ye…
+…but something we know very well: Instagram scams. 
+DUCK. Oh, dear!
+DOUG. And there are three new ones; not one; not two;  but *three* that have been clogging our inboxes here, Paul!
+DUCK. Yes.
+I know we’ve talked about them before, and we write about them fairly regularly on Naked Security… but these were various messages; three different types of scam. 
+I don’t know whether it’s the same crooks, but the modus operandi is the same in terms of: there’s an email; you go to a dodgy page; and they’re looking for your details. 
+But the point is that crooks are trying lots of different *ways* of doing it. 
+One was a supposed “Community guidelines” violation. 
+And, of course, there’s a proposed solution, very convenient: “Just contact us. We’ll let you know the content that violates the guidelines. You can remove it and your account will be fine.” 
+The second one was the well known “Copyright infringement” scam. 
+And the proposed solution is: “If this is wrong, you can just click the button, fill in the form, show to us that it’s not copyright, and the strike against you will be removed.”
+And the last one, which was quite a nasty one in my opinion, was “Suspicious login alert.” 
+You get those from lots of sites these days, don’t you? 
+Was this you logging in from X? 
+In this case, it claimed to be Vienna in Austria, although they made rather a mistake there! 
+They called the city “Vienna”, but they called the country “Osterreich”. [Note. Correct spelling is Österreich or Oesterreich]. 
+So, the name of the city was in English while the name of the country was in German, but mis-spelled.
+And the map they had behind it was, in fact, Riyadh. 
+DOUG. [LAUGHS] Riyadh!
+DUCK. So, they didn’t quite get it right. 
+But, by choosing Vienna (slash Riyadh)…
+…presumably they know they’re mailing it to people in the UK, so they know that you know that it’s not you. 
+So, they’re giving you a reason to click the button. 
+Of course, they’re all scams that want your username and your password. 
+And in one of the cases, they also said, “Now put in your two-factor authentication code as well.” 
+Instead of getting your username and password for later and then selling them on, or coming back tomorrow…
+…basically, today’s generation of crooks, increasingly they’re going, “Give us your username; give us your password; and give us the 2FA code.”
+And even though they’ve only got a minute, or a couple of minutes, to use it, they’ve got someone standing by to do just that, or they’ve got a computer standing by to do just that. 
+And they’re actually doing the intervention and the account takeover in near-real-time.
+DOUG. Yes, that’s scary, because then they own the account!
+DUCK. Yes. 
+Now, some of these, you should spot them… like “Vienna/Oesterreich”, the mix of languages. 
+And there are some grammatical mistakes. 
+One of them, interestingly, had a domain name that looked like Instagram, but the first “I” was actually lowercase “L”, which in most browsers comes out looking like an uppercase “I”, so it looked like the word “Instagram”. 
+There should be enough in each of these for you to spot that it doesn’t look right.
+DOUG. Yes, I would give these a B for badness – these are not as good as I like to see out of a well-crafted scam.
+But I can see… especially the “Copyright infringement” one.
+I could see people just hammering that button and going, “I did *not* do this. I am outraged. I’m offended.!”
+DUCK. Yes, I agree. 
+And that’s the one where the URL starts with… it’s actually “Lnstagram”, but it looks like “Instagram”.
+It just says, “Please enter your username”, and then the crooks actually go to your account and fetch your publicly-visible login icon, and they add that into the next page, just for a little bit of verisimilitude. 
+They’re making it look believable. 
+And then, of course, they ask you for your password twice. 
+I think that’s because, these days, at least some people have got in the habit of: “Put in the wrong password first time, and if they accept it, then you know it’s a scam.” 
+Then, the crooks give you a nice cheery message: “We will contact you back in 48 hours.” 
+And then there’s a help button that gives you… it’s not grammatically perfect, but they give you a perfectly reasonable help page, don’t they? 
+And there’s nothing outright and obviously bad about this.
+DOUG. Yes, that one’s not bad.
+DUCK. There’s no deep threat, just, “Look, you can help yourself if you want to”, and then at the end they go, “Fine, we’ll sort this out for you.”
+DOUG. What can people do to avoid such scams in the future? 
+First, we have: Don’t click “helpful” links in emails or other messages.
+DUCK. Indeed!
+If you’ve practised beforehand, “Where do I go to check who’s logged into my account recently? Where do I go to counter a copyright notice or to look it up?”…
+…if you know the link yourself, then you never need to click on links in emails, *even if they’re emails that Instagram sent you*. 
+And if you never click on the links in the emails, then you can never be caught out.
+DOUG. And then we’ve used this one before, but it is pertinent as ever: Think before you click.
+DUCK. Yes.
+That’s easy to say, and it’s obvious to say… 
+…but the reason that this article is mostly pictures, and not many words, is that it’s a great way to practise looking for the “less likely” tall tales.
+DOUG. And then my personal favorite… if you’re doing it right, you should have no idea what your password is for any site you have an account on: Use a password manager if you can.
+DUCK. Yes!
+Because in this case, if you set up your password manager carefully, where you know you have carefully typed in “i-n-s-t-a-g-r-a-m DOT com”…
+…that is how your password manager will remember the workflow needed for Instagram logins.
+It will invent the password. 
+And it means that if ever you go to a website that looks like Instagram – even if it is a pixel-perfect copy of the Instagram login page; even if it has a URL that is different in only one character – your password manager will go, “Nope, I don’t know that one.”
+DOUG. And then finally, we have a great video that you can watch… starring our friend Paul.
+DUCK. Admittedly, this video is from about a year ago, but we talk about the things you can watch out for, and actually show you, “This is how it unfolds.” 
+Which was the same idea as this article: we took a series of screenshots of what would happen if you went right through, from go to woe, in three different scams. 
+If not for you, at least so you can show your friends and family.
+DOUG. All right, that is: Instagram scammers as busy as ever: passwords and 2FA codes at risk
+Instagram scammers as busy as ever: passwords and 2FA codes at risk
+
+
+And, as the sun slowly begins to set on our show for this week, we shall turn to one of our readers in our Oh! No! segment. 
+On the Y2K story we discussed earlier, Naked Security reader 4caster comments:
+Until retirement in 2001, I worked for the Meteorological Office, a client of Sophos, which I have always used at home ever since.
+Thank you, 4caster! 
+The Met Office took great care with Y2K, so communications continued to work seamlessly except for planned failures of some ancient and obsolete automatic weather stations on North Sea platforms. 
+However, at 00:00 on 29 February 2000, all the UK military airfield weather reports stopped being transmitted. 
+Some [PAUSE] idiot long before had been told that there is no leap day at the turn of a century, and programmed the system accordingly. 
+People can cater for the ‘known unknowns’, but it’s the ‘unknown unknowns’ that catch us out.
+DUCK. Yes, indeed! 
+And the irony is, if that person had never heard of the fact that there are exceptions to the “is the year divisible by 4” rule for leap years…
+…they probably wouldn’t have had this bug. 
+If they’ve been double-slack, they would have got away with it! 
+Because, of course, any year that’s divisible by 4, in our modern calendar, is a leap year. 
+Except when it’s a century, *except* that you don’t make the correction every *fourth* century. 
+So if they’d actually done nothing, and gone, “Oh well, every year divisible by 4 is a leap year”… 
+…you can imagine somebody saying, “No, no, no! You’ve got it wrong, you’ve got it wrong: there’s an exception.” 
+And so, in trying to fix the bug, they actually introduced one!
+DOUG. [LAUGHS] That’s the worst! 
+DUCK. That’s another reminder that sometimes half-fixing a problem can actually be worse than doing nothing about it at all. 
+So, a job worth doing, Douglas, is worth doing well!
+DOUG. Excellent advice, and I agree with you. 
+If you have an Oh! No! you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles; or hit us up on social: @NakedSecurity. 
+That is our show for today – thanks very much for listening. 
+For Paul Ducklin. I’m Doug Aamoth, reminding you, until next time, to…
+BOTH Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

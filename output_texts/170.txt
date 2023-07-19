@@ -1,0 +1,248 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Bitcoin ATMs attacked, Janet Jackson crashing computers, and zero-days galore. 
+All that and more on the Naked Security podcast. 
+[MUSICAL MOODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth. 
+With me, as always, is Paul Ducklin.
+Paul, how do you do?
+DUCK.  I’m very well, Douglas. 
+Welcome back from your vacation!
+DOUG.  Good to be back in the safety of my own office, away from small children. 
+[LAUGHTER]
+But that’s another story for another time. 
+As you know, we like to start the show with some Tech History.
+This week, on 24 August 1995, the song “Start Me Up” by the Rolling Stones was unleashed, under licence, as the theme tune that launched Microsoft Windows 95. 
+As the song predicted, “You make a grown man cry,” and some Microsoft haters have been crying ever since. 
+[WISTFUL] I liked Windows 95…
+…but as you say, you did need to start it up several times, and sometimes it would start itself.
+DUCK.  Start me up?!
+Who knew where *that* was going to lead? 
+I think we had an inkling, but I don’t think we envisaged it becoming Windows 11, did we?
+DOUG.  We didn’t. 
+And I do like Windows 11 – I’ve got few complaints about it.
+DUCK.  You know what? 
+I actually went and hacked my window manager on Linux, which only does rectangular windows. 
+I added a little hack that puts in very slightly rounded corners, just because I like the way they look on Windows 11. 
+And I’d better not saythat in public – that I used a Windows 11 visual feature as the impetus…
+…or my name will be dirt, Douglas!
+DOUG.  Oh, my! 
+All right, well, let’s not talk about that anymore, then. 
+But let us please stay on the theme of Tech History and music. 
+And I can ask you this simple question…
+What do Janet Jackson and denial-of-service attacks have in common?
+Laptop denial-of-service via music: the 1980s R&B song with a CVE!
+
+
+DUCK.  Well, I don’t think we’re saying that Janet Jackson has suddenly been outed as evil haxxor of the early 2000s, or even the 1990s, or even the late 80s.. 
+DOUG.  Not on purpose, at least. 
+DUCK.  No… not on purpose. 
+This is a story that comes from no less a source than ueberblogger at Microsoft, Raymond Chen. 
+He writes the shortest, sharpest blogs – explaining stuff, sometimes a little bit counterculturally, sometimes even taking a little bit of a dig at his own employer, saying, “What were we thinking back then?” 
+And he’s so famous that even his ties – he always wears a tie, beautiful coloured ties – even his ties have a Twitter feed, Doug.
+[LAUGHTER] 
+But Raymond Chen wrote a story going back to 2005, I think, where a Windows hardware manufacturer of the day (he doesn’t say which one) contacted Microsoft saying, “We’re having this problem that Windows keeps crashing, and we’ve narrowed it down to when the computer is playing, through its own audio system, the song Rhythm Nation“.  
+A very famous Janet Jackson song – I quite like it, actually – from 1989, believe it or not.
+[LAUGHTER]
+“When that song plays, the computer crashes. And interestingly, it also crashes computers belonging to our competitors, and it’ll crash neighbouring computers.”
+They obviously quickly figured, “It’s got to do with vibration, surely?” 
+Hard disk vibration, or something like that. 
+And their claim was that it just happened to match up with the so called resonant frequency of the hard drive, to the point that it would crash and bring down the operating system with it. 
+So they put an audio filter in that cut out the frequencies that they believed were most likely to cause the hard disk to vibrate itself into trouble.
+DOUG.  And my favorite part of this, aside from the entire story…
+[LAUGHTER]
+…is that there is a CVE *issued in 2022* about this!
+DUCK.  Yes, proof that at least some people in the public service have a sense of humour. 
+DOUG.  Love it!
+DUCK.  CVE-2022-23839: Denial of service brackets (device malfunction and system crash). 
+“A certain 5400 rpm OEM disk drive, as shipped with laptop PCs in approximately 2005, allows physically proximate attackers to cause a denial-of-service via a resonant frequency attack with the audio signal from the Rhythm Nation music video.” 
+I doubt it was anything specific to Rhythm Nation… it just happened to vibrate your hard disk and cause it to malfunction. 
+And in fact, as one of our commenters pointed out, there’s a famous video from 2008 that you can find on YouTube (we’ve put the link in the comments on the Naked Security article) entitled “Shouting at Servers”.
+It was a researcher at Sun – if he leaned in and shouted into a disk drive array you could see on the screen there was a huge spike in a recoverable disk errors.
+A massive, massive number of disk errors when he shouted in there, and obviously the vibrations were putting the disks off their stride.
+DOUG.  Yes! 
+Excellent weird story to start the show. 
+And another kind of weird story is: A Bitcoin ATM skim attack that contained no actual malware. 
+How did they pull this one off?
+Bitcoin ATMs leeched by attackers who created fake admin accounts
+
+
+DUCK.  Yes, I was fascinated by this story on several accounts.
+As you say, one is that the customer accounts were “leeched” or “skimmed” *without implanting malware*. 
+It was only configuration changes, triggered via a vulnerability. 
+But also it seems that either the attackers were just trying this on, or it was more of a proof-of-concept, or they hoped that it would go unnoticed for ages and they’d skim small amounts over a long period of time without anyone being aware.
+DOUG.  Yes.
+DUCK.  It was noticed, apparently fairly quickly, and the damage apparently was limited to- well, I say “just” – $16,000.
+Which is three orders of magnitude, or 1000 times, less than the typical amounts that we usually need to even start talking about these stories.
+DOUG.  Pretty good!
+DUCK.  $100 million, $600 million, $340 million…
+But the attack was not against the ATMs themselves. It was against the Coin ATM Server product that you need to run somewhere if you’re a customer of this company. 
+It’s called General Bytes. 
+I don’t know whether he’s a relative of that famous Windows personality General Failure… 
+[LAUGHTER]
+But it’s a Czech company called General Bytes, and they make these cryptocurrency ATMs. 
+So, the idea is you need this server that is the back-end for one or more ATMs that you have. 
+And either you run it on your own server, in your own server room, under your own careful control, or you can run it in the cloud. 
+And if you want to run it in the cloud, they’ve done a special deal with hosting provider Digital Ocean.
+And if you want, you can pay them a 0.5% transaction fee, apparently, and they will not only put your server in the cloud, they’ll run it for you. 
+All very well. 
+The problem is that there was what sounds like an authentication bypass vulnerability in the Coin ATM Server front end. 
+So whether you’d put in super complicated passwords, 2FA, 3FA, 12FA, it didn’t seem to matter. [LAUGHTER]
+There was a bypass that would allow an unauthorised user to create an admin account. 
+As far as I can make out (they haven’t been completely open, understandably, about exactly how the attack worked), it looks as though the attackers were able to trick the system into going into back into its “initial setup” mode. 
+And, obviously, one of the things when you set up a server, it says, “You need to create an administrative account.” 
+They could get that far, so they could create a new administrative account and then, of course, then they could come back in as a newly minted sysadmin… no malware required.
+They didn’t have to break in, drop any files, do an elevation-of-privilege inside the system. 
+And in particular, it seems that one of the things that they did is…
+…in the event that a customer inadvertently tried to send coins to the wrong, or a nonexistent, perhaps even maybe a blocked wallet, in this software, the ATM operators can specify a special collection wallet for what would otherwise be invalid transactions. 
+It’s almost like a sort of escrow wallet. 
+And so what the crooks did is: they changed that “invalid payment destination” wallet Identifier to one of their own.
+So, presumably their idea was that every time there was a mistaken or an invalid transaction from a customer, which might be quite rare, the customer might not even realise that the funds hadn’t gone through if they were paying for something anonymously…  
+But the point is that this is one of those attacks that reminds us that cybersecurity threat response these days.. it’s no longer about simply, “Oh well, find the malware; remove the malware; apply the patches.” 
+All of those things are important, but in this case, applying the patch does prevent you getting hacked in future, but unless you also go and completely revalidate all your settings…
+…if you were hacked before, you will remain hacked afterwards, with no malware to find anywhere. 
+It’s just configuration changes in your database.
+DOUG.  We have an MDR service; a lot of other companies have MDR services. 
+If you have human beings proactively looking for stuff like this, is this something that we could have caught with an MDR service?
+DUCK.  Well, obviously one of the things that you would hope is that an MDR service – if you feel you’re out of your depth, or you don’t have the time, and you bring in a company not just to help you, but essentially to look after your cybersecurity and get it onto an even keel…
+..I know that the Sophos MDR team would recommend this: “Hey, why have you got your Coin ATM Server open to the whole Internet? Why don’t you at least make it accessible via some intermediate network where you have some kind of zero-trust system that makes it harder for the crooks to get into the system in the first place?” 
+It would have a more granular approach to allowing people in, because it looks as though the real weak point here was that these attackers, the crooks, were able just to do an IP scan of Digital Ocean’s servers. 
+They basically just wandered through, looking for servers that were running this particular service, and then presumably went back later and tried to see which of them they could a break into. 
+It’s no good paying an MDR team to come in and do security for you if you’re not willing to try to get the security settings right in the first place.
+And ,of course, the other thing that you would expect a good MDR team to do, with their human eyes on the situation, aided by automatic tools, is to detect things which *almost look right but aren’t*. 
+So yes, there are lots of things you can do, provided that: you know where you should be; you know where you want to be; and you’ve got some way of differentiating the good behaviour from the bad behaviour. 
+Because, as you can imagine, in an attack like this – aside from the fact that maybe the original connections came from an IP number that you would not have expected – there’s nothing absolutely untoward. 
+The crooks didn’t try and implant something, or change any software that might have triggered an alarm. 
+They did trigger a vulnerability, so There will be some side effects in the logs…
+…the question is, are you aware of what you can look for? 
+Are you looking regularly? 
+And if you find something anomalous, do you have a good way to respond quickly and effectively? 
+DOUG.  Great.
+And speaking of finding stuff, we have two stories about zero-days. 
+Let’s start with the Chrome zero-day first.
+Chrome browser gets 11 security fixes with 1 zero-day – update now!
+
+
+DUCK.  Yes, this story broke in the middle of last week, just after we recorded last week’s podcast, and it was 11 security fixes that came out at that time.
+One of them was particularly notable, and that was CVE-2022-2856, and it was described as “Insufficient validation of untrusted input in Intents.” 
+An Intent. If you’ve ever done Android programming… it’s the idea of having an action in a web page that says, “Well, I don’t just want this to display. When this kind of thing occurs, I want it to be handled by this other local app.” 
+It’s the same sort of idea as having a magical URL that says, “Well, actually, what I want to do is processes this locally.” 
+But Chrome and Android have this way of doing it called Intents, and you can imagine anything that allows untrusted data in a web page to trigger a local app to do something with that untrusted data…
+…could possibly end very badly indeed. 
+For example, “Do this thing that you’re really not supposed to do.” 
+Like, “Hey, restart setup, create a new administrative user”… just like we were talking about in the Coin ATM Server.
+So the issue here was that Google admitted that this was a zero-day, because it was known to have been exploited in real life. 
+But they didn’t give any details of exactly which apps get triggered; what sort of data could do the triggering; what might happen if those apps got triggered. 
+So, it wasn’t clear what Indicators of Compromise [IoCs] you might look for. 
+What *was* clear is that this update was more important than the average Chrome update, because of the zero-day hole. 
+And, by the way, it also applied to Microsoft Edge. 
+Microsoft put out a security alert saying, “Yes, we’ve had a look, and as far as we can see, this does apply to Edge as well. We’ve sort-of inherited the bug from the Chromium code base. Watch this space.” 
+And on 19 August 2022, Microsoft put out an Edge update. 
+So whether you have Chromium, Chrome, Edge, or any Chromium related browser, you need to go make sure you’ve got the latest version. 
+And you imagine anything dated 18 August 2022 or later probably has this fix in it. 
+If you’re searching release notes for whatever Chromium-based browser you use, you want to search for: CVE 2022-2856.
+DOUG.  OK, then we’ve got a remote code execution hole in Apple’s WebKit HTML rendering software, which can lead to a kernel execution hole…
+Apple patches double zero-day in browser and kernel – update now!
+
+
+DUCK.  Yes, that was a yet more exciting story! 
+As we always say, Apple’s updates just arrived when they arrived. 
+But this one suddenly appeared, and it only fixed these two holes, and they’re both in the wild. 
+One, as you say, was a bug in WebKit, CVE-2022-32893, and the second one, which is -32894, is, if you like, a corresponding hole in the kernel itself… both fixed at the same time, both in the wild.
+That smells like they were found at the same time because they were being exploited in parallel. 
+The WebKit bug to get in, and the kernel bug to get up, and take over the whole system. 
+When we hear fixes like that from Apple, where all they’re fixing is web-bug-plus-kernel-bug at the same time: “In the wild! Patch now!”…
+..your immediate thought is, uh-oh, this could allow jailbreaking, where basically all of Apple’s security strictures get removed, or spyware. 
+Apple hasn’t said much more than: “There are these two bugs; they were found at the same time, reported by an anonymous researcher; they’re both patched; and they apply to all supported iPhones, iPads and Macs.”
+And the interesting thing is that the latest version of macOS, Monterey… that got a whole operating system-level patch right away. 
+The previous two supported versions of Mac (that’s Big Sur and Catalina, macOS 10 and 11)… they didn’t get operating system-level patches, as though they weren’t vulnerable to the kernel exploit. 
+But they *did* get a brand new version of Safari, which was bundled in with the Monterey update. 
+This suggests that they’re definitely at risk of this WebKit takeover. 
+And, as we’ve said before, Doug, the critical thing about critical bugs in Apple’s WebKit are two-fold:
+(1) On iPhones and iPads, ll browsers and all Web rendering software, if it is to be allowed into the App Store, *must use WebKit*.
+Even if it’s Firefox, even if it’s Chrome, even if it’s Brave, whatever browser it is… they have to rip out any engine that they might use, and insert the WebKit engine underneath. 
+So just avoiding Safari on iPhones doesn’t get you around this problem. That’s (1). 
+Number (2) is that many apps, on Mac and on iDevices alike, use HTML as a very convenient, and efficient, and beautiful-looking way of doing things like Help Screens and About Windows. 
+Why wouldn’t you?
+Why build your own graphics when you can make an HTML page which will scale itself to fit whatever device you have? 
+So, lots of apps *that aren’t Web browsers* may use HTML as part of their screen display “language”, if you like, notably in About Screens and Help Windows.
+That means they probably use an Apple feature called WebView, which does the HTML rendering for them. 
+And WebView is based on WebKit, and WebKit has this bug! 
+So, this is not just a browser-only problem. 
+It could, in theory, be exploited against any app that just happens to use HTML, even if it’s only the About screen. 
+So, those are the two critical problems with this particular critical problem, namely: (1) the bug in WebKit, and, of course, (2) on Monterey and on iPhones and iPads, the fact that there was a kernel vulnerability as well, that presumably could be exploited in a chain.
+That meant not only could the crooks get in, they could climb up the ladder and take over. 
+And that’s very bad indeed.
+DOUG.  OK,that leads nicely into our reader question at the end of every show.
+On the Apple double zero-day story, reader Susan asks a simple but excellent question: “How would a user know if the exploits had both been executed on their phone?” 
+How would you know?
+DUCK.  Doug… the tricky thing in this case is you probably wouldn’t. 
+I mean, there *might* be some obvious side-effect, like your phone suddenly starts crashing when you run an app that’s been completely reliable before, so you get suspicious and you get some expert to look at it for you, maybe because you consider yourself at high risk of somebody wanting to crack your phone. 
+But for the average user, the problem here is Apple just said, “Well, there’s this bug in WebKit; there’s this bug in the kernel.” 
+There are no Indicators of Compromise provided; no proof-of-concept code; no description of exactly what side-effects might get left behind, if any. 
+So, it’s almost as though the only way to find out exactly what visible side-effects these bugs might leave behind permanently. that you could go and look for…
+…would be essentially to rediscover these bugs for yourself, and figure out how they work, and write up a report. 
+And, to the best of my knowledge, there just aren’t any Indicators of Compromise (or any reliable ones) out there that you can go and search for on your phone. 
+The only way I can think of that would let you go back to essentially a “known good” state would be to research how to use Apple’s DFU system (which I think stands for Device Firmware Update).
+Basically, there’s a special key-sequence you press, and you need to tether your device with a USB cable to a trusted computer, and basically it reinstalls the whole firmware… the latest firmware – Apple won’t let you downgrade, because they know that people use that for jailbreaking tricks). [LAUGHS]
+So, it basically downloads the latest firmware – it’s not like an update, it’s a reinstall. 
+It basically wipes your device, and installs everything again, which gets you back to a known-good condition.
+But it is sort of like throwing your phone away and buying a new one – you have to set it up from the start, so all your data gets wiped. 
+And, importantly, if you have any 2FA code generation sequences set up in there, *those sequences will be wiped*. 
+So, make sure, before you do a Device Firmware Update where everything is going to get wiped, that you have ways to recover accounts or to set up 2FA fresh. 
+Because after you do that DFU, any authentication sequences you may have had programmed into your phone will be gone, and you will not be able to recover them.
+DOUG.  OK. [SOUNDING DOWNCAST] I…
+DUCK.  That wasn’t a very good answer, Doug…
+DOUG.  No, that has nothing to do with this – just a side note.
+I upgraded my Pixel phone to Android 13, and it bricked the phone, and I lost my 2FA stuff, which was a real big deal!
+DUCK.  *Bricked* it [MADE IT FOREVER UNBOOTABLE] or just wiped it?
+The phone’s still working?
+DOUG.  No, it doesn’t turn on. 
+It froze, and I turned it off, and I couldn’t turn it back on!
+DUCK.  Oh, really?
+DOUG.  So they’re sending me a new one.
+Normally when you get a new phone, you can use the old phone to set up the new phone, but the old phone isn’t turning on…
+…so this story just hit a little close to home. 
+Made me a little melancholy, because I’m now using the original Pixel XL, which is the only phone I had as a backup. 
+And it is big, and clunky, and slow, and the battery is not good… that’s my life.
+DUCK.  Well, Doug, you could nip down to the phone shop and buy yourself an Apple [DOUG STARTS LAUGHING BECAUSE HE’S AN ANDROID FANBUOY] iPhone SE 2022!
+DOUG.  [AGHAST] No way! 
+No! No! No!
+Mine’s two-day shipping.
+DUCK.  Slim, lightweight, cheap and gorgeous. 
+Much better looking than any Pixel phone – I’ve got one of each. 
+Pixel phones are great, but…
+[COUGHS KNOWINGLY, WHISPERS] …the iPhone’s better, Doug!
+DOUG.  OK, another story for another time!
+Susan, thank you for sending in that question. 
+It was a comment on that article, which is great. so go and check that out. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles; or you can hit us up on social: @NakedSecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to… 
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Do cellphone manufacturers deliberately manufacture phones to brick, or was Doug’s case just a faulty manufacture? They should rather direct their efforts to address cellphone theft, certainly have a remote kill switch to brick the phone if they are stolen, because sometimes people are killed just for their phones. Here in Africa according to a local news website, within an hour or so of a phone being stolen, the thieves have flashed a new IMEI number and operating system.
+Maybe Doug was just unlucky. 
+Maybe with the right incantations and powerup keypresses (often involving complex “chord changes” on a mixture of power and volume buttons) he could have got back to the bootloader or the recovery menu to get it working again, albeit with all the data wiped anyway, after hours of frustration. Or maybe not.
+In the end the vendor support people didn’t give him any hacking tips. “Send it in and we will replace it.”
+If you have a new Pixel then IIRC there is a new feature in the latest Android that prevents bootloader “downgrades” – Android gets more like iOS in its lockdown “features” with every new release, though there is a security benefit here – so I can imagine it’s possible that if the update correctly patches the bootloader but wrongly patches something in the OS image that you could end up with a new bootloader that can’t boot the new OS, won’t boot the old one, and won’t let you rollback said bootloader to revert to Android 12. Thus: bricked!
+(Like a good old Citroen 2CV gearbox that has got itself into first gear and reverse at the same time. Can’t go forwards, can’t go backwards, can’t get neutral so you can’t even tow or push it. A truly gorgeous and unburstable piece of Art Deco industrial art, and the most engagingly joyful car to drive… except for that gearbox pecadillo.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,36 @@
+Sophos Home protects every Mac and PC in your home 
+If you’ve ever written technical documentation to use online, you probably started out by creating it directly in HTML (hypertext markup language), so you could drop it directly into your website.
+You may have used various HTML editors that gave you a real-time but not entirely precise preview, but you’ll have spent plenty of time wrangling with one of HTML’s most annoying characteristics, namely that the so-called “markup” is bulky, and hard to read, and easy to mistype.
+To make a word bold, for example, you end up with the clumsy input <strong>bold</strong>.
+To create lists you need to add special tags at the start and end of the list, and then special tags at the start and end of each item, which makes proofreading harder than it needs to be, like this…
+…just to get this:
+Worse, your marked-up text only works on websites, or in browser-like windows, so you need a plethora of conversion tools anyway if you also want to render your documents into plain ASCII, or some other widely-used format such as PDF, RTF or DOCX.
+Worst, not all HTML markup can readily be converted into other formats, so you need to remember which HTML constructs you’re not allowed to use, in case you end up with a document where most, but not all, of the content can be rendered in other types of file.
+After a while of hand-coded HTML, you may have switched to a simplified form of markup intended to make typing, editing, proofing and publishing your documentation easier.
+Two popular formats include Markdown (which is a pun on making markup shorter to type and easier to learn), and Asciidoc (because your inputs are simple ASCII files with no proprietary or binary bits and pieces).
+Asciidoc is meant to be an even better sort of Markdown, a dialect that’s more powerful while also looking even leaner and meaner.
+In Asciidoc, for example, you create documents that look a bit like early-1990’s text-based emails, but that can be converted into modern and better-looking forms quickly and easily.
+To write in boldface, for instance, you just write **boldface**, and for italics, you use the slightly lighter-looking *italics*.
+To create lists, you just write them as you might have done in ASCII emails back in 1992, using a lone asterisk to denote a bullet point:
+Many programming languagues and web development toolkits have libraries that support the use of Asciidoc, automatically converting it for you as needed.
+And Ruby, a popular web coding environment, has numerous support tools, including one called asciidoc-include-ext, short for Asciidoctor Include Extension.
+This allows you to create placeholders for Asciidoc components in existing files, simply by writing include::[...], so that headers, footers and so on don’t need to be repeated everywhere they’re used, and can therefore easily be updated in one place. (The include part is automatically replaced with the relevant Asciidoc subsection.)
+Unfortunately, the asciidoc-include-ext code turned out to have a command injection vulnerability, whereby a deliberately misplaced backslash in a user-supplied file could trick the library into running remote commands directly instead of simply referencing a URL.
+The bug was found earlier this week by security researcher Joern Schneeweisz of GitLab, and has been assigned the bug identifier CVE-2022-24803.
+Because this bug can be exploited for remote code execution (RCE) by someone who hasn’t already logged in, it’s been given a Critical rating, and a danger number of 10/10 on the widely used, if not always easy-to-follow, Common Vulnerability Scoring System (CVSS) scale
+As far as we can see, the code is supposed to check for data that starts with http:// or https://, to confirm it’s processing a plain URL rather than reading in potentially harmful and unwanted shell script code. But if the URL part is deliberately split into two lines using Ruby’s line continuation character (a backslash at the end of the line), such that the first line is a shell command and the second is a plain URL, then only the second line is checked to see if it passes the “valid URL” test, which it does. However, the line continuation character means that the data ultimately gets processed as if it were one line, including executing any shellcode added to the first line.
+If you are a Ruby programmer and you use Asciidoc document markup in your code:
+The asciidoctor-include-ext project also has a workaround you can use if you’re affected but can’t update yet.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Obviously you’ve never used the Dictionary List which has been around since HTML 1.0.
+cata feline animal
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

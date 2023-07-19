@@ -1,0 +1,213 @@
+Sophos Home protects every Mac and PC in your home 
+IT’S HARDER THAN YOU THINK
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Password manager cracks, login bugs, and Queen Elizabeth I versus Mary Queen of Scots… of course! 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  Wow! 
+16th century information technology skullduggery meets the Naked Security podcast, Douglas. 
+I can’t wait!
+DOUG.  Obviously, yes… we’ll get to that shortly. 
+But first, as always, This Week in Tech History, on 28 May 1987, online service provider CompuServe released a little something called the Graphics Interchange Format, or GIF [HARD G].
+It was developed by the late Steve Wilhite, an engineer at CompuServe (who, by the way, swore up and down it was pronounced “jif”) as a means to support colour images on the limited bandwidth and storage capacities of early computer networks. 
+The initial version, GIF 87a, supported a maximum of 256 colours; it quickly gained popularity due to its ability to display simple animations and its widespread support across different computer systems. 
+Thank you, Mr. Wilhite.
+DUCK.  And what has it left us, Douglas? 
+Web animations, and controversy over whether the word is pronounced “graphics” [HARD G]  or “giraffics” [SOFT G].
+DOUG.  Exactly. [LAUGHS]
+DUCK.  I just can’t not call it “giff” [HARD G].
+DOUG.  Same!
+Let’s stamp that, and move on to our exciting story…
+…about Queen Elizabeth I, Mary Queen of Scots, and a man playing both sides between ransomware crooks and his employer, Paul.
+Ransomware tales: The MitM attack that really had a Man in the Middle
+
+DUCK.  [LAUGHS] Let’s start at the end of the story. 
+Basically, it was a ransomware attack against a technology company in Oxfordshire, in England. 
+(Not this one… it was a company in Oxford, 15km upriver from Abingdon-on-Thames, where Sophos is based.) 
+After being hit by ransomware, they were, as you can imagine, hit up with a demand to pay Bitcoin to get their data back. 
+And, like that story we had a couple of weeks ago, one of their own defensive team, who was supposed to be helping to deal with this, figured out, “I’m going to run an MiTM”, a Man-in-the-Middle attack. 
+I know that, to avoid gendered language and to reflect the fact that it’s not always a person (it’s often a computer in the middle) these days…
+…on Naked Security, I now write “Manipulator-in-the-Middle.”
+But this was literally a man in the middle. 
+Simply put, Doug, he managed to start emailing his employer from home, using a sort of typosquat email account that was like the crook’s email address. 
+He hijacked the thread, and changed the Bitcoin address in the historical email traces, because he had access to senior executives’ email accounts…
+…and he basically started negotiating as a man-in-the-middle.
+So, you imagine he’s negotiating individually now with the crook, and then he’s passing that negotiation on to his employer. 
+We don’t know whether he was hoping to run off with all of the bounty and then just tell his employer, “Hey, guess what, the crooks cheated us”, or whether he wanted to negotiate the crooks down on his end, and his employer up on the other end.
+Because he knew all the right/wrong things to say to increase the fear and the terror inside the company. 
+So, his goal was basically to hijack the ransomware payment. 
+Well, Doug, it all went a little bit pear-shaped because, unfortunately for him and fortunately for his employer and for law enforcement, the company decided not to pay up. 
+DOUG.  [LAUGHS] Hmmmm!
+DUCK.  So there was no Bitcoin for him to steal and then cut-and-run. 
+Also, it seems that he did not hide his traces very well, and his unlawful access to the email logs then came out in the wash. 
+He obviously knew that the cops were closing in on him, because he tried to wipe the rogue data off his own computers and phones at home. 
+But they were seized, and the data was recovered.
+Somehow the case dragged on for five years, and finally, just as he was about to go to trial, he obviously decided that he didn’t really have a leg to stand on and he pleaded guilty. 
+So, there you have it, Doug. 
+A literal man-in-the-middle attack!
+DOUG.  OK, so that’s all well and good in 2023…
+…but take us back to the 1580s, Paul. 
+What about Mary, Queen of Scots and Queen Elizabeth I?
+DUCK.  Well, to be honest, I just thought that was a great way of explaining a man-in-the middle attack by going back all those years.
+Because, famously, Queen Elizabeth and her cousin Mary, Queen of Scots were religious and political enemies. 
+Elizabeth was the Queen of England; Mary was pretender to the throne. 
+So, Mary was effectively detained under house arrest. 
+Mary was living in some luxury, but confined to a castle, and was actually plotting against her cousin, but they couldn’t prove it. 
+And Mary was sending and receiving messages stuffed into the bungs of beer barrels delivered to the castle. 
+Apparently, in this case, the man-in-the-middle was a compliant beer supplier who would remove the messages before Mary got them, so they could be copied.
+And he would insert replacement messages, encrypted with Mary’s cipher, with subtle changes that, loosely speaking, eventually persuaded Mary to put in writing more than she probably should have. 
+So she not only gave away the names of other conspirators, she also indicated that she approved of the plot to assassinate Queen Elizabeth. 
+They were tougher times then… and England certainly had the death penalty in those days, and Mary was tried and executed.
+The top 10 cracked ciphertexts from history
+
+DOUG.  OK, so for anyone listening, the elevator pitch for this podcast is, “Cybersecurity news and advice, and a little sprinkle of history”. 
+Back to our man-in-the-middle in the current day.
+We talked about another insider threat just like this not too long ago. 
+So it’d be interesting to see if this is a pattern, or if this is just a coincidence. 
+But we talked about some things you can do to protect yourself against these types of attacks, so let’s go over those quickly again.
+Starting with: Divide and conquer, which basically means, “Don’t give one person in the company unfettered access to everything,” Paul.
+DUCK.  Yes.
+DOUG.  And then we’ve got: Keep Immutable logs, which looked like it happened in this case, right?
+DUCK.  Yes. 
+It seems that a key element of evidence in this case was the fact that he’d been digging into senior executives’ emails and changing them, and he was unable to hide that. 
+So you imagine, even without the other evidence, the fact that he was messing with emails that specifically related to ransomware negotiations and Bitcoin addresses would be extra-super suspicious.
+DOUG.  OK, finally: Always measure, never assume. 
+DUCK.  Indeed!
+DOUG.  The good guys won eventually… it took five years, but we did it.
+Let’s move on to our next story.
+Web security company finds a login bug in an app-building toolkit. 
+The bug is fixed quickly and transparently, so that’s nice… but there’s a bit more to the story, of course, Paul.
+Serious Security: Verification is vital – examining an OAUTH login bug
+
+DUCK.  Yes. 
+This is a web coding security analysis company (I hope I’ve picked the right terminology there) called SALT, and they found an authentication vulnerability in an app-building toolkit called Expo. 
+And, bless their hearts, Expo support a thing called OAUTH, the Open Authorization system. 
+That is the sort of system that is used when you go to a website that has decided, “You know what, we don’t want the hassle of trying to learn how to do password security for ourselves. What we’re going to do is we’re going to say, ‘Login with Google, login with Facebook’,” something like that. 
+And the idea is that, loosely speaking, you contact Facebook, or Google, or whatever the mainstream service is and you say, “Hey, I want to give example.com permission to do X.” 
+So, Facebook, or Google, or whatever, authenticates you and then says, “OK, here’s a magic code that you can give to the other end that says, ‘We have checked you out; you’ve authenticated with us, and this is your authentication token.” 
+Then, the other end independently can check with Facebook, or Google, or whatever to make sure that that token was issued on behalf of you.
+So what that means is that you never need to hand over any password to the site… you are, if you like, co-opting Facebook or Google to do the actual authentication part for you. 
+It’s a great idea if you’re a boutique website and you think, “I’m not going to knit my own cryptography.” 
+So, this is not a bug in OAUTH. 
+It’s just an oversight; something that was forgotten in Expo’s implementation of the OAUTH process. 
+And, loosely speaking, Doug, it goes like this. 
+The Expo code creates a giant URL that includes all the parameters that are needed for authenticating with Facebook, and then deciding where that final magic access token should be sent. 
+Therefore, in theory, if you constructed your own URL or you were able to modify the URL, you could change the place where this magic authentication token finally got sent. 
+But you wouldn’t be able to deceive the user, because a dialog appears that says, “The app at URL-here is asking you to sign into your Facebook account. Do you fully trust this and want to let it do so? Yes or No?” 
+However, when it came to the point of receiving the authorisation code from Facebook, or Google, or whatever, and passing it onto this “return URL”, the Expo code would not check that you had actually clicked Yes on the approval dialog.
+If you actively saw the dialog and clicked No, then you would prevent the attack from happening. 
+But, essentially, this “failed open”.
+If you never saw the dialogue, so you wouldn’t even know that there was something to click and you just did nothing, and then the attackers simply triggered the next URL visit by themselves with more JavaScript… 
+…then the system would work. 
+And the reason it worked is that the magic “return URL”, the place where the super-secret authorisation code was to be sent, was set in a web cookie for Expo to use later *before you clicked Yes on the dialog*. 
+Later on, the existence of that “return URL” cookie was essentially taken, if you like, as proof that you must have seen the dialog, and you must have decided to go ahead.
+Whereas, in fact, that was not the case. 
+So it was a huge slip ‘twixt cup and lip, Douglas.
+DOUG.  OK, we have some tips, starting with: When it came to reporting and disclosing this bug, this was a textbook case.
+This is almost exactly how you should do it, Paul. 
+Everything just worked as it should, so this is a great example of how to do this in the best way possible.
+DUCK.  And that’s one of the main reasons why I wanted to write it up on Naked Security. 
+SALT, the people who found the bug… 
+..they found it; they disclosed it responsibly; they worked with Expo, who fixed it, literally within hours. 
+So, even though it was a bug, even though it was a coding mistake, it led to SALT saying, “You know what, the Expo people were an absolute pleasure to work with.” 
+Then, SALT went about getting a CVE, and instead of going, “Hey, the bug’s fixed now, so two days later we can make a big PR splash about it,” they nevertheless set a date three months ahead when they would actually write up their findings and write up their very educational report. 
+Instead of rushing it out for immediate PR purposes, in case they got scooped at the last minute, they not only reported this responsibly so it could be fixed before crooks found it (and there’s no evidence anyone had abused this vulnerability), they also then gave a bit of leeway for Expo to go out there and communicate with their customers.
+DOUG.  And then of course, we talked a bit about this: Ensure that your authentication checks fail closed.
+Ensure that it doesn’t just keep working if someone ignores or cancels it.
+But the bigger issue here is: Never assume that your own client side code will be in control of the verification process.
+DUCK.  If you followed the exact process of the JavaScript code provided by Expo to take you through this OAUTH process, you would have been fine. 
+But if you avoided their code and actually just triggered the links with JavaScript of your own, including bypassing or cancelling the popup, then you won. 
+Bypassing your client code is the first thing that an attacker is going to think about. 
+DOUG.  Alright, last but not least: Log out of web accounts when you aren’t actively using them. 
+That’s good advice all around.
+DUCK.  We say it all the time on the Naked Security podcast, and we have for many years. 
+3 simple steps to online safety
+
+It’s unpopular advice, because it is rather inconvenient, in the same way as telling people, “Hey, why not set your browser to clear all cookies on exit?” 
+If you think about it, in this particular case… let’s say the login was happening via your Facebook account; OAUTH via Facebook. 
+If you were logged out of Facebook, then no matter what JavaScript treachery an attacker tried (killing off the Expo popup, and all of that stuff), the authentication process with Facebook wouldn’t succeed because Facebook would go, “Hey, this person’s asking me to authenticate them. They’re not currently logged in.” 
+So you would always and unavoidably see the Facebook login pop up at that point: “You need to log in now.” 
+And that would give the subterfuge away immediately.
+DOUG.  OK, very good.
+And our last story of the day: Don’t panic, but there’s apparently a way to crack the master password for open-source password manager KeePass. 
+But, again, don’t panic, because it’s a lot more complicated than it seems, Paul.
+You’ve really got to have control of someone’s machine.
+Serious Security: That KeePass “master password crack”, and what we can learn from it
+
+DUCK.  You do. 
+If you want to track this down, it’s CVE-2023-32784. 
+It’s a fascinating bug, and I wrote a sort of magnum opus style article on Naked Security about it, entitled: That KeePass ‘master password crack’ and what we can learn from it.
+So I won’t spoil that article, which goes into C-type memory allocation, scripting language-type memory allocation, and finally C# or .NET managed strings… managed memory allocation by the system. 
+I’ll just describe what the researcher in this case discovered. 
+What they did is… they went looking in the KeePass code, and in KeePass memory dumps, for evidence of how easy it might be to find the master password in memory, albeit temporarily.
+What if it’s there minutes, hours or days later? 
+What if the master password is still lying around, maybe in your swap file on disk, even after you’ve rebooted your computer? 
+So I set up KeePass, and I gave myself a 16-character, all-uppercase password so it would be easy to recognise if I found it in memory. 
+And, lo and behold, at no point did I ever find my master password lying around in memory: not as an ASCII string; not as a Windows widechar (UTF-16)) string.
+Great! 
+But what this researcher noticed is that when you type your password into KeePass, it puts up… I’ll call it “the Unicode blob character”, just to show you that, yes, you did press a key, and therefore to show you how many characters you’ve typed in. 
+So, as you type in your password, you see the string blob [●], blob-blob [●●], blob-blob-blob [●●●], and in my case, everything up to 16 blobs. 
+Well, those blob strings don’t seem like they’d be a security risk, so maybe they were just being left to the .NET runtime to manage as “managed strings”, where they might lie around in memory afterwards…
+…and not get cleaned up because, “Hey, they’re just blobs.” 
+It turns out that if you do a memory dump of KeePass, which gives you a whopping 250MB of stuff, and you go looking for strings like blob-blob, blob-blob-blob, and so on (any number of blobs), there’s a chunk of memory dump where you’ll see two blobs, then three blobs, then four blobs, then five blobs… and in my case, all the way up to 16 blobs. 
+And then you’ll just get this random collection of “blob characters that happen by mistake”, if you like.
+In other words, just looking for those blob strings, even though they don’t give away your actual password,  will leak the length of your password. 
+However, it gets even more interesting, because what this researcher wondered is, “What if the data near to those blob strings in memory may be somehow tied to the individual characters that you type in the password?” 
+So, what if you go through the memory dump file, and instead of just searching for two blobs, three blobs/four blobs, more… 
+…you search for a string of blobs followed by a character that you think is in the password? 
+So, in my case, I was just searching for the characters A to Z, because I knew that was what was in the password. 
+I’m searching for any string of blobs, followed by one ASCII character. 
+Guess what happened, Doug? 
+I get two blobs followed by the third character of my password;  three blobs followed by the fourth character of my password; all the way up to 15 blobs immediately followed by the 16th character in my password.
+DOUG.  Yes, it’s a wild visual in this article! 
+I was following along… it was getting a little technical, and all of a sudden I just see, “Whoa! That looks like a password!”
+DUCK.  It’s basically as though the individual characters of your password are scattered liberally through memory, but the ones that represent the ASCII characters that were actually part of your password as you typed it in…
+…it’s like they’ve got luminescent die attached to them. 
+So, these strings of blobs inadvertently act as a tagging mechanism to flag the characters in your password. 
+And, really, the moral of the story is that things can leak out in memory in ways that you simply never expected, and that even a well-informed code reviewer might not notice. 
+So it’s a fascinating read, and it’s a great reminder that writing secure code can be a lot harder than you think. 
+And even more importantly, reviewing, and quality-assuring, and testing secure code can be harder still…
+…because you have to have eyes in the front, the back, and the sides of your head, and you really have to think like an attacker and try looking for leaky secrets absolutely everywhere you can.
+DOUG.  Alright, check it out, it it’s on nakedsecurity.sophos.com.
+And, as the sun begins to set on our show, it’s time to hear from one of our readers.
+On the previous podcast (this is one of my favorite comments yet, Paul), Naked Security listener Chang comments:
+There. I’ve done it. After almost two years of binge listening, I finished listening to all of the Naked Security podcast episodes. I’m all caught up. 
+I enjoyed it from the beginning, starting with the long running Chet Chat; then to the UK crew; “Oh no! It’s Kim” was next; then I finally reached the present day’s “This Week in Tech History.” 
+What a ride!
+Thank you, Chang! 
+I can’t believe you binged all the episodes, but we do all (I hope I’m not speaking out of turn) very much appreciate it.
+DUCK.  Very much indeed, Doug! 
+It’s nice to know not only that people are listening, but also that they’re finding the podcasts useful, and that it’s helping them learn more about cybersecurity, and to lift their game, even if it’s only a little bit. 
+Because I think, as I’ve said many times before, if we all lift our cybersecurity game a tiny little bit, then we do much more to keep the crooks at bay than if one or two companies, one or two organisations, one or two individuals put in a huge amount of effort, but the rest of us lag behind.
+DOUG.  Exactly! 
+Well, thank you very much again, Chang, for sending that in.
+We really appreciate it.
+And if you have an interesting story, comment or question you’d like to submit, we love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Hi, slight (but somewhat important) typo near the end of the transcript.
+`DOUG.  Alright, check it out, it it’s on makedsecurity.sophos.com.`
+(Should be nakedsecurity instead of “makedsecurity”, I believe)
+Fixed, thanks!
+Fortunately anyone reading that typo would be on the site already (Doug *said* it correctly for those listening).
+As far as KeePass and “the Unicode blob character”, there was a crack I found online, I guess decades ago, that would actually do all of the work for you.  You ran the program, highlighted the blobs, and it would tell you what they were hiding.  I probably still have it on an old laptop somewhere, I’ll have to see if I can find it and see if it still works.  As I said, it was probably decades ago, so hopefully whatever method it used to reveal the password has been secured since then.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

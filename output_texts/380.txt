@@ -1,0 +1,68 @@
+Sophos Home protects every Mac and PC in your home 
+Google’s latest Chrome update is out, and this time the company hasn’t minced its words about one of the two security patches it includes:
+Google is aware that an exploit for CVE-2023-3079 exists in the wild.
+There’s no two-degrees-of-separation verbiage, as we’ve often seen from Google before, to say that the company “is aware of reports” of an exploit.
+This time, it’s “we are aware of it all by ourselves”, which translates even more bluntly into “we know that crooks are abusing this as we speak”, given that the bug report came directly from Google’s own Threat Research Group.
+As usual, this implies that Google was investigating an active attack (whether against Google itself, or some external organisation, we don’t know) in which Chrome had been pwned by a previously unknown security hole.
+The bug is described simply as: Type Confusion in V8. (Understandably, Google’s not saying more than that at this stage.)
+As we’ve explained before, a type confusion bug happens when you supply a program with a chunk of data that it’s supposed to parse, validate, process and act upon in one way… 
+…but you later manage to trick the program into interpreting the data in a different, unauthorised, unvalidated, and potentially dangerous way.
+Imagine that you’re writing a program in C. (It doesn’t matter whether you know C or not, you can just follow along anyway.)
+In C, you usually declare variables individually, thus not only reserving memory where they can be stored, but also signalling to the program how those variables are supposed to be used.
+For example:
+The first variable declaration reserves 64 bits for storing a plain old integer value representing the astronomical day number. (In case you’re wondering, this afternoon is JDN 23157 – Julian Days start at noon, not midnight, because astronomers often work at night, with midnight being the middle of their working day.)
+The second reserves 64 bits for storing a memory address where the text string of a customer’s name can be found.
+As you can imagine, you’d better not mix up these two values, because a number that makes sense, and is safe, to use as a day number, such as 23157, would almost certainly be unsafe to use as a memory address.
+As you can see from this memory dump of a running Windows program, the lowest memory address that’s allocated for use starts at 0x00370000, which is 3,604,480 in decimal, way larger than any sensible day number.
+The actual memory addresses used by Windows vary randomly over time, to make your memory layout harder for crooks to guess, so if you were to run the same program, you’d get values, but they’ll nevertheless be similar:
+
+And (although it’s off the bottom of the image above) the memory addresses of the runtime user data section when this program ran from 0x01130000 to 0x01134FFF, representing the unlikely date range of 22 July 44631 to 16 August 44687.
+Indeed, if you try to mix those two variables up, the compiler should try to warn you, for example like this:
+Now, if you’ve ever programmed in C, you’ll know that for convenience, you can declare variables with multiple different interpretations using the union keyword, like this:
+You can now reference exactly the same variable in memory in two different ways.
+If you write data.JulianDayNumber, you magically interpret the stored data as an integer, but writing data.CustomerName tells the compiler you’re referencing a memory address, even though you’re accessing the same stored data.
+What you’re doing, more or less, is admitting to the compiler that you’ll sometimes be treating the data you’ve got as a date, and at other times as a memory address, and that you’re taking responsibility for remembering which interpretation applies at what moment in the code.
+You might decide to have a second variable, known as a tag (typically an integer) to go along with your union to keep track of what sort of data you’re working with right now, for example:
+You might decide that when value.tag is set to 0, the data isn’t initialised for use yet, 1 means you’re storing a date, 2 means it’s a memory address, and anything else denotes an error.
+Well, you’d better not let anyone else mess with that value.tag setting, or your program could end up misbehaving dramatically.
+A more worrying example might be something like this:
+Now, we’re overloading the same block of memory so we can sometimes use it to store a 16-byte hash, and sometimes to store two 8-byte pointers to functions that our program will call upon later.
+Clearly, when value.tag == 1, we’d be happy to let our software store any 16-byte string at all into the memory allocated for the union, because hashes are pseudorandom, so any collection of bytes is equally likely.
+But when value.tag == 2, our code would need to be extra-super careful not to allow the user to provide unvalidated, untrusted, unknown function addresses to execute later.
+Now imagine that you could submit a value to this code while tag was set to 1, so it didn’t get checked and validated…
+…but later, just before the program actually used the stored value, you were able to trick the code into switching the tag to 2.
+The code would then accept your unvalidated function addresses as “known and already verified safe” (even though they weren’t), and would trustingly dispatch program execution to a rogue location in memory that you’d sneakily chosen in advance.
+And that is what happens in a type confusion bug, albeit using a contrived and simplified example, 
+Memory that would be safe to consume if if were handled one way is maliciously delivered to the program to process in an alternative, unsafe way.
+Make sure you have the latest version of Chrome or Chromium.
+You want Chrome 114.0.5735.106 or later on Mac and Linux, and 114.0.5735.110 or later on Windows.
+Microsoft Edge, which is based on Chromium, is also affected by this bug.
+Microsoft has so far [2023-06-06T16:25:00Z] noted that
+Microsoft is aware of the recent exploits existing in the wild. We are actively working on releasing a security patch.
+Edge is currently at version 114.0.1823.37, so anything numbered later than that should include Microsoft’s CVE-2023-3079 patches.
+To check your version and force an update if there is one that you haven’t received yet:
+Note. Microsoft Edge version 114.0.1823.41 came out after this article was originally published, and  is explicitly listed as fixing the CVE-2023-3079 vulnerability. [Updated 2023-06-07T13:00:00Z]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What do Win7-32 users do about Chrome?  No updates available.  Is there an alternative browser you recommend?  Brave requires 64-bit, last I looked.
+Update to Windows 11. Windows 7 is dead, and so you are just going to be a bigger and bigger target as more and more exploits start circulating that you will never get patches for. 
+If you can’t upgrade your Windows due to having a computer that Microsoft won’t support any more, or because you don’t like Windows 11, consider switching to an OS that is still actively supported on your hardware and is still getting security patches, such as a suitable Linux distro.
+The reason that browser makers aren’t doing old, 32-bit Windows builds any more is that it’s a massive amount of extra work for them, all so their code can be used on computers that aren’t up-to-date with patches, and never will be updated ever again, because Microsoft says so.
+Win7 Users don’t need to worry about this zero day. They have much bigger holes to fix.
+That’s a nice way of putting it :-) 
+I might borrow that phraseology…
+If you need the old system for a specific app offline, use that system offline/without internet access only. (I have one also)
+If you just need a surfing box and want it to behave like w7, Mint (linux) and a couple others are good options.
+You can make it dual boot, if you only have one drive/pc. Just disable networking on the Windows OS to prevent accidents.
+I’m curious to know more about how these zero-day exploits are discovered. It must take a lot of skill and expertise to identify and exploit such vulnerabilities before they’re patched. Are there any measures in place to incentivize ethical disclosure of zero-days to help prevent malicious attacks?
+Yes. Many companies (Sophos included) have bug bounty programmes that offer rewards in return for what’s known as “responsible disclosure”. That’s where you tell the vendor about the problem privately, and supply details of your research into it, and agree a reasonable period of time for them to fix it before writing about it publicly (assuming you want to). So you get the credit for your bug hunting, plus payment, in return for not disclosing it publicly as a zero-day.
+https://sophos.com/security
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

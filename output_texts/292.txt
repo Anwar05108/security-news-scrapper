@@ -1,0 +1,36 @@
+Sophos Home protects every Mac and PC in your home 
+Another day, another access-token-based database breach.
+This time, the victim (and in some ways, of course, also the culprit) is Microsoft’s GitHub business.
+GitHub claims that it spotted the breach quickly, the day after it happened, but by then the damage had been done:
+On December 6, 2022, repositories from our atom, desktop, and other deprecated GitHub-owned organizations were cloned by a compromised Personal Access Token (PAT) associated with a machine account. Once detected on December 7, 2022, our team immediately revoked the compromised credentials and began investigating potential impact to customers and internal systems.
+Simply put: someone used a pre-generated access code acquired from who-knows-where to leech the contents of various source code repositories that belonged to GitHub itself. 
+We’re guessing that GitHub keeps its own code on GitHub (it would be something of a vote of no confidence in itself if it didn’t!),  but it wasn’t the underlying GitHub network or storage infrastructure that was breached, just some of GitHub’s own projects that were stored there. 
+Think of this breach like a crook getting hold of your Outlook email archive password and downloading your last month’s worth of messages.
+By the time you noticed, your own email would already be gone, but neither Outlook itself nor other users’ accounts would have been directly affected.
+Note, however, our careful use of the word “directly” in the previous sentence, because the compromise of one account on a system may lead to knock-on effects against other users, or even against the system as a whole.
+For example, your corporate email account almost certainly contains correspondence to and from your colleagues, your IT department and other companies.
+In those emails you may have revealed confidential information about account names, system details, business plans, logon credentials, and more.
+Using attack intelligence from one part of a system to wriggle into other parts of the same or other systems is known in the jargon as lateral movement, where cybercriminals first establish what you might call a “beachhead of compromise”, and then try to extend their access from there.
+In the case of stolen source code databases, whether they’re stored on GitHub or elsewhere, there’s always the risk that a private repository might include access credentials to other systems, or let cybercriminals get at code signing certificates that are used when actually building the software for public release.
+In fact, this sort of data leakage can even be a problem for public repositories, including open-source source code projects that aren’t secret, and are supposed to be downloadable by anybody.
+Open source data leakage can happen when developers inadvertently bundle up private files from their development network into the public code package that they ultimately upload for everyone to access.
+This sort of mistake can lead to the very public (and very publicly searchable) leak of private configuration files, private server access keys, personal access tokens and passwords, and even entire directory trees that were simply in the wrong place at the wrong time.
+For better or for worse, it’s taken GitHub nearly two months to figure out just how much stuff their attackers got hold of in this case, but the answers are now out, and it looks as though:
+That sounds like pretty good news out of what was a bad start, and what makes the news better yet is:
+The good news is that if you aren’t a GitHub Desktop or Atom user, there’s nothing that you immediately need to do.
+If you have GitHub Desktop, you need to upgrade before tomorrow, to ensure that you have replaced any instances of the app that were signed with a certificate that is about to be flagged bad.
+If you are still using Atom (which was discontinued in June 2022, and ended its life as an official GitHub software project on 2022-12-15), you will somewhat curiously need to downgrade to a slightly older version that wasn’t signed with a now-stolen certificate.
+Given that Atom has already reached the end of its official life, and won’t be getting any more security updates, you should probably replace it anyway. (The ultra-popular Visual Studio Code, which also belongs to Microsoft, seems to be the primary reason that Atom was discontinued in the first place.)
+If you’re a developer or a software manager yourself…
+…why not use this as an incentive to go and check: 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

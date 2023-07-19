@@ -1,0 +1,234 @@
+Sophos Home protects every Mac and PC in your home 
+CAN YOU GET HACKED AND THEN PROSECUTED FOR IT?
+Cryptocurrency crimelords. Security patches for VMware, OpenSSH and OpenSSL. Medical breacher busted. Is that a bug or a feature?
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.   Patches, fixes and crimelords – oh my! 
+Oh, and yet another password manager in the news. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Paul Ducklin;  he is Doug Aamoth…
+..think I got that backwards, Paul: *I* am Doug Aamoth; *he* is Paul Ducklin. 
+Paul, we like to start the show with a This Week in Tech History segment. 
+And I’d like to submit something from very recent history.
+This week, on 06 February 2023, our own Paul Ducklin…
+DUCK.   [DELIGHTED] Woooooo! 
+DOUG.   …published an interview with technology journalist Andy Greenberg about his new book, “Tracers in the Dark – the Global Hunt for the Crime Lords of Cryptocurrency.” 
+Let’s listen to a quick clip…
+[MUSICAL STING]
+PAUL DUCKLIN. There’s certainly been a fascination for decades to say, “You know what? This encryption thing? It’s actually a really, really bad idea. We need backdoors. We need to be able to break it, somebody has to think of the children, etc, etc.”
+ANDY GREENBERG. Well, it’s interesting to talk about crypto backdoors, and the legal debate over encryption that even law enforcement can’t crack. 
+I think that, in some ways, the story of this book shows that that is often not necessary. 
+I mean, the criminals in this book were using traditional encryption. 
+They were using Tor and the Dark Web.
+And none of that was cracked to bust them.
+[MUSICAL STING]
+DUCK.   I know I would say this, Doug, but I strongly recommend listening to that podcast. 
+Or, if you prefer to read, go and look through the transcript, because…
+…as I said to Andy at the end, it was as fascinating talking to him as it was reading the book in the first place. 
+I thoroughly recommend the book, and he’s got some amazing insights into things like cryptographic backdoors that come not just from opinion, but from looking into how law enforcement has dealt, apparently very effectively, with cybercrimes, without needing to trample on our privacy perhaps as much as some people think is necessary. 
+So, some fascinating insights in there, Doug:
+Tracers in the Dark: The Global Hunt for the Crime Lords of Crypto
+
+DOUG.   Check that out… that is in the standard Naked Security podcast feed. 
+If you’re getting our podcast, that should be the one right before this. 
+And let us now move to a lightning round of fixes-and-updates. 
+We’ve got OpenSSL. we’ve got VMware, and we’ve got OpenSSH. 
+Let’s start with VMware. Paul:
+VMWare user? Worried about “ESXi ransomware”? Check your patches now!
+
+DUCK.   This became a huge story, I think, because of a bulletin that was put out by the French CERT (Computer Emergency Response Team) on Friday of last week. 
+So. that would be 03 February 2023. 
+They simply told it how it was: “Hey, there are these old vulnerabilities in VMware ESXi that you could have patched in 2000 and 2021, but some people didn’t, and now crooks are abusing them. Surprise, surprise: end result equals ransomware.”
+They didn’t quite put it like that… but that was the purpose of the bulletin. 
+It kind of turned into a bit of a news storm of [STARTLED VOICE], “Oh, no! Giant bug in VMware!” 
+It seems as though people were inferring, “Oh, no! There’s a brand new zero-day! I’d better throw out everything and go and have a look!” 
+And in some ways, it’s worse than a zero-day, because if you’re at risk of this particular boutique cybergang’s attack, ending in ransomware…
+…you’ve been vulnerable for two years.
+DOUG.   A 730-day, actually…
+DUCK.   Exactly!
+So I wrote the article to explain what the problem was. 
+I also decompiled and analysed the malware that they were using at the end.
+Because I think what a lot of people were reading into this story is, “Wow, there’s this big bug in VMware, and it’s leading to ransomware. So if I’m patched, I don’t need to do anything, and the ransomware won’t happen.” 
+And the problems are that these holes can be used, essentially, for getting root access on ESXi boxes, where the crooks don’t have to use ransomware. 
+They could do data stealing, spam sending, keylogging, cryptomining, {insert least-favourite cybercrime here}. 
+And the ransomware tool that these crooks are using, that is semi-automated but can be used manually, is a standalone file scrambler that’s designed to scramble really big files quickly.
+So they’re not fully encrypted – they’ve configured it so it encrypts a megabyte, skips 99MB, encrypts a megabyte, skips 99MB…
+…so it’ll get through a multi-gigabyte or even a terabyte VMDK (virtual machine image file) really, really quickly. 
+And they have a script that runs this encryption tool for every VMware image it can find, all in parallel. 
+Of course, anybody could deploy this particular tool *without breaking in through the VMware vulnerability*.
+So, if you aren’t patched, it doesn’t necessarily end in ransomware. 
+And if you are patched, that’s not the only way the crooks could get in. 
+So it’s useful to inform yourself about the risks of this ransomware and how you might defend against it.
+DOUG.   OK, very good. 
+Then we’ve got a pokeable double-free memory bug in OpenSSH. 
+That’s fun to say…
+OpenSSH fixes double-free memory bug that’s pokable over the network
+
+DUCK.   It is, Doug.
+And I thought, “It’s quite fun to understand,” so I wrote that up on Naked Security as a way of helping you to understand some of this memory-related bug jargon. 
+It’s quite an esoteric problem (it probably won’t affect you if you do use OpenSSH), but I still think that’s an interesting story, because [A] because the OpenSSH team decided that they would disclose it in their release notes, “It doesn’t have a CVE number, but here’s how it works anyway,” and [B] it’s a great reminder that memory management bugs, particularly when you’re coding in C, can happen even to experienced programmers. 
+This is a double-free, which is a case of where you finish with a block of memory, so you hand it back to the system and say, “You can give this to another part of my program. I’m done with it.” 
+And then, later on, rather than using that same block again after you’ve given up (which would be obviously bad), you hand the memory back again. 
+And it kind of sounds like, “Well, what’s the harm done? You’re just making sure.” 
+It’s like running back from the car park into your apartment and going up and checking, “Did I really turn the oven off?”
+It doesn’t matter if you go back and it is off; it only matters if you goes back and you find you didn’t turn it off.
+So what’s the harm with a double-free? 
+The problem, of course, is that it can confuse the underlying system, and that could lead to somebody else’s memory becoming mismanaged or mismanageable in a way that crooks could exploit. 
+So if you don’t understand how all that stuff works, then I think this is an interesting, perhaps even an important, read…
+…even though the bug is reasonably esoteric and, as far as we know, nobody has figured out a way to exploit it yet.
+DOUG.   Last but certainly not least, there is a high-severity data stealing bug in OpenSSL that’s been fixed. 
+And I would urge people, if you’re like me, reasonably technical, but jargon averse…
+…the official notes are chock full of jargon, but, Paul, you do a masterful job of translating said jargon into plain English.
+Including a dynamite explainer of how memory bugs work, including: NULL dereference, invalid pointer dereference, read buffer overflow, use-after-free, double-free (which we just talked about), and more:
+OpenSSL fixes High Severity data-stealing bug – patch now!
+
+DUCK.   [PAUSE] Well, you’ve left me slightly speechless there, Doug.
+Thank you so much for your kind words. 
+I wrote this one up for… I was going to say two reasons, but sort-of three reasons. 
+The first is that OpenSSH and OpenSSL are two completely different things – they’re two completely different open source projects run by different teams – but they are both extra-super-widely used. 
+So, the OpenSSL bug in particular probably applies to you somewhere in your IT estate, because some product you’ve got somewhere almost certainly includes it. 
+And if you have a Linux distro, the distro probably provides its own version as well – my Linux updated the same day, so you want to go and check for youself. 
+So I wanted to make people aware of the new version numbers.
+And, as we said, there was this dizzying load of jargon that I thought was worth explaining… why even little things matter. 
+And there is one high-severity bug. (I won’t explain type confusion here – go to the article if you want some analogies on how that works.) 
+And this is a case where an attacker, maybe, just may be able to trigger what seem like perfectly innocent memory comparisons where they’re just comparing this buffer of memory with that buffer of memory…
+…but they misdirect one of the buffers and, lo and behold, they can work out what’s in *your* buffer by comparing it with known stuff that they’ve put in *theirs*. 
+In theory, you could abuse a bug like that in what you might call a Heartbleed kind of way. 
+I’m sure we all remember that, if our IT careers go back to 2014 or before – the OpenSSL Heartbleed bug, where a client could ping a server and say, “Are you still alive?” 
+“Heartbleed heartache” – should you REALLY change all your passwords right away?
+
+And it would send a message back that included up to 64 kilobytes of extra data that possibly included other people’s secrets by mistake. 
+And that’s the problem with memory leakage bugs, or potential memory leakage bugs, in cryptographic products. 
+They, by design, generally have a lot more to hide than traditional programs! 
+So, go and read that and definitely patch as soon as you can.
+DOUG.   I cannot believe that Heartbleed was 2014. 
+That seems… I only had one child when that came out and he was a baby, and now I have two more.
+DUCK.   And yet we still talk about it…
+DOUG.   Seriously!
+DUCK.   …as a defining reminder of why a simple read buffer overflow can be quite catastrophic.
+Because a lot of people tend to think, “Oh, well, surely that’s much less harmful than a *write* buffer overflow, where I might get to inject shellcode or divert the behaviour of a program?” 
+Surely if I can just read stuff, well, I might get your secrets… that’s bad, but it doesn’t let me get root access and take over your network. 
+But as many recent data breaches have proved, sometimes being able to read things from one server may spill secrets that let you log into a bunch of other servers and do much naughtier things!
+DOUG.   Well, that’s a great segue about naughty things and secrets. 
+We have an update to a story from Naked Security past. 
+You may recall the story from late last year about someone breaching a psychotherapy company and stealing a bunch of transcripts of therapy sessions, then using that information to extort the patients of this company.
+Well, he went on the run… and was just recently arrested in France:
+Finnish psychotherapy extortion suspect arrested in France
+
+DUCK.   This was a truly ugly crime. 
+He didn’t just breach a company and steal a load of data. 
+He breached a *psychotherapy* company, and doubly-sadly, that company had been utterly remiss, it seems, in their data security. 
+In fact, their former CEO is in trouble with the authorities on charges that themselves could result in a prison sentence, because they just simply had all this dynamite information that they really owed it to their patients to protect, and didn’t.
+They put it on a cloud server with a default password, apparently, where the crook stumbled across it. 
+But it’s the nature of how the breach unfolded that was truly awful. 
+He blackmailed the company… I believe he said, “I want €450,000 or I’ll spill all the data.” 
+And of course, the company had been keeping schtumm about it – this is why the regulators decided to go after the company as well. 
+They’d been keeping quiet about it, hoping that no one would ever find out, and here comes this guy saying, “Pay us the money, or else.” 
+Well, they weren’t going to pay him.
+There was no point: he’d got the date already, and he was already doing bad things with it.
+And so, as you say, the crooks decided, “Well, if I can’t get €450,000 out of the company, why don’t I try hitting up each and every person who had psychotherapy for €200 each?” 
+According to well-known cybersleuth journo Brian Krebs, his extortion note said, “You’ve got 24 hours to pay me €200. Then I’ll give you 48 hours to pay €500. And if I haven’t heard from you after 72 hours, I will tell your friends, and family, and anyone who wants to know, the things that you said.” 
+Because that data included transcripts, Doug.
+Why on earth were they even storing those things by default in the first place? 
+I shall never understand that. 
+As you say, he did flee the country, and he got arrested “in absentia” by the Finns; that allowed them to issue an international arrest warrant. 
+Anyway, now he is facing the music in France, where, of course, the French are seeking to extradite him to Finland, and the Finns are seeking to put him in court.
+Apparently he has form [US equivalent: priors] for this. Doug.
+He’s been convicted of cybercrimes before, but back then, he was a minor. 
+He’s now 25 years old, I do believe; back then he was 17, so he got a second chance. 
+He got a suspended sentence and a small fine. 
+But if these allegations are correct, I think a lot of us suspect that he won’t be getting off so lightly this time, if convicted.
+DOUG.   So this is a good reminder that you can be – if you’re like this company – both the victim *and* the culprit. 
+And yet another reminder that you have got to have a plan in place. 
+So, we have some advice at the end of the article, starting with: Rehearse what you will do if you suffer a breach yourself. 
+You’ve got to have a plan!
+DUCK.   Absolutely. 
+You cannot make it up as you go along, because there simply will not be time.
+DOUG.   And also, if you’re a person that’s affected by something like this: Consider filing a report, because it helps with the investigation.
+DUCK.   Indeed it does. 
+My understanding is that, in this case, plenty of people who received these extortion demands *did* go to the authorities and said, “This came out of the blue. This is like being assaulted in the street! What are you going to do about it?” 
+The authorities said, “Great, let’s collect the reports,” and that means they can build a better case, and make a stronger case for something like extradition.
+DOUG.   Alright, very good. 
+We will round out our show with: “Another week, another password manager on the hot seat.” 
+This time, it’s KeePass. 
+But this particular kerfuffle isn’t so straightforward, Paul:
+Password-stealing “vulnerability” reported in KeePass – bug or feature?
+
+DUCK.   Actually, Doug, I think you could say that it’s very straightforward… and immensely complicated at the same time. [LAUGHS]
+DOUG.   [LAUGHS] OK, let’s talk about how this actually works. 
+The feature itself is kind of an automation feature, a scripty-type…
+DUCK.   “Trigger” is the term to search for – that’s what they call it. 
+So, for example, when you save the [KeePass] database file, for example (maybe you’ve updated a password, or generated a new account and you hit the save button), wouldn’t it be nice if you could call on a customised script of your own that synchronises that data with some cloud backup? 
+Rather than try and write code in KeePass to deal with every possible cloud upload system in the world, why not provide a mechanism where people can customise it if they want? 
+Exactly the same when you try and use a password… you say, “I want to copy that password and use it.” 
+Wouldn’t it be nice if you could call on a script that gets a copy of the plaintext password, so that it can use it to log into accounts that aren’t quite as simple as just putting the data into a web form that’s on your screen? 
+That might be something like your GitHub account, or your Continuous Integration account, or whatever it is. 
+So these things are called “triggers” because they’re designed to trigger when the product does certain things.
+And some of those things – inescapably, because it is a password manager – deal with handling your passwords. 
+The naysayers feel that, “Oh, well, those triggers, they’re too easy to set up, and adding a trigger isn’t protected itself by a tamper-protection password.”
+You have to put in a master password to get access to your passwords, but you don’t have to put in the master password to get access to the configuration file to get access to the passwords. 
+That’s, I think, where the naysayers are coming from. 
+And other people are saying, “You know what? They have to get access to the config file. If they’ve got that, you’re in deep trouble already!”
+DOUG.   “The people” include KeePass, who is saying, “This program is not set up to defend against someone [LAUGHS] who’s sitting in your chair when you’ve already logged into your machine and the app.”
+DUCK.   Indeed. 
+And I think the truth is probably somewhere in the middle.
+I can see the argument why, if you’re going to have the passwords protected with the master password… why don’t you protect the configuration file as well? 
+But I also agree with people who say, “You know what? If they’ve logged into your account, and they’re on your computer, and they are already you, you kind-of came second in the race already.” 
+So don’t do that!
+DOUG.   [LAUGHS] OK, so if we zoom out a bit on this story…
+…Naked Security reader Richard asks:
+Is a password manager, no matter which one, a single point of failure? By design, it is a high-value target for a hacker. And the presence of any vulnerability allows an attacker to jackpot every password on the system, regardless of those passwords’ notional strength.
+I think that’s a question a lot of people are asking right now.
+DUCK.   In a way, Doug, that’s sort of an unanswerable question. 
+A little bit like this “trigger” thing in the configuration file in KeePass. 
+Is it a bug, or is it a feature, or do we have to accept that it’s a bit of both? 
+I think, as another commenter said on that very same article, there’s a problem with saying, “A password manager is a single point of failure, so I’m not going to use one. What I’ll do is, I’ll think up *one* really, really, complicated password and I’ll use it for all my sites.”
+Which is what a lot of people do if they aren’t using a password manager… and instead of being a *potential* single point of failure, that creates something that is exactly, absolutely *and already* a single point of failure.
+Therefore a password manager is certainly the lesser of two evils. 
+And I think there’s a lot of truth in that.
+DOUG.   Yes, I would say I think it *can* be a single point of failure, depending on the types of accounts you keep. 
+But for many services, it isn’t and shouldn’t be a single point of *total* failure. 
+For instance, if my bank password gets stolen, and someone goes to log into my bank account, my bank will see that they’re logging in from the other side of the world and say, “Whoa! Wait a second! This looks weird.” 
+And they’ll ask me a security question, or they’ll email me a secondary code that I have to put in, even if I’m not set up for 2FA.
+Most of my important accounts… I don’t worry so much about those credentials, because there would be an automatic second factor that I’d have to jump through because the login would look suspicious. 
+And I hope that technology gets so easy to implement that any site that’s keeping any sort of data just has that built in: “Why is this person logging in from Romania in the middle of the night, when they’re normally in Boston?” 
+A lot of those failsafes are in place for big important stuff that you might keep online, so I’m hoping that needn’t to be a single point of failure in that sense.
+DUCK.   That’s a great point, Doug, and I think it kind of illustrates that there is, if you like, a burning question-behind-the-question, which is, “Why do we need so many passwords in the first place?” 
+And maybe one way to head towards a passwordless future is simply to allow people to use websites where they can choose *not* to have the (air-quotes) “giant convenience” of needing to create an account in the first place.
+DOUG.   [GLUM LAUGH] As we discussed, I was affected by the LastPass breach, and I looked at my giant list of passwords and said, “Oh, my God, I’ve got to go change all these passwords!” 
+As it turns out, I had to *change* half of those passwords, and worse, I had to *cancel* the other half of these accounts, because I had so many accounts in there…
+…just for what you said; “I have to make an account just to access something on this site.” 
+And they’re not all just click-and-cancel. 
+Some, you’ve got to call. 
+Some, you’ve got to talk to someone over live chat. 
+It’s was much more arduous than just changing a bunch of passwords. 
+But I would urge people, whether you’re using a password manager or not, take a look at just the sheer number of accounts you have, and delete the ones you’re not using any more!
+DUCK.   Yes. 
+In three words, “Less is more.”
+DOUG.   Absolutely! 
+Alright, thank you very much, Richard, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity.
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to… 
+BOTH.   Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Heads-up: the link behind “Andy Greenberg” is broken. The link points to httpsL instead of https: .
+Have a nice day 🙂
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

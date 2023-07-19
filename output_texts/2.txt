@@ -1,0 +1,45 @@
+Sophos Home protects every Mac and PC in your home 
+The Federal Trade Commission (FTC) is the US consumer rights body, and it has sailed into 2022 with a bang, not a whimper.
+Using the infamous Log4Shell vulnerability as what you might call its Exhibit A, the FTC has fired a shot across the bows of companies in US jurisdictions, telling them to get their patching in order, or face the consequences:
+It is critical that companies and their vendors relying on Log4j act now, in order to reduce the likelihood of harm to consumers, and to avoid FTC legal action.
+It’s not just Log4j, of course, that creates a legal obligation to do the right thing to protect consumers, with the FTC reminding us all that:
+When vulnerabilities are discovered and exploited, it risks a loss or breach of personal information, financial loss, and other irreversible harms. The duty to take reasonable steps to mitigate known software vulnerabilities implicates laws including, among others, the Federal Trade Commission Act and the Gramm Leach Bliley Act.
+In other words, even though your company may itself be the victim of a crime, that doesn’t let you off the hook for civil or criminal liability of your own.
+Simply put: if there were precautions against a data breach that you could reasonably have taken, and that people would reasonably expect you to have taken, but you did not…
+…then you could end up being both a victim and a perpetrator at the same time.
+The FTC’s brief but blunt warning makes an example of the infamous Equifax breach of 2017, where the US credit reporting behemoth was compromised via an unpatched Apache Struts vulnerability with the unassuming bug identifier CVE-2017-5638.
+The personal information of nearly 150,000,000 people was exposed as a result.
+The FTC keenly reminds us that Equifax ended up paying $700 million to settle the ensuing legal actions from the FTC itself, from the US Consumer Financial Protection Bureau, and from all fifty US states.
+The FTC also makes it clear that it will be perfectly happy to lead the charge against future offenders, too:
+The FTC intends to use its full legal authority to pursue companies that fail to take reasonable steps to protect consumer data from exposure as a result of Log4j, or similar known vulnerabilities in the future.
+Interestingly, the Apache Struts vulnerability that caught out Equifax had many similarities with the Log4Shell security hole in Apache’s Log4j logging code.
+The CVE-2017-5638 Struts vulnerability was exploitable because otherwise unimportant text data in an untrusted web request could contain “magic character sequences” that were treated as miniature programs at the other end.
+How a serious Apache vulnerability struts its stuff
+
+
+Instead of saying “the data I just sent you is in this format: text/plain“, you could say something like “the data I just sent you is: (hey, run this totally untrusted short text string as a program fragment in order to find out what type it is)”.
+Like Log4j’s Log4Shell hole, this bug was originally intended as a feature, giving your back-end business logic programmers funky flexibility in their code, while inadvertently giving cybercriminal attackers an exploitable backdoor hole for remote code execution at the same time.
+The Log4j bug officially known as CVE-2021-44228, but commony referred to as Log4Shell, is even worse.
+The logging toolkit erroneously allowed crooks not only to say “the data I want you to log is: this text here“, but also to embed logging instructions such as: “the data I want to you log is: (hey, here’s a web URL where you’ll find a program that may or may not tell you, so kindly download it yourself and run it for me)”.
+
+If you can’t read the text in the video clearly here, try using Full Screen mode, or watch directly on YouTube. Click on the cog in the video player to speed up playback or to turn on subtitles.
+If you’re still stuck with 1999-style patching policies that rely on letting companies with better cybersecurity readiness go first, watching cautiously from the sidelines, and then waiting a few more {days, weeks, months} while your Change Control Committee weighs up the pros and cons…
+…you may need to get your Change Control Committee to put through a change in the Change Control Committee itself.
+The FTC is essentially warning companies and vendors that some vulnerabilities and patches are important enough that there’s no longer room for lead, follow, or get out of the way; there’s room only for lead.
+In Naked Security’s own regularly repeated words: patch early, patch often… 
+…your customers (and your country’s regulators) will respect you for it!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Equifax never settled anything yet if you check anyone involved were supposed to get identity theft protection and help restoring your credit well yes the fed got their money for all fines levied on them.
+I myself am still waiting for that identity theft protection that was awarded to involved in the lawsuit .
+They went back to the the Fed and asked for an extension on when they had to give us this and guess what they were given 4 years more before they have have to provide it to the general public. Yes I know you can get your own and turn in the bills but who can afford that. A real joke
+What makes fascinating reading (at least for people who live outside the US in jurisdictions where US-style “class action” lawsuits don’t exist) in the Equifax settlement saga is just how many of the documents published as part of the to-abd-fro tale involve the plaintiff’s lawyers putting up spirited arguments against objections that the legal fees they were demanding in the event of winning the case were unreasonably high.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

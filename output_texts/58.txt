@@ -1,0 +1,90 @@
+Sophos Home protects every Mac and PC in your home 
+OpenSSL published a security update this week.
+The new versions are 3.0.2 and 1.1.1n, corresponding to the two currently-supported flavours of OpenSSL (3.0 and 1.1.1).
+The patch includes a few general fixes, such as error reporting that’s been tidied up, along with an update for CVE-2022-0778, found by well-known bug eliminator Tavis Ormandy of Google’s Project Zero team.
+Ormandy himself described the bug as “a fun one to work on”:
+This was a fun one to work on, @davidben__ helped track it down to a bug in the Tonelli-Shanks implementation in OpenSSL. https://t.co/AYvpBLwNvJ
+— Tavis Ormandy (@taviso) March 15, 2022
+
+
+The flaw ultimately came down to a program loop that almost always worked correctly, but sometimes didn’t, causing it to iterate inifinitely, thus hanging up the program using the offending code and causing what’s known as a DoS, or denial-of-service attack.
+Amusingly, if we’re allowed to say that, the bug apparently only gets triggered if a program decides to do the right thing when making or accepting a secure connection (e.g. an HTTPS browsing request), and verifies the cryptographic certificate supplied by the other end.
+A browser (or an updater, or a login portal, or whatever it might be) that simply accepted the cryptographic credentials of the other end, and didn’t bother to check whether some moderately trustworthy authority had issued them in the first place…
+…would, ironically, be unaffected.
+In other words, a crook who wasn’t able to get hold of a working forged-or-stolen certificate to bypass your security checks might nevertheless be able to construct a bogus non-working certificate that your computer would choke on while trying to reject it.
+Obviously, that’s much less serious than a hole through which an attacker could deceive you cryptographically, causing you willingly to trust something you shouldn’t.
+And it’s much less serious than an exploitable vulnerability that could let an attacker implant unwanted software without permission.
+But CVE-2022-0778 is still worth knowing about, and the nature of the bug makes a good “teachable moment” for all programmers out there.
+As you probably know, OpenSSL is one of the most popular and widely-used cryptographic libraries.
+The library ships as a core component of many Unix and Linux distributions, where it’s automatically used by a wide range of other software you may have installed.
+OpenSSL is also bundled into numerous applications, even on operating systems such as Windows which provide their own built-in cryptographic library that the app could have used instead.
+In other words, your computer or mobile device might have zero, one, some or many copies of OpenSSL, and they don’t all necessarily get updated at the same time.
+That, in turn, means that OpenSSL security updates always make a bit of a news splash:
+We’re not going to dig into the mathematical algorithm that the buggy code was trying to compute.
+All we’ll say is that the OpenSSL function is one used when verifying Elliptic Curve (EC) digital signatures, which are widely used these days because EC cryptography is faster, uses less memory, and requires shorter cryptographic keys than the old favourite known as RSA, for the same level of security.
+This reduces the amount of data that needs to be shuffled back and forth when setting up encrypted network connections, and reduces the load on busy servers that may be handling hundreds, thousands or even hundreds of thousands of secure connections a second.
+The algorithm involves a mildly esoteric function called BN_mod_sqrt(), short for “modular square root of a Big Number”.
+As you probably know, modular arithmetic, sometimes casually called “clock arithmetic”, involves keeping all your intermediate results to a fixed number of digits by taking the remainder, or modulus, after dividing each result by a number of a fixed size.
+This is similar to what happens if you add 25 hours to the present time.
+If it’s 15:00, then 25 hours in the future comes out at 40 o’clock, but there are only 24 hours in a day, so you observe that 40 / 24 is 1 remainder 16.
+Because you are calculating a new time, and not a new date, you simply discard the 1, and keep the 16, which tells you that in 25 hours’ time, it will be 16 o’clock, or 16:00.
+If you are from one of those countries that prefers AM and PM to the frankly far superior 24-hour notation, you can just work modulo 12 instead.
+So, you take 15:00 and say “15 divided by 12 and keep only the remainder” to get 3; then you take 3 + 25 to get 28, then do “28 divided by 12 and take the remainder” to get 4pm.
+In fact, you can “remainderise” 15 down to 3 and “remainderise” 25 down to 1 up front, and then add 3+1 = 4, so that you’re only ever calculating with inputs limited to the range 0…11.
+This sort of calculation is super-handy when working with the sort of numbers that you typically need in cryptography, which may have hundreds of digits each, not merely two digits as in the hour hand of a clock.
+For example, if you square an N-digit number conventionally, you get a 2N digit number; square it again to get the fourth power, and you now have 4N digits.
+So, if you want to compute an P-digit power of an N-digit number, where P and N are anything but tiny values, you quickly run out of time and memory to compute or store the result.
+With modular arithmetic, however, using an M-digit modulus limits every intermediate result to M digits, making complex (and therefore hard-to-reverse) iterative calcuations feasible, even for huge values with hundreds of digits – all your numbers are Big Numbers, but they don’t get bigger and bigger as you proceed.
+Each Big Number calculation along the way requires much more work than a conventional computer ADD, MUL or DIV would need, but the calculations never get out of control because the maximum size of each intermediate result is constrained in advance by the repeated modulo operations.
+Howewever, some algorithms in modular arithmetic require rather special treatment, and to do modular square roots you typically use a process called Tonelli-Shanks, after the two mathematicians who invented it independently (Tonelli in the 1890s, and Shanks in the 1970s).
+Once implemented and tested, this sort of code often gets buried into programming libraries, as happened in OpenSSL, and rarely, if ever, gets revisited to look for unlikely (and as-yet-unknown) problems that programmers sometimes refer to quaintly as corner cases. 
+(Tiling a floor is easy, if repetitious… until you get to the corners of the room, where the usual shapes and sizes just don’t fit.)
+Unfortunately, the OpenSSL implementation of the Tonelli-Shanks algorithm had a bug that was unlikely to show up in normal use, but could be triggered on purpose by feeding in data that would force the code to misbehave.
+See if you can spot the flaw in this pseudocode, an iterative computation that is itself computed repeatedly inside another loop that contains it:
+Loosely put, this loop counts how many iterations it takes for the number t to “boil down” to the special value 1, based on the function boildowntbysimplifying()…
+…but with a maximum number of iterations set so that the loop won’t run forever if no answer can be found.
+In modular arithmetic, not all whole numbers have square roots that are also whole numbers, in the same way that in regular arithmetic, 36 is a “perfect square” that comes out as exactly 6×6, but 37 can’t be obtained by multiplying two whole numbers together. The loop above is designed to detect this situation by noticing that t has not reduced nicely to 1 after being given a suitable number of iterations to get there.
+The problem is that the loop termination only checks whether the ever-increasing loop counter has exactly hit the maximum number of loops allowed.
+The first time the code above runs, as you will see in the OpenSSL source file crypto/bn/bn_sqrt.c, the value of maxloops will always be 3 or more, so that the value of i will inevitably approach it upwards from below, until i == maxloops.
+But if the code ever run when maxloops starts out at 0 or 1, implying that the loop should never run at all, then the test if i == maxloops will never become true, because i will already be greater than maxloops the first time round, and i will then keep on running away from maxloops for ever more.
+The solution was not to check whether i was exactly “on the fence” that denoted the stopping point, but simply to check which side of the stopping point i was on, and react accordingly:
+This way, if i starts out greater than or equal to maxloops, the while statement (it’s now implemented using a for loop in OpenSSL’s C code, but the nature of the loop is the same) won’t be entered at all, so no infinite loop will occur.
+On the other hand, if the “solution reached” outcome t == 1 happens before the loop expires, and the loop exits early, the code will know a result was found in time and the error will not be triggered.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Are Sophos UTM (SG) or Sophos Firewall (XG) impacted?
+Yes, please see:
+https://www.sophos.com/en-us/security-advisories/sophos-sa-20220318-openssl-dos
+For future reference, this URL gets you to the main Advisories page, latest first:
+https://sophos.com/security-advisories
+HtH.
+it seems maxloops can never be less than 2, it was initialized as 1
+“e = 1;”
+then if it was 1, the vuln func never hit.
+”
+    if (e == 1) {
+        /*-
+         * The easy case:  (|p|-1)/2  is odd, so 2 has an inverse
+         * modulo  (|p|-1)/2,  and square roots can be computed
+         * directly by modular exponentiation.
+         * We have
+         *     2 * (|p|+1)/4 == 1   (mod (|p|-1)/2),
+         * so we can use exponent  (|p|+1)/4,  i.e.  (|p|-3)/4 + 1.
+         */
+”
+Are you sure there is a poc can prove it?
+At the start of the function, the initial value of e is computed and the cases e==1 and e==2 are handled specially. So the buggy loop can indeed only be reached for the first time with i=1 and e >= 3, which is safe.
+But e gets updated after each execution of the buggy loop, which is itself inside a bigger loop. Thus the internal, buggy loop is not guaranteed to start safely on its second, third, etc. invocations inside the “while (1)” loop that encloses it.
+s/One implemented/Once implemented/
+s/do then/then do/
+🙂
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

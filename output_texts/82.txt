@@ -1,0 +1,72 @@
+Sophos Home protects every Mac and PC in your home 
+Oracle’s latest quarterly security updates just arrived.
+Unlike other software behemoths such as Microsoft, Adobe and Google, who produce official security updates once a month, thus following a schedule that is both regular and frequent, Oracle has historically and resolutely stuck to just four scheduled updates a year.
+Even Apple, which notoriously ships all its security updates “when they are ready”, and therefore has no pre-announced calendar that allows you to predict and plan your non-urgent patches, rarely goes much more than a month these days without delivering patches for known security holes.
+So, as you can imagine, given Oracle’s huge product portfolio and its comparatively infrequent updates, when patches come, they typically come in large numbers.
+This quarter’s updates are no exception, with 174 different products on the “patches available” list, from Engineered Systems Utilities, through Oracle Blockchain Platform and Oracle Secure Backup, all the way to Primavera Verifier.
+Included in the security fixes listed for those 174 products are 401 distinct CVE-numbered bugs, of which well over half have CVE date tags of 2021 and earlier, with some going all the way back to 2017.
+(For all that Oracle’s infrequent updates lead to huge patch lists, the company’s top-level Critical Patch Update Advisory is well-organised, and Oracle’s so-called “risk matrices” – the chief bugs for each product – are easy to find.)
+In this article, however, we’re focusing on the bugs in Oracle’s Java product, of which seven made the official risk matrix on account of being remotely exploitable without authentication – in other words, they’re bugs that could be exploited from outside your network by someone who hasn’t yet logged in, or who doesn’t have a login in the first place.
+Note that remotely exploitable doesn’t mean all these bugs lead directly to remote code execution, or RCE, where an outsider could literally implant and run any code they liked, merely that the bugs can be “reached” and abused by attackers who don’t yet have a formal foothold inside your network.
+In fact, we’re focusing on just one of those Java bugs, officially known as CVE-2022-21449, but jokingly dubbed the Psychic Signatures in Java bug by researcher Neil Madden, who uncovered it and disclosed it responsibly to Oracle in November 2021.
+Madden’s remark about “psychic signatures” is a joke derived from the long-running cult British sci-fi show Doctor Who, famous amongst its fans for Time Lords, Daleks, the TARDIS, Sonic Screwdrivers…
+…and Psychic Paper.
+Psychic Paper, according to Doctor Who fan site Tardis Data Core, is a blank sheet of paper or card made from the psychic trees of the planet Boda, which retain their psychic properties even after death (we’re merely reporting this, so please don’t complain if these details are considered imprecise or disputed in the Whovian canon), and can therefore be turned into blank pages that induce the “reader” to see precisely what they’re told is printed on them.
+As you can imagine, ID cards made of psychic paper make a very convenient plot apparatus for Doctor Who to bamboozle security guards and bypass security checkpoints.
+Madden’s bug nickname is therefore wittily chosen, given that the bug he discovered allows an attacker to bypass a Java Elliptic Curve signature check simply by presenting a memory buffer filled entirely with zeros.
+You read that correctly: either you can generate a valid digital signature by dutifully applying the necessary private key to the calculation, or you can send across a bunch of zeros instead.
+When submitting a digital signature based on Elliptic Curve cryptgraphy, you’re supposed to be proving to the recipient that you have access to the private key that corresponds to the public key that they’ll use to verify the signature at your end.
+In simple terms, you take a fixed-length hash (e.g. SHA-256) of the data you want to authenticate, such as an email message or a software update, sign that hash with your private key, and submit the hash and the signature. 
+The recipient uses the matching public key to verify the hash, and then uses the hash to verify the message (which can therefore be arbitrarily long).
+Because your private key can’t be worked out backwards from the corresponding public key, your public key can, quite literally, be made public, and attested to match your private key in numerous ways.
+In other words, you can’t present a digital signature that will pass muster unless you have access to the relevant private key, so if the recipient assumes you have looked after your private key with the care it deserves, this sort of signature check provides a vital level of verification in today’s online exchanges of code and data.
+But, as Madden discovered, a totally blank “psychic signature”, if presented to Java’s Elliptic Curve verification code, would be flagged as valid when “verified” against any public key.
+In other words, an attacker would need either to hack into your network and steal your private keys in order to masquerade as you…
+…or simply to present a blank signature to pass muster every time!
+Although Elliptic Curve cryptography (ECC) is not the only type of public-key cryptosystem that can be used for digital signatures (other systems include RSA and Edwards Curves), it’s currently one of the most commonly used signature algorithms.
+That’s because ECC keys and signatures are not only very widely supported these days, but also much more compact than their RSA equivalents, making them smaller, faster and easier to send and use across slow networks and in low-powered computing devices.
+The bug was caused by the fact that ECC signature calculations involve a pseudo-random number K that’s used to derive two further numbers, imaginatively referred to in the literature as R and S, like this:
+S1. Select a cryptographically sound random integer K between 1 and N-1 inclusive.
+S2. Compute R from K using Elliptic Curve multiplication.
+S3. In the unlikely event that R is zero, go back to step 1 and start over.
+S4. Compute S from K, R, the hash to be signed, and the private key.
+S5. In the unlikely event that S is zero, go back to step 1 and start over.
+The two numbers R and S together make up the signature, and it’s vital that neither of them be zero, or else the verification algorithm will always succeed, even if the data has been tampered with.
+For that reason, the verification process requires its own up-front check to ensure that the signer didn’t skip step 3 or 5 above:
+V1. If R is zero, the signer blundered. The signature cannot be verified. Reject it.
+V2. If S is zero, the signer blundered. The signature cannot be verified. Reject it.
+According to Madden, these vital preliminary checks were accidentally omitted back in the era of Java 15, when the C++ cryptographic code in the official Java runtime was rewritten in Java itself.
+As Madden pessimistically points out:
+Although I’m sure that this rewrite has benefits in terms of memory safety and maintainability, it appears that experienced cryptographic engineers have not been involved in the implementation. The original C++ implementation is not vulnerable to these bugs, but the rewrite was. Neither implementation appears to have very good test coverage, and even the most cursory reading of the [Elliptic Curve Digital Signature Algorithm specification] would surely suggest testing that invalid R and S values are rejected. I am not at all confident that other bugs aren’t lurking in this code.
+Note that the bug doesn’t depend on using a private key at all, or on finding a random number K in the signing process that actually does lead to R or S being zero for any input values involved.
+All that’s needed is for the fake “signer” to pretend that R and S came out as zero by sending in an all-zero signature.
+Madden himself, understandably, expressed surprise in his report that the official CVSS (Common Vulnerability Scoring System) “danger value” listed by Oracle came out at 7.5/10.
+He suggests, as well he might, being the discoverer of this bug and thus our official saviour against it, that CVE-2022-21449 ought to have a danger asssessment at the maximum level of 10/10, meaning, “As critical as it gets; patch without delay.”
+Typically, you’d expect a 10/10 security hole to be some sort of remote code execution flaw, perhaps even one considered wormable, meaning that it could be exploited not only to implant malware on your computer directly, but also to replicate that malware infection automatically and rapidly from your computer to any other vulnerable device accessible from it.
+But Madden argues that a digital signature bypass like this one should be given a top-level bug ranking simply because so much is at stake when cryptographic checks can be sidestepped so easily.
+After all, this bug doesn’t just affect Java servers that directly interact with client software connecting over the internet, so it’s not enough just to worry about internet-facing servers on your network that might get fooled by network traffic from attackers.
+Any device that consumes digitally-signed data inside your network could be at risk.
+A news service that relies on signatures to verify the source of submissions it’s sent; a product using digital signatures to verify the updates it just downloaded before installing them; or a logging system relying on signatures to ensure the integrity of the forensic records it’s maintaining…
+…any of these, if coded in Java, could be at risk of being tricked into trusting and relying on vital content that it shouldn’t.
+Remember that, unlike the infamous Log4Shell bug in late 2021, which affected many Java apps that happened to include the Log4J code, this Psychic Signature flaw is part of the Java runtime itself, so it potentially affects any Java app you have, whether it’s one of your own or comes from a third party.
+Update your version of Java as soon as you can!
+The most recent Java versions are Java 17 (Long Term Support) and Java 18, which get updated to 17.0.3 and 18.0.1 respectively.
+Older but still-supported versions that have also been patched are Java 7, Java 8 and Java 11, which get updated to version 7u341, version 8u331 and 11.0.15 respectively.
+Remember that it’s possible to have multiple Java versions installed at the same time, in the form of the Java Development Kit (JDK) or the Java Runtime Environment (JRE).
+You can check for available Java versions on your computer by searching for program files called java (or java.exe on Windows).
+You can check what version each Java executable represents by running the command java -version.
+SEARCHING FOR JAVA VERSIONS ON LINUX
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+On Windows 10 Home and Java SE U321 I manually ran Java Check for Update, which on Tuesday 2022-04-19 brought me to Java SE U331 or more specifically to 8.0.3310.9 32/64 bit.. It’s nice your long article gives so much information, but for me, a simple Home user running just one very old Java 32 bit Program , all I needed was the first sentence in my comment.
+Actually, the headline of the article would have been enough. “Update now” is all you needed – you could have skipped the article altogether. The article is there for those who are interested in the how and why of cybersecurity issues.
+Which, you know, most of us…Actually, never mind
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

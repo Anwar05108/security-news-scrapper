@@ -1,0 +1,106 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at threat intelligence company Group-IB just wrote an intriguing real-life story about an annoyingly simple but surprisingly effective phishing trick known as BitB, short for browser-in-the-browser.
+You’ve probably heard of several types of X-in-the-Y attack before, notably MitM and MitB, short for manipulator-in-the-middle and manipulator-in-the-browser.
+In a MitM attack, the attackers who want to trick you position themselves somewhere “in the middle” of the network, between your computer and the server you’re trying to reach. 
+(They might not literally be in the middle, either geographically or hop-wise, but MitM attackers are somewhere along the route, not right at either end.)
+The idea is that instead of having to break into your computer, or into the server at the other end, they lure you into connecting to them instead (or deliberately manipulate your network path, which you can’t easily control once your packets exit from your own router), and then they pretend to be the other end – a malevolent proxy, if you like.
+They pass your packets on to the official destination, snooping on them and perhaps fiddling with them on the way, then receive the official replies, which they can snoop on and tweak for a second time, and pass them back to you as though you’d connected end-to-end just as you expected.
+If you’re not using end-to-end encryption such as HTTPS in order to protect both the confidentiality (no snooping!) and integrity (no tampering!) of the traffic, you are unlikely to notice, or even to be able to detect, that someone else has been steaming open your digital letters in transit, and then sealing them again up afterwards.
+A MitB attack aims to work in a similar way, but to sidestep the problem caused by HTTPS, which makes a MitM attack much harder. 
+MitM attackers can’t readily interfere with traffic that’s encrypted with HTTPS: they can’t snoop on your data, because they don’t have the cryptographic keys used by each end to protect it; they can’t change the encrypted data, because the cryptographic verification at each end would then raise the alarm; and they can’t pretend to be the server you’re connecting to because they don’t have the cryptographic secret that the server uses to prove its identity.
+An MitB attack therefore typically relies on sneaking malware onto the your computer first.
+That’s generally more difficult than simply tapping into the network at some point, but it gives the attackers a huge advantage if they can manage it.
+That’s because, if they can insert themselves right inside your browser, they get to see and to modify your network traffic before your browser encrypts it for sending, which cancels out any outbound HTTPS protection, and after your browser decrypts it on the way back, thus nullifying the encryption applied by the server to protect its replies.
+But what about a BitB attack?
+Browser-in-the-browser is quite a mouthful, and the trickery involved doesn’t give cybercriminals anywhere near as much power as a MitM or a MitB hack, but the concept is forehead-slappingly simple, and if you’re in too much of a hurry, it’s surprisingly easy to fall for it.
+The idea of a BitB attack is to create what looks like a popup browser window that was generated securely by the browser itself, but that is actually nothing more than a web page that was rendered in an existing browser window.
+You might think that this sort of trickery would be doomed to fail, simply because any content in site X that pretends to be from site Y will show up in the browser itself as coming from a URL on site X.
+One glance at the address bar will make it obvious that you’re being lied to, and that whatever you’re looking at is probably a phishing site.
+For example, here’s a screenshot of the example.com website, taken in Firefox on a Mac:
+If attackers lured you to a fake site, you might fall for the visuals if they copied the content closely, but the address bar would give away that you weren’t on the site you were looking for.
+In a Browser-in-the-Browser scam, therefore, the attacker’s aim is to create a regular web page that looks like the web site and content you’re expecting, complete with the window decorations and the address bar, simulated as realistically as possible.
+In a way, a BitB attack is more about art than it is about science, and it’s more about web design and managing expectations than it is about network hacking.
+For example, if we create two screen-scraped image files that look like this…
+
+…then HTML as simple as what you see below…
+…will create what looks like a browser window inside an existing browser window, like this:
+In this very basic example, the three macOS buttons (close, minimise, maximise) at the top left won’t do anything, because they aren’t operating system buttons, they’re just pictures of buttons, and the address bar in what looks like a Firefox window can’t be clicked in or edited, because it too is just a screenshot.
+But if we now add an IFRAME into the HTML we showed above, to suck in bogus content from a site that has nothing to do with example.com, like this…
+…you’d have to admit that the resulting visual content looks exactly like a standalone browser window, even though it’s actually a web page inside another browser window.
+The text content and the clickable link you see below were downloaded from the dodgy.test HTTPS link in the HTML file above, which contained this HTML code:
+The graphical content topping and tailing the HTML text makes it look as though the HTML really did come from example.com, thanks to the screenshot of the address bar at the top:
+The artifice is obvious if you view the bogus window on a different operating system, such as Linux, because you get a Linux-like Firefox window with a Mac-like “window” inside it.
+The fake “window dressing” components really do stand out as the images they really are:
+If you’ve ever taken screenshots of apps, and then opened the screenshots later in your photo viewer, we’re willing to bet that at some point you’ve tricked yourself into treating the app’s picture as if it were a running copy of the app itself.
+We’ll wager that you’ve clicked on or tapped in an app-in-an-app image at least one in your life, and found yourself wondering why the app wasn’t working. (OK, maybe you haven’t, but we certainly have, to the point of genuine confusion.)
+Of course, if you click on an app screenshot inside a photo browser, you’re at very little risk, because the clicks or taps simply won’t do what you expect – indeed, you may end up editing or scribbling lines on the image instead.
+But when it comes to a browser-in-the-browser “artwork attack” instead, misdirected clicks or taps in a simulated window can be dangerous, because you’re still in an active browser window, where JavaScript is in play, and where links still work…
+…you’re just not in the browser window you thought, and you’re not on the website you thought, either.
+Worse still, any JavaScript running in the active browser window (which came from the original imposter site you visited) can simulate some of the expected behaviour of a genuine browser popup window in order to add realism, such as dragging it, resizing it, and more.
+As we said at the start, if you’re waiting for a real popup window, and you see something that looks like a popup window, complete with realistic browser buttons plus an address bar that matches what you were expecting, and you’re in a bit of a hurry…
+…we can fully understand how you might misrecognise the fake window as a real one.
+In the Group-IB research we mentioned above, the real-world BitB attack that the researchers came aross used Steam Games as a lure.
+A legitimate looking site, albeit one you’d never heard of before, would offer you a chance to win places at an upcoming gaming tournament, for example…
+…and when the site said it was popping up a separate browser window containing a Steam login page, it really presented a browser-in-the-browser bogus window instead.
+The researchers noted that the attackers didn’t just use BitB trickery to go for usernames and passwords, but also tried to simulate Steam Guard popups asking for two-factor authentication codes, too.
+Fortunately, the screenshots presented by Group-IB showed that the criminals they happened upon in this case weren’t terribly careful about the art-and-design aspects of their scammery, so most users probably spotted the fakery. 
+But even a well-informed user in a hurry, or someone using a browser or operating system they weren’t familiar with, such as at a friend’s house, might not have noticed the inaccuracies.
+Also, more fastidious criminals would almost certainly come up with more realistic fake content, in the same way that not all email scammers make spelling mistakes in their messages, thus potentially leading more people into giving away their access credentials.
+Here are three tips:
+Never be in a hurry, because taking your time will make you much less likely to see what you think is there instead of what seeing what actually is there.
+In three words: Stop. Think. Connect.
+Featured image of a photo of a browser showing a photo of a painting of a pipe proclaiming that it is not, in fact, a pipe: via Wikipedia. (Artwork is Magritte’s “La Trahison des Images”, better known as “This is not a pipe”, because in any strict sense it isn’t.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I can imagine this becoming very sophisticated, having it detect your browser and operating system and adapting the fake pictures to that. Though it would more often than not fail against Linux due to its UI variety…
+Also I think it’s “for example” and not “foe example” 🙂
+Fixed, thanks. I was tempted to think that it was because my mind was on “the foe” but I suspect it’s really because the UK keyboard layout goes Q-W-E-R-T-Y, thus putting R right next to E.
+On Linux, what I called an “operating system window” is really just a “window manager window”, and many window managers allow considerable customisation of window decorations, including changing fonts, colours, thickness, transparency, icons used, location of buttons, size and location of drag handles, even the roundness of corners.
+So you are right about realism on Linux being a bit harder… but even just guesswork (with help from JavaScript values from the navigator object) would probably get the crooks fairly close for lots of users. Having said that, Linux users need to remember that any visual giveaways on their platform are effectively security through obscurity… something that it’s OK to use to your advantage if it helps, but not to rely upon as a general cybersecurity principle!
+This just reinforces my desire to make everything a command prompt again. Down with GUIs…
+Lynx FTW!
+25 years of text-based browsing, and still under development.
+https://lynx.invisible-island.net/
+The text of this “This is not a pipe” drawing is factually wrong I think.
+Semantically the “This is not a pipe” text is *inside* or *part of* the drawing, so from the perspective of the text it’s a real pipe.
+Those *outside* of the drawing, and any text not part of the drawing, can however legitimately claim that it’s not a pipe.
+Then for us it’s a drawing of a pipe.
+So, anything being a part of this drawing has to see it as a real pipe.
+Basically:
+– If inside or part of the drawing: real pipe
+– If outside the drawing: picture of a pipe.
+If the artist had drawn a man, pointing at a pipe and saying ‘This is not a pipe!’, then the man pictured in such a drawing would be factually wrong.
+Since such a man would be inside of the drawing, and would therefore really see a pipe.
+That’s very picky, but I think that it’s not incorrect to think this way.
+You probably need to argue that with the creator of the painting, René Magritte. Unfortunately, that might be tricky, because he died in his native Belgium in 1967.
+The title of the painting, “La Trahison des Images”, translates into English as “The Treachery of Images”, so it aligns splendidly, in my opinion, with the subject of the article. (You will noctice that I added some needless layers of my own, because what you are seeing is a web page rendered in your browser of a photo of a camera taking a photo of my browser rendering a photo of a painting of a pipe. But you can ignore the recursion. It is for amusement only.)
+Magritte, in his lifetime, was hassled by critics with philosophical (literary? scientific? pragmatic? theoretical? blinkered? real-world?) objections, to which he remarked:
+The famous pipe. How people reproached me for it! And yet, could you stuff my pipe? No, it’s just a representation, is it not? So if I had written on my picture “This is a pipe”, I’d have been lying!
+So it is a pipe to the casual observer, yet it is not a pipe in any real sense…
+All right, but what about him and Georgette with their dog after the war?
+PS: I caught the “layers” effect of that image and thought it was an excellent choice.
+Plus one from the dude who got here two months late.
+:,)
+That image you see “two months late” is toned down from the original, which I replaced when I realised I had confused myself! (This one is a photo of a website rendering a photograph of a postcard of the artwork. The earlier image was a photo of the GIMP software editing a screenshot of a website rendering a photo of a postcard of the artwork. There was too much going on in that one, especially at one of WordPress’s autoultradownscaled mini-images that it sometimes generates.)
+Aw, dang.  Would’ve loved to have reveled in its geekitude.
+…but yeah; being mobile-friendly isn’t always just so.
+How well would it work on mobile?  With Chrome on an Android I barely see any window-frame unless I scroll, so showing me a browser in a browser would probably be a real give-away, even for non techies?
+You could argue that it might be easier on mobiles, assuming you could create a web page customised for the device (using available browser variables or guesswork to tailor the content sent by your treacherous server), given that you don’t really have to worry about scrolling, resizing and so on… just create static web artwork that looks system-like enough to trick some of the people some of the time, keeping the rogue content front-and-centre (literally and figuratively).
+That’s what the home delivery scammers do, creating a sequence of full-screen, vertical web pages sized and designed for mobile browsing to  take you through a bogus “delivery rescheduling process”, based on a URL that looks about right, though not actually right, that you might not notice in the tiny amount of address bar space available. They then avoid having to worry that their mobile-centric “artwork” would look out of place in your laptop browser by limiting the lure to mobile devices only (so you only ever vother to click through *on your mobile*) by sending the teaser message via SMS. Phone only! 
+On mobiles, of course, interacting with popular online services is very often done via a dedicated app these days, so I think a lot of scammers who are into the mobile cybercrime scene tend to focus on bogus apps. They aim to luring you into trust rotten ones that you load willingly from an off-market source (hard but not impossible on an iPhone), or taking the time to bypass the automated app scanning tools relied upon by providers like Apple and Google, creating apps that are legit enough to pass through automated “vetting”, but that go rogue once installed.
+If you can get users themselves to choose-and-use a booby-trapped app, then you’ve effectively won the “it looks right” battle already…
+That would be a first. Nothing works on my mobile.
+If the “not a pipe” really interests you, I can highly recommend the book Gödel, Escher, Bach. Gives you a good understanding of self referencing issues 🙂
+How would you argue about the sentence:
+“This sentence is wrong” or “This sentence contains a lie” ? You could argue, that the “not a pipe” picture is a graphical representation of this self referencing sentence, with the difference that it is quite easy to argue why a picture of a pipe is not really a pipe – as Paul explained.
+typo: abour
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

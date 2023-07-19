@@ -1,0 +1,278 @@
+Sophos Home protects every Mac and PC in your home 
+A DAY IN THE LIFE OF A CYBERCRIME FIGHTER
+Once more unto the breach, dear friends, once more! 
+Paul Ducklin talks to Peter Mackenzie, Director of Incident Response at Sophos, in a cybersecurity session that will alarm, amuse and educate you, all in equal measure.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+[MUSICAL MODEM]
+PAUL DUCKLIN.  Welcome to the Naked Security podcast, everybody. 
+This episode is taken from one of this year’s Security SOS Week sessions. 
+We’re talking to Peter Mackenzie, the Director of Incident Response at Sophos. 
+Now, he and his team… they are like a cross between the US Marine Corps and the Royal Navy Special Boat Service. 
+They go steaming in where angels fear to tread – into networks that are already under attack – and sort things out. 
+Because this episode was originally presented in video form for streaming, the audio quality isn’t great, but I think you’ll agree that the content is interesting, important and informative, all in equal measure.
+[MORSE CODE]
+[ROBOT VOICE: Sophos Security SOS]
+DUCK.  Today’s topic is: Incident response – A day in the life of a cyberthreat responder. 
+Our guest today is none other than Peter Mackenzie. 
+And Peter is Director of Incident Response at Sophos. 
+PETER MACKENZIE.  Yes.
+DUCK.  So, Peter… “incident response for cybersecurity.”
+Tell us what that typically involves,  and why (unfortunately) you often need to get called in.
+PETER.  Typically, we’re brought in either just after an attack or while one is still unfolding. 
+We deal with a lot of ransomware, and victims need help understanding what happened. 
+How did the attacker get in? 
+How did they do what they did? 
+Did they steal anything? 
+And how do they get back to normal operations as quickly and as safely as possible?
+DUCK.  And I guess the problem with many ransomware attacks is…
+…although they get all the headlines for obvious reasons, that’s often the end of what could have been a long attack period, sometimes with more than one load of crooks having been in the network?
+PETER.  Yes. 
+I describe ransomware as the “receipt” they leave at the end. 
+DUCK.  Oh, dear.
+PETER.  And it is, really – it’s the ransom demand.
+DUCK.  Yes, because you can’t help but notice it, can you? 
+The wallpaper has got flaming skulls on it… the ransom note.
+That’s when they *want* you to realise…
+PETER.  That’s them telling you they’re there. 
+What they wanted to hide is what they were doing in the days, weeks or months before.
+Most victims of ransomware, if we ask, “When did this happen?”… 
+…they’ll say, “Last night. The encryption started at 1am”; they started getting alerts. 
+When we go in and investigate, we’ll find out that, actually, the crooks have been in the network for two weeks preparing. 
+It’s not automated, it’s not easy – they have to get the right credentials; they have to understand your network; they want to delete your backups; they want to steal data. 
+And then when *they’re* ready, that’s when they launch the ransomware – the final stage.
+DUCK.  And it’s not always one lot of crooks, is it? 
+There will be the crooks who say, “Yes, we can get you into the network.” 
+There will be the crooks who go, “Oh, well, we’re interested in the data, and the screenshots, and the banking credentials, and the passwords.” 
+And then, when they’ve got everything they want, they might even hand it over to a third lot who go, “We’ll do the extortion.”
+PETER.  Even in the simplest ransomware attacks, there are normally a few people involved. 
+Because you’ll have an initial access broker that may have gained access to the network… basically, someone breaks in, steals credentials, confirms they work, and then they’ll go and advertise those. 
+Someone else will buy those credentials…
+DUCK.  That’s a dark web thing, I imagine? 
+PETER.  Yes.
+And a couple of weeks or a couple of months later, someone will use those credentials.
+They’ll come in and they’ll do their part of the attack, which could be understanding the network, stealing data, deleting backups. 
+And then maybe someone else will come in to actually do the ransomware deployment. 
+But then also you have the really unlucky victims… 
+We recently published an article on multiple attackers, where one ransomware group came in and they launched their attack in the morning around… I think it was around 10am. 
+Four hours later, a different ransomware group, completely unrelated to the first, launched theirs…
+DUCK.  [LAUGHS] I shouldn’t be smiling!
+So these guys… the two lots of crooks didn’t realise they were competing?
+PETER.  They didn’t know they were there! 
+They both came in the same way, unfortunately: open Remote Desktop Protocol [RDP]. 
+Two weeks after that, a *third* group came in while they were still trying to recover. 
+DUCK.  [GROANS] Ohhhhhhh…
+PETER.  Which actually meant that when the first one came in, they started running their ransomware… it was BlackCat, also known as Alpha ransomware, that ran first.
+They started encrypting their files. 
+Two hours later, Hive ransomware came in. 
+But because BlackCat was still running, Hive ended up encrypting BlackCat’s already-encrypted files. 
+BlackCat then encrypted Hive’s files that were already encrypted twice…
+…so we basically ended up with *four* levels of encryption. 
+And then, two weeks later, because they hadn’t recovered everything yet, LockBit ransomware came in and ended up encrypting those files. 
+So some of these files were actually encrypted *five times*.
+DUCK.  [LAUGHS] I musn’t laugh!
+In that case, I presume it was that the first two lots of crooks got in because they happened to stumble across, or maybe buy from the same broker, the credentials. 
+Or they could have found it with an automated scanning tool…that bit can be automated, can’t it, where they find the hole?
+PETER.  Yes.
+DUCK.  And then how did the third lot get in? 
+PETER.  Same method!
+DUCK.  Oh, not through a hole left by the first lot? [LAUGHS]
+PETER.  No, same method. 
+Which then speaks to: This is why you need to investigate! 
+DUCK.  Exactly.
+PETER.  You can’t just wipe machines and expect to bury your head in the sand. 
+The organisation brought us in after the third attack – they didn’t actually know they’d had a second attack. 
+They thought they had one, and then two weeks later had another. 
+It was us that pointed out, “Actually, four hours after first one, you had another one you didn’t even spot.” 
+Unfortunately they didn’t investigate – they didn’t identify that RDP was open and that that’s how the attackers were getting in. 
+So they didn’t know that that was something that needed to be fixed otherwise someone else would come in…
+…which is exactly what they did.
+DUCK.  So when you’re brought in, obviously it’s not just, “Hey, let’s find all the malware, let’s delete it, let’s tick it off, and let’s move on.” 
+When you’re investigating, when you’re trying to find out, “What holes have been left behind by accident or design?”…
+…how do you know when you’ve finished? 
+How can you be certain that you’ve found them all?
+PETER.  I don’t think you can ever be certain. 
+In fact, I’d say anyone that says they’re 100% confident of anything in this industry… they’re probably not being quite honest. 
+DUCK.  +1 to that! [LAUGHS]
+PETER.  You have to try and find everything you can that the attacker did, so you can understand, “Did they set any backdoors up so they can get back in?” 
+You have to understand what they stole, because that could obviously have relevance for compliance and reporting purposes.
+DUCK.  So let’s say that you’ve had a series of attacks, or that there have been crooks in the network for days, weeks… sometimes it’s months, isn’t it?
+PETER.  Years, sometimes, but yes.
+DUCK.  Oh, dear!
+When you’re investigating what could have happened that might leave the network less resilient in future…
+…what are the things that the crooks do that help them make their attack both broader and deeper?
+PETER.  I mean, one of the first things an attacker will do when they’re in a network is: they’ll want to know what access they’ve got.
+DUCK.  The analogy there would be, if they’d broken into your office building, they wouldn’t just be interested in going to two or three desk drawers and seeing if people had left wallets behind. 
+They’d want to know which departments live where, where are the cabling cabinets, where’s the server room, where’s the finance department, where are the tax records?
+PETER.  Which, in the world of cyber, means they’re going to scan your network.
+They’re going to identify names of servers. 
+If you’re using Active Directory, they’ll want to look your Active Directory so they can find out who’s got Domain Admin rights; who’s got the best access to get to where they want to get to.
+DUCK.  If they need to create a new user, they won’t just call that user WeGotcha99?
+PETER.  They might!
+We’ve seen ones where they literally just created a new user, gave them Domain Admin and called the user hacker… but normally they will give a generic name.
+DUCK.  So, they’ll look at your naming schedule and try and fit in with it?
+PETER.  Yes, they’ll call it Administrat0r, spelled with a zero instead of an O, things like that. 
+For most ransomware… it’s not that advanced, because they simply don’t need to be that advanced. 
+They know that most companies are not looking at what’s going on on their network. 
+They may have security software installed that may be giving them alerts about some of the stuff the attackers are doing. 
+But unless someone’s actually looking, and investigating those alerts, and actually responding in real time, it doesn’t matter what the attackers do if no one’s actually stopping them. 
+If you’re investigating crime… let’s say you found a gun inside your house. 
+You can remove the gun – great. 
+But how did it get there? 
+That’s the bigger question.
+Do you have software in place that’s going to alert you to suspicious behaviour? 
+And then when you see that, do you actually have the ability to isolate a machine, to block a file, block an IP address?
+DUCK.  Presumably, the primary goal of your cybersecurity software will be to keep the crooks out indefinitely, forever… 
+…but on the assumption that somebody will make a mistake sooner or later, or the crooks will get in somehow, it’s still OK if that happens, *provided you catch them before they have enough time to do something bad*.
+PETER.  As soon as you start getting humans involved… if they get blocked, they try something different. 
+If no one’s stopping them, they’re either going to get bored, or they’re going to succeed. 
+It’s just a matter of time.
+The Active Adversary Playbook 2022
+
+
+DUCK.  What 10 or 15 years ago would have been signed off as a great success: malware file dropped on disk; detected; remediated; automatically removed; put in the log; tick off; let’s pat each other on the back…
+…today, that could actually be deliberate. 
+The crooks could be trying something really minute, so you think you’ve beaten them, but what they’re *really* doing is trying to work out what things are likely to escape notice.
+PETER.  There’s a tool called Mimikatz –  some would class it as a legitimate penetration testing tool; some would just class it as malware. 
+It’s a tool for stealing credentials out of memory. 
+So, if Mimikatz is running on a machine, and someone logs onto that machine… it takes your username and password, simple as that. 
+It doesn’t matter if you’ve got 100-character password – it makes no difference.
+DUCK.  It just lifts it out of memory?
+PETER.  Yes. 
+So, if your security software detects Mimikatz and removes it, a lot of people go, “Great! I’m saved! [DRAMATIC] The virus is gone!” 
+But the root cause of the problem you’ve got is not that that one file was detected and removed… 
+…it’s that someone had the ability to put it there in the first place.
+DUCK.  Because it needs sysadmin powers to be able to do its work already, doesn’t it?
+PETER.  Yes.
+I think that the bigger priority should be: assume you are going to get attacked, or you already have been. 
+Make sure you’ve got processes in place to deal with that, and that you’ve segmented your network as best you can to keep important documents in one place, not accessible to everyone. 
+Don’t have one big flat network where anyone can access anything – that’s perfect for attackers. 
+You have to think in the attackers mindset a little bit, and protect your data. 
+I have personally investigated hundreds, if not thousands, of different incidents for different companies…
+…and I have never met a single company that had every single machine in their environment protected.
+I’ve met a lot that *say* they do, and then we prove they don’t. 
+We even had a user or a company that only had eight machines and they said, “They’re all protected.” 
+Turns out one wasn’t! 
+There’s a tool called Cobalt Strike, which gives them great access to machines. 
+They’ll deploy Cobalt Strike….
+DUCK.  That’s supposed to be a licence-only penetration testing tool, isn’t it?
+PETER.  Yesssss… [PAUSE] 
+We could have a whole other podcast on my opinions of that.
+[LOUD LAUGHTER]
+DUCK.  Let’s just say the crooks don’t worry about piracy so much…
+PETER.  They’re using a tool, and they deploy that tool across the network, let’s say on 50 machines. 
+It gets detected by the anti-virus and the attacker doesn’t know what happened… it just didn’t work. 
+But then two machines start reporting back, because those two machines are the ones that don’t have any protection on. 
+Well, now the attacker is going to move to those two machines, knowing that nobody is watching them, so no one can see what’s going on. 
+These are the ones where there’s no anti-virus.
+They can now live there for as many days, weeks, months, years that they need to, to get access to the other machines on their network. 
+You have to protect everything.
+You have to have tools in place so you can see what’s going on.
+And then you have to have people in place to actually respond to that.
+DUCK.  Because the crooks are getting quite organised in this, aren’t they? 
+We know from some of the fallout that’s happened recently in the ransomware gang world, where some of the affiliates (they’re the people who don’t write the ransomware; they do the attacks)…
+…they felt they were being short-changed by the guys at the core of the gang.
+PETER.  Yes.
+DUCK.  And they leaked a whole load of their playbooks, their operating manuals. 
+Which gives a good indication that an individual crook doesn’t have to be an expert in everything. 
+They don’t have to learn all this by themselves. 
+They can join a ransomware crew, if you like, and they’ll be given a playbook that says, “Try this. If that doesn’t work, try that. Look for this; set that; here’s how you make a backdoor”… all of those things.
+PETER.  Yes, the entry bar is incredibly low now. 
+You can go onto… not even onto the dark web – you can Google and watch YouTube videos on most of what you need to know to start this. 
+You’ve got the big ransomware names at the moment, like LockBit, and Alpha, and Hive. 
+They have quite tight rules around who they let in. 
+But then you’ve got other groups like Phobos ransomware, who is pretty much… 
+…they work off a script, and it’s almost like a call centre of people who can just join them, follow a script, do an attack, make some money. 
+It’s relatively easy.
+There are tutorials, there are videos, you can live chat with the ransomware groups to get advice… [LAUGHS]
+DUCK.  We know from, what was it,  about a year ago?… 
+…where the REvil ransomware crew put $1 million in Bitcoins upfront into an online forum to recruit new ransomware operators or affiliates. 
+REvil ransomware crew dangles $1,000,000 cybercrime carrot
+
+
+And you think, “Oh, they’ll be looking for assembly programming, and low level hacking skills, and kernel driver expertise.” 
+No! 
+They were looking for things like, “Do you have experience with backup software and virtual machines?” 
+They want people to know how to break into a network, find where your backups are, and ruin them!
+PETER.  That’s it.
+As I said earlier, you’ve got the initial access brokers that they might be buying the access from… 
+…now you’re in, it’s your job, as a ransomware affiliate, to cause as much damage as possible so that the victim has no other choice but to pay.
+DUCK.  Let’s turn this to a positive…
+PETER.  OK.
+DUCK.  As an incident responder who generally is getting called in when somebody realises, “Oh dear, if only we’ve done it differently”…
+…what are your three top tips? 
+The three things you can do that will make the biggest difference?
+PETER.  I’d say the first one is: get around a table or on a Zoom with your colleagues, and start having these sorts of tabletop exercises. 
+Start asking questions of each other. 
+What would happen if you had a ransomware attack? 
+What would happen if all your backups were deleted? 
+What would happen if someone told you there was an attacker on your network? 
+Do you have the tools in place? 
+Do you have the experience and the people to actually respond to that? 
+Start asking those type of questions and see where it leads you…
+…because you’ll probably quickly realise that you don’t have the experience, and don’t have the tools to respond. 
+And when you need them, you need to have them *ready in advance*.
+DUCK.  Absolutely. 
+I couldn’t agree more with that. 
+I think a lot of people feel that to do that is “preparing to fail”.
+But not doing it, which is “failing to prepare”, means that you’re really stuck. 
+Because, if the worst does happen, *then* it’s too late to prepare. 
+By definition, preparation is something you do upfront.
+PETER.  You don’t read the fire safety manual while the building’s on fire around you!
+DUCK.  And, particularly with a ransomware attack, there could be a lot more to it than just, “What does the IT team do?” 
+Because there are things like…
+Who will talk to the media? 
+Who’ll put out official statements to customers? 
+Who will contact the regulator if necessary? 
+There’s an awful lot that you need to know.
+PETER.  And secondly, as I mentioned earlier, you do need to protect everything. 
+Every single machine on your network.
+Windows, Mac, Linux… doesn’t matter. 
+Have protection on it, have reporting capabilities.
+DUCK.  [IRONIC] Oh, Linux is not immune from malware? [LAUGHS]
+PETER.  [SERIOUS] Linux ransomware is increasing…
+DUCK.  But, also, Linux servers are often used as a jumping off point, aren’t they?
+PETER.  The big area for Linux at the moment is things like ESXi virtual host servers. 
+Most ransomware attacks nowadays are the big groups… they will go after your ESXi servers so they can actually encrypt your virtual machines at the the VMDK file level. 
+Meaning those machines won’t boot.
+Incident responders can’t even really investigate them that well, because you can’t even boot them.
+DUCK.  Oh, so they encrypt the whole virtual machine, so it’s like having a fully encrypted disk?
+PETER.  Yes.
+DUCK.  They’ll stop the VM, scramble the file… probably remove all your snapshots and rollbacks?
+PETER.  So, yes, you do need to protect everything. 
+Don’t just assume!
+If someone says, “All our machines are protected,” take that as probably inaccurate, and ask them how they verify that.
+And then thirdly, accept that security is complicated. 
+It’s changing constantly. 
+You, in your role… you’re probably not there to deal with this on a 24/7 basis. 
+You probably have other priorities. 
+So, partner with companies like Sophos, and MDR Services…
+DUCK.  That’s Managed Detection and Response?
+PETER.  Managed Detection and Response… people 24/7 monitoring your network, if you can’t monitor it.
+DUCK.  So it’s not just incident response where it’s already, “Something bad has happened.” 
+It could include, “Something bad looks like it’s *about* to happen, let’s head it off”?
+PETER.  These are the the people that, in the middle of the night, because you don’t have the team to work on a Sunday at 2am…
+…these are the people who are looking at what’s going on in your network, and reacting in real time to stop an attack.
+DUCK.  They’re looking for the fact that somebody is tampering with the expensive padlock you put on the front door?
+PETER.  They’re the 24/7 security guard who’s going to go and watch that padlock being tampered with, and they’re going to take their stick and… [LAUGHS]
+DUCK.  And again, that’s not an admission of failure, is it? 
+It’s not saying, “Oh, well, if we hire someone in, it must mean we don’t know what we’re doing about security”?
+PETER.  It’s an acceptance that this is a complicated industry; that having assistance will make you better prepared, better secured.
+And it frees up some of your own resources to concentrate on what they need to concentrate on.
+DUCK.  Peter, I think that’s an upbeat place on which to end!
+So I would just like to thank everybody who has listened today, and leave you with one last thought. 
+And that is: until next time, stay secure!
+[MORSE CODE]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

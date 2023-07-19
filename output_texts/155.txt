@@ -1,0 +1,90 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve written about PQC, short for post-quantum cryptography, several times before.
+In case you’ve missed all the media excitement of the past few years about so-called quantum computing…
+…it is (if you will pardon what some experts will probably consider a reckless oversimplification) a way of building computing devices that can keep track of multiple possible outcomes of a calculation at the same time.
+With a lot of care, and perhaps a bit of luck, this means that you can rewrite some types of algorithm to home in on the right answer, or at least correctly discard a whole slew of wrong answers, without trying and testing every possible outcome one-by-one.
+Serious Security: Post-Quantum Cryptography (and why we’re getting it)
+
+
+Two interesting cryptanalytical speedups are possible using a quantum computing device, assuming a suitably powerful and reliable one can actually be constructed:
+The threat from Grover’s algorithm can be countered simply by boosting the size of the numbers you’re using by squaring them, which means doubling the number of bits in your cryptographic hash or your symmetric encryption key. (In other words, if you think SHA-256 is fine right now, using SHA-512 instead would provide a PQC-resistant alternative.)
+But Shor’s algorithm can’t be countered quite so easily.
+A public key of 2048 bits would need its size increased exponentially, not simply by squaring, so that instead of a key of 2×2048=4096 bits, either you’d  need a new key with the impossible size of 22048 bits…
+…or you’d have to adopt a completely new sort of post-quantum encryption system to which Shor’s algorithm didn’t apply.
+Well, US standards body NIST (National Institute of Standards and Technology) has been running a PQC “competition” since late 2017.
+The process has been open to everyone, with all participants welcome, all algorithms openly published, and public scrutiny not merely possible but actively encouraged:
+Call for Proposals. [Closed 2017-11-30].  […] It is intended that the new public-key cryptography standards will specify one or more additional unclassified, publicly disclosed digital signature, public-key encryption, and key-establishment algorithms that are available worldwide, and are capable of protecting sensitive government information well into the foreseeable future, including after the advent of quantum computers.
+After three rounds of submissions and discussions, NIST announced, on 2022-07-05, that it had chosen four algorithms that it considered “standards” with immediate effect, all with delighful-sounding names: CRYSTALS-KYBER, CRYSTALS-Dilithium, FALCON, and SPHINCS+.
+The first one (CRYSTALS-KYBER) is used as what’s called a Key Agreement Mechanism (KEM), where two ends of a public communication channel securely concoct a one-time private encryption key for exchanging a session’s worth of data confidentially. (Simply put: snoopers just get shredded cabbage, so they can’t eavesdrop on the conversation.)
+The other three algorithms are used for Digital Signatures, whereby you can ensure that the data you got out at your end matches exactly what the sender put in at the other, thus preventing tampering and assuring integrity. (Simply put: if anyone tries to corrupt or mess with the data, you’ll know.)
+At the same time as announcing the new standards, NIST also announced a fourth round of its competition, putting a further four algorithms forward as possible alternative KEMs. (Remember that, at the time of writing, we already have three approved digital signature algorithms to choose from, but only one official KEM.)
+These were: BIKE, Classic McEliece, HQC and SIKE.
+Intriguingly, the McEliece algorithm was invented way back in the 1970s by American cryptographer Robert Mc Eliece, who died in 2019, well after NIST’s contest was already underway.
+It never caught on, however, because it required huge amounts of key material compared to the popular alternative of the day, the Diffie-Hellman-Merkle algorithm (DHM, or sometimes just DH).
+Unfortunately, one of the three Round Four algorithms, namely SIKE, appears to have been cracked.
+In a brain-twisting paper entitled AN EFFICIENT KEY RECOVERY ATTACK ON SIDH (PRELIMINARY VERSION), Belgian cryptographers Wouter Castryk and Thomas Decru seem to have dealt something of a deadly blow to the SIKE algorithm
+In case you’re wondering, SIKE is short for Supersingular Isogeny Key Encapsulation, and SIDH stands for Supersingular Isogeny Diffie-Hellman, a specific use of the SIKE algorithm whereby two ends of a communication channel perform a DHM-like “cryptodance” to exchange a bunch of public data that allows each end to derive a private value to use as a one-time secret encryption key.
+We’re not going to try to explain the attack here; we’ll just repeat what the paper claims, namely that:
+
+Very loosely put, the inputs here include the public data provided by one of the participants in the key establishment cryptodance, along with the pre-determined (and therefore publicly-known) parameters used in the process.
+But the output that’s extracted (the  information referred to as the isogeny φ above) is supposed to be the never-revealed part of the process – the so-called private key.
+In other words, from public information alone, such as the data exchanged openly during key setup, the cryptographers claim to be able to recover the private key of one of the participants.
+And once you know my private key, you can easily and undetectably pretend to be me, so the encryption process is broken.
+Apparently, the key-cracking algorithm takes about an hour to do its work, using just a single CPU core with the kind of processing power you’d find in an everyday laptop.
+That’s against the SIKE algorithm when configured to meet Level 1, NIST’s basic grade of encryption security.
+Nothing!
+(That’s the good news.)
+As the authors of the paper suggest, after noting that their result is still preliminary, “with the current state of affairs, SIDH appears to be fully broken for any publicly generated base curve.”
+(That’s the bad news.)
+However, given that the SIKE algorithm isn’t officially approved yet, it can now either be adapted to thwart this particular attack (something that the authors admit may be possible), or simply dropped altogether.
+Whatever finally happens to SIKE, this is an excellent reminder of why trying to invent your own encryption algorithms is fraught with danger.
+It’s also a pointed example of why proprietary encryption systems that rely on the secrecy of the algorithm itself to maintain their security are simply unacceptable in 2022.
+If a PQC algorithm such as SIKE survived perusal and probing by experts from around the globe for more than five years, despite being disclosed specifically so that it could be subjected to public scrutiny…
+…then there’s no need to ask yourself how well your home-made, hidden-from-view encryption algorithms are likely to fare when released into the wild!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“In other words, from public information alone, such as the data exchanged opnely during key setup, the cryptographers claim to be able to recover the private key of one of the participants”
+Typo on the word Openly.
+Very interesting article. Sometimes you do wonder whether these publicly scrutinised competitions are really designed to ensure the security services have a back door via public disclosure into the encryption code.
+In the quantum world does that mean a hash is also not secure? I know a hash isn’t encryption as such but could even the original data be determined from a hash using quantum computers?
+As mentioned in the article, the quantum algorithm that applies to hashing is Grover’s, which suggests that “cracking” a hash (by which we mean “finding an input with a specific hash as its output”) takes square root times as long, e.g. “cracking” a 256-bit hash takes on the order of 2^128 tries instead of 2^256. Thus by simply doubling the length of the hash, e.g. switching from SHA-256 to SHA-512, gets you back to the level of security you had before. This is because (2^256)^2 = 2^512.
+Strictly speaking, for a correctly-designed hash you can’t “go backwards” (and given that a hash is usually much, much shorter then its input, that’s not surprising). You can only “go forwards” over and over again with trial inputs until you hit the jackpot.
+(Given that there are infinitely more possible inputs than outputs, even when you “hit the jackpot” you might not have found the original input. You might simply have found a collision, namely another input with the same hash.)
+As for using an open competition to ensure a backdoor… if that were the intention here, it didn’t work out!
+I’m probably the only one thinking that way, but I think the SIKE algorithm turning up to have such a big flaw pretty funny, due to its name.
+I’m stuck. Is the joke in the full name (I can’t find any hacking or cracking puns in “Supersingular Isogeny”) or in the abbreviation?
+For some reason, the name SIKE just keeps making me think of this song:
+“I’ve got a SIKE/You can ride it if you like/It’s got a basket/A bell to ring/And things to make it look good.”
+Unless I am pronouncing it incorrectly. I naively assumed it’s SIKE as in bike (or psych), but perhaps it’s supposed to be “sickie”, as in the slang word for pretending to be ill to get a day off work, or to avoid an unwanted family get-together, or something of that sort.
+Any hints?
+He’s referring to the (I am assuming this hasn’t crossed the pond) American child’s slang use of the word “psyche,” presumably a homonym of SIKE. You would use it after you got someone gullible to fall for a joke or a trap:
+You, extending a candy bar as an offer:  “want my last candy bar?”
+Friend, reaching for it: “Sure, thanks!”
+You, yanking it back before he can grab it: “PSYCHE!”
+Juvenile humor. But in this case, “here’s a sweet encryption algorithm” … everyone starts using it… “PSYCHE!” 
+Almost like going the extra mile on the joke, we’ll even call it SIKE and see if people STILL fall for it.  🤷‍♂️
+https://www.quora.com/How-did-saying-psych-or-sike-or-psyche-to-mean-not-become-popular
+I prefer my own explanation that SIKE should be pronounced “sickie”. 
+But I suspect “sickie” is a Commonwealthism, while “psych” used all on its own is an Americanism. (Is it still current? The article you quote seems to focus on its use in the 1970s and 1980s, back when “shoulder-pad” and “mullet” were still words you would hear in real life.)
+I am a student, and can confirm that “sike” is still fairly current.
+As a noun? A transitive verb? An adjective? 
+(Forgive my ignorance, but does the term “current”, meaning “in use now”, admit of degrees such as “fairly”? Isn’t it a bit like “present”, as in “I was present at that lecture”, which is a binary thing. Either you were there, or you were not.
+(Can something be “partially current”? Surely that would mean “not quite arrived yet” or “missed it, but not by much”?)
+I must admit I have only heard the word psych used as a verb with a direct object (and usually the word “out”), as in “that film really psyched me out”.
+I only hear Sike used as a interjection. Its used when you trick, or mislead someone. There was a popular Youtube video in the 2010’s where one guy said “Sike, that’s the wrong number” when giving another guy a fake phone number.
+A more general example is “High Five”, “Down Low”. When you pull your hand away from down low, you can say Sike. The times I use Sike is when I say I’ll do something jokingly, and then take it away.
+ie. Person A:”Do you want some of my food?”
+Person B: “Really, I can have a bite?”
+Person A: “Sike, no way!”
+You don’t have to be mean-spirited when saying Sike, but its basically a shorter way of saying “Just kidding” or “Tricked you”
+Oh, wanted to add that Psych and Sike are practically seperate words at this point. “Psyched out” is still a term, just not used very often anymore. “Sike” is separate and on its own, but is still commonly used. I’d say the word Sike was most popular back when Vine was still a thing, but everyone I know is familiar with when someone goes Sike.
+Vine. That’s not a word you hear often these days…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

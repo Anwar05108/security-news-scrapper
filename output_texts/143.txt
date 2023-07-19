@@ -1,0 +1,67 @@
+Sophos Home protects every Mac and PC in your home 
+Remember Log4Shell?
+It was a dangerous bug in a popular open-source Java programming toolkit called Log4j, short for “Logging for Java”, published by the Apache Software Foundation under a liberal, free source code licence.
+If you’ve ever written software of any sort, from the simplest BAT file on a Windows laptop to the gnarliest mega-application running on on a whole rack of servers, you’ll have used logging commands.
+From basic output such as echo "Starting calculations (this may take a while)" printed to the screen, all the way to formal messages saved in a write-once database for auditing or compliance reasons, logging is a vital part of most programs, especially when something breaks and you need a clear record of exactly how far you got before the problem hit.
+The Log4Shell vulnerability (actually, it turned out there were several related problems, but we’ll treat them all as if they were one big issue here, for simplicity) turned out to be half-bug, half-feature.
+Log4Shell explained – how it works, why you need to know, and how to fix it
+
+
+In other words, Log4j did what it said in the manual, unlike in a bug such a a buffer overflow, where the offending program incorrectly tries to mess around with data it promised it would leave alone…
+…but unless you had read the manual really carefully, and taken additional precautions yourself by adding a layer of careful input verification on top of Log4j, your software could come unstuck.
+Really, badly, totally unstuck.
+Simply put, Log4j didn’t always record log messages exactly as you supplied them.
+Instead, it had a “feature” known variously and confusingly in the jargon as interpolation, command substitution or auto-rewriting, so that you could trigger text manipulation features inside the logging utility itself, without having to write special code of your own to do it.
+For example, the text in the INPUT column below would get logged literally, exactly as you see it, which is probably what you’d expect of a logging toolkit, especially if you wanted to keep a precise record of the input data your users presented for regulatory reasons:
+But if you submitted text wrapped in the magic character sequence ${...}, the logger would sometimes do smart things with it, after receiving the text but before actually writing in into the logfile, like this:
+Clearly, if you’re accepting logging text from a trusted source, where it’s reasonable to allow the loggee to control the logger by telling it to replace plain text with internal data, this sort of text rewriting is useful.
+But if your goal is to keep track of data submitted by a remote user, perhaps for regulatory record-keeping purposes, this sort of auto-rewriting is doubly dangerous:
+If you’re logging user inputs such as their browser identification string, say (known in the jargon as the User-Agent), or their username or phone number, you don’t want to give the user a chance to trick you into writing private data (such as a memory-only password string like the AWS_ACCESS_KEY_ID in the example above) into a permanent logfile.
+Especially if you’ve confidently told your auditors or the regulator that you never write plaintext passwords into permanent storage. (You shouldn’t do this, even if you haven’t officially told the regulator you don’t!)
+Serious Security: How to store your users’ passwords safely
+
+
+In the Log4Shell is-it-a-bug-or-is-it-a-feature case, however, things were much worse than the already-risky examples we’ve shown above.
+For example, a user who deliberately submitted data like the input shown below could trigger a truly dangerous sequence of events:
+In the “interpolation” string above, the ${...} character sequence that includes the abbreviations jndi and ldap told Log4j to do this:
+In other words, attackers could submit specially-crafted input that would instructed your server to “call home” to a server under their control, without so much as a by-your-leave.
+You might be wondering how a “feature” like this ever made it into the Log4j code.
+But this sort of text rewriting can be useful, as long as you’re logging data from a trusted source.
+For example, you could log a numerical user ID, but also ask the logger to use LDAP (the lightweight directory access protocol, widely used in the industry, including by Microsoft’s Active Directory system) to retrieve and save the username associated with that account number at that time.
+This would improve both the readability and the historical value of the entry in the logfile.
+But the LDAP server that Log4j called out in the example above (which was chosen by the remote user, don’t forget) is unlikely to know the truth, let alone to tell it, and a malicious user could therefore use this trick fill up your logs with bogus and even legally dubious data.
+Even worse, the LDAP server could return precompiled Java code for generating the data to be logged, and your server would dutifully run that program –- an unknown program, supplied by an untrusted server, chosen by an untrusted user.
+Loosely speaking, if any server, anywhere in your network, logged untrusted input that had come in from outside, and used Log4j to do so…
+…then that input could be used as a direct and immediate way to trick your server into run someone else’s code, just like that.
+That’s called RCE in the jargon, short for remote code execution, and RCE bugs are generally the most keenly sought by cybercriminals because thay can typically be exploited to implant malware automatically.
+Unfortunately, the nature of this bug meant that the danger wasn’t limited to internet-facing servers, so using web servers written in C, not Java (e.g. IIS, Apache https, nginx), and therefore didn’t themselves use the buggy Log4j code, didn’t free you from risk.
+In theory, any back-end Java app that received and logged data from elsewhere on your network, and that used the Log4j library…
+…could potentially be reached and exploited by outside attackers.
+The fix was pretty straightforward:
+“Log4Shell” Java vulnerability – how to safeguard your servers
+
+
+Unfortunately, a recent, detailed report on the Log4Shell saga, published last week by the US Cybersecurity Review Board (CSRB), part of the Department of Homeland Security, contains the worrying suggestion (our emphasis below) that:
+[T]he Log4j event is not over. The [CSRB] assesses that Log4j is an “endemic vulnerability” and that vulnerable instances of Log4j will remain in systems for many years to come, perhaps a decade or longer. Significant risk remains.
+At 42 pages (the executive summary alone runs to nearly three pages), the Board’s report is a long document, and parts of it are heavy going.
+But we recommend that you read it through, because it’s a fascinating tale of how even cybersecurity problems that ought to be quick and easy to fix can get ignored, or put off until later, or as-good-as denied altogther as “someone else’s problem” to fix.
+Notable suggestions from the US public service, which we wholeheartedly endorse, include::
+Serious Security: How to make sure you don’t miss bug reports!
+
+
+When it comes to cybersecurity, ask not what everyone else can do for you…
+…but think about what you can do for yourself, because any improvements you make will almost certainly benefit everyone else as well.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This is such a comprehensive post on Log4J. Definitely still relevant even after all the importance was placed on it unfortunately!
+Yes, it would be nice if this were a lesson long learned… but since then we have had similar bugs reported, e.g. the recent Apache Commons Configuration “dollar-squiggly-brackets” bug and the Microsoft Follina “dollar-round-brackets” bug. This kind of “control my code from a distance using special characters” functionality is a surprisingly common “feature” in mainstream code.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

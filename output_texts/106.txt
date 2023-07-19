@@ -1,0 +1,70 @@
+Sophos Home protects every Mac and PC in your home 
+Face-matching service Clearview AI has only been around for five years, but it has courted plenty of controversy in that time, both inside and outside the courtroom.
+Indeed, we’ve written about the Clearview AI many times since the start of 2020, when a class action suit was brought against the company in the US state of Illinois, which has some of the country’s strictest data protection laws for biometric data:
+Facial recognition firm sued for scraping 3 billion faceprints
+
+
+As the court documents alleged at the time:
+Without obtaining any consent and without notice, Defendant Clearview used the internet to covertly gather information on millions of American citizens, collecting approximately three billion pictures of them, without any reason to suspect any of them of having done anything wrong, ever.
+[…A]lmost none of the citizens in the database has ever been arrested, much less been convicted. Yet these criminal investigatory records are being maintained on them, and provide government almost instantaneous access to almost every aspect of their digital lives.
+The class action went on to claim that:
+Clearview created its database by violating each person’s privacy rights, oftentimes stealing their pictures from websites in a process called “scraping,” which violate many platforms’ and sites’ terms of service, and in other ways contrary to the sites’ rules and contractual requirements.
+Indeed, the company quickly faced demands from Facebook, Twitter and YouTube to stop using images from their services, with the search and social media giants all singing from the same songbook with words to the effect of, “Our terms and conditions say ‘no scraping’, and that’s exactly what we mean”:
+Facebook, Google, YouTube order Clearview to stop scraping faceprints
+
+
+Clearview AI’s founder and CEO Hoan Ton-That was unimpressed, hitting back with a claim that America’s free-speech laws gave him the right to access what he called “public information”, noting, “Google can pull in information from all different websites. If it’s public […] and it can be inside Google’s search engine, it can be in ours as well.”
+Of course, anyone who thinks that the internet should operate on a strictly opt-in basis would argue that two wrongs don’t make a right, and the fact that Google has collected the data already doesn’t justify someone scraping it again from Google, especially not for the purposes of automated and indiscriminate face-matching by unspecified customers, and in defiance of Google’s own terms and conditions.
+And even the most vocal opt-in-only advocate will probably admit that an opt-out mechanism is better than no protection at all, provided that the process actually works.
+Whatever you think of Google, for instance, the company does honour “do not index” requests from website operators, such as a robots.txt file in the root directory of your webserver, or an HTTP header X-Robots-Tag: noindex
+YouTube hit back unequivocally, saying:
+YouTube’s Terms of Service explicitly forbid collecting data that can be used to identify a person. Clearview has publicly admitted to doing exactly that, and in response we sent them a cease and desist letter.
+Not long after the social media scraping brouhaha, Clearview AI suffered a widely-publicised data breach.
+Although it insisted that it’s servers “were never accessed”, it simultaneously admitted that hackers had indeed made off with a slew of customer data, including how many searches each customer had performed.
+Later in 2020, on top of the class action in Illinois, Clearview AI was sued by the American Civil Liberties Union (ACLU).
+And in 2021, the company was jointly investigated by the privacy regulators of the UK and Australia, the ICO and the OAIC respectively. (Those initialisms are short for Information Commissioner’s Office and Office of the Australian Information Commissioner.)
+Clearview AI face-matching service set to be fined over $20m
+
+
+As we explained at the time, the ICO concluded that Clearview:
+Loosely speaking, both the OAIC and the ICO concluded that an individual’s right to privacy trumped any consideration of “fair use” or “free speech”, and both regulators explicitly denounced Clearview’s data collection as unlawful.
+The ICO, indeed, announced that it planned to fine Clearview AI more than £17m [then about £20m].
+Well, as the ICO told us in a press release that we received this morning, its proposed fine has now been imposed.
+Except that instead of being “over £17 million“, as stated in the ICO’s provisional assessment, Clearview AI has got away with a fine of well under half that amount.
+As the press release explained:
+The Information Commissioner’s Office (ICO) has fined Clearview AI Inc £7,552,800 [now about $9.5m] for using images of people in the UK, and elsewhere, that were collected from the web and social media to create a global online database that could be used for facial recognition.
+The ICO has also issued an enforcement notice, ordering the company to stop obtaining and using the personal data of UK residents that is publicly available on the internet, and to delete the data of UK residents from its systems.
+Simply put, the company has eventually been punished, but apparently with less that 45% of the financial vigour that was originally proposed.
+Clearview AI has now explicitly fallen foul of the law in the UK, and will no longer be allowed to scrape images of UK residents at all (though how this will be policed, let alone enforced, is unclear).
+The problem, sadly, is that even if the vast majority of countries follow suit and order Clearview AI to stay away, those legalisms won’t actively stop your photos getting scraped, in just the same way that laws criminalising the use of malware almost everywhere in the world haven’t put an end to malware attacks.
+So, as we’ve said before when it comes to image privacy, we need to ask not merely what our country can do for us, but also what we can do for ourselves:
+Let’s aim for a truly opt-in online future, where nothing to do with privacy is taken for granted, and every picture that’s uploaded has the consent of everyone in it.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+As always, very well written article. 
+Curious what the OAIC fined them? Or are they still deliberating?
+I heard a little while ago about a group of researchers who had trained AI facial recognition on billions of AI generated faces, kind of thispersondoesnotexist StyleGAN type faces, and that it was really successful. Did you hear about it, Paul?
+I feel like, for bona fide research, this is a very ethical way to go about doing things..
+Have a good Tuesday (-:
+Thanks for your kind words.
+As for the OAIC, I wrote in last year’s article (where the ICO said they were going to issue a fine): “The Aussies don’t seem to have proposed a financial penalty, but […] demanded that Clearview must not scrape Australian data in future; must delete all data already collected from Australians; and must show in writing within 90 days that it has done both of those things.”
+See https://nakedsecurity.sophos.com/2021/11/30/controversial-face-matchers-clearview-set-to-be-fined-over-20m/.
+In other words, the Aussies seem to have acted immediately, doing much the same as the ICO says it will now do, minus the fine. (Don’t do it again. Delete all data. Prove you did it.)
+As for training artificial intelligence on artificial data generated by some sort of artificial intelligence… I’m not sure how useful you should expect that to be (if you are a sceptic who is concerned about machine learning “picking up” prejudices and baking them in, you would probably have double reason to be concerned).
+Anyway, it’s not the *training* that’s the issue here. It’s the actual *use* of the trained system to match previously unseen images against an existing database, apparently without consent, apparently without limit, apparently without “probable cause”, apparently without compliance with any existing legal conditions applied when the data was collected, and apparently without regret or remorse. 
+Clearly, the less accurately a face-matcher performs, the more egregious its possible life-ruining privacy intrusions and false accusations if it’s ever used for law enforcement purposes. But the more accurately it performs, the more egregious its possible life-ruining privacy intrusions and false accusations if it’s ever used for law enforcement purposes. So the objections here aren’t how it was trained or how accurate it is, but the very way the system accumulates its store of people to match against. After all, even if it were *trained* against fake images, it would still be *matching* against a giant set of dubiously-collected data.
+“Don’t upload data about your friends without permission.”
+THANK YOU for saying that, Paul!
+Let’s see: fine about £7.5 million, for about 3000 million illegal pictures.  So the UK justice system values the lawbreaking at about 4 pictures per UK penny.
+The company’s own website now boasts [2022-05-24T18:00Z] “20+ Billion Images in our law enforcement database — the largest in the world by far”.
+… so the population of the database now exceeds the population of the planet.
+I think “exceeds” is putting it mildly 😬
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

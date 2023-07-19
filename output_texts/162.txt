@@ -1,0 +1,82 @@
+Sophos Home protects every Mac and PC in your home 
+At the well-known DEF CON security shindig in Las Vegas, Nevada, last week, Mac cybersecurity researcher Patrick Wardle revealed a “get-root” elevation of privilege (EoP) bug in Zoom for Mac:
+Mahalo to everybody who came to my @defcon talk "You're M̶u̶t̶e̶d̶ Rooted" 🙏🏽
+Was stoked to talk about (& live-demo 😅) a local priv-esc vulnerability in Zoom (for macOS).  
+Currently there is no patch 👀😱
+Slides with full details & PoC exploit: https://t.co/viee0Yd5o2 #0day pic.twitter.com/9dW7DdUm7P
+— patrick wardle (@patrickwardle) August 12, 2022
+
+In the tweet, which followed his talk [2022-08-12], Wardle noted: 
+Currently there is no patch [:FRIED-EGG EYES DEPICTING ALARM EMOJI:] [:EDVARD MUNCH SCREAM EMOJI:]
+Zoom immediately worked on a patch for the flaw, which was announced the next day in Zoom security bulletin ZSB-22018, earning a congratulatory reply from Wardle in the process: 
+Mahalos to @Zoom for the (incredibly) quick fix! [:BOTH HANDS RAISED IN CELEBRATION AND WIGGLED ABOUT EMOJI:] [:PALMS PRESSED TOGETHER IN SIGN OF SPIRITUAL GOODWILL EMOJI:]
+Amusingly, if that is the right word, the patch to patch the incomplete patch was itself quickly found to be incomplete by researcher Csaba Fitzl, and the patch for the incomplete fix (5.11.5) was quickly superseded by a patch for the patch for the incomplete fix (5.11.6):
+Zoom’s patch was… 🤔… incomplete, I managed to bypass it 🤪
+So, please update to 5.11.6. https://t.co/Ok2OwmEHBF
+— Csaba Fitzl (@theevilbit) August 18, 2022
+
+(We show you how to ensure you’re up to date in the What to do? section at the bottom of the article.)
+Given the apparent speed and ease with which Zoom was able to emit a patch for the bug, dubbed CVE-2022-28756, you’re probably wondering why Wardle didn’t tell Zoom about the bug in advance, setting the day of his speech as the deadline for revealing the details.
+That would have given Zoom time to push out the update to its many Mac users (or at least to make it available to those who believe in patch early/patch often), thus eliminating the gap between Wardle explaining to the world how to abuse the bug, and the patching of the bug.
+In fact, it seems that Wardle did do his best to warn Zoom about this bug, plus a bunch of interconnected flaws in Zoom’s autoupdate process, some months ago.
+Wardle explains the bug disclosure timeline in the slides from his DEF CON talk, and lists a stream of Zoom updates related to the flaws he discovered.
+The bugs that Wardle discussed related generally to Zoom’s auto-update mechanism, a part of any software ecosystem that is a bit of a double-edged sword – a more powerful weapon than a regular sword, but correspondingly harder to handle safely.
+Auto-updating is a must-have component in any modern client application, given that it makes critical patches easier and quicker to distribute, thus helping users to close off cybersecurity holes reliably.
+But auto-updating brings a sea of risks with it, not least because the update tool itself typically needs root-level system access.
+That’s because the updater’s job is to overwrite the application software (something that a regular user isn’t supposed to do), and perhaps to launch privileged operating system commands to make configuration or other system-level changes.
+In other words, if developers aren’t careful, the very tool that helps them keep their underlying app up-to-date and more secure could become a beachhead from which attackers could subvert security by tricking the updater into running unauthorised commands with system privileges.
+Notably, auto-update programs need to take care to verify the authenticity of the update packages they download, to stop attackers simply feeding tham a fake update bundle, complete with added malware.
+They also need to maintain the integrity of the update files that they ultimately consume, so that a local attacker can’t sneakily modify the “verified safe” update bundle that’s just been downloaded in the brief period between it being fetched and activated.
+As Wardle explains in his paper, one of the bugs he discovered and disclosed was a flaw in the first step listed above, when Zoom’s auto-updater tried to verify the authenticity of the update package it had just downloaded.
+Instead of using the official macOS APIs to validate the digital signature of the download directly, Zoom developers decided to do the authentication indirectly, by running the macOS utility pkgutil --check-signature in the background and examining the output.
+Here’s an example of pkgutil output, using an old version of the Zoom.pkg software bundle:
+Unfortunately, as Wardle discovered when he decompiled Zoom’s signature verification code, the Zoom updater didn’t process the pkgutil data in the same way that human observers would.
+We’d check the output by following the useful visual sequence in the output.
+First, we’d look first for the desired status, e.g. signed by a developer certificate issued by Apple for distribution.
+Then we’d finding the sub-heading Certificate Chain:.
+Finally, we’d cross-check that the chain consisted of these three signers, in the right order:
+Amazingly, Zoom’s code simply verified that each of the above three strings (not even checking for Zoom’s own unique ID BJ4HAAB9B3) showed up somewhere in the output from pkgutil.
+So, creating a package with an absurd-but-valid name such as Zoom Video Communications, Inc. Developer ID Certification Authority Apple Root CA.pkg would trick the package verifier into finding the “identity strings” it was looking for.
+The full package name is echoed into the pkgutil output header on the first line, where Zoom’s hapless “verifier” would match all three text strings in the wrong part of the output.
+Thus the “security” check could trivially be bypassed.
+Wardle says that Zoom eventually fixed this bug, more than seven months after he reported it, in time for DEF CON…
+…but after applying the patch, he noticed that there was still a gaping hole in the update process.
+The updater tried to do the right thing:
+Unfortunately, even though the directory used to store the update package was owned by root, in an attempt to keep it safe from prying users trying to subvert the update file while it was being used…
+…the newly downloaded package file was left “world-writable” in its new location (a side-effect of having been downloaded by a regular account, not by root).
+This gave local attackers a loophole to modify the update package after its digital signature had been validated (step 2), without affecting the version check details (step 3), but just before the installer took control of the package file in order to process it with root privileges (step 4).
+This sort of bug is known as a race condition, because the attackers need to time their finish so they get home just before the installer starts, and are therefore to sneak their malicious changes in just ahead of it.
+You’ll also hear this type of vulnerability referred to by the exotic-sounding acronym TOCTOU, short for time-of-check-to-time-of-use, a name that’s a clear reminder that if you check your facts too far in advance, then they might be out of date by the time you rely on them.
+The TOCTOU problem is why car rental companies in the UK no longer simply ask to see your driving licence, which could have been issued up to 10 years ago, and could have been suspended or cancelled for a variety of reasons since then, most likely because of unsafe or illegal driving on your part. Along with your physical licence, you also need to present a one-time alphanumeric “proof of recent validity” code, issued within the last 21 days, to reduce the potential TOCTOU gap from 10 years to just three weeks.
+According to Wardle, Zoom has now prevented this bug by changing the access rights on the update package file that’s copied in step 1 above.
+The file that’s used for signature checking, version validation, and the final root-level install is now limited to access by the root account only, at all times.
+This removes the race condition, because an unprivileged attacker can’t modify the file between the end of step 2 (verification successful) and the start of step 4 (installation begins).
+To modify the package file in order to trick the system into giving you root access, you’d need to have root access already, so you wouldn’t need an EoP bug of this sort in the first place.
+The TOCTOU problem doesn’t apply because the check in step 2 remains valid until the use of the file begins, leaving no window of opportunity for the check to become invalid.
+If you’re using Zoom on a Mac, open the app and then, in the menu bar, go to zoom.us > Check for Updates...
+
+If an update is available, the new version will be shown, and you can click [Install] to apply the patches:
+
+The version you want is 5.11.6 (9890) or later.
+Note. This article originally listed the desired update as version 5.11.5 (9788). But the 5.11.5 fix was itself quickly found to be incomplete, and was very soon patched again to 5.11.6 (9890), as seen above. [2022-08-18T22:41Z]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+How would the flaw be exploited? In the normal course of use, how would a fake update get into the process?
+The DEF CON paper linked to above includes a proof-of-concept script that shows why this is a vulnerability. 
+Loosely put, you:
+1. Trigger an Zoom update.
+2. Wait for the official package file to appear in Zoom’s update directory.
+3. Wait for a short time (you may need to experiment so that you “win the race” with the installation tool).
+4. Replace the checked-and-verified file with an imposter containing installation commands of your own.
+If your timing is right, then the bogus package will replace the real one just *after* its time-of-check (TOC) by the signature and version verification code, but just *before* its time-of-use (TOU) by the system installer. Thus the installer will wrongly trust the fake file by assuming it’s the same one that just got verified.
+Oh, as mentioned in the article: this is a *local* elevation-of-privilege (EoP) exploit. So it’s not the sort of vulnerability that can be abused from afar for what’s known as RCE, or remote code execution. The attacker would need a foothold on your computer already… but EoPs like this provide a hard-to-spot trick for crooks already in your network (e.g. ransomware affiliates) to go from a low level of access, such as a limited user or guest account, to full-on root/sysadmin superpowers.
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

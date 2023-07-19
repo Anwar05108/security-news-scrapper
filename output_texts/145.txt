@@ -1,0 +1,55 @@
+Sophos Home protects every Mac and PC in your home 
+Apple has disgorged its latest patches, fixing more than 50 CVE-numbered security vulnerabilities in its range of supported products.
+The relevant security bulletins, update numbers, and where to find them online are as follows:
+As usual with Apple, the Safari browser patches are bundled into the updates for the latest macOS (Monterey), as well as into the updates for iOS and iPad OS.
+But the updates for the older versions of macOS don’t include Safari, so the standalone Safari update (see HT213341 above) therefore applies to users of previous macOS versions (both Big Sur and Catalina are still officially supported), who will need to download and install two updates, not just one.
+By the way, if you’ve got a Mac with an earlier version of macOS, don’t forget about that second download for Safari, because it’s vitally important, at least as far as we can see.
+That’s because one of the browser-related patches in this round of updates deals with a vulnerability in WebRTC (web real-time communications) known as CVE-2022-2294…
+…and if that number sounds familiar, it should, because it’s the same bug that was fixed as a zero-day by Google in Chrome (and by Microsoft in Edge) about two weeks ago:
+Google patches “in-the-wild” Chrome zero-day – update now!
+
+
+Intriguingly, Apple hasn’t declared any of this month’s vulnerabilities as “reported to be in the wild”, or as “zero-day bugs”, despite the abovementioned patch that was dubbed a zero-day hole by Google.
+Whether that’s because the bug isn’t as easy to exploit in Safari, or simply because no one has traced back any Safari-specific misbehaviour to this particular flaw, we can’t tell you, but we’re treating it as an “honorary zero-day” vulnerability, and patching zealously as a result.
+Apple has also apparently fixed the bug found by German cybersecurity researcher Manfred Paul at the recent Pwn2Own competition in Canada, back in May 2022.
+Latest podcast 🎧 Listen now! Firefox & Pwn2Own, Apple and an 0-day… and the mathematics that defeated Pythagoras.https://t.co/HDrZPQzlAQ pic.twitter.com/DxgdC8VM1j
+— Naked Security (@NakedSecurity) May 20, 2022
+
+Manfred Paul exploited Firefox with a two-stage bug that earned him $100,000 ($50,000 for each part), and got into Safari as well, for a further $50,000 bounty.
+Indeed, Mozilla published its fix for Paul’s bugs within two days of receiving his report at Pwn2Own:
+Mozilla patches Wednesday’s Pwn2Own double-exploit… on Friday!
+
+
+Apple, in contrast, took two months to deliver its post-Pwn2Own patch:
+WebKit
+Impact: Processing maliciously crafted web content may lead to arbitrary code execution
+Description: An out-of-bounds write issue was addressed with improved input validation.
+CVE-2022-32792: Manfred Paul (@_manfp) working with Trend Micro Zero Day Initiative [Pwn2Own]
+
+Remember, however, that responsible disclosure is part of the Pwn2Own competition, meaning that anyone claiming a prize is required not only to hand over full details of their exploit to the affected vendor, but also to keep quiet about the vulnerabiity until the patch is out.
+In other words, as laudable and exciting as Mozilla’s two-day patch delivery time may have been, Apple’s much slower response is nevertheless acceptable.
+The live video streams you may have seen from Pwn2Own served to indicate whether each competitor’s attack succeeded, rather than to reveal any information about how the attack actually worked. The video displays used by the competitors had their backs to the camera, so you could see the faces of the competitors and adjudicators, but not what they were typing or looking at.
+As usual, the numerous bugs patched by Apple in these updates include vulnerabilities that could, in theory, be chained together by determined attackers.
+A bug listed with the proviso that “an app with root privileges may be able to execute arbitrary code with kernel privileges” doesn’t sound terribly worrying at first.
+After all, if an attacker already has root powers, they’re pretty much in control of your computer anyway.
+But when you notice a bug elsewhere in the system that’s listed with the warning that “an app may be able to gain root privileges”, you can see how the latter vulnerability could be a convenient and unauthorised stepping stone to the former.
+And when you also notice an image rendering bug described as “processing a maliciously crafted file may lead to arbitrary code execution”, you can quickly see that:
+In other words, theoretically at least, just looking at an apparently innocent website…
+…could send you tumbling into a cascade of trouble, just like the famous saying that goes, “For want of a nail, the shoe was lost; for want of a shoe, the horse was lost; for want of a horse, the message was lost; for want of a message, the battle was lost… all for the want of a horseshoe nail.”
+That’s why, as always, we recommend that you patch early; patch often; patch everything.
+Apple, to its credit, makes patching everything the default: you don’t get to choose which patches to deploy and which to leave “for later”.
+The only exception to this rule, as we noted above, is that for macOS Big Sur and macOS Catalina, you will receive the bulk of the operating system updates in one giant download, followed by a separate download-and-update process to install the latest version of Safari.
+As usual:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Many thanks as always Paul for your in-depth analysis and recommendations on Apple security updates. I also appreciate the similar articles you regularly publish for Firefox updates, which are very useful and definitive. Please keep up the great work.
+Thanks. Glad you find the articles useful!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

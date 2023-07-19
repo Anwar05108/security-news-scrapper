@@ -1,0 +1,58 @@
+Sophos Home protects every Mac and PC in your home 
+Two weeks ago we reported on two zero-days in Microsoft Exchange that had been reported to Microsoft three weeks before that by a Vietnamese company that claimed to have stumbled across the bugs on an incident response engagement on a customer’s network. (You may need to read that twice.)
+As you probably recall, the bugs are reminiscent of last year’s ProxyLogin/ProxyShell security problems in Windows, although this time an authenticated connection is required, meaning that an attacker needs at least one user’s email password in advance.
+This led to the amusing-but-needlessly-confusing name ProxyNotShell, though we refer to it in our own notes as E00F, short for Exchange double zero-day flaw, because that’s harder to misread.
+You’ll probably also remember the important detail that the first vulnerability in the E00F attack chain can be exploited after you’ve done the password part of logging on, but before you’ve done any 2FA authentication that’s needed to complete the logon process.
+That makes it into what Sophos expert Chester Wisniewski dubbed a “mid-auth” hole, rather than a true post-authentication bug:
+S3 Ep102.5: “ProxyNotShell” Exchange bugs – an expert speaks [Audio + Text]
+
+
+One week ago, when we did a quick recap of Microsoft’s response to E00F, which has seen the company’s official mitigation advice being modified several times, we speculated in the Naked Security podcast as follows:
+I did take a look at Microsoft’s Guideline document this very morning [2022-10-05], but I did not see any information about a patch or when one will be available.
+Next Tuesday [2022-10-11] is Patch Tuesday, so maybe we’re going to be made to wait until then?
+One day ago [2022-10-11] was the latest Patch Tuesday…
+…and the biggest news is almost certainly that we were wrong: we’re going to have to wait yet longer.
+This month’s Microsoft patches (variously reported as numbering 83 or 84, depending on how you count and who’s counting) cover 52 different parts of the Microsoft ecosystem (what the company descibes as “products, features and roles”), including several we’d never even heard of before.
+It’s a dizzying list, which we’ve repeated here in full:
+As you can see, the word “Exchange” appears just once, in the context of IKE, the internet key exchange protocol.
+So, there’s still no fix for the E00F bugs, a week after we followed up on our article from a week before that about an initial report three weeks before that.
+In other words, if you still have your own on-premises Exchange server, even if you’re only running it as part of an active migration to Exchange Online, this month’s Patch Tuesday hasn’t brought you any Exchange relief, so make sure you are up-to-date with Microsoft’s latest product mitigations, and that you know what detection and threat classification strings your cybersecurity vendor is using to warn you of potential ProxyNotShell/E00F attackers probing your network.
+For a detailed review of what got fixed this month, head over to our sister site, Sophos News, for an “insider” vulns-and-exploits report from SophosLabs:
+You can’t always get what you want on Patch Tuesday
+
+
+The highlights (or lowlights, depending on your viewpoint) include:
+This month’s updates apply to pretty much every version of Windows out there, from Windows 7 32-bit all the way to Server 2022; the updates cover Intel and ARM flavours of Windows; and they include at least some fixes for what are known as Server Core installs.
+(Server Core is a stripped-down Windows system that leaves you with a very basic, command-line-only server with a greatly reduced attack surface, leaving out the sort of components you simply don’t need if all you want is, for example, a DNS and DHCP server.)
+As we explain in our detailed analysis on Sophos News, you can either head into Settings > Windows Update and find out what’s waiting for you, or you can visit Microsoft’s online Update Guide and fetch individual update packages from the Update Catalog.
+You know what we’ll say/
+   ‘Cause it’s always our way.
+That is, “Do not delay/
+   Simply do it today.”
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+These were in the Exchange CU yesterday (kb5019076).
+CVE-2022-21979 – Microsoft Exchange Information Disclosure Vulnerability
+CVE-2022-21980 – Microsoft Exchange Server Elevation of Privilege Vulnerability
+CVE-2022-24477 – Microsoft Exchange Server Elevation of Privilege Vulnerability
+CVE-2022-24516 – Microsoft Exchange Server Elevation of Privilege Vulnerability
+CVE-2022-30134 – Microsoft Exchange Server Elevation of Privilege Vulnerability
+Curiouser and Curiouser, said Alice-and-Bob. The list I quoted doesn’t mention “Microsoft Exchanger Server” by name…
+…but none of those CVEs are the E00F ones anyway.
+Hmmmm. I think we can be pretty certain there are no patches for either of those two Exchange 0-days, but I can’t tell you why Exchange isn’t on the 52-product list. If those patches aren’t under “Exchange”, what *are* they under?
+That list looks like kb5015322 the SU from Aug 9.2022.  Not from this month (October).
+https://support.microsoft.com/en-us/topic/description-of-the-security-update-for-microsoft-exchange-server-2019-and-2016-august-9-2022-kb5015322-86c06afb-97df-4d8f-af88-818419db8481
+That list is not addressing the current ProxyNotShell or E00F vulnerability.
+kb5019076 released 10/11/2022, a Security Update (SU) for Exchange 2013.
+It looks similar to:
+kb5015322 released 8/9/2022, a Security Update (SU) Exchange 2016-2019.
+Exchange Emergency Mitigation Service (EEMS) was a little slow to put up an IIS filter.  But, apparently faster than waiting for a CU or SU.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

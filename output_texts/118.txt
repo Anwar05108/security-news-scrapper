@@ -1,0 +1,234 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. 
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+(Text edited for clarity.)
+DOUG.  How attackers get in, and a couple of zero-days. 
+Well, at least one 0-day. 
+All that more on the Naked Security podcast….
+[MUSICAL MODEM]
+ Welcome to the podcast, everybody. 
+ I am Doug Aamoth, and he is Paul Ducklin.
+DUCK.  Hello, Doug.
+DOUG.  Well, let’s start with a little tech history.
+I’d like to bring to your attention that this week, on 08 June 1978, Intel released the 8086, a 16-bit microprocessor that gave rise to the x86 architecture, which has been used in approximately one bajillion IBM PC-compatible computers over the years. 
+Ironically, the original IBM PC used the slower, less expensive, 8-bit Intel 8088 chip.
+DUCK.  You’d think that the 8-bit chip would come out first, and then it would be upgraded to the 8086.
+DOUG.  No, sir.
+DUCK.  “Hey, let’s do the cheap version.” 
+I suppose it’s like when you’ve got your big-block V8 that isn’t selling very well.
+But people like the styling, so you stick a little straight- six motor in there and sell it a bit more cheaply, don’t you? 
+Something like that… I think I’m maybe showing my automotive age there, Doug [LAUGHTER] – it’s so long since I had a car. 
+Do you still even get V8s any more, or are they considered infra dignitatem these days?
+DOUG.  I just filled up my car – it was 72 dollars. 
+And I think that’s a V6, so I wouldn’t want to know what a V8 costs to fill up nowadays.
+DUCK.  I thought you were going to say, “I just filled up my car and it was 72 kilowatt hours.”
+DOUG.  I don’t know about you, Paul, but I have delighted many times, over the years, in the x86 architecture. 
+So thank you, Intel, for bringing that out. 
+But something we don’t delight in around here is adversaries! Cybercriminals!
+And we have a big report out called the Active Adversary Playbook 2022. 
+The Active Adversary Playbook 2022
+
+
+It’s a look at how the bad guys get into your network. 
+We looked at 144 real-life cases that our Sophos Rapid Response team tackled during 2021.
+We found out some interesting insights, Paul!
+DUCK.  Yes, this was done by friend and colleague John Shier. 
+And what I like about it is that it doesn’t talk about what might have been: “Oh, there are these 17,000 techniques and the crooks could use any or all of them.” 
+There’s a place for reports like that, but this one doesn’t talk about what *might* have happened. 
+These are attacks that Sophos was called in to help with, because something had gone wrong.
+Obbviously, and unfortunately, the true figures or the true stats in real life might be slightly worse. 
+What about the attacks where nobody noticed at all until it was too late, and we were never called in, so we never got to investigate? 
+DOUG.  Sure. 
+DUCK.  Obviously, once you’re called in, the attack ends and you go, “Yes, the crooks were in for 52 days.” 
+But if we hadn’t been called in, how much longer might they have been there, in attacks that nobody ever really found out about?
+So I like this report because it’s entirely based on Sophos Rapid Response. 
+It gives you a fantastic idea not of what *might* have happened, but what *did* happen. 
+So, if you’re a risk management type, or you want to know, “What are the things that I should do first if I haven’t done already?”, then this is a great way to focus your mind on where to start.
+That doesn’t mean that you can put off doing all the other things forever. 
+But if, like most cybersecurity responders, you’re struggling with budget and time, then this makes sure that you haven’t left out the things that you really should have done first… the ones that give you what you might call the biggest bang for the buck.
+DOUG.  We’ve got some of the usual suspects here. 
+We’ve got unpatched vulnerabilities; we’ve got RDP; we’ve got stolen data. 
+They’re not super-shocking numbers, but it’s a good a reminder, especially the unpatched vulnerabilities. 
+Unpatched vulnerabilities were the entry point for close to half of the attacks that are getting in. 
+And so, when we say,”Patch early, patch often,” that’s a real thing!
+DUCK.  It really is!
+I think, in the old days, it would have been guessed passwords, or it would have been public RDP portals that the company had forgotten about. 
+Those are down, because fewer than 15% of attacks now start with RDP.
+But we have a rather fateful reminder that you can’t think about network security as your primary defence anymore, because networks don’t really have a perimeter anymore. 
+What’s *up* is the use of RDP for the crooks to wander around once they’re inside – this happened in over 80% of attacks.
+So RDP is still a problem – it’s just not the problem that it used to be. 
+So, a 50% chance the crooks will get in because you didn’t patch… 
+…but then, once they’re inside, they’re saying, “Well, you locked down all your RDP at the edge really well, but you’ve been quite sloppy inside, because you assume no one’s going to get in in the first place.”
+In particular, when ransomware did not appear to be the primary goal of the crooks, the average length of time that they were in was more than a month.
+So, if you’re making it easy for them to go wherever they want by having insecure RDP inside your network, then that is something you really need to address.
+I think that stood out really clearly. 
+And, of course, Doug, you mentioned stolen data. 
+We noticed that the attackers were known to have stolen data in approximately 40% of all the incidents that we investigated. 
+And my gut feeling is that the true number is probably a little higher, or even a lot higher, given that 40% represents those incidents where we knew the crooks had stolen data because they left behind incontrovertible evidence…
+…such as scheduled tasks that used cloud backup clients that the crooks themselves had installed to upload all your data to a service you did not normally use. 
+That’s a dead giveaway!
+But the thing with stolen data is that it’s not like stolen property – like when you go into your study and there’s a hole where your laptop used to be. 
+“They’ve stolen it!” 
+But with data, although we call it data theft, it’s not always obvious because you still have a copy. 
+And, if you think about it, even if all the crooks are doing is figuring out your passwords for resale to other criminals later, then they’ve stolen data anyway. 
+So when we say “40% of attacks involved stolen data”, that pretty much means that they harvested it with industrial-quality equipment.
+DOUG.  Okay, so those were non-ransomware attacks, with those long dwell times. 
+And, Paul, you  make the argument that… well, it’s not that you want either, but a ransomware attack is pretty cut-and-dried and then it’s  over with. 
+They get in; maybe they’re there for a little bit; but boom, ransomware!
+You can either restore from backup and get your files back, or just deal with it. 
+Is that a more optimal situation than having someone effectively “living in your basement” for a month without you knowing it, and just rooting around your house when you’re not home?
+DUCK.  I suspect that your choice of words “cut-and-dried” and “more optimal”… I know what you’re saying, there Doug: “Is it less worse?”
+DOUG.  [LAUGHS] Yes.
+DUCK.  Clearly a ransomware attack is like being punched in the face. 
+It could cause your business to derail then and there. 
+As we’ve talked about on the podcast, there is a small but nontrivial number of companies that don’t survive ransomware attacks – it is essentially the end of the world for them. 
+But yes, I think you can make a case to for that “living in the basement” story being worse.
+And remember, they’re not living in the basement – they’re living in amongst the rooms of your house, but they’re invisible.
+DOUG.  [LAUGHS] Like a ghost.
+DUCK.  I think it’s a vital reminder, and John Shier makes it absolutely clear, and  explains this very well in the paper. 
+There are, if you like, entire cliques? clans? –  I don’t know what the right word is for the cybercrime community – that aren’t really into ransomware at all. 
+And one of those groups, they go by -it’s rather a mouthful, but the jargon term is that they’re called IABs. 
+That means Initial Access Broker. 
+Basically, people go in and learn all about you, and your staff, and your company, and your customers, and your suppliers, and anything they can find.
+They harvest all that data, get your passwords, learn what your network looks like.
+Basically, they create a detailed “video tour” of your entire business operation and then go and sell it. 
+And they don’t only sell it to one group. 
+The ransomware crooks, well, they want to get in, and they want to know what the network looks like.
+That saves them time; it means they’re less likely to get caught. 
+They don’t have to map out your network if someone has already got a blow-by-blow diagram. 
+On the other hand, your customer data… that may go to a second party. 
+Your supplier details may go to a third party. 
+Your financial records and your bank account details… those may go to a fourth party, who knows? 
+So it’s easy to say, “Oh, ransomware! The majority of attacks are ransomware (it’s somewhere around two-thirds),  so the minority one-third? Those are lesser crooks, the ones who, as you say, live in the basement.” 
+But I don’t think that’s a reasonable inference to make at all. 
+I think that you could argue, for many businesses, that the final result could be worse. 
+Just think about it: their goal is not to hold your business to ransom, it’s to know everything about you.
+And, as we know, when data breaches happen, often that doesn’t just put your business at risk. 
+It could directly put your staff at risk, too. 
+For example, if the crooks now have Social Security Numbers, pension fund passwords, tax details, all of that stuff, they could then go after those people as individual victims if they want. 
+And if they’ve got data about your suppliers and your customers, then there could be a knock-on effect for other people. 
+They could even do things like… if you make software, they could steal your code-signing keys and sell them to a fifth party, who then use those keys to sign malware. 
+So the non-ransomware crooks may be aiding and abetting a whole range of other subsequent cybercrimes, not only ransomware.
+[WRY TONE] And on that cheery note, Doug….
+DOUG.  [LAUGHS] Let’s tell the good people where to go to download. 
+This report is available for free, and you can get it at: https://sophos.com/playbook2022
+Or you can read the highlights on Naked Security:
+Know your enemy! Learn how cybercrime adversaries get in…
+
+
+Now, this next story. Paul, this is interesting!
+We talked a little bit about the Microsoft “Follina” bug last week. 
+This is similar. 
+This is search URL handling in Windows. 
+And the question here is, “Is this a feature or a zero-day?”
+DUCK.  I wrote this up on Naked Security in the aftermath of the so-called Follina vulnerability.
+That’s where you can have a URL buried in a Word file, and when you open the Word file, it causes the Microsoft Diagnostic Toolkit to open.
+And it tells that toolkit, “Hey, the diagnosis involves you running this PowerShell code for me.” 
+So, clearly, that’s what you might call an extreme risk, created by the fact that there’s this magic URL that you probably didn’t expect. 
+(Who knew that you’d ever need to have an automatically accessed link in a Word document that could help you run the Microsoft troubleshooting tool if you wanted it? Surely  you could just go and run it yourself?) 
+And in the aftermath of that, because there are so many of these special proprietary URLs – what’s called in the jargon a URL scheme, the bit up to the first colon. 
+So, smtp: is for email, and ldap: is for directory services lookups. 
+When you go into the Windows Registry, actually, there’s a whole slew of these URLs that either start or end with ms, for Microsoft. 
+You can quickly see, “Oh my golly, they’ve got special URLs for Word files and Excel files and PowerPoint files. I wonder how many of these diagnostic toolkit-type problems are just sitting there waiting to be uncovered?”
+And of course, the Follina story caused a whole lot of people to go looking. 
+And this person found something. I called it a zero-day (sort of), because I think they were stretching things to look good by calling it a zero-day. 
+But it is a reminder how easily features turn into bugs.
+In this case, the special URL is search-ms: – that’s the URL scheme. 
+Instead of just doing a web search and bringing you to what is obviously a web page with search results in, this researcher discovered that if you use the dedicated search-ms: URL, then you can populate a file Explorer window with a list of files of your choice.
+Somehow, this Explorer window is magically opened up and just happens to offer a load of files from somebody else’s server. 
+You ought to notice that, because it’s as bad an idea to open those files as it is to download random stuff from a random web page…
+…but, to be fair to the researcher who figured this out, it is nevertheless believable.
+It’s got the Windows Desktop impimatur, primarily because it doesn’t come up in your browser. 
+So it doesn’t look as though, “Hey, this is a web search.” 
+And the other thing is that you can customise what it says at the top of the window, so you could display reassuring text that isn’t in a web page.
+DOUG.  If I could see one of these files, and I don’t have View File Extensions turned on by default… 
+…could I be made to think that I’m clicking on some sort of document when it’s actually an executable?
+DUCK.  I think that’s an excellent point! 
+It’s something that has been a real bugbear of mine for, I think, at least two decades!
+And that is this almost pathological desire of Microsoft not to tell you the true names of files. 
+And it’s not just Microsoft: there are Linux applications that do it; there are Mac applications that do it…. “It’s called mydocument, but you don’t need to know what the extension is. The system will sort that out for you.” 
+And of course, what that means is that if an attacker deliberately puts two dots in the file name and gives a name ending .txt.exe, for example, then if you have extensions turned off, the file will come up as though it really is showing you the extension. 
+And you’ll think, “Hey, it’s telling me the full story, so it must actually be a .txt file.” 
+You forget the fact that the real extension is a second extension, at the end, that you can’t see.
+So by default, I think you could much more easily be tricked than just landing on a website. 
+But I still don’t think this is a zero-day, and even calling it a vulnerability might be a bit of a stretch.
+Nevertheless, it *is* one of potentially many, weird Microsoft URLs that you might want to consider deleting from the registry yourself, if you’re a home user, or across your network if you’re a sysadmin. (You can use Group Policy.)
+These search-ms: URLs seem likely to be much more trouble than they will ever be worth. 
+But it’s not for me to make that decision for you, so the article helps you understand why you might want to remove something that Microsoft obviously thought was a tremendously good idea at the time…
+..and probably has been really useful to several people [LAUGHTER], maybe as many as three or even six people in the past.
+DOUG.  There’s some advice there, most of which we touched on already, so you can go over and read that in the article: Yet another zero-day (sort of) in Windows Search URL handling, on Sophos Naked Security.
+Yet another zero-day (sort of) in Windows “search URL” handling
+
+
+Now, let’s talk about a real zero-day, this time in Atlassian’s Confluence Server.
+DUCK.  Yes, Atlassian is a very well known company, perhaps best known for JIRA, which lots of companies use… what would you call it, a ticketing system? 
+Confluence, I suppose, is their discussion forum; their commercial-Wiki-kind-of-thing. 
+It’s written in Java… I think you know where this is going, if you remember Log4Shell!
+I don’t know the details of the bug, because, obviously, Atlassian didn’t want to blurt it out before they had the fix ready.
+But it does seem that there was text you could add to a URL so that, when you accessed the Confluence server… it was ${ [dollar/squiggly bracket], just like Log4Shell.
+There were obviously some characters, if you put them in the URL, that when they were consumed or used by the server (I’m guessing!) they weren’t treated literally. 
+They were treating ${...} as, “Inside here is a kind of command that lets attackers do things that really you wouldn’t let them do if you knew they was coming in from outside and weren’t trusted users.” 
+It looks like that’s what the problem was: that people could make legitimate-looking requests, and then the server would go and do something bad.
+And for better or for worse, this bug was found by a threat response company – out of the US, I think – called Volexity.
+They were doing a threat-hunting gig, like the ones that John Shier looked into to get the stats in his report (which are all anonymised by the way – nobody’s named and shamed).
+Unfortunately, Volexity wrote it up and they said, “Hey, we’re not going to tell you exactly how this works, but wow! We were looking into an attack that was unfolding, and this company kept getting webshells dropped into Java Server Pages. And when we looked, guess what we found? There was an 0-day in Atlassian’s product! Oh, and by the way, we told them.” 
+So Atlassian responded in what I think was a calm and effective way. 
+They didn’t keep publishing PR platitudes. 
+They said very little – they just said, “Yes, there’s a bug. No, we’re not going to give exact details. Here’s the CVE number. Here are some mitigations that you can use over the next two days. By the end of the day of 03 June 2022 Pacific Daylight Time, we’ll have a fix out.”
+They said what they were going to do, in plain and simple English, and they went away and did it. 
+And they did indeed get the fix out on 03 June 2022. 
+So: Patch early, patch often! 
+And Atlassian said, “If you’re one of those companies that takes 17 weeks of committee meetings to decide to go through an official update but you actually want to get the fix out, here’s a way you can do it by hand.”
+You have to delete two Java archive files (.jar files, product modules) and replace them with updated ones. 
+And there’s an extra little .class file (a compiled Java file) that you insert to complete the temporary fix. 
+So I thought that was a good response, given that it was a zero-day. 
+It was a difficult situation for Atlassian, because the company that found it and reported it to them couldn’t resist getting their own 15 minutes of fame by telling everyone about it before the fix was available. 
+So I think this is a good story, Doug. 
+It’s kind of an “All’s Well that Ends Well” situation. 
+Unless you’re still dithering about patching…
+…so, don’t delay; definitely do it today!
+DOUG.  All right. that’s Atlassian announces zero-day hole in Confluence Server – update now on nakedsecurity.sophos.com.
+Atlassian announces 0-day hole in Confluence Server – update now!
+
+
+And as the sun begins to slowly set on our show for this week, it’s time to hear from one of our readers on the “Windows Search” URL-handling story. 
+Reader Bill writes:
+“Yuck, I just went into the registry to see what other ‘undocumented features’ there are in HKEY_CLASSES_ROOT.  What did I find? Job security!”
+Which tickled me to no end when I read that.
+DUCK.  I think that reflects the  spirit of the researcher who said, “Oh, I think I found another zero-day.”
+It just goes to show that when somebody finds a way, like with the Follina bug, to exploit what used to be considered a feature, you shouldn’t be surprised. 
+And it’s not a bad thing if that spurs a whole load of researchers to seek *their* 15 minutes of Fame by saying, “Hey, let me go and look at all this other stuff.” 
+I think what Bill was getting at there is that when it comes to magic registry settings that let URLs trigger behaviour that isn’t in any book anywhere,  and isn’t in the Official Guide to all Types of URL You Ever See in the Whole World…
+…when you get very long lists like that, of things that people thought were a feature at one time, well, that is a reminder.
+Sometimes, in coding and in cybersecurity, Douglas, “Less is very much more.”
+DOUG.  Absolutely! 
+And again, thank you for that comment, Bill.
+DUCK.  Right on the head.
+DOUG.  Nailed it!
+DUCK.  Yes, it made me laugh as well.
+But after laughing, I thought, “It’s not really a joke.”
+DOUG.  Yes, he’s right!
+And if you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles; or you can hit us up on social: @NakedSecurity. 
+That is our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to…
+BOTH. Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I really enjoyed reading this, I’m so glad the transcript was posted. Thank you for that!
+Thanks for your kind words. 
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

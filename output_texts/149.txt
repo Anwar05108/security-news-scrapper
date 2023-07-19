@@ -1,0 +1,39 @@
+Sophos Home protects every Mac and PC in your home 
+Samba is a widely-used open source toolkit that not only makes it easy for Linux and Unix computers to talk to Windows networks, but also lets you host a Windows-style Active Directory domain without Windows servers at all.
+The name, in case you’ve ever wondered, is a happy-sounding and easy-to-say derivation from SMB, short for Server Message Block, a proprietary file-sharing protocol that goes way back to the early 1980s.
+Anyone with a long enough memory will recall, probably without a tremendous amount of affection, hooking up OS/2 computers to share files using SMB over NetBIOS.
+Samba started life in the early 1990s thanks to the hard work of Australian open source pioneer Andrew Tridgell, who figured out from first principles how SMB worked so that he could implement a compatible version for Unix while he was busy with his PhD at the Australian National University.
+(Tridge’s PhD, by the way, was rsync, another software toolkit that you’ve probably used in some guise, even if you don’t realise it.)
+SMB turned into CIFS, the Common Internet File System, when it was made public by Microsoft in 1996, and has since spawned SMB 2 and SMB 3, which are still proprietary network protocols, but with specifications that are officially published so that tools such as Samba no longer have to rely on reverse engineering and guesswork to provide compatible implementations.
+As you can imagine, Samba’s usefulness means that it’s widely used in the Linux and Unix worlds, including in-house, in the cloud, and even on network hardware such as home routers and NAS devices. 
+(NAS is short for network attached storage, typically a box full of hard disks that you plug into your LAN and that automatically shows up as a file server that all your other computers can access.)
+Samba just got updated to fix a number of security vulnerabilities, including a critical bug related to password resets.
+As detailed in the latest Samba release notes, there are six CVE-numbered bugs patched, including these five…
+…along with this one, which is the most serious of the lot, as you will see immediately from the bug description:
+In theory, the CVE-2022-32744 bug could be exploited by any user on the network. 
+Loosely put, attackers could wrangle Samba’s password-changing service, known as kpasswd, through a series of failed password change attempts… 
+…until it finally accepted a password change request that was authorised by the attackers themselves.
+In slang terms, this is what you might call a Print Your Own Passport (PYOP) attack, where you’re asked to prove your identity, but are able to do so by presenting an “official” document that you created yourself.
+As the Samba bug report puts it (our emphasis):
+Tickets received by the kpasswd service were decrypted without specifying that only that service’s own keys should be tried. By setting the ticket’s server name to a principal associated with their own account, or by exploiting a fallback where known keys would be tried until a suitable one was found, an attacker could have the server accept tickets encrypted with any key, including their own.
+A user could thus change the password of the Administrator account and gain total control over the domain. Full loss of confidentiality and integrity would be possible, as well as of availability by denying users access to their accounts.
+As you’ll remember from almost any cybersecurity introduction you’ve ever seen, availability, confidentiality and integrity are the “holy trinity” of computer security.
+Those three principles are meant to ensure: that you alone can view your private data (confidentiality); that no one else can mess with it, even if they can’t read it themselves, without making you aware that it’s been nobbled (integrity); and that unauthorised parties can’t prevent you accessing your own stuff (availability).
+Clearly, if anyone can reset everyone’s password (or perhaps we mean if everyone can reset anyone’s password), none of those security properties apply, because attackers can getting into your account, changing your files, and lock you out.
+Samba comes in three supported flavours: current, previous and pre-previous.
+The updates you want are as follows:
+If you can’t update, some of the bugs listed above can be mitigated with configuration changes, although some of those changes turn off functionality that your network might rely upon, which would prevent you from using those particular workarounds.
+Therefore, as always: Patch Early, Patch Often!
+If you use a Linux or BSD distro that provides Samba as an installable package, you should already have (or should soon receive) an update via your distro’s package manager; for network devices such as NAS boxes, check with your vendor for details.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+But what will happen when I set kpasswd port = 0 in smb.conf? Would users be able to change their passwords in the domain then?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

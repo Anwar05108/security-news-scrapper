@@ -1,0 +1,82 @@
+Sophos Home protects every Mac and PC in your home 
+Update. [2022-05-18T20:30Z] Only one Pwn2Own entrant targeted Firefox. Manfred Paul attempted a full sandbox escape. His hack used up about 7 seconds of his 30 minute slot, and was successful.
+Late last week, our Slackware Linux distro announced an update to follow the scheduled-and-expected Firefox 100 release, which came out at the start of the month.
+The new version is 100.0.1, and we’re running it happily…
+
+…but when we clicked on What’s new two days later, to see what was new, we were still being told [2022-05-15T19:00Z] to “check back later”:
+
+Similarly, checking for updates via the About dialog in a Firefox version that we had installed directly from Firefox.com informed us that we were currently up-to-date at version 100.0.
+Visiting Firefox.com directly didn’t help either, with the 100.0 version shown there as the latest-and-greatest download, too.
+Nevertheless, 100.0.1 is available officially from Mozilla’s FTP archive server (though you don’t access it via FTP any more, of course) .
+According to Ghacks.com, the most significant change in 100.0.1 is that the point release “improves Firefox’s security sandbox on Windows devices.”
+A look at Mozilla’s change log and a recent Mozilla Hacks blog post suggests that Ghacks.com has indeed identified the big deal in this released-but-not-yet-released release.
+The blog article, entitled Improved Process Isolation in Firefox 100, actually came out the day before the 100.0.1 release was uploaded to the FTP server, as though the changes were already accomplished in the 100.0 release. 
+As far as we can tell, however, this long-in-gestation security code was ultimately not enabled (or at least wasn’t fully enabled) in 100.0, because the Mozilla change logs include a fix for Bug 1767999, dated shortly after the 100.0 release came out, entitled Re-enable Win32k Lockdown by Default.
+(We’ll explain below how this security sandbox code came to be called Win32k Lockdown.)
+The Improved Process Isolation report describes a long-running series of changes in Firefox that aim to take advantage of a Windows security setting known long-windedly as PROCESS_MITIGATION_­SYSTEM_CALL_­DISABLE_POLICY.
+This isn’t a new security feature – it arrived in Windows 8 – but it’s not a mitigation that you can trivially apply to visual, interactive, graphics-rendering products such as browsers.
+Greatly simplified, the SYSTEM_CALL_­DISABLE setting allows a process to relinquish the right to make certain risky system calls, notably those Windows API functions that are implemented directly in the kernel for performance reasons.
+Firefox already splits itself into many separate processes, so that if the browser goes haywire in one tab, the compromised code doesn’t immediately have access to the same memory space as all the other tabs.
+Early browsers often ran as a single, monolithic process that dealt with making network connections, managing downloads, rendering remotely-supplied content, executing untrusted JavaScript code, and displaying as many windows or tabs as you had open.
+Generally speaking, this boosted performance, because moving data around inside one big process is much easier and faster (albeit more error prone) than transmitting it between separate processes.
+But it meant that exploit code triggered in one browser tab could lead directly to attackers sniffing out passwords, cookies and other confidential content from any other browser tab or window open at the time.
+Splitting up the browser into multiple co-operating but separate processes means that each has its own memory area that the others can’t see.
+Separate processes also allow different parts of the browser to run with different access rights, in accordance with the principle of least privilege (never give yourself more power than you really need, if only to protect you from yourself).
+You’d think, therefore, that implementing SYSTEM_CALL_­DISABLE would be an obvious and easy change to make to a browser’s web content rendering processes, given that their job is to decode, wrangle, process and display content based on untrusted data received from outside.
+That untrusted data could include deliberately booby-trapped images, cunningly crafted font files, malevolent and misbehaving JavaScript code and much more, so voluntarily preventing those processes from making risky in-kernel Windows function calls seems like a must-have security setting.
+After all, a bug or a crash in the kernel is much more dangerous than a crash in userland, given that it’s the kernel itself that is supposed to clamp down on misbehaviour in userland code. 
+If you are looking for a dramatic metaphor, you can think of an exploit in userland as tampering with a witness in a court case, but you can think of an exploit in kernel-land as bypassing the witnesses and subverting the judge and jury instead.
+Unfortunately, as the Mozilla coders have had a long time to reflect, the Windows API functions that Microsoft decided to shift from userland to kernel-land …
+…were those functions that affected real-time performance the most, and were therefore the most obvious to (and the most complained-about by) users, such as writing to the screen, displaying graphics, and even, as Mozilla discovered, deciding on where to add line breaks into formatted text in languages with complex text-formatting rules.
+In other words, any browser rendering process that wants to wrap itself in the added safety of SYSTEM_CALL_­DISABLE needs to be able to call on yet another special-purpose process that is itself allowed to call Windows kernel-level API functions in a well-controlled way.
+If the helper processes that act as “insulators” between the rendering processes and the kernel miss out any functions that the browser ultimately relies upon (even if they’re only needed occasionally, like those special-case line-break rules), then some websites will simply stop working, or will work incorrectly.
+O! What a tangled web we weave, when first we practise to relinquish certain access rights on purpose, and to separate our complex applications into lots of co-operating parts such that each gives up as many risky privileges as it can!
+Mozilla refers to its use of the SYSTEM_CALL_­DISABLE option as Win32k Lockdown, after the name of the Windows driver (win32k.sys) that implements the various kernel-accelerated  Windows API calls.
+Given that the code was a long time in the making, and apparently nearly-but-not quite ready to be turned on by default in Firefox 100…
+…why rush to  enable it in an out-and-band 100.0.1 update instead of simply waiting for a future scheduled release?
+One guess is hinted at in the summary of the latest Mozilla Channels Meeting, which says, “Reminder: pwn2own is next week (Wed-Fri) and we expect to ship chemspills [Mozilla’s curious metaphor for security-driven rapid release updates] in response… We’ll know the exact schedule closer to the start of the event.”
+Pwn2Own, of course, is a famous big-money hacking contest in which products such as browsers, teleconferencing apps and automotive software (where this year’s biggest individual prizes are on offer, topping out at $500,000 ) are deliberately attacked.
+Competitors each get a 30-minute slot on a freshly-imaged computer with the latest operating system and application updates installed to demonstrate a working exploit live in front of the judges.
+Lots are drawn to determine the order in which the entrants compete, and the first to “pwn” a product wins the prize. 
+This means, of course, that only the first exploit that works properly gets disclosed.
+The other competitors don’t get the money, but they do get to keep their attacks under their hats, so no one knows whether they found a different type of exploit, or whether it would have worked if they’d drawn an earlier hacking slot.
+Was the urgency to get 100.0.1 out because of the proximity of Pwn2Own, in the hope that at least some of the exploits that competitors might bring along would be thwarted by the new Win32k Lockdown protection?
+You don’t need to do anything, though we sympathise if you were confused by seeing reports that Firefox 100.0.1 was officially available, only to find that it won’t show up as an official update until Monday 2022-05-16 at the earliest.
+If you want to update ahead of the majority, you can download 100.0.1 from Mozilla’s FTP server and deploy it yourself, instead of waiting until Firefox’s internal update mechanism decides it’s time.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+My Linux distro, MX Linux, had the update this morning.
+The article seems to imply it’s a Windows thing so I don’t know why Linux had a point release too.
+There are some other changes (the bulletin is now out) that are not security related, but that are probaly a Bigger Deal For Some Users than any old security update… “Fixed an issue with subtitles in Picture-in-Picture mode while using Netflix”. OH NOOOO­OOOOOOO­OOOOOOO­OOOOOOO­OOOOOOO! (Also, “Fixed an issue where some commands were unavailable in the Picture-in-Picture window”.)
+The Win32k.sys sandbox blocking *has* now been turned on for rendering processes, listed as a sort-of security fix, so that Mozilla blog from 2022-05-12 that talked about the Win32K Lockdown for “version 100” was indeed very slightly too early :-)
+> Early browsers often ran as a single, monolithic process […] displaying as many windows or tabs as you had open
+The inclusion of tabs in this sentence of course would hinge on one’s definition of early.  I first saw tabbed browsing in Firefox around 2001-2002 (immediately loved it), but Internet Exploder didn’t do it for a few years more IIRC.  Opera likely had it first, but I didn’t discover Opera until later.
+Back and forth to the other hand, I suppose 2001-2002 is “early” by now, for anything interwebs  :,)
+Also, after reading about shifted API calls vs. performance, I wonder if that’s around the time I became disillusioned with Firefox (at one time my favorite/only browser), sadly conceding that it had become a massive memory hog.  I switched to Chrome and then Chromium until the Big Brother debacle of a couple years ago, switched to Brave most recently.
+fourteenthly (NO NEED TO PUBLISH), typo report:
+s/that/than
+“(albeit more error prone) that transmitting it between separate processes”
+Fixed the typo, thanks!
+And, yes, 200x is “early” these days! (Even Lynx only goes back to 1992.)
+You might want to try Firefox again. It’s the easiest browser I know (Edge does this but is a bit more hassle to ensure you’ve set it up correctly) for binning all your cookies and other web data on exit. (Except on iOS, where the rules anout “quitting” an app are different).
+Thanks; I will give FF some background testing.
+I do like the idea of dumping cookies on exit, but I’d really love the ability to whitelist some sites, e.g. Naked Security, Stack Exchange, and a handful of others.  
+Didn’t find the option in Brave–though I admittedly didn’t grind through the
+about:advanced:super:duper
+options–at least not yet.
+You can add exceptions (I think) to the “delete on exit” in Firefox.
+Settings > Privacy & Security > Cookies and Site Data > Delete cookies and site data when FF is closed > Manage Exceptions.
+You can separately choose what sorts of saved data to delete (e.g. don’t delete site settings but do delete cookies and download history).
+I always delete everything. That way I never re-load Firefox and later find I am still logged in to Facebook (or WordPress, or whatever). It’s a bit like encryption: avoid exceptions and you never have to worry about stuff that might now have got encrypted.
+addons and themes page no longer loads after this update another bug report for bugzilla then i guess 😡
+Works for me… you will need to be a bit more specific when you report it! 
+Anyone else got this problem?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

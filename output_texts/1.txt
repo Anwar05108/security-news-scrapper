@@ -1,0 +1,75 @@
+Sophos Home protects every Mac and PC in your home 
+A security research called Trevor Spiniolas has just published information about a bug he claims has existed in Apple’s iOS operating system since at least version 14.7.
+The bug affects the Home app, Apple’s home automation software that lets you control home devices – webcams, doorbells, thermostats, light bulbs, and so on – that support Apple’s HomeKit ecosystem.
+Spiniolas has dubbed the bug doorLock, giving it both a logo and a dedicated web page, claiming that although he disclosed it to Apple back in August 2021, the company’s attempts to patch it so far have been incomplete, and his specified deadline of 01 January 2022 for “going live” with details of the flaw has now passed:
+I believe this bug is being handled inappropriately as it poses a serious risk to users and many months have passed without a comprehensive fix. The public should be aware of this vulnerability and how to prevent it from being exploited, rather than being kept in the dark.
+You’ll have to make your own mind up about whether this bug truly “poses a serious risk”, but in this article we’ll tell you how to deal with the issue anyway.
+The good news is that the bug doesn’t let attackers spy on your phone (or your HomeKit devices), steal data such as passwords or personal messages, install malware, rack up fraudulent online charges, or mess with your network.
+Also, there are some easy ways to avoid getting bitten by this bug in the first place while you wait for Apple to come up with a complete fix.
+The bad news is that if an attacker does trick you into triggering the bug, you could end up with a phone that’s so unresponsive that you have to do a firmware reset to get back into the device.
+And, as you probably already knew – or, if you didn’t, you know now! – using Device Recovery or DFU (a direct firmware update, where you completely reinitialise the firmware of a recalcitrant iDevice over a USB cable) automatically wipes out all your personal data first.
+Wiping your data when reinitialising the device is a feature, not a bug: it stops thieves simply grabbing your phone, doing a hard reset and a DFU of their own, and then reading off the old data from the device they’ve just ‘recovered’. Wiping your data is quick and reliable because Apple mobile devices always encrypt your data, even if you don’t set a lock code of your own, using a randomly chosen passphrase kept in secure storage. Wiping just this passphrase from the device is therefore enough to render all your data useless in one go, without having to wait for a overwrite of all the flash storage in the device, and without the uncertainty of whether any unencrypted data got left behind.
+ 
+
+
+
+
+
+
+
+
+
+
+            24/7 threat hunting, detection, and response delivered by an expert team as a fully-managed service.
+        
+
+
+        Learn More
+      
+
+
+
+
+
+Spiniolas doesn’t say, but we’re assuming that this same bug is present in iPadOS, which has shipped separately from iOS since version 13, though always with a matching version number. 
+We also don’t know how far back this bug goes: as mentioned above, Spiniolas says “from iOS 14.7”, which we’re guessing is the earliest version he’s been able to test. 
+Apple doesn’t allow iPhones and iPads to be downgraded, as a way of preventing would-be jailbreakers from reverting to known-buggy iOS versions in order to reintroduce exploitable security holes on purpose.
+According to the description given by Spiniolas, the bug is triggered if Apple’s Home app encounters a HomeKit device under its purview with an enormously long name, for example 90,000 characters or more.
+That makes this bug sound like an old-fashioned buffer overflow, where more data is saved into memory than was originally allocated as the “worst-case” scenario, at best causing the offending program to crash, and at worst tricking it into misbehaving in a controllable fashion.
+The former outcome – an outright crash – typically leads to a denial of service (DoS) bug, where attackers could deliberately crash an app, possibly over and over again, to cause inconvenience or outright trouble.
+The latter outcome, where attackers maintain enough control over the crash to take over the buggy program completely and to replace the running program with untrusted software of their own choice, is known as remote code execution (RCE).
+RCE is typically used to implant spyware or malware, and is clearly a much more serious danger than DoS.
+At the moment, there’s no suggestion that Spiniolas’s crash could reliably be used for a full RCE exploit, or even that it could lead to an RCE at all.
+But the fact that cybercriminals now know where to start looking makes this bug doubly worth avoiding.
+If you deliberately rename one of the home devices in your HomeKit network so it has a name of about 100,000 characters or more (Spiniolas variously used 500,000 and 90,000 characters in his experiments), the Home app will apparently lock up when it subsequently tries to deal with  the weirdly-named device, and ultimately crash.
+According to Spiniolas, Apple recently patched the Home app to prevent you renaming devices to have absurdly long names.
+Bu the patch apparently doesn’t stop the latest version of the app from reacting badly to devices that already have overly-long names, and obviously doesn’t stop miscreants from using devices that haven’t been patched to catch out apps that have.
+Spiniolas isn’t clear on this issue, but we’ve inferred from his report that although unpatched versions of the Home app sometimes crash whilst trying to set an extra-long HomeKit device name, they sometimes don’t crash, or crash only after the extra-long name has been applied. Spiniolas has also shown how to create a one-off iOS app that you can install locally on your own device, using an Apple developer account, to rename HomeKit devices in an unregulated way, whether your device is patched or not. So even if you aren’t able to set ultra-long HomeKit device names yourself, you should assume that attackers can.
+Unfortunately, says Spinioloas, if you’ve enabled the Home app in the Apple Control Center (the always-available menu system that you can bring up at any time by swiping from the top or bottom of the screen, depending on your iPhone version), then the app will automatically load in the background whenever you start your phone.
+This means your device may get into a permanent “lockup-crash-try-again-lockup-crash-ad-infinitum” loop that leaves it unusably unresponsive before you have time to get into the Settings menu and remove Home from the Control Center.
+Catch-22!
+You can regain control of the Control Center by accessing the Settings app; but you first need to regain control of the Control Center in order to access the Settings app.
+That’s why Spiniolas claims that the only way out of the dilemma is to do a Recover or a DFU on the unresponsive device. 
+Because this removes all your personal data, the Home app will no longer have any HomeKit device names to display until after you sign into your iCloud account for the first time and your HomeKit details get re-downloaded to your phone. 
+This gives you a chance, before your phone gets presented with any crash-inducing HomeKit device names, to access the Settings app and to remove the Home app from the Control Center screen.
+As for renaming any offending devices so you can take control of them safely once more, Spiniolas suggests that you will need to install a custom app (he offers sample code you can use “at your own risk” on his GitHub page) using an Apple Developer account, and use that app to do the renaming.
+We consider it vanishingly unlikely that you will ever trigger this bug inadvertently on your own HomeKit network, given that you’re unlikely to copy-and-paste an absurd device name into the Home app by mistake and then also deliberately tap [Save] to commit the weird name to your HomeKit configuration.
+So the most likely way you’d come unstuck is either:
+In other words, mitigating this issue is easy:
+As we’re not home automation fans ourselves, we don’t have an iCloud account or a HomeKit network to practise with.
+As a result, we can’t advise you whether there’s a way to manage HomeKit devices from your browser, or from a non-Apple device, which would neatly sidestep the buggy Home app…
+…so if you are a HomeKit user and have any suggestions for other readers, please let us all know in the comments below!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It seems to me if you’re running a desktop version of macOS you could use Launchpad to access the Home app. Alternatively you can take the Home app and drag it into your iDock where you can launch it directly. While it doesn’t necessarily address the iOS issue it does still give you access to HomeKit being able to manage devices.
+I also wonder – if your iPhone was already paired with your {Windows, Mac, Linux} laptop (so you didn’t need to wait for the [Trust]/[Don’t Trust] popup to appear), and you simply plugged in your iPhone and remotely launched a backup (e.g. ran the command ‘idevicebackup2 backup –full .’ on Linux), would there be enough CPU power left over, even with the Home app hogging the show, for iOS to upload the data off your phone, even if it took some super-long time such as 48 hours to complete the process? 
+If so, that would be a frustrating but otherwise workable way to do the backup you wished you’d done yesterday (when it would have taken just 5 or 10 minutes)… after which you’d be in a position to DFU the device and restore the backup.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

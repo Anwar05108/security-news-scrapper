@@ -1,0 +1,94 @@
+Sophos Home protects every Mac and PC in your home 
+We’re not quite sure what to call it right now, so we referred to it in the headline by the hybrid name Microsoft Office 365.
+(The name “Office” as the collective noun for Microsoft’s word processing, spreadsheet, presentation and collaboration apps is being killed off over the next month or two, to become simply “Microsoft 365”.)
+We’re sure that people will keep on using the individual app names (Word, Excel, PowerPoint and friends) and the suite’s moniker Office for many years, though newcomers to the software will probably end up knowing it as 365, after dropping the ubiquitous Microsoft prefix.
+As you may know, the Office standalone apps (the ones you actually install locally so you don’t have to go online to work on your stuff) include their own option to encrypt saved documents.
+This is supposed to add an extra layer of security in case you later share any of those files, by accident or design, with someone who wasn’t supposed to receive them – something that’s surprisingly easy to do by mistake when sharing attachments via email.
+Unless and until you also give the recipient the password they need to unlock the file, it’s just so much shredded cabbage to them. 
+Of course, if you include the password in the body of the email along with the encrypted attachment, you’ve gained nothing, but if you’re even slightly cautious about sharing the password via a different channel, you’ve bought yourself some extra safety and security against rogues, snoops and ne’er-do-wells getting easy access to confidential content.
+Or have you?
+According to researchers at Finnish cybersecurity company WithSecure, your data could be enjoying much less protection that you might reasonably expect.
+The feature that the testers used is what they refer to as Office 365 Message Encryption, or OME for short.
+We haven’t reproduced their experiments here, for the simple reason that the core Office, sorry, 365 products don’t run natively on Linux, which we use for work. The web-based versions of the Office tools don’t have the same feature set as the full apps, so any results we might obtain are unlikely to align with how most business users of Office, ah, 365 have configured Word, Excel, Outlook and friends on their Windows laptops.
+As the researchers describe it:
+This feature is advertised to allow organisations to send and receive encrypted email messages between people inside and outside your organisation in a secure manner.
+But they also point out that:
+Unfortunately the OME messages are encrypted in insecure Electronic Codebook (ECB) mode of operation.
+To explain.
+Many encryption algorithms, notably the Advanced Encryption Standard or AES, which OME uses, are what’s known as block ciphers, which scramble multi-byte chunks of data at a time, rather than processing individual bits or bytes in sequence.
+Generally speaking, this is supposed to help both efficiency and security, because the cipher has more input data to mix-mince-shred-and-liquidise at each turn of the cryptographic crank-handle that drives the algorithm, and each turn gets you further through the data you want to encrypt.
+The core AES algorithm, for example, consumes 16 input plaintext bytes (128 bits) at a time, and scrambles that data under an encryption key to produce 16 encrypted ciphertext output bytes. 
+(Don’t confuse block size with key size – AES encryption keys can be 128 bits, 192 bits or 256 bits long, but all three key sizes work on 128 bit blocks each time the algorithm is “cranked”.)
+What this means is that if you pick an AES key (regardless of length) and then use the AES cipher directly on a chunk of data…
+…then every time you get the same input chunk, you’ll get the same output chunk.
+That’s why this direct mode of operation is called ECB, short for electronic code book, because it’s like having an enormous code book that could be used as a lookup table for encrypting and decrypting. 
+(A full codebook could never be constructed in real life, because you’d need to store a database consisting of 2128 16-byte entries for each possible key.)
+Unfortunately, especially in computer-formatted data, repetition of certain chunks of data is often inevitable, thanks to the file format used.
+For example, files that routinely pad out data sections so they line up on 512-byte boundaries (a common sector size when writing to disk) or to 4096-byte boundaries (a common allocation unit size when reserving memory) will often produce files with long runs of zero bytes.
+Likewise, text documents that contain lots of boilerplate, such as headers and footers on every page, or repeated mention of a full company name, will contain plentiful repeats.
+Every time a repeated plaintext chunk just happens to line up on a 16-byte boundary in the AES-ECB encryption process, it will therefore emerge in the encrypted output as exactly the same ciphertext.
+So, even if you can’t formally decrypt the ciphertext file, you may be able to make immediate, security-crushing inferences from it, thanks to the fact that patterns in the input (which you may know, or be able to infer, or to guess) are preserved in the output.
+Here’s an example based on an article we published nearly nine years ago when we explained why Adobe’s now-notorious use of ECB-mode encryption to “hash” its users’ passwords was Not A Good Idea:
+Note how the pixels that are solid white in the input reliably produce a repetitive pattern in the output, and the blue parts remain somewhat regular, so that the structure of the original data is obvious.
+In this example, each pixel in the original file takes up exactly 4 bytes, so each left-to-right 4-pixel run in the input data is 16 bytes long, which aligns exactly with each 16-byte AES encryption block, thus accentuating the “ECB effect”.
+Anatomy of a password disaster – Adobe’s giant-sized cryptographic blunder
+
+
+Even worse, if you have two documents that you know are encrypted with the same key, and you just happen to have the plaintext of one of them, then you can look through the ciphertext that you can’t decrypt, and try to match sections of it up with patterns in the ciphertext that you can decrypt.
+Given that you already have the decrypted form of the first document, this approach is known, unsurprisingly, as a known-plaintext attack.
+Even if there are only a few matches of apparently innocent text, the inferences that adversaries can make in this way can be a gold-mine for intellectual property spies, social engineers, forensic investigators, and more.
+For example, even if you have no idea what the details of a document refer to, by matching known plaintext chunks across multiple files, you may be able to determine that an apparently random collection of documents:
+Don’t use ECB mode!
+If you’re using a block cipher, pick a block cipher operating mode that:
+If you’re using AES, the mode you probably want to choose these days is AES-GCM (Galois Counter Mode), which not only uses an IV to create a different encryption data stream every time, even if the key remains the same, but also calculates what’s known as a Message Authentication Code (MAC), or keyed cryptographic hash, at the same time as scrambling or unscrambling the data.
+AES-GCM means not only that you avoid repeated ciphertext patterns, but also that you always end up with a “checksum” that will tell you if the data you just decrypted was tampered with along the way.
+Remember that a crook who doesn’t know what the ciphertext actually means might nevertheless be able to trick you into trusting an inexact decryption without ever knowing (or caring) what sort of incorrect output you end up with.
+A MAC that is calculated during the decryption process, based on the same key and IV, will help ensure that you really did extract the expected plaintext.
+If you don’t want to use a block cipher like AES, you can choose a stream cipher algorithm instead to produces a pseudorandom byte-by-byte keystream so you can encrypt data without having to process 16 bytes (or whatever the block size might be) at a time.
+Technically, AES-GCM converts AES into a stream cipher and adds authentication in the form of a MAC, but if you’re looking for a dedicated stream cipher designed specifically to work that way, we suggest Daniel Bernstein’s ChaCha20-Poly1305 (the Poly1305 part is the MAC), as detailed in RFC 8439.
+Below, we’ve shown what we got using AES-128-GCM and ChaCha20-Poly1305 (we discarded the MAC codes here), along with an “image” consisting 95,040 RGBA bytes (330×72 at 4 bytes per pixel) from the Linux kernel pseudorandom generator.
+Remember that just because data looks unstructured doesn’t mean that it is truly random, but if it doesn’t look random, yet claims to be encrypted, you should assume that at least some structure was left behind, and thus that the encryption is suspect:
+
+According to WithSecure, Microsoft doesn’t plan to fix this “vulnerability”, apparently for reasons of backward compatibility with Office 2010…
+Legacy versions of Office (2010) require AES 128 ECB, and Office docs are still protected in this manner by Office apps.
+…and…
+The [WithSecure researchers’] report was not considered  meeting the bar for security servicing, nor is it considered a breach. No code change was made and so no CVE was issued for this report.
+In short, if you’re currently relying on OME, you may want to consider replacing it with a third-party encryption tool for sensitive messages that encrypts your data independently of the apps that created those messages, and thus works independently of the internal encryption code in the Office range.
+That way, you can choose a modern cipher and a modern mode of cipher operation, without having to drop back to the old-school decryption code built into Office 2010.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I am glad you understand all this because my tiny brain cannot.
+It is reassuring that people like you are monitoring these things, because the vast majority of users would not know if their data was vulnerable.
+Why not use PGP?
+I’m not sure if you are suggesting PGP as an option for the “third-party replacement” I suggested, or wondering why Microsoft knitted its own Office-specific crypto?
+This reminds me of the “cribs” that the Bletchley Park codebreakers used during the Second World War. The Nazis often ended messages with “Heil Hitler!” and thus the codebreakers could work back from this closing set of encrypted characters, knowing what they likely represented.
+It is disappointing that 80 years later we seem to be repeating the same mistakes.
+Thank you for your diligence.
+I hope I have remembered this correctly… but I think this technique was used in WW1, as well, in a different form: the formalities of the German military meant that the rank of the recipient was written out in full, making the opening boilerplate of messages to a Colonel (Oberst), recognisably shorter that those to a Sergeant-Major (Oberstabsfeldwebel). Not only did the rank form a crib, it was apparently handy in guessing which intercepts to put at the top of the list for analysts to look at. (No cryptographic computers then, electromechanical or electronic.)
+Good article. I have a very basic understanding of modern encryption, but it is pretty clear, the encryption in 365 is crap.
+Microsoft seems to have form for this in Word and friends… in the 1990s, Office files could be “encrypted” via a built-in “feature”that was a lightly-modified Vigenere cipher, an encryption system first proposed (and then cracked) several centuries ago…
+I’ve studiously avoided built-into-the-app crypto ever since, unless they’re clearly documented to use specific algorithms, in specific modes, with specific attention paid to how randomness requires by the implementation is handled, and with an obvious understanding shown of how keys are handled. 
+IVs, in particular, must be decently random, and in the GCM and ChaCha ciphers there is a limit on how much data in total can be handled by a single key – just under 64GB in the case of AES-GCM, and just under 256GB for ChaCha20.
+Hi Paul, thanks for article post. Shocking!!!!  No Cryptographer worth his or her “Salt” would use ECB – deterministic cipher – to encrypt or Hash, sensitive docs, passwords, etc.  Was nothing learned from the WEP failure. When users share files the encryption goal should be to provide Confidentiality and Integrity protection., using Encrypt then MAC; i.e., Authenticated Encryption!
+PGP is not a good replacement – https://latacora.micro.blog/2019/07/16/the-pgp-problem.html
+Also, Microsoft have other encryption named “Microsoft Purview Message Encryption” which requires an E3 – so all is not lost.
+The Microsoft Purview Message Encryption is a DRM, which therefore implicitly ends up using stronger cryptography.
+However DRMs aren’t a good solution since it ties restrictions by default to the protected files.
+This includes restricting opening the files at all if disconnected from Internet & such (which computer, how many viewings […]).
+I don’t know enough about the Purview Message Encryption other than it being a DRM, so it could perhaps be possible to ship unrestricted decryption keys for your DRM-protected files afterwards while benefiting from stronger cryptography.
+This also reminds me of one idea I had of sharing DRM-protected PDF files with careless companies, letting them view the docs for a little while, then revoking DRM access next time they try to fetch a key from my own server.
+This way careless companies when breached will end up leaking a defective PDF file which can’t be opened anymore.
+Not sure whether there’s any good built-in DRM for Adobe Reader though.
+PGP does have a big forward secrecy problem, unless you make sure to manually erase PGP private keys older than X number of days or such.
+Great article, thank you. Is the encryption feature in 7zip any good? Using the AES-256
+I haven’t looked at the 7zip code to see how it uses AES. Strictly speaking, “AES-256” doesn’t tell you enough about how the encryption is done, given that it doesn’t say which encryption mode was used (e.g. ECB, CBC, CFB, CTR, GCM and many other choices requiring different combinations of key, IV, setup and data flow during the enrcyption process).
+Any readers who use 7z’s encryption able to comment?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

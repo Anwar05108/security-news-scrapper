@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+Popular package management site RubyGems.org, which stores and supplies hundreds of thousands of modules for the widely-used programming language Ruby, just patched a dangerous server-side vulnerability.
+The bug, dubbed  CVE-2022-29176, could have allowed attackers to remove a package that wasn’t theirs (yanking it, in RubyGems jargon), and then to replace it with modified version of their own.
+Fortunately, the RubyGems team has looked through its logs for the past 18 months, and says that it “did not find any examples of this vulnerability being used in a malicious way.”
+We assume that the vast majority of package updates on record would involve a change in version number (given that when legitimate software changes, you need some obvious way of telling the new version from the old one), which would make the yank-and-republish process rather rare.
+If, indeed, there were only a few cases to review, we also assume that it would be feasible to compare any changes between the now-defunct “yanked” code and the newly republished code, even in a repository as large as RubyGems.
+This suggests that any unusual rip-and-replace operations would indeed have been found during the security review that followed the report of the bug.
+Additionally, the RubyGems security bulletin notes that package owners receive an automatic email notification whenever a package of theirs is yanked or published, yet no support tickets were ever received to report peculiar and unexpected changes of this sort.
+Ironically, however, this rip-and-replace bug only works on packages created within the last 30 days, or on packages that haven’t been updated for more than 100 days. (No, we don’t know why these curiously specific limitations apply, but apparently they do.)
+In other words, one class of vulnerable package includes all those that aren’t being actively developed any more, thus making it more likely that the email address for the package would be out-of-date or no longer monitored.
+The bug, it seems, involved a slip ‘twixt the authentication cup and the activation lip.
+An attacker with an active account who created a package called, say, slithy, would be authorised to manipulate packages with that name.
+However, when submitting a yank request for a package owned by someone else called, say, slithy-tove (the dash in the name is critical to this bug), the authentication process would apparently be handled something like this, according to Ruby coder Greg Molnar:
+In other words, the package manager perhaps naively expected that anyone creating a hierarchy of packages would set out to own all the partial package names in that tree.
+In real life, that is indeed what many programmers or projects teams would do, either by design, or simply as a consequence of how the project had evolved.
+For example, if you intended to produce a collection of packages under the top-level name acme, you might make yourself the owner of all package names and prefixes in the tree, so that you also controlled all possible partial names for any of your code modules:
+As you can imagine, if you used the name of your organisation as the leftmost text, you’d almost certainly ensure that you “owned” that name outright, if only to stop imposters creating new projects that looked as though you’d endorsed them yourself.
+But there is no RubyGems requirement to do things that way.
+If you didn’t want or need to take ownership of the leftmost part of your package name (perhaps because your code was a general-purpose toolkit such as generic-formatter), your package could have been at risk of takeover by someone sneakily creating a package called generic.
+Clearly, that means anyone else in the supply chain who relied on your package would have been at risk of compromise, too.
+Specifically, as the security bulletin reports:
+To be vulnerable, a gem needed: one or more dashes in its name; an attacker-controlled gem with the name before the dash; creation within 30 days OR no updates for over 100 days.
+• As a Ruby or RubyGems user, you don’t need to update any package manager code on your end.
+The vulnerability existed on the server side, and has been fixed by the RubyGems team.
+Apparently, the server no longer assumes, if you authenticate as the owner of slithy, that you can be assumed also to own slithy-tove.
+As the RubyGems team advises, you can check for rogue changes in your own packages by checking your Gemfile.lock history for changes that kept the same name and version number.
+Also, any packages that have a single-word name (no dash), and any packages where you own the “name prefixes” as well as the package itself (e.g. if you own slithy for a package called slithy-tove), are immune to this bug.
+Likewise, any package that you’ve never left alone for more than 100 days without pushing out an update can apparently be assumed safe, along with any new package created less than 30 days before bug was fixed [2022-05-05].
+• As a programmer, make sure, whenever you’re testing that user X is allowed to perform action Y, that you aren’t accidentally testing for a less restrictive permission instead.
+As as example, if you want to answer the question, “Is user X allowed to list the filenames in directory Y?”, it’s not enough to check that they’re allowed to enumerate files in some higher-level directory Z, and from there to assume the permission percolates downwards automatically.
+If that were a necessary and sufficient test, you could verify every user’s access to any file on the system simply by checking if they were allowed to read filenames in the root directory. Loosely speaking, however, all users can do that, or else the programs they ran wouldn’t be able to navigate to files in vital public-but-write-protected system directories, such as /lib64/libc-2.35.so or C:\Windows\System32\gdi32.dll. But their right to enumerate the root directory doesn’t mean they’re allowed to list all the files under your home directory as well.
+• As a programmer, don’t be afraid to re-verify user permissions before every important change.
+Don’t assume that the permissions that authenticated user X to perform task A at point B in your code are inevitably still valid later on, especially when it comes to performing a similar-but-nevertheless-different task C at some other point D in your code.
+As the principle of zero trust has is: assume nothing; verify everything. 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+> a single-word name (no dash)
+I have a shirt that says:
+:,)
+You could make another that said:
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Popular and ubiquitous (software isn’t always both of those things!) cloud meeting company Zoom recently announced an oops-that-wasn’t-supposed-to-happen bug in the Mac version of its software.
+The security bulletin is, forgivably, written in the typically staccato and jargon-soaked style of bug-hunters, but the meaning is fairly clear.
+The bug is denoted CVE-2022-28762, and is detailed in Zoom Bulletin ZB-22023:
+When camera mode rendering context is enabled as part of the Zoom App Layers API by running certain Zoom Apps, a local debugging port is opened by the Zoom client.
+A “debugging port” typically refers to a listening network connection, usually a TCP socket, that handles debugging requests.
+In the same way that an email server usually listens on TCP port 25, waiting for remote email clients to “call in” over the network and request permission to deliver incoming messages, debugging ports listen on a port of their own choosing (often configurable, though sometimes only in an undocumented way) for incoming connections that want to issue debug commands.
+Unlike an email server, however, which accepts requests relating to message delivery (e.g. MAIL FROM and RCPT TO), debugging connections usually provide a much more intimate sort of interaction with the app you’re connecting to.
+Indeed, debugging ports generally allow you not only to find out about the configuration and internal state of the app itself, but also to issue commands directly to the app, including the sort of security-sapping commands that aren’t available to regular users going via the regular user interface.
+An email server, for instance, will typically let you send a message to its TCP port for a username of your choice, but it won’t let you send commands that reconfigure the server itself, and it won’t let you extract secret information such as server statistics or other people’s messages.
+In contrast, those are exactly the sort of “features” that debugging ports uusally do allow, so that developers can tweak and monitor the behaviour of their app while they’re trying to fix problems, without needing to go through the regular user interface. 
+(You can see how this sort of “side-channel” into the guts of an application would especially handy when you’re trying to debug the user interface itself, given that the act of using the UI to debug the UI would almost certainly interfere with the very measurements you were trying to make.)
+Notably, debugging ports typically let you get a sort of “internal view” of the app itself, such as: peeking into areas of memory that would never usually be exposed to users of the app; grabbing data snapshots that could contain confidential data such as passwords and access tokens; and triggering audio or video captures without alerting the user…
+…all without logging into the app or service in the first place.
+In other words, debugging ports are a necessary evil for use during development and testing, but they aren’t supposed to be activated, or ideally even to be activatable, during regular use of the app, because of the obvious security holes they introduce.
+Loosely speaking, if you’ve got access to the TCP port on which the debugger is listening, and you can create a TCP connection to it, that’s all the authentication you need to take over the app.
+And that’s why debugging ports are typically only enabled under carefully controlled circumstances, when you know you actually want to allow a developer to be able to wander round right inside the application, enjoying what is effectively unregulated and potentially dangerous superpower access .
+Indeed, many software products are deliberately built in two different flavours: a debug build, where debugging can be turned on if desired, and a release build in which the debugging features are omitted altogether so they can’t be activated at all, whether by accident or by design.
+Google’s Android phones include a debug mode, whereby you can plug in a USB cable and dig into the phone (albeit not with full root powers) from your laptop via what’s known as the ADB, short for Android Debug Bridge. To enable debugging at all, you first need to click on Settings > About Phone > Build Number seven times (really!) in a row. Only then does the option to turn debugging on even appear in the menus, where you can activate it at Settings > System > Advanced > Developer Options > USB debugging. Then, when you plug in and try to connect from your laptop, you have to authorise the connection via a warning popup on the phone itself. You can certainly do this on purpose, if you have physical access to an unlocked phone, but it’s unlikely to happen by mistake.
+For additional security, debugging ports are often set up so they won’t accept connections that come in from other computers (in technical terms, they listen on the “localhost” interface only).
+This means an attacker seeking to misuse an incorectly enabled debugging interface would need a foothold on your computer first, such as some sort of proxy malware that itself accepts connections via the internet, and then relays its network packets to the “localhost” network interface.
+Despite the need for some sort of local access in the case of CVE-2022-28762, however, Zoom gave this bug a CVSS “severity score” of 7.3/10 (73%), and an urgency rating of High.
+Local TCP network connections are typically designed to work across user and process boundaries, so an attacker wouldn’t need to be logged in as you (or as an administrator) to abuse this bug – any process, even a program running under a very limited guest account, might be able to spy on you at will.
+Furthermore, because software commands issued via a debugging port typically operate independently of an app’s regular user interface, you probably wouldn’t see any giveaway signs that your Zoom session had been hijacked this way. 
+If an attacker were activating the app via more conventional Mac remote control channels such as Screen Sharing (VNC), you would at least have a chance of spotting the attacker moving your mouse pointer around, clicking menu buttons, or typing in text…
+…but via a debugging interface, which is essentially a deliberate back door, you might be blissfully unaware (and perhaps even unable to detect) that an attacker was snooping on you very personally, using your webcam and your microphone.
+Fortunately, Zoom’s own security team spotted what we’re assuming was a build-time blunder (a feature left enabled that should have been suppressed), and promptly updated the buggy Mac software.
+Update to your macOS Zoom Client to version 5.12.0 or later and the debugging port will stay closed when you use Zoom.
+On a Mac, go to the main zoom.us menu and choose Check for Updates... to see whether you’ve got the latest version.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

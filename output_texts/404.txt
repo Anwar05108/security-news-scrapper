@@ -1,0 +1,93 @@
+Sophos Home protects every Mac and PC in your home 
+You’re probably familiar with the word gaslighting, used to refer to people with the odious habit of lying not merely to cover up their own wrongdoing, but also to make it look as though someone else is at fault, even to the point of getting the other person to doubt their own memory, decency and sanity.
+You might not know, however, that the term comes from a 1930s psychological thriller play called Gas Light (spoiler alert) in which a manipulative and murderous husband pretends to spend his evenings out on the town with his friends, abandoning his long-suffering wife at home in misery.
+In fact, he’s secretly sneaking into the apartment upstairs, where he previously murdered the occupant to steal her jewels.
+Although he got away with the killing, he came away empty-handed at the time, so he keeps returning to the scene of the crime to search ever more desperately through the murdered woman’s apartment for the valuables.
+The giveaway to his criminality is that, in his nightly visits, he not only makes noises that can be heard downstairs, but also needs to turn on the gas lights to see what he’s doing.
+Because the entire building is connected to the same gas supply (the play is set in 1880s London, before household electricity replaced gas for lighting), opening and igniting a gas burner in any room causes a temporary pressure drop in the whole system, so that the murderer’s wife notices a brief but telltale dimming of her own lights every time he’s upstairs.
+This unavoidable side-effect, namely that using the lights in one part of the house produces a detectable disturbance elsewhere, ultimately leads to the husband being collared by the police.
+In case you’re wondering, the verbal metaphor to gaslight in its modern sense comes from the fact that the criminal in the play brashly explains away both the dimming lights and the mysterious noises as evidence that his wife is going mad. His evil plan is both to divert suspicion from his original crime and to have her declared insane, in order to get rid of her once he finds the riches he’s after. When the police come after him, she turns the tables by pretending to help him escape, only to ensure that he’s captured in the end. As she points out, given that he’s gone to such trouble to “prove” all along that she’s insane, no one will now believe or even suspect that she betrayed him to the hangman’s noose entirely on purpose…
+We know what you’re thinking: What’s the connection between gas lights, and their fickle behaviour under load, and the cybersecurity challenge known as rowhammering?
+Well, rowhammering is an electronics problem that’s caused by unwanted inside-the-system interactions, just like the flickering gas light in the eponymous play.
+In the early days of computers, data was stored using a variety of schemes to represent a series of binary digits, or bits, including: audio pulses passed through long tubes of mercury; magnetic fields stored in a grid of tiny ferrite rings known as cores, from which we get the modern-day jargon term core dump when saving RAM after a program crash; and electrostatic charges stored as blobs of light on an oscilloscope screen.
+Modern DRAM chips (dynamic random access memory), in contrast, rely on a very tightly squashed-together grid of nanoscopic capacitors, each of which can either store an electrical charge (which we’ll take to be a binary 1), or not (for a 0-bit).
+Surprisingly, perhaps, DRAM chips have more in common with the mercury delay line storage of the 1940s and 1950s than you might think, namely that:
+So, where does so-called rowhammering come in?
+Every time you write to a line of capacitors in a DRAM chip’s memory grid, there’s a very tiny chance that the electrical activity in that line might accidentally affect one or more of the capacitors in the lines next to it, in the same sort of way that turning on a gas light in one room causes a telltale flicker in the other rooms.
+The more frequently you write to a single line of capacitors (or, more cunningly, if you can figure out the right memory addresses to use, to the two lines of capacitors either side of your target capacitors for greater bit-blasting energy), the more likely you are to provoke some sort of semi-random bit flip.
+And the bad news here is that, because reading from DRAM forces the hardware to write the data back to the same memory cells right away, you only need read access to a particular bunch of memory cells in order to trigger low-level electronic rewrites of those cells.
+(There’s an analogy in the problem of “gaslighting” from the play, namely that you don’t actually have to illuminate a lamp for nearby lights to give you away; just opening and closing the gas tap momentarily without actually lighting a flame is enough to trigger the light-dimming effect.) 
+Simply put, merely by reading from the same block of DRAM memory over and over in a tight loop, you automatically cause it to be rewritten at the same rate, thus greatly increasing the chance that you’ll deliberately, if unpredictably, induce one or more bit flips in nearby memory cells.
+Using this sort of treachery to provoke memory errors on purpose is what’s known in the jargon by the self-descriptive name rowhammering.
+Numerous cybersecurity attacks have been proposed based on rowhammering, even though the side-effects are hard to predict.
+Some of these attacks are tricky to pull off, because they require the attacker to have precise control over memory layout, the processor setup, and the operating system configuration.
+For example, most processor chips (CPUs) and operating systems no longer allow unprivileged programs to flush the processor’s on-board memory cache, which is temporary, fast RAM storage inside the CPU itself that’s used for frequently-accessed data.
+As you can imagine, CPU memory caches exist primarily to improve performance, but they also serve the handy purpose of preventing a tight program loop from literally reading the same DRAM capacitors over and over again, by supplying the needed data without accessing any DRAM chips at all.
+Also, some motherboards allow the so-called DRAM refresh rate to be boosted so it’s faster than the traditional value of once every 64 millseconds that we mentioned above.
+This reduces system performance (programs get briefly paused if they try to read data out of DRAM while it’s being refreshed by the hardware), but decreases the likelihood of rowhammering by “topping up” the charges in all the capacitors on the chip more regularly than is strictly needed.
+Freshly rewritten capacitors are much  more likely to be sitting at a voltage level that denotes unambigously whether they’re fully charged (a 1-bit) or fully discharged (a 0-bit), rather than drifting uncertainly somewhere between the two.
+This means that individual capacitors are less likely to be affected by interference from writes into nearby memory cells.
+And many modern DRAM chips have extra smarts built into their memory refresh hardware these days, including a mitigation called TRR (target row refresh).
+This system deliberately and automatically rewrites the storage capacitors in any memory lines that are close to memory locations that are being accessed repeatedly. 
+TRR therefore serves the same electrical “top up the capacitors” purpose as increasing the overall refresh rate, but without imposing a performance impact on the entire chip.
+Intriguingly, a paper recently published by researchers at the University of California, Davis (UCD) investigates the use of rowhammering not for the purpose of breaking into a computer by modifying memory in an exploitable way and thereby opening up a code execution security hole…
+…but instead simply for “fingerprinting” the computer so they can recognise it again later on.
+Greatly simplified, they found that DRAM chips from different vendors tended to have distinguishably different patterns of bit-flipping misbehaviour when they were subjected to rowhammering attacks.
+As you can imagine, this means that just by rowhammering, you may be able to discern hardware details about a victim’s computer that could be combined with other characteristics (such as operating system version, patch level, browser version, browser cookies set, and so on) to help you tell it apart from other computers on the internet.
+In four words: sneaky tracking and surveillance!
+More dramatically, the researchers found that even externally identical DRAM chips from the same manufacturer typically showed their own distinct and detectable patterns of bit flips, to the point that individual chips could be recognised later on simply by rowhammering them once again.
+In other words, the way that a specific DRAM memory module behaves when rowhammered acts as a kind of “supercookie” that identifies, albeit imperfectly, the computer it’s plugged into.
+Desktop users rarely change or upgrade their memory, and many laptop users can’t, because the DRAM modules are soldered directly to the motherboard and therefore can’t be swapped out.
+Therefore the researchers warn that rowhammering isn’t just a sneaky-but-unreliable way of breaking into a computer, but also a possible way of tracking and identifying your device, even in the absence of other giveway data such as serial numbers, browser cookies, filesystem metadata and so on.
+Fascinatingly, the researchers claim that when they tried to ensure like-for-like in their work by deliberately removing and carefully replacing (re-seating) the memory modules in their motherboards between tests…
+…detecting memory module matches actually became easier.
+Apparently, leaving removable memory modules well alone makes it more likely that their rowhammering fingerprints will change over time.
+We’re guessing that’s due to factors such as heat creep, humidity changes and other environmental variations causing conductivity changes in the metal contacts on the memory stick, and thus subtly altering the way that current flows into and thus inside the chip.
+Ironically, a memory module that gets worse over time at resisting the bit-flip side-effects of rowhammering will, in theory at least, become more and more vulnerable to code execution exploits.
+That’s because ongoing attacks will gradually trigger more and more bit-flips, and thus probably open up more and more exploitable memory corruption opportunties.
+But that same memory module will, ipso facto, become ever more resistant to identification-based rowhammer attacks, because those depend on the misbehaviour of the chip remaining consistent over time to produce results with sufficient “fidelity” (if that is the right word) to identify the chip reliably.
+Interestingly, the researchers state that they couldn’t get their fingerprinting technique to work at all on one particular vendor’s memory modules, but they declined to name the maker because they’re not sure why. 
+From what we can see, the observed immunity of those chips to electronic identification might be down to chance, based on easily-changed behaviour in the code the researchers used to do the rowhammering.
+The apparent resilience of that brand of memory might therefore not be down to any specific technical superiority in the product concerned, which would make it unfair to everyone else to name the manufacturer.
+Should you be worried?
+There’s not an awful lot you can do right now to avoid rowhammering, given that it’s a fundamental electrical charge leakage problem that stems from the incredibly small size and close proximity of the capacitors in modern DRAM chips.
+Nevertheless, we don’t think you should be terribly concerned.
+After all, to extract these DRAM “supercookies”, the researchers need convince you to to run a carefully-coded application of their choice.
+They can’t rely on browsers and browser-based JavaScript for tricks of this sort, not least because the code used in this research, dubbed Centauri, needs lower-level system access than most, if not all, contemporary browsers will allow.
+Firstly, the Cenaturi code needs the privilege to flush the CPU memory cache on demand, so that every memory read really does trigger electrical access to directly to a DRAM chip.
+Without this, the acceleration provided by the cache won’t let enough actual DRAM rewrites through to produce a statistically significant number of bit flips.
+Secondly, the Centauri code relies on having sufficient system-level access to force the operating system into allocating memory in contiguous 2MB chunks (known in the jargon as large pages), rather than as a bunch of 4KB memory pages, as both Windows and Linux do by default.
+As shown below, you need to make special system function calls to activate large-page memory allocation rights for a program; your user account needs authority to activate that privilege in the first place; and no Windows user accounts have that privilege by default. Loosely speaking, at least on a corporate network, you will probably need sysadmin powers up front to assign yourself the right to activate the large-page allocation privilege that’s required to get the Centauri code working.
+To fingerprint your computer, the researchers would need to trick you into running malware, and probably also trick you into logging with at least local administrator rights in the first place.
+Of course, if they can do that, then there are many other more reliable and definitive ways that they can probe or manipulate your device to extract strong system identifiers.
+These include: taking a complete hardware inventory complete with device identifiers; retrieving hard disk serial numbers; searching for unique filenames and timestamps; examining system configuration settings; downloading a list of applications installed; and much more.
+Lastly, because the Centauri code aims not to attack and exploit your computer directly (in which case, risking a crash along the way might be well worth it), there’s a worrying risk that collecting the rowhammering data needed to fingerprint your computer would crash it dramatically, and thus attract your undivided cybersecurity attention.
+Rowhammering for the purposes of remote code execution is the kind of thing that crooks can try out comparatively briefly and gently, on the grounds when it works, they’re in, but if it doesn’t, they’ve lost nothing.
+But Centauri explicitly relies on provoking sufficiently many bit-flip errors to construct a statistically significant fingerprint, without which it can’t function as a “supercookie” identification technique.
+When it comes to unknown software that you’re invited to run “because you know you want to”, please remember: If in doubt, leave it out!
+ENABLING LARGE-PAGE ALLOCATIONS IN WINDOWS
+To compile and play with this program for yourself, you can use a full-blown development kit such as Clang for Windows (free, open source) or Visual Studio Community (free for personal and open-source use), or just download our port of Fabrice Bellard’s awesome Tiny C Compiler for 64-bit Windows. (Under 500KB, including basic headers, ready-to-use binary files and full source code if you want to see how it works!)
+
+Source code you can copy-and-paste:
+Build and run with a command as shown below. 
+At my first attempt, I got error 1300 (ERROR_NOT_ALL_ASSIGNED) because my account wasn’t pre-authorised to request the Lock pages in memory privilege in the first place, and error 1314 (ERROR_PRIVILEGE_NOT_HELD) plus a NULL (zero) pointer back from VirtualAlloc() as a knock-on effect of that: 
+To authorise myself to request the relevant privilege (Windows always allocates large pages locked into physical RAM, so you can’t acquire them without that special Lock pages in memory setting turned on), I used the GPEDIT.MSC utility to assign myself the right locally.
+Go to Local Computer Policy > Computer Configuration > Windows Settings > Security Settings > Local Policies > User Rights Assignment and add your own username the Lock pages in memory option.
+Don’t do this on a work computer without asking first, and avoid doing it on your regular home computer (use a spare PC or a virtual machine instead):
+
+After assigning myself the necessary right, then signing out and logging on again to acquire it, my request to grab 2MB of virtual RAM allocated as a single block of physical RAM succeeded as shown:
+Diagram of DRAM cells reworked from Wikimedia under CC BY-SA-3.0.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“Surprisingly, perhaps, DRAM chips have more in common with the mercury delay line storage of the 1940s and 1950s than you might think, namely that:”
+Very good points!
+Plus ça change, and all that :-)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

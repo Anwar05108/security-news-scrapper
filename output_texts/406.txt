@@ -1,0 +1,63 @@
+Sophos Home protects every Mac and PC in your home 
+Update. Apparently, this patch was withdrawn by Apple, at least temporarily, not long after it came out. We’ve got advice on what to do, whether you already have the rapid response and are worried whether to keep it, or want it but can’t now get it, in an update article. [2023-07-11T15:30:00Z]
+The second-ever Apple Rapid Security Response just came out.
+That’s where the very latest versions of macOS, iOS and iPadOS get emergency patches that:
+The last point above is surprisingly important, given that Apple absolutely will not allow you to uninstall full-on system updates to your iPhones or iPads, even if you find that they cause genuine trouble and you wish you hadn’t applied them in the first place.
+That’s because Apple doesn’t want users to be able to downgrade on purpose to reintroduce old bugs that they now know can be used for jailbreaking devices or installing an alternative operating system, even on devices that Apple itself it no longer supports.
+Even if you completely wipe and reinstall your iDevice from scratch via a USB cable, using the built-in DFU (device firmware update) utility, Apple’s servers know what version you were using before the reinstall, and won’t let you activate an old firmware image onto a device that’s already been upgraded past that point. 
+In other words, the cost of Apple’s commercial decision to keep you on a one-way path of iPhone and iPad upgrades is that the company can’t easily afford to rush out emergency upgrades as quickly as it might otherwise like to (or as quickly as you might want).
+That’s because the only way to correct any critical problems that an upgrade might cause is to produce another complete upgrade to supersede it, because there is no quick fix process for an existing full upgrade that itself was released too quickly.
+The Rapid Security Response system is meant to sidestep that problem, at least for a subset of software on your device, notably for Safari and other web browsing components, which are commonly exploited by criminals for launching attacks such as silently implanting spyware or injecting surveillance-related malware.
+As mentioned above, Rapid Security Response patches are meant to be quick to install, and easy to remove afterwards if you run into trouble.
+In Apple’s own words, Rapid Security Responses are designed so that:
+[t]hey deliver important security improvements between software updates – for example, improvements to the Safari web browser, the WebKit framework stack or other critical system libraries. They may also be used to mitigate some security issues more quickly, such as issues that may have been exploited or reported to exist.
+Browsing on its own is meant to be comparatively low risk, given that the browser itself is supposed to programmed to shield you from immediate harm.
+Indeed, browser-based content isn’t supposed to be able to cause any software-based cybersecurity trouble at all if all you do is look at at a website.
+Sure, you could be lied to by fake content, but that won’t directly affect the security of the code running on the device itself.
+Or you could be cajoled into approving some risky action such as installing a rogue app or filling in a fake logon form, but you typically get at least a fighting chance to detect that you’re being scammed.
+Simply put, as long as you’re “Just Visiting”, as the Monopoly board puts it when you land on the Jail square naturally, instead of being sent there from somewhere else, you ought to be at little or no risk from browsing activity.
+Of course, the ability of your browser to shield you from entirely automated attacks, and to ensure that the content of a web page by itself is never enough by itself to infect you with malware or steal data from your device…
+…depends on the browser not having any security bugs through which booby-trapped content could circumvent the browser’s own security shields and subject you to what’s jocularly known as a drive-by install or a look-and-get-pwned attack.
+These latest patches should be considered critical.
+We’re assuming that they’re associated with a live spyware or malware attack that’s happening right now, given the bug that’s fixed:
+In jargon-free language, “actively exploited” means “this is a zero-day”, or more bluntly, “the crooks found this one first”, which in turn means: Do not delay, simply do it today.
+There are Rapid Security Responses for the latest versions of macOS Ventura 13.4.1, iOS 16.5.1 and iPadOS 16.5.1.
+Those versions will report themselves as 13.4.1 (a) and 16.5.1 (a) respectively once the rapid patch is installed. (That trailing (a) will vanish if you later uninstall the patch).
+For the older supported versions macOS Big Sur and macOS Monterey, there’s an old-style system update that just patches Safari, which will show up as Safari 16.5.2 after the update.
+So far, however [2023-07-10T23:00:00Z], there are no updates for any other Apple platforms, even though it’s possible that that iOS 15, still officially supported on older iPhones and iPads, is affected too, along with Apple Watches and TVs.
+Keep your eye on Apple’s general Security Portal and the new Rapid Security Response page for further information about updates for other Apple systems.
+Head to Settings > General > Software Update to check whether you’ve correctly received and installed this emergency patch yet, and to jump to the front of the queue if you haven’t.
+Remember that on iPhones and iPads, all browsers and apps that can display web-based content (whether they’re from Apple, Mozilla, Microsoft, Google or any other vendor), are forced to use WebKit under the covers.
+So, just installing an alternative browser and avoiding Safari for a while when you see news like this is not enough on its own!
+(Note. On older Macs, check for the Safari 16.5.2 update using About This Mac > Software Update….)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+My Ventura, iOS 16.5.1 and iPadOS 16.5.1 devices are set to automatically apply rapid security updates. They are not showing the update as being available, and (contrary to the article) they are not showing an (a) suffix on their version numbers in their respective About pages. Anyone else see this? Might this just be a Rapid Security Response glitch?
+(In comparison, my 2 older Macs stuck on Monterey did show the Safari update being available to update manually.)
+I assume that you went into the Settings > General > Software Update page by hand to force a check?
+If so, and you still aren’t seeing the patch as available… I don’t know what to advise other than to suggest that “it may work it you try again later”. 
+The time at which the update shows up may depend on your region, for example, or may be delayed due to global load, given that this is a new system and automatic by default.
+I had a transient update error the first time I tried to update my macOS Ventura system this time. It found the update and offered me a button to install it; I then went and did something else (kicked off an update check on my Big Sur laptop, in fact) and by the time I hit “Install” I received an error telling me to start the update check again, which brought me to the “Install” button again, which worked fine the second time. 
+FWIW, when the first Rapid Response came out, I and many others had transient errors accessing the update for an hour or so, after which it worked.
+Ignoring that glitch on Ventura, the updates took about 60 seconds (no reboot) on Big Sur, and about 2 mins each on Monterey and iOS 16.5.1 (one quick reboot included in each case).
+Update download sizes were just under 140MB on Big Sur, just under 7MB on Ventura and just under 3MB on iOS 16.5.1.
+Apparently the update has been suspended temporarily due to some websites not liking the browser user agent string that encodes the version number with an “(a)” in it. Or something.
+I assume that the update will reappear shortly, presumably with a “(b)” this time…
+…so my flippant advise to try again later is probably correct!
+Thanks, Paul!
+See:
+https://nakedsecurity.sophos.com/2023/07/11/apple-silently-pulls-its-latest-zero-day-update-what-now/
+Readers, please let us know how you get along… as we explain in the link above, we did get this patch, we haven’t had any trouble browsing (via Safari or Edge), and so we’re not willing to uninstall it “to see what happens” in case we can’t download it again until Apple Says So.
+Just a correction:
+DFU means DEVICE firmware upgrade, not DIRECT.
+I changed it. Apple is surprisingly coy about using the abbreviation at all, and when it does seems to write DFU as if it were a word in its own right (without expanding it)…
+…but it is a device firmware update (albeit a direct one!) so I will go with that. Thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

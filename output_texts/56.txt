@@ -1,0 +1,36 @@
+Sophos Home protects every Mac and PC in your home 
+The US Cybersecurity and Infrastructure Security Agency (CISA) has just put out a bulletin numbered AA22-074A, with the dramatic title Russian State-Sponsored Cyber Actors Gain Network Access by Exploiting Default Multifactor Authentication Protocols and “PrintNightmare” Vulnerability.
+To sidestep rumours based on the title alone (which some readers might interpret as an attack that is going on right now), and instead to reinforce the lessons that CISA hopes this incident can teach us, here’s what you need to know.
+Fortunately, the overall story is simply and quickly told.
+The attack dates back to May 2021, and the victim was an non-government organisation, or NGO, un-named by CISA.
+As far as we can tell, and briefly summarised, the attackers: 
+At this point, as you can imagine, the attackers were able to add new accounts without worrying about 2FA; wander around the network; riffle through organisational data stored in the cloud; and snoop on email accounts. 
+CISA didn’t give any information about how much data was accessed, how long the attackers stayed inside the network, or what, if anything, was exfiltrated.
+Those details would have been interesting to read about, to be sure, but they’re not critical to the story.
+What’s important is how the attackers got in, and how the infiltration could have been prevented.
+Our recommendations are:
+And, of course:
+The title of this CISA bulletin may sound dramatic, but this was not a new type of attack; it did not rely on any previously unknown flaws in 2FA; and it did not rely on hard-to-spot exploits or brand new hacking tools. 
+(Although the attackers did indeed use the PrintNightmare exploit in this case, they were still able to get inside the network without it.)
+Remember that Proactive SecOps + Strong monitoring + Fast response + Safe configuration choices = A better prospect of stopping attackers in time.
+If you don’t have the experience or the time to maintain ongoing threat reponse by yourself, consider partnering with a service like Sophos Managed Threat Response.
+We help you take care of the activities you’re struggling to keep up with because of all all the other daily demands that IT dumps on your plate.
+Not enough time or staff?Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The first link is wrong to the CISA bulletin.
+Ooops, good spot. Fixing now! (I transposed “074” in the text into “047” in the link. Should be correct now [2022-02-16T13:00Z].)
+MFA config to fail open is common.  MFA bypass for non-enrolled users is common.  No alerts for these configs that are supposed to be for test/setup phase.  MFA providers need to do better.
+When you make a bad setting easy to enable (or default enabled) and don’t create an onboarding and alerting flow around those bad settings, some of that responsibility must go back to the provider of the service.  You built it.  The customer is renting it, likely with inexperienced staff trying to speed RTM during rollout.
+Leaky S3 buckets everywhere?  Amazon finally built a blinky light for that.  Duo does not have this for bypass policy settings.
+I might add that any security system/implementation should be tested from time to time – make sure it works and that it has no critical vulnerabilities.
+If you only test your system when your IDS or IPS flags something, you’re not actually testing it – testing should be proactive not reactive.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

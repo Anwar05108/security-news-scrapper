@@ -1,0 +1,207 @@
+Sophos Home protects every Mac and PC in your home 
+THREE BILLION DOLLARS IN A POPCORN TIN?
+Radio waves so mysterious they’re known only as X-Rays. Were there six 0-days or only four? The cops who found $3 billion in a popcorn tin. Blue badge confusion. When URL scanning goes wrong. Tracking down every last unpatched file. Why even unlikely exploits can earn “high” severity levels.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Twitter scams, Patch Tuesday, and criminals hacking criminals. 
+All that and more on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I’m Doug. 
+He is Paul Ducklin.
+ Paul, how do you do today?
+DUCK.  Very well, Doug. 
+We didn’t have the lunar eclipse here in England, but I did get a brief glimpse of the *full* full moon through a tiny gap in the clouds that emerged as the only hole in the whole cloud layer the moment I went outside to have a look!
+But we didn’t have that orange moon like you guys did in Massachusetts.
+DOUG.  Let us begin the show with This Week in Tech History… this goes way back.
+This week, on 08 November 1895, German physics professor Wilhelm Röntgen stumbled upon a yet undiscovered form of radiation which prompted him to refer to said radiation simply as “X”. 
+As in X-ray. 
+How about that… the accidental discovery of X-rays?
+DUCK.  Quite amazing. 
+I remember my mum telling me: in the 1950s (must have been the same in the States), apparently, in shoe shops… 
+DOUG.  [KNOWS WHAT’S COMING] Yes! [LAUGHS] 
+DUCK.  People would take their kids in… you’d stand in this machine, put on the shoes and instead of just saying, “Walk around, are they tight? Do they pinch?”, you stood in an X-ray machine, which just basically bathed you in X-ray radiation and took a live photo and said, “Oh yes, they’re the right size.”
+DOUG.  Yes, simpler times. A little dangerous, but…
+DUCK.  A LITTLE DANGEROUS?
+Can you imagine the people who worked in the shoe shops? 
+They must have been bathing in X-rays all the time.
+DOUG.  Absolutely… well, we’re a little safer today. 
+And on the subject of safety, the first Tuesday of the month is Microsoft’s Patch Tuesday. 
+So what did we learn this Patch Tuesday here in November 2022?
+Exchange 0-days fixed (at last) – plus 4 brand new Patch Tuesday 0-days!
+
+DUCK.  Well, the super-exciting thing, Doug, is that technically Patch Tuesday fixed not one, not two, not three… but *four* zero-days. 
+But actually the patches you could get for Microsoft products on Tuesday fixed *six* zero-days. 
+Remember those Exchange zero-days that were notoriously not patched last Patch Tuesday: CVE-2002-41040 and CVE-2022-41082, what became known as ProxyNotShell?
+S3 Ep102.5: “ProxyNotShell” Exchange bugs – an expert speaks [Audio + Text]
+
+Well, those did get fixed, but in essentially a separate “sideline” to Patch Tuesday: the Exchange November 2022 SU, or Software Update, that just says:
+The November 2022 Exchange Software Updates contain fixes for the zero-day vulnerabilities reported publicly on 29 September 2022.
+All you have to do is upgrade Exchange. 
+Gee, thanks Microsoft… I think we knew that that’s what we were going to have to do when the patches finally came out! 
+So, they *are* out and there are two zero-days fixed, but they’re not new ones, and they’re not technically in the “Patch Tuesday” part. 
+There, we have four other zero-days fixed. 
+And if you believe in prioritising patches, then obviously those are the ones you want to deal with first, because somebody already knows how to do bad things with them.
+Those range from a security bypass, to two elevations-of-privilege, and one remote code execution.
+But there are more than 60 patches in total, and if you look at the overall list of products and Windows components affected, there’s an enormous list, as usual, that takes in every Windows component/product you’ve heard of, and many you probably haven’t. 
+Microsoft patches 62 vulnerabilities, including Kerberos, and Mark of the Web, and Exchange…sort of
+
+So, as always: Don’t delay/Do it today, Douglas!
+DOUG.  Very good. 
+Let us now talk about quite a delay… 
+You have a very interesting story about the Silk Road drug market, and a reminder that criminals stealing from criminals is still a crime, even if it’s some ten years later that you actually get caught for it.
+Silk Road drugs market hacker pleads guilty, faces 20 years inside
+
+DUCK.  Yes, even people who are quite new to cybersecurity or to going online will probably have heard of “Silk Road”, perhaps the first well-known, bigtime, widespread, widely-used dark web marketplace where basically anything goes. 
+So, that all went up in flames in 2013. 
+Because the founder, originally known only as Dread Pirate Roberts, but ultimately revealed to be Ross Ulbricht… his poor operational security was enough to tie the activities to him. 
+Silk Road founder Ross Ulbricht gets life without parole
+
+Not only was his operational security not very good, it seems that in late 2012, they had (can you believe it, Doug?) a cryptocurrency payment processing blunder…
+DOUG.  [GASPS IN MOCK HORROR]
+DUCK.  …of the type that we have seen repeated many times since, that went around not quite doing proper double entry accounting, where for each debit, there’s a corresponding credit and vice versa. 
+And this attacker discovered, if you put some money into your account and then very quickly paid it out to other accounts, that you could actually pay out five times (or even more) the same bitcoins before the system realised that the first debit had gone through. 
+So you could basically put in some money and then just withdraw it over and over and over again, and get a bigger stash…
+…and then you could go back into what you might call a “cryptocurrency milking loop”.
+And it’s estimated… the investigators weren’t sure, that he started off with between 200 and 2000 bitcoins of his own (whether he bought them or mine them, we don’t know),  and he very, very quickly turned them into, wait for it, Doug:  50,0000 bitcoins!
+DOUG.  Wow!
+DUCK.  More than 50,000 bitcoins, just like that. 
+And then, obviously figuring that someone was going to notice, he cut-and-run while he was ahead with 50,000 bitcoins… 
+…each worth an amazing $12, up from fractions of a cent just a few years before. [LAUGHS]
+So he made off with $600,000, just like that, Doug.
+[DRAMATIC PAUSE]
+Nine years later…
+[LAUGHTER]
+…almost *exactly* nine years later, when he was busted and his home was raided under a warrant, the cops went searching and found a pile of blankets in his closet, under which was hidden a popcorn tin. 
+Strange place to keep your popcorn.
+Inside which was a sort-of computerised cold wallet.
+Inside which were a large proportion of said bitcoins! 
+At the time he was busted,  bitcoins were something north of $65,535 (or 216-1) each. 
+They’d gone up well over a thousand fold in the interim.
+So, at the time, it was the biggest cryptocoin bust ever! 
+Nine years later, having apparently been unable to dispose of his ill-gotten gains, maybe afraid that even if he tried to shove them in a tumbler, all fingers would point back to him… 
+…he’s had all this $3 billion worth of bitcoins that have been sitting in a popcorn tin for nine years!
+DOUG.  My goodness.
+DUCK.  So, having sat on this scary treasure for all those years, wondering if he was going to get caught, now he’s left wondering, “How long will I go to prison for?” 
+And the maximum sentence for the charge that he faces? 
+20 years, Doug.
+DOUG.  Another interesting story going on right now. If you’ve been on Twitter lately, you will know that there’s a lot of activity. to say it diplomatically…
+DUCK.  [LOW-TO-MEDIUM QUALITY BOB DYLAN IMPERSONATION] Well, the times, they are a-changing.
+DOUG.  …including at one point the idea of charging $20 for a verified blue check, which, of course, almost immediately prompted some scams.
+Twitter Blue Badge email scams – Don’t fall for them!
+
+DUCK.  It’s just a reminder, Doug, that whenever there’s something that has attracted a lot of interest, the crooks will surely follow. 
+And the premise of this was, “Hey, why not get in early? If you’ve already got a blue mark, guess what? You won’t have to pay the $19.99 a month if you preregister. We’ll let you keep it.”
+We know that that wasn’t Elon Musk’s idea, as he stated it, but it’s the kind of thing that many businesses do, don’t they? 
+Lots of companies will give you some kind of benefit if you stay with the service. 
+So it’s not entirely unbelievable.
+As you say… what did you give it? 
+B-minus, was it?
+DOUG.  I give the initial email a B-minus… you could perhaps be tricked if you read it quickly, but there are some grammar issues; stuff doesn’t feel right. 
+And then once you click through, I’d give the landing pages C-minus. 
+That gets even dicier.
+DUCK.  That’s somewhere between 5/10 and 6/10?
+DOUG.  Yes, let’s say that. 
+And we do have some advice, so that even if it is an A-plus scam, it won’t matter because you’ll be able to thwart it anyway! 
+Starting with my personal favorite: Use a password manager. 
+A password manager solves a lot of problems when it comes to scams.
+DUCK.  It does. 
+A password manager doesn’t have any human-like intelligence that can be misled by the fact that the pretty picture is right, or the logo is perfect, or the web form is in exactly the right position on the screen with exactly the same font, so you recognise it. 
+All it knows is: “Never heard of this site before.”
+DOUG.  And of course, turn on 2FA if you can. 
+Always add a second factor of authentication, if possible.
+DUCK.  Of course, that doesn’t necessarily protect you from yourself. 
+If you go to a fake site and you’ve decided, “Hey, it’s pixel-perfect, it must be the real deal”, and you are determined to log in, and you’ve already put in your username and your password, and then it asks you to go through the 2FA process…
+…you’re very likely to do that. 
+However, it gives you that little bit of time to do the “Stop. Think. Connect.” thing, and say to yourself, “Hang on, what am I doing here?” 
+So, in a way, the little bit of delay that 2FA introduces can actually be not only very little hassle, but also a way of actually improving your cybersecurity workflow… by introducing just enough of a speed bump that you’re inclined to take cybersecurity that little bit more seriously. 
+So I don’t see what the downside is, really.
+DOUG.  And of course, another strategy that’s tough for a lot of people to abide by, but is very effective, is to avoid login links and action buttons in email. 
+So if you get an email, don’t just click the button… go to the site itself and you’ll be able to tell pretty quickly whether that email was legit or not.
+DUCK.  Basically, if you can’t totally trust the initial correspondence, then you can’t rely on any details in it, whether that’s the link you’re going to click, the phone number you’re going to call, the email address you’re going to contact them on , the Instagram account you’re going to send DMs to, whatever it is. 
+Don’t use what’s in the email… find your own way there, and you will short circuit a lot of scams of this sort.
+DOUG.  And finally, last but not least… this should be common sense, but it’s not: Never ask the sender of an uncertain message if they’re legitimate.
+Don’t reply and say, “Hey, are you really Twitter?”
+DUCK.  Yes, you’re quite right.
+Because my previous advice, “Don’t rely on the information in the email”, such as don’t phone their phone number… some people are tempted to go, “Well, I’ll call the phone number and see if it really is them. [IRONIC] Because, obviously, if the cook’s answer, they’re going to give their real names.” 
+DOUG.  As we always say: If in doubt/Don’t give it out. 
+And this is a good cautionary tale, this next story: when security scans, which are legitimate security tools, reveal more than they should, what happens then?
+Public URL scanning tools – when security leads to insecurity
+
+DUCK.  This is a well-known researcher by the name of Fabian Bräunlein in Germany… we’ve featured him a couple of times before. 
+He’s back with a detailed report entitled urlscan.io‘s SOAR spot: chatty security tools leaking private data. 
+And in this case, it’s urlscan.io, a website that you can use for free (or as a paid service) where you can submit a URL, or a domain name, or an IP number, or whatever it is, and you can look up, “What does the community know about this?” 
+And it will reveal the full URL that other people asked about. 
+And this is not just things that people copy-and-paste of their own choice. 
+Sometimes, their email, for example, may be going through a third-party filtering tool that itself extracts URLs, calls home to urlscan.io, does the search, gets the result and uses that to decide whether to junk, spam-block, or pass through the message. 
+And that means that sometimes, if the URL included secret or semi-secret data, personally identifiable information, then other people who just happened to search for the right domain name within a short period afterwards would see all the URLs that were searched for, including things that may be in the URL.
+You know, like blahblah?username=doug&passwordresetcode= followed by a long string hexadecimal characters, and so on. 
+And Bräunlein came up with a fascinating list of the kind of URLs, particularly ones that may appear in emails, that may routinely get sent off to a third party for filtering and then get indexed for searching. 
+The kind of emails that he figured were definitely exploitable included, but were not limited to: account creation links; Amazon gift delivery links; API keys; DocuSign signing requests; dropbox file transfers; package tracking; password resets; PayPal invoices; Google Drive document sharing; SharePoint invites; and newsletter unsubscribe links.
+Not pointing fingers there at SharePoint, Google Drive, PayPal, etc. 
+Those were just examples of URLs that he came across which were potentially exploitable in this way.
+DOUG.  We’ve got some advice at the end of that article, which boils down to: read Bräunlein’s report; read urlscan.io‘s blog post; do a code review of your own; if you have code that does online security lookups; learn what privacy features exist for online submissions; and, importantly, learn how to report rogue data to an online service if you see it. 
+I noticed there are three… sort-of limericks? 
+Very creative mini-poems at the end of this article…
+DUCK.  [MOCK HORROR] No, they’re not limericks! Limericks have a very formal five-line structure…
+DOUG.  [LAUGHING] I’m so sorry. That’s true!
+DUCK.  …for both meter and rhyme.
+Very structured, Doug!
+DOUG.  I’m so sorry, so true. [LAUGHS]
+DUCK.  This is just doggerel. [LAUGHTER]
+Once again: If in doubt/Don’t give it out. 
+And if you’re collecting data:  If it shouldn’t be in/Stick it straight in the bin. 
+And if you’re writing code that calls public APIs that could reveal customer data: Never make your users cry/By how you call the API.
+DOUG.  [LAUGHS] That’s a new one for me, and I like that one very much! 
+And last, but certainly not least on our list here, we’ve been talking week after week about this OpenSSL security bug. 
+The big question now is, “How can you tell what needs fixing?”
+The OpenSSL security update story – how can you tell what needs fixing?
+
+DUCK.  Indeed, Doug, how do we know what version of OpenSSL we’ve got? 
+And obviously, on Linux, you just open a command prompt and type openssl version, and it tells you the version you’ve got. 
+But OpenSSL is a programming library, and there’s no rule that says that software can’t have its own version. 
+Your distro might use OpenSSL 3.0, and yet there’s an app that says, “Oh, no, we haven’t upgraded to the new version. We prefer OpenSSL 1.1.1, because that’s still supported, and in case you don’t have it, we’re bringing our own version.” 
+And so, unfortunately, just like in that infamous Log4Shell case, you had to go looking for the three? 12? 154? who-knows-how-many places on your network where you might have an outdated Log4J program. 
+Same for OpenSSL. 
+In theory, XDR or EDR tools might be able to tell you, but some won’t support this and many will discourage it: actually running the program to find out what version it is.
+Because, after all, if it’s the buggy or the wrong one, and you actually have to run the program to get it to report its own version… 
+…that feels like putting the cart before the horse, doesn’t it?
+So we published an article for those special cases where you actually want to load the DLL, or the shared library, and you actually want to call its own TellMeThyVersion() software code. 
+In other words, you trust the program enough that you’ll load into memory, execute it, and run some component of it. 
+We show you how to do that so you can make absolutely certain that any outlying OpenSSL files that you have on your network are up to date. 
+Because although this was downgraded from CRITICAL to HIGH, it is still a bug that you need to and want to fix!
+DOUG.  On the subject of the severity of this bug, we got an interesting question from Naked security reader Svet, who writes, in part:
+How is it that a bug that is enormously complex for exploitation, and can only be used for denial of service attacks, continues being classified as HIGH?
+DUCK.  Yes, I think he said something about, “Oh, hasn’t the OpenSL team heard of CVSS?”, which is a US government standard, if you like, for encoding the risk and complexity level of bugs in a way that can be automatically filtered by scripts. 
+So if it’s got a low CVSS score (which is the Common Vulnerability Scoring System), why are people getting excited about it? 
+Why should it be HIGH? 
+And so my answer was, “Why *shouldn’t* it be HIGH?” 
+It’s a bug in a cryptographic engine; it could crash a program, say, that’s trying to get an update… so it will crash over and over and over again, which is a little bit more than just a denial of service, because it’s actually preventing you from doing your security properly. 
+There is an element of security bypass.
+And I think the other part of the answer is, when it comes to vulnerabilities being turned into exploits: “Never say never!”
+When you have something like a stack buffer overflow, where you can manipulate other variables on the stack, possibly including memory addresses, there is always going to be the chance that somebody might figure out a workable exploit. 
+And the problem, Doug, is once they’ve figured it out, it doesn’t matter how complicated it was to figure out…
+…once you know how to exploit it, *anybody* can do it, because you can sell them the code to do so.
+I think you know what I’m going to say: “Not that I feel strongly about it.” 
+[LAUGHTER]
+It is, once again, one of those “damned if they do, damned if they don’t” things.
+DOUG.  Very good, Thank you very much, Svet, for writing that comment and sending it in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Great podcast guys very informative so where to start? Please email on where to start hey that’s a great title for the next podcast lol and I’ll give that one for a small price of 9.95 lol jk you both be blessed
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

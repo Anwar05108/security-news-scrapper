@@ -1,0 +1,275 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. 
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG. VMware holes, PHP flaws, WordPress bugs, and sextortion. 
+All that and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everyone. 
+I am Doug Aamoth; he is Paul Ducklin…
+DUCK. That is I!
+DOUG. We have a lot to cover today.
+Paul, we love to start the show with a Fun Fact… and I don’t know if you at one point or another were a Nokia man?
+DUCK. [SINGS THE NOKIA TUNE] Didda-loo-doo/Didda-loo-doo/Didda-loo-doo/DOOO.
+DOUG. So good!
+DUCK. You know that “dah-dah-dah dit-dit dah-dah-dah”. the tone for Nokia SMS, is just Morse code for “SMS”?
+DOUG. Yes, Morse code for SMS – I did know that! 
+As I was researching these Fun Facts, because this fact will tie into our This Week in Tech History segment… 
+…this is a fun fact about the old-school Nokia phones, which had a reputation for excellent durability. 
+And, among those, the Nokia 3310 handset, circa September 2000, is believed to be the most durable of the bunch. 
+So if you had a Nokia handset around that time, odds are it was the 3310  and it was indestructible. 
+I myself was a Nokia 6110 man – that came out 1998. 
+I remember buying it – I was working at a computer superstore called Circuit City; I was selling computers and I bought it on the employee discount. 
+There was a cellphone plan for $50 that gave you 70 daytime minutes and 200 nighttime and weekend minutes.
+For $50 – and I thought that was a great deal.
+DUCK. I had the…was it the one after?  The 6210?
+DOUG. That was a good one.
+DUCK. And that went missing. 
+So, I thought, “I’m just going to get a cheap phone.” 
+And I got… I think it was the 8210, the little tiny one.
+DOUG. Yes.
+DUCK. Like the 3310, but even smaller. 
+And I must say, Doug, that phone had the best voice quality of any phone I’ve had before or since.
+DOUG. Yes – isn’t that weird? 
+It’s gotten worse somehow.
+DUCK. And it had the world’s weirdest camera. 
+I think it was 200 kilopixels, that camera. 
+DOUG. [LAUGHS]
+DUCK. I took pictures of beaches I’d visit, and afterwards I was unable to recognise what the photograph even was.
+I’d infer they were beaches because they’d be somewhat browny-coloured at the bottom and mostly blue at the top. 
+What a hopeless camera!
+But then people didn’t buy phones as cameras, did they?. 
+DOUG. No.
+DUCK. They bought them to make telephone calls! 
+And at, that I must say, it was a superstar. 
+And how often did you have to charge your phone, Doug?
+DOUG. Once a month maybe? 
+Let’s talk about this VMware story. 
+This is interesting because as I was reading it, I was like, “What’s the big deal?” 
+And then you explained what the big deal was – I was perfectly lured into the trap of it not being a big deal.
+DUCK. Well, the problem with the main bug that we’re talking about here – or main bugs: CVE 2021-22040 and -22041 – is that although you need to be a local administrator (basically, to have root access already) in order to exploit this bug…
+…that root access can be inside a guest virtual machine on the shared computer, not the host. 
+And of course, if you’ve got a virtual machine in the cloud, you might not know who is running the other VMs on that physical server.
+Even if it’s a non-cloud virtual machine server and it’s in your company, you might have several different departments who are each expected to keep their data private from each other – for GDPR reasons, or just common sense reasons. 
+You need to assume that on any virtual machine server, say one that has 10 VMs running on it, there are going to be 11 different administrator accounts and passwords: one for the host, and one each for each of the guests. 
+And the whole idea is, as the host administrator, you’re not supposed to have to worry about the guests. 
+If they’re untrustworthy, they’re untrustworthy *only inside their own VM*. 
+So, the problem with these bugs is they could lead to what are called “guest VM escapes”.
+In other words, somebody who has root access inside one of the pseudo-servers could somehow escape from it and manipulate either: other guest computers which might not belong to them, or, worse, the host server, which almost certainly means that they could then reach in and fiddle with all the other guests as well.
+DOUG. So, we’ve got a patch, and if you can’t patch, we have a temporary workaround.
+So, two ways to sidestep this issue at the moment?
+DUCK. Yes.
+The patch is the right way to do it, because it’s not just these guest escape bugs that you’re patching. 
+There are a whole load of other bugs as well – they don’t seem to be as serious or severe, but why patch one thing when you can patch seven things at the same time? 
+But, like you said, if you can’t quite do that yet, for the guest escape bugs there is a workaround. 
+Unfortunately, as I understand it, it basically means you get no USB simulation or no USB access in your guest VMs. 
+So, if you have a guest VM where you expect to be able to emulate USB devices, for example, they’re not going to work.
+DOUG. OK, that is: VMware fixes holes that could allow virtual machine escapes on nakedsecurity.sophos.com. 
+VMware fixes holes that could allow virtual machine escapes
+
+
+And next we’ve got a PHP flaw.
+DUCK. Yes, it’s one of those things where you find yourself thinking, “OK, so somebody who is really naughty and who takes the proof-of concept could crash my PHP process, and that could stop my web server responding until the relevant process gets restarted.” 
+Is that a big deal? 
+But the crash is actually caused by deliberately forcing memory mismanagement. 
+In particular a memory “use-after-free”, which is where you basically go and poke a knitting needle into somebody else’s memory and potentially modify it in a completely untrusted way.
+DOUG. When Mozilla issues patches, they are quick to point out that, when a bug shows evidence of memory corruption, they say you should “presume that with enough effort, some of these bugs could have been exploited to run arbitrary code.”
+DUCK. Yes, that is quite right! 
+Because although that might be difficult to achieve, you can imagine that the payback, for a cyber crook who manages to figure it out, could be huge.
+Once they know where to start looking, it’s a heck of a lot easier for the Bad Guys to reverse-engineer the exploit from the patch than it is for them to figure it out as a zero-day attack in the first place. 
+So, I always warm to Mozilla when they put that in basically every security update they do.
+They could spend days or weeks on each one of them, to prove that it really is exploitable or not…
+..instead, they just go, “You know, we’ve patched these and we’re assuming that, if somebody wanted to, and you didn’t patch, they could be exploited in the future.” 
+So, be warned. 
+And the irony, Doug, is that it was essentially incorrectly-managed input in a routine that was supposedly all about input validation. 
+BOTH. [LAUGHTER]
+DUCK. We shouldn’t really laugh!
+DOUG. No… 
+Fortunately, if you’re a PHP user, the fix is as simple as updating and patching. 
+We’ve also got some advice for programmers.
+We do like to say, “Validate Thine Inputs”, just in case… but there’s other advice here as well.
+DUCK. In the article, I’ve put two diffs (that means “code differences”) comparing the previous version and the fixed version. 
+In this case, the function deals with checking for validity what are called “floating point” numbers or “decimals”, like 2.5, or 3.14159 (that’s pi), or whatever. 
+And another thing you can do is you can say, “Oh, and I want to make sure whether the number provided falls within a certain range.” 
+For example, where somebody is giving a scaling factor,  you might want that scaling factor to run from -1 to +1. 
+And it turns out that, under some circumstances, if you send input that fails the check, then instead of the check just failing, what happens is this: the code frees up the memory that you’re using to store the number, and then it’s supposed to immediately reallocate new storage to store the validated number.
+In one of the places, that happens correctly. 
+Basically, the programmer does what you might call, “Look for oncoming traffic. If clear, step into the road, and cross in one go.” 
+In one of the places that’s the order they do it. 
+In the other place, they’ve managed to get the three lines of code in the wrong order…
+DOUG. [LAUGHS]
+DUCK. …and they basically go, “Step into the road. Then check if there are any cars coming…
+DOUG. [LAUGHS]
+DUCK. …and if there aren’t/you’re still alive, complete the crossing.”
+And it looks to me as though what happened is that in one part of the code, the range checking was added, and then someone said, “Oh, we should put that in this other, similar part of the code.” 
+And they copied the line that does the error checking, but they pasted it into the wrong place – *between* the “memory free” and the “memory reallocate”, instead of either before both of them or after both of them. 
+(Obviously it should be before, because the idea is, if it’s an error, you’re just going to bail out immediately.)
+So the fix was: moving one line of code down, one line in the file. 
+So, the advice to programmers is this…
+Particularly in C, it is easy to make allocation and deallocation errors, and they *all* matter, so when you’re doing a code review, you need to check them all. 
+And the second thing is – I think if I were to refactor or rewrite this code… because it’s a frequent idiom in this particular module, “free up the memory and allocate a new block”, why do that in two lines of code? 
+Why not create a function called something like “free_up_­and_reallocate_­in_one_go()”?
+That way the programmer who comes after you can’t copy and paste a line of code in between two lines and break things.
+Because there’s only one line., so they can only paste ahead of it or after it.
+And in this case, either of those would have worked out OK.
+So, the devil is in the details, as they say. Douglas.
+DOUG. Very good. 
+All right, that is: Irony alert! PHP fixes security flaw in input validation code on nakedsecurity.sophos.com.
+Irony alert! PHP fixes security flaw in input validation code
+
+
+And now we have a WordPress plugin bug.
+OK, it’s a bug – we can talk about the bug, but the way the company *handled* the bug was really impressive, Paul.
+DUCK. It’s not the most dramatic bug in the world…
+..but it could be problematic, as the company that created it explained. 
+And so I thought it was  worth reminding people who are WordPress users, and who have these particular plugins – there’s a free version called Updraft, and the premium version, the paid version, called Updraft Plus… if you’re using those, they’re backup plugins that help you look after the content of your site. 
+So, if someone messes something up, you can restore it. 
+But the bug could have bad consequences. 
+The problem is this.
+Anybody who has a login on your site (so it’s not an “unauthenticated bug”, but with many sites, you might have the administrators, and you might have dozens or even hundreds of contributors who are allowed to upload and put articles in there, and then somebody else has to approve them)…  
+Any user who can log into your site could, in theory, if they knew how this bug worked, could just get the whole backup of your whole site in one lump. 
+Anyway, when I read the report from the Updraft team, I thought, “My goodness, although this is a somewhat modest bug, and it was quickly fixed, if only more security reports were like this one!” 
+Clear; written in plain English; no excuses; and a genuine and believable apology at the end.
+Even if you don’t use this plugin, you might want to go and read this report, because I think it’s a good example of how you can do security reports well, and perhaps win back trust.
+With a less considered response, you might have had exactly the opposite reaction, and actually made your customers feel worse off.
+DOUG. All right, that is: WordPress backup plugin maker Updraft says you “should update”.
+WordPress backup plugin maker Updraft says “You should update”…
+
+
+And it is time in the show for This Week in Tech History. 
+Well, we talked about Nokia earlier in the show, and this week, on 23 February 2005, we said hello to the first mobile phone virus. 
+It was a worm called Cabir that affected the Symbian operating system, which was popular on Nokia phones.
+The worm spread via Bluetooth to nearby handsets, and didn’t actually do true damage, other than affecting battery life thanks to constant Bluetooth polling. 
+And it was believed to be released by its creators more as a proof-of-concept, or a warning that mobile malware was indeed possible. 
+So, Paul, where were you when Cabir broke out?
+DUCK. Well, I was still a Nokia user! 
+This wasn’t followed by an absolute deluge of mobile phone malware, possibly to the collective relief of the cybersecurity industry and users. 
+But it was a reminder to all of us that, well, “Here’s another operating system that you have to know something about.” 
+And, boy, Symbian was kind of complicated, Doug!
+DOUG. I remember, yes!
+DUCK. Do you think Android has lots of variants? 
+Well, with Symbian it was the same sort of thing – it was a fascinating and complicated ecosystem, Symbian. 
+[QUIZZICAL] And then for, better or for worse, it just disappeared…
+DOUG. I think I read somewhere that, at its height, it was on 70% of handsets…
+DUCK. Which is why, when malware like Cabir came out, there was that sense of, “My golly, if the crooks really figure this out, and they figure out how to make money out of this, we’re all doomed, because everyone’s vulnerable!”
+By good fortune, we got a few years to think about it before mobile malware did become the sort of problem it is today…
+…which I think took more powerful phones. 
+Suddenly the crooks could go, “Hey, I don’t have to strip down my malware. I don’t have to write this super-miniature thing that doesn’t really do anything. I can just use the same techniques that I would when I’m writing a regular app. I’ll just be naughty about it.!
+DOUG. All right.
+If we stay in the “old school” for a little while here, we’ve got a new sextortion scam that uses an old-school tactic that I, for one, have not seen in quite some time. But it’s back!
+DUCK. You mean, “Let’s send the entire text of the email not as an attachment, not as a link that has to be downloaded, but as a pre-rendered, decent-resolution inline image?”
+DOUG. Exactly!
+DUCK. It’s an old technique designed to present difficulties, particularly to mail scanning or content scanning software that relies on things like linguistic analysis. 
+You convert the text, in advance, into an image, so that anyone who wants to do any kind of text scanning or natural language processing on it – or, indeed, to look for any links that are in there – has to do some kind of text recognition first.
+This is not only error-prone, it also adds a whole load of extra computational complexity to preprocess every image into text. 
+But it died out with crooks, I think, because when you have an image, you can’t easily have a clickable link in it
+On the other hand, if what you want to do is scare the person, present what looks like an official document and say, “Read this, think about what we’re saying to you, and email us back and maybe you won’t be charged with these serious criminal offenses allegedly related to viewing of online porn”…
+“Contact us:  maybe you have a good explanation as to why this might have happened innocently. We’re all ears. Oh, by the way, you have 72 hours.”
+So, it’s a nasty trick because, in this case, an image is absolutely fine. 
+You’re not looking for the person to click on something like “I reject your copyright infringement notice”, like the copyright scammers do.
+The verbiage is: “It’s your choice. But there may be something you wish to say in your defence. Here’s the email address.”
+In truth, you should spot this scam… because to those of us who have had any number of these before, they all look the same. 
+They’ve all got the same dramatic story in them. 
+They’ve all got crazy mistakes, if you know what to look for. 
+Like this one: the investigating officer you have to email isn’t just Sergeant So-and-so or Inspector So-and-so. 
+It is the Director General of the French Police!
+And the email, amazingly, comes from a person called Jean Luc Godard [LAUGHS].
+He is in his 90s now, I believe, and he is a very famous neo-marxist French cinematographer…
+DOUG. [LAUGHS]
+DUCK. He’s very well known, and made some amazing films, so I was surprised to find that, in his dotage, he had gone from being a dramatic filmmaker to a serving police officer.
+But there you go – I think the thing the crooks are looking out for here is this: they don’t want a million people to respond, do they, to scams like this? 
+They just want to send out a million copies of the message. 
+The pretext here in the message is that, “Obviously, we didn’t want to put the gory details of the evidence in this email message, but you may want to contact us to try and clear this up.”
+And you imagine that the crooks… their goal is that they want to draw you in. 
+They want those people who are scared enough, or vulnerable enough, or uncertain enough that they will actually type in the lengthy email address and that they will reply. 
+Then, they’re looking for what you might call a “long game” scam, where they’ll be in contact with this person over and over and over.
+So, the lack of a call-to-action link, the lack of a “click here; put in your password right now so we can drain your credit card”…
+…that doesn’t matter. 
+The crooks are looking for people whom they can scam for a long period of time, in a human-led attack. 
+They don’t want a million people to respond!
+They just want people who have self-selected as those who were terribly scared. 
+And, as you can imagine, because of the subject matter, those vulnerable people, those easily scared people…
+…given the subject matter, they’re not likely to turn to friends and family to help, are they? 
+“Hey, we’ve got you for cyberporn offenses. This is serious.” 
+You might think, “Well, I’ve been to some websites that I don’t think were dodgy, but who knows what they’re connected with? Who knows what they’ve got? I’d better find out.”
+You’re probably going to think, “Maybe I should reply and just see what’s going on,” rather than, “I should ask my granddaughter, or my uncle, or my parents, or my best friend.” 
+And that’s really what these crooks are banking on.
+And the other thing with the image, of course: it lets them make it look like it’s a scanned-in, official, printed document.
+Bcause there’s an “APPROVED” stamp on it; there’s a stamp with someone’s signature.
+DOUG. So, we have some advice for the good people here. 
+We talked a little bit about it…
+* How likely does the message really seem? 
+We talked about that. 
+* If in doubt, don’t give it out! 
+We say that a lot – that’s probably a good place to start. 
+* Don’t be afraid to check with a trusted source.
+That’s good, because if someone were to come to me as a trusted source, I would do the next thing in your advice, which would be:
+* Check online for similar messages reported by other people. 
+So, everytime someone comes to me and says, “I was on Facebook and I saw that this is happening,” I go and Google it and I say, “No, that is a scam.”
+DUCK. Yes, you’re quite right, Doug!
+Because the reason why we write these stories up is precisely so that there is the kind of evidence that you mentioned there. 
+So if you think, “Well, I wonder if anyone else is getting these?”, and then you search… 
+…that won’t necessarily catch the crooks out, but sometimes it *will* catch them out.
+Because usually it *does* show up that this was obviously a campaign where somebody is accusing [AMAZED TONE] 100 million people, at the same time, of exactly the same crime. 
+What’s the chance of that? 
+And so that’s a way that you can set your own mind at rest instead of allowing fear, uncertainty and doubt to eat away at you.
+DOUG. All right, that is: French speakers blasted by sextortion scams with no text or links on nakedsecurity.sophos.com.
+French speakers blasted by sextortion scams with no text or links
+
+
+And, as the sun begins to set on our show for this week, we have our Oh! No! segment. 
+We have a reader question for you, Paul, in regards to our article Google announces zero-day in Chrome browser: update now.
+Google announces zero-day in Chrome browser – update now!
+
+
+Reader Diane MP asks a fair question: 
+What’s the casual, mildly proficient user supposed to do? Checking my Chrome version gives me a number that does not resemble the required one on Google Play. I just get ‘already installed’. If experts can’t figure out the complexities of this threat and how to protect against it, well, maybe it’s time for people like me to just move on from the computer era. I’ve been wanting to start painting again anyway, and my phone works just fine independent of the Internet.”
+Diane… I would say, Diane, don’t go! 
+Don’t let this kill your joy for being connected to everyone else in the world. 
+But, Paul, what do you say to that? 
+The frustration of constantly updating and knowing which version you’re supposed to be running?
+DUCK. Yes, I was very sympathetic with that comment. 
+I can’t remember how I exactly responded – I think I just said, “Look, here’s the official way that you find out, and it works on your mobile phone and on a regular browser on your laptop.” 
+So I’m very sympathetic to Diane… I figure, Diane, if you’re listening, maybe take more time to paint!
+DOUG. I was going to say, Diane, “Do paint, but don’t move on from the computer.”
+DUCK. I wouldn’t throw your phone away!
+But sadly, it is true that sometimes even companies that pride themselves on being able to find needles in haystacks and present them to us, to our amazement, like the “next video” Google recommends to you and you think, “How did they know?”…
+Yet, when it comes to giving you a version number, it’s like extra-super-complicated! 
+And unfortunately, for every app that you update, and for every app you use, there tends to be a different way to find the one true version number; a different way to look up online what the real, true, current, patched version number is. 
+Sometimes you just have to run around the houses a bit, trying to work out what the right version is, just  to see whether you’ve got it.
+Or come to a site like nakedsecurity.sophos.com… to be honest, that’s one of the things we aim to do: where there are simple answers, we’ll try and give them to you – and then, if there are anomalies, or exceptions, or weird things around the edge, you can ask for our comments in the Naked Security community. 
+And we will do our best to answer for you if we can.
+BOTH. [LAUGHTER]
+DUCK. But the fact that sometimes it’s a hassle for us to find out…
+DOUG. …yes, it’s not just you, Diane.
+No, it is absolutely frustrating and confusing for everyone!
+DUCK. Fortunately, you will find on Naked Security, when you ask questions like that, people will chip in.
+DOUG. Hang in there, Diane! 
+Well, if you have an Oh! No! you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles like Diane did;  or you can hit us up on social: @NakedSecurity.
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to…
+BOTH. Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+All right, that is: French speakers blasted by sextortion scams with no text or links on nakedsecurity.sophos.com.
+Is it an American English vs British English thing, but the above makes it sound as if naked security is the perpetrator!
+All right, that is: French speakers blasted by sextortion scams with no text or links reported on nakedsecurity.sophos.com.
+Would sound so much better!
+My natural British English preference is to be really scrupulous about word order in cases like this… Doug has the freedom of American English, but, to be fair, in spoken form I don’t think there is any ambiguity because of the tone and the pauses; in the transcript I have made it especially obvious by putting the article title in bold and setting off the second part of the sentence with a comma.
+I never feel, when listening back, that it sounds as though we’re the perpetrators.
+Maybe we should say, “You can find that on nakedsecurity DOT sophos DOT com; the title is “Insert dodgy sounding behaviour description here.”
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

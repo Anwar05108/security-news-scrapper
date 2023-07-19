@@ -1,0 +1,34 @@
+Sophos Home protects every Mac and PC in your home 
+Recent updates to Apple Safari and Google Chrome made big headlines because they fixed mysterious zero-day exploits that were already being used in the wild.
+But this week also saw the latest four-weekly Firefox update, which dropped as usual on Tuesday, four weeks after the last scheduled full-version-number-increment release.
+We haven’t written about this update until now because, well, because the good news is…
+…that although there were a couple of intriguing and important fixes with a level of High, there weren’t any zero-days, or even any Critical bugs this month.
+As usual, the Mozilla team assigned two overarching CVE numbers to bugs that they found-and-fixed using proactive techniques such as fuzzing, where buggy code is automatically probed for flaws, documented, and patched without waiting for someone to figure out just how exploitable those bugs might be:
+As usual, Mozilla is plain-speaking enough to make the simple pronouncement that:
+Some of these bugs showed evidence of memory corruption and we presume that with enough effort some of these could have been exploited to run arbitrary code.
+As we’ve explained before, Firefox Extended Support Release is aimed at conservative home users and at corporate sysadmins who prefer to delay feature updates and functionality changes, as long as they don’t miss out on security updates by doing so.
+The ESR version numbers combine to tell you what feature set you have, plus how many security updates there have been since that version came out.
+So, for ESR 102.2, we have 102+2 = 104 (the current leading-edge version).
+Similarly, for ESR 91.13, we have 91+13 = 104, to make it clear that although version 91 is still back at the feature set from about a year ago, it’s up-to-the-moment as far as security patches are concerned.
+The reason there are two ESRs at any time is to provide a substantial double-up period between versions, so you are never stuck with taking on new features just to get security fixes – there’s always an overlap during which you can keep using the old ESR while trying out the new ESR to get ready for the necessary switchover in the future.
+The two specific and apparently-related vulnerabilities that made the High category this month were:
+As you can imagine, these bugs mean that rogue content fetched from an otherwise innocent-looking site could end up with Firefox tricking you into trusting web pages that you shouldn’t.
+In the first bug, Firefox could be lured into presenting content served up from an unknown and untrusted site as if it had come from a URL hosted on a server that you already knew and trusted.
+In the second bug, web content from an untrusted site X shown in a sub-window (an IFRAME, short for inline frame) within a trusted site Y…
+…could end up with security permissions “borrowed” from parent window Y that you would not expect to be passed on (and that you would not knowingly grant) to X, including access to your webcam and microphone.
+On desktops or laptops, go to Help > About Firefox to check if you’re up-to-date.
+If not, the About window will prompt you to download and activate the needed update – you are looking for 104.0, or ESR 102.2, or ESR 91.13, depending on which release series you are on.
+On your mobile phone, check with Google Play or the Apple App Store to ensure you’ve got the latest version.
+On Linux and the BSDs, if you are relying on the version of Firefox packaged by your distribution, check with your distro maker for the latest version they’ve published.
+Happy patching!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

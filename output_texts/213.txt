@@ -1,0 +1,263 @@
+Sophos Home protects every Mac and PC in your home 
+WHAT DO YOU MEAN, “DOESN’T MEET THE BAR FOR SECURITY SERVICING”?
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Breathtaking breaches, decryptable encryption, and patches galore. 
+All that more on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I’m Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today, Sir?
+DUCK.  Doug…I know, because you told me in advance, what is coming in This Week in Tech History, and it’s GREAT!
+DOUG.  OK! 
+This week, on 18 October  1958, an oscilloscope and a computer built to simulate wind resistance were paired with custom aluminum controllers, and the game Tennis for Two was born.
+Shown off at a three-day exhibition at the Brookhaven National Laboratory, Tennis for Two proved to be extremely popular, especially with high school students. 
+If you’re listening to this, you must go to Wikipedia and look up “Tennis for Two”. 
+There’s a video there for something that was built in 1958…
+…I think you’ll agree with me, Paul, it was pretty incredible.
+DUCK.  I would *love* to play it today! 
+And, like Asteroids and Battle Zone, and those specially remembered games of the 1980s…
+…because it’s an oscilloscope: vector graphics! 
+No pixellation, no differences depending on whether a line is at 90 degrees, or 30 degrees, or 45 degrees. 
+And the sound feedback from the relays in the controllers… it’s great! 
+It’s unbelievable that this was 1958. 
+Harking back to a previous This Week in Tech History, it was at the cusp of the transistor revolution.
+Apparently, the computational half was a mixture of thermionic valves (vacuum tubes) and relays. 
+And the display circuitry was all transistor-based, Doug
+So it was right at the mix of all technologies: relays, valves and transistors, all in one groundbreaking video game.
+DOUG.  Very cool. 
+Check it out on Wikipedia: Tennis for Two.
+Now let’s move on to our first story. 
+Paul, I know you to be very adept at writing a great poem…
+…I’ve written a very short poem to introduce this first story, if you’ll indulge me.
+DUCK.  So that’ll be two lines then, will it? [LAUGHS]
+DOUG.  It goes a little something like this.
+Zoom for Mac/Don’t get hijacked. 
+[VERY LONG SILENCE]
+End poem.
+DUCK.  Oh, sorry!
+I thought that was the title, and that you were going to do the poem now.
+DOUG.  So, that’s the poem.
+DUCK.  OK. 
+[WITHOUT EMOTION] Lovely, Doug.
+DOUG.  [IRONIC] Thank you.
+DUCK.  The rhyme was spectacular! 
+But not all poems have to rhyme….
+DOUG.  That’s true.
+DUCK.  We’ll just call it free verse, shall we?
+DOUG.  OK, please.
+Zoom for Mac patches sneaky “spy-on-me” bug – update now!
+
+
+DUCK.  Unfortunately, this was a free backdoor into Zoom for Mac. 
+[FEELING GUILTY] Sorry, that wasn’t a very good segue, Doug.
+[LAUGHS] You tread on someone else’s turf, you often come up short…
+DOUG.  No, it’s good! 
+I was trying out poems this week; you’re trying out segues. 
+We’ve got to get out of our comfort zones every once in a while.
+DUCK.  I assume that this was code that was meant to be compiled out when the final build was done, but accidentally got left in.
+It’s only for the Zoom for Mac version, and it has been patched, so make sure you are up to date. 
+Basically, under some circumstances, when a video stream would start or the camera was activated by the app itself, it would inadvertently think that you might want to debug the program.
+Because, hey, maybe you were a developer! [LAUGHS]
+That’s not supposed to happen in release builds, obviously. 
+And that meant there was a TCP debugging port left open on the local network interface. 
+That meant that anybody who could pass packets into that port, which could be presumably any other locally-connected user, so it wouldn’t need to be an administrator or even you… even a guest user, that would be enough. 
+So, an attacker who had some kind of proxy malware on your computer that could receive packets from outside and inject them into the local interface could basically issue commands to the guts of the program. 
+And the typical things that debugging interfaces allow include: dump some memory; extract secrets; change the behaviour of the program; adjust configuration settings without going through the usual interface so the user can’t see it; capture all the audio without telling anybody, without popping up the recording warning; all of that sort of stuff.
+The good news is Zoom found it by themselves, and they patched it pretty quickly. 
+But it is a great reminder that as we say so often, [LAUGHS] “There’s many a slip ‘twixt the cup and the lip.”
+DOUG.  All right, very good. 
+Let us stay aboard the patch train, and pull into the next station. 
+And this story… perhaps the most interesting part of this story of the most recent Patch Tuesday was what Microsoft *didn’t* include?
+Patch Tuesday in brief – one 0-day fixed, but no patches for Exchange!
+
+
+DUCK.  Unfortunately, the patches that everybody was probably expecting – and we speculated in a recent podcast, “Well, it looks as though Microsoft’s going to make us wait yet another week until Patch Tuesday, and not do an out-of-band “early release”  are those two Exchange zero-days of recent memory.
+What became known as E00F, or Exchange Double Zero-day Flaw in my terminology, or ProxyNotShell as it’s perhaps somewhat confusingly known in the Twittersphere. 
+So that was the big story in this month’s Patch Tuesday: those two bugs spectacularly didn’t get fixed. 
+And so we don’t know when that’s going to happen. 
+You need to make sure that you have applied any mitigations. 
+As I think we’ve said before, Microsoft kept finding that the previous mitigations they suggested… well, maybe they weren’t quite good enough, and they kept changing their tune and adapting the story. 
+So, if you’re in doubt, you can go back to nakedsecurity.sophos.com, search for the phrase ProxyNotShell (all one word), and then go and read up on what we’ve got to say. 
+And you can also link to the latest version of Microsoft’s remediation…
+…because, of all the things in Patch Tuesday, that was the most interesting, as you say: because it was not there.
+DOUG.  OK, let’s now shift gears to a very frustrating story. 
+This is a slap on the wrist for a big company whose cybersecurity is so bad that they didn’t even notice they’d been breached!
+Fashion brand SHEIN fined $1.9m for lying about data breach
+
+
+DUCK.  Yes, this is a brand that most people will probably know as SHEIN (“she-in”), written as one word, all in capitals. (At the time of the breach, the company was known as Zoetop.) 
+And they’re what’s called “fast fashion”.
+You know, they pile it high and sell it cheap, and not without controversy about where they get their designs from. 
+And, as an online retailer, you would perhaps expect they had the online retailing cybersecurity details down pat.
+But, as you say, they did not!
+And the office of the Attorney General of the State of New York in the USA decided that it was not happy with the way that New York residents had been treated who were among the victims of this breach. 
+So they took legal action against this company… and it was an absolute litany of blunders, mistakes and ultimately coverups – in a word, Douglas, dishonesty. 
+They had this breach that they didn’t notice. 
+This, at least in the past, used to be disappointingly common: companies wouldn’t realise they’d been breached until a credit card handler or a bank would contact them and say, “You know what, we’ve had an awful lot of complaints about fraud from customers this month.”
+“And when we looked back at what they call the CPP, the common point of purchase, the one and only one merchant that every single victim seems to have bought something from is you. We reckon the leak came from you.” 
+And in this case, it was even worse. 
+Apparently another payment processor came along and said, “Oh, by the way, we found a whole tranche of credit card numbers for sale, offered as stolen from you guys.” 
+So they had clear evidence that there had been either a breach in bulk, or a breach bit-by-bit.
+DOUG.  So surely, when this company was made aware of this, they moved quickly to rectify the situation, right?
+DUCK.  Well, that depends on how you… [LAUGHING] I shouldn’t laugh, Doug, as always.
+That depends on what you mean by “rectify”.
+DOUG.  [LAUGHING] Oh, god!
+DUCK.  So it seems that they *did* deal with the problem… indeed, there were parts of it that they covered up really well. 
+Apparently. 
+It seems that they suddenly decided, “Whoops, we’d better become PCI DSS compliant”.
+Clearly they weren’t, because they’d apparently been keeping debug logs that had credit card details of failed transactions… everything that you are not supposed to write to disk, they were writing.
+And then they realised that had happened, but they couldn’t find where they left that data in their own network! 
+So, obviously they knew they weren’t PCI DSS compliant. 
+They set about making themselves PCI DSS compliant, apparently, something that they achieved by 2019. (The breach happened in 2018.)
+But when they were told they had to submit to an audit, a forensic investigation… 
+…according to the New York Attorney General, they quite deliberately got in the way of the investigator. 
+They basically allowed the investigators to see the system as it was *after* they fixed it, and welded it, and polished it, and they said, “Oh no, you can’t see the backups,”which sounds rather naughty to me.
+DOUG.  Uh-huh.
+DUCK.  And also the way they disclosed the breach to their customers drew significant ire from the State of New York. 
+In particular, it seems that it was quite obvious that 39,000,000 users’ details in some way had been made off with, including very weakly hashed passwords: a two-digit salt, and one round of MD5. 
+Not good enough in 1998, let alone 2018! 
+So they knew that there was a problem for this large number of users, but apparently they only set about contacting the 6,000,000  of those users who had actually used their accounts and placed orders. 
+And then they said, “Well, we’ve at least contacted all of those people.” 
+And *then* it turned out that they hadn’t actually really contacted all 6,000,000 million users! 
+They had just contacted those of the six million who happened to live in Canada, the United States, or Europe. 
+So, if you’re from anywhere else in the world, bad luck! 
+As you can imagine, that did not go down well with the authorities, with the regulator. 
+And, I must admit… to my surprise, Doug, they were fined $1.9 million. 
+Which, for a company that big…
+DOUG.  Yes!
+DUCK.  …and making mistakes that egregious, and then not being entirely decent and honest about what had happened, and being upbraided for lying about the breach, in those words, by the Attorney General of New York? 
+I was kind of imagining they might have suffered a more serious fate. 
+Perhaps even including something that couldn’t just be paid off by coming up with some money. 
+Oh, and the other thing they did is that when it was obvious that there were users whose passwords were at risk… because they were deeply crackable due to the fact that it was a two-digit salt, which means you could build 100 precomputed dictionaries…
+DOUG.  Is that common? 
+Just a two-digit salt seems really low!
+DUCK.  No, you would typically want 128 bits (16 bytes), or even 32 bytes. 
+Loosely speaking, it doesn’t make a significant difference to the cracking speed anyway, because (depending on the block size of the hash) you’re only adding two extra digits into the mix. 
+So it’s not even as though the actual computing of the hashes takes any longer. 
+As far back as 2016, people using computers of eight GPUs running the “hashcat” program, I think, could do 200 billion MD5s a second.
+Back then! (That amount is something like five or ten times higher now.) 
+So very, very eminently crackable. 
+But rather than actually contacting people and saying, “Your password is at risk because we leaked the hash, and it wasn’t a very good one, you should change it”, [LAUGHTER] they just said…
+…they were very weaselly words, weren’t they?
+DOUG.  “Your password has a low security level and maybe at risk. Please change your login password.” 
+And then they changed it to, “Your password has not been updated for more than 365 days. For your protection, please update it now.”
+DUCK.  Yes, “Your password has a low security level…”
+DOUG.  “BECAUSE OF US!” 
+DUCK.  That’s not just patronising, is it? 
+That’s at or over the border into victim blaming, in my eyes. 
+Anyway, this did not seem to me to be a very strong incentive to companies that don’t want to do the right thing.
+DOUG.  All right, sound off in the comments, we’d like to hear what you think! 
+That article is called: Fashion brand SHEIN fined $1.9 Million for lying about data breach.
+And on to another frustrating story…
+..,another day, another cautionary tale about processing untrusted input!
+Dangerous hole in Apache Commons Text – like Log4Shell all over again
+
+
+DUCK.  Aaargh, I know what that’s going to be, Doug. 
+That’s the Apache Commons Text bug, isn’t it?
+DOUG.  It is!
+DUCK.  Just to be clear, that’s not the Apache Web Server. 
+Apache is a software foundation that has a whole raft of products and free tools… and they’re very useful indeed, and they are open source, and they’re great. 
+But we have had, in the Java part of their ecosystem (the Apache Web Server httpd is not written in Java, so let’s ignore that for now – don’t mix up Apache with Apache Web Server)…
+…in the last year, we’ve had three similar problems in Apache’s Java libraries. 
+We had the infamous Log4Shell bug in the so-called Log4J (Logging for Java) library. 
+Then we had a similar bug in, what was it?… Apache Commons Configuration, which is a toolkit for managing all sorts of configuration files, say INI files and XML files, all in a standardised way.
+And now in an even lower-level library called Apache Commons Text. 
+The bug in in the thing that in Java is generally known as “string interpolation”.
+Programmers in other languages… if you use things like PowerShell or Bash, you’ll know it as “string substitution”. 
+It’s where you can magically make a sentence full of characters turn into a kind of mini-program.
+If you’ve ever used the Bash shell, you’ll know that if you type the command echo USER, it will echo, or print out, the string USER and you’ll see, on the screen U-S-E-R. 
+But if you run the command echo $USER, then that doesn’t mean echo a dollar sign followed by U-S-E-R. 
+What it means is, “Replace that magic string with the name of the currently logged in user, and print that instead.” 
+So on my computer, if you echo USER, you get USER, but if you echo $USER, you get the word duck instead. 
+And some of the Java string substitutions go much, much, much further than that… as anyone who suffered the joy of fixing Log4Shell over Christmas 2021 will remember! 
+There are all sorts of clever little mini-programs that you can embed inside strings that you then process with this string processing library. 
+So there’s the obvious one: to read the username, you put ${env: (for “read the environment”) user}… you use squiggly brackets. 
+It’s dollar-sign; squiggly bracket; some magic command; squiggly bracket that is the magic part. 
+And unfortunately, in this library, there was uncontrolled default availability of magic commands like: ${url:...},  which allows you to trick the string processing library into reaching out on the internet, downloading something, and printing out what it gets back from that web server instead of the string ${url:...}.
+So although that’s not quite code injection, because it’s just raw HTML, it still means you can put all sorts of garbage and weird and wonderful untrusted stuff into people’s log files or their web pages. 
+There’s ${dns:...}, which means you can trick someone’s server, which might be a business logic server inside the network…
+…you can trick it into doing a DNS look up for a named server. 
+And if you own that domain, as a crook, then you also own and operate the DNS server that relates to that domain. 
+So, when the DNS look up happens, guess what? 
+That look up terminates *at your server*, and might help you map out the innards of someone’s business network… not just their web server, but stuff deeper in the network. 
+And lastly, and most worryingly, at least with older versions of Java, there was… [LAUGHS] you know what’s coming here, Doug! 
+The command ${script:...}. 
+“Hey, let me provide you with some JavaScript and kindly run that for me.” 
+And you’re probably thinking, “What?! Hang on, this is a bug in Java. What has JavaScript got to do with it?” 
+Well, until comparatively recently… and remember, many businesses still use older, still-supported versions of the Java Development Kit.
+Until recently, Java… [LAUGHS] (again, I shouldn’t laugh)… the Java Development Kit contained, inside itself, a full, working JavaScript engine, written in Java. 
+Now, there’s no relationship between Java and JavaScript except the four letters “Java”, but you could put ${script:javascript:...}and run code of your choice. 
+And, annoyingly, one of the things that you can do in the JavaScript engine inside the Java runtime is tell the JavaScript engine, “Hey, I want to run this thing via Java.” 
+So you can get Java to call *into* JavaScript, and JavaScript essentially to call *out* into Java. 
+And then, from Java, you can go, “Hey, run this system command.”
+And if you go to the Naked Security article, you will see me using a suspect command to [COUGHS APOLOGETICALLY] pop a calc, Doug!
+An HP RPN calculator, of course, because it is I doing the calculator popping…
+DOUG.  It’s got to be, yes! 
+DUCK.  …this one is an HP-10. 
+So although the risk is not as great as Log4Shell, you can’t really rule it out if you use this library. 
+We have some instructions in the Naked Security article on how to find out whether you have the Commons Text library… and you might have it, like many people did with Log4J, without realising it, because it may have come along with an app. 
+And we also have some sample code there that you can use to test whether any mitigations that you’ve put in place have worked.
+DOUG.  All right, head over to Naked Security. 
+That article is called: Dangerous hole in Apache Commons Text – like Log4Shell all over again. 
+And we wrap up with a question: “What happens when encrypted messages are only kinda-sorta encrypted?”
+Serious Security: Microsoft Office 365 attacked over feeble encryption
+
+
+DUCK.  Ah, you’re referring to what was, I guess, an official bug report filed by cybersecurity researchers at the Finnish company WithSecure recently…
+…about the built-in encryption that’s offered in Microsoft Office, or more precisely, a feature called Office 365 Message Encryption or OME. 
+It’s quite handy to have a little feature like that built into the app.
+DOUG.  Yes, it sounds simple and convenient!
+DUCK.  Yes, except… oh, dear! 
+It seems that the reason for this is all down to backwards compatibility, Doug…
+…that Microsoft want this feature to work all the way back to people who are still using Office 2010, which has rather old-school decryption abilities built into it.
+Basically, it seems that this OME process of encrypting the file uses AES, which is the latest and greatest NIST-standardised encryption algorithm.
+But it uses AES in the wrong so-called encryption mode. 
+It uses what’s known as ECB, or electronic codebook mode. 
+And that is simply the way that you refer to raw AES.
+AES encrypts 16 bytes at a time… by the way, it encrypts 16 bytes whether you use AES-128, AES-192, or AES-256. 
+Don’t mix up the block size and the key size – the block size, the number of bytes that get churned up and encrypted each time you turn the crank handle on the cryptographic engine, is always 128 bis, or 16 bytes. 
+Anyway, in electronic codebook mode, you simply take 16 bytes of input, turn the crank handle around once under a given encryption key, and take the output, raw and unreprocessed.
+And the problem with that is that every time you get the same input in a document aligned at the same 16-byte boundary…
+…you get exactly the same data in the output. 
+So, patterns in the input are revealed in the output, just like they are in a Caesar cipher or a Vigenère cipher:
+Serious Security: What 2000 years of cryptography can teach us
+
+
+Now, it doesn’t mean you can crack the cipher, because you’re still dealing with chunks that are 128 bits wide at a time. 
+The problem with electronic code book mode arises precisely because it leaks patterns from the plaintext into the ciphertext. 
+Known-plaintext attacks are possible when you know that a particular input string encrypts in a certain way, and for repeated text in a document (like a header or a company name), those patterns are reflected. 
+And although this was reported as a bug to Microsoft, apparently the company has decided it’s not going to fix it because it “doesn’t meet the bar” for a security fix. 
+And it seems that the reason is, “Well, we would be doing a disservice to people who are still using Office 2010.”
+DOUG.  Oof!
+DUCK.  Yes!
+DOUG.  And on that note, we have a reader comment for this week on this story.
+Naked Security Reader Bill comments, in part:
+This reminds me of the ‘cribs’ that the Bletchley Park codebreakers used during the Second World War. The Nazis often ended messages with the same closing phrase, and thus the codebreakers could work back from this closing set of encrypted characters, knowing what they likely represented. It is disappointing that 80 years later, we seem to be repeating the same mistakes.
+DUCK.  80 years!
+Yes, it is disappointing indeed. 
+My understanding is that other cribs that Allied code breakers could use, particularly for Nazi-enciphered texts, also dealt with the *beginning* of the document. 
+I believe this was a thing for German weather reports… there was a religious format that they followed to make sure they gave the weather reports exactly. 
+And weather reports, as you can imagine, during a war that involves aerial bombing at night, were really important things! 
+It seems that those followed a very, very strict pattern that could, on occasion, be used as what you might call a little bit of a cryptographic “loosener”, or a wedge that you could use to break in in the first place. 
+And that, as Bill points out… that is exactly why AES, or any cipher, in electronic codebook mode is not satisfactory for encrypting entire documents!
+DOUG.  All right, thank you for sending that in, Bill. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity.
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+In cybersecurity history, the US Independence Day weekend of 2021 is not remembered for the restful and relaxing summer celebrations that you’d usually associate with the Fourth of July.
+Instead, it’s remembered as the weekend of the infamous Kaseya ransomware attack.
+This was ransomware-with-a-difference, and the difference was the ultimate scale of the attack and the size of the side-effects.
+In a typical attack against company X, vital files and data on X’s network get scrambled by the cybercriminals, disrupting X’s computer systems – often including laptops, servers and network services alike – and bringing business operations to a crushing halt.
+Then comes a blackmail demand for Y dollars in Bitcoin, where Y is often in the hundreds-of-thousands range, and sometimes in the millions: “Give us the money and we’ll get your data back for you.”
+Independence Day: REvil uses supply chain exploit to attack hundreds of businesses
+
+
+Of course, the criminals don’t actually do the time-consuming work of recovering the files they just encrypted (and even if they offered to put in the hard yards for you, you almost certainly wouldn’t want them back onto your network anyway).
+The huge sum you’re paying doesn’t actually get your data back – it just offers you a promise of recovering it, by supplying the passwords needed to unscramble your ruined files.
+That’s why the Sophos 2020 State of Ransomware Survey told us that the median cost of recovering from a ransomware attack amongst companies that had their own backups, and didn’t need to pay extortion money to the crooks, was close to $750,000…
+…while the median cost for those who had no choice but to pay up (or perhaps who thought that paying the crooks would somehow short-circuit the traditional complexity of disaster recovery) was almost exactly twice as much, at just under $1,500,000.
+You’re paying the ransom merely for the hope of recovering data you might otherwise have lost forever, not for actually finalising the process of recovering it.
+Another vital, and yet more depressing, statistic to remember comes from the Sophos 2021 Ransomware report, where our survey found that about 1/3 of respondents got hit, and about 1/3 ended up having to pay money to the crooks. 
+(Thanks to the 2020 data, of course, victims would know in advance that paying up would almost certainly be more expensive, so we’re assuming they simply had no choice, faced with the dilemma of, “Do a deal with the devil, or watch the whole business implode and cost everyone their jobs”.)
+Here, we found that, of those who paid to get decryption passwords, half of them lost at least a third of their data anyway.
+Even more dramatically, one third of them lost at least half of their data, and a doubly-damaged 4% of respondents paid up and recovered nothing at all – nil, zilch, nada, not a single sausage:
+Ransomware: don’t expect a full recovery, however much you pay
+
+
+Unfortunately, the Kaseya incident didn’t follow the usual pattern we described above, where company X gets attacked, company X’s files get scrambled, and company X gets blackmailed.
+Kaseya makes and sells IT management tools that can, amongst other things, distribute software updates.
+The cybercriminals in this case used Kaseya’s software in what’s known as a supply-chain attack.
+In other words, the crooks used Kaseya’s infrastructure to disseminate and detonate ransomware infections on Kaseya’s customers’ computers, combining two security weaknesses to spread their malware much more widely than if they had attacked Kaseya alone.
+The first security hole was CVE-2021-30116, a previously unknown bug that allowed an attacker without a password to access Kaseya’s system administration tools and inject unauthorised programs into the next update bundle pushed out to clients. The second security hole was that the criminals deliberately installed their malicious “update” into a special directory on those clients that was deliberately designated by Kaseya as exempt from local malware scanning. As a result, victims unknowingly downloaded tainted “updates” from Kaseya, and then unknowingly installed malware on their own computers in a location where their existing security software had been instructed not to look.
+Ultimately, it seems as though the criminals ended up being too successful, with so many victims were affected that the attackers apparently decided that it wasn’t worth trying to blackmail them one-by-one.
+As we said at the time:
+In the end, it almost felt as though the gang behind the Kaseya infiltration succeeed too well, drawing concerted attention in the aftermath of the attack.
+Indeed, the crooks decided to go all-in by offering a “one size fits all” decryptor – a sort of global site licence, if you like; an all-you-can-eat file unscrambling buffet – for a one-off collective payment.
+The plan might even have worked, if the criminals hadn’t set the fee at a jaw-dropping $70,000,000, though whether they seriously hoped to get paid in full, or simply wanted to rub the world’s noses in the mess, we may never know.
+Kaseya ransomware attackers say: “Pay $70 million and we’ll set everyone free”
+
+
+In this case, the wheels of justice started turning both quickly and effectively.
+In November 2021, the US Department of Justice (DOJ) announced that it had seized more than $6 million in assets from a still-at-large Russian suspect called Yevgeniy Polyanin, and that Polish authorities had arrested a Ukrainian suspect called Yaroslav Vasinskyi when he crossed the border into Poland:
+Kaseya ransomware suspect nabbed in Poland, $6m seized from absent colleague
+
+
+Poland has an extradition treaty with the US, and Vasinskyi has now been sent to Texas, where he has made his first appearance in a US court, accused of being responsible for the Kaseya attack:
+In the alleged attack against Kaseya, Vasinskyi caused the deployment of malicious Sodinokibi/REvil code throughout [sic] a Kaseya product that caused the Kaseya production functionality to deploy REvil ransomware to “endpoints” on Kaseya customer networks. After the remote access to Kaseya endpoints was established, the ransomware was executed on those computers, which resulted in the encryption of data on computers of organizations around the world that used Kaseya software.
+Through the deployment of Sodinokibi/REvil ransomware, the defendant allegedly left electronic notes in the form of a text file on the victims’ computers. The notes included a web address leading to an open-source privacy network known as Tor, as well as the link to a publicly accessible website address the victims could visit to recover their files. Upon visiting either website, victims were given a ransom demand and provided a virtual currency address to use to pay the ransom. If a victim paid the ransom, the defendant provided the decryption key and the victim then was able to access their files. If a victim did not pay the ransom, the defendant typically posted the victim’s stolen data or claimed they sold the stolen data to third parties, and victims remained unable to access their files.
+Vasinskyi is charged with conspiracy to commit fraud and related activity in connection with computers, damage to protected computers, and conspiracy to commit money laundering.
+As the DOJ points out, following common practice in its press releases, the maximum theoretical penalty that the accused faces is an absurd 115 years in prison, though, in reality, maximum sentences are rarely imposed.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,74 @@
+Sophos Home protects every Mac and PC in your home 
+The open source operating system distribution OpenBSD is well-known amongst sysadmins, especially those who manage servers, for its focus on security over speed, features and fancy front-ends.
+Fittingly, perhaps, its logo is a puffer fish – inflated, with its spikes ready to repel any wily hackers who might come along.
+But the OpenBSD team is probably best known not for its entire distro, but for the remote access toolkit OpenSSH that was written in the late 1990s for inclusion in the operating system itself.
+SSH, short for secure shell, was originally created by Finnish computer scientist Tatu Ylönen in the mid-1990s in the hope of weaning sysadmins off the risky habit of using the Telnet protocol.
+Telnet was remarkably simple and effective: instead of connecting physical wires (or using a modem over a telephone line) to make a teletype connection to remote servers, you used a TELetype NETwork connection instead.
+Basically, the data that would usually flow back and forth over a dedicated serial connection or dial-up phone line was sent and received over the internet, using a packet-switched TCP network connection instead of a circuit-switched point-to-point link.
+Same familiar login system, cheaper connections, no need for dedicated data lines!
+The giant flaw in Telnet, of course, was its total lack of encryption, so that sniffing out your exact terminal session was trivial, allowing crackers to see every command you typed (even the mistakes you made, and all the times you hit [Backspace]), and every byte of output produced…
+…and, of course, your username and password at the start of the session.
+Anyone on your network path could not only easily reconstruct your sysadmin sessions in real time on their own screen, but probably also tamper with your session by modifying the commands you sent to the remote server and faking the replies coming back so you didn’t notice the subterfuge.
+They could even set up an imposter server, lure you to it, and make it surprisingly difficult for you to spot the deception.
+Ylönen’s SSH aimed to add a layer of strong encryption and authentication to each end of a Telnet-like session, creating a secure shell (that’s what the name stands for, if you’ve ever wondered, although almost everyone just calls it ess-ess-aitch these days).
+It was an instant hit, and the protocol was quickly adopted by sysadmins everywhere.
+OpenSSH soon followed, as we mentioned above, first appearing in late 1999 as part of the OpenBSD 2.6 release.
+The OpenBSD team wanted to create a free, reliable, open-source implementation of the protocol that they and anyone else could use, without any of the licensing or commercial complications that had encumbered Ylönen’s original implementation in the years immediately after its release.
+Indeed, if you run the Windows SSH server and connect to it from a Linux computer right now, you’ll almost certainly be relying on the OpenSSH implementation at both ends. 
+The SSH protocol is also used in other popular client-server services including SCP and SFTP, short for secure copy and secure FTP respectively. SSH loosely means, “connect Securely and run a command SHell at the other end”, typically for interactive logins, because the Unix program for a command shell is usually /bin/sh. SCP is similar, but for CoPying files, because the Unix file-copy command is generally called /bin/cp, and SFTP is named in much the same way.
+OpenSSH isn’t the only SSH toolkit in town.
+Other well-known implementations include: libssh2, for developers who want to build SSH support right into their own applications; Dropbear, a stripped-down SSH server from Australian coder Matt Johnston that’s widely found on so-called IoT (Internet of Things) devices such as home routers and printers; and PuTTY, a popular, free collection of SSH-related tools for Windows from indie open-source developer Simon Tatham in England.
+But if you’re a regular SSH user, you’ve almost certainly connected to at least one OpenSSH server today, not least because most contemporary Linux distributions include it as their standard remote access tool, and Microsoft offers both an OpenSSH client and an OpenSSH server as official Windows components these days.
+OpenSSH version 9.2 just came out, and the release notes report as follows:
+This release contains fixes for […] a memory safety problem. [This bug] is not believed to be exploitable, but we report most network-reachable memory faults as security bugs.
+The bug affects sshd, the OpenSSH server (the -d suffix stands for daemon, the Unix name for the sort of background process that Windows calls a service):
+sshd(8): fix a pre-authentication double-free memory fault introduced in OpenSSH 9.1. This is not believed to be exploitable, and it occurs in the unprivileged pre-auth process that is subject to chroot(2) and is further sandboxed on most major platforms.
+A double-free bug means that a memory block you already returned to the operating system to be re-used in other parts of your program…
+…will later get handed back again by a part of the program that no longer actually “owns” that memory, but doesn’t know it doesn’t. 
+(Or handed back deliberately at the prompting of code that is trying to provoke the bug on purpose in order to turn a vulnerability into an exploit.)
+This can lead to subtle and hard-to-unravel bugs, especially if the system marks the freed-up block as available when the first free() happens, later allocates it to another part of your code when it asks for memory via malloc(), and then marks the block free once again when the superfluous call to free() appears.
+That leaves you in the sort of situation you experience when you check into a hotel that says, “Oh, good news! We thought we were full up, but another guest just decided to check out early, so you can have their room.”
+Even if the room is neatly cleaned and prepared for new occupants when you go in, and thus looks as though it was properly allocated for your exclusive use,  youstill have to trust that the previous guest’s keycard did indeed get correctly cancelled, and that their “early checkout” wasn’t a cunning ruse to sneak back later the same day and steal your laptop.
+Ironically, if you look at the recent OpenSSH code history, you’ll see that OpenSSH had a modest bug in a function called compat_kex_proposal(), used to check what sort of key-exchange algorithm to use when setting up a connection.
+But fixing that modest bug introduced a more severe vulnerability instead.
+By the way, the presence of the bug in a part of the software that’s used during the setup of a connection is what makes this a so-called network-reachable pre-authentication vulnerability (or pre-auth bug for short).
+The double-free bug happens in code that needs to run after a client has initiated a remote session, but before any key-agreement or authentication has taken place, so the vulnerability can, in theory, be triggered before any passwords or cryptographic keys have been presented for validation.
+In OpenSSH 9.0, compat_kex_proposal looked something like this (greatly simplified here):
+The idea is that the caller passes in their own block of memory containing a text string suggesting a key-exchange setting, and gets back either an approval to use the very suggestion they sent in, or a newly-allocated text string with an updated suggestion.
+The bug is that if condition 1 is false but conditions 2 and 3 are both true, the code allocates two new text strings, but only returns one.
+The memory block allocated by allocatenewstring1() is never freed up, and when the function returns, its memory address is lost forever, so there’s no way for any code to free() it in future.
+That block is essentially abandoned, causing what’s known as a memory leak.
+Over time, this could cause trouble, perhaps even forcing the server to shut down to recover from memory overload.
+In OpenSSH 9.1, the code was updated in an attempt to avoid allocating two strings but abandoning one of them:
+This has the double-free bug, because if condition 1 and condition 2 are both false, but condition 3 is true, then the code allocates a new string to send back as its answer… 
+…but incorrectly frees up the string that the caller originally passed in, because the function allocatenewstring1() never gets called to update the variable suggestion.
+The passed-in suggestion string is memory that belongs to the caller, and that the caller will therefore free up themeslves later on, leading to the double-free danger.
+In OpenSSH 9.2, the code has become more cautious, keeping track of all three possible memory blocks used: the original suggestion (memory owned by someone else), and two possible new strings that might be allocated on the way:
+If condition 1 is true, a new copy of the passed-in string is used, so the caller can later free() their passed-in string’s memory whenever they like.
+If we get past condition 1, and condition 2 is true but condition 3 is false, then the alternative suggestion created by allocatenewstring1() gets returned, and the passed-in suggestion string is left alone.
+If condition 2 is false and condition 3 is true, then a new string gets generated and returned, and the passed-in suggestion string is left alone.
+If both condition 2 and condition 3 are true, then two new strings get allocated along the way; the first one gets freed up because it’s not needed; the second one is returned; and the passed-in suggestion string is left alone.
+You can RTxM to confirm that if you call free(newone) when newone is NULL, then “no operation is performed”, because it’s always safe to free(NULL). Nevertheless, lots of programmers still robustly guard against it with code such as if (ptr != NULL) { free(ptr); }.
+As the OpenSSH team suggests, exploiting this bug will be hard, not least because of the limited privileges that the sshd program has while it’s setting up the connection for use.
+Nevertheless, they reported it as a security hole because that’s what it is, so make sure you’ve updated to OpenSSH 9.2.
+And if you’re writing code in C, remember that no matter how experienced you get, memory management is easy to get wrong…
+…so take care out there. 
+(Yes, Rust and its modern friends will help you to write correct code, but sometimes you will still need to use C, and even Rust can’t guarantee to stop you writing incorrect code if you program injudiciously!)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What this shows is the shockingly bad quality of the code in software that we all rely on.  Whoever wrote it obviously had no test setup and used no static analyser to spot logical errors.  Nor do they wipe the contents of malloced strings when freeing them so that passwords etc are left lying around in the freed memory pool.
+Ideally, people should be using a wrapper around malloc() which allocates a slightly larger block and puts a marker in front of and after the allocated block.  A wrappered free() function could then check for being given a pointer to a a block of memory that had already been freed and check for overrun of the end of the block.
+A simple free() wrapper doesn’t solve your problem… if the block has been freed and then reallocated, a future rogue free() that an attacker can predict could be exploited to trick the allocator into mismanaging its blocks.
+If merely wrapping malloc() and free() could reliably solve this sort of problem on its own then you might hope that the memory allocator itself would just do it anyway and have the wrapper “built in”.
+(Not all potential allocator security improvements are popular or practical, either. The 80286 CPU – which we discuss in the latest podcast, S3 Ep120 – included memory segmentation hardware in the CPU itself that could manage allocation blocks for you and regulate them down to the individual byte. Even a 1-byte buffer overflow could be detected reliably. But that hardware feature was hardly ever used. Too cumbersome! Too slow! Soon the 80386 arrived with memory paging *and* segmentation, and although everyone used the paging system, segmentation was just a waste of chip space, and modern x64 CPUs don’t really support it in 64-bit mode any more. The assumption is that hardware memory allocation will always be in multiples of the allowed page sizes.)
+Is there a CVE and possibly a CVSS for this available, to help in communicating the possible need for update?
+I don’t think there is. At least, there isn’t one in the OpenSSH release notes.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

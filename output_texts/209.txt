@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Chinese company Zoetop, former owner of the wildly popular SHEIN and ROMWE “fast fashion” brands, has been fined $1,900,000 by the State of New York.
+As Attorney General Letitia James put it in a statement last week:
+SHEIN and ROMWE’s weak digital security measures made it easy for hackers to shoplift consumers’ personal data.
+As if that weren’t bad enough, James went on to say:
+[P]ersonal data was stolen and Zoetop tried to cover it up. Failing to protect consumers’ personal data and lying about it is not trendy. SHEIN and ROMWE must button up their cybersecurity measures to protect consumers from fraud and identity theft.
+Frankly, we’re surprised that Zoetop (now SHEIN Distribution Corporation in the US) got off so lightly, considering the size, wealth and brand power of the company, its apparent lack of even basic precautions that could have prevented or reduced the danger posed by the breach, and its ongoing dishonesty in handling the breach after it became known.
+According to the Office of the Attorney General of New York, Zoetop didn’t even notice the breach, which happened in June 2018, by itself.
+Instead, Zoetop’s payment processor figured out that the company had been breached, following fraud reports from two sources: a credit card company and a bank.
+The credit card company came across SHEIN customers’ card data for sale on an underground forum, suggesting that the data had been acquired in bulk from the company iself, or one of its IT partners.
+And the bank identified SHEIN (pronounced “she in”, if you hadn’t worked that out already, not “shine”) as what’s known as a CPP in the payment histories of numerous customers who had been defrauded.
+CPP is short for common point of purchase, and means exactly what it says: if 100 customers independently report fraud against their cards, and if the only common merchant to whom all 100 customers recently made payments is company X…
+…then you have circumstantial evidence that X is a likely cause of the “fraud outbreak”, in the same sort of way that groundbreaking British epidemiologist John Snow traced an 1854 cholera outbreak in London back to a polluted water pump in Broad Street, Soho.
+Snow’s work helped to dismiss the idea that dieseases simply “spread through foul air”; established “germ theory” as a medical reality, and revolutionised thinking on public health. He also showed how objective measurement and testing could help connect causes and effects, thus ensuring that future researchers didn’t waste time coming up with impossible explanations and seeking useless “solutions”.
+Unsurprisingly, given that the company found out about the breach second-hand, the New York investigation castigated the business for not bothering with cybersecurity monitoring, given that it “did not run regular external vulnerability scans or regularly monitor or review audit logs to identify security incidents.”
+The investigation also reported that Zoetop:
+The company was also roundly criticised for its dishonesty in how it dealt with customers after it knew the extent of the attack.
+For example, the company:
+The company, it seems, also neglected to mention that it knew it had suffered a data-stealing malware infection and had been unable to produce evidence that the attack had yielded nothing.
+It also failed to disclose that it sometimes knowingly saved full card details in debug logs (at least 27,295 times, in fact), but didn’t actually try to track down those rogue log files down in its sytems to see where they ended up or who might have had access to them.
+To add injury to insult, the investigation further found that the company was not PCI DSS compliant (its rogue debug logs made sure of that), was ordered to submit to a PCI forensic investigation, but then refused to allow the investigators the access they needed to do their work.
+As the court documents wryly note, “[n]evertheless, in the limited review it conducted, the [PCI-qualified forensic investigator] found several areas in which Zoetop’s systems were not compliant with PCI DSS.”
+Perhaps worst of all, when the company discovered passwords from its ROMWE website for sale on the dark web in June 2020, and ultimately realised that this data was probably stolen back in the 2018 breach that it had already tried to cover up…
+…its response, for several months, was to present affected users with a victim-blaming login prompt saying, “Your password has a low security level and may be at risk. Please change your login password”.
+That message was subseqently changed to a diversionary statement saying, “Your password has not been updated in more than 365 days. For your protection, please update it now.”
+Only in December 2020, after a second tranche of passwords-for-sale were found on the dark web, apparently bringing the ROMWE part of the breach to more than 7,000,000 accounts, did the company admit to its customers that they had been mixed up in what it blandly referred to as a “data security incident.”
+Unfortunately, the punishment in this case doesn’t seem to put much pressure on “who-cares-about-cybersecurity-when-you-can-just-pay-the-fine?” companies to do the right thing, whether before, during or after a cybersecurity incident.
+Should penalties for this sort of behaviour be higher?
+For as long as there are businesses out there that seem to treat fines simply as a cost-of-business that can be worked into the budget in advance, are financial penalties even the right way to go? 
+Or should companies that suffer breaches of this sort, then try to impede third-party investigators, and then to hide the full truth of what happened from their customers…
+…simply be prevented from trading at all, for love or money?
+Have your say in the comments below! (You may remain anonymous.)
+Not enough time or staff?Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Perhaps there should be a bid red banner reading “WARNING!  THIS COMPANY LEAVES YOUR CREDIT CARD DATA WHERE IT CAN BE STOLEN” slapped across their sales and payment pages until they pass a security audit.
+Appalling!! How will the penalties with PCI-SSC work for this incident?
+I don’t know. (Those aren’t ordered by a court so I don’t know whether they are even published automatically.)
+I suppose that the payment card industry can cut off recalcitrant merchants if it wants…
+…though you might be inclined to wonder how strong the incentive is to deny service to a huge retailer, given all the knock-on economic effects that might have.
+> I suppose that the payment card industry can cut off recalcitrant merchants if it wants…
+Typically, the credit card companies would raise their rates for risky customers. Same as automobile insurers who raise the rates for drivers with  bad records.
+The punishment for this carelessness does seem light.  If the initial infraction isn’t punished much, I sure hope the followup infraction is 10-100x more costly!
+Penalising the company or barring it from trading will do nothing.
+In the worst case, the owners will simply pull a new company name off the shelf and start all over again with the same shabby approach and a provision for fines in their balance sheets.
+The only effective penalties are those which hold the responsible individual people to account.
+Fine THEM and bar them and any other company of which they own any part … from ever trading again.
+Only THEN will you see any effort at compliance
+Being a victim several times over and disabled on a fixed income it’s to little to late. True companies should be fined for theft and ALL OF the victims should be compensated also harsh penalties should be implemented.
+From my perspective this shows (again) the big advantage of Google Pay/Apple Pay and Paypal over credit cards. The merchant doesn’t get relevant information which he can mess up. 
+At least in the EU there is since some time a 2FA requirement for credit cards, but I don’t know if this is applied everywhere and how easy it can be circumvented
+It’s not just about the credit cards, though… in a sense, credit cards are often low on the importance scale after a breach of personal info. Typically you do get your money back (though it can be worrying waiting to find out what happened), and you can fairly easily get a new credit card.. it’s the other stuff that merchants keep anyway that is harder to replace. Things like birthdays, home addresses, what you chose to purchase, and more.
+So switching to different payment processors such as XYZ Pay may treat some of the *symptoms* (which I am in no way against) but doesn’t fix the problem of cloud services that “couldn’t be bothered” (and then tell lies about their lack of bother).
+they should be order to pay compensation to all 39,000,000 customer that have been effect.
+I just started ordering from them 2 weeks ago, I loved the items I received from the first order so made another one a week later. Why exactly a week later someone tried to use my card at some trendy.com $89.95, of course my bank denied it instantly and sent me a text message to verify the charge which I said no to. Now I have to wait up to 2 weeks for my card to be replaced. I can’t keep changing cards so if they want to keep orders rolling they need to take this seriously !!!!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

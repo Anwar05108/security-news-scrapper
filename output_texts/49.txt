@@ -1,0 +1,66 @@
+Sophos Home protects every Mac and PC in your home 
+Max Kellermann, a coder and security researcher for German content management software creators CM4all, has just published a fascinating report about a Linux kernel bug that was patched recently.
+He called the vulnerability Dirty Pipe, because it involves insecure interaction between a true Linux file (one that’s saved permanently on disk) and a Linux pipe, which is a memory-only data buffer that can be used like a file.
+Very greatly simplified, if you have a pipe that you are allowed to write to and a file that you aren’t…
+…then, sometimes, writing into the pipe’s memory buffer may inadvertently also modify the kernel’s temporary in-memory copies – the so-called cache pages – of various parts of the disk file.
+Annoyingly, even if the file is flagged as “read only” by the operating system itself, modifying its underlying kernel cache is treated as a “write”.
+As a result, the modified cache buffer is flushed back to disk by the kernel, permanently updating the contents of the stored file, despite any operating system permissions applied to it.
+Even a physically unwritable file, such as one on a CD-ROM or an SD card with the write-enable switch turned off, will appear to have been modified for as long as the corrupted cache buffers are kept in memory by the kernel.
+For those running Linux who want to cut to the chase and check if they’re patched, Kellermann reports that this bug was introduced (at least in its current, easily exploitable form) in kernel 5.8.
+That means three officially supported kernel flavours are definitely at risk: 5.10, 5.15 and 5.16.
+The bug was patched in 5.10.102, 5.15.25 and 5.16.11, so if you have a version that is at or above one of those, you’re OK.
+Apparently, Android is affected too, and although a fix for the vulnerability was incorporated into the kernel source code on 2022-02-24, neither Google’s Android Security Bulletin for March 2022, nor the company’s Pixel-specific notes, mention this bug, now dubbed CVE-2022-0847.
+Of all the numerous officially supported Android handsets we’ve surveyed so far, the only ones we heard of that use kernel 5.10 are the Google Pixel 6 and the Samsung S22 series (reports suggest both of these are still on 5.10.43 [2022-03-09T12:00Z]). 
+Most devices seem still to be using one of the older-but-apparently-not-vulnerable Linux 5.4 or 4.x versions.
+Intriguingly, Kellermann discovered the vulnerability due to intermittent corruption of HTTP log files on his company’s network.
+He had a server process that would regularly take daily logfiles, compressed using the Unix-friendly gzip utility, and convert them into monthly logfiles in the Windows-friendly ZIP format for customers to download.
+ZIP files support, and typically use, gzip compression internally, so that raw gzip files can actually be used as the individual components inside a ZIP archive, as long as ZIP-style control data is added at the start and end of the file, and in between each internal gzipped chunk. 
+So, to save both time and CPU power, Kellermann was able to avoid temporarily decompressing each day’s logfile for each customer, only to recompress it immediately into the all-inclusive ZIP file.
+He ended up creating a writable Linux pipe to which he could  export the all-in-one ZIP archive, and then he’d read from each gzip file in turn, sending them one-by-one into the output pipe, with the needed headers and trailers inserted at the right points.
+For extra efficiency, he used the special Linux function splice(), which tells the kernel to read data from a file and write it into a pipe directly from kernel memory, which avoids the overhead of a traditional read()-and-then-write() loop.
+Reading-and-writing using the traditional read() and write() functions means copying data from the kernel into a memory buffer assigned by the user, and then copying that buffer straight back into the kernel, so the data is copied around in memory at least twice, even though it’s not modified in the process. To avoid this overhead, splice() and its companion function sendfile() were introduced to Linux for use when programmers wanted to move data unaltered between two file system objects. For large files on a busy server, this is faster and reduces load.
+Occasionally, however, Kellermann would find that the last 8 bytes of one of the original gzip files would get corrupted, even though he was only ever reading from these files.
+All his output was going into the writable “output pipe” used to create the combined ZIP file.
+There was nothing in his code that even tried to write to any of the input files, which were opened “read only” and should therefore have been protected by the operating system anyway.
+One telltale he spotted was that the corrupted 8 bytes almost always showed up in the last gzip file of any month, and were always  50 4B 01 02 1E 03 14 00 in hexadecimal.
+Threat researchers will recognise 50 4B 01 02 right away, because 50 4B comes out as PK in ASCII characters, short for Phil Katz, the creator of the ZIP file format.
+Also commonly seen in malware analysis involving ZIP files are those bytes 01 02 immediately after the PK – that’s a special marker that denotes “what follows is a block of data in the end-of-archive ZIP trailer”.
+The bytes 1E 03, in case you’re wondering, denote that the file was created on a Unix-like system (0x03), following zipfile specification 3 (0x1E is 30 in decimal, interpreted as version 3.). The 14 00 after that denotes that PKZIP 2.0 or later is needed to uncompress (0x14 is 20 in decimal, interpreted as 2.0).
+In other words, Kellerman was able to infer that the data bleeding into the very end of occasional “read only” gzip files was always the start of the additional data that he was adding at the end of his writable, all-in-one ZIP file.
+No matter how carefully he perused at his own code, however, he couldn’t see how he could perpetrate this corruption with a bug of his own, even if he wanted to.
+After all, the side-effect of the bug was that his software ended up corrupting 8 bytes
+at the end of a file that the kernel itself was supposed to stop him writing to anyway.
+As he writes of his feelings at the time:
+Blaming the Linux kernel (i.e. somebody else’s code) for data corruption must be the last resort. That is unlikely. The kernel is an extremely complex project developed by thousands of individuals with methods that may seem chaotic; despite of this, it is extremely stable and reliable. But this time, I was convinced that it must be a kernel bug.
+But with perseverance, he was able to create two minimalist programs, with just three and five lines of code respectively, that reproduced the misbehaviour in a way that could only be blamed on the kernel.
+Following that, he was able to construct a proof-of-concept attack that allows an unprivileged user to modify even a well-locked-down file such as your list of trusted SSH keys, or the list of “known good” digital signatures you’re willing to connect to for updates.
+Even worse, it seems that this bug, given its low-level nature, can be used inside a virtualised container (where any running program is not supposed to have write access to any objects outside its “sandbox” or “jail”) to modify files that would usually be off limits. 
+The good news, of course, is that Kellermans’s careful digging led not only to uncovering the bug and understanding its cause, but also to helping the community devise a patch to close the hole.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Pixel 6 Pro here, with kernel 5.10.66.
+Here’s hoping the March update will have a fix.
+Do you have the March 2022 update already? (You might actually have it… or you could force it if you wanted via System > System update > Check for update.)
+5.10.43 on a brand new Samsung S22 Ultra with no updates available (January 2022 Patch)
+Thanks for the report!
+My list of “reported versions” didn’t include this device model until now. I have modified the article to mention the S22 series alongside the Pixel 6 series as “potentially affected devices.”
+“If you’re an Android user. We don’t quite know what to tell you”
+How about just going non-sensational, and only the pixel 6 has this kernel series, and it’s already patched, so Android users aren’t affected.  But that wouldn’t be news would it..
+No wonder nobody takes security seriously when all the important stuff is hidden in clickbait like you are so entrenched in.
+What is “sensational” about saying that there isn’t a clear answer for Android users, and thus “we don’t quite know what to say”?
+Telling everyone “only the Pixel 6 has 5.10” would be dangerously misleading because the truth is exactly what we said: the Pixel 6 was the only device we were aware of at the time of writing that had it. (Indeed, see the comment above yours, where a reader reports that the S22 has the 5.10 kernel, too. The article has been updated accordingly.)
+There are thousands of different Android phones on the market and we have only sampled a modest subset of those. And given the wide range of different kernel versions in use in that subset alone, it would be wrong to infer from our sample that we could make any definitive claims, as you seem to think we should.
+Furthermore, telling everyone that the Pixel 6 is “already patched” would be equally dangerous because, as the article very reasonably suggests, we don’t think it is patched! The most recent kernel version that we are aware of on the Pixel 6 is listed in the very paragraph you are complaining about: version 5.10.43. This is more than 50 updates older than the first officially patched version (which is 5.10.102). Also, as we have mentioned, Google’s most recent security bulletin for the Pixel series explicitly lists CVE numbers that were fixed in the latest update, and this bug *isn’t on that list*.
+(Anyway, to be “clickbait” the article would need to have had a headline like “Android users at serious risk of cyberattack”,  or something like that. In my opinion, the headline is perfectly reasonable – it summarises the bug and its side-effect in a single, short sentence. To suggest that Android users might be at risk, even if most probably are not, is perfectly reasonable, too. You seem to be looking for a website that will tell you what you want to hear, rather than what you need to know. This is not that site.)
+It’s true that if everything works perfectly, the cache buffer of a read-only file would not be flagged as “modified” and wouldn’t be flushed back to disk by the kernel. But why a piece of software as complex and as critical as Linux kernel that MUST be robust and dependable, would even attempt to flush the cache of a read-only file back to disk? Although a read-only check there seems redundant, but sometimes this kind of overhead is justified to prevent a small bug in one part of the code snowball into a much more serious problem. 
+The trick is finding the right balance between redundancy and performance.
+I suppose the motivation is that the part of the kernel responsible specifically for caching and cache coherence has to depend on higher levels operating correctly – indeed, re-verifying ACLs and higher-level file attributes at the lowest level of memory-to-disk control might either be impossible or itself introduce new security holes.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

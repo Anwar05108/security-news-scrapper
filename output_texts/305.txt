@@ -1,0 +1,196 @@
+Sophos Home protects every Mac and PC in your home 
+CAN WE STOP WITH THE “SOPHISTICATED” ALREADY?
+The birth of ENIAC. A “sophisticated attack” (someone got phished). A cryptographic hack enabled by a security warning. Valentine’s Day Patch Tuesday. Apple closes spyware-sized 0-day hole.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Patching bugs, hacking Reddit, and the early days of computing. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth. 
+He is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  Very well, Douglas.
+DOUG.  Alright, I have an exciting This Week in Tech History segment for you today. 
+If this were a place in the world, it would be Rome, from where all civilisation began.
+Sort of.
+It’s arguable.
+Anyhow…
+DUCK.  Yes, that is definitely arguable! [LAUGHS]
+DOUG.  [LAUGHS] This week, on 14 February 1946, ENIAC, or Electronic Numerical Integrator and Computer, was unveiled. 
+One of the earliest electronic general purpose computers, ENIAC filled an entire room, weighed 30 tonnes and contained 18,000 vacuum tubes, 70,000 resistors, 10,000 capacitors, and around 5 million hand-soldered joints. 
+ENIAC was used for a variety of calculations, including artillery shell trajectories, weather predictions, and thermonuclear weapons research.
+It paved the way for commercially viable electronic computers, Paul.
+DUCK.  Yes, it did!
+The huge irony, of course, is that we British got there first, with the Colossus during the Second World War, at Bletchley Park.
+And then, in a fit of amazing governmental wisdom, we decided to: [A] smash them all into tiny pieces, [B] burn all the documentation ([QUIETLY] though some of it survived), and [C] keep the fact that we had used thermionic valves to build fast electronic digital computers secret. 
+[PAUSE] What a silly thing to do… [LAUGHS]
+Colossus – the first electronic digital computer
+
+DOUG.  [AMAZED] Why would they do that?
+DUCK.  [TRAGIC] Aaaaargh, I don’t know. 
+In the US, I believe, at the time of ENIAC, it was still not clear whether electromechanical relays or thermionic valves (vacuum tubes) would win out, because vacuum tubes were zillions of times faster…
+…but they were hot, they used vast amounts of power, and they tended to blow randomly, which stopped the computer working, et cetera, et cetera. 
+But I think it was ENIAC that finally sealed the fate of all the electromechanical computers.
+DOUG.  Speaking of things that have been around for a while…
+..Reddit says that it was hacked thanks to a sophisticated phishing attack that, it turns out, wasn’t all that sophisticated.
+Which might be the reason it works so well, ironically.
+Reddit admits it was hacked and data stolen, says “Don’t panic”
+
+DUCK.  [LAUGHS] I’m glad you said that rather than me, Doug! 
+But, yes, I think you’re right. 
+Why is it that so many senior execs who write breach notifications feel obliged to sneak the word “sophisticated” in there? [LAUGHS] 
+The whole thing about phishing attacks is that they’re *not* sophisticated. 
+They *aren’t* something that automatically sets alarm bells ringing.
+DOUG.  Reddit says:
+As in most phishing campaigns, the attacker sent out plausible-sounding prompts pointing employees to a website that cloned the behavior of our intranet gateway in an attempt to steal credentials and second-factor tokens. After successfully obtaining a single employee’s credentials, the attacker gained access to internal docs, code…
+So that’s where it gets simple: trick one person into clicking on a link, getting taken to a page that looks like one of your systems, and handing over a 2FA code.
+DUCK.  And then they were able to jump in, grab the stuff and get out. 
+And so, like in the LastPass breach and the recent GitHub breach, source code got stolen, along with a bit of other stuff.
+Although that’s a good sign, inasmuch as it’s Reddit’s stuff that got stolen and not its users’ stuff (so it’s their problem to wrestle with, if you know what I mean)… we do know that inamongst that stuff, even if you only get source code, let alone internal documentation, there may be hints, scripts, tokens, server names, RESTy API endpoints, et cetera, that an attacker could use later. 
+But it does look as though the Reddit service itself, in other words the infrastructure behind the service, was not directly affected by this. 
+So, the crooks got in and they got some stuff and they got out, but it wasn’t like they broke into the network and then were able to wander around all the other places.
+DOUG.  Reddit does offer three pieces of advice, two-thirds of which we agree with. 
+We’ve said countless times on the show before: Protect against phishing by using a password manager, because it makes it harder to put the right password into the wrong site. 
+Turn on 2FA if you can, so you have a second factor of authentication. 
+This one, though, is up for debate: Change your passwords every two months. 
+That might be a bridge too far, Paul?
+DUCK.  Yes, Chester Wisniewski and I did a podcast (when was it? 2012?) where we busted that myth. 
+And NIST, the US National Institute of Standards and Technology, agrees with us.
+It *is* a bridge too far, because it’s change for change’s sake. 
+And I think there are several problems with just, “Every two months, I’ll change my password.” 
+Firstly, why change your password if you genuinely don’t think there’s any reason to? 
+You’re just wasting your time – you could spend that time doing something that directly and genuinely improves your cybersecurity.
+Secondly, as Chester put it in that old podcast (which we’ve put in the article, so you can go and listen to it),  “It kind-of gets people into the habit of a bad habit,” because you’re trying to program their attitudes to passwords instead of embracing randomness and entropy.
+And, thirdly, I think it leads people to thinking, “You know what, I should change my password, but I’m going to change them all in six weeks’ time anyway, so I’ll leave it until then.” 
+I would rather have an approach that says, “When you think you need to change your password, *do it in five minutes*.”
+BUSTING PASSWORD MYTHS
+Even though we recorded this podcast more than a decade ago, the advice it contains is still relevant and thoughtful today. We haven’t hit the passwordless future yet, so password-related cybersecurity advice will be valuable for a good while yet. Listen here, or click through for a full transcript.
+Listen directly on Soundcloud, or read a full transcript.
+DOUG.  There is a certain irony here with recommending the use of a password manager…
+…when it’s pretty clear that this employee wouldn’t have been able to log into the fake site had he or she been using a password manager.
+DUCK.  Yes, you’d think so, wouldn’t you? 
+Because it would just go, “Never heard of the site, can’t do it, don’t have a password.” 
+And you’d be going, “But it looks so right.” 
+Computer: “No, never heard of it.”
+DOUG.  And then, once you’ve logged into a bogus site, 2FA does no good if you’re just going to enter the code into a form on the bogus site that gets sent to the crook!
+DUCK.  If you’re planning to use 2FA as an excuse for being more casual about security, either [A] don’t do that, or [B] choose a two-factor authentication system that doesn’t rely simply on transcribing digits from your phone onto your laptop. 
+Use a token-based system like OAuth, or something like that, that is more sophisticated and somewhat harder for the crooks to subvert simply by getting you to tell them the magic digits.
+DOUG.  Let’s stay on the irony theme. 
+GnuTLS had a timing flaw in the code that was supposed to log timing attack errors. 
+How do you like that?
+Serious Security: GnuTLS follows OpenSSL, fixes timing attack bug
+
+DUCK.  [LAUGHS] They checked to see whether something went wrong during the RSA session setup process by getting this variable called ok. 
+It’s TRUE if it’s OK, and it’s FALSE if it’s not. 
+And then they have this code that goes, “If it’s not OK, then report it, if the person’s got debugging turned on.” 
+You can see the programmer has thought about this (there’s even a comment)…
+If there’s no error, then do a pretend logging exercise that isn’t really logging, but let’s try and use up exactly the same amount of time, completely redundantly.
+Else if there was an error, go and actually do the logging. 
+But it turns out that either there wasn’t sufficient similarity between the execution of the two paths, or it could have been that the part where the actual logging was happening responded in a different amount of time depending on the type of error that you deliberately provoked. 
+It turns out that by doing a million or more deliberately booby-trapped, “Hey, I want to set up a session request,” you could basically dig into the session setup in order to retrieve a key that would be used later for future stuff.
+And, in theory, that might let you decrypt sessions.
+DOUG.  And that’s where we get the term “oracle bug” (lowercase oracle, not to be confused with the company Oracle). 
+You’re able to see things that you shouldn’t be able to see, right?
+DUCK.  You essentially get the code to give you back an answer that doesn’t directly answer the question, but gives you some hints about what the answer might be. 
+You’re letting the encryption process give away a little bit about itself each time. 
+And although it sounds like, “Who could ever do a million extra session setup requests without being spotted?”…
+…well, on modern networks, a million network packets is not actually that much, Doug. 
+And, at the end of it, you’ve actually learned something about the other end, because its behaviour has just not been quite consistent enough. 
+Every now and then, the oracle has given away something that it was supposed to keep secret.
+DOUG.  Alright, we’ve got some advice about how to update if you’re a GnuTLS user, so you can head over to the article to check that out.
+Let’s talk about “Happy Patch Tuesday”, everybody. 
+We’ve got a lot of bugs from Microsoft Patch Tuesday, including three zero-days.
+Microsoft Patch Tuesday: 36 RCE bugs, 3 zero-days, 75 CVEs
+
+DUCK.  Yes, indeed, Doug. 
+75 CVEs, and, as you say, three of them are zero-days. 
+But they’re only rated Important, not Critical. 
+In fact, the critical bugs, fortunately, were, it seems, fixed responsibly.
+So it wasn’t that there’s an exploit already out there in the wild. 
+I think what’s more important about this list of 75 CVEs is that almost half of them are remote code execution bugs. 
+Those are generally considered the most serious sorts of bug to worry about ,because that’s how crooks get in in the first place. 
+Then comes EoP (elevation of privilege), of which there are several, including one of them being a zero-day… in the Windows Common Log File System driver
+Of course, RCEs, remote code executions, are often paired up by cybercriminals with elevation of privilege bugs. 
+They use the first one to break in without needing a password or without having to authenticate. 
+They get to implant code that then triggers the elevation of privilege bug, so not only do they go *in*, they go *up*. 
+And typically they end up either as a sysadmin (very bad, because then they’re basically free to roam the network), or they end up with the same privilege as the local operating system… on Windows, what’s called the SYSTEM account (which pretty much means they can do anything on that computer).
+DOUG.  There are so many bugs in this Patch Tuesday that it forced your hand to devote a section of this article called Security Bug Classes Explained…
+…which I would deem to be required reading if you’re just getting into cybersecurity and want to know what types of bugs are out there. 
+So we talked about an RCE (remote code execution), and we talked about EoP (elevation of privilege). 
+You next explained what a Leak is…
+DUCK.  Indeed. 
+Now, in particular, memory leaks can obviously be bad if what’s leaking is, say, a password or the entire contents of a super-secret document. 
+But the problem is that some leaks, to someone who’s not familiar with cybersecurity, sound really unimportant. 
+OK, so you leaked a memory address of where such-and-such a DLL or such-and-such a kernel driver just happened to be loaded in memory? 
+How bad is that? 
+But the problem is that remote code execution exploits are generally much easier if you know exactly where to poke your knitting needle in memory on that particular server or that particular laptop. 
+Because modern operating systems almost all use a thing called ASLR (address space layout randomisation), where they deliberately load programs, and DLLs, and shared libraries, and kernel drivers and stuff at randomly chosen memory addresses…
+…so that your memory layout on your test computer, where your exploit worked perfectly, will not be the same as mine. 
+And it’s much harder to get an exploit to work generically when you have this randomness built into the system than when you don’t. 
+So there are some tiny little memory leaks, where you might just leak eight bytes of memory (or even just four bytes if it’s a 32-bit system) where you give away a memory address.
+And that is all the crooks need to turn an exploit that might just work, if they’re really lucky, into one which they can abuse every single time, reliably. 
+So be careful of leaks!
+DOUG.  Please tell us what a Bypass means.
+DUCK.  It sort-of means exactly what it says. 
+You’ve got a security precaution that you expect the operating system or your software to kick in with. 
+For example, “Hey, are you really sure that you want to open this dastardly attachment that came in in an email from someone you don’t know?” 
+If the crooks can find a way to do that bad behaviour but to bypass the security check that’s supposed to kick in and give you a fighting chance to be a well-informed user doing the right thing…
+…believe me, they will take it. 
+So, security bypasses can be quite problematic.
+DOUG.  And then along those lines, we talked about Spoofing.
+In the Reddit story, luring someone to a website that looks like a legit website but isn’t – it’s a spoof site.
+And then, finally, we’ve got DoS, or denial of service.
+DUCK.  Well, that’s exactly what it says. 
+It’s where you stop something that is supposed to work on the victim’s computer from doing its job. 
+You kind-of think, “Denial of service, it should be at the bottom of the list of concerns, because who really cares? We’ve got auto-restart.” 
+But if the crooks can pick the right time to do it (say, 30 seconds after your server that crashed two minutes ago has just come back up),then they may actually be able to use a denial of service bug surprisingly infrequently to cause what amounts to almost a continuous outage for you. 
+And you can imagine: [A] that could actually cost you business if you rely on your online services being up, and [B] it can make a fascinating smokescreen for the crooks, by creating this disruption that lets the crooks come steaming in somewhere else.
+DOUG.  And not content to be left out of the fun, Apple has come along to fix a zero-day remote code execution bug.
+Apple fixes zero-day spyware implant bug – patch now!
+
+DUCK.  This bug, and I’ll read out the CVE just for reference: it is CVE-2023-23529…
+…is a zero-day remote code execution hole in WebKit, which I for one, and I think many other people infer to mean, “Browser bug that can be triggered by code that’s supplied remotely.” 
+And of course, particularly in iPhones and iPads, as we’ve spoken about many times, WebKit is required code for every single browser, even ones that don’t use WebKit on other platforms. 
+So it kind-of smells like, “We found out about this because there’s some spyware going around,” or, “There’s a bug that can be used to jailbreak your phone and remove all the strictures that let the crooks in and let them wander around at will.” 
+Obviously, on a phone, that’s something you definitely don’t want.
+DOUG.  Alright, and on this story, Naked Security reader Peter writes:
+I try to update as soon as I’ve seen your update alerts in my inbox. While I know little to nothing about the technical issues involved, I do know it’s important to keep software updated, and it’s why I have the automatic software update option selected on all my devices. But it’s seldom, if ever, that I receive software alerts on my iPhone, iPad or MacBook before receiving them from Sophos. 
+So, thanks, guys!
+That’s nice!
+DUCK.  It is! 
+And I can only reply by saying, “Glad to be of assistance.” 
+I quite like writing those articles, because I think they provide a decent service. 
+Better to know and be prepared than to be caught unawares… that is my opinion.
+DOUG.  And not to show how the sausage is made around here too much, but the reason Paul is able to jump on these Apple updates so quickly is because he has a big red siren in his living room that’s connected via USB cable to his computer, and checks the Apple security update page every six seconds. 
+So it starts blaring the second that page has been updated, and then he goes and writes it up for Naked Security.
+DUCK.  [LAUGHS] I think the reason is probably just that I tend to go to bed quite late.
+DOUG.  [LAUGHS] Exactly, you don’t sleep…
+DUCK.  Now I’m big, I don’t have a fixed bedtime. 
+I can stay up as late as I want! [LAUGHTER]
+DOUG.  Alright, thank you, Peter, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure.
+[MUSICAL MODEM]
+Featured image of ENIAC licensed under CC BY-SA 3.0.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I guess company execs like to call any successful hack “sophisticated” because it make them look better than falling for a simple targeted phishing campaign. For people with some background it just makes them sound not so clever.
+Like the old term (which you still hear but it is, thankfully, dying out through plain and simple overuse) “Advanced Persistent Threat”. 
+Advanced means “got past us, at any rate”, persistent means “we tried rebooting but that didn’t get rid of it” and threat means “malware”. So an ATP is what we used to call malware, and the first two adjectives are really just filler.
+“Sophisticated” usually translates as “better than our defences”.  Even if the attack was a successful guess at a default password by a script kiddie from a bedroom in his mother’s house.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,109 @@
+Sophos Home protects every Mac and PC in your home 
+If you were in the US this time last year, you won’t have forgotten, and you may even have been affected by, the ransomware attack on fuel-pumping company Colonial Pipeline.
+The organisation was hit by ransomware injected into its network by so-called affiliates of a cybercrime crew known as DarkSide. 
+DarkSide is an example of what’s known as RaaS, short for ransomware-as-a-service, where a small core team of criminals create the malware and handle any extortion payments from victims, but don’t perform the actual network attacks where the malware gets unleashed.
+Teams of “affiliates” (field technicians, you might say), sign up to carry out the attacks, usually in return for the lion’s share of any blackmail money extracted from victims.
+A defender’s view inside a DarkSide ransomware attack
+
+
+The core criminals lurk less visibly in the background, running what is effectively a franchise operation in which they typically pocket 30% (or so they say) of every payment, almost as though they looked to legitimate online services such as Apple’s iTunes or Google Play for a percentage that the market was familiar with.
+The front-line attack teams typically: 
+…and then they automatically unleash the ransomware code they were supplied with by the core gang members, sometimes scrambling all (or almost all) computers on the network within just a few minutes.
+What IT security teams can learn from the Colonial Pipeline ransomware attack
+
+
+The idea behind this sort of attack, as you know, is that the computers aren’t wiped out completely.
+Indeed, after most ransomware attacks, the Windows operating system still boots up and and the primary applications on each computer will still load, almost as a taunt to remind you just how close you are to, yet how far away from, normal operation.
+But all the files that you need to keep your business running – databases, documents, spreadsheets, system logs, calendar entries, customer lists, invoices, bank transactions, tax records, shift assignments, delivery schedules, support cases, and so on – end up encrypted.
+You can boot your laptop, load up Word, see all your documents, and even try desperately to open them, only to find the digital equivalent of shredded cabbage everywhere.
+Only one copy of the decryption key exists – and the ransomware attackers have it!
+That’s when “negotiations” start, with the criminals hoping that your IT infrastructure will be so hamstrung by the scrambled data as to be dysfunctional.
+“Pay us a ‘recovery fee’,” say the crooks, “and we’ll quietly provide you will the decryption tools you need to unscramble all your computers, thus saving you the time needed to restore all your backups. If you even have any working backups.”
+Of course, they don’t put it quite that politely, as this chilling recording supplied to the Sophos Rapid Response team reveals:
+Sophos Rapid Reponse presents, with the permission of the affected organization, a chilling audio voicemail sent by affiliates of the SunCrypt gang. "Think about your future and your families," the message warns.https://t.co/N58foyh5xM pic.twitter.com/Mgwqy4tu7e
+— Naked Security (@NakedSecurity) October 30, 2021
+
+That’s the sort of wall against which Colonial Pipeline found itself about 12 months ago.
+Even though law enforcement groups around the world urge ransomware victims not to pay up (as we know only too well, today’s ransomware payments directly fund tomorrow’s ransomware attacks), Colonial apparently decided to hand over what was then $4.4 million in Bitcoin anyway.
+REvil ransomware crew dangles $1,000,000 cybercrime carrot
+
+
+Sadly, as you’ll no doubt remember if you followed the story at the time, Colonial ended up in the same sorry state as 4% of the ransomware victims in the Sophos Ransomware Survey 2021: they paid the crooks in full, but were unable to recover the lost data with the decryption tool anyway.
+Apparently, the decryptor was so slow as to be just about useless, and Colonial ended up restoring its systems in the same way it would have if it had turned its back on the crooks altogether and paid nothing.
+Ransomware: What REALLY happens if you pay the crooks?
+
+
+In a fascinating “afterlude” to Colonial’s ransomware payment, the US FBI managed, surprisingly quickly, to infiltrate the criminal operation, to acquire the private key or keys for some of the bitcoins paid over to the criminals, to obtain a court warrant, and to “transfer back” about 85% of the criminal’s ill-gotten gains into the safe keeping of the US courts. If you are a ransomware victim yourself, however, remember that this sort of dramatic claw-back is the exception, not the rule. 
+Now, Colonial looks set to be hit by a further demand for money, this time in the form of a $986,400 civil penalty proposed by the US Department of Transportation.
+Ironically, perhaps, it looks as though Colonial would have been in some trouble even without the ransomware attack, given that the proposed fine comes about as the result of an investigation by the Pipeline and Hazardous Materials Safety Administration (PHMSA).
+That investigation actually took place from January 2020 to November 2020, the year before the ransomware attack occurred, so the problems that the PHMSA identified existed anyway.
+As the PHMSA points out, the primary operational flaw, which accounts for more than 85% of the fine ($846,300 out of $986,400), was “a probable failure to adequately plan and prepare for manual shutdown and restart of its pipeline system.”
+However, as the PHMSA alleges, these failures “contributed to the national impacts when the pipeline remained out of service after the May 2021 cyber-attack.”
+This may seem like a very special case, given that few of us operate pipelines at all, let alone pipelines of the size and scale of Colonial.
+Nevertheless, the official Notice of Probable Violation lists several related problems from which we can all learn.
+In Colonial Pipeline’s case, these problems were found in the so-called SCADA, ICS or OT part of the company, where those acronyms stand for supervisory control and data acquisition, industrial control systems, and operational technology.
+You can think of OT as the industrial counterpart to IT, but the SecOps (security operations) challenges to both types of network are, unsurprisingly, very similar. 
+Indeed, as the PHMSA report suggests, even if your OT and IT functions look after two almost entirely separate networks, the potential consequence of SecOps flaws in one side of the business can directly, and even dangerously, affect the other.
+Even more importantly, especially for many smaller businesses, is that even if you don’t operate a pipeline, or an electricity supply network, or a power plant…
+…you probably have an OT network of sorts anyway, made up of IoT (Internet of Things) devices such as security cameras, door locks, motion sensors, and perhaps even a restful-looking computer-controlled aquarium in the reception area.
+And if you do have IoT devices in use in your business, those devices are almost certainly sitting on exactly the same network as all your IT systems, so the cybersecurity postures of both types of device are inextricably intertwined. 
+(There is indeed, as we alluded to above, a famous anecdote about a US casino that suffered a cyberintrusion via a “conected thermometer” in a fishtank in the lobby.)
+IoT devices must “protect consumers from cyberharm”, says UK government
+
+
+The PHMSA report lists seven problems, all falling under the broad heading of Control Room Management, which you can think of as the OT equivalent of an IT department's Network Operations Centre (or just "the IT team" in a small business).
+These problems distill, loosely speaking, into the following five items:
+Any (or all) of the problem behaviours listed above are easy to fall into by mistake.
+For example, in the Sophos Ransomware Survey 2022, about 2/3 of respondents admitted they’d been hit by ransomware attackers in the previous year.
+About 2/3 of those ended up with their files actually scrambled (1/3 happily managed to head off the denouement of the attack), and about 1/2 of those ended up doing a deal with the crooks in an attempt to recover.
+Ransomware Survey 2022 – like the Curate’s Egg, “good in parts”
+
+
+This suggests that a significant proportion (at least 2/3 × 2/3 × 1/2, or just over one-in-five) IT or SecOps teams dropped the ball in one or more of the categories above.
+Those include items 1 and 2 (are you sure the backup actually worked? did you formally record whether it did?); item 3 (what’s your Plan B if the crooks wipe out your primary backup?); item 4 (have you practised restoring as carefully as you’ve bothered backing up?); and item 5 (are you sure you haven’t missed anything that you should have drawn attention to at the time?).
+Likewise, when our Managed Threat Response (MTR) team get called in to mop up after a ransomware attack, part of their job is to find out how the crooks got in to start with, and how they kept their foothold in the network, lest they simply come back later and repeat the attack.
+It’s not unusual for the MTR investigation to reveal numerous loopholes that aided the crooks, including item 5 (anti-malware products that would have stopped the attack turned off “as a temporary workaround” and then forgotten), item 2 (plentiful advance warnings of an impending attack either not recorded at all or simply ignored), and item 1 (accounts or servers that were supposed to be shut down, but with no records to expose that the work didn’t get done).
+We never tire of saying this on Naked Security, even though it’s become a bit of a cliche: Cybersecurity is a journey, not a destination.
+Unfortunately for many IT and SecOps teams these days, or for small businesses where a dedicated SecOps team is a luxury that they simply can’t afford, it’s easy to take a “set-and-forget” approach to cybersecurity, with new settings or policies considered and implemented only occasionally.
+If you’re stuck in a world of that sort, don’t be afraid to reach out for help.
+Bringing in third-party MTR experts is not an admission of failure – think of it as a wise preparation for the future.
+Afer all, if you do get attacked, but then remove only the end of the attack chain while leaving the entry point in place, then the crooks who broke in before will simply sell you out to the next cybergang that’s willing to pay their asking price for instructions on how to break in next time.
+Not enough time or staff?Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+They make over 500 million a year this is a drop in the bucket.
+Check the years of the investigation by the department of transportation. You have 2000, I believe you mean 2020.
+Fixed, thanks!
+“January 2000 to November 2000”; that probably should be 2020?
+Correct :-)
+Another common sense well written article by Paul. I spent a career in “Risk Management” with various industries and it was impossible to educate “turnover senior management” (they come and go like Karma Chameleon) that Risk Management and Cybersecurity is a journey not a destination to go to and enjoy the sunshine forever. This brings me to a real anecdote that points directly to the “No advance plan for manual recovery” statement. When I worked for a gas pipeline company in Canada we had SCADA systems in operation. Managing the risk meant that we had some bright senior people who realized that not everything is as smooth as a shallow pond. It is more like the Atlantic Ocean in December. This is all happening before the Internet was a glimmer in some engineering student’s eye. The SCADA was shut down and a pipeline section operated manually. The people in operations were inexperienced in manual operations and soon problems developed. Retired operators were called in to help run the system. All went well for a while until the 70 year olds got tired after 24 hour shifts. The message was that if you must go back in time to manage risks you have to train current crews in old methods. That is hard to do because the training as such is experience. I am sure that Colonial Pipeline is struggling to create a manual system that actually works. Many pipeline valves are now automatic, remotely operated without a manual “wheel” to open or close them. Even if there were manual valves someone has to get to it which can be hours away by the time a helicopter gets there and then you discover the valve is locked with a padlock for security and you didn’t bring a bolt cutter with you. On the subject of shut down security systems, The Factory Mutual insurance system has a lockout procedure and service for sprinkler valves. You call them, tell them you are shutting down the sprinkler valve, you hang a sign on the valve, do your work, reopen the valve and call Factory Mutual again to say all is back in service if they don’t hear from you they bug you with phone calls. What is needed is a similar system for cybersecurity. If you turn it off for whatever reason, you call a service, they will monitor you and if they don’t hear from you the phone rings asking if it’s back on. Electronic messaging is a poor substitute for a phone call with a real voice telling you to get on with the job. If Sophos has such a system, my apologies for being out of date and repetitious.
+We sort-of have what you suggest, at least for endpoints. We provide a “turn it off for testing but we will override you soon” feature in our endpoint product so a support person can selectively allow users to switch off a feature while troubleshooting. The idea is that if the troubleshooting succeeds and a new configuration is duly decided upon, then the support person can make the change in the company-approved-and-logged way in the Sophos Central console, and apply it remotely to the user’s computer for good. (Or they can set things back the way they were if the troubleshooting doesn’t work out.)
+But if the user decides, “Hey, this is nice. I like this more liberal setting. I think I’ll keep that,” and tries to bail out of the support session (“Hello? Can you hear me? you’re breaking up? Hello? Hello? [CARRIER LOST]”), then even if they unplug from the network to prevent the support person checking up on their computer…
+…their local endpoint protection software will unilaterally override the override after a while and put them back to how things are supposed to be (including turning off the “turn it off for testing” option, if that makes sense). Oh, and activating “turn it off for testing” when it’s already active doesn’t reset the timer, so you only get one go at a time :-)
+I’m frequently found complaining (loudly) about software that’s cursorily tested–often solely for the intended function and with zero consideration for
+ (a) users unfamiliar with the system,
+ (b) those with concerns not addressed by a sparsely-planned system,
+ (c) unintended side effects of a quickly-implemented system, or
+ (d) potential to circumvent, subvert, or break the system.
+> activating “turn it off for testing” when it’s already active doesn’t reset the timer, so you only get one go at a time
+This is an excellent example of a competent assessment program which aims to understand how things (and people) work in the real world (e.g. anticipating an employee who retains preliminary settings so he can watch Netflix on the job).  And while the rollback idea isn’t new, thumbs up for making it automatic irrespective of connectivity loss–thereby also precluding an insidious problem that results from a forgetful support tech, a WAN outage, or power loss at either endpoint workstation.
+That right there in my book trounces hyped marketing claims–and it won’t be found on spec sheets.
+Duck, we all know you’re really here to keep us mindful of the brand Sophos. We’re okay with that, because you clearly enjoy sharing knowledge, and you’re good at it–both procurement and dissemination.
+That said, I promise if I ever find myself once again working for a company with an actual budget I won’t forget this conversation.  Not because you’re a good guy–that’s merely a bonus–but because at 2 am I won’t be happy using an appliance that’s not well-planned.
+:,)
+Cheers!
+Paul,
+Your sentence says there are six items “These problems distill, loosely speaking, into the following six items:”, but there are only five bullet points…
+Fixed, thanks!
+cybercrime crew?
+Don’t you mean cybercrime criminals?
+That would be a repetitive tautology.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

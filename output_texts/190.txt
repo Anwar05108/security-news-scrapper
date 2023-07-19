@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+Morgan Stanley, which bills itself in its website title tag as the “global leader in financial services”, and states in the opening sentence of its main page that “clients come first”, has been fined $35,000,000 by the US Securities and Exchange Commission (SEC)…
+…for selling off old hardware devices online, including thousands of disk drives, that were still loaded with personally identifiable information (PII) belonging to its clients.
+Today we announced charges against Morgan Stanley Smith Barney LLC stemming from the firm’s extensive failures to protect the personal identifying information of approximately 15 million customers. MSSB has agreed to pay a $35 million penalty to settle the SEC charges.
+— U.S. Securities and Exchange Commission (@SECGov) September 20, 2022
+
+Strictly speaking, it’s not a criminal conviction, so the penalty isn’t technically a fine, but it’s “not a fine” in much the same sort of way that car owners in England no longer get parking fines, but officially pay penalty charge notices instead.
+Also, strictly speaking, Morgan Stanley didn’t directly sell off the offending devices itself.
+But the company contracted someone else to do the work of wiping-and-selling-off the superannuated equipment, and then didn’t bother to keep its eye on the process to ensure that it was done properly.
+The SEC’s official document on the matter, Administrative Proceeding File Number 3-21112, actually makes really useful reading for anyone in SecOps or cybersecurity.
+At 11 pages, it’s not too long to read in full, and the story it tells is a fascinating one, revealing numerous twists and turns, unauthorised switches in subcontractors, lack of oversight and follow-up, and reckless shortcuts.
+If you have anything to do with the secure disposal of redundant equipment, be sure to read the SEC’s final document, and make sure that your own policies and procedures take into account the failings described in the report.
+Notably, ensure that you have done, are doing, and will do a better job than Morgan Stanley with:
+As you will see from the SEC’s tales of woeful wilfulness (the second word is one that the SEC uses officially and formally in respect of Morgan Stanley), there’s an awful lot that can go wrong when you are getting rid of old IT kit.
+Nevertheless, the main points of the story are simply told in the SEC’s summary, namely that Morgan Stanley, via a contractor:
+In the first case, dating back to 2016, it seems that the contractor chosen by Morgan Stanley, perhaps realising that the company wasn’t checking up on how faithfully the wiping-and-selling-on process was being followed, decided to switch to a new (and unapproved) subcontractor who apparently skipped the “wipe it first” part, and directly put the retired devices up for sale on an on-line auction site.
+Someone in Oklahoma bought a few of the old drives, presumably as hot spares for their own IT operation, and realised that they were still full of Morgan Stanley client data.
+According to the SEC, the purchaser contacted Morgan Stanley and said, “[y]ou are a major financial institution and should be following some very stringent guidelines on how to deal with retiring hardware. Or at the very least getting some kind of verification of data destruction from the vendors you sell equipment to.”
+Morgan Stanley ultimately bought back those drives, but that didn’t deal with any of the other disks that had been sold on elsewhere.
+Indeed, the SEC notes that 14 more data-tainted disks were bought back from someone else by Morgan Stanley as recently as June 2021, still unwiped, still working fine, and still containing “at least 140,000 pieces of customer PII”. 
+As the SEC wryly notes, “the vast majority of the hard drives from the 2016 Data Center Decommissioning remain missing.”
+In the second case, the retired devices were WAN (wide area network) caching servers used by branch offices to optimise internet bandwidth in order to accelerate access to common documents.
+Ironically, these devices had an encrypt-any-stored-data-packets option that would have simplified decommissioning greatly.
+After all, if you can show that you turned the encryption option on, and that you wiped all known copies of the decryption key, then data protection regulators in many countries will treat the encrypted data as wiped, too.
+Data that’s considered undecryptable is no more meaningful than digital shredded cabbage.
+But Morgan Stanley apparently didn’t activate the decryption option until at least one year after the devices went into use…
+…and the encryption only applied to new data subsequently written to the device, not to anything that was there before.
+So all that Morgan Stanley can “prove”, for the 42 devices that are still out there somewhere, is that each device almost certainly contains at least some client PII that definitely isn’t encrypted.
+We can’t resist ending with the rhyme we often use to warn people about the risks of oversharing on social media, because it applies equally well to data stored by the biggest IT department.
+If in doubt / Don’t give it out.
+WATCH THE SPARKS FLY – A DISK SHREDDER IN ACTION
+
+(Watch directly on YouTube if the video won’t play here.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Spot on!  That is why I used Whole Disk Encryption on my company laptop from Symantec.  I was one of a small subset in an engineering company with ~11,000 employees at the site I worked.  Later, they required us to take a “TRAVEL” laptop when we traveled overseas.  My laptop was compromised with some classified data so, when the hard drive was analyzed in a foreign country, a major defense bid and proposal was found unencrypted.  This hard drive was locked in a business competitors safe for over 6 months while the nations involved sorted out how to get this now classified hard drive back to the USA.  After that, the company understood why I wanted whole disk encryption because of the loss major of major bid with competition sensitive data.   My complaint that the laptop was not freshly loaded with a clean OS to start “clean” because it took too much time was then understood after the fact and loss of a major business opportunity.
+Whole Disk Encryption or a fresh wipe and clean OS image would have saved the company a small fortune in costs to recover the hard drive and would have made their bid proposal competitive but, instead they saved ~20 hours a week of “IT Budget”.  And I was the trouble maker for asking for clean OS install on my travel laptop with Whole Disk Encryption.  I find this cost savings ironic because my airfare alone was over $10,000USD to save at most 2 hours of IT labor in my case.
+I briefly worked for a ‘secure’ police organisation in Australia and we had very stringent procedures.
+Our office was well secured, but beyond that, any hard drives that had been replaced (whether failed or not) were initially stored in the (very secure) server room until we had a bunch of them. 
+Then, a couple of us would sit down and completely take them apart. The metal and electronics went into the bin and the platters were sent by secure courier to ASD for approved destruction.
+We are a dutch financial company. All our laptops are encrypted and have been for years. For (server) hard drives we have the policy to store them safely until we have  quite a few of them. Then we hire a company which shows up at our company building. The take the hard drives on our presence and feed them into a shredder. The serial- and product number are read before shredding and go onto a form. At the end of the destruction a form is then printed to prove the drives have been properly destroyed. And as a bonus they also take the old electronics with them for destruction.
+Better safe than sorry
+same here, hard to believe any FI would do it any different.
+Impact of risk is huge (both reputationnal and financial) but likelihood = epsilon.
+These risks are generally either unknown or “tolerated”.
+In this case the likelihood was probably quite high – with 1000s of disks liberated into the online auction market, and with the sort of people who buy high-end server disks knowing what to look for any why…
+…it’s perhaps not surprising that client data was not only found in-the-wild but openly reported. (After all, we only know of cases where the discover of the data chose to reveal it, so the total number of cases could be higher… and certainly can’t be lower 🙂
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

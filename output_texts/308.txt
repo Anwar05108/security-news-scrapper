@@ -1,0 +1,71 @@
+Sophos Home protects every Mac and PC in your home 
+Popular cryptocurrency exchange Coinbase is the latest well-known online brand name that’s admitted to getting breached.
+The company decided to turn its breach report into an interesting mix of partial mea culpa and handy advice for others.
+As in the recent case of Reddit, the company couldn’t resist throwing in the S-word (sophisticated), which once again seems to follow the definition offered by Naked Secuity reader Richard Pennington in a recent comment, where he noted that ‘Sophisticated’ usually translates as ‘better than our defences’.
+We’re inclined to agree that in many, if not most, breach reports where threats and attackers are described as sophisticated or advanced, those words are indeed used relatively (i.e. too good for us) rather than absolutely (e.g. too good for everyone).
+Coinbase confidently stated, in the executive summary at the start of its article:
+Fortunately, Coinbase’s cyber controls prevented the attacker from gaining direct system access and prevented any loss of funds or compromise of customer information.
+But that apparent certainty was undermined by the admission, in the very next sentence, that:
+Only a limited amount of data from our corporate directory was exposed.
+Unfortunately, one of the favourite TTPs (tools, techniques and procedures) used by cybercriminals is known in the jargon as lateral movement, which refers to the trick of parlaying information and access acquired in one part of a breach into ever-wider system access.
+In other words, if a cybercriminal can abuse computer X belonging to user Y to retrieve confidential corporate data from database Z (in this case, fortunately, limited to employee names, e-mail addresses, and phone numbers)…
+…then saying that the attacker didn’t “gain direct system access” sounds like a rather academic distinction, even if the sysadmins amongst us probably understand those words to imply that the criminals didn’t end up with a terminal prompt at which they could run any system command they wanted.
+Nevertheless, Coinbase did list some of the cybercriminal tools, techniques and procedures that it experienced in this attack, and the list provides some useful tips for threat defenders and XDR teams.
+XDR is a bit of a buzzword these days (it’s short for extended detection and response), but we think that the simplest way of describing it is:
+Extended detection and response means regularly and actively looking for hints that someone is up to no good in your network, instead of waiting for traditional cybersecurity detections in your threat response dashboard to trigger a response.
+Obviously, XDR doesn’t mean turning off your existing cybersecurity alerting and blocking tools, but it does mean extending the range and nature of your threat hunting, so that you’re not only searching for cybercriminals once you’re fairly certain they’ve already arrived, but also watching out for them while they’re still getting ready to attempt an attack.
+The Coinbase attack, reconstructed from the company’s somewhat staccato account, seems to have involved the following stages:
+Staff were urged via SMS to login to read an important corporate notification. 
+For convenience, the message included a login link, but that link went to a bogus site that captured usernames and passwords.
+Apparently, the attackers didn’t know, or didn’t think, to get hold of the 2FA (two-factor authentication code) they’d need to go along with the username and password, so this part of the attack came to nothing. 
+We don’t know how 2FA protected the account. Perhaps Coinbase uses hardware tokens, such as Yubikeys, that don’t work simply by providing a six-digit code that you transcribe from your phone to your browser or login app? Perhaps the crooks failed to ask for the code at all? Perhaps the employee spotted the phish after giving away their password but before revealing the final one-time secret needed to complete the process? From the wording in the Coinbase report, we suspect that the crooks either forgot or couldn’t find a believable way to capture the needed 2FA data in their fake login screens. Don’t overestimate the strength of app-based or SMS-based 2FA. Any 2FA process that relies merely on typing a code displayed on your phone into a field on your laptop provides very little protection against attackers who are ready and willing to try out your phished credentials immediately. Those SMS or app-generated codes are typically limited only by time, remaining valid for anywhere between 30 seconds and a few minutes, which generally gives attackers long enough to harvest them and use them before they expire.
+Remember that this attack ultimately resulted in the criminals acquiring a list of employee contact details, which we assume will end up sold or given away in the cybercrime underground for other crooks to abuse in future attacks. 
+Even if you have tried to keep your work contact details confidential, they may already be out there and widely-known anyway, thanks to an earlier breach you might not have detected, or to a historical attack against a secondary source, such as an outsourcing company to which you once entrusted your staff data.
+In the Coinbase breach, the social engineers who’d called up in the second phase of the attack apparently asked the victim to install AnyDesk, followed by ISL Online. 
+Never install any software, let alone remote access tools (which allow an outsider to view your screen and to control your mouse and keyboard remotely as if they were sitting in front of your computer) on the say-so of someone who just called you, even if you think they are from your own IT department. 
+If you didn’t call them, you’ll almost certainly never be sure who they are.
+In the Coinbase case, the tool that the crooks wanted the victim to use was called EditThisCookie (an ultra-simple way of retrieving secrets such as access tokens from a user’s browser), but you should refuse to install any browser plugin on the say-so of someone you don’t know and have never met. 
+Browser plugins get almost unfettered access to everything you type into your browser, including passwords, before they get encrypted, and to everything your browser displays, after it’s been decrypted. 
+Plugins can not only spy on your browsing, but also invisibly modify what you type in before it’s transmitted, and the content you get back before it appears on the screen.
+To repeat and develop the advice we’ve given so far:
+In this case, Coinbase says its own security team was able to use XDR techniques, spotting unusual patterns of activity (for example, attempted logons via an unexpected VPN service), and to intervene within about 10 minutes.
+This meant that the individual under attack not only broke off all contact with the criminals right away, before too much harm was done, but knew to be extra-careful in case the attackers came back with yet more ruses, cons and so-called active adversary trickery.
+Make sure you’re a human part of your company’s XDR “sensor network”, too, along with any technological tools your security team has in place.
+Giving your active defenders more to go on that just “VPN source address showed up in access logs” means they’ll be much better equipped to detect and respond to an active attack.
+LEARN MORE ABOUT ACTIVE ADVERSARIES
+In real life, what really works for the cybercrooks when they initiate an attack? How do you find and treat the underlying cause of an attack, instead of just dealing with the obvious symptoms?
+Know your enemy! Learn how cybercrime adversaries get in…
+
+
+LEARN MORE ABOUT XDR AND MDR
+Short of time or expertise to take care of cybersecurity threat response? Worried that cybersecurity will end up distracting you from all the other things you need to do?
+Take a look at Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+LEARN MORE ABOUT SOCIAL ENGINEERING
+Join us for a fascinating interview with Rachel Tobac, DEFCON Social Engineering Capture the Flag champ, about how to detect and rebuff scammers, social engineers and other sleazy cybercrimimals.
+No podcast player showing below? Listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+…and keep your cryptos on a cold wallet. Do not trust any exchange.
+“regularly and actively looking for hints that someone is up to no good in your network” also doesn’t convince senior management that your job is needed, necessary, or important.
+“waiting for traditional cybersecurity detections” is tangible, measurable, and justifiable.
+Regulatory and liability-related pressure might help to change that.
+The old adage that “prevention is better than cure” did feel somewhat forgotten in recent years (stories of companies paying ransomware crooks because it was cheaper than bothering with restoring backups are a reminder of that), but attitudes seem to be changing back…
+Technical pre-sales consultant with 10+ years experience here. I came across said “XDR” acronym only a short while ago although it seems to have been around for some time already. Asking for an explanation to one of the “security evangelists” at consulted company (my client), they said something along the lines of “it’s a glorified SIEM, but we shall sell it as a holistic and risk-based endpoint- and network-based threat detection and response ecosystem, with an AI-based icing of threat intelligence”.
+So what is it exactly? Curious to hear how you guys at Sophos understand this concept (a process? a tool?)
+Any details about how Sophos used more than the usual SOC toolset and processes to stop the attack?
+Kind regards, PJ
+I’m probably not quite the right person to ask because I am allergic to jargon… but at Sophos we took our regular threat-detection-and-prevention offering, known as EDR (or “anti-virus-and-all-that-stuff” as an old-timer might call it and everyone would understand), and extended it with additional “sensors” and detections that weren’t formerly considered a proper subset of pure-play threat-based EDR, such as “check me some patch levels”, “are there any files like this one lying around?”, or “how many users have been sitting on a pending reboot for three weeks already?”
+That extended our EDR to form XDR, and after a while of ensuring they co-operated/integrated properly to provide “anti-virus-and-yet-more-good-stuff-than-before”, we crossed out the E in EDR and called it XDR. 
+(If you visit our website and click on “Sophos EDR”, which we list for those who expect to see the product labelled that way, the popup will describe it as “Sophos XDR”.)
+In fact, towards the end of last year everyone with EDR just found it had turned into  XDR 🙂 
+An analogy might be that when the wardrobe in your bedroom would no longer fit your stuff in a neat and integrated way, we replaced it for free with a fitted, walk-in cupboard system (rewrite cupboard -> closet if from North America), instead of offering to sell you some add-on flat pack shelving you could build and stick in a corner to “extend” your storage space.
+I hope that is both correct and comprehensible…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

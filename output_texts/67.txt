@@ -1,0 +1,41 @@
+Sophos Home protects every Mac and PC in your home 
+Yesterday, we wrote about a bug in the VMware Spring product, a project we described as “an open-source Java toolkit for building powerful Java apps, including cloud-based apps, without needing to write, manage, worry about, or even understand the ‘server’ part of the process yourself.”
+But Spring is a huge project, with a vast number of components, so talking about “a vulnerability in Spring” is a bit like saying “I think there’s a bug in Windows”, or “I hope I don’t catch the Sickness disease”.
+So, to make things a bit clearer, the bug we looked at yesterday is officially designated CVE-2022-22963, and its semi-official long name is Remote code execution in Spring Cloud Function by malicious Spring Expression
+You might also see it referred to as Spring Expression Resource Access Vulnerability, sometimes written as SPEL Vulnerability“. (SPEL, also written SpEL, is itself short for “Spring Expression Language”, which is the technology abused when this bug is exploited.)
+The CVE-2022-22963 bug exists in a Spring component called Spring Cloud Function, which is an optional module that you can use inside the Spring ecosystem to write your Spring code in what’s known as a functional style, where you strip back the code needed for data processing to a minimum.
+For example, if you want a web service to convert a SKU into a product name, a functional approach would let you program that as a simple function that took the SKU as an input, returned the name as an output, and didn’t need to concern itself with any of the surrounding details of how to receive the input, or how to return the result to the caller.
+Unfortunately, by adding a special HTTP header to the request sent into the Spring Cloud Function module (the very code that saved you from writing code to process the request!), an attacker could trick the server into running a program of their choice.
+This sort of vulnerability is known as Remote Code Execution (RCE), which is a jargon term that means just what is says: someone from the outside, perhaps even on the other side of the world, can trick your computer into running a program of their choice, without the usual warnings or popups you would expect before inviting untrusted code into your network.
+RCEs are always a serious issue, even if they’re hard to exploit or rely on a non-default configuration of the service being attacked.
+After all, the ability to force someone else to run code they didn’t choose themselves often means that an attacker could quietly implant malware without needing to figure out a way to login first.
+Worse still, proof-of-concept (PoC) exploits showing how to abuse CVE-2022-22963 are readily available online, so that wannabe cybercriminals can simply copy-and-paste existing code to get started with an attack.
+Fortunately, patching against the CVE-2022-22963 bug is easy: if you use the Spring Cloud Function module anywhere in your Spring-based ecosystem, upgrade to version 3.1.7 or 3.2.3, depending on which of the two officially supported branches of Spring Cloud Function you have.
+For official information, see the Spring team’s CVE Report and its own vulnerability assessment.
+Unfortunately, there’s another Spring-based vulnerability in the news at the same time. 
+The second bug can also lead to remote code execution, so it could also be a vector for attackers to implant malware onto unpatched servers, but the bug is in a different part of the Spring code, and patching against the Spring Cloud Function hole won’t stop this one. 
+This other bug is officially CVE-2022-22965, and some cybersecurity wags have confusingly (and regrettably, in our opinion) dubbed this one “Spring4Shell”, presumably trying to hype up the story by connecting it to the infamous Log4Shell vulnerability of late last year.
+Given that we already have several names for the bug we discussed at the top of this article, and given that these two bugs have hit the news at the same time, there’s a lot of confusion just from having two bugs to talk about…
+…and that confusion hasn’t been helped by the name “Spring4Shell”, which suggests some sort of technical connection with Log4J, the Java product that gave us the bug dubbed Log4Shell, even though Log4J and Spring are completely different and unrelated software projects.
+Furthermore, in the jargon, any rogue code that’s deliberately injected during an RCE exploit is generically known as “shellcode”.
+Similarly, using RCE to run an arbitrary program on someone else’s computer is generically known as “getting a shell”, because a shell, in Unix terminology, is a general-purpose command-line program specifically designed to help you run any other programs you like, and even to create scripts or batch files that are programs in their own right.
+In other words, adding the moniker “Shell” to any vulnerability name – as, indeed, we saw during the Log4Shell saga – is likely to cause unnecessary confusion.
+Anyway, the CVE-2022-22965 vulnerability is found in the Spring Framework product, and the good news is that it, too, has been patched.
+Patching this hole means upgrading to Spring Framework 5.2.20 or 5.3.18. (There are two parallel tracks of the product, a 5.2 and a 5.3 flavour; update to the latest release of the variant you’re using.)
+According to the Spring team, there’s also a Spring product bundle known as Spring Boot, which includes the Spring Framework component; the team has therefore also published updated Spring Boot versions numbered 2.5.12 and 2.6.6 that include the updated Spring Framework patches.
+Here’s what we recommend, for reasons both of cybersecurity and of clarity:
+In summary, and to help you find definitive update information from the Spring team:
+Note for Sophos customers. No Sophos products or services are affected by these bugs.For further advice and information, please see Sophos Security Advisory SA-20220401 (Spring RCE).
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Good explanation.  I agree with calling out the poor naming of “Spring4Shell”, which is irresponsible for a technical field, and reminds me too much of the way “-gate” has been attached to every other political controversy simply because its “catchy”.  Even nicknames are supposed to actually mean something…
+There must be loads of people who think that the Watergate scandal got its name from a (person, place, building, hotel, government department, company) called “Water”.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

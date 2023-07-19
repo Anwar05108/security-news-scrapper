@@ -1,0 +1,44 @@
+Sophos Home protects every Mac and PC in your home 
+Two of the big-news vulnerabilities in this month’s Patch Tuesday updates from Microsoft were CVE-2022-26923 and CVE-2022-26931, which affected the safety of authentication in Windows.
+Even though they were so-called EoP holes rather than RCE bugs (elevation of privilege, instead of the more serious problem of remote code execution), they were neverthless rated Critical, given that the bugs applied to Active Directory (AD) and Windows Domain Controllers (DCs).
+Hyper-V and Active Directory Front and Center for May Patch Tuesday
+
+
+The name domain controller means exactly what it says: DCs are servers that look after authentication and access control for users, computers, services and devices for an entire network domain.
+An old Latin satirical poem wryly asks, “Quis custodiet ipsos custodes?” (Who will guard the guards themselves?), and in the case of a Windows network, the short answer is that the guard that guards everthing else is your domain controller.
+In other words, a authentication bypass against your domain controller could quickly lead to compromise of almost everything else on your network.
+Simply put, anyone who’s already inside your network, even if they’re logged in with (or have compromised) an account with minimal access rights, could use domain controller EoP bugs of this sort to grant themselves the same sort of power that only your most trusted sysadmins would normally be allowed.
+Ironically, the CVE-2022-26923 and CVE-2022-26931 bugs only seem to apply if you’re using digital certificates for added authentication security. 
+(These are the same sort of digitial certificates that browsers and websites use for securing HTTPS connections, or that apps use to prove to the operating system that they haven’t been tampered with since they were approved for use.)
+Apparently, adding a $ sign at the end of a computer name could cause the mis-verification of authentication certificates, as could creating cunningly-crafted certificates that identified the holder of the certificate in two different and inconsistent ways. 
+Even though these weren’t RCE bugs; even though they weren’t already zero-days known to cybercriminals; and even though attackers would need to break into your network first to be able to exploit them at all…
+…you can see why Microsoft would regard them as critical bugs.
+Unfortunately, the KB5014754 update went a bit too far in some cases, and in making it harder for bogus users and programs to get in where they shouldn’t, Microsoft also locked out some legitimate services as well.
+Some Windows services authenticating with digital certificates were looked up incorrectly in the Active Directory database, and were therefore denied acccess when they should have been let in.
+Microsoft quickly acknowledged the problem, with Elizabeth Tyler of the Detection and Response team tweeting just two days after Patch Tuesday to say:
+We're aware (as you can imagine). We know the root cause is the subject name is incorrectly used to map the cert to a machine account in AD rather than the DNSHostname in the subject alternative name on DCs that have installed 5b and we're working it.
+— Elizabeth Tyler (@MSetyler) May 12, 2022
+
+There was apparently a workaround, officially explained by Microsoft in its KB5014754 article, but it involved manually updating a database entry entitled altSecurityIdentities in each service’s Active Directory database record.
+Elizabeth Taylor retiurned to Twitter today to confirm that this buggy patch has now been patched:
+Yes, fixed and released 19 May. CU:WS 2022: KB5015013WS, version 20H2: KB5015020WS  2019: KB5015018WS  2016: KB5015019Standalone:WS  2012 R2: KB5014986WS  2012: KB5014991WS  2008 R2 SP1: KB5014987WS  2008 SP2: KB5014990
+— Elizabeth Tyler (@MSetyler) May 20, 2022
+
+There’s also a knowledgebase article numbered KB5015013 that you can consult for further details.
+According to KB5015013, the bugs fixed in this out-of-band patch-for-the-patch:
+Patches-that-need-patches inevitably give our own preferred principle of Patch early, Patch often a bad name…
+…but in this case, keep in mind that the original security flaws were rated Critical; that the errant patch didn’t affect all Windows authentication; that there was a workaround for those willing to employ it; and that rolling back this patch (while leaving all the other Patch Tuesday fixes in place) was a viable temporary fix.
+And although it’s easy to look back through rose-tinted specatacles and remember a distant past in which security patches hardly ever needed patches, that’s the same distant past where there were hardly any security patches to start with.
+(It’s also a distant past where almost any stack buffer overflow discovered in Windows was almost certainly exploitable with almost no effort and with almost immediate effect.)
+So we’re still going to say, as we did when we wrote about the latest VMware patches just a few hours ago: Don’t delay – do it today.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

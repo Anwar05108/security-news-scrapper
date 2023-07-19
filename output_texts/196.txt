@@ -1,0 +1,152 @@
+Sophos Home protects every Mac and PC in your home 
+DON’T PANIC… BUT BE READY TO ACT
+With Paul Ducklin and Chester Wisniewski
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+[MUSICAL MODEM]
+DUCK.  Hello everybody. 
+Welcome to another special mini-episode of the Naked Security podcast. 
+I am Paul Ducklin, joined again by my friend and colleague Chester Wisniewski. 
+Hello, Chet.
+CHET.  [FAKE AUSSIE ACCENT] G’day, Duck.
+DUCK.  Well, Chet, I’m sure that everyone listening. if they’re listening shortly after the podcast came out, knows what we’re going to be talking about!
+And it has to be this double-barrelled Microsoft Exchange zero-day that came out in the wash pretty much on the last day of September 2022:
+URGENT! Microsoft Exchange double zero-day – “like ProxyShell, only different”
+
+
+Our sales chums are going, “Oh, it’s month-end, it’s quarter-end, it’s a frantic time…but tomorrow everyone gets a reset to $0.”
+It’s not going to be like that this weekend for Sysadmins and IT managers!
+CHET.  Duck, I think, in the immortal words of the dearly departed Douglas Adams, “DON’T PANIC” might be in order. 
+Many organisations no longer host their own email on-premise on Exchange servers, so a good chunk of folks can take a deep breath and let a little time pass this weekend, without getting too stressed out about it. 
+But if you are running Exchange on-premise…
+…if it were me, I might be working some overtime hours just to put a few mitigations in place, to be sure that I don’t have an unpleasant surprise on Monday or Tuesday when this, in all likelihood, will develop into something more dramatic.
+DUCK.  So, it’s CVE-2022-41040 and CVE-2022-41042… that’s quite a mouthful. 
+I’ve seen it being referred to on Twitter as ProxyNotShell, because it has some similarities to the ProxyShell vulnerability that was the big story just over a year ago,
+But although it has those similarities, it is a completely new pair of exploits that chain together, potentially giving remote code execution – is that correct?
+CHET.  That’s what it sounds like. 
+Those vulnerabilities were discovered during an active attack against a victim, and a Vietnamese organisation called GTSC unravelled these two new vulnerabilities that allowed the adversaries to gain access to some of their clients. 
+It sounds like they responsibly disclosed those vulnerabilities to the Zero Day Initiative [ZDI] that’s run by Trend Micro for reporting zero-day vulnerabilities responsibly.
+And, of course, ZDI then in turn shared all of that intelligence with Microsoft, a little over three weeks ago. 
+And the reason it’s coming out today is I think that the Vietnamese group…
+…it sounds like they’re getting a little impatient and concerned that it’s been three weeks and that no alerts or advice had gone out to help protect people against these alleged nation-state actors.
+So they decided to raise the alarm bells and let everybody know that they need to do something to protect themselves.
+DUCK.  And, to be fair, they carefully said, “We’re not going to reveal exactly how to exploit these vulnerabilities, but we are going to give you mitigations that we found effective.” 
+It sounds as though either exploit on its own is not especially dangerous…
+…but chained together, it means that someone outside the organisation who has the ability to read email off your server could actually use the first bug to open the door, and the second bug to essentially implant malware on your Exchange server.
+CHET.  And that’s a really important point to make, Duck, that you said, “Someone who can read email on your server.” 
+This is not an *unauthenticated* attack, so the attackers do need to have some intelligence on your organisation in order to successfully execute these attacks.
+DUCK.  Now, we don’t know exactly what sort of credentials they need, because at the time we’re recording this [2022-09-30T23:00:00Z], everything is still largely secret. 
+But from what I’ve read (from people I’m inclined to believe), it looks as though session cookies or authentication tokens aren’t good enough, and that you actually would need a user’s password. 
+After having provided the password, however if there was two-factor authentication [2FA], the first bug (the one that opens the door) gets triggered *between the point at which the password is provided and the point at which 2FA codes would be requested*. 
+So you need the password, but you don’t need the 2FA code…
+CHET.  It sounds like it’s a “mid-authentication vulnerability”, if you want to call it that. 
+That is a mixed blessing. 
+It does mean that an automated Python script can’t just scan the whole internet and potentially exploit every Exchange server in the world in a matter of minutes or hours, as we saw happen with ProxyLogon and ProxyShell in 2021. 
+We saw the return of wormage in the last 18 months, to the detriment of many organisations.
+DUCK.  “Wormage”? 
+CHET.  Wormage, yes! [LAUGHS]
+DUCK.  Is that a word? 
+Well, if it isn’t, it is now!
+I like that… I might borrow it, Chester. [LAUGHS]
+CHET.  I think this is mildly wormable, right? 
+You need a password, but finding one email address and password combination valid at any given Exchange server is probably not too difficult, unfortunately.
+When you talk about hundreds or thousands of users… in many organisations, one or two of them are likely to have poor passwords. 
+And you might not have gotten exploited to date, because to successfully log into Outlook Web Access [OWA] requires their FIDO token, or their authenticator, or whatever second factor you might be using. 
+But this attack doesn’t require that second factor. 
+So, just acquiring a username and password combination is a pretty low barrier…
+DUCK.  Now there’s another complexity here, isn’t there? 
+Namely that although Microsoft’s guideline officially says that Microsoft Exchange Online customers can stand down from Blue Alert, it’s only dangerous if you have on-premise Exchange…
+…there are a surprising number of people who switched to the cloud, possibly several years ago, who were running both their on-premises and their cloud service at the same time during the changeover, who never got round to turning off the on-premises Exchange server.
+CHET.  Precisely! 
+We saw this going back to ProxyLogin and ProxyShell. 
+In many cases, the criminals got into their network through Exchange servers that they thought they didn’t have. 
+Like, somebody didn’t check the list of VMs running on their VMware server to notice that their migratory Exchange servers that were assisting them during the forklifting of the data between their on-premise network and the cloud network…
+…were still, in fact, turned on, and enabled and exposed to the internet. 
+And worse, when they’re not known to be there, they’re even less likely to have gotten patched. 
+I mean, organisations that have Exchange at least probably go out of their way to schedule maintenance on them on a regular basis. 
+But when you don’t know you have something on your network “because you forgot”, which is really easy with VMs, you’re in an even worse situation, because you probably haven’t been applying Windows updates or Exchange updates.
+DUCK.  And Murphy’s law says that if you really rely on that server and you’re not looking after it properly, it will crash just the day before you really need it. 
+But if you don’t know it’s there and it could be used for bad, the chances that it will run for years and years and years without any trouble at all is probably quite high. [LAUGHS]
+CHET.  Yes, unfortunately, that’s certainly been my experience! 
+It sounds silly, but scanning your own network to find out what you have is something that we would recommend you do on a regular basis anyway. 
+But certainly, when you hear about a bulletin like this, if it’s a product that you know you’ve used in the past, like Microsoft Exchange, it’s a good time to run that internal Nmap scan…
+…and perhaps even log into shodan.io and check your external services, just to be sure all that stuff got turned off.
+DUCK.  We now know from Microsoft’s own response that they’re beavering away frenziedly to get patches out. 
+When those patches appear, you’d better apply them pretty jolly quickly, hadn’t you? 
+Because if any patch is ever going to be targeted for reverse engineering to figure out the exploit, it’s going to be something of this sort.
+CHET.  Yes, absolutely, Duck!
+Even once you patch, there’s going to be a window of time, right? 
+I mean, typically Microsoft, for Patch Tuesdays anyway, release their patches at 10.00am Pacific time. 
+Right now we’re in Daylight Time, so that’s UTC-7… so, around 17:00 UTC is typically when Microsoft release patches, so that most of their staff have the entire day to then respond to incoming queries in Seattle. [Microsoft HQ is in Bellevue, Seattle, WA.] 
+The key here is there’s kind of a “race” of hours, perhaps minutes, depending how easy this is to exploit, before it starts happening. 
+And again, going back to those previous Exchange exploitations with ProxyShell and ProxyLogon, we often found that even customers who had patched within three, four, five days…
+…which to be honest, is somewhat fast for an Exchange server, they’re very difficult to patch, with a lot of testing involved to be sure that it’s reliable before you disrupt your email servers. 
+That was enough time for those servers to get webshells, cryptominers, all kinds of backdoors installed on them. 
+And so, when the official patch is out, not only do you need to act quickly…
+…*after* you act, it’s well worth going back and thoroughly checking those systems for evidence that maybe that they have been attacked in the gap between when the patch became available and when you were able to apply it.
+I’m sure there’ll be plenty of conversation on Naked Security, and on Twitter and other places, talking about the types of attacks we’re seeing so you know what to look for.
+DUCK.  While you can go and look for a bunch of hashes of known malware that has been distributed already in a limited number of attacks…
+…really, the bottom line is that all sorts of malware are possibilities. 
+And so, like I think you said in the last mini-episode that we did, it’s no longer enough just to wait for alerts of something bad that’s happened to pop into your dashboard:
+S3 Ep100.5: Uber breach – an expert speaks [Audio + Text]
+
+
+You have to go out proactively and look, in case crooks have already been in your network and they’ve left something behind (that could have been there for ages!) that you haven’t noticed yet.
+CHET.  So I think that leads us towards, “What do we do now, while we’re waiting for the patch?” 
+The Microsoft Security Research Center (MSRC) blog released some mitigation advice and details…  as much as Microsoft is willing to disclose at this time.
+I would say, if you’re a pure Microsoft Exchange Online customer, you are pretty much in the clear and you should just pay attention in case things change. 
+But if you’re in a hybrid situation, or you are still running Microsoft Exchange on-premise, I think there’s probably some work that is well worth doing this afternoon or tomorrow morning if nothing else. 
+Of course, at the time of recording, this is Friday afternoon… so, really, when you’re listening to this, “Immediately, whenever you’re hearing it, if you haven’t already done it.”
+What are the best practices here, Duck? 
+Obviously, one thing you can do is just turn off the external web access until a patch is available. 
+You could just shut down your IIS server and then that’ll do it!
+DUCK.  I suspect that many companies will not be in that position. 
+And Microsoft lists two things that they say… well, they don’t say, “This will definitely work.” 
+They suggest that it will greatly limit your risk. 
+One is that there is a URL rewriting rule that you can apply to your IIS server. (My understanding is that it’s IIS that accepts the incoming connection that turns into the access to Exchange Web Services [EWS].) 
+So there’s an IIS setting you can make that will look for likely exploitations of the first hole, which will prevent the PowerShell triggering from being started. 
+And there are some TCP ports that you can block on your Exchange Server. 
+I believe it’s port 5985 and 5986, which will stop what’s called PowerShell Remoting… it will stop these rogue PowerShell remote execution commands being poked into the Exchange server. 
+Note, however, that Microsoft does say this will “limit” your exposure, rather than promising that they know it fixes everything. 
+And that may be because they suspect there are other ways that this could be triggered, but they just haven’t quite figured out what they are yet. [LAUGHS]
+Neither setting is something that you do in Exchange itself. 
+One of them is in IIS, and the other is some kind of network filtering rule.
+Update. The TCP port-blocking recommendation has now vanished without explanation from Microsoft’s own guidance, which now advises simply that you “disable remote PowerShell access for non-admin users”. There is no indication of whether this change specifically prevents the CVE-2022-41042 exploit, or is just a worthwhile security change anyway. [2022-10-08T20:00:00Z]
+CHET.  Well, that’s helpful to get us through the next few days while Microsoft gives us a permanent fix.
+The good news is that I think a lot of security software, whether that be an IPS that may be integrated in your firewall, or endpoint security products that you have protecting your Microsoft Windows Server infrastructure…
+…the attacks for this, in many cases (at least early reports), look very similar to ProxyLogon, and , as a result, it’s unclear whether existing rules will protect against these attacks. 
+They may, but in addition to that, most vendors appear to be trying to tighten them up a bit, to ensure that they’re as ready as possible, based on all the indicators that have been currently publicly shared, so they will detect and send you alerts if these were to occur on your Exchange servers.
+DUCK.  That’s correct, Chester. 
+And the good news for Sophos customers is that you can track Sophos-specific detections if you want to go and look through your logs. 
+Not just for IPS, whether that’s the IPS on the firewall or  the endpoint, but we also have a bunch of behavioural rules. 
+You can track those detection names if you want to go looking for them… follow that on the @SophosXOps Twitter feed.
+As we get new detection names that you can use for threat hunting, we’re publishing them there so you can look them up easily:
+Sophos X-Ops has added the following detections:
+Troj/WebShel-EC and Troj/WebShel-ED detect the webshells discussed in attacks.
+IPS signature sid:2307757 based on the information published by Microsoft for both Sophos XG Firewall as well as Sophos Endpoint IPS.
+— Sophos X-Ops (@SophosXOps) September 30, 2022
+
+CHET.  I’m sure we’ll have more to say on next week’s podcast, whether it’s Doug rejoining you, or whether I’m in the guest seat once again. 
+But I’m quite confident we will not be able to put this to bed for quite a while now….
+DUCK.  I think, like ProxyShell, like Log4Shell, there’s going to be an echo reverberating for quite some time. 
+So perhaps we had better say, as we always do, Chester:
+Until next time…
+BOTH.  Stay secure.
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Hi, Ive Just got a Windows 10 PC . Should I be worried?
+No. If your work uses on-premises Exchange they will need to look at their end. If you use Office 365/Exchange Online you should be OK at both ends. 
+(Search the transcript for the bit where Chester says “DON’T PANIC” for further details.)
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

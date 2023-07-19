@@ -1,0 +1,68 @@
+Sophos Home protects every Mac and PC in your home 
+Apple has just released updates for all supported Macs, and for any mobile devices running the very latest versions of their respective operating systems.
+In version number terms:
+Oh, and tvOS gets an update, too, although Apple’s TV platform confusingly goes to tvOS 16.3.2 (no bulletin).
+Apparently, tvOS recently received a product-specific functionality fix (one listed on Apple’s security page with no information beyond the sentence This update has no published CVE entries, implying no reported security fixes) that already used up the version number 16.3.1 for Apple TVs.
+As we’ve seen before, mobile devices still using iOS 15 and iOS 12 get nothing, but whether that’s because they’re immune to this bug or simply that Apple hasn’t got round to patching them yet…
+…we have no idea.
+We’ve never been quite sure whether this counts as a telltale of delayed updates or not, but (as we’ve seen in the past) Apple’s security bulletin numbers form an intermittent integer sequence. The numbers go from 213633 to 213638 inclusive, with a gap at 213634 and gaps at 213636 and 213637. Are these security holes that will get backfilled with yet-to-be-released patches, or are they just gaps?
+Given that the Safari browser has been updated on the pre-previous and pre-pre-previous versions of macOS, we’re assuming that older mobile devices will eventually receive patches, too, but you’ll have to keep your eyes on Apple’s official HT201222 Security Updates portal to know if and when they come out.
+As mentioned in the headline, this is another of those “this smells like spyware or a jailbreak” issues, given that the all updates for which official documentation exists include patches for a bug denoted CVE-2023-23529.
+This security hole is a flaw in Apple’s WebKit component that’s described as Processing maliciously crafted web content may lead to arbitrary code execution.
+The bug also receives Apple’s usual euphemism for “this is a zero-day hole that crooks are already abusing for evil ends, and you can surely imagine what those might be”, namely the words that Apple is aware of a report that this issue may have been actively exploited.
+Remember that WebKit is a low-level operating system component that’s responsible for processing data fetched from remote web servers so that it can be displayed by Safari and many other web-based windows programmed into hundreds of other apps.
+So, the words arbitrary code execution above really stand for remote code execution, or RCE.
+Web-based RCE exploits generally give attackers a way to lure you to a booby-trapped website that looks entirely unexceptionable and unthreatening, while implanting malware invisibly simply as a side-effect of you viewing the site.
+A web RCE typically doesn’t provoke any popups, warnings, download requests or any other visible signs that you are initiating any sort of risky behaviour, so there’s no point at which attacker needs catch you out or to trick you into taking the sort of online risk that you’d normally avoid.
+That’s why this sort of attack is often referred to as a drive-by download or a drive-by install.
+Just looking at a website, which ought to be harmless, or opening an app that relies on web-based content for any of its pages (for example its splash screen or its help system), could be enough to infect your device.
+Remember also that on Apple’s mobile devices, even non-Apple browsers such as Firefox, Chrome and Edge are compelled by Apple’s AppStore rules to stick to WebKit.
+If you install Firefox (which has its own browser “engine” called Gecko) or Edge (based on a underlying layer called Blink) on your Mac, those alternative browsers don’t use WebKit under the hood, and therefore won’t be vulnerable to WebKit bugs.
+(Note that this doesn’t immunise you from security problems, given that Gecko and Blink may bring along their own additional bugs, and given that plenty of Mac software components use WebKit anyway, whether you steer clear of Safari or not.)
+But on iPhones and iPads, all browsers, regardless of vendor, are required to use the operating system’s own WebKit substrate, so all of them, including Safari, are theoretically at risk when a WebKit bug shows up.
+If you have an Apple product on the list above, do an update check now.
+That way, if you’ve already got the update, you’ll reassure yourself that you’re patched, but if your device hasn’t got to the front of the download queue yet (or you’ve got automatic updates turned off, either by accident or design), you’ll be offered the update right away.
+On a Mac, it’s Apple menu > About this Mac > Software Update… and on an iDevice, it’s Settings > General > Software Update.
+If your Apple product isn’t on the list, notably if you’re stuck back on iOS 15 or iOS 12, there’s nothing you can do right now, but we suggest keeping an eye on Apple’s HT201222 page in case your product is affected and does get an update in the next few days.
+As you can imagine, given how strictly Apple locks down its mobile products to stop you using apps from anywhere but the App Store, over which it exerts complete commercial and technical control…
+…bugs that allow rogues and crooks to inject unauthorised code onto Apple phones are highly sought after, given that RCEs are about the only reliable way for attackers to hit you up with malware, spyware or any other sort of cyberzombie programming.
+Which gives us a good reason, as always, to say: Don’t delay/Do it today.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+iPhone is so doomed. Apple needs to ditch most of their completely incompetent native apps like Safari, Apple Music, iTunes etc. Overhaul the OS completely. Learn from Android.
+All these deeply needed improvements to the OS in general may take years if they even happen at all, probably best switching to Android and call it a day.
+I do have a solution suggestion for Safari at least. Ditch WebKit. Switch Safari to Blink. Yeah it’s the easy way out and all that but it’s a billion times better than what Apple is offering what with the current state of the infinitely prone to severe security exploits Safari, reminds me of the security nightmare Flash Player/Java days.
+Apple has well and truly lost their way, and once this phone of mine dies it might very well be the last iPhone I ever use. I’m seriously glad I do not own any other Apple products!
+p.s. I will probably never update my iPhone from iOS 15. The state of iOS 16 is an absolute travesty to say the least.
+Seems that you’re an Android fan, and you want everyone to know it, and that’s that. 
+You state that Safari is “infinitely prone to severe security exploits”, which is such an extreme claim that you can’t simply state it as if it were a fact. You need to produce some evidence. (We wrote on this very site about no fewer than nine zero-day bugs patched in Chrome during 2022… so to a first approximation, the “severe security exploit” bugginess of Safari/WebKit and Chromium/Blink would seem to be much more similar than it is different, and neither you nor any other readers here are insisting about.)
+I wouldn’t usually approve unsubstantiated, hyperbolic, opinionated “commentary” like this, because it is devoid of evidence and therefore doesn’t help anyone to make an informed decision about their digital security…
+…but I did so this time as a sort-of reminder to readers to be careful of getting sucked into the Total Perspective Vortex of confirmation bias.
+for what it’s worth, there is no more iTunes, so that person really was just blowing smoke
+You can still download iTunes for Windows… though whether the OP would see that as weakening or strengthening their “argument” is hard to tell 🙂
+funny, the only reason I don’t use android, or I should say googs android, is all the back doors they put in for data harvesting. If it wasn’t for goog, android would be awesome. But as we all know, greed ruins the best of things. So there are no real firewall apps (might block goog). I get what you are saying about apple being to much of themselves, but sadly, there are no good options besides bringing your own OS, and that isn’t a thing for even 1% people.
+If switching to Blink is a “billion times better” then perhaps I’m imagining the litany of vulnerabilities announced in Chromium-based browsers over the past few years?
+Right on Duck!  Could not agree with you more!
+Another reason to avoid apps that embed webviews. They are incredibly slow and a terrible user experience — take the Costco app for example.
+Lots of apps do… anything that has “its own” browser is using WebKit, such as Twitter and other social media apps that give you a quick preview of the page and offer a “View in Safari” button. (If you see that button, you’re obviously not in Safari at that moment, so if you’re looking at web content, you must be in WebKit because Apple says “No” to other browser engines.)
+As for “incredibly slow”… that may be true for some specialised apps with specific content from their own site, but for all you know, the speed could be down to the server or to the quality/complexity of the HTML returned, not down to WebKit. Certainly I’ve never noticed Twitter’s “embedded browser” being notably slower than what I’d expect from Safari. (It’s much the same code rendering much the same content, obvs.)
+I try to update as soon as I’ve seen your update alerts in my Inbox. While I know little to nothing about the technical issues involved, I do know it’s important to keep software updated and it’s why I have the automatic software option selected on all my devices. But it’s seldom if ever that I receive software alerts on my iPhone, iPad or MacBook before receiving them from Sophos, so thanks guys.
+Glad it helped! I like reminders from N different sources myself… makes it harder to forget or miss one.
+I’m running Big Sur (which is as high as my hardware will go), and it took an update to Safari yesterday.  It is still showing Safari 16.3 (not 16.3.1), both during the update and afterwards on “About Safari”.
+That’s weird. I have Big Sur too – have updated my phone but not yet my Mac, which I don’t use so much any more (it’s got one of those “butterfly” keyboards, good to look at but frusrattttttting to uuuuuuse). I’ll try to take a look later tonight (currently wrangling with Microsoft’s Patch Tuesday stuff… it never rains but that it pours!)
+Big Sur was updated to 11.7.4 today, described as a security update, but without an announced CVE so far. After the update you will then be offered yet another Safari 16.3.1 that actually does display that version this time.
+Interesting that I actually DO have Auto Updates ON. yet received nothing. No notice. No download. I have now updated because I stumbled upon this article.
+Not everyone gets offered the update at the same time (this spreads the load a bit). Thus the article, for those who would like to claim a place at the front or the queue by checking manually 🙂
+I never update any device and that’s probably why I still have my iPhone 7 that works perfectly while the rest of my family experiences all kinds of issues with each new update. If the government says it’s necessary then most likely it’s the opposite IMO.
+Errrr, there’s no answer to that. 
+Other than to point out that I have updated my iPhone as soon as possible (mainly to see if there are any downsides) for years… and I’ve never had any “issues” when doing so.
+Or have I just been trolled? I can never really tell…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

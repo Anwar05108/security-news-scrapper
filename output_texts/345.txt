@@ -1,0 +1,59 @@
+Sophos Home protects every Mac and PC in your home 
+It’s Patch Tuesday Week (if you will allow us our daily pleonasm), and Microsoft’s updates include fixes for a number of security holes that the company has dubbed Critical, along with a zero-day fix, although the 0-day only gets a rating of Important.
+The 0-day probably got away with not being Critical because it’s not an outright remote code execution (RCE) hole, meaning that it can’t be exploited by someone who hasn’t already hacked into your computer.
+That one is CVE-2023-28252, an elevation of privilege (EoP) bug in the Windows Common Log File System Driver.
+The problem with Windows EoP bugs, especially in drivers that are installed by default on every Windows computer, is that they almost always allow attackers with few or no significant access privileges to promote themselves directly to the SYSTEM account, giving them as-good-as total control over your computer.
+Programs running as SYSTEM can typically: load and unload kernel drivers; install, stop and start system services; read and write most files on the computer; change existing access privileges; run or kill off other programs; spy on other programs; mess with secure parts of the registry; and much more.
+Ironically, the Common Log File System (CLFS) is designed to accept and manage offical logging requests on behalf of any service or app on the computer, in an effort to ensure order, precision, consistency and security in official system-level record keeping.
+Two Critical bugs in particular grabbed our interest.
+The first one is CVE-2023-21554, an RCE hole in the Microsoft Message Queue system, or MSMQ, a component that is supposed to provide a failsafe way for programs to communicate reliably, regardless of what sort of network connections exist between them.
+The MSMQ service isn’t turned on by default, but in high-reliability back-end systems where regular TCP or UDP network messages are not considered robust enough, you might have MSMQ enabled. 
+(Microsoft’s own examples of applications that might benefit from MSMQ include financial processing services on e-commerce platforms, and airport bagage handling systems.)
+Unfortunately, even though this bug isn’t in the wild, it received a rating of Critical and a CVSS “danger score” of 9.8/10.
+Microsoft’s two-sentence bug description says simply:
+To exploit this vulnerability, an attacker would need to send a specially crafted malicious MSMQ packet to a MSMQ server. This could result in remote code execution on the server side.
+Based on the high CVSS score and what Microsoft didn’t mention in the above description, we’re assuming that attackers exploiting this hole wouldn’t need to be logged on, or to have gone through any authentication process first.
+The second Critical bug that caught our eye is CVE-2023-28231, an RCE hole in the Microsoft DHCP Server Service.
+DHCP is short for dynamic host configuration protocol, and it’s used in almost all Windows networks to hand out network addresses (IP numbers) to computers that connect to the network.
+This helps prevent two users from accidentally trying to use the same IP number (which would cause their network packets to clash with each other), as well as to keep track of which devices are connected at any time.
+Usually, remote code execution bugs in DHCP servers are ultra-dangerous, even though DHCP servers generally only work on the local network, and not across the internet.
+That’s because DHCP is designed to exchange network packets, as part of in its “configuration dance”, not merely before you’ve put in a password or before you’ve provided a username, but as the very first step of getting your computer online at the network level.
+In other words, DHCP servers have to be robust enough to accept and reply to packets from unknown and untrusted devices, just to get your network to the point that it can start deciding how much trust to put in them.
+Fortunately, however, this particular bug gets a slightly lower score than the aforementioned MSMQ bug (its CVSS danger level is 8.8/10) because it’s in a part of the DHCP service that’s only accessible from your computer after you’ve logged on.
+In Microsoft’s words:
+An authenticated attacker could leverage a specially crafted RPC call to the DHCP service to exploit this vulnerability.
+Successful exploitation of this vulnerability requires that an attacker will need to first gain access to the restricted network before running an attack.
+The last two bugs that intrigued us were CVE-2023-28249 and CVE-2023-28269, both listed under the headline Windows Boot Manager Security Feature Bypass Vulnerability.
+According to Microsoft:
+An attacker who successfully exploited [these vulnerabilities] could bypass Secure Boot to run unauthorized code. To be successful the attacker would need either physical access or administrator privileges.
+Ironically, the main purpose of the much-vaunted Secure Boot system is that it’s supposed to help you keep your computer on a strict and unwavering path from the time you turn it on to the point that Windows takes control.
+Indeed, Secure Boot is supposed to stop attackers who steal your computer from injecting any booby-trapped code that could modify or subvert the initial startup process itself, a trick that’s known in the jargon as a bootkit. 
+Examples include secretly logging the keystrokes you type in when entering your BitLocker disk encryption unlock code (without which booting Windows is impossible), or sneakily feeding modified disk sectors into the bootloader code that reads in the Windows kernel so it starts up insecurely.
+This sort of treachery is often referred to as an “evil cleaner” attack, based on the scenario that anyone with official access to your hotel room while you’re out, such as a traitorous cleaner, might be able to inject a bootkit unobtrusively, for example by starting up your laptop briefly from a USB drive and letting an automatic script do the dirty work…
+…and then use a similarly quick and hands-off trick the next day to retrieve stolen data such as keystrokes, and remove any evidence that the bootkit was ever there.
+In other words, Secure Boot is meant to keep a properly-encrypted laptop safe from being subverted – even, or perhaps especially, by a cybercriminal who has physical access to it.
+So if we had a Windows computer for day-to-day use, we’d be patching these bugs as if they were Critical, even though Microsoft’s own rating is only Important.
+April showers Windows updates on sysadmins
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Oh, the irony of having security-related bugs in the very systems we’re supposed to rely on for their security.
+It somehow feels worse, and perhaps it is…
+…but the truth is that I really don’t think the crooks care whether they break in via NOTEPAD or Windows Defender, Microsoft Office or Windows SmartScreen, macOS Emoji Utility or Apple Gatekeeper, and so on. Irony doesn’t make attackers more money, steal more data, etc.
+Secure Boot without the Secure part? That’s just returning to the status quo for 30 years.
+(And as usual, downgrade attacks still possible so patching won’t save you for now)
+The joke about “Boot” was meant as a reminder that it was Windows 11 that finally said to us all, “Secure Boot! TPM! Must have all that stuff! Because Secure!” :-)
+“Secure” Boot can also be described as Restricted Boot because it promotes Windows lock-in (for your own safety, of course).
+Every Secure Boot capable BIOS setup I have seen allows to you set up your own trusted keys as well as (or instead of) the Windows-ready key it came with. The lock-in that was originally threatened doesn’t seem to have happened on x64 motherboards… yet.
+Well that’s something to be thankful for, I guess. But Secure Boot still raises the barrier of entry for people who want to install their own OS (especially less technically knowledgeable people) and makes it easier for you to brick your system in the process.
+Security is a cat and mouse game and always will be. The bigger variable to vulnerability is the end user who may be security conscious or may be careless and open to malware infestations. I don’t think anyone should be reliant on the OS to save them. Even security software can be behind the curve on patching a zero-day vulnerability. It’s all about patching ASAP and yet many still don’t.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

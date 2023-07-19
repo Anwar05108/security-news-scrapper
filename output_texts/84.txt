@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+QNAP, the makers of Networked Attached Storage (NAS) devices that are especially popular with home and small business users, has issued a warning about not-yet-patched bugs in the company’s products.
+Home and small office NAS devices, which typically range in size from that of a small dictionary to that of a large encyclopedia, provide you with the ready-to-go convenience of cloud storage, but in the custodial comfort of your own network.
+Loosely speaking, a NAS device is like an old-school file server that connects directly to your LAN, so it’s accessible and usable even if your internet connection is slow or broken.
+Unlike an old-school file server, however, the operating system and file-serving software are preinstalled and preconfigured for you, as part of the device, so it Just Works.
+No need to learn how to install Linux and Samba, or to wrangle with Windows Server licences, or to specify and build a server of your own and administer it. 
+NAS boxes typically come with everything you need (or with disk slots into which you add your own commodity disk drives of a suitable capacity), so you need to do little more than plug a power lead into the NAS, and hook up a network cable from the NAS to your router.
+No need to buy a USB drive for every laptop and desktop you own, because the NAS can be shared, and used simultaneously, by all the devices on your LAN.
+Configuring and managing the NAS can be done from any computer on your network, using a web browser to talk to a dedicated web server that’s ready and waiting on the NAS itself.
+Of course, the easy-to-use and ready-to-go nature of NAS devices comes with its own challenges:
+QNAP’s devices generally use httpd, the popular Apache HTTP Server Project, running on a customised distro of Linux.
+(Apache is the name of a software foundation that looks after a web server project amongst hundreds of others; although many people use “Apache” as shorthand for the web server, we recommend you don’t, because it’s confusing, rather like referring to Windows as “Microsoft” or to Java as “Oracle”.)
+Just over a month ago, Apache released version 2.4.53 of its HTTP Server, fixing several CVE-tagged bugs, including at least two that could lead to crashes or even remote code execution (RCE).
+Unfortunately, QNAP hasn’t yet pushed out the HTTP Server 2.4.53 update to its own devices, although it is now warning that two of the bugs that were fixed, CVE-2022-22721 and CVE-2022-23943, do affect some of its products.
+Fortunately, exploiting those bugs relies on features in the HTTP Server code that are not enabled by default on QNAP devices, and that you can easily turn off temporarily if you have enabled them.
+The bugs and their workarounds are:
+QNAP says it intends to patch its devices, promising that it “will release security updates as soon as possible”, although we don’t want to guess how soon that will be, given that Apache itself made the patches publicly available just over five weeks ago.
+You can keep your eye out for QNAP updates via the company’s decently laid-out Security Advisories page.
+While you’re about it, remember that it’s very unlikely that you want a NAS of your own to be accessible from the internet side of your router, because that would leave it directly exposed to automated scanning, discovery and probing by cybercriminals.
+Therefore we recommend the following precautions, too:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+One of the supposed advantages I’ve seen for a NAS device is that it can be connected to the internet so that it can be accessed away from your base, but my rather limited computer skills mean I’m too worried to even think of doing this.
+Is it possible to do it, even though your remarks above suggest this is not possible?
+I sort of skirted the question by saying, “Don’t open your network servers up to the internet unless you really mean to”, rather that, “It can’t be done, and please don’t try” :-)
+One solution is to run a proper firewall between your regular modem or modem/router combo (the device that plugs into your phone line or into your ISP’s fibre connector to complete your physical internet hookup) and the rest of your network. For example, if you have a spare laptop handy, you could set up a full-on Sophos XG Firewall Home Edition and use that as your network boundary protection.
+A fully-featured firewall like the Sophos one will include a VPN (virtual private network) or ZTNA (zero-trust network access) component that requires you to login to the firewall first, after which you get a virtual “network position” on the LAN side of the firewall, with the firewall deciding which internal services you can access. From there, if you have access to the NAS device, you can login to the NAS as though you were connected directly to the LAN.
+So you don’t need to have the NAS box itself directly exposed to the internet; you let the firewall act as the secure connection point for accessing the NAS box as though you were at home.
+I’ll be honest and say that setting up the Sophos Home Firewall isn’t as easy as setting up the average, stripped-down-for-simplicity SoHo router, because you’re setting up a business grade firewall with all the features you’d expect that sort of product to have (VPN, email filtering, web filtering, malware scanning, including scanning inside HTTPS if you want, intrusion prevention, bandwidth shaping, the lot – the Home Edition licence activates the works for $0)…
+…but if you’ve ever thought of learning more about business-grade firewalls, here’s a chance to learn for free, while using the product for extra protection in real life!
+For more info, see:
+https://www.sophos.com/en-us/products/free-tools/sophos-xg-firewall-home-edition.aspx
+Great, I’ll look into this as soon as I can.
+Thanks for replying.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

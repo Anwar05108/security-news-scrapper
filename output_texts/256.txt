@@ -1,0 +1,61 @@
+Sophos Home protects every Mac and PC in your home 
+You’ve probably heard of Pwn2Own, a hacking contest that started life alongside the annual CanSecWest cybersecurity event in Vancouver, Canada.
+Pwn2Own is now a multi-million “hackers’ brand” in its own right, having been bought up by anti-virus outfit Trend Micro and extended to cover many more types of bug than just browsers and desktop operating systems.
+The name, in case you’re wondering, is shorthand for “pwn it to own it”, where pwn (pronounced “pone”) is hacker-speak for “take control by exploiting a security hole”, and own literally means “have legal title over”.
+Simply put: hack into it and you can take it home.
+In fact, even in the Pwn2Own Toronto 2022 contest, where the cash amounts of the prizes far exceeded the value of the devices up to be hacked, winners got to take home the actual kit they broke into, thus retaining the original, literal sense of the competition.
+Even if you’ve just won $100,000 for hacking into a networked printer by hacking your way through a small-business router first (as the team that ended up at the top of the overall leaderboard managed to do), taking home the actual devices is a neat reminder of a job well done.
+These days, when hacking hardware such as routers or printers that have their own displays or blinking lights, researchers will prove their pwnership with amusing side-effects such as morse code messages via LEDs, or displaying memetic videos such as a famous song by a famous 1980s pop crooner. The hacked device thus acts as its own historical documentary.
+We said “a job well done” above, because even though you need to think like a cybercriminal to win at Pwn2Own, given that you’re trying to generate a fully-working remote code execution attack that a crook would love to know about, and then to show your attack working against a current and fully-patched system…
+…the ultimate goal of a creating winning “attack” is responsible disclosure, and thus better defences for everyone.
+To enter the competition and win a prize, you’re agreeing not only to hand over your exploit code to the device vendor or vendors who put up the prize money, but also to provide a white paper that explains the exploit in the sort of detail that will help the vendor patch it quickly and (you hope) reliably.
+The end-of-year Pwn2Own is a peripatetic sort of event, having variously been held in places as far apart as Aoyama in Tokyo, Amsterdam in the Netherlands, and Austin in Texas.
+It was originally known as the “mobile phone” version of Pwn2Own, but the Toronto 2022 event invited contestants to hack in six main categories, of which just one included mobile phones.
+The devices put forward by their vendors, and the prize money offered for successful hacks, looked like this:
+In this year’s event, the organisers went for extra-excitement hacks called Smashups – a bit like a baseball team agreeing in advance that any double play (two outs at once) in the next inning will immediately count as three outs and finish the inning…  but with the downside that any single outs on their own won’t count at all.
+Smashups were worth up to $100,000 all at once, but you had to declare your intention up front and then hack one of the network devices by breaking in through the router first, followed by pivoting (in the jargon) directly from the router into the internal device.
+Hacking the router via the WAN and then separately hacking, say, one of the printers, wouldn’t count as a Smashup – you had to commit to the all-in-one-chain in advance.
+Miss the router and you wouldn’t even get a chance at the printer; hack the router but miss the printer and you’d lose what you otherwise could have won by pwning the router on its own.
+In the end, eight different teams of researchers decided to back themselves to go for the superbounties available through Smashups…
+…and six of them succeeded in getting in through the router and then onto a printer.
+Only one of the Smashup teams aimed at anything other than a printer once inside. The Qrious Security duo from Vietnam had a go at the Western Digital NAS via a NETGEAR router, but didn’t get all the way to their target within the 30 minute limit imposed by the rules of the competition.
+To add a poker-like element of luck to the contest, and to avoid arguments about who deserves the most recognition when two teams just happen to find the same bug, the teams go into bat in a randomly decided sequence.
+Simply put, if two teams rely on the same bug somewhere in their attack, the one that went first scoops the full cash prize.
+Anyone else using the same bug gets the same leaderboard points, but only 50% of the cash reward.
+As a result, the outright winners won’t necessarily earn the most money – in the same sort of way that it’s possible to cycle to outright victory in the Tour de France without ever winning an individual stage.
+This year, the Master of Pwn (top place finishers do get a winner’s jersey, but unlike Le Tour, it’s not yellow, and it’s technically a jacket) did win the most money, with $142,000.
+But the STAR Labs team from Singapore, who ended up just outside the medals in fourth place in the General Classification standings, had the happy comiseration of taking home the next-biggest paycheck, with $97,500.
+In case you’re wondering, the top three places were taken by corporate teams for whom bug-hunting and penetration testing is a day job:
+1. DEVCORE (18.5 leaderboard points plus $142,000). This team works for a Taiwanese red-teaming and cybersecurity company whose official website includes staff known only by mysterious names such as Angelboy, CB and Meh.
+2. NCC Group EDG (16.5 points plus $82,500). This team comes from the dedicated exploit development group (EDG) of a global cybersecurity consultancy originally spun off in 1999 from the UK government’s National Computer Centre.
+3. Viettel Security (15.5 points plus $78,750). This is the cybersecurity group of Vietnam’s state-owned telecommunications company, the country’s largest.
+THE MAILLOT JAUNE OF PWN2OWN (EVEN IF ONLY THE TEXT IS YELLOW)
+We're just a couple of weeks away from #Pwn2Own Toronto. We'll be posting live results here and on our blog. Until then, here's a preview of the Master of Pwn jacket. pic.twitter.com/uml6yLtpeF
+— Zero Day Initiative (@thezdi) November 10, 2022
+
+
+Fascinatingly, the eight products that didn’t get hacked were the ones with the biggest bounties.
+The phones from Apple and Google, worth $200,000 each (plus a $50,000 bonus for kernel-level access) weren’t breached.
+Likewise, the $60,000-a-pop home hubs from Meta, Amazon and Google stayed safe, along with the $60,000-each speakers from Apple, Amazon and Google.
+The only $60,000-bounty that paid out was the one offered by Sonos, whose speaker was attacked by three different teams and pwned each time. (Only the first team had a unique chain of bugs, so they were the only ones that netted the full $60,000).
+Just as fascinatingly, perhaps, the products that didn’t get pwned didn’t actually survive any attacks, either.
+The most likely reason for this, of course, is that no one is going to commit to entering Pwn2Own, writing up a publication-quality report, and travelling to Toronto to face public scrutiny, live-streamed to their peers around the world…
+…unless they’re pretty jolly sure that their hacking attempt is going to work out.
+But there’s also the issue that there are bug-buying services that compete with Trend Micro’s Zero Day Initiative (ZDI), and that claim to offer much higher bounties.
+So we don’t know whether Apple’s and Google’s phones and speakers, for example, went untested because they genuinely were more secure, or simply because any bugs discovered were worth more elsewhere.
+Zerodium. for example, claims to pay “up to” $2,500,000 for top-level Android security holes, and $2,000,000 for holes in Apple’s iOS, albeit with the tricky proviso that you don’t get to say what happens to the bug or bugs you send in.
+ZDI, in contrast, aims to offer a responsible disclosure pathway for bug hunters.
+The “code of silence” that bug finders are required to comply with after handing over their reports is there primarily so that the details can be shared privately and safely with the vendor.
+So, even though the vendors in this Pwn2Own paid out a total of $989,750, according to our calculations…
+…that’s 63 fewer full-on, genuinely exploitable bugs left out there that cybercriminals and rogue operators might otherwise latch onto and exploit for evil.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,77 @@
+Sophos Home protects every Mac and PC in your home 
+If you use Mozilla Firefox or any Chromium-based browser, notably Google Chrome or Microsoft Edge, you’ll know that the version numbers of these products are currently at 97 and 98 respectively.
+And if you’ve ever looked at your browser’s User-Agent string, you’ll know that these version numbers are, by default, transmitted to every web page you visit, as a kind of handy hint to say, “Look who’s coming to dinner.”
+In an ideal world, the User-Agent header would be entirely redundant, given that websites are supposed to float disinterestedly above such petty details as which operating system you have, what CPU it’s running on, how many bits it works with, what graphics system you’re using, and which brand of browser you’ve chosen.
+But here on Planet Earth, some websites need to know these details in order to adapt their behaviour accordingly, and many websites love to know them because…
+…well, because from data like this you can mine information; from information you can infer knowledge; and knowledge, as the saying goes, is power.
+If you’ve never seen your browser’s headers in real life, there are two easy ways to do so. 
+The first is to use your browser’s Developer Tools (try Ctrl-Shift-I), open the Network tab and then visit a website – the content of each outgoing HTTP request, including headers, and its related HTTP response, gets logged for you and can be examined at your leisure.
+After loading the page, click on one of the requests, choose the Headers tab and scroll to the Request Headers section:
+
+The second fun way is to watch from the other end of the connection by pretending to be a web server.
+Install the Nmap toolkit from nmap.org, open up a command prompt (or a shell, or a terminal window, if you prefer those terms), and use the ncat command to listen for incoming local network connections, say on port 7777. 
+Then put the URL http://127.0.0.1:7777/ into your browser’s address bar, to tel your browser to connect to the listening ncat process, where the HTTP request will be received exactly as transmitted, and the headers therefore printed out on the screen in the order they arrived.
+Here’s the current version of Firefox (97.0.1 on 2022-02-25T16:00Z) calling an ncat pseudo-webserver:
+(You’ll need to hit Ctrl-C in the ncat window to close the connection, otherwise your browser will sit there indefinitely, waiting for an HTTP reply that never comes.)
+The current version of Edge, based on Chromium, is (by chance, not by design) one ahead, at 98:
+As you can see, there are plenty of different version numbers and other details that an interested web server could extract from those headers: a single-digit Mozilla number (5); a three-digit AppleWebKit and Safari number (537); two- and four- digit components in the Edg designator (56, 1108).
+How hard could it possibly be for a modern website – one that is probably complex enough that is has funky JavaScript menus, third-party analytics and tracker addins, high-resolution images and perhaps even video and audio content – to make sense of a simple text string with an obvious textual pattern, such as the data you see in the User-Agent strings above?
+Hard enough, apparently that both the Firefox and Chromium communities have been fretting about what to do when their respective browsers reach version 100, and the first part of any multi-part version number switches from two digits to three.
+Amazingly, though thankfully quite rarely, there really are still websites that will get flummoxed when the switchover happens, and will make millennium-bug style blunders by failing to figure out the version number at all.
+Some sites, indeed, are still making Y2K-type calendar miscalcuations by “figuring out” that any number of 100 or more “computes” as less than 99, or 98, or 97, or presumably any other positive integer all the way down to 1.
+Given that the header processing is done on the server, we can only guess at how it works. So, it’s impossible to determine exactly what sort of bugs exist on servers with this sort of problem. Some servers might call v100 browsers “old” when they actually mean “we hit a parsing problem, so we’re blaming you and falling back on our default error page”. Others might interpret the string “100” as 10, if they simply chop off the end of the string to limit it to the usual two characters, or as 00 if they truncate it from the other end. Or they might end up with zero as a sort of uninitialised default, meaning “we hit an error but didn’t realise”. Because both 0 and 10 are a lot less than 97 or 98, the server might therefore settle for the convenient assumption that you haven’t updated your browser for a decade, rather than accepting that there could be a server-side bug and giving you the benefit of the doubt.
+We’d largely ignored this issue, which Firefox and Chrome alike have been testing for since 2021 by providing experimental settings for testers that made the browser report a major version of 100 ahead of time.
+Firefox even has a special “compatibility” setting (visit the URL about:compat to see these), kicked off some three months ago, to build a list of known websites that might need lying to when version 100 rolls around for everyone.
+Chromium browsers, likewise, introduced a special flag dubbed force-major-version-to-100 (visit chromium://flags or edge://flags to find it) so testers could try out a version number of 100 ahead of time.
+Indeed, Chromium browsers even have special flag called force-minor-version-to-100, so that instead of, say, 98.0.4758.102, as you saw above, you’ll get something like 98.100.4758.102 (or the slightly weird hybrid version number 98.100.1108.56 on Edge) instead.
+That “minor version” flag was put there specifically to test the viability of a third special flag workaround, which will be available when version 100 comes along: the “surely we don’t need something this silly in 2022” option called force-major-version-to-minor:
+We didn’t think a hack of this sort would be useful, or even necessary, but we were forced, if you will pardon the poor pun, to explore this new option…
+…when we noticed that the release notes for the latest developer version of Microsoft Edge, which came out last night, specifially mentioned that the new release:
+Enabled a management policy from Chromium to force the major version number to the minor position In the user agent string, which is a temporary policy to freeze the major version number at 99 and place the actual version number in the minor position, for example turning version 101.0.0.0 into 99.101.0.0.
+Edge-dev, as the Developer channel version is known, runs one major version ahead of Edge Beta, which runs one version ahead of Edge Stable, which is what most people use, especially on business computers.
+Because Edge Stable is now at 98 (see above), that means Edge-dev is already at 100, as you can see from ncat here, when we visited with the latest Edge-dev version:
+The Edge-dev team clearly seem to think that there are still sufficiently many websites out there that aren’t Y2K, sorry, v100 ready that the Chromium “fallback plan”, as it’s known, hatched back in December 2021, can be considered vital rather than merely useful:
+
+The website webcompat.com, which is monitored by Mozilla volunteers, amongst others, has a GitHub page where you can report numerous types of incompatibility, including web bugs relating to V1H problems. 
+(We’ve dubbed this the V1H bug, using H to stand for hecto-, from the Greek words fo 100, as in hectopascals, or hPa, used as a standard unit for barometric pressure, or hectare, denoting a land area of 100mx100m, echoing the way that Y2K used K for kilo-, meaning 1000).
+We installed Edge-dev, and tried one of the sites recently reported in the Webcompat V1H list, namely daimler.com, which redirected us to a Mercedes-Benz page that decided our three-digit browser version was way out of date, rather than brand new:
+
+With Edge Stable, currently at v98, the site worked fine, with the Mercedes-Benz redirect showing us a page to inform us that the company Daimler AG has, since the start of this month, been renamed to Mercedes-Benz Group AG.
+Ironically, perhaps, the daimler.com site didn’t do any better when we activated the force-major-version-to-minor option, making the browser seem to be v99 with a minor idenfitier of 100, which suggests that a three-digit minor version number is beyond its comprehension.
+There are still a few weeks left before the general public starts calling you with Chrome 100, of Edge 100, or Firefox 100, so test your own web properties before it’s too late.
+Now you know how!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I never could understand why Firefox and other browsers moved away from the major.minor versioning, with the major only changing for truly major changes. With very little foresight they could have seen this coming, way back then. Or did they think the Internet would have gone out of fashion before it happened?
+Well, you can argue that the every-four-weeks updates to Firefox *are* major changes, given that they include any and all critical security fixes. 
+I rather like the X.Y.V numbering of Firefox. M.0 is the latest regular update, so that you know, right now, if you have 97.0 then you have updated at least once since the last official four-weekly “in-band” update. And N.P is one of the extended support releases, with the feature set of N.0 but the security patches of (N+P).0. Thus if N+P=M, you know at a glance you are within four weeks of the latest security updates; and if P  0 then you know you don’t have all the latest features.
+Then, V tracks the interim fixes – “out-of-band” updates, to use their rather dubiously metaphorical jargon name – that come out between the regular releases. These may vary between otherwise consistent release designators, thus we are currently on 97.0.1 and 91.6.0, presumably because the bug fixed in 97.0 was new enough code that the 91.x series wasn’t affected.
+Why should it matter if and of the numbers in the string is one, two, three, or even D digits long? (For values of D up to… eight would fit into a signed 32-bit integer; if you go 64-bit you can get as far as 18 digits without having to worry about overflow; 19 if you assume the numbers are unsigned.)
+After all, the WebKit and Safari major version numbers are three digits long, and no one is fretting that they ought to be reduced to two digits :-)
+(Though that last point might indicate that there aren’t as many web servers interested in finding and extracting those details any more.)
+I seem to remember at the time of the change there was much debate about different browser developers wanting to have a “higher number version” than their competitors (“turn it up to 11”), and that this set off this “version race” with an almost inevitable upcoming crash.
+Any truth in that?
+I think both FF and Chromium have been incrementing by one for every major update for several years, and because they haven’t used exactly the same scheduling (Chromium seems to be monthly while FF used to be every 6 weeks and now is mostly every 4weeks), thus drifting apart like lunar and solar calendars do….
+…I think we can call this one “mostly coincidental”. 
+You think, this is the fault of Google, when Mercedes is too stupid to understand that 100 is larger than 99 or 98? Especially as mentioned in the article, when Y2K is a known issue (and not a singularity, see GPS and others) which happened before very publicly once and regularly all the time…
+Until retirement in 2001 I worked for the Meteorological Office, a client of Sophos, which I have always used at home ever since. The Met Office took great care with Y2K, so communications continued to work seamlessly except for planned failures of some ancient and obsolete automatic weather stations on North Sea platforms.
+However, at 00 hr on 29th February 2000, all the UK military airfield weather reports stopped being transmitted. Some idiot, long before, had been told that there is no “leap day” at the turn of a century, and programmed the system accordingly!
+People can cater for the “known unknowns”, but its the “unknown unknowns” that catch us out.
+Ha! The exception to the exception – centuries all divisible by 4 but are not leap years unless they are also divisible by 400. 
+The irony, of course, is that software that was buggy 3 centuries out of 4 would probably never have to deal with dates across the 29 Feb boundary in 1900 or 2100, or any other century except 2000, so would have probably have tested “bug free” (which, in practice, I suppose it would have been).
+“kicked off some three months *allow*”
+Three months *ago*, surely? 🙂
+Fixed, thanks!
+Did Sophos have that “gulp moment” when someone tried this on the main sophos website (just in case it was like daimler)?
+Are you either super confident, or super cautious?
+I can’t answer that :-) I am not in the web development or secops teams… I just found that all of the *.sophos.com sites I use don’t seem to care what version number you have… and if I had noticed anything potentially weird (in respect of this or any other possible problem) I’d have called it on.
+I suspect that the truth for most companies that care about cybersecurity and try to get it right, the answer is a mixture of super caution and modest confidence. (If you are afraid of everything you’ll never achieve anything; but if you care about nothing you’ll get into trouble for something.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,42 @@
+Sophos Home protects every Mac and PC in your home 
+You’ve probably seen story after story in the media in the past week about a critical bug in OpenSSL, though at the time of writing this article[2022-11-01T11:30:00Z], no one covering OpenSSL actually knows what to tell you about the bug, because the news is about an update that is scheduled to come out later today, but not yet disclosed.
+We’ll be covering that bug once we actually know what it is, so we can explain it rather than simply say, “Patch at once.” (If you aren’t interested in the details of that flaw, you can indeed simply patch any vulnerable versions of OpenSSL in your own ecosystem.)
+But there’s another, unrelated, cryptographic library bug, fixed recently, that hasn’t had a lot of publicity, and although we’re guessing that it’s much less dangerous than the soon-to-be-revealed OpenSSL bug, it’s nevertheless worth knowing about.
+So, in the tense and exciting wait for the OpenSSL disclosure, we thought we’d quickly cover CVE-2022-37454.
+That vulnerability is a buffer overwrite bug caused by an arithmetic overflow in the SHA-3 cryptographic code provided by the team that originally designed the SHA-3 hashing algorithm, originally known as Keccak (pronounced ‘ketchak’, like ‘ketchup’).
+This official implementation, known as XKCP, short for eXtended Keccak Code Package, is a collection of open source library code for Keccak and a range of related cryptographic tools from the Keccak team, including their authenticated encryption algorithms Ketje and Keyak, pseudorandom generators called Kravatte and Xoofff (yes, three Fs), and a lightweight encryption algorithm for low-power processors called Xoodyak. 
+Fortunately, the CVE-2022-37454 bug is almost certainly going to be difficult, or even impossible, to trigger remotely, given that it relies on provoking a very peculiar sequence of calls to the hashing library.
+Simply put, you need to perform the hash by feeding it a sequence of data chunks, and making sure that one of those chunks is nearly, but not quite, 4GB in size (at least 4,294,967,096 bytes, and at most 4294967295 bytes).
+As you can imagine, code that hashes remotely uploaded data is likely either to retrieve the entire object before hashing it locally, typically by processing a fixed-length buffer of much smaller size over and over, or to fold each received chunk into the hash as it goes, typically receiving far more modestly-sized chunks at each network call. 
+Nevertheless, this bug is reminiscent of one we wrote about earlier this year in a networking protocol called NetUSB, which allows access to USB devices to be virtualised across a network, for example so you can plug a USB device such as a disk drive, a real-time clock or a weather station directly into your router, and then access it from any computer on your LAN as though it were plugged in locally:
+Home routers with NetUSB support could have critical kernel hole
+
+
+In that bug, the code checked that you weren’t trying to use too much memory by comparing the pre-declared size of a request packet to a known limit…
+…but, before checking, it silently added an extra 17 bytes to the amount of memory requested, in order to provide a bit of spare buffer space for its own use.
+So, if you told the NetUSB code that you wanted to send an unimaginably large amount of data that just happened to be within 17 bytes of the 4GB limit imposed by using 32-bit integers, you provoked an integer overflow.
+Using 32-bit integers, 0xFFFFFFFF + 1 gets truncated to 32 bits, so it wraps round like a old-school car odometer to 0x00000000. There isn’t room to store the correct 33-bit answer 0x100000000, in the same way that the Millennium bug wrapped the value 99+1 back round to 0, which represented the year 1900, instead of reaching 100, which would have represented the year 2000.
+Thus the code would allocate just a few bytes of memory (at most (0xFFFFFFFF + 17) mod 232, i.e. 16) but then accept almost any amount of data you wanted to send, which it would then try to squeeze into a memory block where it simply couldn’t fit.
+The XKCP bug is similar, caused by a size check that is supposed to fail 200 bytes short of the 4GB limit, but that effectively gets tested against the 4GB limit instead, thus potentially leading to a range of possible outcomes, all bad:
+Unlike OpenSSL,the XKCP implementation of SHA-3 is not very widely used (OpenSSL has its own Keccak code, by the way, and therefore isn’t affected by thus bug), but the XKCP code does appear in at least PHP 8, which has recently been patched to prevent this bug.
+If you have PHP 8, patch now to 8.0.25 or 8.1.12, or later.
+If you have Python 3.10 or earlier (Python 3.11 switched to a different implementation of SHA-3 that is not affected), you may be vulnerable. 
+Fortunately, some builds of Python 3.9 and 3.10 (this was the case on our own Linux system, Slackware-current with Python 3.9.15), are compiled so that the hashlib functions use OpenSSL, making them immune to this particular bug.
+You can check whether your Python version is using the OpenSSL implementation of SHA-3, instead of using XKCP, by doing this:
+A vulnerable Python version will say something like <class '_sha3.sha3_224'> instead of referencing openssl_sha3_224.
+According to the Python team, “Python 3.8 and earlier did not delegate sha3 to OpenSSL regardless of version, so those are vulnerable”.
+You can use this code as a basic proof-of-concept to determine if you are at risk:
+If Python crashes at this point with an error such as python3.x terminated by signal SIGSEGV (an attempt to access memory that isn’t yours), then you need to wait for an update to your Python version, or to reorganise your code, for example by wrapping the buggy update() function so that it proactively returns an error if presented with dangerously-sized inputs.
+If Python doesn’t crash, then you should be able to complete the hashing process correctly:
+If you have any code of your own that uses XKCP, you can update XKCP from its Github page.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

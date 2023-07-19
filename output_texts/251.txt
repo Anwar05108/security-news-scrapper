@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+It’s just under two weeks since Google rushed out a Chrome patch for the then-current version 107 to seal off a bug that was already being used in real-life attacks.
+The company said nothing more about that bug than to describe it as a “heap buffer overflow in GPU” [sic], and to report that it was already being used in real-world attacks.
+Google left all of the following questions unanswered:
+To be clear, many, if not most, memory bugs never quite end up getting turned into remote code execution (RCE) attacks.
+Altough a buffer overflow often makes it easy to crash a program, thus causing it to stop responding, it isn’t always easy to figure out how trigger the bug with sufficient precision to grab control over the app itself.
+(Often, the misbehaviour provoked by the bug will be detected as some sort of access violation by the operating system, which will kill off the program before it can be tricked into going rogue.)
+In this case, of course, the bug was already actively being exploited, which implied that an RCE exploit had indeed been found, and that the attackers knew how to do much worse than merely to crash your browser.
+Shortly after the GPU heap overflow patch, a new Chrome version, numbered 108, came out with no fewer than 28 security fixes, including patches for numerous of memory mismanagement flaws, at least some of which we assume could ultimately have been wrangled into RCE exploits.
+Fortunately, none of those 28 bugs were known to be “in the wild”, meaning that they seem to have been found and reported by responsible cybersecurity researchers before any cybercriminals or state-sponsored hacking teams figured them out.
+Unfortunately, Google has already needed to publish a follow-up security update for its ninth zero-day of the year 2022, bringing Chrome to version 108.0.5359.94 for Mac and Linux, and to 108.0.5359.94 or 108.0.5359.95 for Windows.
+Once again, the security report is ultra-terse, this time noting only that: 
+As we’ve explained before, V8 is Google’s JavaScript subsystem, responsible for compiling and running any JavaScript programs embedded in any web pages you visit.
+Type confusion in JavaScript is where a block of memory that’s supposed be used in one sort of calculation inadvertently gets consumed and trusted by a different algorithm.
+For example, mixing up a 64-bit unsigned integer and a 64-bit floating point number will typically throw your calculation off horrendously, because the internal layouts of the two number formats are incompatible. 
+But treating, say, a 64-bit unsigned integer that can safely contain any numerical value you like, such as an encoded date and time, as a memory pointer that specifies a program subroutine to be called next…
+… could lead to deliberate deviation of the code flow in the program.
+You won’t just get incorrect results; you’ll end up with RCE: a local program under malicious remote control because it was tricked into running untrusted code that was sent in from outside.
+Even if you’ve checked your Chrome version in the past few days, we recommend checking again by opening Chrome’s Three-dot menu (⋮)  and then choosing Help > About Chrome. 
+As mentioned above, you are looking for version 108.0.5359.94 for Mac and Linux, and for version 108.0.5359.94 or 108.0.5359.95 for Windows. 
+(By the time you read this, there may have been further updates, so consider the above version numbers to be the minimum you want.)
+Edge, as you almost certainly know, is based on Chromium, the open source core of Google’s Chrome project, and Chromium also uses V8 for handling JavaScript.
+Microsoft has now confirmed that the latest Edge build, which is version 108.0.1462.42 at the time of updating this article [2022-12-05T21:42Z], includes a patch for this bug.
+In Edge, you can force an update check from the Three-dot menu by choosing Help and feedback > About Microsoft Edge. 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Are the bug finders just “Getting lucky” at finding bugs – or have struck a “seam” full of bugs
+Or
+Is Chromium issuing new code that is more buggy than normal?
+Or
+Is something else going on?
+Or, perhaps:
+D) All of the above?
+I suspect that there are probably many factors in the mix. For example, vendors such as Google are getting better and quicker at pushing out full, official builds even of major projects, even if only one bug is being fixed. At first glance, six headlines in a month (I am making this up, but you get the idea) to warn users of “new zero-day fixed in X” seems a lot worse than a single headline saying “Monthly update fixes 32 security bugs, including six zero-days”; in reality, of course, it’s almost certainly a lot better, if most or all of the individual fixes came out sooner than they would have if they were held over and batched up into a monthly fix.)
+It’s also possible that changes in the methodology of bug hunting have contributed. Microsoft, for instance, recently published a report in which it suggested that new bug dislosure regulations in China (where you’re now apparently supposed to tell the PRC government first, rather than disclosing directly to the vendor or via a public bug reporting service) have led to more bugs being patched because of active threat hunting than because of old-school “responsible disclosure”. If true, that would have the effect of turning regular bugs, which might have been zero-days after all but no one ever realised once the patch was out, into zero-days. 
+Lastly, it’s possible that the ever-increasing interest in, and budget available for, the modern “continuous review” or “SecOps” approach to threat hunting (what the jargon likes to call XDR, short for extended detection and response, which really means “let’s go looking for weird things even if they aren’t yet terribly obvious, and see what we can figure out from them”) means that zero-days simply don’t last as long or do quite as well as they used to for the crooks.  
+In short, I suspect that, collectively: as security researchers, we’re actively finding more bugs in the form of zero-days now, because we’re quicker and smarter at looking; as users, we’re more willing to install updates semi-automatically all the time, instead of waiting for them in batches; and as software developers, we’re quicker and better at pushing out one-bug-fix updates, too.
+Thanks for your usual considered answer.
+I can understand the apparent necessity for get fixes for zero-days out asap but, from outside, I sometimes wonder if “more haste less speed” applies and that whether it is possible to take a more considered approach (particularly with “feature-enhancing” updates) and to avoid vulnerabilities?
+Can’t really answer that in this case because we don’t know whether the recent two 0-days were made possible by recent, not-strictly-needed new features in the product, or were due to bugs that have been around for a while but were exploited carefully enough that no obvious alarm about their existence was raised until someone finally got enough suspicion to go digging…
+We know that new code readily leads to new bugs, from every occasion where a security fix was needed for version $LATEST but not for anything before that. 
+But we also know that bugs are often found that go back far enough to necessitate updates for $OLDEST as well.
+So new code can bring new risks because no one has quite tested everything thoroughly yet, while old code can hide old bugs that no one really expected to remain because everyone assumed that the last security hole would surely have been noticed by now.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

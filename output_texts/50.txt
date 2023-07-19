@@ -1,0 +1,267 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+What do ransomware blackmailers ask for when they don’t want money? Why did Firefox get two updates in three days? How did Adafruit get hoist by the petard of “shadow IT”? And what’s with those dirty Linux pipes?
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Paul Ducklin and Chester Wisniewski.
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DUCK. Ransomware with a difference; two in-the-wild holes in Firefox; Adafruit with a data leakage problem; and the Linux “Dirty Pipe”.
+All that and more on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+As you can hear, I am not Doug, I am Paul Ducklin! 
+And that’s because Doug is on vacation, so I am joined today by my old friend and colleague Chester Wizniewski. 
+Hello, Chet, and welcome back.
+CHET. Thanks, Duck. 
+I always enjoy doing a podcast here and there, and it’s too bad that Doug is unavailable, but I’m happy to be here to have a chat with you about these interesting bugs, flaws and situations.
+DUCK. Well, at least we don’t have to worry this week about “Doug” and “Duck” – now we’re just “Duck” and “Chet”. 
+Let’s start at the beginning, with a story that appeared on Naked Security under the headline: Ransomware with a difference: “Derestrict your software, or else!” 
+Ransomware with a difference: “Derestrict your software, or else!”
+
+And this is a story about Nvidia getting held to ransom in a completely different way to what you might expect. 
+So, what do you have to say about that?
+CHET. Well, this Nvidia story has been developing over the last couple of weeks, and it’s certainly unusual!
+We often see ransomware groups like Conti and others, where they post a little bit of information on their “leak site” to try to put some pressure on the victim to pay them money. 
+They’ll post a tax document, or some HR records, or something like that, to try to apply pressure. 
+I don’t think I’ve ever seen a ransomware group steal intellectual property and then try to use that to extort the company into changing their drivers for their product!
+DUCK. Yes, I thought that was surprising. 
+Normally, the connection between cryptocurrency and ransomware is the crooks figure, “Go and buy some cryptocurrency and send it to us, and we’ll decrypt all your files and/or delete your data”…
+…you hope, depending on whether they’ve done either or both of those things as their payload. 
+But in this case, the connection with cryptocurrency was they said, “We’ll forget all about the massive amount of data we stole if you open up your graphics cards so that they can cryptomine at full power.” 
+Because that goes back to a change that Nvidia made last year, which was very popular with gamers, doesn’t it?
+CHET. Yes, absolutely. 
+Obviously, there’ve been shortages of GPUs, throughout the pandemic in particular, largely because of the enormous price of cryptocurrencies like Bitcoin, and people buying up all the GPUs in order to create these massive farms to do very quick hashing using the GPUs inside the video cards. 
+And Nvidia tried to create a new market segment, if you will: they made some video cards that have no video [hardware] on them – they’re just used for mining cryptocurrencies. 
+And then they tried to lock down the gaming ones so that they couldn’t be used for cryptocurrencies, so that gamers would have access to them to enjoy their favorite video games. 
+I had noticed that there have been several messages from these criminals. 
+At one point they were maybe doing a little bit more market-savvy or PR-savvy messaging when they were making their demands, and they were saying they wanted the drivers to be open source. 
+And when I saw that, I was confused! 
+Like, “Why do they care so much about open source?” 
+I’m an open source guy; I use Linux; it’d be great if the Nvidia drivers were open source on Linux…
+…but I’m not passionate enough to hold a company hostage to do that!
+I didn’t think of the “crypto angle” that came out later, but they were quite bold in their pronouncements. 
+As of last week they had said, “You have until Friday; you decide.”
+And Friday came and went, and it sounds like Nvidia decided not to give in.
+DUCK. Yes, the message I saw, which was featured on Tom’s Hardware – there was a screenshot there (this group is called LAPSUS$, so I think it’s like a BASIC string variable or something), “We decided to help the mining and gaming community.”
+(Sure you did.)
+” We want you to remove the LHR limitations” – LHR is short for “light hash rate”. 
+These crooks claim if Nvidia removes the light hash rate, “We will forget about the hardware folder we stole. It’s a big folder.” 
+What are they trying to do here? 
+Are they trying to pretend that behind this overt criminality they have a social conscience? 
+Is that what it is, do you think?
+CHET. I think that would be a bit of a stretch to call anything a “social conscience” that was involved with these people…
+…maybe a little bit of a Robin Hood syndrome? 
+They think they’re going to rob from Nvidia to give to the crypto masses?
+DUCK. I think if they’re going to rob from anybody, they’re going to give the results to themselves! 
+I shouldn’t really say I thought it was amusing, because nothing about ransomware, and extortion, and data theft, and threatening to dump data, is ever amusing. 
+But it was a strange change that they’re going, “No, we don’t want you to give us huge amounts of cryptocurrency to spare us the hassle of mining it. We want you to make mining it easier.” 
+So it does seem more as though they were stirring, presumably having figured Nvidia aren’t going to pay, “So how can we make waves with this in some other way?”
+CHET. Well, I can’t imagine the criminals themselves are going to go buy a tranche of Nvidia GTX3090 cards and start mining cryptocurrency, even if they did win. 
+The pattern with criminal groups is stealing cryptocurrency, or getting it as a ransom. 
+It’s not likely that they’re going to do anything with it. 
+Perhaps they just want more random people to generate cryptocurrency so they can steal it from them. [LAUGHS]
+DUCK. Oh dear. 
+Yes, “We’re worried we might run out because we’ve stolen so much already.”
+CHET. I think it’s important to remind victims that, while these leaks do happen – and sometimes it’s internal information about your employees or your customers or occasionally financials – it’s rarely things like “Unlock your drivers or we’re going to dump all your information.”
+But when that information is dumped, it’s very unusual for that information to actually end up being abused. 
+I’ve not heard of many cases, even when information is leaked by these ransomware groups, where it ultimately causes too much harm to the victims. 
+And so I hope this encourages others to be like Nvidia and to not pay the ransom: just move along and get on with business, and try to minimize the harm from whatever is leaked.
+DUCK. Okay, Chester, on that not-exactly-cheery note, let’s go to another story that is interesting…
+…and I thought it was important in how we actually stand up against active attacks going on. 
+And that was a story that broke over the weekend – we wrote it up on Naked Security on Saturday of the weekend just past, 05 March 2022. 
+That story is: Firefox patches two actively exploited zero day holes (colon) update now (exclamation point)”. 
+Firefox patches two actively exploited 0-day holes: update now!
+
+It’s a lot harder to say than it is to read! 
+That was quite an exciting story to me, because they did a whole update-and-build of what was version 97.0.2, just three days before they were due to do their regular four-weekly update. 
+So they must have thought it was pretty important!
+CHET. Yes! And I actually was putting some thinking into this while we were preparing the podcast, and I think in particular for users on Linux, that’s actually really important. 
+We were comparing notes and you’re on Slackware and you have version 98, which is the normal major update that comes out coinciding with Patch Tuesday typically, and on my Linux installation.
+DUCK. Be careful, Chester. 
+It’s like Firefox is on the lunar month and Microsoft is on the calendar month because Firefox is every fourth Tuesday, not the same Tuesday in the month.
+CHET. Right.
+DUCK. So they kind of drift apart, and occasionally they coincide – it just so happens that, this month, they coincided!
+CHET. Well, I think of them around the same time, but I realise that they’re different. 
+But what’s important here from what you mentioned: those three days between 97.0.2 with the emergency fix, versus 98 where it would have just been available. 
+And of course, for Windows and Mac users, most people consume their updates for Firefox directly from Mozilla, which means that it really was only three days’ difference for them. 
+But particularly in Linux distributions, there’s often more of a time lag. 
+Ubuntu updates their repository at a different time than Debian; Arch Linux updates more frequently than them, but less frequently than Slackware. 
+So having those fixes out there for the 97 branch? 
+I think that is really important. 
+Certainly my computer is still on 97.0.2 – I imagine Arch will deploy 98 later today, but it’s not always three days…
+…and it’s never a bad thing to patch a known-exploited vulnerability!
+DUCK. Indeed! 
+Rather than just “Wait three days and we’ll cater for this anyway”, the Mozilla team must have decided “This is important enough that we should do a full build, and we’ll push this out.” 
+That way, for those three days that these bugs would otherwise continue to be 0-days… they won’t be! 
+If you compare the world to where it was 20 or even 10 years ago…
+…the fact that we’re now going, “Three days is too long to wait, even for our full build-and-ship” – that says we’re doing cybersecurity a lot better than we used to, wouldn’t you say?
+CHET. Oh, absolutely! 
+Something as complicated as a web browser… to be able to turn around fixes that quickly, and get them as widely deployed as they are, is very impressive compared to the old days. 
+The Mozilla security team is a very responsive group, as well. 
+I reported some issues to them over August/September 2021 time frame – they weren’t exactly vulnerabilities, but there were some weaknesses in the way that the password manager and Firefox worked that I thought could be improved, to make Firefox users more safe against phishing attacks. 
+And I reported those bugs on a Friday afternoon to the Mozilla group. 
+I’m in the same time zone as many of the Mozilla folks, and within an hour I had a response from them – not an auto-response. 
+A human being responded to me saying that they were taking it seriously, and they were interested in learning more, and that somebody would get back to me with more detail. 
+And then I was contacted, actually over the weekend, by somebody from their security team, and this wasn’t even a critical vulnerability like the ones that were patched here. 
+I think this, to me, is very much in character with how Mozilla treats security.
+They take it incredibly seriously, and their people are very responsive to making sure that they’re keeping people safe.
+DUCK. Excellent.
+Well, let’s move on to the next story. 
+I don’t mean to pick on this company because I love the products that they make, and I love the specialised area in which they work. 
+This is a company called Adafruit Industries, based in New York – I’m sure you’ve bought products from them in the past, Chester. 
+Like, if you suddenly need something that makes a Raspberry Pi Zero look like a huge, oversized computer; something that will run on tiny little batteries and do funky stuff for your amazing self-made bicycle lights… Adafruit might be the company you visit.
+But they had a little bit of a data leakage problemette the other day. 
+We wrote it up on Naked Security under the headline Adafruit suffers GitHub data breach – don’t let this happen to you.
+Adafruit suffers GitHub data breach – don’t let this happen to you
+
+So, Chester, tell us what you think they did right, and perhaps what they could have done better, in this disclosure.
+Both in how they got there in the first place, and what they said after it was noticed. 
+(Before we start, I must say that it doesn’t look as though any harm came from this, and it does look as though they were able to remove the dangerous data before anyone bad got at it, though we shall probably never quite be sure.)
+CHET. Well, I hope *my* information was not included in this particular incident, because I am looking at a Raspberry Pi with an Adafruit GPS Hat on it that I use to run my own NTP server off the GPS time codes. 
+So I am a customer of Adafruit…
+DUCK. Chester, I thought you were going to say, “A funky device that I stick in my rucksack when I go cycling, so I’ve got a mobile weather station.”
+CHET. Well, back when I used to do warbiking, I did have a lot of Adafruit Hats on my Raspberry Pi to help me with that as well.
+So I’ve been a long time customer of them.
+DUCK. [WISTFUL] Some of those tiny displays they sell are so gorgeous, you just want to buy hundreds of them. 
+Fortunately, delivery times can be a little bit of a hassle to the UK, which acts as a discouragement to buy one thing every day for a year [LAUGHS].
+CHET. [LAUGHS] Yes, I pool up my purchases because of the costly shipping to Canada as well.
+But looking at the breach disclosure, I have to give then credit for being comprehensive. and explaining exactly what kind of information was taken. 
+They didn’t seem to be deceptive.
+In so many cases, we read these disclosures and you’re going, “OK, you told me *some* of what happened, but you left so much out that I’m left with more questions than you answered!” 
+And it seems like they were quite comprehensive in their disclosure, which is good. 
+It would have been nice if they were a little more apologetic, perhaps, and made people understand that they were sorry for the mistake…
+…but these things do happen, and I’m particularly sympathetic not just because I’m a customer, but also because they’re a small organization
+In a large organization like Sophos, we not only have pretty strict procedures in place to prevent these types of things through monitoring, but also lots of training for our developers on not making these types of errors. 
+And it’s much, much more difficult when you’re running a small operation. 
+The lesson everybody should take away, whether they’re a customer or not, is *ensuring that you never use real customer information in a test environment*!
+DUCK. Yes, let me read out their public report, because what I did like about this is that they didn’t try and gloss over the rather embarrassing cause – they were pretty open and honest about what happened. 
+They said:
+The inadvertent disclosure involved an auditing data set used for employee training becoming public on a GitHub repository associated with an inactive former employee’s account who was learning data analysis.
+It’s rather a long sentence – they could have cut a few words out… maybe a lawyer got involved there.
+But you’re right, Chester: basically, if you’re going to practise, *don’t practise with my home address*. 
+Make one up! 
+Make up a name, and make up an address and mess with that. 
+Don’t use the real deal unless you absolutely need to for compliance reasons, and you’ve got a sealed-off environment, at least as secure as the regular one, to do it in.
+CHET. Well, it was also in the disclosure that the information was being stored in a non-corporate GitHub account. 
+And this is another situation that sets you up to have more likelihood of making a mistake or a failure like this, which is no different than “Shadow IT”, with people firing up their own web servers in the cloud to run a marketing campaign, or different things.
+If it’s *not* easy to do it within the protected confines of the official business, and it *is* easy to do it outside by simply slapping down a credit card or creating a free personal account somewhere…
+…that does mean it’s more difficult to monitor for these types of errors when these things are outside of your normal processes. 
+So that’s another important thing, whether it’s training, or whether it’s providing official resources and saying as an organisation, “Our official communications platform is X; and we have source code control here; and you’re not to use other services.” 
+And if you need support and there’s something that’s not there, make sure it’s very easy for those staff members to get the tools they need, so that they can be monitored and stay within the guidelines.
+DUCK. Yes.
+They didn’t say so in the breach notification, but from the tone I inferred this: that there was no ill-will here; there was no sense that the employee stole the stuff because they were about to leave, or knew they were going to get the boot. 
+It sounds as though the person was trying to do the right thing…
+…but they put the data where they kind of forgot about it, and left the company.
+Then when the report came through and someone said, “What on earth is that doing there?”, within 15 minutes (like you’re saying with the Mozilla thing, they were quick), it sounds as though they just called up the ex-employee and said, “Hey, uh oh! Can you remove this data?”
+Done! 
+Rather than going, “Well, let’s have a committee meeting, and let’s have a long and important discussion, and let’s bring in 74 lawyers.” 
+Their first thing was, “Let’s get that data where nobody else will find it, no matter how that it might have been there for ages.” 
+The faster you act, the sooner the problem ends. 
+So, I thought that was quite good.
+CHET. Yes. 
+And, fortunately, aside from things like people’s physical addresses, there doesn’t appear to be other particularly sensitive information, which is good as well.
+Because many of us don’t want our addresses disclosed – there’s lots of risks from that – but that was the most dangerous thing in the data that was taken, in my estimation, and there’s no evidence that it was necessarily stolen or abused in any way. 
+So I think we can stand down, and just be on extra alert for phishing attacks. 
+Obviously, now that you and I have both disclosed our fondness for Adafruit, people know that they can now send us phishing emails and we may be more likely to believe them because we get emails from Adafruit as customers of theirs. 
+But, unfortunately, if that information was stolen, there is a much longer list of people that are known to be customers now, and it could put you at risk from being a little more susceptible to a communication pretending to be from them.
+DUCK. Yes, and that was one of the things that they went to the trouble of pointing out in their notification in the advice saying: 
+As a reminder, we will never send you a link to reset your password, and you won’t get calls from our customer support that ask you for personal details like your password.
+So, a bad look for Adafruit… but as you say, not *terribly* bad; it wouldn’t put me off purchasing more of their products. 
+They could have been a little more forthcoming, maybe a little bit clearer in their breach notification, but they did give good and pertinent information. 
+I know you’re not expecting a breach in your organisation, but I strongly recommend that you practise what you would say if one did happen.
+Because that is not an admission of guilt – it is simply preparing so that if it *does* happen, you don’t say something you later regret that makes a bad thing even worse.
+CHET. That’s a great point, Duck. 
+I’m actually working on publishing an article soon for Sophos News, talking about “If the worst happens”, and you do have a data breach..some Dos and Don’ts that will make it easier for the victims, and also help protect your organisation and your brand by doing it the right way.
+DUCK. Exactly! 
+And I don’t have a good segue, Chester, to go from cats-among-pigeons to dirt in pipes. (Doug’s the master of podcast segues.) 
+The next story I would like to look at, and the last for today – it’s only just gone up on Naked Security. 
+It’s not a new bug, but it’s recently been written about only after a patch was readily available, and the title of that one is: “Dirty Pipe” Linux kernel bug lets anyone write to any file.
+“Dirty Pipe” Linux kernel bug lets anyone write to any file
+
+And although this is perhaps not as diabolically bad as some of the stories I’ve seen are suggesting, it’s still quite a fascinating bug, with potentially bad side effects, isn’t it?
+CHET. Yes!
+I’m hoping you can explain this to me in a little more detail. 
+I’m an experienced Linux user, and for those that aren’t programmers or maybe don’t use Unix systems as often, I’m familiar with the pipe… “piping” information typically is literally what it sounds like – you can take some application, stick some information into a pipe, and it pops out the other end of the pipe into another application. 
+So how are the pipes “dirty”, exactly? 
+And how might this be abused on a Linux system?
+DUCK. I just like this one because the researcher who found this (his name is Max Kellerman)… his report makes great reading because it actually teaches you quite a lot about low-level stuff relating to Linux files.
+And he also gives you some great advice about how to help other people, who have to fix bugs you find, to do so with the minimum of fuss. 
+So, on Linux, you have lots of things that are treated like files.
+One of them is a regular file, that actually exists as a chunk of sectors and data on disk. 
+ And another, as you say, is this idea of a “pipe”, which is basically a transient memory-only buffer that you can operate on, writing data at one end and reading it out the other, *as if it were a file*, without actually needing the overhead of going to disk.
+Basically, if you’re going to read data from one file or pipe and write it out to another, instead of copying the data into a memory buffer and then copying it back somewhere else, you can tell the kernel, “Just shovel it from this file to another”, or in this case, “Just shovel it from a file to this pipe” – the “file-like” object – without actually needing to copy it twice to do so.
+But Kellermann noticed, weirdly, that every so often, when he was creating a monthly log file, usually the last data file of the month would have its last 8 bytes corrupted. 
+And, weirdly, its *last* 8 bytes would always be the *first* 8 bytes that he’d added to the end of the collated data to make it into a valid ZIP file.
+Ad he wondered, “How can that happen? How can my program be writing to a file that I opened in read-only mode? Even if I wanted to, I couldn’t create a bug that worked like this! How can this bug be mine?”
+In a little bit of humility in his post, he said, “Blaming the Linux kernel for data corruption must be your last resort. It is unlikely.” 
+But in the end, he found that it was possible, in some circumstances, that the stuff he was writing *to* his pipe-type-of-special-file in memory could leak into the data that was backing the file that he was reading *from*.
+And and the kernel went, “Oh, I see, you changed the file”, and saved it back to disk. 
+So, by accident, he was able to write to his own files… but he was able to discover that he could use that more generally, and therefore he could write to any file, in theory, that he was allowed to read from.
+CHET. This sounds pretty serious! 
+If you can open something that you should only be able to read, and accidentally have the kernel insert things back into that read-only file… that sounds pretty dangerous to me. 
+That could be exploited. 
+Is this something that is going to interfere with my smart light bulbs? My smartphone? My Linux desktop computer? 
+And does this make me inherently hackable?
+DUCK. Technically, I think you can say this is only an elevation-of-privilege bug. 
+It allows someone who is already able to run some code on your computer to write to files that are supposed to be read only, even if they’re seriously locked down by the operating system. 
+In fact, as far as I remember from his report, he discovered that if you exploit this bug against a read-only medium like a CD-ROM, where you *cannot* write to it physically (or to an SD Card that has the write-enable switch off), then obviously the changed data doesn’t bleed back onto the device…
+…but for as long as that data remains in the kernel’s disk cache, you have effectively written to the CD, so you can actually change things that you would swear couldn’t be changed physically! 
+So, yes, in that sense, it’s serious. 
+But because it’s Elevation of Privilege, and somebody already needs to be on your computer, I think it’s fair to say it’s no more serious than an elevation-of-privilege bug where somebody could type, say, a command with a funny parameter and end up as root… 
+…then they could go and give themselves write access to most files anyway.
+CHET. Well, thinking about it, though… I invite a lot of code that’s impossible for me to audit onto Linux devices.
+On my mobile phone, for example, I load apps – presumably there’s nothing stopping someone from writing an app that maliciously uses this in order to alter something on my device? 
+So, my interpretation of this is it’s not going to affect my IoT devices, even if they’re running Linux, because they’re probably running too old of a kernel. 
+If I’m not mistaken, this mostly affects kernel version 5, so it  seems pretty unlikely those devices would be affected. 
+I probably do need to be concerned, potentially, about my smartphone if it’s really new, running a very modern kernel. 
+And I probably should make sure that I’m running an up to date kernel on my Linux machine, which I did just before we started this call. 
+My computer is currently running 5.16.11, which is fixed and patched?
+DUCK. Correct. 
+CHET. That’s good. 
+These patches have been available for a little while now, have they not, Duck? 
+So anybody running an up-to-date system is probably OK?
+DUCK. Yes. 
+So it’s easy enough, if you have Linux: either check with your distro, or type uname -r, and it will print out 5 DOT 16 DOT whatever you’ve got, so you can see whether you’re OK. 
+The only place where I see a slight problem is, like you said, if you’ve got a very recent smartphone; if you have an Android kernel 5 DOT 10 DOT something. 
+I don’t know what to advise you, other than keep your eye on Google’s “Android Security Bulletins” page. 
+Otherwise, if you do have an Android phone and you’re worried, you can go to Settings > About phone > Android version and there’s a line in there that says Kernel version, and it will probably be something like 4 DOT 19, or something like that, in which case you can stand down from Blue Alert.
+CHET. So, if I were a betting man, Duck, I’d bet that this is going to be pretty low impact in the end. 
+There’s a very small number of affected devices, probably because most things are running older kernels. 
+It requires some sort of user interactivity or malicious application to be installed. 
+It was  fixed before it’s been known to have been exploited –  this was discovered by one of the good guys and responsibly disclosed and fixed.
+DUCK. Correct. 
+CHET. So I don’t think there’s anything to panic about. 
+But if you do run Linux servers and desktops, it’s always a good idea to keep your kernel up to date. 
+The version number doesn’t always mean something – for example, if you’re running an old LTS version of Ubuntu, they do backport these fixes. 
+So, kernel version numbers aren’t always the indicator per se. 
+But from what I can tell, most of this code went into kernels around the 28 February 2022. 
+So, if you have a kernel dated 28 February or newer, even if it is one of the version strings that appears to be affected, it’s probably been backported and fixed.
+DUCK. It’s worth reading about because it’s educational, it’s interesting, it’s informative, it could be dangerous…
+…but it’s easy enough to get on top of it. 
+Chester, I think that is a good place on which to end. 
+But before we do, I would just like to make all our listeners aware of an online event that Sophos is hosting on Wednesday 16 March 2022. It is entitled: Optimizing your cyberinsurance position.
+It’s going to be a fascinating webinar, with a Sophos speaker and various outside experts from the cyberinsurance and the insurance industry.
+If you’re interested, please go to https://events.sophos.com/cyberinsurance. 
+With that, Chester, it remains only for me to say thank you so much for stepping in at short notice for Doug, who’s on vacation. 
+I do greatly appreciate it.
+And for us both to say, “Until next time, stay secure!”
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Is Doug the the person who does the transcript?
+Since you started publishing it, I have found it useful as an easy way to review just a segment of the podcast.
+It’s missed – at least by me!
+No, I do them. I was just held up with other stuff this week so it had been delayed… should be out tonight for those who prefer it.
+Done [2022-03-14T01:45Z].
+Thanks
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

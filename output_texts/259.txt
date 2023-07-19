@@ -1,0 +1,61 @@
+Sophos Home protects every Mac and PC in your home 
+Another month, another Microsoft Patch Tuesday, another 48 patches, another two zero-days…
+…and an astonishing tale about a bunch of rogue actors who tricked Microsoft itself into giving their malicious code an official digital seal of approval.
+For a threat researcher’s view of the Patch Tuesday fixes for December 2022, please consult the Sophos X-Ops writeup on our sister site Sophos News:
+2022 Patch Tuesday cycle wraps with 48 CVEs, one advisory
+
+
+For a deep dive into the saga of the signed malware, discovered and reported recently by Sophos Rapid Response experts who were called into deal with the aftermath of a successful attack:
+Signed driver malware moves up the software trust chain
+
+
+And for a high-level overview of the big issues this month, just keep reading here…
+Fortunately, neither of these bugs can be exploited for what’s known as RCE (remote code execution), so they don’t give outside attackers a direct route into your network.
+Nevertheless, they’re both bugs that make things easier for cybercriminals by providing ways for them to sidestep security protections that would usually stop them in their tracks:
+CVE-2022-44710: DirectX Graphics Kernel Elevation of Privilege Vulnerability
+An exploit allowing a local user to abuse this bug has apparently been publicly disclosed. 
+As far as we are aware, however, the bug applies only to the very latest builds (2022H2) of Windows 11.
+Kernel-level EoP (elevation-of-privilege) bugs allow regular users to “promote” themselves to system-level powers, potentially turning a troublesome but perhaps limited cybercrime intrusion into a complete computer compromise.
+CVE-2022-44698: Windows SmartScreen Security Feature Bypass Vulnerability
+This bug is also known to have been expoited in the wild. 
+An attacker with malicious content that would normally provoke a security alert could bypass that notification and thus infect even well-informed users without warning.
+And here are three interesting bugs that weren’t 0-days, but that crooks may well be interested in digging into, in the hope of figuring out ways to attack anyone who’s slow at patching. 
+Remember that patches themselves often unavoidably give attackers clear hints on where to start looking, and what sort of things to to look for.
+This sort of “work backwards to the attack” scrutiny can lead to what are known in the jargon as N-day exploits, meaning attacks that come out quickly enough that they still catch many people out, even though the exploits arrived after patches were available.
+CVE-2022-44666: Windows Contacts Remote Code Execution Vulnerability 
+According to Sophos X-Ops researchers, opening a booby-trapped contact file could do more than simply import a new item into your Contacts list. 
+With the wrong sort of content in a file that feels (in the words of Douglas Adams) as though it ought to be “mostly harmless”, an attacker could trick you into running untrusted code instead.
+CVE-2022-44690 and CVE-2022-44693: Microsoft SharePoint Server Remote Code Execution Vulnerabilities
+Fortunately, this bug doesn’t open up your SharePoint server to just anyone, but any existing user on your network who has a SharePoint logon plus “ManageList” permissions could do much more than simply manage SharePoint lists. 
+Via this vulnerability, they could run code of their choice on your SharePoint server as well.
+CVE-2022-41076: PowerShell Remote Code Execution Vulnerability 
+Authorised users who are logged on to the network can be given access, via the PowerShell Remoting system, to execute some (but not necessarily all) PowerShell commands on other computers, including clients and servers. 
+By exploiting this vulnerability, it seems that PowerShell Remoting users can bypass the security restrictions that are supposed to apply to them, and run remote commands that should be off limits. 
+And last, but by no means least, there’s a fascinating new Microsoft security advisory to accompany this month’s Patch Tuesday:
+ADV220005: Guidance on Microsoft Signed Drivers Being Used Maliciously
+Astonishingly, this advisory means just what it says.
+Sophos Rapid Reponse experts, along with researchers from two other cybersecurity companies, have recently discovered and reported real-world attacks involving malware samples that were digitally signed by Microsoft itself.
+As Microsoft explains:
+Microsoft was recently informed that drivers certified by Microsoft’s Windows Hardware Developer Program were being used maliciously in post-exploitation activity. […] This investigation revealed that several developer accounts for the Microsoft Partner Center were engaged in submitting malicious drivers to obtain a Microsoft signature.
+In other words, rogue coders managed to trick Microsoft into signing malicious kernel drivers, meaning that the attacks investigated by Sophos Rapid Response involved cybercriminals who already had a sure-fire way to get kernel-level powers on computers they’d invaded…
+…without needing any additional vulnerabilities, exploits or other trickery.
+They could simply install an apparently official kernel driver, with Microsoft’s own imprimatur, and Windows, by design, would automatically trust it and load it.
+Fortunately, those rogue coders have now been kicked out of the Microsoft Developer Program, and the known rogue drivers have been blocklisted by Microsoft so they will no longer work.
+For a deep dive into this dramatic story, including a description of what the criminals were able to achieve with this sort of “officially endorsed” superpower (essentially, terminate security software against its will from inside the operating system itself), please read the Sophos X-Ops analysis:
+Signed driver malware moves up the software trust chain
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+December 2002? Might want to fix that …
+Crikey… Patch Tuesday didn’t actually start until late 2003, so 2002 isn’t merely old, it’s antediluvian!
+Fixed, thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

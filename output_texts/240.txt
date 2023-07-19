@@ -1,0 +1,71 @@
+Sophos Home protects every Mac and PC in your home 
+Just under two months ago, some worrying bug news broke: a pair of zero-day vulnerabilities were announced in Microsoft Exchange.
+As we advised at the time, these vulnerabilities, officially designated CVE-2022-41040 and CVE-2022-41082:
+[were] two zero-days that [could] be chained together, with the first bug used remotely to open enough of a hole to trigger the second bug, which potentially allows remote code execution (RCE) on the Exchange server itself.
+URGENT! Microsoft Exchange double zero-day – “like ProxyShell, only different”
+
+
+The first vulnerability was reminiscent of the troublesome and widely-abused ProxyShell security hole from back in August 2021, because it relied on dangerous behaviour in Exchange’s Autodiscover feature, described by Microsoft as a protocol that is “used by Outlook and EAS [Exchange ActiveSync] clients to find and connect to mailboxes in Exchange”.
+Fortunately, the Autodiscover misfeature that could be exploited in the ProxyShell attack by any remote user, whether logged-in or not, was patched more than a year ago.
+Unfortunately, the ProxyShell patches didn’t do enough to close off the exploit to authenticated users, leading to the new CVE-2022-40140 zero-day, which was soon laconically, if misleadingly, dubbed ProxyNotShell.
+S3 Ep102.5: “ProxyNotShell” Exchange bugs – an expert speaks [Audio + Text]
+
+
+Clearly, ProxyNotShell was nowhere near as dangerous as the original ProxyShell, given that it required what’s known as authenticated access, so it wasn’t open to abuse by just anybody from anywhere.
+But it quickly transpired that on many Exchange servers, knowing any user’s logon name and password would be enough to pass as authenticated and mount this attack, even if that user would themselves need to use two-factor authentication (2FA) to logon properly to access their email.
+As Sophos expert Chester Wisniewski put it at the time:
+It’s a “mid-authentication vulnerability”, if you want to call it that. That is a mixed blessing. It does mean that an automated Python script can’t just scan the whole internet and potentially exploit every Exchange server in the world in a matter of minutes or hours, as we saw happen with ProxyLogon and ProxyShell in 2021. […]
+You need a password, but finding one email address and password combination valid at any given Exchange server is probably not too difficult, unfortunately. And you might not have gotten exploited to date, because to successfully log into Outlook Web Access [OWA] requires their FIDO token, or their authenticator, or whatever second factor you might be using. 
+But this attack doesn’t require that second factor. […] Just acquiring a username and password combination is a pretty low barrier.
+As you probably remember, many of us assumed (or at least hoped) that Microsoft would rush to get a fix out for the ProxyNotShell holes, given that there were still two weeks until October’s Patch Tuesday.
+But we were disappointed to find that a reliable fix was apparently more complex than expected, and October came and went with ProxyNotShell addressed only by workarounds, not by proper patches.
+Even November’s Patch Tuesday didn’t directly provide the needed fixes, though the patches nevertheless came out on the same day as part of an Exchange-specific security update that could be fetched and installed separately:
+Exchange 0-days fixed (at last) – plus 4 brand new Patch Tuesday 0-days!
+
+
+Now that the dust has settled and everyone has had time to patch their Exchange servers (the ones they haven’t forgotten about, at least), researchers at Zero Day Initiative (ZDI), to which these vulnerabilities were originally responsibly disclosed for submission to Microsoft, have explained how the bugs can be exploited.
+The bad news, depending on your opinion of overt exploit disclosures, is that the ZDI team has now effectively provided a proof-of-concept (PoC) explaning how to attack Exchange servers.
+The good news, of course, is that:
+ZDI’s explanation of this vulnerability makes for a fascinating tale of how complex it can be to chain together all the parts you need to turn a vulnerability into a viable exploit.
+It’s also worth reading to help you understand why digging into an existing exploit can help to reveal other ways that a vulnerability could be misused, potentially prompting additional patches, urging configuration changes, and promoting new programming practices that might not have been obvious just from fixing the original hole.
+The explanation is, of necessity, complicated and quite technical, and leads you forwards through a lengthy series of steps to achieve remote code execution (RCE) at the end.
+In the hope of helping you follow the high-level details more easily if you decide to read the ZDI report, here’s a hopefully-not-too-simplified summary with the steps listed in reverse… 
+…so you will know in advance why the story takes the directions it does:
+In modern coding, an instantiated object is the jargon word for an allocated chunk of memory, automatically initialised with the data and resources it will need while it’s in use, and tied to a specific set of functions that can operate on it. (Instantiate is just a fancy word for create.)
+Objects may be managed and controlled by the operating system itself, to help avoid the sort of memory mismanagement errors common in a language such as C, where you typically need to allocate memory yourself, fill up the relevant data fields by hand, and remember to release the memory and resources you’re using, such as network sockets or disk files, when you’re done.
+Objects generally have a programmatic function associated with them called a constructor, which is automatically executed when a new object is created in order to allocate the right amount of memory and the correct set of system resources.
+Usually, you need to pass one or more parameters as arguments to the constructor, to denote how you want the object to be configured when it starts out.
+Simply put, if you instantiate, say, a TextString object (we’re making these names up, but you get the idea) using a parameter that is itself a text string such as example.com:8888…
+…you will probably end up with a memory buffer allocated to hold your text, initialised so it holds the same value you passed in, namely the raw text example.com:8888.
+In that context, the text string passed in as data to the object constructor doesn’t immediately pose any obvious cybersecurity threat when you trigger the constructor remotely, other than a possible denial of service (DoS) by repeatedly asking for bigger and bigger strings to try to exhaust memory.
+But if you were to instantiate, say, a ConnectedTCPClient object using the very same text string parameter of example.com:8888, you might end up with a memory buffer ready to hold temporary data, along with a network socket allocated by the operating system that’s ready to exchange data woith the server example.com over TCP port 8888.
+You can see the remote code execution risk there, even if you never get to send any data to the open socket, given that you’ve tricked the server into calling home to a location that you control.
+You might even find an object called, say, RunCmdAndReadOutput, where the text string you send as a parameter is, quite literally, a command you want to run automatically as soon the object is created, so you can collect its output later.
+Even if you never get to recover the output of the command, just instantiating such an object would nevertheless let you choose a command to run, thus giving you generic remote code execution and presenting a risk limited only by the access rights of the server process itself.
+Of course, the attack is only this easy once you get to the last stage, which you’re not supposed to be able to do, because Exchange has a strict allowlist that prevents you from choosing any old object to instantiate. 
+In theory, only safe or low-risk objects can be created remotely via PowerShell, so that instantiating our imaginary TextString above, or a SimpleIntegerValue, might be considered acceptable, while a ConnectedTCPClient or a RunCmdAndReadOutput would definitely not be.
+But the ZDI researchers notice that before triggered the last step, they could do this:
+Even so, you might expect Exchange to prevent the remote creation even of low-risk objects, to minimise the threat even further.
+But the researchers found that they could:
+And that was possible because of the ProxyShell-like hole that was only semi-patched:
+Even if the user named in the request wasn’t actually logged in, and would need to go through some sort of 2FA process to access their own mailbox, an attacker who knew their username:password combination would have enough authentication information to trick Exchange into accepting a web connection that could be used to kick off the attack chain described in steps 2 to 4 above.
+Loosely speaking, any valid username:password combination would do, given that the “authentication” was needed simply to prevent Exchange from rejecting the HTTP request up front.
+Note that this attack only works: 
+You can keep track of our official prevention, remediation and response advice, and Sophos customers can keep track of the threat detection names used by our products, via the Sophos X-Ops Twitter feed (@SophosXOps).
+New information has been published regarding CVE-2022-41040 and CVE-2022-41082: https://t.co/pHUVBjUeDI 1/3
+— Sophos X-Ops (@SophosXOps) November 21, 2022
+
+LEARN MORE ABOUT EXCHANGE AUTHENTICATION AND OAUTH2
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Paul Ducklin and Chester WisniewskiIntro and outro music by Edith Mudge.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

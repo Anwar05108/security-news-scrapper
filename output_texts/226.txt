@@ -1,0 +1,233 @@
+Sophos Home protects every Mac and PC in your home 
+WE DON’T KNOW HOW BAD WE WERE, BUT PERHAPS THE CROOKS WEREN’T ANY GOOD?
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Patches galore, horrifying therapy sessions, and case studies in bad cybersecurity. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do?
+We’ve got a big show today.
+DUCK.  Yes, let’s hope we get through them all, Doug!
+DOUG.  Let us do our best! 
+We will start, of course, with our Tech History segment…
+..this week, on 02 November 1815, George Boole, was born in Lincolnshire, England.
+Paul, TRUE or FALSE: Boole made several great contributions to mathematics, the information age, and beyond?
+IF you have some context THEN I will gladly listen to it ELSE we can move on.
+DUCK.  Well, Doug, let me just say then, because I prepared something I could read out…
+…e wrote a very famous scientific work entitled, and you’ll see why I wrote it down [LAUGHS]:
+An Investigation of the Laws of Thought on which are Founded the Mathematical Theories of Logic and Probability
+DOUG.  Rolls right off the tongue! 
+DUCK.  He was right behind symbolic logic, and he influenced Augustus De Morgan. (People may know De Morgan’s laws.) 
+And DeMorgan was Ada Lovelace’s mathematics tutor. 
+She took these grand ideas of symbolic logic and figured, “Hey, when we get programmable computers, this is going to change the world!” 
+And she was right! [LAUGHS]
+DOUG.  Excellent. 
+Thank you very much, George Boole, may you rest in peace. 
+Paul, we have a ton of updates to talk about this week, so if you could update us on all these updates…
+Let’s start with OpenSSL:
+The OpenSSL security update story – how can you tell what needs fixing?
+
+DUCK.  Yes, it’s the one everyone’s been waiting for. 
+OpenSSL do the exact opposite of Apple, who say absolutely nothing until the updates just arrive. [LAUGHTER]
+OpenSSL say, “Hey, we’re going to be releasing updates on XYZ date, so you might want to get ready. And the worst update in this batch will have the level…” 
+And this time they wrote CRITICAL in capital letters. 
+That doesn’t happen often with OpenSSL, and, being a cryptographic library, whenever they say, “Oh, golly, there’s a CRITICAL- level hole”, everyone thinks back to… what was it, 2014? 
+“Oh, no, it’s going to be as bad as Heartbleed all over again,” because it could be, for all you know:
+Anatomy of a data leakage bug – the OpenSSL “Heartbleed” buffer overflow
+
+So we had a week of waiting, and worrying, and “What are we going to do?” 
+And on 01 November 2022, the updates actually dropped. 
+Let’s start with the numbers: OpenSSL 1.1.1 goes to version S-for-Sierra, because that uses letters to denote the individual updates. 
+And OpenSSL 3.0 goes to 3.0.7:
+OpenSSL patches are out – CRITICAL bug downgraded to HIGH, but patch anyway!
+
+Now, the critical update… actually, it turned out that while investigating the first update, they found a second related update, so there are  actually two of them… those only apply to OpenSSL 3.0, not to 1.1.1.
+So I’m not saying, “Don’t patch if you’ve got 1.1.1”, but it’s less urgent, you could say. 
+And the silver lining is that the CRITICAL level, all in capital letters, was downgraded to HIGH severity, because it’s felt that the bugs, which relate to TLS certificate validation, can almost certainly be used for denial-of-service, but are probably going to be very hard to turn into remote code execution exploits. 
+There are buffer overflows, but they’re kind of limited. 
+There are two bugs… let me just give the numbers so you can refer to them. 
+There’s CVE 2022-3602, where you can overwrite four bytes of the stack: just four bytes, half a 64-bit address. 
+Although you can write anything you want, the amount of damage you can do is probably, but not necessarily, limited to denial-of-service. 
+And the other bug is called CVE-2022-3786, and in that one you can do as big a stack overflow as you like, apparently [LAUGHS]… this is quite amusing.
+But you can only write dots, hexdecimal 0x2E in ASCII. 
+So although you can completely corrupt the stack, there’s a limit to how creative you can be in any remote code execution exploit you try and dream up.
+The other silver lining is that, generally speaking… not in all cases, but in most cases, particularly for things like web servers, where people might be using OpenSSL and they’re panicking: “What if people can steal secrets from our web server like they could in the Heartbleed days?” 
+Most web servers don’t ask clients who are connecting, visitors, to provide a certificate to validate themselves. 
+They don’t care; anyone is welcome to visit.
+But server sends the client a certificate so the client, if it wishes, can determine, “Hey, I really am visiting Sophos”, or Microsoft, or whatever site I think it is. 
+So it looks as though the most likely way this will be exploited would be for rogue servers to crash clients, rather than the other way around. 
+And I think you will agree that servers crashing clients is bad, and you could do bad things with it: for example, you could block somebody from getting updates, because it keeps failing over and over and over and over. 
+But it doesn’t look as likely that this bug could be exploited for any random person on the Internet just to start scanning all your web servers and crashing them at will.
+I don’t think that’s likely.
+DOUG.  We do have a reader comment here: “I have no idea what I’m supposed to update. Chrome firefox windows. Help?” 
+You never know.., there are all these different flavours of SSL.
+DUCK.  The good news here is that, although some Microsoft products do use and include their own copy of OpenSSL, it’s my understanding that neither Chrome nor Firefox nor Edge use it. 
+So I think the answer to the question is that although you never know, from a pure Windows, Chrome, Firefox, Edge perspective, I don’t think you need to worry about this one. 
+It’s if you’re running servers, particularly Linux servers, where your Linux distro comes with either or both versions of OpenSSL, or if you have specific Windows products you’ve installed that happen to come along with OpenSSL… and the product will normally tell you if it does. 
+Or you can go looking for libcrypto*.dll or libssl*.dll. 
+And a great example of that, Doug, is Nmap, the very famous and very useful network scanning tool that lots of Red Teams use.
+That program comes not only with OpenSSL 1.1.1, packaged along with itself, but with also OpenSSL 3.0, as far as I can see. 
+And both of them currently, at least when I looked last night, are out of date.
+I shouldn’t say this, but…
+DOUG.  [INTERRPTS, LAUGHING] If I’m a Blue Team member…
+DUCK.  Exactly! EXACTLY! [LAUGHING] 
+If you’re a Blue Teamer trying to protect your network and you think, “Oh, the Red Team are going to be scanning like crazy, and they love their Nmap”, you have a fighting chance to counterhack!
+[LOUD LAUGHTER]
+DOUG.  OK, we’ve got some other updates to talk about: Chrome, Apple and SHA-3 updates. 
+Let’s start with Chrome, which had an urgent zero-day fix, and they patched it pretty quickly…
+…but they weren’t super clear on what was going on:
+Chrome issues urgent zero-day fix – update now!
+
+DUCK.  I don’t know whether three lawyers wrote these words, each adding an extra level of indirection, but you know that Google have this weird way of talking about zero-days, just like Apple, where they tell the *literal* truth:
+Google is aware of reports that an exploit for this vulnerability, CVE-2022-3723, exists in the wild.
+Which is sort of two levels of indirection away from saying, “It’s an 0-day, folks!” 
+Instead, it’s, “Someone wrote a report that says it exists, and then they told us about the report.” 
+I think we can all agree it needs patching, and Google must agree, because…
+…to be fair to them, they fixed it almost immediately.
+Ironically, they did a big security fix on the very day that this bug was reported, which I think was 25 October 2022, and Google had fixed it within what, three days? 
+Two days, actually.
+And Microsoft have themselves followed up with a very clear report on their Edge release notes: on the 31 October 2022, they release an update and it explicitly said that it fixes the bug reported by Google and the Chromium team.
+DOUG.  OK, very good. 
+I am reticent to bring this up, but are we safe to talk about Apple now? 
+Do we have any more clarity on this Apple zero-day?
+Updates to Apple’s zero-day update story – iPhone and iPad users read this!
+
+DUCK.  Well, the critical deal here is when we wrote about the update that included iOS 16.1 and iPadOS 16, which actually turned out to be iPadOS 16.1 after all…
+…people are asking us, understandably, “What about iOS 15.7? Do I have to go to iOS 16 if I can? Or is there going to be a 15.7.1? Or have they dropped support for iOS 15 altogether, game over?” 
+And, lo and behold, as good fortune would have it (I think it the day after we recorded last week’s podcast [LAUGHS]), they suddenly sent out a notification saying, “Hey, iOS 15.7.1 is out, and it fixes exactly the same holes that iOS 16.1 and iPadOS 16/16.1 did.” 
+So now we know that if you’re on iOS or iPadOS, you *can* stick with version 15 if you want, and there’s a 15.7.1 that you need to get. 
+But if you have an older phone that doesn’t support iOS 16, then you definitely need to get 15.7.1 because that’s your only way to fix the zero-day. 
+And we also seem to have satisfied ourselves that iOS and iPadOS now both have the same code, with the same fixes, and they’re both on 16.1, whatever the security bulletins may have implied.
+DOUG.  Alright, great job, everybody, we did it. 
+Great work… took a few days, but alright! 
+And last, but certainly not least in our update stories…
+…it feels like we keep talking about this, and keep trying to do the right thing with cryptography, but our efforts aren’t always rewarded. 
+So, case in point, this new SHA-3 bug?
+SHA-3 code execution bug patched in PHP – check your version!
+
+DUCK.  Yes, this is a little different from the OpenSSL bugs we just talked about, because, in this case, the problem is actually in the SHA-3 cryptographic algorithm itself… in an implementation known as XKCP, that’s X-ray, Kilo, Charlie, Papa.
+And that is, if you like, the reference implementation by the very team that invented SHA-3, which was originally called Keccak [pronounced ‘ketchak’, like ‘ketchup’]. 
+It was approved about ten years ago, and they decided, “Well, we’ll write a collection of standardised algorithms for all the cryptographic stuff that we do, including SHA-3, that people can use if they want.” 
+Unfortunately, it looks as though their programming wasn’t quite as careful and as robust as their original cryptographic design, because they made the same sort of bug that Chester and I spoke about a few months ago in a product called NetUSB:
+Home routers with NetUSB support could have critical kernel hole
+
+So, in the code, they were trying to check: “Are you asking us to hash too much data?” 
+And the theoretical limit was 4GB minus one byte, except that they forgot that there are supposed to be 200 spare bytes at the end. 
+So they were supposed to check whether you were trying to hash more than 4GB minus one bytes *minus 200 bytes*.
+But they didn’t, and that caused an integer overflow, which could cause a buffer overflow, which could cause either a denial-of-service.
+Or, in the worst case, a potential remote code execution.
+Or just hash values computed incorrectly, which is always going to end in tears because you can imagine that either a good file might end up being condemned as bad, or a bad file might be misrecognised as good.
+DOUG.  So if this is a reference implementation, is this something to panic about on a widespread basis, or is it more contained?
+DUCK.  I think it is more contained, because most products, notably including OpenSSL, fortunately, don’t use the XKCP implementation. 
+But PHP *does* use the XKCP code,  so you either want to make sure you have PHP 8.0.25 or later, or PHP 8.1.12 or later. 
+And the other confusing one is Python. 
+Now, Python 3.11, which is the latest, shifted to a brand new implementation of SHA-3, which is not this one, so that’s not vulnerable. 
+Python 3.9 and 3.10… some builds use OpenSSL, and some use the XKCP implementation. 
+And we’ve got some code in our article, some Python code, that you can use to determine which version your Python implementation is using.
+It does make a difference: one can be reliably made to crash; the other can’t. 
+And Python 3.8 and earlier apparently does have this XKCP code in it. 
+So you’re going to either want to put mitigations in your own code to do the buffer length check correctly yourself, or to apply any needed updates when they come out.
+DOUG.  OK, very good, we’ll keep an eye on that. 
+And now we’re going to round out the show with two really uplifting stories, starting with what happens when the very private and very personal contents of thousands of psychotherapy sessions get leaked online…
+Psychotherapy extortion suspect: arrest warrant issued
+
+DUCK.  The backstory is what is now an infamous, and in fact bankrupt, psychotherapy clinic. 
+They had a data breach, I believe, in 2018, and another one in 2019. 
+And it turned out that these intimate sessions that people had had with their psychotherapists, where they revealed their deepest and presumably sometimes darkest secrets, and what they thought about their friends and their family… 
+…all this stuff that is so personal that you kind of hope it wouldn’t be recorded at all, but would just be listened to and the basics distilled. 
+But apparently the therapists would type up detailed notes, and then store them for later. 
+Well, maybe that’s OK if they’re going to store them properly. 
+But at some point, I guess, they had the “rush to the cloud”. 
+These things became available on the Internet, and allegedly there was a kind of ueberaccount whereby anybody could access everything if they knew the password. 
+And, apparently, it was a default. 
+Oh, dear, how can people still do this? 
+DOUG.  Oof!
+DUCK.  So anybody could get in, and somebody did. 
+And the company didn’t really seem to do much about it, as far as I can tell, and it wasn’t disclosed or reported… 
+…because if they’d acted quickly, maybe law enforcement could have got involved early and closed this whole thing down in time.
+But it only came out in the wash in October 2020, apparently, when the issue of the breach could be denied no longer.
+Because somebody who had acquired the data, either the original intruder or someone who had bought it online, you imagine, started trying to do blackmail with it. 
+And apparently they first tried to blackmail the company, saying, “Pay us”… I think the amount was somewhere around half-a-million Euros. 
+“Pay us this lump sum in bitcoins and we’ll make the data go away.” 
+But, thwarted by the company, the person with the data then decided, “I know what, I’m going to blackmail each person of the tens of thousands in the database individually.”
+DOUG.  Oh, boy…
+DUCK.  So they started sending emails saying, “Hey, pay me €200 yourself, and I’ll make sure your data doesn’t get exposed.” 
+Anyway, it seems that the data wasn’t released… and trying to find the silver lining in this, Doug: [A] the Finnish authorities have now issued an arrest warrant, and [B] they are going to go after the CEO of the former company (as I said, it’s now bankrupt), saying that although the company was a victim of crime, the company itself was so far below par in how it dealt with the breach that it needs to face some kind of penalty.
+They didn’t report the breach when it might have made a big difference, and they just simply, given the nature of the data that they know they’re holding… they just did everything too shabbily. 
+And this is not just, “Oh, you could get a regulatory fine.”
+Apparently he could face up to twelve months in prison.
+DOUG.  OK, well that’s something! 
+But not to be outdone, we’ve got a case study in cybersecurity ineptitude and a really, really poor post-breach response with this “See Tickets” thing:
+Online ticketing company “See” pwned for 2.5 years by attackers
+
+DUCK.  Yes, this is a very big ticketing company… That’s “See”, S-E-E, not “C” as in the programming language. 
+[GROANING] This also seems like such a comedy of errors, Doug…
+DOUG.  It’s really breathtaking. 
+25 June 2019… by this date, we believe that cybercriminals had implanted data-stealing malware on the checkout pages run by the company. 
+So this isn’t that people are being phished or tricked, because when you went to check out, your data could have been siphoned.
+DUCK.  So this is “malware on the website”?
+DOUG.  Yes.
+DUCK.  That is pretty intimately connected with your transaction, in real time!
+DOUG.  The usual suspects, like name, address, zip code, but then your credit card number…
+…so you say, “OK, you got my number, but did they also…?” 
+And, yes, they have your expiration date, and they have your CVV number, the little three-digit number that you type in to make sure that you’re legit with your credit card.
+DUCK.  Yes,  because you’re not supposed to store that after you’ve completed the transaction…
+DOUG.  No, Sir!
+DUCK.  …but you have it in memory *while you’re doing the transaction*, out of necessity.
+DOUG.  And then almost two years later, in April of 2021 (two years later!), See Tickets was alerted to activity indicating potential unauthorised access, [IRONIC] and they sprung into action.
+DUCK.  Oh, that’s like that SHEIN breach we spoke about a couple of weeks ago, isn’t it? 
+Fashion brand SHEIN fined $1.9m for lying about data breach
+
+They found out from somebody else… the credit card company said, “You know what, there are a whole lot of dodgy transactions that seem to go back to you.”
+DOUG.  They launch an investigation. 
+But they do not actually shut down all the stuff that’s going on until [DRAMATIC PAUSE] January of 2022!
+DUCK.  Eight and a half months later, isn’t it?
+DOUG.  Yes!
+DUCK.  So that was their threat response?
+They had a third party forensics team, they had all the experts in, and more than *eight months* later they said, “Hey, guess what guys, we think we’ve kicked the crooks out now”?
+DOUG.  Then they went on to say, in October 2022, that “We’re not certain your information was affected”, but they finally notified customers.
+DUCK.  So, instead of saying, “The crooks had malware on the server which aimed to steal everybody’s data, and we can’t tell whether they were successful or not”, in other words, “We were so bad at this that we can’t even tell how good the crooks were”…
+…they actually said, “Oh, don’t worry, don’t worry, we weren’t able to prove that your data was stolen, so maybe it wasn’t”?
+DOUG.  “This thing that’s been going on for two-and-a-half years under our nose… we’re just not sure.” 
+OK, so the email that See Tickets sends out to their customers includes some advice, but it’s actually not really advice applicable to this particular situation… [SOUNDING DEFEATED] which was ironic and awful, but sort of funny.
+DUCK.  Yes. 
+Whilst I would agree with their advice, and it’s well worth taking into account, namely: always check your financial statements regularly, and watch out for phishing emails that try and trick you into handing over your personal data…
+…you think they might have included a bit of a mea culpa in there, and explained what *they* were going to do in future to prevent what *did* happen, which neither of those things could possibly have prevented, because checking your statements only shows you that you’ve been breached after it happens, and there was no phishing in this case.
+DOUG.  So that raises a good question. 
+The one that a reader brings up… and our comment here on this little kerfuffle is that Naked Security reader Lawrence fairly asks: “I thought PCI compliance required safeguards on all this stuff. Were they never audited?”
+DUCK.  I don’t know the answer to that question…
+But even if they were compliant, and were checked for compliance, that doesn’t mean that they couldn’t have got a malware infection the day after the compliance check was done. 
+The compliance check doesn’t involve a complete audit of absolutely everything on the network. 
+My analogy, which people in the UK will be familiar with, is that if you have a car in the UK, it has to have an annual safety check. 
+And it’s very clear, when you pass a test, that *this is not a proof that the car is roadworthy*. 
+It’s passed the statutory tests, which test the obvious stuff that if you haven’t done correctly, means your car is *dangerously* unsafe and shouldn’t be on the road, such as “brakes do not work”, “one headlight is out”, that kind of thing.
+Back when PCI DSS was first becoming a thing, lots of people criticised it, saying, “Oh man, it’s too little, too late.” 
+And the response was, “Well, you have to start somewhere.” 
+So it’s perfectly possible that they did have the PCI DSS tick of approval, but they still got breached.
+And then they just didn’t notice… and then they didn’t respond very quickly… and then they didn’t send a very meaningful email to their customers, either.
+My personal opinion is that if I were a customer of theirs, and I received an email like that, given the length of time over which this had unfolded, I would consider that almost nonchalance.
+And I don’t think I would be best pleased!
+DOUG.  Alright, and I agree with you.
+We’ll keep an eye on that – the investigation is still ongoing, of course. 
+And thank you very much, Lawrence, for sending in that comment. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, or you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity.
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you to next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

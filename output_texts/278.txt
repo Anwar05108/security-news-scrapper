@@ -1,0 +1,53 @@
+Sophos Home protects every Mac and PC in your home 
+JWT is short for JSON Web Token, where JSON itself is short for JavaScript Object Notation.
+JSON is a modernish way of representing structured data; its format is a bit like XML, and can often be used instead, but without all the opening-and-closing angle brackets to get in the way of legibility.
+For example, data that might be recorded like this in XML…
+…might come out like this in JSON:
+Whether the JSON really is easier to read than the XML is an open question, but the big idea of JSON is that because the data is encoded as legal JavaScript source, albeit without any directly or indirectly executable code in it, you can parse and process it using your existing JavaScript engine, like this:
+
+The output string undefined above merely reflects the fact that console.log() is a procedure – a function that does some work but doesn’t return a value. The word Sophos is printed out as a side-effect of calling the function, while undefined denotes what the function calculated and sent back: nothing.
+The popularity of JavaScript for both in-browser and server-side programming, plus the visual familiarity of JSON to JavaScript coders, means that JSON is widely used these days, especially when exchanging structured data between web clients and servers.
+And one popular use of JSON is the JWT system, which isn’t (officially, at any rate) read aloud as juh-witt, as it is written, but peculiarly pronounced jot, an English word that is sometimes used to refer the little dot we write above above an i or j, and that refers to a tiny but potentially important detail.
+Loosely speaking, a JWT is a blob of encoded data that is used by many cloud servers as a service access token.
+The idea is that you start by proving your identity to the service, for example by providing a username, password and 2FA code, and you get back a JWT.
+The JWT sent back to you is a blob of base64-encoded (actually, URL64-encoded) data that includes three fields:
+Once you’ve authenticated up front, you can make subsequent requests to the online service, for example to check a product price or to look up an email address in a database, simply by including the JWT in each request, using it as a sort-of temporary access card.
+Clearly, if someone steals your JWT after it’s been issued, they can play it back to the relevant server, which will typically give them access instead of you…
+…but JWTs don’t need to be saved to disk, usually have a limited lifetime, and are sent and received over HTTPS connections, so that they can’t (in theory at least) easily be sniffed out or stolen.
+When JWTs expire, or if they are cancelled for security reasons by the server, you need to go through the full-blown authentication process again in order to re-establish your right to access the service.
+But for as long they’re valid, JWTs improve performance because they avoid the need to reauthenticate fully for every online request you want to make – rather like session cookies that are set in your browser while you’re logged into a social network or a news site.
+Well, cybersecurity news today is full of a revelation by researchers at Palo Alto that we’ve variously seen described as a “high-severity flaw” or a “critical security flaw” in a popular JWT implementation.
+In theory, at least, this bug could be exploited by cybercriminals for attacks ranging from implanting unauthorised files onto a JWT server, thus maliciously modifying its configuration or modifying the code it might later use, to direct and immediate code execution inside a victim’s network.
+Simply put, the act of presenting a JWT to a back-end server for validation – something that typically happens at every API call (jargon for making a service request) – could lead malware being implanted.
+But here’s the good news:
+According to the researchers, the bug existed in the part of Auth0’s code that validated incoming JWTs against the secret key stored centrally for that user.
+As mentioned above, the JWT itself consists of two fields of data denoting your access privileges, and a third field consisting of the first two fields hashed using a secret key known only to the service you’re calling.
+To validate the token, the server needs to recalculate the keyed hash of those first two JWT fields, and to confirm the hash that you presented matches the hash it just calculated.
+Given that you don’t know the secret key, but you can present a hash that was computed recently using that key…
+…the server can infer that you must have acquired the hash from the authentication server in the first place, by proving your identity up front in some suitable way.
+It turns out that the hash validation code in jsonwebtoken assumes (or, until recently, assumed) that the secret key for your account in the server’s own authentication key-store really was a cryptographic secret key, encoded in a standard text-based format such as PEM (short for privacy enhanced mail, but mainly used for non-email purposes these days).
+If you could somehow corrupt a user’s secret key by replacing it with data that wasn’t in PEM format, but that was, in fact, some other more complex sort of JavaScript data object…
+…then you could booby-trap the secret-key-based hash validation calculation by tricking the authentication server into running some JavaScript code of your choice from that infiltrated “fake key”.
+Simply put, the server would try to decode a secret key that it assumed was in a format it could handle safely, even if the key wasn’t in a safe format and the server couldn’t deal with it securely.
+Note, however, that you’d pretty much need to hack into the secret key-store database first, before any sort of truly remote code execution trigger would be possible.
+And if attackers are already able to wander around your network to the point that they can not only poke their noses into but also modify your JWT secret-key database, you’ve probably got bigger problems than CVE-2022-23539, as this bug has been designated.
+If you’re using an affected version of jsonwebtoken, update to version 9.0.0 to leave this bug behind.
+However, if you’ve now patched but you think crooks might realistically have been able to pull off this sort of JWT attack on your network, patching alone isn’t enough.
+In other words, if you think you might have been at risk here, don’t just patch and move on.
+Use threat detection and response techniques to look for holes by which cybercriminals could get far enough to attack your network more generally…
+…and make sure you don’t have crooks in your network anyway, even after applying the patch.
+LEARN THE TRICKS THAT CROOKS USE WHEN THEY’RE ALREADY IN
+The Active Adversary Playbook 2022
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

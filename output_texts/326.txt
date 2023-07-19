@@ -1,0 +1,92 @@
+Sophos Home protects every Mac and PC in your home 
+Even if you’ve never used one, you probably know what a VCR is (or was).
+Short for video cassette recorder, it was how we recorded and watched back videos at home in the days when digital video stored on hard disks was the absurdly expensive privilege of huge companies, typically TV stations.
+The cassettes were small plastic containers that held two reels and a long strip of magnetic recording tape – kind of like an old-school hard disk, but with the magnetic surface arranged in a long strip of…
+…well, of plastic tape, 12.7mm wide (that’s 1/2″ exactly) and about 100m long for every hour of recording. 
+(Tapes were sold with identifiers such as E-120, meaning PAL or SECAM recording, as used in most of the world, 120 minutes long, or T-180, for three hours of NTSC-format recording, the TV standard used in North America and Japan).
+Few TV shows were exactly the length of a tape, so when you recorded a show, you’d usually have at least a bit of tape left at the end of the reel, which would be blank.
+When you watched back, say, a 45-minute show recorded on an E-60 tape, you’d get 15 minutes of video fuzz (commonly known as “static”) if you left the tape running when the show had finished, until the VCR detected the end of the reel and obligingly rewound the cassette for next time.
+Unless, of course, you (or the friend who’d lent you the tape) had used it before, and recorded something longer than 45 minutes…
+…in which case you’d end up watching the last part of whatever was left over from the time before, and when that ended, what was recorded the time before that, or the time before that, and so on.
+You get the picture.
+The cut-over was never very clean, because the VCR would typically lose track of the video signal when the first recording ended, and play back a mish-mash of slanting lines, partial frames that jumped around on the screen, blurry washes of colour, and a weird, garbled mix of different audio soundtracks.
+For a while, anyway.
+Typically, however, the VCR would “realign” itself with the leftover data from the previous recording, resynchronise with the old video stream, and the messed-up, unintelligible nonsense on the screen would vanish.
+You’d be cast into the tail-end of an unknown TV show, watching a vacation recording, or viewing some other sort of home video, most (but not all!) of which had been lost when it was recorded over.
+In truth, unless you erased the entire tape first, before recording over it, you’d almost always leave some unexpected, and perhaps unwanted, previous content at the end.
+Well, a UK cybersecurity researcher called David Buchanan has just published an article about a bug of this sort…
+…in the image editing tool on Google’s Pixel phones.
+The offending software is apparently known as Markup, and it lets you take photos or screenshots that are already on your phone, and crop or otherwise edit them to remove unwanted details before sending them on to your friends or uploading them to online services.
+For instance, you might want to crop someone out of the picture to oblige their request not to have their face shared, or to block out a username or account ID in a software screenshot, or to obscure someone’s house number so as not to give away their address.
+As you can imagine, especially when you crop a picture to reduce its size, the resulting image file often ends up smaller than the one you’re replacing.
+Markup, apparently, would deal with smaller-than-before images by writing the new image over the old one (like your Dad or your Grandfather recording this week’s football match over the game on last week’s VCR tape), and then truncating the image file to its new, shorter size.
+The old data – the tail-end of last week’s football game, in our VCR analogy – would remain behind on the storage device, but it would no longer be part of the digital file containing the new image.
+In other words, when you opened the new file, you wouldn’t have the VCR problem of leftover image content being included in it, because the operating system knew to stop reading (or copying) the file at the right point.
+The leftover data therefore couldn’t accidentally be leaked if you sent the new file to someone else, or uploaded it to a cloud service. 
+An attacker would typically need physical access to your phone, need to know how to unlock it and get root privileges, and be able to do a low-level forensic image of the unused data to recover any previously-deleted stuff.
+Except for the bug.
+As Buchanan discovered, the Java programming function that Markup used to “open the existing file in truncate mode” (meaning that unused data left over after you’d finished rewriting it would be chopped off from the end of the file)…
+…was changed, apparently about two years ago, to “open in rewrite mode with no truncation when finished”.
+In other words, if you opened the old file and wrote just one solitary byte at the start before closing it, the new file would not be one byte long with the rest chopped off, as you might expect, but would be the old file, in its entirety, with only the first byte changed.
+The rest would be intact – not at all what was intended!
+As Buchanan found, even though the leftover data from the previous version of the image was incomplete, and would be left alone if the file were opened with a regular image viewer (which would read as much as it needed and ignore the extra stuff at the end)…
+…you could nevertheless extract that leftover image data and often make some sense out of it, even though you might end up with a stream of compressed data that started part-way through a compressed block.
+Like those VCR tapes, where the VCR player might not be able to synch with the leftover recording immediately, a specially-written PNG file decompressing program might not be able to make sense of the first few chunks of the leftover data, but could often reconstruct blocks of the previous image that followed later on.
+Like those VCR tapes, where the leftover part might not be worth much all on its own, you could never be quite sure what had been left behind, and anyone digging into your files might sometimes get lucky with the chunks they managed to reconstruct.
+That means they might uncover image fragments from the end of the previous version that were exactly what you had intended to remove. 
+Loosely speaking, the more you’d cropped and shrunk the original file, the more leftover data would remain behind, and the greater the chance that some of it was just what you didn’t want to share.
+Command-line image manipulation tools such as ImageMagick or GraphicsMagick, and open-source tools such as GNU Image Manipulation Program, allow you to convert edited images into formats where you control the content precisely.
+For example, raw RGB files include only the colour values of each pixel in the image, with no headers, metadata, comment fields. or other extraneous information or pixels.
+RGB files can be huge, because there’s no compression to save space, but that means you don’t lose any image quality in the conversion, even though you do lose any and all data that is not directly part of the image you’re interested in.
+So, transcoding an image into RGB format and then back, say, to PNG, is one way of ensuring that you create a totally new file that “knows” nothing about where or how the original image was created, or what now-deleted data it might previously have contained.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I’m not sure why Google could not just make an app that completely overwrites the image you’ve edited when you saved it… and then deletes any other image data that is not used anymore. It’s somewhat akin to the so-called “Quick Format” where you just clear the partition table on a disk and leave all the data in place until it is overwritten by new data. Maybe to save solid-state storage some writing?
+Also, happy to see GIMP getting a mention here!
+This is worse than a quick format. At least when you FORMAT C:, the leftover data isn’t actually still assigned to any file, so it can’t leak out if you create a brand new file on the “empty” disk and copy that. 
+This is a bit like the difference between tearing the last 50 pages out of a printed report before you hand it over (no matter what you subsequently do with the ripped-out pages), and putting in a bookmark 50 pages from the end and writing on it, “Please do not read beyond this point. Thanks for your kind co-operation.”
+As for the GNU Image Manipulation Program…
+…I do wish they’d change the name, but I suspect that ship already sailed (and sank). 
+PS. I know that a few people find the name “Naked Security” weird, but it’s not a name that is also a way of insulting people in an odious fashion. (If you can have “the naked truth”, and you can, then I argue that you can happily have “naked security”, too.)
+Does this apply to a de-Googled Pixel phone, i.e. one which has LineageOS or GrapheneOS installed?
+cheers
+Ralph
+I assume not. 
+I have a LineageOS phone for research purposes but it’s sitting on my desk at home and I am currently sitting on a chair in Sophos HQ… but IIRC a default Lineage install includes a completely different set of apps, not least because the Google apps are proprietary, not open source. 
+It’s a similar story for GrapheneOS, which is much like LineageOS but darker. (In default screen and app colour, I mean.) As the creator of GrapheneOS says: “No Google apps or services.” That’s not merely because they’re non-free but for security and privacy reasons. 
+Of course, that doesn’t mean that there aren’t any Lineage or Graphene apps (image-related or not) with file truncation bugs that might have the same root cause… but those platforms and apps weren’t what David Buchanan was looking into in his PNG-decompression spelunking.
+typo: unsused
+Fixed, thanks!
+also typo: “progam” (unless it’s a jab at that poor software name choice ^_^)
+I wish it were a pun (though “pogram” might have worked better) but it was just a mising letter.
+Fixed, thanks.
+I had to go back to Buchanan’s blog to double check myself (and the referenced google issue tracker) but this seems to be due to a change in the Java library implementation which has caught out the Markup implementation.
+One might also assume its happend to other applications using this Java code – Is that a big reel of tape getting opened.
+It seems that you were always supposed to use the function parameter “wt” when you wanted to open a file for write-with-truncate, and “w” for just plain old write-but-leave-old-stuff-behind.
+So the problem was that “w” used to truncate by default… until someone “fixed” that bug and thus quietly changed the behaviour of programs that opened files with “w”.
+Ideally, that is the kind of bug you *wouldn’t* fix, given the obvious risks of doing so. Ideally you’d rewrite the specs to make the old behaviour standard, declaring “wt” to be write-with-truncate, adding (say) “wk” to be write-but-keep-old-content, and defining “w” as shorthand for “wt”. 
+That way, no programs would inadvertently switch to leaky behaviour despite not being changed, and programs that thought they weren’t truncating files (but had never noticed they were) could easily be modified if their intention really was to keep old data after all.
+All solid state storage suffers from “deleted” data not actually being deleted. Extirpater will erase “empty” space on Android, but what about sectors marked as “bad” or permanently stuck in read only due to level wearing? Also what makes you think that asking the OS to erase data will actually do this? The only way to be certain would be to use lower level erasing, even then what about those “worn” sectors. Perhaps physical destruction is the only way to be certain.
+This isn’t about so-called “remanescent data” that might be recoverable at a sector level.
+It’s about a file that’s supposed to be rewritten to contain new data accidentally ending up with old data left behind *in the actual file*, where it will tag along automatically if the file is shared or copied.
+I recently came across your article on the data leakage bug affecting Google Pixel phones, and I must say, it was quite alarming. It’s unsettling to think that our personal information may be at risk without our knowledge or consent.
+Your article did a great job of explaining the issue and providing steps that users can take to protect themselves. The fact that the bug was present in a pre-installed app makes it even more concerning, as it highlights the importance of being vigilant about the apps we use and the permissions we grant them.
+I appreciate the emphasis on updating the affected apps and checking for any unusual activity in our accounts. These are practical steps that users can take to minimize the risk of data exposure. It’s also reassuring to see that Google has taken swift action to address the issue and has provided a fix for the bug.
+Overall, your article serves as a timely reminder of the importance of staying informed about data security and taking steps to protect our personal information. Thank you for sharing this valuable information with your readers. Keep up the good work!
+Thanks. Glad you found it useful!
+The VCR analogy is damaging. You’re creating intuition for a problem that applies to this single special case. The amount of times I see non-technical people spew complete garbage because they read some analogy somewhere completely of touch with reality… you’re harming the layman. Just explain the problem like it is so the rest of us don’t need to undo the brainwashing this causes. This problem is not general, it doesn’t need such an elaborate analogy.
+“It’s like forgetting to erase until the end of the tape after recording over it.” I’m still happy with that analogy. (I chose a VCR instead of a music cassette simply because this issue involved images, not audio.)
+Anyway, I hear your criticism, but I simply don’t accept that the VCR analogy, as you refer to it, is “elaborate”, amounts to “brainwashing”, is “out of touch with reality”, or is “damaging”, as you claim. (And it turned out not to be a single, special case at all: Microsoft’s Snipping Tool was quickly found to suffer from exactly the same problem, despite being a completely different app in a completely different programming language: the end of the previous image was left behind at the end of the new one, just like finding the end of last week’s football game after the conclusion of this week’s VCR recording.)
+I haven’t heard of anyone “spewing complete garbage” because they read this article, and the general feedback has been that a lot of readers had always assumed that image apps *would indeed erase to the end of the tape*, and were surprised to hear that companies as well-known as Google and Microsoft had apparently independently neglected to do so in their very own, built-in, comes-with-the-OS software bundles.
+(Help! Have I just been trolled? Again. I’m still really bad at spotting it :-)
+I don’t know about the trolling, Duck, but these analogies are engaging. Your blog has a broader audience than just the techies, and I think you do a great job of bridging the gap and making issues accessible to we laymen. If people are spewing complete garbage, then isn’t it the techie’s job to gently educate rather than condemn?
+Thanks for your kind words. Much appreciated!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

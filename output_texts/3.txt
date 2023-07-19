@@ -1,0 +1,312 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG. Log4Shell: It ain’t over till it’s over. 
+Instagram Scams. And Apple bugs. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everyone. 
+Let’s see if I still remember how to do this, as I’ve been off for two weeks.
+Paul, I see you’ve been working away, and you’ve jumped on the Worst Incidents of the Year List bandwagon, but in a much more productive and random way.
+DUCK. [LAUGHS] Thank you, Doug. 
+I thought you were going to be cruel and say, “Ohhhhh, you just gave us your Top N list”… then you were very nice about it! 
+I decided to call mine The Top N Cybersecurity Stories of 2021 for Small Positive Integer Values of N [LAUGHTER], thus hopefully appealing to people with a vaguely mathematical bent.
+DOUG. Well, as a former journalist who occasionally had to deal in what we used to call the Year-end Trash for Cash that we would write, this would have been very handy to have.
+DUCK. Douglas, are you admitting that you wrote listicles in your time?
+DOUG. I was admitting that I had editors that would say, “We need, we absolutely need to have a Top Ten Something Something About Something.”
+If only I had a generator like this… 
+DUCK. Yes, I wrote a little script, and I put 14 items in there. 
+The script figuratively shuffles the deck – using a correct implementation of the random shuffle algorithm as originally presented by the famous Donald Knuth – and then prints out the Top N for you. 
+And sometimes when you run this little program with the Top 3, “IoT” will be at the top, because you *should* be concerned about Internet of Things stuff:  we still haven’t conquered that, all these years on. 
+But you’ll also want to see things in there like “Kaseya“, “Hafnium“, “PrintNightmare“, “Clearview” and all the controversy around that.
+And the only critique I got, Doug, was someone said, “How can you not include Solarwinds“?
+DOUG. That’s the same comment on every one of these listicles: “How could you not include ______?”
+DUCK. Well, the answer to that is, technically, Solarwinds….
+DOUG. Oh, yes! 2020!
+DUCK. Decemeber 2020! 
+How time flies when you’re having fun, Doug.
+DOUG. Ah, yes: fun.
+Well, speaking of fun, we do have a Fun Fact, of course, for this week’s show. 
+And it is this: although both companies were founded in the 1930s, the Packards in “Hewlett-Packard” and “Packard Bell” are unrelated. 
+HP’s Packard is David Packard; Packard Bell’s Packard is Leon Packard. 
+HP started out with electronic test and measurement equipment in 1939, while Packard Bell began life in 1933 producing consumer radios.
+DUCK. Oooh, Hewlett-Packard, eh? I loved those calculators back in the day.
+DOUG. Well, maybe we’ll talk about those little later in the show. So sit tight for that. 
+But until then, we must speak of something that surely belongs on your End of the Year list. 
+Where do we stand with the Log4Shell vulnerability? 
+When I went to sleep the week before Christmas and woke up yesterday, I was hoping we had put this to bed as well. 
+But it seems like it still kind of bubbled up a little bit here and there.
+DUCK. Well, Log4Shell did get what you might call a “fourth installment” between Christmas and New Year. 
+So let’s just revisit what happened in December 2021.
+DOUG. OK, so people found out about this “feature” [LAUGHTER]. 
+Basically, you can insert code into forms that could do many things, one of them being to attack. 
+And then we all realised that this was a widespread problem. 
+And then we started to feel it in the pit in our stomach, with a little bit of adrenaline, when it sunk in that this can be exploited from even deep inside a network. 
+And then Apache responded by publishing 2.15.0 of Log4j.
+Then, as attacks started and continued to surge, more researchers would say, “Hey, look what I found! Let me just run this scan to see how many of these are exploitable.”
+So, these researchers were trying to help, but not really helping.
+DUCK. Yes, there’s a limit to how much help you need, sometimes. 
+Too many cooks spoil the broth, etc.
+DOUG. And then, as happens sometimes when you open a Pandora’s box like this, Apache dug a little deeper and found another flaw and updated it again to 2.16.0. 
+And then they found a third flaw.
+DUCK. They did. [LAUGHTER]. It was the “gift that keeps on taking”, Doug.
+DOUG. So, 2.17.0. 
+And then the government stepped in and said, “Christmas Eve! Must-patch deadline!”. 
+And then what happened?
+DUCK. Well, I don’t know whether everyone hit the deadline, but it all went reasonably quiet. 
+And most companies that I know had done a pretty good job by then. 
+Then, lo and behold, between Christmas and New Year, another flaw came out, and Apache had to produce another fix. 
+This was 2.17.1, or CVE-2021-44832 if you want to go searching for it. 
+So the bad news was, “Oh, no!” 
+Skeleton staff at a lot of organisations; threat response, SecOps, IT teams, all trimmed down for the Christmas break.
+“Is it going to be as bad as it was before? Do we have to cancel vacations and have all hands on deck?”
+Fortunately, it turned out that to exploit this one, loosely speaking, an attacker would already have to have some footprint in your network.
+They already needed to have intruded so they could fiddle with configuration files, or they needed to be able to manipulate and intercept your network traffic. 
+So that was the fourth vulnerability. 
+As you say, we had 2.15.0; then quickly 2.16.0 and 2.17.0; and then after Christmas and Boxing Day, suddenly we had 2.17.1.
+And I guess that’s an indication, because it didn’t become 2.18.0…
+…maybe that was meant to be a hint that this is a somewhat more minor issue than the previous ones. 
+So although there was a call-to-arms, that call wasn’t that you had to have all hands on deck right now, rescanning the network, redoing everything.
+You do need to patch, but you probably didn’t need to bring everyone back to do it on New Year’s Eve. [LAUGHTER]
+But if you did, then remember that patching alone isn’t enough in this case.
+If crooks were exploiting this in your network, it would probably be because they were already inside and were able to fiddle with things.
+And if they can fiddle with your Log4j settings, then you have to ask yourself, “My gosh. I wonder what other configuration settings they can fiddle with? I wonder what other network traffic they can intercept?”
+So, you need to do a little bit of a review if you think you’re genuinely at risk of this one. 
+Doug, can I promote my Log4Shell – The Movie video?
+DOUG. Please! 
+I was just going to say, “There’s a movie at the bottom”… please do it.
+DUCK. Basically, I got a little bit tired of watching yet another YouTube video of someone who downloaded some online exploit kit written in Java. 
+Ran it up, attacked some random server out there and said, “You see, look what happens,” without really being able to explain how it all worked and show all the individual components. 
+So I did want to show an actual exploit in which I popped a calculator.
+(And I popped an HP calculator, Doug, just to be absolutely clear!)
+DOUG. [LAUGHS] All right!
+DUCK. I actually wanted to show Log4j in a way which was self contained, yet realistic.
+I wanted to show the details in a way not that made it easy for you to go and download a kit and do an attack yourself…
+…I wanted to do it in a way that helps you understand what kind of things you might be able to look for on your network. 
+And also, to be honest, it was a little bit of, “This is why you probably need to send a ‘Thank You’ card to your IT people.”
+This is why they’ve been working when everyone else was standing down for vacation, because you can see that this really matters. 
+It was a bug that got exploited, but you didn’t need any trickery. 
+It was what you might call a “product management bug” [LAUGHTER], not a “programming bug”. 
+It was implemented correctly – it was just that it shouldn’t have been implemented in the first place.
+DOUG. [LAUGHS] It passed QA testing with flying colours!
+DUCK. Yes, and that’s the problem. 
+It meant that absolutely anybody could use the bug, probably without understanding it. 
+Whereas if you want to be a defender, actually understanding the details, like how the DNS part works; how the LDAP and other TCP parts of it work; how the Java class injection part works… 
+I hope the video, in about 18 minutes gives you some hints on what your IT team were doing and why they were doing it, why it could happen deep inside your network, not just on your servers at the network: edge, and also gives you a good idea of the kind of things that will work. 
+People say, “Oh, go and block TCP connections from your vulnerable servers”, but as the video shows, that might not be enough. 
+There are other ways that the crooks can steal data, too. 
+So there you have it. Log4Shell – The Movie
+DOUG. Perfect. 
+All right, check that out, along with the article – it’s inside the article, which is Log4Shell vulnerability Number Four – Much Ado about Something at nakedsecurity.sophos.com. 
+Now, I don’t want to use the B-word on this podcast –  it’s a family friendly podcast.
+But this next story about an Instagram scam is, oooh, I’m going to say it, aaah: this is the best I’ve seen in some time.
+DUCK. Yes. 
+By rights, you shouldn’t fall for this one, but it’s surprisingly believable if you’re just in a hurry, particularly because this happened in the middle of the holiday season. 
+I don’t want to say it was brilliant… but, yes, like you said, there’s definitely a B-word in there waiting to get out.
+DOUG. Yes – what a difference a little criminal copyediting can make. 
+So, as we step through this: you’re accused of infringing upon someone’s copyright, and they send you a nastygram via email… which says what?
+DUCK. That’s the thing, Doug – it’s not too much of a nastygram. 
+They’re just the person in the middle, so they’re not overtly threatening you.
+DOUG. Yes, I should walk that back.
+For anyone that’s ever had to deal with actual claims like this, it’s just basically, “Someone claimed that you stole their copyright. Click through here. There’s this form you need to fill out to say where you got it from, did you pay for it, or can you prove that you didn’t use it illegally?”
+DUCK. Yes, that’s quite normal, isn’t it? 
+It just says, “We recently received a complaint. Your account will be removed if you don’t object. If you think this is a mistake, then you can click this button.” 
+It doesn’t look too bad, does it, Doug? 
+It goes to a domain called fb-notify DOT com; it’s HTTPS; it’s not something utterly bizarre like some freebie domain name in a country you’ve never heard of; it’s not some random string of characters, because that’s all they could get.
+It’s fb-notify DOT com.
+It scrapes information from your actual Instagram account, so with the Naked Security link that I followed, it sucked out the number of posts we’ve made, and the number of followers we’ve got…
+[LAUGHTER] How people love to know how many followers they’ve got. They tend to fixate on that number. 
+The data looks correct because it *is* correct – they just copy it from your real page. 
+I’ve seen our example, and a few others: they copy not the most recent post, but I think in every case it was the second-to-last image. 
+So it is actually an image from your account. 
+You click the button and, undramatically, it just says, “Login required.” 
+OK, it’s not actually what the login page would really look like, but even if you’re not in a hurry, it doesn’t look outrageous, does it?
+DOUG. No. 
+Especially if you haven’t done one of these before. 
+You’re like, “OK, I guess I need to log in.”
+DUCK. And then whatever you type in, it goes, “Wrong password. Check your password.”
+So you  t-y-p-e   i-t   i-n  more carefully the second time. 
+Can you see how the crooks are thinking here? 
+DOUG. Yes.
+DUCK. You put in your password more carefully the second time, and then it says, “Thanks, your appeal has been sent successfully.” 
+It will say you’ll receive a response within 24 hours. 
+It’s not *exactly* how the process works, but it’s kind of how it works: there isn’t an instant decision, so that’s not unreasonable either.
+And the last thing it does: it redirects you to Facebook/Instagram’s genuine copyright advice page.
+DOUG. Just nailed the dismount! 
+DUCK. That’s the page you should actually have started at.
+DOUG. [LAUGHS] Ah, the irony!
+DUCK. And of course, as you can imagine, our first advice is: learn where that page is yourself.
+DOUG. OK, that leads us nicely into our tips. 
+So what can people do to avoid scams such as these?
+DUCK. Well, obviously that first one is: find out where the Facebook, the Instagram, the Twitter, the LinkedIn copyright infringement page is. 
+Learn what the procedure is, just in case it happens to you.
+That basically brings us from tip zero to tip one: don’t bother clicking the link in the email. 
+If it really is a copyright infringement, you can go to Facebook… or Instagram, or Twitter, or LinkedIn, via your browser or your app directly yourself,without needing to use a link that came in an email. 
+And in this case, of course, what they want is your social media password, because that has real value to the crooks.
+It may not affect you directly, but you know that if crooks get your social media password, the next thing that’s going to happen is all your buddies, all your friends or family, all the people in your inner circle groups are going to start getting “messages from you”, saying things that you would never dream of saying.
+Or, even worse, using your good name to try and talk people into making dodgy investments where they are much more likely to believe them because they’re coming from someone they know.
+So your reputation, at the very least, stands to get burned.
+DOUG. And then my favorite, as someone who is inherently lazy, is: just use a password manager and 2FA whenever you can, because that will do all the heavy lifting for you.
+We do have a great video at the bottom of this post that will give you some additional advice. 
+And if you’re already an influencer; if you already gone viral several times: talk to someone else that’s done the same thing.
+They can kind of walk you through what a copyright infringement actually entails, so you know what to look for if you’re ever accused in the future.
+All right, that is Instagram copyright infringement scams – don’t get sucked in on nakedsecurity.sophos.com. 
+And it’s that time of the show: This Week in Tech History.
+We talked a bit about…
+DUCK. It’s calculators, isn’t it? RPN calculators? It’s *real* calculators?
+DOUG. We’re getting to the calculators! 
+We talked a bit about HP earlier in the show, and this week, on 04 January 1972, the HP-35 portable scientific calculator, a world first, was born.
+It was named the HP-35 simply because it had 35 buttons. 
+The calculator was a challenge by HP’s Bill Hewlett to shrink down the company’s desktop-sized 9100A scientific calculator so it could fit in his shirt pocket. 
+The HP-35 stood out for being able to perform trigonometric and exponential functions on the go – things that until then had required the use of slide rules.
+At launch, it sold for $395, which is almost $2500 in today’s money. 
+And, Paul, have you ever used an HP calculator? 
+I’m going to guess the answer [LAUGHTER] is, “Yes”.
+DUCK. Right now. Doug, I am looking at the HP-35… 
+(50 years ago to the day – amazing! Well, the day we’re recording anyway.)
+…it’s not just an emulator of that series of HP calculators: it basically simulates the CPU that was used in HP calculators all through the 1970s and the 1980s, including models like the venerable HP-12C, the HP-16C, the HP-21, the HP-32, all of those.
+They all use the same CPU, so [the author of this software] wrote something that can pretend to be the actual calculator.
+And then he provides a copy of all the non-copyrighted HP ROMs of the day, some of which were got from listings and some of which… 
+…I believe that for the HP-35, someone actually ground the top off the ROM chips, took microscopic photographs of them, and then wrote a Perl script that basically digitized them out.
+DOUG. Oh, my God!
+DUCK. Amazing. 
+When these calculators were made, the US has still not signed the Berne Convention on Copyright – I believe the US only signed in something like the mid-1980s. 
+So, some of the ROMs aren’t copyrighted, so it’s genuinely legal to have them and use them. 
+When you run this simulation – I’m looking at the HP-35 now, what a thing it was! – when you run this program, not only does it look right because they’ve taken photographs of a real calculator, you’re actually running the original ROM. 
+So any bugs in the calculator will be faithfully repeated in the simulator.
+DOUG. What a time to be alive. Unreal.
+DUCK. 3kHz, I believe was the CPU rate. You can do 3000 instructions per second.
+DOUG. Amazing. 
+Well, we’ve got a very modern… how do I segue to this one? [LAUGHTER]
+From the distant past to the not-so-distant present, we’ve got an Apple bug that is affecting its “Home” products. 
+And this is a bit obscure – is that a diplomatic way to put it? – but still bad. Kind of…
+DUCK. Yes, it’s a reminder that sometimes Denial of Service bugs, where putting in dodgy data that doesn’t let the crooks take over your network or put spyware on your…
+…I nearly said “on your calculator” [LAUGHTER] –  I have an HP-42 calculator program on my phone, so it is a calculator as well as a phone. 
+You can have a bug that only really provides Denial of Service opportunity, but if it happens at the wrong time and in the wrong place, and if the program that crashes goes, “You know, that shouldn’t have happened; that must be a one off; I’ll start myself up again and try and carry on where I left off. Oh, dear. Guess what’s happened again. Let me start myself up again”…
+…you get into this infinite loop of a program that really should give up gracefully going on to take up so much computational power that you can’t get to the menu screen that lets you stop it happening. 
+And if you reboot your phone, then it’s running before you can get in and go, “No, I don’t want you to run!”
+That seems to be the nature of this bug. 
+The chap who found it is called Trevor Spiniolas – I hope I’ve pronounced that correctly – and he’s given it a cute little logo and a name with a funky font.
+He’s called it “doorLock”.
+And, basically, it relates to the Home app. 
+That’s the app with a little icon of a house that, if you’re an Apple user, you typically use to manage your home automation, your IoT stuff. 
+Amazon has got their way of doing it; Google’s got their way of doing it; and Apple has a thing called “HomeKit”. 
+You just buy a device that’s HomeKit compatible, and then you can basically bring it into your home automation network and you control it very nicely with this Apple Home app.
+You can give all your devices meaningful names, like fishtank, webcam, babymon, doorbell, whatever. 
+But it turns out – you can guess where this is going – Trevor decided that doorbell wasn’t a long enough name.
+If he had a name that was 500,000 characters long… well, I wonder what will happen?
+So the bug he was reporting is that you could make this change with the Home app, if you tried hard enough. 
+And then, when the Home app later tried to display the name of one of these devices, it would get its knickers in a knot, to put not too fine a point upon it. 
+And you wouldn’t be able to use the Home app. 
+So that’s bad enough, because now you’re cut off from your HomeKit network. 
+But worse, what he claims is that if you had set what’s called the Control Center – depending on your iPhone, you either swipe up from the bottom or down from the top, and it brings up a menu of what you might call special apps that can come up over the top of any other app. 
+I have it on my phone – I use it basically for the Torch app, or the Flashlight as you call it. 
+So you swipe up, and you get these special buttons: you can turn on WiFi; turn on Bluetooth; turn on the torch; see where you’re going. 
+But you can also have apps that pop up there ,if they’re apps that you want to get at any time.
+And Home is obviously one of the apps that popularly people put into this Control Center, and it means that when you reboot your phone, the Control Center goes, “Hey, you want all this control? I’ll fire up all these apps in the background, so they’re just one swipe and one tap away, even if you’re in the middle of another app.” 
+Very convenient. 
+So, you can see where this is going: you’ve got this bug that can freeze up the Home app, but it’s now starting automatically in the background whenever your phone reboots. 
+Therefore it bogs down your phone, and you can get to the point that there isn’t time, according to Trevor, to get into Settings > Control Center > Remove the Home app before your phone’s bogged down when it’s rebooting.
+You don’t lose any data; you don’t get malware on your phone; it doesn’t sound like the end of the world.
+But the only way Trevor could find out reliably to recover your phone was basically to use Recovery mode or a direct firmware update (DFU). 
+And the only way you can do that is if the data gets wiped first, and that’s the downside here. 
+It means that if someone entices you, “Hey, join my HomeKit network”, and then they have one of these absurdly-named devices, then your app will hang up while it’s looking at it.
+And if you’re unlucky, you can end up having to wipe your phone to get back enough control to do anything useful with your phone.
+Which is a long way of saying, “You should make backups.” [LAUGHTER]
+Because then it doesn’t matter if you have to restore your phone to a bog-standard firmware with no data, because you canjust restore your backup.
+DOUG. You could also just not name your devices more than, say, 20 characters, instead of 90,000.
+DUCK. Ah. My understanding is that’s the reason why this bug finally got disclosed. 
+It seems that he reported it last year in August to Apple: “Have a look, I found this thing. You can set a device name to a value that the app will then choke on when it reads it back.” 
+So clearly the fixes are: don’t let the app set rogue names; and don’t let the app choke on rogue names. 
+And as far as Trevor could see, by December-time 2021, Apple had fixed the first problem. 
+They stopped you typing in 90,000 characters and setting your HomeKit device name to the weird value.
+But they didn’t fix the other side of the bug, which is that if you already have one of those devices on your network, or some naughty person like your dodgy uncle who thinks he’s a hacker who’s got access to your HomeKit network… if he hasn’t updated his phone, he can use the old version to wreck the name, and your updated app will still choke on it. 
+DOUG. Aha!
+DUCK.  So, apparently, according to the researcher, he went to Apple early in early December 2021 and said, “Look, it’s been ages now, it’s been from August. I’m planning on disclosing this publicly in January, so I can give advice to people on a workaround. Just letting you know.” 
+And you know how Apple is: they don’t tell you what they’re doing until they’ve done it. 
+So, January came around and, rightly or wrongly, for good or for bad, he did the disclosure. 
+And his argument is that you might as well know, because Apple has had months to fix this. 
+They fixed the first part of the problem, but not the second part. 
+And so there are two ways that, without putting a super-long name into your own network, you could, in theory, get caught out.
+I think they’re unlikely, so I don’t think it’s quite as big a risk as maybe the researcher is making out…  but it is worth knowing about this.
+The first one is if you’ve allowed somebody else access to your HomeKit network, which is the 21st century equivalent of giving your neighbor a spare key, isn’t it? 
+People do share access with others, and if any one of those people either turns rogue or *their* device gets hacked, they could, in theory, set up your HomeKit network so that when you come back from your vacation, your phone chokes.
+And the other thing is that you could respond to what looks like an innocent HomeKit invitation. 
+That’s where you get invited to join someone else’s network. 
+And of course, as soon as your phone fetches the absurd HomeKit device names from the other network, your phone chokes, but theirs doesn’t. 
+So that’s the long version of the story.
+DOUG. OK, so are there ways that people can mitigate the second part themselves? 
+Do people need to worry about this, or what?
+DUCK. Well, the obvious fixes are things that I think you should be doing anyway, when it comes to anything to do with home automation.
+Firstly, minimize the number of people that you’ve invited to join your HomeKit network. 
+It is basically like, in the old days, giving someone a key to your house: you have to trust the person a lot before you do that. 
+So if you’ve been in the habit of going, “Oh, well, I’m not giving them a real key. I can rescind this at any time. It’s not like I have to go and change a physical lock or anything like that”, cut down the list of people who are able to access your home kit network. 
+That’s good cybersecurity sense anyway.
+And vice versa, accepting invitations to look after somebody else’s HomeKit network: treat that with the responsibility that it deserves. 
+Don’t just do it casually. 
+Maybe that’s actually an invitation you only want to accept if you know and trust the person a lot. 
+So, minimize the list of home networks that you allow yourself to connect to.
+And the other thing you can do immediately, assuming you haven’t been hit by this, and until Apple produces a fix, is this.
+If you remove the Home app from the Control Center, then the app will only launch explicitly when you want it to. 
+So you always have a chance to get back into your phone if something goes wrong. 
+And then lastly, as we said right at the top of this item, make a backup of your iPhone data.
+Don’t just back it up into iCloud – that pretty much means you need to log into your Apple account to be able to recover it. 
+You can also make local backups, say onto encrypted removable drives, and then you can easily keep your own offline, off-site backup, just in case something super-bad happens, like you lose your phone, or it gets smashed in an accident, or you just simply can’t get at your data.
+Having your own local copy is a great idea. 
+You can do it with iTunes, on Mac or Windows, and if you’ve got Linux, it’s even easier: there’s an app called idevicebackup2. 
+If you ever need to recover your data in emergency, you won’t need an Apple device, and you won’t need to log into an online account. 
+So, that’s my advice.
+DOUG. OK, that is Apple Home software bug could lock you out of your iPhone on nakedsecurity.sophos.com. 
+And it is that time of the show for the Oh! No! of the week. 
+Reddit user Xanthian writes…
+I got a call from a user who needed MFA – multifactor authentication – set up on their email. 
+After setting up their Authenticator app, I had to explain how to use it. 
+So this code on your phone will refresh every 30 seconds, and you just enter that code and it asks you for it when signing into your email.
+“Got it. Let me just write this down.”
+You shouldn’t need to write it down – the code will just be on your phone. You can enter it when you need it. 
+“OK, it looks like there’s a new code. Let me just write this one down.”
+Yeah, the code is going to refresh every 30 seconds – you just enter whatever it’s showing you when you try to sign in. 
+“OK, there’s another one. I’m going to write this one down real quick.”
+Yes, it’s going to change every time you use it – you won’t be able to write it down the correct code.
+“How am I supposed to remember my code if it changes every time?  you people never think these things through!”
+He eventually figured it out. 
+The joys of the first-time MFA user with the ever-changing codes, trying to get those plugged in, or in this case written down, before it changes.
+DUCK. It shows that the message about not writing down passwords on PostIt notes had not sunk in! [LAUGHTER]
+The very thing that 2FA, with ever-changing codes, was supposed to help us fix. 
+But I see the idea: he wants to make sure that he won’t get caught out if he doesn’t have his phone. 
+Which is, I guess, the resistance many people haveto that kind of 2FA, isn’t it?
+People go, “What if I leave my phone behind? What if I join the wrong HomeKit network? [LAUGHTER]
+Well, the answer is that for most programs that work like this, you can print off ten special one-time codes that you lock away just in case. 
+But you do need to lock them away, because they are the keys to the castle. 
+DOUG. Well, we’ll all be much safer once everyone figures it out! 
+If you have an Oh! No! that you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; uou can comment on any one of our articles; or hit us up on social @NakedSecurity. 
+That’s our show for today. 
+Thanks very much for listening.
+For Paul Ducklin. I’m Doug Aamoth, reminding you until next time, to…
+BOTH. Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Nice program, as usual. I still have an HP-41C and an HP-35 sitting on the shelf. And I use the PCalc calculator in RPN mode on my computer.
+In terms of the HomeKit issue, I’m assuming that your phone caches the name so that  things are broken until you wipe out the HomeKit data on the phone. Is that correct? Or is it triggered because it can see the HomeKit device on an accessible network? (That is, if you went far enough away or put your phone in Airplane mode, would it stop things?)
+As far as I know, the phone does cache the name locally, which is why the bug keeps getting triggered once you’ve encountered a weirdly-named device for the first time on a connected HomeKit network. 
+Thus I don’t think Airplane mode makes a difference, other than to help prevent you coming across a dodgy device name in the first place.
+Hi Paul,
+You are always an interesting presenter of security information and I enjoy reading your articles and listening to your podcasts.
+You should apply to be a speaker on Paranoia 2022 here in Norway this spring.
+They have a call for presentation open right now.
+-Eirik
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

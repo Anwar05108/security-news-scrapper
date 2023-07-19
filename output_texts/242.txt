@@ -1,0 +1,185 @@
+Sophos Home protects every Mac and PC in your home 
+SPOTLIGHT ON CYBERTHREATS
+Security specialist John Shier tells you the “news you can really use” – how to boost your cybersecurity based on real-world advice from the 2023 Sophos Threat Report.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Paul Ducklin and John Shier. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DUCK.  Hello, everybody – welcome to the Naked Security Podcast. 
+As you can hear, I am Duck, not Doug. 
+Doug is on vacation for… I was going to say “Black Friday”, but technically, actually, for US Thanksgiving. 
+I’m joined by my Toronto friend and colleague, John Shier, and it just so happens that the timing is perfect because we just published the Sophos 2023 Threat Report:
+
+John, you’ve read it with the aim of going out into the world (I believe at the moment you’re in Rome) to talk to people about what we ought to, should, and in many ways *need* to do these days for cybersecurity. 
+So… tell us what the threat report has to say!
+JOHN.  Hi, Duck… thanks. 
+Yes, it’s been quite the week-and-a-bit travelling around Europe, getting to see a lot of our partners and customers, and our colleagues from around the world, and talking to them about this year’s threat report and some of the things that we’ve found.
+This year’s threat report is really interesting because it has, perhaps, a bit more technical depth than some of our previous years. 
+It also has a lot of information that I really think is actionable. 
+Out of that, we can basically turn around and go, “OK, based on that, what do we do to protect ourselves?”
+DUCK.  So that’s what your friend and mine Chester likes to call “News You Can Use”?
+JOHN.  Exactly… “News you can use”! 
+Information that is actionable is always, in my opinion… especially in the context of cybersecurity, is always more valuable. 
+Because I could tell you all about all the bad things that are happening out there, and if they’re theoretical, so what? 
+Also, if I’m telling you stuff that is not applicable to you, there’s nothing for you to do. 
+But as soon as I give you a piece of information where just acting on that information makes you more secure, then I think we *all win collectively*, because now there’s one less avenue for a cybercriminal to attack you… and that makes us all collectively more secure.
+DUCK.  Absolutely. 
+There is an element of what you might call “self-serving altruism” in cybersecurity, isn’t there? 
+It really matters whether you’re secure or not in terms of protecting everyone else… *and* you do it for yourself. 
+Because if you don’t go probing, if you don’t try hard to do the right thing, the crooks will go probing for you. 
+And they’re very likely, these days, to find a way in.
+JOHN.  They will, and they do! 
+The fact remains that we’ve long said that *everybody’s* a target, *everybody’s* a potential victim. 
+And when it comes to breaching a network, one of the things that you would do as a cybercriminal is not only ascertain what kind of company you’re in, what kind of network you’re in, where all the valuable assets are…
+…but also what else you have access to, what other potential connections exist, what B2B [business-to-business] connections exist between the victim that you’re currently breaching and other potential victims out there. 
+At the end of the day, this is a monetisation game, and if I can get two victims for the price of one, then I win. 
+A lot of these more skilled attackers do have quite deep penetration into a lot of these networks. 
+I mean, most of them end up on Active Directory servers as DomainAdmin. 
+They can gather a lot of information that can be used for other crimes down the road…
+DUCK.  But it’s not just about depth, it’s also about breadth, isn’t it? 
+If you’re the victim of a ransomware attack where pretty much all the useful data files, on all your computers including your servers, on your entire network, have been encrypted…
+…that means the crooks already had read-and-write access to all of those files. 
+So therefore they could, and probably did, steal all those files first.
+JOHN.  You’re right – the ransomware is the final phase of the attack. 
+This is the point of the attack where they *want* you to know that they were there. 
+They’ll put up the flaming skulls on your desktops, and on your servers, and wherever else they decide to encrypt, because they need you to know that something bad has happened… and they need to tell you how you can pay. 
+But the fact remains that ransomware, as I said, is the last phase. 
+There are a lot of things that have gone wrong before that last phase has happened.
+DUCK.  So. John, let me just ask you quickly…
+In the event of a ransomware attack, is it true to say that it is the exception rather than the rule that the crooks will [SPEAKING VERY RAPIDLY] come and scramble the files/ask for the money/and that’s it… in minutes or hours? 
+That’s not usually how it works, is it?
+JOHN.  Right!
+In the Active Adversary report from earlier this year, we identified (this is the study of all the incident response investigations from the Rapid Response Group at Sophos for the year of 2021)… 
+We identified that the median dwell time (that’s the time between when the attackers first breached the network and then launched the ransomware, or some sort of goal at the end where the attack was detected… it doesn’t have to be ransomware, it could be that we detect a cryptominer and then we’ve done the investigation) was 15 days:
+Know your enemy! Learn how cybercrime adversaries get in…
+
+Now, that’s the median for all attacks; for non-ransomware style attacks, it was 34 days, and for ransomware specifically, it was eleven days, so they move a little bit quicker than the overall median.
+So, there’s a lot of time there. 
+And when I looked at some of the outliers, one of them victims had somebody in their network for 496 days, and this is likely due to initial access broker, or IAB, activity. 
+You’ve got somebody that came in through a vulnerability, implanted a webshell, sat on it for a while, and then eventually that either got resold…
+…or independently, another cybercriminal found the same vulnerability because it wasn’t addressed, and was able to walk through the front door and do their activity. 
+There’s a lot that can go on, so there’s a lot of opportunities for defensive teams to be able to detect activity on the network that is anomalous – activity that is a signal to a potentially greater problem down the road, such as ransomware.
+DUCK.  John, that reminds me that I need to ask you about something in the threat report that we perhaps rather cheekily have dubbed the Naughty Nine, which is a way of reminding people that individual cybercriminals, or even gangs of cybercriminals who work together these days, don’t need to know everything:
+
+They’ve taken a divide-and-conquer approach, where different groups focus on, and then sell on, what they’re able to do in all sorts of different “business categories”. 
+Is that right?
+JOHN.  Yes, it’s a development of the cybercrime ecosystem that seems to be somewhat cyclical.
+If we roll back the clock a little bit, and we start thinking about the malware of yesteryear… you had generally viruses and worms.
+They were stand-alone operations: there were people that were just going out there, doing their own thing, and infecting a bunch of computers. 
+And then eventually we got botnets that started to proliferate, and the criminals thought, “Hey, I can rent those botnets out to do spam.” 
+So now you had a couple different entities that were involved in cybercrime…
+…and we keep fast forwarding to the days of the exploit kit merchants, where they would use the services of exploit kit brokers, and traffic direction services, and all sorts of other players in the market.
+Every time we go through the cycle it seems like it gets bigger and more “professionalised” than before, and now we’re in an era where we’re calling it the “as-a-service” era for good reasons, because not only have legitimate companies gone to this model, but the cybercriminals have adopted it as well. 
+So you’ve got all sorts of services now that can be bought, and most of them are on the dark web in criminal forums, but you can find them on the clear web as well.
+DUCK.  You mentioned, a moment ago, IABs: initial access brokers, crooks who aren’t actually interested in deploying ransomware or collecting bitcoins; they’ll leave that to someone else.
+Their goal is to find a way in, and then offer that to lease or sale. 
+And that’s just *one* of the Naughty Nine “X-as-a-service” aspects, isn’t it? 
+With the Naughty Nine, with so many subdivisions, I guess the problem is, sadly, that [A] there’s plenty of room and attractiveness for everybody, and [B] the more the parts fragment, I imagine, the more complex it becomes for law enforcement. 
+Not necessarily to track down what’s going on, but to actually accumulate enough evidence to be able to identify, arrest and hopefully ultimately to convict the perpetrators?
+JOHN.  Yes, it makes the investigative process a lot tougher, because now you do have that many more moving parts and individuals specifically involved in the attack… or at least aiding and abetting in the attack, we’ll say; maybe they’re not *directly* involved, but they’re definitely aiding and abetting. 
+In the good old days of the single operators doing ransomware, and doing everything from the initial breach to the end phase of ransomware, you might be able to get your criminal, the person that was behind it…
+…but in this case, now you’re having to arrest 20 people!
+While these investigators are good at what they do; they know where to look; they work tirelessly to try to discover these people, unfortunately, in many of the indictments I’ve read, it usually comes down to poor OpSec (poor operational security) that unmasks one of the individuals that’s involved in the crime. 
+And with that little bit of luck, then the investigator is able to pull on those strings and get the rest of the story. 
+If everybody’s got their story straight and their OpSec is tight, it can be a lot more difficult.
+DUCK.  On the basis of what we’ve just said – the fact that there’s more cybercrime, involving more cybercriminals, with a wider range of stratified or compartmentalised skills… 
+…with all that in mind, what are the new techniques on the block that we can use to hit back against the apparently ever-increasing breadth and depth of the reach of the crooks?
+JOHN.  Well, the first one I’ll start with isn’t necessarily new – I think we’ve been talking about this for a while; you’ve been writing about this on Naked Security for quite some time.
+That’s the hardening of identity, specifically using multi-factor authentication wherever possible. 
+The unfortunate reality is that as I’ve gone through the last couple of years, reading a lot of the victim reports in the Active Adversary report, there’s a fundamental lack of multi-factor authentication that is allowing criminals to penetrate into networks quite easily… very simply, walking through the front door with a valid set of credentials. 
+And so while it’s not new, I think, because it’s not sufficiently adopted, we need to get to that point.
+DUCK.  Even to consider SMS-based 2FA, if at the moment you just go, “It’s too hard, so I’ll just pick a really long password; no one will ever guess it.” 
+But of course, they don’t have to guess it, do they? 
+The initial access broker has 20 different ways of stealing it, and putting in a little database for sale later. 
+And if you have no 2FA at all, that’s a direct route in for anybody later on…
+JOHN.  Some other crook has already asked nicely for your password, and they’ve got it somewhere.
+Now this is just the second phase of the attack, where somebody else is using it. 
+Beyond this, I think we need to get to the point now where we’re actually investigating as many suspicious signals on the network as possible. 
+So, for many companies this might be impossible, if not very difficult… because it *is* difficult! 
+Having the competencies and the expertise to do this is not going to be within every company’s capability.
+DUCK.  Now, what you’re talking about here, John, is, I think, what Chester likes to call, “Not sitting around waiting for alerts to pop into your dashboard, to tell you bad things that it now knows has happened, but actually *going out looking for things* that are indicators that an attack is on the way.” 
+In other words, to go back to what you said earlier, taking advantage of those first 14 days before the 15th “median day” on which the crooks get to the point that they’re ready to unleash the real bad stuff.
+JOHN.  Yes, I can give you some examples… one that’s supported by the data and the Active Advertisary report, which actually to me supports the major trends that we’re seeing in the threat report. 
+And that’s exfiltration [the illegal extraction of data from the network].
+There’s a time between when exfiltration happens to when ransomware gets released on the network.
+Very often, these days, there will be some exfiltration that will precede the ransomware itself, so there will be some data that’s stolen. 
+And in our findings we saw that there was a median of 1.85 days – so you had, again, almost two days there before the ransomware hit, where you could have seen a suspicious signal happening on a server that doesn’t normally see a lot of outbound data. 
+All of a sudden, “Sending data to mega.io” [an online file storage service]… that could have been an indicator that something was happening on your network. 
+So that’s an example of where we’ve got signals on the network: they don’t mean “Immediately hit the panic button”, but it is the precursor to that particular event.
+DUCK.  So these are companies that were not incompetent at looking for that kind of thing, or that did not understand what data exfiltration meant to their business, didn’t know that it wasn’t supposed to happen. 
+It was really just that, in amongst all the other things that they need to do to keep IT running smoothly in the company, they didn’t really have the time to think, “What does that tell us? Let’s dig that little bit further.”
+JOHN.  No one was looking. 
+It’s not that they were negligent… it’s that either they didn’t know to look, or they didn’t know what to look for. 
+And so those kinds of events – and we see these time and again… there are definite signposts within ransomware attacks that are high-fidelity signals that say, “Something bad is happening in your network.” 
+And that’s just one side of things; that’s where we actually have signals. 
+But to your point, there are other areas where we could use the capabilities of an XDR tool, for example.
+DUCK.  That’s extended detection and response?
+JOHN.  That’s correct.
+DUCK.  So that’s not, “Oh, look, that’s malware; that’s a file being encrypted; let’s block it.” 
+XDR is where you actively tell the system, “Go out and tell me what versions of OpenSSL I’ve got installed”? 
+JOHN.  Exactly.
+DUCK.  “Tell me whether I’ve still got an Exchange server that I forgot about”… that kind of thing?
+JOHN.  Yes.
+We saw a lot of ProxyShell activity last year, when the PoC [proof-of-concept] was released in mid-August… and as you wrote about on Naked Security, even applying the patch to the system wasn’t going to necessarily save you, *if the crooks had gotten in before you and implanted a webshell*. 
+Serious Security: Webshells explained in the aftermath of HAFNIUM attacks
+
+So now, by investigating after the fact – now that we know that ProxyShell exists, because we’ve seen the bulletins – we can go and look for: [1] the existence of those patches on the servers that we know about; [2] find any servers that we don’t know about; and [3] (if we have applied the patch) look for signs of those webshells.
+All of that activity will ultimately make you safer, and potentially let you discover that there’s a problem on the network that you need to then call in your incident response team; call in Sophos Rapid Response; call in whomever is there to help you remediate these things.
+Because in all these acronyms that we have, the “D”, the detection bit, that’s the technology.
+The “R”, the response bit, that’s the humans… they’re the ones that are actually going out there and doing a lot of this response.
+There are automated tools that can do this, but frankly the humans are much better at doing it in a more complete way than the machines can. 
+The humans know the environment; the humans can see the nuance of things better than computers can. 
+And so we need both the human and the machine working together in order to solve these problems.
+DUCK.  So, XDR isn’t just about traditional, old-school threat detection and prevention, as important as that remains. 
+You could say it’s as much about finding the good stuff that is supposed to be there, but is not…
+…as it is about finding the bad stuff that is not supposed to be there, but is. 
+JOHN.  It can be used another way as well, which is that if you are querying your estate, your network, all the devices that are reporting telemetry back to you… and you don’t get an answer from some of them. 
+Maybe they’re turned off? 
+Maybe not – maybe the criminals have turned off the protection of those systems, and you need to investigate further. 
+You want to reduce the amount of noise in the system so that you can spot the signal a little bit better, and that’s what prevention will do. 
+It will get rid of all that low-hanging, high-volume garbage malware that comes at us, at all of us, every single day. 
+If we can get rid of that, and get a more stable signal, then I think it not only helps the system overall because there are fewer alerts the process, but it also helps the humans find problems faster.
+DUCK.  John, I’m conscious of time, so I’d like to ask you the third and final thing that people might not be doing (or they think they might need to do but they haven’t quite got round to it yet)… the thing that, in your opinion, gives the best bang for their cybersecurity buck, in order to increase their anti-cybercrime resilience as quickly as they can.
+JOHN.  Something that I’ve been talking to a lot of our customers and partners about is: we’re in this world now where the threats have gotten more complex, the volume has gone up…
+…so don’t be afraid to ask for help. 
+To me, that’s advice that we all should take to heart, because we can’t all do it all. 
+You made an example before we started recording about calling in a plumber, right? 
+Not everybody is capable of doing their own plumbing… some people are, but at the end of the day, asking for help shouldn’t be seen as a negative, or as a failure. 
+It should be seen as you doing everything you can to put yourself on a good security footing.
+DUCK.  Yes, because that plumber has fixed hundreds of leaky pipes before… and cybersecurity is very much like that, isn’t it? 
+Which is why companies like Sophos are offering Managed Detection and Response [MDR], where you can say, “Come and help me.” 
+If nothing else, it frees you up to do all the other IT things that you need to do anyway… including day to day cybersecurity stuff, and regulatory compliance, and all of those things.
+JOHN.  Expertise is gained through experience, and I really don’t want all of our customers, and everybody else out there, to have to experience hundreds of attacks daily in order to figure out how best to remediate them; how best to respond. 
+Whereas the aggregate of all the attacks that we see daily, and the experts that we have sitting in those chairs looking at that data… they know what to do when an attack hits; they know what to do *before* an attack kits. 
+They can spot those signals. 
+We’re going to be able to help you with the technical aspect of remediation. 
+We might give you some advice as well on how to prepare your network against future attacks, but at the same time, we can also take some of the emotion out of the response. 
+I’ve spoken to people who’ve gone through these attacks and it is harrowing, it’s emotionally taxing, and if you’ve got somebody there that is experienced, with a cool head, who’s unemotional, who can help guide you through this response…
+…the outcome is going to be better than if you’re running around with your hair on fire. 
+Even if you have a response plan – which every company should, and it should be tested! –  you might want to have somebody else along who can walk you through it, and go through that process together, so that at the end you are in a place where you’re confident your business is secure, and that you are also able to mitigate any future attack.
+DUCK.  After your twelfth ransomware attack, I reckon you’ll probably be as good as our experts are at running the “network time machine”, going back, finding out all the changes that were made, and fixing everything. 
+But you don’t want to have to suffer the eleven ransomware attacks first to get to that level of expertise, do you?
+JOHN.  Exactly.
+DUCK.  John, thank you so much for your time and your passion… not just for knowing about cybersecurity, but helping other people to do it well.
+And not just to do it well, but to do *the right stuff* well, so we’re not wasting time on doing things that won’t help. 
+So let’s finish up, John, by you telling everybody where to get the threat report, because it’s a fascinating read!
+JOHN.  Yes, Duck… thank you very much for having me on; I think it was a good conversation, and it’s nice to be on the podcast with you again. 
+And if anybody wants to get their very own copy of the freshly minted threat report, you can go to:
+https://sophos.com/threatreport
+DUCK.  [LAUGHS] Well, that’s nice and easy! 
+It’s great reading… don’t have too many sleepless nights (there’s some scary stuff in there), but it will help you do your job better. 
+So thank you once again, John, for stepping up at short notice. 
+Thanks to everybody for listening, and until next time…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

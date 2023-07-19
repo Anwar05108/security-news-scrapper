@@ -1,0 +1,90 @@
+Sophos Home protects every Mac and PC in your home 
+Here’s an important thing to remember about jurisprudential arithmetic, where two negatives definitely don’t make a positive: stealing money from someone who originally acquired it through criminal means doesn’t “cancel out” the criminality.
+You can still go to prison for a very lengthy stretch, and here’s one way.
+Remember Silk Road?
+Not the actual road, or more properly, the web of East-West trading routes linking China to the Middle East and Europe for many centuries until about AD 1450.
+We’re talking about the metaphorical Silk Road, one of the first large-scale sell-what-you-want-and-buy-what-you-like online markets that operated from early 2011 to late 2013 on what’s now loosely known as the dark web.
+Given that the Silk Road website was very widely used for selling prohibited items, mostly recreational drugs but also stolen identities and other enablers of cybercrime, the adjective dark in the phrase “dark web” came to be interpreted as dark-as-in-devilish-and-dangerous. 
+In fact, the word more generally reflects the fact that it is a part of the web that is effectively unilluminated, deliberately kept in the dark from the spotlight of conventional searching and geolocation techniques. 
+Network traffic in a dark web can’t easily be tracked forwards from visitor to server, or backwards from server to visitor, thus providing a measure of anonymity and untraceability. 
+This makes online clients and servers hard to identify, and their actual computers hard to locate, thus making both the users and the infrastructure hard to take down:
+
+The most popular dark web implementation is the pseudoanonymous network known loosely as Tor, short for The Onion Router, in which traffic between two points in the network is shuffled through multiple computers chosen in advance from a global collection of about 6000 “onion routers” provided by volunteers.
+To make tracking and tracing traffic difficult, users who are connecting via Tor choose their own random sequence of so-called relays.
+Then they encrypt their desired destination address with the last relay’s public encryption key, then encrypt that destination with the previous relay’s key, and so on, thus wrapping the commmunication in a series of protected routing layers, like an onion.
+The first relay knows who started the connection, so it can, in theory, identify you, but it has no idea what’s in your message, or where it’s going.
+The final relay knows who you’re talking to, and perhaps even what you are saying if the innermost message is itself unencrypted, but has no idea where the message came from, so it doesn’t know who you are.
+Any relays in between serve to keep the first and last relays apart, so they can’t identify each other and collude to expose you.
+Each relay can only strip off the next layer of encryption, so all it knows is where to forward what’s left of the onion in order to get the data to the next hop in the chain, which was chosen up front by the sender.
+As you can imagine, this technology, plus the arrival of online sites where non-technical computer users could buy cryptocurrencies such as Bitcoin, rather than needing to “mine” them for themselves, quickly led to online marketplaces that could circumvent the regulations that applied to regular online retail sites.
+Buyers didn’t need credit cards; sellers could sell products that would banned in regular stores; and the authorities couldn’t easily control the process, or even identify the buyers and sellers involved.
+Of course, as the current Web 3.0 and DeFi (decentralised finance) era has reminded us over and over (indeed, very sadly, over and over and over) again, the fact that technology exists to make online trading fast, anonymous, unblockable and libertarian, unbeholden to any national or supranational regulators…
+…doesn’t mean that the programmers who implement that technology into new products and services, or who rely on it for their own cybersecurity, will get it right.
+The founder and primary operator of Silk Road, for example, was for about two years known only by his online handle Dread Pirate Roberts, and apparently boasted in a tweet in June 2013, saying: “Illegal drugs, home delivered, and our cops are clueless.”
+Silk Road’s Ross Ulbricht found guilty, may face life sentence
+
+
+By October 2013, however, his site was shuttered and he was in custody, having been unable to keep himself anonymous for long.
+Under his real-life name of Ross Ulbricht, he was found guilty of several serious criminal offences in 2015, and ultimately sent to prison for life (twice over, in fact, as strange as that concept sounds) without parole.
+And cybersecurity problems at Silk Road weren’t limited just to Ulbricht’s poor operational security.
+The site also suffered a cryptographic crisis in September 2012, when a then-unknown hacker figured out a way to game Silk Road’s accounting system by making a rapid sequence of automated transactions in which multiple outbound payments could be completed immediately after making a single inbound payment.
+(We’re assuming that the system failed to wait for the user’s remaining balance to be properly debited between each outgoing transaction, thus inadvertently allowing the the same bitcoin deposit to be “spent” repeatedly, only noticing the overspend after it was too late.)
+According to the US Department of Justice (and the involvement of the DOJ gives you a hint where this story is going, if you didn’t figure it out already from the headline), the perpetrator:
+creat[ed] a string of approximately nine Silk Road accounts […] in a manner designed to conceal his identity; trigger[ed more than] 140 transactions in rapid succession in order to trick Silk Road’s withdrawal-processing system into releasing approximately 50,000 Bitcoin from its Bitcoin-based payment system into [his] accounts; and transferr[ed] this Bitcoin into a variety of separate addresses […], all in a manner designed to prevent detection, conceal his identity and ownership, and obfuscate the Bitcoin’s source.
+Simply put, the perpetator, James Zhong, who was just 22 years old at the time, started with between 200 and 2000 Bitcoins, and by quickly ended up with more than BTC 50,000.
+He figured out how to “withdraw” each new “deposit” he made five or more times, allowing him to ramp up his stash in a series of rogue trading loops, before exiting in a hurry with everything.
+At the time, his stolen stash of at least BTC 50,000 was worth about $600,000 (BTC1 = USD12).
+Intriguingly, it seems that Zhong didn’t so much hold onto most of his ill-gotten gains for about nine years, as find himself unable to do anything with his cold wallet of rogue cryptocoins…
+…even (or perhaps especially) at the dizzy heights of Bitcoin’s surge to $20k in late 2017, to over $60k in April 2021, and then to $68k in November 2021.
+Ironically, if that is the right word, Zhong was busted right at that more-than-$65,535 Bitcoin peak: “On November 9, 2021, pursuant to a judicially authorized premises search warrant of ZHONG’s Gainesville, Georgia, house, law enforcement seized approximately 50,676.17851897 Bitcoin”, then valued at over $3.36 billion.”
+Fascinatingly, the bulk of the stolen cryptocurrency was hidden, says the DOJ, “in an underground floor safe, and […] on a single-board computer that was submerged under blankets in a popcorn tin stored in a bathroom closet.”
+Technically, that figure of BTC 50,676.17851897 seized doesn’t just sound absurdly precise for an “approximate” amount, it is as precise as you can be in the Bitcoin ecosystem, given that the smallest transactable unit on the Bitcoin blockchain is 1 Satoshi. 
+A Satoshi is a one-hundred-millionth part of a Bitcoin, or BTC0.00000001, where that 1-digit is in the eighth decimal place. 
+(At the time of the crime, 8 Satoshis were worth only about one-hundred-thousandth of a US cent; at the time of the bust, however, 16 Satoshis were worth worth just over a cent.)
+Apparently, over the past year, Zhong must have decided to play ball with the investigators: “Beginning in or around March 2022, [he] began voluntarily surrendering to the Government additional Bitcoin that [he] had access to and had not dissipated. In total, [he] voluntarily surrendered 1,004.14621836 additional Bitcoin.”
+He has now pleaded guilty to the original crime, and agreed to forfeit $600,000 in cash that was found at his house during his arrest in 2021 (coincidentally, the same amount that his BTC heist had been worth at the time of the crime nine years earlier), plus what the DOJ describes as an “80% interest in RE&D Investments LLC, a Memphis-based company with substantial real estate holdings”.
+As the DOJ wryly notes, Zhong’s BTC stash was the biggest cryptocurrency amount ever recovered in a law enforcement operation, based on rates at the time of the bust, though now it’s considered only second-best.
+Apparently, the new record was set just three months later, when the self-proclaimed Crocodile of Wall Street (and wannabe rapper) Heather Morgan and her husband Ilya Lichtenstein were busted after investigators cracked the password on a cold wallet of Lichtenstein’s containing a whopping BTC94,636.
+Those funds are alleged to be the after-effects of a 2016 cyberheist against cryptocoin exchange Bitfinex, in which BTC119,756 was stolen, worth about $72m at the time. (The abovementioned suspects weren’t charged with actually pulling off the heist itself, just with ending up with the stolen funds afterwards.)
+Self-styled “Crocodile of Wall Street” arrested with husband over Bitcoin megaheist
+
+
+Even though the cops only recovered 80% of the stolen Bitfinex hoard, and even though BTC values had gone down sharply in the short time since Zhong’s peak-of-the-market bust, the stash recouped from Lichtenstein’s cold wallet nevertheless trumped the Zhong seizure, with a dramatic theoretical value of more than $4 billion.
+Zhong’s confiscated stockpile is down to just under a billion dollars, while the Crocodile Coin Collection is “only” about $1.8 billion now.
+In a curious way, it’s just as well that all this is true, because you simply couldn’t make it up…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It is an interesting story, especially since this is a case of bad guy hacking the bad guys.
+Commiting crimes to criminals is still considered a crime, which makes me wonder if the judge(s) have changed their verdict based on that information (to less or perhaps more punishment).
+They got back a lot of the “money”, plus he pleaded guilty. I wonder whether the fact that what he stole is now worth about 1500x more than when he took it makes things better or worse for him?
+I think it shouldn’t make matters worse for him.
+You wouldn’t really be able to actually claim he stole billions of dollars since what matters is how much it was worth at the time of theft.
+If you steal for example a gold bar worth $10,000 at that time, even if gold value rises to make it now worth $20,000 you shouldn’t be worse off.
+If at the time of theft you had intended to steal $10,000 worth of gold bar you couldn’t possibly predict that its value would rise to $20,000.
+If you were worse off as Bitcoin value rises, then it would be a retroactive punishment where you punish someone by making them pay e.g. a fine value that didn’t exist at the time of theft.
+That would be very much ‘future-based’ punishment where the laws of the *future* dictate your punishment for *past* crimes?
+If the guy stole 50,000 bitcoins, then he should simply return 50,000 bitcoins.
+If Bitcoin is too high of a value right now, then he should be able to have a wait, to buy & return some more later, but he should still engage to return the stolen Bitcoin over time, atleast little by little.
+Otherwise it’s like stealing precious jewelry or pieces of art and saying ‘no worries I will give you money back instead’.
+That wouldn’t replace the stolen jewelry or art for example.
+When possible the actually stolen items or similar items should be returned instead of money, but unfortunately this isn’t the case.
+And I don’t believe in future-based punishment such as ‘a crime worth 5 years of jail back then was comitted, but I’m gonna change the law now to 10 years and it applies to your past crimes.’
+Law should be like APIs, they should be promises.
+Laws are like promises that if you e.g. steal in 2022, then 2022 law will decide the punishment.
+However while I’m not a lawyer, I can just guess that this seems pretty obvious in theory such that I shouldn’t have to be a lawyer to claim this.
+Well, it was still a big theft back then ($600,000)… and it looks as though he wasn’t able to shift many of the Bitcoins and thus still had many? most? Of them to return. There’s also the Bitcoin Cash he acquired at the “big fork” that is apparent considered stolen property as well, given that it was a “product of fission”, if you like.
+I don’t think that is always true, depending on what the offence was and why it is no longer an offence.
+Apaprently
+Fixed, thanks!
+Wow! This guy is/was tottally idiot! He managed to trick silks road systems but he couldn’t launder the bitcoins? He failed doing the easiest thing in the crypto world xD
+I assume it wasn’t that he found it difficult but that he was scared of being caught…
+…though he got caught in the end anyway.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,35 @@
+Sophos Home protects every Mac and PC in your home 
+We’ll be honest, and admit that we hadn’t heard of the printer management software PaperCut until this week.
+In fact, the first time we heard the name was in the context of cybercriminality and malware attacks, and we naively assumed that “PaperCut” was what we like to call a BWAIN.
+A BWAIN is our satirical term for any Bug With An Impressive (and media-savvy) Name, like Heartbleed or Shellshock back in the day, and we thought that this one referred to a vulnerability or an exploit of some sort.
+We’ll apologise, therefore, to the company PaperCut – the name is meant to be a metaphor for cutting back on your paper usage by helping you to manage, control and charge fairly for the printing resources in your business.
+We’ll further point out that PaperCut iself is not putting out this vulnerability alert for PR reasons, because actively seeking media coverage for bugs in your own products is not something that companies usually go out of their way to do.
+But hats off to PaperCut in this case, because the company really is trying to make sure that all its customers know about the importance of two vulnerabilities in its products that it patched last month, to the point that it’s put a green-striped shield at the top of its main web page that says, “Urgent security message for all NG/MF customers.”
+We’ve seen companies that have admitted to unpatched zero-day vulnerabilities and data breaches in a less obvious fashion than this, which is why we’re saying “Good job” to the Papercut team for what cybersecurity jargon would probably praise with the orotund phrase an abundance of caution.
+The problem, it seems, is a pair of bugs dubbed CVE-2023-27350 and CVE-2023-27351 that were patched by PaperCut at the end of March 2023.
+The first bug is described by PaperCut as follows:
+The [CVE-2023-27350 vulnerability potentially] allows for an unauthenticated attacker to get Remote Code Execution (RCE) on a PaperCut Application Server. This could be done remotely and without the need to log in.
+So, even if your PaperCut application server isn’t directly reachable over the internet, an attacker who already had a basic foothold in your network, for example as a guest user on someone’s infected laptop, could exploit this bug to pivot, or move laterally (which are fancy jargon words for “make the jump”), to a more privileged and powerful position inside your business.
+The second bug doesn’t hand over remote code execution powers, but it does allow attackers to scrape out personally identifiable information that could be useful for subsequent social engineering attacks against both your company as a whole, and your staff as individuals:
+The [CVE-2023-27351 vulnerability] allows for an unauthenticated attacker to potentially pull information about a user stored within PaperCut MF or NG – including usernames, full names, email addresses, office/department info and any card numbers associated with the user. The attacker can also retrieve the hashed passwords for internal PaperCut-created users only […]. This could be done remotely and without the need to log in.
+Although patches have been out for almost a month already, it seems that not all customers have applied these patches, and cybercrooks have apparently started using the first of these bugs in real-life attacks.
+PaperCut says that it was first alerted to an attack against an unpatched server at 2023-04-17T17:30Z, and has now worked through its logs and suggests that the earliest attack so far known happened four days before that, at 2023-04-13T15:29Z.
+In other words, if you patched before 2023-04-13 (the Thursday before last at the time of writing), you’d almost certainly have been ahead of the criminals, but if you haven’t patched yet, you really need to.
+PaperCut notes that it is trying hard “to compile a list of unpatched PaperCut MF/NG servers that have ports open on the public internet”, and then going out of its way to try to contact those obviously-at-risk customers.
+But PaperCut can’t scan your internal networks in order to warn you about unpatched servers that aren’t visible across the internet.
+You will need to do that yourself, in order to ensure that you haven’t left loopholes through which attackers who have already hacked into your network “just a bit” can extend their rogue access to “quite a lot”.
+Remember, of course, that the IoCs shared by PaperCut are, of necessity, limited to those they’ve already seen in attacks they already know about, so absence of evidence isn’t evidence of absence.
+If you’re unsure of what to look for, or how to look for it, consider getting a Managed Detection and Response (MDR) team in to help you.
+Short of time or expertise to take care of cybersecurity threat response? Worried that cybersecurity will end up distracting you from all the other things you need to do?
+Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

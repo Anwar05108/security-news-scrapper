@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+Note. Users of older Macs, iPhones and iPads that don’t feature in the update list below can now fetch patches against both the bugs described here. See our follow-up article for full details, including Apple security bulletin links. [Updated 2023-045-10T20:40:00Z.]
+Apple just issued a short, sharp series of security fixes for Macs, iPhones and iPads.
+All supported macOS versions (Big Sur, Monterey and Ventura) have patches you need to install, but only the iOS 16 and iPadOS 16 mobile versions currently have updates available.
+As ever, we can’t yet tell you whether iOS 15 and iPadOS 15 users with older devices are immune and therefore don’t need a patch, are at risk and will get a patch in the next few days, or are potentially vulnerable but are going to be left out in the cold.
+Two different bugs are addressed in these updates; importantly, both vulnerabilities are described not only as leading to “arbitrary code execution”, but also as “actively exploited”, making them zero-day holes.
+The bugs are:
+Ironically, kernel-level bugs that rely on a booby-trapped app are often not much use on their own against iPhone or iPad users, because Apple’s strict App Store “walled garden” rules make it hard for attackers to trick you installing a rogue app in the first place.
+You can’t go off market and install apps from a secondary or unofficial source, even if you want to, so crooks would need to sneak their rogue app into the App Store first before they could attempt to talk you into installing it.
+But when attackers can combine a remote browser-busting bug with a local kernel-busting hole, they can sidestep the App Store problem entirely. 
+That’s apparently the situation here, where the first bug (CVE-2023-28205) allows attackers to take over your phone’s browser app remotely…
+…at which point, they have a booby-trapped app that they can use to exploit the second bug (CVE-2023-28206) to take over your entire device.
+And remember that because all App Store apps with web display capabilities are required to use WebKit, the CVE-2023-28205 bug affects you even if you have installed a third-party browser to use instead of Safari.
+The worrying thing about both bugs is not only that they’re zero-day holes, meaning the attackers found them and were already using them before any patches were figured out, but also that they were reported by “Clément Lecigne of Google’s Threat Analysis Group and Donncha Ó Cearbhaill of Amnesty International’s Security Lab”.
+Apple isn’t giving any more detail than that, but it’s not a big jump to assume that this bug was spotted by privacy and social justice activists at Amnesty, and investigated by incident response handlers at Google.
+If so, we’re almost certainly talking about security holes that can be, and already have been, used for implanting spyware.
+Even if this suggests a targeted attack, and thus that most of us are not likely to be at the receiving end of it, it nevertheless implies that these bugs work effectively in real life against unsuspecting victims.
+Simply put, you should assume that these vulnerabilities represent a clear and present danger, and aren’t just proof-of-concept holes or theoretical risks.
+Update now!
+You may already have been offered the update by Apple; if you haven’t been, or you were offered it but turned it down for the time being, we suggest forcing an update check as soon as you can.
+The updates up for grabs are:
+If you’re still on iOS 15 or iPadOS 15, watch this space (or keep your eyes on Apple’s HT201222 security portal) in case it turns out that you need an update, too.
+Note. Older Macs, iPhones and iPads (those running iOS 15, iPadOS 15, macOS 11 and macOS 12) can now be patched against both the bugs described above. See our follow-up article for full details, including Apple security bulletin links. [Updated 2023-045-10T20:40:00Z.]
+Apple zero-day spyware patches extended to cover older Macs, iPhones and iPads
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Wow!
+Wait!  They told me only Google and Micro$oft had security disasters!
+Apple’s QA is horrible. I stopped using Safari on my iPhone due to rendering problems on many sites. The other day, the email app did not send my email, even though it looked like it went through. I found out only because I checked my “Sent” folder and noticed that it was never sent. This is a HUGE problem as I could assume that I sent emails to important people that were never sent. I verified the bug by sending a few test emails. Restarting my iPhone resolved the problem. I’m seriously contemplating a switch to an Android phone.
+Apple should be absolutely ashamed for running an OS that CANNOT sideload apps CANNOT support any third party browsers with their own engines. Is this the year 2007 seriously? how is an OS in this state even a thing today? I have so many questions.
+Apple’s argument is that preventing sideloading helps to reduce the risk of malware, which is true…
+…but it doesn’t prevent malware attacks, either via rogue apps blessed by Apple itself in its “this-is-supposed-to-be-totally-safe” App Store, or via kernel-level exploits, as in this severe example.
+And it’s not compulsory to sideload apps, after all. (I know lots of Android users who don’t know how to enable the feature even though they could if they really wanted to; have never needed or wanted to; and probably never will.)
+As for enforcing WebKit… I get the idea, for consistency in rendering and user experience, but I prefer a bit more choice myself. Just to avoid a total browsing monoculture.
+My iOS 15 and iPadOS 15 just updated. I presume this same problem.
+Thanks… I just (10 mins ago) got the email notifications from Apple and will write up an update shortly. 
+Turns out that iOS 15 and iPadOS 15 contained the same bugs as 16, but users of 15 were left silently unpatched until today. Big Sur and Monterey, it seems, have the kernel bug as well as the WebKit bug that was fixed last week, so they get a second update to bring them up to standard.
+Remember when Apple users used to make fun of all the updates Windows users had to install?  We told them it wasn’t because the code was crap, but because it was a much bigger target for attackers.  They never stopped mocking, though.  Whelp, here we are, with Apple releasing patch after patch.  We were right and they were too proud to listen.
+They never got viruses, either remember :-), even though the first Apple HyperCard (macro/script) virus appeared long before the first Microsoft Word virus.
+You are indeed less likely to get malware on a Mac than on Windows, possibly even much less likely, but there’s a big difference between “relatively few viruses” and “no viruses at all”. (That recent 3CX supply chain malware attack, for example, had both Windows and Mac variants.)
+As for phishing attacks, where there is no actual malware executed on your computer… well, there’s no magic security smoke in macOS or iOS that makes their users less likely to get dickered into giving away something they later regret…
+When it comes to cybersecurity, never assume! (And never say never.)
+One more 0day of a shady cyber weapons’ org burnt! Don’t worry they will find one more.
+Technically, it’s two more 0-days…
+…the web-based RCE one, and the pwn-the-kernel one.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

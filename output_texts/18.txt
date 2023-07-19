@@ -1,0 +1,99 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at Qualys have revealed a now-patched security hole in a very widely used Linux security toolkit that’s included in almost every Linux distro out there.
+The bug is officially known as CVE-2021-4034, but Qualys has given it a funky name, a logo and a web page of its own, dubbing it PwnKit.
+The buggy code forms part of the Linux Polkit system, a popular way of allowing regular apps, which don’t run with any special privileges, to interact safely with other software or system services that need or have administrative superpowers.
+For example, if you have a file manager that lets you take care of removable USB disks, the file manager will often need to negotiate with the operating system to ensure that you’re properly authorised to access those devices.
+If you decide you want to wipe and reformat the disk, you might need root-level access to do so, and the Polkit system will help the file manager to negotiate those access rights temporarily, typically popping up a password dialog to verify your credentials.
+If you’re a regular Linux user, you’ve probably seen Polkit-driven dialogs – indeed the text-based Polkit man page gives an old-school ASCII-art rendition of the way they typically look:
+
+What you might not know about Polkit is that, although it’s geared towards adding secure on-demand authentication for graphical apps, it comes with a handy command-line tool called pkexec, short for Polkit Execute.
+Simply put, pkexec is a bit like the well-known sudo utility, where sudo is short for Set UID and Do a Command, inasmuch as it allows you to switch temporarily to a different user ID, typically root, or UID 0, the all-powerful superuser account.
+In fact, you use pkexec in much the same way as you do sudo, adding pkexec to the start of a command line that you don’t have the right to run in order to get pkexec to launch it for you, assuming that Polkit thinks you’re authorised to do so:
+As well as checking its access control rules (alluded to in the file listing above), pkexec also performs a range of other “security hardening” operations before it runs your chosen command with added privileges.
+For example, consider this program, which prints out a list of its own command line arguments and environment variables:
+If you compile this progam and run it, you’ll see something like this, with a laundry list of environment variables that reflect your own preferences and settings:
+Note two things:
+Let’s run the command again as root, by using pkexec:
+This time, you will notice that:
+So far, so good.
+Except that Qualys discovered that if you deliberately launch the pkexec program in such a way that the value of its own argv[0] parameter (by convention, set to the name of the program itself) is blanked out and set to NULL…
+…then in the process of converting the command name you want to run (./envp above) into a full pathname (/home/duck/Articles/pwnkit/./envp), the pkexec startup code will perform a buffer overflow.
+For security reasons, pkexec ought to detect that it was unusually launched with no command line arguments at all, not even its own name, and refuse to run.
+Instead, pkexec blindly looks at what it thinks is argv[1] (usually, this would be the name of the command you are asking it to run as root), and tries to find that program on your path.
+But if argv[0] was already NULL, then there are no command line arguments, and what pkexec thinks is argv[1] is actually envp[0], the first environment variable, because the argv[] and envp[] arrays are directly adjacent in memory.
+So, if you set your first environment variable to be the name of a program that can be found on your PATH, and then run pkexec with no command arguments at all, not even argv[0], then the program will combine your path with value of the environment variable it mistakenly thinks is the name of the program you want to run…
+…and write that “more secure” version of the “filename” back into what it thinks is argv[1], ready to run the chosen program via its full pathname, rather than a relative one.
+Unfortunately, the modifed string written into argv[1] actually ends up in envp[0], which means that a rogue user could, in theory, exploit this argv-to-envp buffer misaligment to reintroduce dangerous environment variables that the operating system itself had already taken the trouble to expunge from memory.
+To cut a long story short, Qualys researchers discovered a way to use a dangerously “reintroduced” environment variable of this sort to trick pkexec into running a program of their choice before the program got as far as verifying whether their account was entitled to use pkexec at all.
+Because pkexec is a “setuid-root” program (this means that when you launch it, it magically runs as root rather than under your own account), any subprogram you can coerce it into launching will inherit superuser privileges.
+This means that any user who already has access to your system, even if they’re logged in under an account with almost no power at all, could, in theory, use pkexec to promote themselves instantly to user ID 0: the root, or superuser, account.
+The researchers wisely didn’t provide working proof-of-concept code, although as they wryly point out:
+We will not publish our exploit immediately; however, please note that this vulnerability is trivially exploitable, and other researchers might publish their exploits shortly after the patches are available.
+FIND AND FIX PKEXEC – HOW TO USE THE WORKAROUND
+Finding pkexec on your path:
+Checking the version you have. Below 0.120 and you are probably vulnerable, at least on Linux:
+Checking the file mode bits. Note that the letter s in the first column stands for setuid, and means that when the file runs, it will automatically execute under the account name listed in column three as the owner of the file; in this case, that means root. In terminals with colour support, you may see the filename emphasised with a bright red background:
+Changing the setuid bit. Note how, after demoting the file by “subtracting” the letter s from the mode bits, the first column no longer contains an S-for-setuid marker. On a colour terminal, the dramatic red background will disappear too:
+Turning setuid back on. If you need to re-enable the root-acquiring powers of pkexec before getting the latest update, or if updating the Polkit package doesn’t restore the setuid bit automatically, you can use the chmod +s ... command (in a similar way to how you used -s above) in order to “add back” the letter s to the mode bits:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Sigh, so I set the suid off; now synaptic icons don’t work.  Although the command line call works 🙂
+Does anybody know why the icons are
+“synaptic-pkexec”
+execution commands.
+Is this going to affect many more icons?
+Ray
+I guess those icons are shortcuts (is that the Debianesque word?) that rely on pkexec to negotiate root access for doing updates, because the actual update process itself (rather obviously) demands root-level powers given that you’re fiddling with system files, configuration data and even the kernel itself. 
+I assume that if you have done an update via the command line (where you will almost certainly use sudo, which will work, rather than pkexec, which will not), then you will have acquired the latest version of the Polkit tools (so that ‘pkexec –version’ returns 0.120). 
+If so, you can turn setuid back on with ‘chmod +s …’ in place of the ‘chmod -s …’ above. 
+Perhaps I should add that last detail to the article to make it clear how to “rescind” the workaround after you’ve correctly update?
+Done. Added in a section for “Turning setuid back on” at the end of the article. HtH.
+Umm, that command doesn’t restore it to the original permissions, though. You would need `sudo chmod u+s /usr/bin/pkexec` to do that, otherwise the group will also get setuid permissions.
+Oops, fixing now!
+Great, thx for the quick response! I’ve changed my downvote to an upvote 🙂
+And thx for writing the article, very informative!
+Thanks. Might be worth doing a “Serious Security” article on setuid(), setgid() and friends (and on Windows impersonation), not least to remind people that setuid() is at least as important for switching to a *lesser* account. 
+Lots of people think that “sudo” is short for “superuser do”, as in which is admittedly how it is usually used (as in XKCD’s infamous ‘sudo make’ cartoon https://xkcd.com/149/ :-), rather than simply a command-line interface to the general-purpose system call that changes user ID.
+Thanks Paul, Fedora just updated with 0.120 today. Now to tackle all those IoT’s…
+For Ubuntu, the patched version seems to be 0.105 according to
+https://ubuntu.com/security/notices/USN-5252-1
+I assume they packported the changes needed to detect NULL in argv[0] (and a couple of other changes added to improve error handling).
+Thanks Paul:   Ubuntu-mate hasn’t officially upgraded to 1.200 yet.  I will wait for a week or so; if not upgraded, I will hunt around for the upgrade.   I _prefer_   upgrading through “normal” channels (it seems to cut down on the sysadmin time)  but make exceptions.
+BTW: I have had several occasions where updates were blocked by Sophos running.  Is there a reporting channel or interest in these occasions?  So far, turning off Sophos temporarily has worked okay; but I am always leery.  They are usually configuration files.
+Ray
+I’m interested in hearing what aspects of which sort of updates were blocked… you can email me if you like. That’s not an official reporting channel – for that you will need to talk to your usual support person or account manager if you have one – but if you like I can pass on any findings if we uncover anythjing useful. (By which I mean that I am interested in hearing about this, but you are welcome to talk directly to the support people at the same time if you like…)
+PS. As an earlier commenter mentioned, it looks as though Ubuntu isn’t getting 0.120 but has “backpatched” the fixes to 0.105, giving it a sub-version ID, something like 0.105-31 (sub-number seems to depend on which release of Ubuntu you have). Confusing, to be sure, but it means you may already have the patch. However, without doenload the source code, it’s hard to be sure what changed :-)
+On Ubuntu Mate impish
+sudo /usr/bin/pkexec –version
+ just gives
+pkexec version 0.105
+I have to go to the package level
+apt list policykit-1
+policykit-1/impish-updates,impish-security,now 0.105-31ubuntu0.1 amd64 [installed,automatic]
+I googled into history and found several CVE’s.  It’s looks as though they don’t have good control of the code.  I think I will leave the suid off for a while and see if that causes problems (and keep my opinions to myself).
+https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=polkit
+I will email you when I have a couple of premission denied.  They are pretty consistant.
+Thanks
+Ray
+My latest kernel upgrade had a block, I can open up a Dropbox folder or email you the messages.  How do I email you?  BTW: there are no system particulars since the blocking has been going on for years; but I will add the current system particulars if wanted.
+BTW: The Sophos site relating to migration (? some pages yes/no) of free home Linux is incoherent.   Some pages show it being supported out to some time in 2022 and other pages have updates cancelled after Dec 2021 (or in  another case Jan 10 2022).  I tried going through sales support and got nowhere.
+Where do I get the “true” policy?
+There isn’t a Sophos Free Anti-Virus for Linux any more, I’m afraid. (The new version can’t be used in a standalone way like the old one; it is based on Sophos Central and there isn’t [2022-02-02] a free Sophos Central setup.)
+IIRC, you can keep using the old version if you already have it installed, but you can no longer acquire the installer, so “new free licences” are not possible. As for when the free updates end… I am not sure. I will report your confusion and try to find out, not least because I would like to know myelf :-)
+As for emailing me, you can just use tips@sophos.com. (I am usually the first to see those emails, but it’s worth specifically mentioning somewhere in the message that it’s meant for me.)
+I don’t (fully) blame pkexec, here. As per POSIX, the Linux kernel *should* disallow things running without argv[0], but up to now didn’t. It truly is a reasonable assumption. A lot of applications can be broken this way. IMO this is a kernel bug.
+I see a Linux kernel patch has been released to address this: https://lore.kernel.org/lkml/20220126043947.10058-1-ariadne@dereferenced.org/T/
+Simple patch! EFAULT (bad address) if argc < 1, easy!
+The Linux Programmer's Manual (a.k.a. 'man execve') says simply, "By convention […] argv[0] should contain the filename associated with the file being executed. The argv array must be terminated by a NULL pointer. (Thus […] argv[argc] will be NULL."
+Note the words SHOULD, MUST and WILL – even after patch goes through I would recommend that code along the lines of 'for (i=1; argv[i]; i++) { … }' should be avoided. After all, if argv[] and envp[] were not contiguous, an exploit of this sort would not be possible but there would still be a buffer read overflow. Even 'for (i=1; i<argc && argv[i]; i++) { … }' would be better…
+Does anyone have a suggestion on how to determine if any applications on my system are using pkexec (short of watching what breaks after changing the setuid bit)?  And, if so, which applications are using it?  I don’t think searching all the source code is practical.  Not to mention, what if it’s used by a third party for which I don’t have the source code.  For example, is there a way to get Linux to audit an executable and write to syslog every time it is accessed?  Just a thought.
+Thanks in advance for any suggestions.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

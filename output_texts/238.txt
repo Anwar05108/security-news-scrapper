@@ -1,0 +1,255 @@
+Sophos Home protects every Mac and PC in your home 
+DON’T LET ONE LOUSY EMAIL PASSWORD SINK THE COMPANY
+Microsoft’s tilt at the MP3 marketplace. Apple’s not-a-zero-day emergency. Cracking the lock on Android phones. Browser-in-the-Browser revisited. The Emmenthal cheese attack. Business Email Compromise and how to prevent it.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  A not-quite zero-day, a lock screen bypass, email scams, and Emmenthal cheese.
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today?
+DUCK.  I’m great, Doug. 
+And I don’t think you mentioned the Billionaire Gucci master.
+DOUG.  He is part of “All that and more”, of course!
+DUCK.  Oh, and much, MUCH more, Doug. [LAUGHS]
+DOUG.  Exactly. 
+We do like to start the show with our This Week in Tech History segment. 
+This is exciting for me because I was there, man! 
+This week on 14 November 2006, Microsoft released the Zune, a 30 gigabyte portable media player meant to compete with Apple’s iPod.
+Microsoft would make its way through three generations of Zune players, a music subscription service, and a handful of other fits and starts before canning the hardware in 2011 and the software and services in 2012. 
+I was working at TechCrunch at the time, and the general consensus was that not until the Zune HD, which came out in 2009, were we talking about the Good Zune. 
+But by then it was too little, too late, because the iPod touch came out in 2007…
+…and I remember covering that event and being awed by such a device. 
+I can’t remember the last time I was awed by such a thin MP3 player; you could download songs directly to it. 
+That was the story of the Zune for me. 
+The hardware and the screen, though, were really good, so it was hard to not like it…
+…it just was missing something, and then they shut everything down, so it didn’t really matter.
+Between the Zune and Windows Phone: those were two initiatives by Microsoft I really wanted to work, and they just didn’t quite work.
+DUCK.  I loved my Windows Phone, believe it or not. 
+It’s always the third version with Microsoft, isn’t it? 
+Windows 3? 
+DOUG.  The Zune, too – third version!
+DUCK.  And I thought, “Great!” 
+But as soon as I fell in love with Windows Phone, they discontinued it, just when it got good. [LAUGHS]
+DOUG.  Well, we can stay on the subject of Apple, because this is not quite a zero-day, but it was dangerous enough to warrant an emergency patch:
+Emergency code execution patch from Apple – but not an 0-day
+
+DUCK.  Yes, it wasn’t a zero-day because it was disclosed responsibly, as far as I know.
+It was a bug in an XML parsing library called libxml2… my own Linux distro got an update that happened to include that fix. 
+Now, nobody else seemed to get terribly excited about the libxml2 update. 
+It was just, “Hey, they found a bug, they fixed it: get the new version.” 
+But Apple… just suddenly these updates arrived.
+And they fixed the libxml2 bugs only for the very latest versions of their operating system. 
+So, macOS 13 Ventura and iOS/iPadOS 16.
+DOUG.  So, if I’m an Apple user and I’m not running the latest version of either of these operating systems, I’m in the dark about whether I need some sort of update.
+Am I waiting on an update, or is my current version, which isn’t 13.0 or 16.1… is it safe?
+DUCK.  That’s the problem that we have every time this happens, isn’t it? 
+Where there’s an update for the latest versions and not the others. 
+So I wish Apple would make it clearer whether there were updates expected for other devices, or even why they felt it was necessary to push out an update just specifically for that one library. 
+My best guess is that when they were informed about the bug and their own security people started looking at it, they figured, “I wonder if you could exploit this… OH NO! It’s far too easy.” 
+Maybe they found that there was some part of Apple’s code that was just (if you like) too close to the edge of the network or the edge of the device, that might mean that somebody could quickly figure out how to exploit it. 
+So why not patch it? 
+If so, great, but it would be nice to know that!
+DOUG.  So I guess the best advice we can give is to go to the software updates section and see if there’s something there. 
+If not, sit tight and we’ll keep an eye on it. 
+OK, let’s shift gears from Apple to Android. 
+We’ve got a SIM-swap lockscreen bypass, and this lockscreen bypass is kind of frightening in that it was an accidental discovery, so it could happen to anybody:
+Dangerous SIM-swap lockscreen bypass – update Android now!
+
+So it’s kind of serious! 
+And Google kind of dragged their feet a little bit fixing it…
+DUCK.  Yes, Doug.
+The fascinating thing about this is… I couldn’t think of a better way to describe it than a SIM-swap attack, because it involves swapping a SIM card. 
+But it’s not what we normally think of as a “number porting” attack where you go to a mobile phone store and you trick them, cajole them, bribe them, induce them to issue you with a brand new SIM with somebody else’s number applied to it, so you can take over their messages and read their two factor authentication codes to log into their account. 
+That’s one type of SIM swap. 
+In this case, the bug was triggered for somebody who has restarted their phone. 
+And in this case, because the chap had been travelling and his phone had run out of juice, he was forced to go through a full reboot. 
+When you go through a reboot, if you’ve got a PIN set on your SIM card (which you should have, or someone could just steal your phone, remove the SIM card, and start receiving all your calls and your texts)…  well, he got the PIN wrong, and you only get three goes, then you lock yourself out.
+Now you have to go and get the 10-digit PUK, which is the unlock code for the SIM itself. 
+You only get 10 goes at that, after which the SIM basically destroys itself and is no more use. 
+But he noticed that, when he put in the PUK… he realised that he was at the lockscreen, *but the wrong one*. 
+He was at the kind of phone lockscreen that allowed him to unlock with his fingerprint. 
+Not the “You’ve just rebooted your phone; you have to unlock properly with your full passcode” screen. 
+So he figured, “I’ve landed up in the wrong place. This shouldn’t happen. I should be locked out of my phone with more than just my fingerprint.” 
+And so he was able to find out that he could, if he got the SIM PIN wrong deliberately and he timed it right… he could bypass the lock code on a locked phone.
+Just like that, Doug!
+DOUG.  OK, so where does the SIM *swap* come in in this case?
+DUCK.  Well, that’s the thing…
+Imagine that you steal somebody’s phone and you realise, “Oh, dear, it’s locked.”
+Now, you swap the SIM, but instead of trying to swap their *number* onto a new SIM of yours, you just go to the convenience store, buy a new SIM card, swap it into their *phone*… 
+…and you know the PIN on the new SIM card, so you *deliberately get it wrong three times*. 
+Now you’re at the PUK code entry. 
+You read the PUK code off the packaging, because it’s printed there… scratch it off with a coin; there’s the magic code. 
+You put that in, and, “Bingo!”
+You’ve done his bypass!
+DOUG.  If I’m a pickpocket or a criminal, or I find a phone on the ground, normally in this day and age, you think, “Oh, it’s useless because it’s locked and I’m not going to be able to get into it to wipe it and then sell it.” 
+In this case, you can actually do that… just buy a cheap, a free SIM; you can wipe it and sell it.
+DUCK.  And, as the chap who discovered it, David Schütz, points out:
+“I might be overreacting, but, I mean, not so long ago, the FBI was fighting with Apple for almost the same thing.”
+I’ve got somebody else’s phone… is there a magic way, with some special hardware, that I can unlock it? 
+And it turns out that, with Android, if you got the timing right, yes, there *was* some special hardware, and you could go to a convenience store and buy that hardware off the shelf for $1!
+DOUG.  OK, so this is serious. 
+So, he takes it to Google and they do what? 
+Do they say, “We’re going to fix it right away”… or not?
+DUCK.  I think both of those: “Yeah, OK, well, someone reported this before, but we couldn’t get it to work.” 
+Then nothing happened, and nothing happened… 
+So his disclosure deadline came around, and he went to Google and said, “I’m going to disclose this, but I’m uncomfortable. What are we going to do about it?” 
+And, fortunately, Google then came to the party, and in the November 2022 update (he found this back in June 2022)… in the November 2022 update, they did provide the fix.
+Bless his heart, he said, “Look, I’ll come to your offices and I’ll show you that it does work.” 
+And apparently he’s smart enough to find vulnerabilities and do bug bounty hunting for a living, it seems…
+…but  not smart enough to realise that when you’re in an office building and you don’t have a proper SIM ejector tool, there’s probably a paperclip somewhere around. 
+So instead of asking for a paperclip, he tried to use a needle, and apparently stabbed himself. [LAUGHS]
+It is now fixed, but if you’ve got an Android phone, do make sure that you have the November 2022 update!
+DOUG.  OK, we talked not too long ago about a Firefox “Browser-in-the-browser” attack, which I found fascinating… and it looks like we may have the potential for another one, thanks to a new fullscreen bypass:
+Firefox fixes fullscreen fakery flaw – get the update now!
+
+DUCK.  Yes! 
+Firefox 107 came out this week, and I think the Extended Support Release is 102.5. 
+(Remember, it’s “102+5 = 107”, so that’s no feature fixes, but all the security fixes.)
+There’s nothing critical, there are no zero-days, but there are lots of high-severity vulnerabilities, and the one that caught my eye is a very simple and possibly trivial-sounding bug. 
+There’s a way to get the browser into ful screen mode without popping up that little warning that says, “Hey, guys, the browser is now in fullscreen mode, so don’t forget that everything you see *is the browser*; press Escape or F11 (or whateveritis) to get back to the regular screen.” 
+And you think, “How harmful is that?” 
+But if you remember, that Browser-in-the-Browser attack was where you paint what looks like an operating system popup dialog inside the browser window, and you trick people into putting, say, a password in there, thinking they’re communicating with Windows…
+…when in fact they’re communicating with the browser:
+Serious Security: Browser-in-the-browser attacks – watch out for windows that aren’t!
+
+And I think it was one Douglas Aamoth who said to people, “Hey, just grab the window, the fake popup, if you’re suspicious, and try and move it outside the real browser window. And if it won’t go there, you know you’re looking at a fake.” 
+So, imagine… what’s the risk of accidental fullscreen? 
+Well, then you paint a fake browser window *inside which you paint a fake popup*. 
+And then, when the person follows your very good advice, Doug, and drags the fake popup, it *will* go outside the fake browser window and you’ll go, “OK, maybe it’s real after all.” 
+So the problem with fullscreen is it means that code running inside the browser (untrusted JavaScript, HTML, CSS, etc.) gets to paint effectively any pixel on the screen.
+DOUG.  I was also thinking: a brilliant way to abuse this (now don’t do this, don’t try this at home!) would be to make it seem as though the user’s session had, for some reason, just logged out. 
+So you’re back to a “login screen”… it’s fullscreen, and it asks you to enter your password. 
+I mean, I have a button on my keyboard that logs me out if I hit it accidentally, and now it wants my password to get back in…
+DUCK.  [LAUGHS] Doug, I’m glad you’re a colleague of mine, that’s all I’m saying, not working for the other side! [LAUGHS]
+DOUG.  And if I were really enterprising (I wouldn’t really do this, of course!), I know that Windows changes the login picture every day to a different beautiful vista…
+…I would just check which one is going on today, and I would cycle that every day to the newest one, once I knew what the new one was going to be.
+DUCK.  Are you sure you’re not a naughty boy, Doug? [LAUGHTER]
+DOUG.  So, let’s get those Firefox browsers updated, and move on to what you described as the “Emmenthal cheese” attack. 
+Now, if I were writing the headline… your headline was great, it was very descriptive, but you could have drawn people in with the headline just being The Emmenthal cheese attack, or why defence in depth depth is important. 
+Though you have “Log4Shell” in there… that’ll probably pull more people in than cheese:
+Log4Shell-like code execution hole in popular Backstage dev tool
+
+DUCK.  [MOCK AFFRONT] Are you accusing me of what I believe is called “Search Engine Optimisation”?
+DOUG.  [MOCK RIGHTEOUSNESS] I would never! 
+DUCK.  Thank you, Doug.
+It is Log4Shell-like, and I did think that people would remember Log4Shell because it’s kind of hard to forget:
+Log4Shell: The Movie… a short, safe visual tour for work and home
+
+I was worried, if I put Emmenthal cheese in the headline, that if you don’t exactly know that that is a type of cheese that generally has bubbles in it from the gas that’s generated while it ferments, and therefore when you slice it, it has circular holes in it; if you don’t know that, then… [PAUSES] I suppose I could have put a picture of a slice of Emmenthal cheese, but that would have been a bit cheesy.
+DOUG.  Well Krafted! 
+DUCK.  Anyway,the affected tool is a thing called Backstage, and I believe it was originally developed as a developer’s toolkit for building what are called APIs, application programming interfaces. 
+As the name suggests, it’s more of a back-end tool, so you loosely expect it to be inside your network, but nevertheless, if it’s part of your business logic services, then you do want to make sure that they don’t have any bugs. 
+And I call it the Emmenthal Cheese Attack, because, fortunately, it’s not just like Log4Shell, where lots of services were exposed inadvertently and you could just send them random HTTP requests…
+…and loads of them would fall into the hole of trying to process a string that contained special “secret characters” that caused them to run unauthorised commands. 
+In this case, it was more like having several slices of Emmenthal cheese, with all the holes in. 
+And if you can, as the attacker, figure out that in this network the slices are lined up so there is at least one hole next to another hole on every slice, then you can thread a string through there and get in. 
+The good news is, of course, that means that if you can move any one of the slices to a position where there’s *no hole that goes all the way through*, you defend against it.
+DOUG.  So what are the holes that an attacker would have to thread his or her way through to hit paydirt?
+DUCK.  Well, firstly they’d need to be able to access a server that had the buggy code on in the first place, to send a request. 
+That might be possible if you’d already broken into the network but you had limited access… say you’d compromised a developer’s computer so you could make internal API calls. 
+Or it might happen if you just have some services that rely on this that are visible externally. 
+But it’s a good reminder of some of the supply-chain complexity that comes when you use products like node.js (server side JavaScript), and the NPM Node Package Manager repository. 
+Because Backstage contains a thing, I think, called Scaffolder, which is a plugin that helps you arrange all your various API backends nicely. 
+And Scaffolder uses a logging system called (don’t shoot the messenger, Doug, I’m just reporting the name; I didn’t make it up.)… this is a Mozilla tool, I believe [LAUGHING] called Nunjucks (I don’t know where they get these names from!), and that’s a logging tool. 
+So like Log4J, it has magic characters like ${{ …special stuff in here that might include commands to run on the server side… }}.
+And that is wrapped in a thing called vm2, which is another NPM module, another Node JavaScript module.
+That one is a sandbox that’s supposed to make riskier JavaScript code a bit safer by limiting what it can do. 
+And, unfortunately, the company that found the problem with the whole Backstage system, Oxeye… their researchers had previously, in August 2022, found a hole that allowed them to sneak through this vm2 sandbox. 
+So the good news is the proof-of-concept they produced required the last slice of Emmenthal cheese *still to have the hole in that was patched back in August 2022*. 
+So, as suggested, the solution is to make sure that one, some or all of your Swiss cheese slices are moved so that there are no holes that go all the way through. 
+And that’s easy enough to do by patching Backstage, and making sure that your vm2 is patched. 
+Quite a few products use this vm2 sandbox – it’s meant to improve security. 
+So you may have vm2 even if you don’t have Backstage. 
+We’ve got all the full version numbers you need to go and look for in the Naked Security article, Doug.
+DOUG.  OK, very good. 
+And last, but certainly not least, a wild story about Business Email Compromise [BEC].
+DUCK.  We have reached the Billionaire Gucci Master, currently serving an 11-stretch [an 11-year prison term] in the United States of America, Doug:
+“Gucci Master” business email scammer Hushpuppi gets 11 years
+
+So he’s no longer living the high life in Dubai like he was a couple of years ago!
+DOUG.  Maybe not quite a master if he’s in jail…
+DUCK.  Well, if you look at the photos that were on his Instagram account, you can see that, at least for a while, he certainly wasn’t short of money. 
+So he wasn’t pretending to be rich, but he *was* pretending to have acquired his wealth legitimately… he claimed to be a real estate wheeler-dealer. 
+In fact, as you say, he was part of a so-called business email compromise/money laundering network. 
+And, just to reiterate, business email compromise… that term is used fairly generally these days for crimes that are predominantly orchestrated via email that pretends to be from a company, but I prefer to keep that term BEC for where the crooks not only pretend to be sending emails, say, from your CEO or your CFO, or someone senior in accounting, but they *actually have that person’s email password*. 
+So, when they send their fake emails, they don’t just look like they come from the real account, they actually do come from the real account. 
+And, as you can imagine, that’s quite a simple crime to pull off, because you can go on the dark web and buy email passwords, and you only need one for the right person. 
+Once you’re inside the email, you probably get, if the person is in the accounts department, a surprisingly regular and reliable newsfeed of which deals are going down, what accounts need paying, and what big accounts are about to get paid in.
+And so you try and convince either the customer who’s about to pay off a debt, or you convince someone in the company itself who is about to pay out to a supplier who’s a creditor… you convince them to pay into the wrong account. 
+Behind the scenes, you have a whole lot of money mules and other affiliates in your cybercrime network who are out there going through the know-your-customer process with banks. 
+Anyway, he was busted, and apparently he pleaded guilty. 
+He’s been in custody for two years, I believe, awaiting trial:
+Flashy Nigerian Instagram star extradited to US to face BEC charges
+
+He finally decided to plead guilty: he faced 20 years; he got 135 months, which is just over eleven years. 
+So he didn’t get the maximum sentence, presumably because he pleaded guilty, and he officially admitted to two very sizable amounts that he had stolen. 
+One from a company in New York; that amount was close to $1,000,000.
+And one from a businessman in Qatar; I believe that was also close to $1,000,000. 
+So he has to pay back $1.7 million to those victims as part of the whole deal. 
+But what was fascinating to me in this was the information that came out from the investigations that were done into this chap, who’s known as Ray Hushpuppi.
+A fascinating insight into all the moving parts that are needed behind business email compromise scams, and how much effort the crooks put into staying just one step ahead of the fraud prevention mechanisms that are in place by each bank, in each country, for each type of account, for transfers between Country A and Country B, and so on…
+..And thus figuring out that the “holes” in their slices of Swiss cheese that they can thread their needles through.
+If you don’t mind me mixing yet another metaphor, Doug.
+DOUG.  It’s enough work that you could probably go out and get a regular job, and probably make… maybe not this much money, but some decent honest money. 
+The amount of work you have to put in keeping track of all these banking regulations and how to move money! 
+“I can move it within the UK, but I can’t move it to Mexico”…  all these things that he had to think about and deal with. 
+It’s a fascinating read, if you want to head over there and read the full report. 
+But we do have some advice for people as far as avoiding business email compromise, starting with: Turn on two factor authentication (2FA).
+DUCK.  Indeed, Doug.
+You might as well make sure that a stolen password alone, or one that was bought on the dark web, is not enough for crooks to get in. 
+We’ve said many times before that 2FA is not enough on its own – it doesn’t magically protect you against all sorts of attack, but it does mean that crooks who don’t know how to get hold of passwords themselves, but who go out online and buy them, can’t just instantly steam in and start scamming you.
+DOUG.  And then we’ve got: Look for features in your service provider’s products that can warn you when anomalies occur. 
+That’s a good one.
+DUCK.  Yes. 
+Tools such as EDR or XDR (that’s extended detection and response)… they’re not only there to help you find blunders, they’re also there to make sure that the security precautions that are supposed to be in place really are there; that they’re really doing what you think. 
+And so, if you’re keeping a lookout for things that might have gone wrong but you haven’t noticed yet, you are in a much better position than just waiting for a known security alert to pop up in your dashboard. 
+These days, that, on its own, is *necessary*, but it is no longer *sufficient*.
+DOUG.  And I really like this one: Enforce a two step or more process for making significant changes to accounts or services, especially changes in details for outgoing payments.
+DUCK.  It’s easy to say, “But why would any company or business person fall for that? It’s so obvious.” 
+But if the crooks have an in, say to the CFO or the head of accounting’s email, they know exactly the right time to mention the right contracts and the right amounts. 
+As always, two pairs of eyes are better than one… 
+And not just something where, “Oh, I have to get my manager to click the button” and it all goes through…
+…for something like paying out a million pounds, you need to make it comparatively difficult. 
+Ideally, you need two separate teams who investigate whether the account change should go through entirely independently. 
+It also makes it harder for insiders to collude, of course, if there are two separate teams that are operating separately.
+DOUG.  OK: If you see anything that doesn’t look right in an email demanding your attention, assume you’re being scammed.
+DUCK.  Yes, we had a Naked Security commenter once (I think you mentioned it on the podcast, didn’t you, Doug?) where they said, “Hey, I spotted that a scammer was inside our network sending emails ,because they used an emoji where I was 99% certain that the sender of the email just wouldn’t have done so. [LAUGHTER] Not that they don’t know what emojis are, it’s just not their style.”
+DOUG.  And that dovetails nicely with our next tip: If you want to check details with another company based on an email, never rely on contact data provided in the email, especially when money is involved.
+DUCK.  Yes, I think you covered that elegantly last week, Doug, didn’t you, by saying, “You know, when there’s a phone number in the email, don’t phone it up and say, ‘Hi. Is that Twitter?’ Always find your own way there.”
+DOUG.  And then last, but certainly not least: Consider using internal training tools to teach your staff about scams.
+DUCK.  Unsurprisingly, Sophos has just such a tool… we’re not giving that tip because we want to sound like salespeople, but Sophos Phish Threat, that’s our tool to help you:
+If you don’t put your employees to the test, where they can fail the test and then you can use that as an opportunity to teach them how to do better next time…
+…if you don’t test them, the crooks are jolly well going to do it for you, and they’re going to try it day after day after day, and they’re not just going to try one person at a time. 
+Anything you can do to raise your company’s collective resilience has got to be a good thing. 
+Just make sure that when you do things like phishing tests that you handle the cases of people who fail those tests with great sympathy.
+DOUG.  OK, great advice! 
+And as the sun begins to set on our show for today, we do have our reader comment, and it’s on this story over on Twitter.
+@Snowshoedan comments on the Business Email Compromise story: 
+“it’s ironic that a dude who literally made a living off of other small mistakes made some huge ones. Don’t brag about your lifestyle on the socials if you did it illegally.”
+DUCK.  Hushpuppi certainly had millions of followers, and I guess he revelled in that, so he certainly went out of his way to draw attention to himself. 
+I imagine that he might very well have been caught anyway.
+Though the pictures that you see in the Naked Security article came from his Instagram account via the Department of Justice charge sheet to get a warrant for his arrest. 
+So they used it as part of their own evidence to convince the Magistrate Judge, “This guy is not just making dimes and nickels.”
+DOUG.  Excellent.
+DUCK.  “That’s definitely a Roller [Rolls Royce car], and that’s definitely a Bentley.”
+DOUG.  All right, thank you for sending that in @Snowshoedan. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today, thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time to…
+BOTH.  Stay secure
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

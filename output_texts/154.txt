@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Cryptocurrency protocol Nomad (not to be confused with Monad, which is what PowerShell was called when it first came out) describes itself as “an optimistic interoperability protocol that enables secure cross-chain communication,” and promises that it’s a “security-first cross-chain messaging protocol.”
+In plain English, it’s supposed to let you swap cryptocurrency tokens of one sort for another, in a trade known in the jargon as bridging.
+The service is operated by a company going by the name of Illusory Systems, Inc. 
+Unfortunately, when it comes to cybersecurity, the word illusory seems to fit rather well.
+Indeed, if you visit the Nomad “app page” right now [2022-08-02T14:25Z], you’ll notice that the service is entirely suspended, with the button you’d usually use to trade one cryptotoken for another replaced with the words BRIDGING UNAVAILABLE:
+
+As the company’s Twitter feed notes:
+Update: We are working around the clock to address the situation and have notified law enforcement and retained leading firms for blockchain intelligence and forensics. Our goal is to identify the accounts involved and to trace and recover the funds.
+1/2
+— Nomad (⤭⛓🏛) (@nomadxyz_) August 2, 2022
+
+Plainly told, it looks as though numerous persons unknown were able to trigger a series of transactions that paid out an enormous quantity of various cryptocoins, without first paying in an equivalent amount of any other cryptocurrency.
+According to cryptocurrency researcher @samczsun, the attackers were able to grab the funds by using what’s known as a replay attack, which is exactly what it sounds like: you simply re-use the data from a previous transaction, but with the original recipient’s account details replaced with your own.
+According to @samczsun, a recent update in the Nomad source code inadvertently bypassed the critical test at the point system asked itself, “Has this transaction been approved?”
+As long as the transaction data was correctly structured, the transfer would go through…
+…so that simply copying an existing transaction, but modifying just the “payee” field, turned out to be the simplest and easiest way to pass muster and drain out funds.
+As you can probably imagine, not everyone is ready to accept that this was “just a programming blunder”, albeit a dreadfully expensive one, with reports suggesting that about $200,000,000 in cryptotokens were leeched from the system in what @samczsun described as “a frenzied free-for-all”:
+12/ tl;dr a routine upgrade marked the zero hash as a valid root, which had the effect of allowing messages to be spoofed on Nomad. Attackers abused this to copy/paste transactions and quickly drained the bridge in a frenzied free-for-all
+— samczsun (@samczsun) August 2, 2022
+
+Some Twitterati are already using the word rugpull, a pejorative phrase in the cryptocoin world, used to imply that a cryptocurrency hack was some sort of inside job, enabled or carried out on purpose. (To be clear, there’s no evidence to support any of these suggestions.)
+But, as a principle known as Hanlon’s Razor jocularly puts it, there is no need to assume malice when incompetence is an alternative explanation.
+We don’t really know what advice to offer, other than to urge two sorts of caution:
+Remember: if it sounds too good to be true, it IS too good to be true.
+And that goes for cryptographic and data security promises, just as much as it goes for financial returns.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Can’t be all that many greater fools left to go by now.
+What’s amazing is that an online startup  called Illusory had that much to lose on the first place. $200,000 you can imagine but $200,000,000 seems unbelievable.
+This must be the most embarrassing hack I’ve ever heard of. This is on a whole new level of dumb.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

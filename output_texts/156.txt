@@ -1,0 +1,127 @@
+Sophos Home protects every Mac and PC in your home 
+Just over a year ago, we wrote about a “cybersecurity researcher” who posted almost 4000 pointlessly poisoned Python packages to the popular repository PyPI.
+This person went by the curious nickname of Remind Supply Chain Risks, and the packages had project names that were generally similar to well-known projects, presumably in the hope that some of them would get installed by mistake, thanks to users using slightly incorrect search terms or making minor typing mistakes when typing in PyPI URLs.
+These pointless packages weren’t overtly malicious, but they did call home to a server hosted in Japan, presumably so that the perpetrator could collect statistics on this “experiment” and write it up while pretending it counted as science.
+Poison packages – “Supply Chain Risks” user hits Python community with 4000 fake modules
+
+
+A month after that, we wrote about a PhD student (who should have known better) and their supervisor (who is apparently an Assistant Professor of Computer Science at a US university, and very definitely should have known better) who went out of their way to introduce numerous apparently legitimate but not-strictly-needed patches into the Linux kernel.
+They called these patches hypocrite commits, and the idea was to show that two peculiar patches submitted at different times could, in theory, be combined later on to introduce a security hole, effectively each contributing a sort of “half-vulnerability” that wouldn’t be spotted as a bug on its own.
+Linux team in public bust-up over fake “patches” to introduce bugs
+
+
+As you can imagine, the Linux kernel team did not take kindly to being experimented on in this way without permission, not least because they were faced with cleaning up the mess:
+Please stop submitting known-invalid patches. Your professor is playing around with the review process in order to achieve a paper in some strange and bizarre way. This is not ok, it is wasting our time, and we will have to report this, AGAIN, to your university…
+Today, open source enthusiast Steve Lacy reported something similar, but worse (and much more extensive) than either of the aforementioned examples of bogoscience / pseudoresearch.
+A GitHub source code search that Lacy carried out in good faith led him to a legitimate-looking project…
+…that turned out to be not at all what it seemed, being a cloned copy of an unxeceptionable package that was identical except for a few sneakily added lines that converted the code into outright malware.
+As Lacy explained, “thousands of fake infected projects [were] on GitHub, impersonating real projects. All of these were created in the last [three weeks or so]”.
+As you can see, Lacy also noted that the organisations allegedly behind these fake projects were “clones designed to have legitimate sounding names”, such that “legitimate user accounts [were] (probably) not compromised”, but where “the attacker amended the last commit on [the cloned repositories] with infected code”:
+Since the commit used a real gh user’s email, the result is thousands of fake infected projects are on gh impersonating real projectsAll of these were created in the last ~20ish days
+— Stephen Lacy (@stephenlacy) August 3, 2022
+
+According to Lacy and source code testing company Checkmarx, who grabbed some of the infected projects and wrote them up before they were purged from GitHub by Microsoft, the malware implants included code to carry out tasks such as:
+Fortunately, as we mentioned above, Microsoft acted quickly to search and delete as many of these bogus projects as possible, a reaction about which Lacy tweeted: 
+@github seems to have cleaned up most if not all quite quickly.Excellent response from them!
+— Stephen Lacy (@stephenlacy) August 3, 2022
+
+Following the outing (and the ousting) of these malware projects, the owner of a brand new Twitter account under the bizarre name pl0x_plox_chiken_p0x popped up to claim:
+this is a mere bugbounty effort. no harm done. report will be released.
+Pull the other one, Chiken P0x!
+Just calling home to track your victims like Remind Supply Chain Risks did last year is bad enough.
+Enumerating your victims without consent doesn’t constitute research – the best you could call it is probably a misguidedly creepy privacy violation.
+But knowingly calling home to steal private data, perhaps including live access tokens, is unauthorised access, which is a surprisingly serious cybercrime in many jurisdictions.
+And knowingly installing a backdoor Trojan allowing you to implant and execute code without permission is at least unauthorised modification, which sits alongside the crime of unauthorised access in many legal systems, and typically tacks on a few extra years to the maximum prison sentence that could be imposed if you get busted.
+This sort of thing isn’t “research” by any stretch of the imagination, and it’s hard to imagine any geniune cybersecurity researcher, any cybercrime investigator, any jury, or any criminal court magistrate buying that suggestion.
+So, if you’ve ever been tempted to do anything like this under the misapprehension that you are helping the community…
+…please DON’T.
+In particular:
+Not that we feel strongly about it.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“[…] pretending it counted as science” – does mad science count? :p
+I’m not sure. I don’t think it does.
+It is actual science. It shows the lack of a security mindset for these organizations like GitHub. This mentally is exactly why Google ads are riddled with malware.
+“A job worth doing is worth overdoing”, eh? 
+Especially if it’s a job that didn’t need doing in the first place because it had already been done before…
+like the open-source mindset that there’s no need to bother or worry because a zillion eyeballs are scrutinizing all open-source code all the time, when of course they aren’t really
+This type of “research” should be considered human subject research that needs approval from the university Institutional Review board and doing such research without approval is grounds to have funding removed from nsf and others.
+But I guess computer science departments don’t know?
+In this case (the GitHub one, not the Linux kernel one), we don’t yet know whether the “no harm done” tweet actually came from the perpetrator (it might be just an anonymous comment in its own right) or not. 
+And if it did, we don’t know if there really was any misguided intent to do “research”, if it’s an attempt to create an excuse just in case, or if it’s a wind-up.
+There’s no mention or suggestion of a university in the loop here. 
+Security testing SHOULD be outside of normal usage methods. This is a Security hole even if GH try’s to say it is not, we all should try to exercise our code security in unique ways. Because no hacker or nation state will follow the idea of not doing this. 
+This requires Google and all companies to go that last mile with security; which clearly they are NOT doing today.
+Scraping other people’s work, poisoning it surreptitiously, and re-uploading it under fake names… thousands of times… 
+I don’t think any reputable cybersecurity professional would consider this to be “security testing” or “research”, any more than a reputable glazier would consider “proving the weakness of glass by hurling bricks through lots of windows on the High Street” to be anything other than vandalism.
+What happened here sets low standards, legally and ethically, notably including using live systems for personal gratification without permission.
+While we can all *learn* from this (sign your commits; don’t blindly trust code from the internet;  practise doing code reviews), I don’t think that poisoning the communal aquifer in bulk just so you can write a report about it counts as *teaching*.
+(When the cops catch you in someone else’s house, daubing LOCK THE HOUSE DUDE with spray-paint on every interior surface just because they left the back door ajar… good luck telling the magistrate that you were just “teaching them a lesson outside of normal usage methods”.)
+No, actually, this pen testing is good and useful. Be glad these are being exposed now instead of rearing their ugly head by an actual attacker.
+More communities need to be open to this form of criticism, it’s disappointing to see this kind of talk from a “reputable” site.
+Responsible penetration testers only ever act (a) after receiving explicit permission and (b) within behavioural limits agreed explicitly in advance.
+snarky.. but correct.
+Creating fake malicious applications that look legitimate have been done millions times and we all know the risks and how to mitigate them. We know about supply chain compromises, we know that all software repositories are vulnerable to this kind of attacks, there are no legitimate research reasons trying to prove it “live”, it is just adding to pollution.
+There’s some chalk/cheese in the comments, and I hate to say it but I genuinely can see both sides of the argument.
+Is it dangerous, troublesome, time consuming (sic. time wasting/resource consuming) – yes, of course it is.
+Is it wat criminally minded types would do? Yes, yes it is.
+Is it a reminder to anyone using GitHub (or any other code repository system for that matter) that safely travelling the internet requires a healthy degree of cynicism and paranoia? Yes.
+As a SysAdmin part of me wants to applaud the exposure of the risk at hand, as a SysAdmin to a bunch of developers, I now need to make sure everyone has recently scoured any pulls for questionable entries.
+The problem with applauding this, given what we already know about supply chain risks, and given that GitHub has a pretty liberal policy on the sort of code that’s uploaded (“intent” comes into it and is notoriously hard to judge)…
+…is that if it was OK this time, it must therefore be OK next time, and the time after that, and so on. If you won’t draw a line in the sand here and say, “We already knew this, and one example would have proved the point”, then you can’t draew a line next time when the next joker comes along and uploads 1,000,000 poisoned projects, because they’ll trot out the same excuse, noting that the last “research” only used a sample size of 1000.
+Then you get the problem, as Kurt Vonnegut might have said, of, “So it goes.”
+I suggest that there are many, many more interesting, more useful, more novel and more legal topics of research that any budding researcher could get into right now, without just doing the timeworn trick of “let’s do something that isn’t novel, but simply involves throwing EVEN MOAH OLD MUD and seeing what sticks”.
+> …is that if it was OK this time, it must therefore be OK next time,
+Hmm, no.
+It’s appalling what this person did, but, more so, that people would even try to excuse it! Just another sign of the times, how sick society has become.
+With all of it’s money and resources you’d think Microsoft would have the foresight and resources to prevent and deal with something so obvious and simple.
+I think someone should walk house to house and break windows to show how ineffective door locks really are. This is just past due. Someone jump on this please. Not.
+And then they could make everyone feel better about all the smashed glass by sending them a smug anonymous message saying “no harm done”.
+Not a lawyer, but just asking some ‘devil advocate’ questions (any lawyer here? …):
+‘But knowingly calling home to steal private data, perhaps including live access tokens, is unauthorised access, which is a surprisingly serious cybercrime in many jurisdictions.’
+It’s not unauthorized access to the API servers if you never use the live access tokens you stole (?).
+It will then ‘only’ be unauthorized access to private data on the developer’s computer instead.
+‘And knowingly installing a backdoor Trojan allowing you to implant and execute code without permission is at least unauthorised modification, which sits alongside the crime of unauthorised access in many legal systems, and typically tacks on a few extra years to the maximum prison sentence that could be imposed if you get busted.’
+Yet again not a lawyer, but this ‘100% reasonable researcher’ didn’t knowingly install anything?
+It’s the user whom unknowingly installed the backdoor that was also included with the malicious package.
+So if the user mistakenly installs a backdoor, then I could argue that this modification was authorized to happen by the user.
+Authorized due to false claims, so mistakenly authorized, but nonetheless ‘authorized’ in some way.
+And if this modification was mistakenly authorized, then if you never ever use this backdoor that got installed at all, then you could argue that there is no unauthorized modification?
+Only one mistakenly authorized modification instead for a backdoor that will never be used, and so will never modify anything without permission.
+Illegal read access (like exfiltrating private data) is also not punished the same as illegal write access (like modifying/corrupting data)?
+And unauthorized modification should be sentenced like data having been destroyed/erased anyway, since if you later use such backdoors to modify data the rightful computer owner could argue that any single unauthorized byte modification of a file is corruption of the file – with even a different file hash.
+Even writing a single byte in hard drive unpartitioned space without authorization could perhaps be considered illegal data destruction/erasure, since the owner could say:
+‘I stored a very important byte at offset 0x6f5a2fb2, and *this* trojan program modified it later without my knowledge. Now this byte is lost so you destroyed/corrupted my data.’
+…
+This ‘researcher’ should be sentenced for some crime like (I don’t know any exact terms) ‘deliberately distributing harmful software’ (?).
+So, just asking some devil-advocate questions to see what the answer would be in practice.
+For the ‘data corruption if any byte is modified’ questions, I actually wanted to know before this article.
+But please don’t shoot me down with ultra-legalese vocabulary, I’m rather interested in what the law has ‘in stock’ against this than in the legalese vocabulary itself – if you try to defend yourself with arguments like above.
+My arguments are probably(likely) stupid, but the data modification ones, I do want to know.
+The “unauthorised access” I had in mind was indeed access to the computer from which the data was stolen, not to the services that might later have been accessed via the data that was stolen. (I mentioned the access tokens simply as a reminder that stealing environment variables is a serious matter, and cybercrooks don’t do it just for laughs.)
+As for the fact that the attacker didn’t actually install the malware directly but relied on tricking victims into installing it themselves, or the argument that adding a backdoor isn’t criminal if it never gets activated by the attacker… would someone who sneakily added poisoned items of fruit into the displays in the greengrocery section of a supermarket be innocent of any crime unless and until someone accidentally bought one of the toxic items by mistake, took it home, and ate it?
+To the best of my knowledge, in many jurisdictions where X is a crime, then “attempted X”, “conspiracy to X” and so on are often automatically crimes as well.
+It’s hard to say that you didn’t intend to infect people with malware if you purposefully uploaded 1000 software projects that were deliberately made to look genuine but had knowingly been infected with code to steal data and implant backdoors.
+You reminded me of something I actually forgot somehow – the legal system’s ‘intent to commit X’.
+Now it makes sense, if you say ‘intent to use a backdoor to steal data’ or ‘modify the system without authorization’.
+Now with ‘intent to commit’ in mind, I would do consider that in the programming world, implementing a remotely controlled feature in a software that you can technically use later mandatorily constitutes the intent to use it.
+(With software, you could consider that all of the executable program code will be executed – sooner or later – that’s surely how we find these rare bugs in long-standing software, that were found only decades later – basically randomly chancing upon not-used-yet code and getting errors.)
+So if you implement any hidden remote file upload function in software shipped to users that you can trigger later, then this mandatorily constitutes your intent to exfiltrate private data without authorization.
+It would be like telling the victim’s computer ‘I want to be able to steal data from your owner, so when you send your beacon to my server, if I send you a command to get it, run it and give me the private data – but don’t tell your owner! It’s a secret.’
+And I would even consider that anything the user didn’t intend to upload (only keeping it locally on their PC) is automatically private data.
+So that means computer crime (ransomware, keyloggers, spyware…) is way worse than even physical crime, since giving yourself remote control capability in your code gives a permanent, written & ‘compiled’ proof of the ‘technically proven’ intent to use a backdoor, for example.
+Distributing malicious compiled code online is basically like talking to police and formally saying ‘I want to be able to remotely control the victim’s computer and steal private data from it – and now I reserve for myself the right to do this at any time’.
+Once that ‘researcher’s code was ‘compiled’ and downloadable (package manifest written – and distributed, for example), he definitely & technically sealed his intent to use the backdoor implants.
+Now I understand what you meant, with the ‘intent to commit’ part.
+So, my previous arguments become totally void – malicious executable code is like ‘notarized’ instructions.
+And for sneaking poisoned fruits at a grocery store and merging them with the good ones, I guess that I would consider this to be deadly sabotage likely leading to death of that store’s customers, if they don’t notice any abnormality.
+Your reply was useful for me, I now think that the appropriate punishment for this ‘research effort’ should be way more severe.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

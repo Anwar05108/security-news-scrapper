@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Google’s latest Chrome browser, version 105, is out, though the full version number is annoyingly different depending on whether you are on Windows, Mac or Linux.
+On Unix-like systems (Mac and Linux), you want 105.0.5195.52, but on Windows, you’re looking for 105.0.5195.54.
+According to Google, this new version includes 24 security fixes, though none of them are reported as “in-the-wild”, which means that there weren’t any zero-days patched this time.
+Nevertheless, there’s one vulnerability dubbed Critical, and a further eight rated High.
+Of the flaws that were fixed, just over half of them are down to memory mismanagement, with nine listed as use-after-free bugs, and four as heap buffer overflows.
+A use-after-free is exactly what it says: you hand back memory to free it up for another part of the program, but carry on using it anyway, thus potentially interfering with the correct operation of your app.
+Imagine, for instance, that the part of the program that thinks it has now sole access to the offending block of memory receives some untrusted input, and carefully verifies that the new data is safe to use…
+…but then, in the instant before it starts using that validated input, your buggy “use-after-free” code interferes, and injects stale, unsafe data into the very same part of memory.
+Suddenly, bug-free code elsewhere in the program behaves as if it were buggy itself, thanks to the flaw in your code that just invalidated what was in memory.
+Attackers who can figure out a way to manipulate the timing of your code’s unexpected intervention may be able not only to crash the program at will, but also to wrest control from it, thus causing what’s known as remote code execution.
+And a heap buffer overflow refers to a bug where you write more data to memory than will fit in the space that was originally allocated to you. (Heap is the jargon term for the collection of memory blocks that are currently being managed by the system.)
+If some other part of the program has a memory block just happens to be near to or next to yours in the heap, then the superfluous data that you just wrote out won’t overflow harmlessly into unused space.
+Instead, it will corrupt data that’s in active use somewhere else, which similar consequences to what we just described for a use-after-free bug.
+Happily, as well as fixing misfeatures that weren’t supposed to be there at all, Google has announced the arrival of a new feature that adds protection against a class of browser flaws known as cross-site scripting (XSS).
+XSS bugs are caused by the browser inserting untrusted data, say from a web form submitted by a remote user, directly into the current web page, without checking for (and removing) risky content first.
+Imagine, for instance, that you have a web page that offers to show me what a text string of my choice looks like in your funky new font.
+If I type in the sample text Cwm fjord bank glyphs vext quiz (a contrived but vaguely meaningful mashup of English and Welsh that contains all 26 letters of the alphabet in just 26 letters, in case you were wondering), then it’s safe for you to put that exact text into the web page you create.
+In JavaScript, for example, you could rewrite the body of the web page like this, inserting the text that I supplied without any modification:
+But if I cheated, and asked you to “display” the text string Cwm fjord<script>alert(42)</script> instead, then it would be reckless for you to do this…
+…because you would be allowing me to inject untrusted JavaScript code of my choosing directly into your web page, where my code could read your cookies and access data that would otherwise be off-limits.
+So, to make what’s known as sanitising thine inputs easier, Chrome has now officially enabled support for a new browser function called setHTML().
+This can be used to push new HTML content through a feature called the Sanitizer first, so that if you use this code instead…
+…then Chrome will scan the proposed new HTML string for security problems first, and automatically remove any text that could pose a risk.
+You can see this in action via the Developer tools by running the above setHTML() code at the Console prompt, and then retrieving the actual HTML that was injected into the document.body variable, as we did here:
+Even though we explicitly put a <script> tag in the input that we passed to the setHTML() function, the script code was automatically purged from the output that was created.
+If you genuinely need to add potentially dangerous text into an HTML element, you can add a second argument to the setHTML() function that specifies various types of risky content to block or allow. 
+By default, if this second argument is omitted as above, then the Sanitizer operates at its maximum security level and automatically purges all dangerous content that it knows about.
+By the way, if you’re on Firefox, Sanitizer is available, but isn’t yet turned on by default. You can turn it on to learn more about it by going to about:config and toggling the dom.security.sanitizer.enabled option to true.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

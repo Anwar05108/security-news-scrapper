@@ -1,0 +1,220 @@
+Sophos Home protects every Mac and PC in your home 
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Schroedinger’s cat outlines in featured image via Dhatfield under CC BY-SA 3.0.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Slack leaks, naughty GitHub code, and post-quantum cryptography. 
+All that, and much more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth. 
+With me, as always, is Paul Ducklin. 
+Paul, how do you do today?
+DUCK.  Super-duper, as usual, Doug!
+DOUG.  I am super-duper excited to get to this week’s Tech History segment, because…
+…you were there, man! 
+This week, on August 11…
+DUCK.  Oh, no! 
+I think the penny’s just dropped…
+DOUG.  I don’t even have to say the year! 
+August 11, 2003 – the world took notice of the Blaster worm, affecting Windows 2000 and Windows XP systems. 
+Blaster, also known as Lovesan and MsBlast, exploited a buffer overflow and is perhaps best known for the message, “Billy Gates, why do you make this possible? Stop making money and fix your software.”
+What happened, Paul?
+DUCK.  Well, it was the era before, perhaps, we took security quite so seriously. 
+And, fortunately, that kind of bug would be much, much  more difficult to exploit these days: it was a stack-based buffer overflow. 
+And if I remember correctly, the server versions of Windows were already being built with what’s called stack protection. 
+In other words, if you overflow the stack inside a function, then, before the function returns and does the damage with the corrupted stack, it will detect that something bad has happened. 
+So, it has to shut down the offending program, but the malware doesn’t get to run. 
+But that protection was not in the client versions of Windows at that time. 
+And as I remember, it was one of those early malwares that had to guess which version of the operating system you had. 
+Are you on 2000? Are you on NT? Are you on XP? 
+And if it got it wrong, then an important part of the system would crash, and you’d get the “Your system is about to shut down” warning. 
+DOUG.  Ha, I remember those!
+DUCK.  So, there was that collateral damage that was, for many people, the sign that you were getting hammered by infections…
+…which could be from outside, like if you were just a home user and you didn’t have a router or firewall at home.
+But if you were inside a company, the most likely attack was going to come from someone else inside the company, spewing packets on your network. 
+So, very much like the CodeRed attack we spoke about, which was a couple of years before that, in a recent podcast, it was really the sheer scale, volume and speed of this thing that was the problem.
+DOUG.  All right, well, that was about 20 years ago.
+And if we turn back the clock to five years ago, that’s when Slack started leaking hashed passwords. [LAUGHTER]
+Slack admits to leaking hashed passwords for five years
+
+
+DUCK.  Yes, Slack, the popular collaboration tool…
+…it has a feature where you can send an invitation link to other people to join your workspace. 
+And, you imagine: you click a button that says “Generate a link”, and it’ll create some kind of network packet that probably has some JSON inside it. 
+If you’ve ever had a Zoom meeting invitation, you’ll know that it has a date, and a time, and the person who is inviting you, and a URL you can use for the meeting, and a passcode, and all that stuff – it has quite a lot of data in there. 
+Normally, you don’t dig into the raw data to see what’s in there – the client just says, “Hey, here’s a meeting, here are the details. Do you want to Accept / Maybe / Decline?” 
+It turned out that when you did this with Slack, as you say, for more than five years,  packaged up in that invitation was extraneous data not strictly relevant to the invitation itself. 
+So, not a URL, not a name, not a date, not a time…
+…but the *inviting user’s password hash* [LAUGHTER]
+DOUG.  Hmmmmm.
+DUCK.  I kid you not!
+DOUG.  That sounds bad…
+DUCK.  Yes, it really does, isn’t it? 
+The bad news is, how on earth did that get in there? 
+And, once it was in there, how on earth did it evade notice for five years and three months? 
+In fact, if you visit the article on Naked Security and look at the full URL of the article, you’ll notice it says at the end, blahblahblah-for-three-months. 
+Because, when I first read the report, my mind didn’t want to see it as 2017! [LAUGHTER]
+It was 17 April to 17 July, and so there were lots of “17”s in there. 
+And my mind blanked out the 2017 as the starting year – I misread it as “April to July *of this year*” [2022]. 
+I thought, “Wow, *three months* and they didn’t notice.”
+And then the first comment on the article was, “Ahem [COUGH]. It was actually 17 April *2017*.” 
+Wow!
+But somebody figured it out on 17 July [2022], and Slack, to their credit, fixed it the same day. 
+Like, “Oh, golly, what were we thinking?!” 
+So that’s the bad news. 
+The good news is, at least it was *hashed* passwords. 
+And they weren’t just hashed, they were *salted*, which is where you mix in uniquely chosen, per-user random data with the password.
+The idea of this is twofold. 
+One, if two people choose the same password, they don’t get the same hash, so you can’t make any inferences by looking through the hash database. 
+And two, you can’t precompute a dictionary of known hashes for known inputs, because you have to create a separate dictionary for each password *for each salt*. 
+So it’s not a trivial exercise to crack hashed passwords. 
+Having said that, the whole idea is that they are not supposed to be a matter of public record. 
+They’re hashed and salted *in case* they leak, not *in order that they can* leak. 
+So, egg on Slack’s face!
+Slack says that about one in 200 users, or 0.5%, were affected. 
+But if you’re a Slack user, I would assume that if they didn’t realise they were leaking hashed passwords for five years, maybe they didn’t quite enumerate the list of people affected completely either. 
+So, go and change your password anyway… you might as well.
+DOUG.  OK, we also say: if you’re not using a password manager, consider getting one; and turn on 2FA if you can.
+DUCK.  I thought you’d like that, Doug.
+DOUG.  Yes, I do! 
+And then, if you are Slack or company like it, choose a reputable salt-hash-and-stretch algorithm when handling passwords yourself.
+Serious Security: How to store your users’ passwords safely
+
+
+DUCK.  Yes.
+The big deal in Slack’s response, and the thing that I thought was lacking, is that they just said, “Don’t worry, not only did we hash the passwords, we salted them as well.” 
+My advice is that if you are caught in a breach like this, then you should be willing to declare the algorithm or process you used for salting and hashing, and also ideally what’s called stretching, which is where you don’t just hash the salted password once, but perhaps you hash it 100,000 times to slow down any kind of dictionary or brute force attack. 
+And if you state what algorithm you are using and with what parameters.. for example, PBKDF2, bcrypt, scrypt, Argon2 – those are the best-known password “salt-hash-stretch” algorithms out there. 
+If you actually state what algorithm you’re using, then: [A] you’re being more open, and [B] you’re giving potential victims of the problem a chance to assess for themselves how dangerous they think this might have been. 
+And that sort of openness can actually help a lot. 
+Slack didn’t do that.
+They just said, “Oh, they were salted and hashed.” 
+But what we don’t know is, did they put in two bytes of salt and then hash them once with SHA-1…
+…or did they have something a little more resistant to being cracked?
+DOUG.  Sticking to the subject of bad things, we’re noticing a trend developing wherein people are injecting bad stuff into GitHub, just to see what happens, exposing risk…
+…we’ve got another one of those stories.
+GitHub blighted by “researcher” who created thousands of malicious projects
+
+
+DUCK.  Yes, somebody who now has allegedly came out on Twitter and said, “Don’t worry guys, no harm done. It was just for research. I’m going to write a report, stand out from Blue Alert.” 
+They created literally thousands of bogus GitHub projects, based on copying existing legit code, deliberately inserting some malware commands in there, such as “call home for further instructions”, and “interpret the body of the reply as backdoor code to execute”, and so on. 
+So, stuff that really could do harm if you installed one of these packages.
+Giving them legit looking names…
+…borrowing, apparently, the commit history of a genuine project so that the thing looked much more legit than you might otherwise expect if it just showed up with, “Hey, download this file. You know you want to!” 
+Really?! Research?? We didn’t know this already?!!?
+Now, you can argue, “Well, Microsoft, who own GitHub, what are they doing making it so easy for people to upload this kind of stuff?”
+And there’s some truth to that. 
+Maybe they could do a better job of keeping malware out in the first place. 
+But it’s going a little bit over the top to say, “Oh, it’s all Microsoft’s fault.” 
+It’s even worse in my opinion, to say, “Yes, this is genuine research; this is really important; we’ve got to remind people that this could happen.”
+Well, [A] we already know that, thank you very much, because loads of people have done this before; we got the message loud and clear. 
+And [B] this *isn’t* research. 
+This is deliberately trying to trick people into downloading code that gives a potential attacker remote control, in return for the ability to write a report. 
+That sounds more like a “big fat excuse” to me than a legitimate motivator for research. 
+And so my recommendation is, if you think this *is* research, and if you’re determined to do something like this all over again, *don’t expect a whole lot of sympathy* if you get caught.
+DOUG.  Alright – we will return to this and the reader comments at the end of the show, so stick around. 
+But first, let us talk about traffic lights, and what they have to do with cybersecurity.
+Traffic Light Protocol for cybersecurity responders gets a revamp
+
+
+DUCK.  Ahhh, yes! [LAUGH]
+Well, there’s a thing called TLP, the Traffic Light Protocol. 
+And the TLP is what you might call a “human cybersecurity research protocol” that helps you label documents that you send to other people, to give them a hint of what you hope they will (and, more importantly, what you hope they will *not*) do with the data. 
+In particular, how widely are they supposed to redistribute it? 
+Is this something so important that you could declare it to the world? 
+Or is this potentially dangerous, or does it potentially include some stuff that we don’t want to be public just yet… so keep it to yourself?
+And it started off with: TLP:RED, which meant, “Keep it to yourself”; TLP:AMBER, which meant “You can circulate it inside your own company or to customers of yours that you think might urgently need to know this”; TLP:GREEN, which meant, “OK, you can let this circulate widely within the cybersecurity community.”
+And TLP:WHITE, which meant, “You can tell anybody.” 
+Very useful, very simple: RED, AMBER, GREEN… a metaphor that works globally, without worrying about what’s the difference between “secret” and “confidential” and what’s the difference between “confidential” and “classified”, all that complicated stuff that needs a whole lot of laws around it.
+Well, the TLP just got some modifications. 
+So, if you are into cybersecurity research, make sure you are aware of those.
+TLP:WHITE has been changed to what I consider a much better term actually, because white has all these unnecessary cultural overtones that we can do without in the modern era. 
+So, TLP:WHITE has just become TLP:CLEAR, which to my mind is a much better word because it says, “You’re clear to use this data,” and that intention is stated, ahem, very clearly. (Sorry, I couldn’t resist the pun.) 
+And there’s an additional layer (so it has spoiled the metaphor a bit – it’s now a *five*-colour color traffic light!).
+There’s a special level called TLP:AMBER+STRICT, and what that means is, “You can share this inside your company.” 
+So you might be invited to a meeting, maybe you work for a cybersecurity company, and it’s quite clear that you will need to show this to programmers, maybe to your IT team, maybe to your quality assurance people, so you can do research into the problem or deal with fixing it. 
+But TLP:AMBER+STRICT means that although you can circulate it inside your organisation, *please don’t tell your clients or your customers*, or even people outside the company that you think might have a need to know.
+Keep it within the tighter community to start with. 
+TLP:AMBER, like before, means, “OK, if you feel you need to tell your customers, you can.” 
+And that can be important, because sometimes you might want to inform your customers, “Hey, we’ve got the fix coming. You’ll need to take some precautionary steps before the fix arrives. But because it’s kind of sensitive, may we ask that you don’t tell the world just yet?” 
+Sometimes, telling the world too early actually plays into the hands of the crooks more than it plays into the hands of the defenders.
+So, if you’re a cybersecurity responder, I suggest you go: https://www.first.org/tlp
+DOUG.  And you can read more about that on our site, nakedsecurity.sophos.com.
+And if you are looking for some other light reading, forget quantum cryptography… we’re moving on to post-quantum cryptography, Paul!
+Post-quantum cryptography – new algorithm “gone in 60 minutes”
+
+
+DUCK.  Yes, we’ve spoken about this a few times before on the podcast, haven’t we? 
+The idea of a quantum computer, assuming a powerful and reliable enough one could be built, is that certain types of algorithms could be sped up over the state of the art today, either to the tune of the square root… or even worse, the *logarithm* of the scale of the problem today. 
+In other words, instead of taking 2256 tries to find a file with a particular hash, you might be able to do it in just (“just”!) 2128 tries, which is the square root. 
+Clearly a lot faster. 
+But there’s a whole class of problems involving factorising products of prime numbers that the theory says could be cracked in the *logarithm* of the time that they take today, loosely speaking. 
+So, instead of taking, say, 2128 days to crack [FAR LONGER THAN THE CURRENT AGE OF THE UNIVERSE], it might take just 128 days to crack. 
+Or you can replace “days” with “minutes”, or whatever. 
+And unfortunately, that logarithmic time algorithm (called Shor’s Quantum Factorisation Algorithm)… that could be, in theory, applied to some of today’s cryptographic techniques, notably those used for public key cryptography.
+And, just in case these quantum computing devices do become feasible in the next few years, maybe we should start preparing now for encryption algorithms that are not vulnerable to these two particular classes of attack? 
+Particularly the logarithm one, because it speeds up potential attacks so greatly that cryptographic keys that we currently think, “Well, no one will ever figure that out,” might become revealable at some later stage.
+Anyway, NIST, the National Institute of Standards and Technology in the USA, has for several years been running a competition to try and standardise some public, unpatented, well-scrutinised algorithms that will be resistant to these magical quantum computers, if ever they show up. 
+And recently they chose four algorithms that they’re prepared to standardise upon now. 
+They have cool names, Doug, so I have to read them out: CRYSTALS-KYBER, CRYSTALS-DILITHIUM, FALCON, and SPHINCS+. [LAUGHTER]
+So they have cool names, if nothing else. 
+But, at the same time, NIST figured, “Well, that’s only four algorithms. What we’ll do is we’ll pick four more as potential secondary candidates, and we’ll see if any of those should go through as well.” 
+So there are four standardised algorithms now, and four algorithms which might get standardised in the future.
+Or there *were* four on the 5 July 2022, and one of them was SIKE, short for supersingular isogeny key encapsulation. 
+(We’ll need several podcasts to explain supersingular isogenies, so we won’t bother. [LAUGHTER]) 
+But, unfortunately, this one, which was hanging in there with a fighting chance of being standardised, it looks as though it has been irremediably broken, despite at least five years of having been open to public scrutiny already. 
+So, fortunately, just before it did get or could get standardised, two Belgian cryptographers figured out, “You know what? We think we’ve got a way around this using calculations that take about an hour, on a fairly average CPU, using just one core.”
+DOUG.  I guess it’s better to find that out now than after standardising it and getting it out in the wild?
+DUCK.  Indeed! 
+I guess if it had been one of the algorithms that already got standardised, they’d have to repeal the standard and come up with a new one? 
+It seems weird that this didn’t get noticed for five years. 
+But I guess that’s the whole idea of public scrutiny: you never know when somebody might just hit on the crack that’s needed, or the little wedge that they can use to break in and prove that the algorithm is not as strong as was originally thought. 
+A good reminder that if you *ever* thought of knitting your own cryptography…
+DOUG.  [LAUGHS] I haven’t!
+DUCK.  ..despite us having told you on the Naked Security podcast N times, “Don’t do that!”
+This should be the ultimate reminder that, even when true experts put out an algorithm that is subject to public scrutiny in a global competition for five years, this still doesn’t necessarily provide enough time to expose flaws that turn out to be quite bad. 
+So, it’s certainly not looking good for this SIKE algorithm. 
+And who knows, maybe it will be withdrawn?
+DOUG.  We will keep an eye on that. 
+And as the sun slowly sets on our show for this week, it’s time to hear from one of our readers on the GitHub story we discussed earlier. 
+Rob writes:
+“There’s some chalk and cheese in the comments, and I hate to say it, but I genuinely can see both sides of the argument. Is it dangerous, troublesome, time wasting and resource consuming? Yes, of course it is. Is it what criminally minded types would do? Yes, yes, it is. Is it a reminder to anyone using GitHub, or any other code repository system for that matter, that safely travelling the internet requires a healthy degree of cynicism and paranoia? Yes. As a sysadmin, part of me wants to applaud the exposure of the risk at hand. As a sysadmin to a bunch of developers, I now need to make sure everyone has recently scoured any pulls for questionable entries.”
+DUCK.  Yes, thank you, RobB, for that comment, because I guess it’s important to see both sides of the argument.
+There were commenters who were just saying, “What the heck is the problem with this? This is great!”
+One person said, “No, actually, this pen testing is good and useful. Be glad these are being exposed now instead of rearing their ugly head from an actual attacker.”
+And my response to that is that, “Well, this *is* an attack, actually.” 
+It’s just that somebody has now come out afterwards, saying “Oh, no, no. No harm done! Honestly, I wasn’t being naughty.” 
+I don’t think you are obliged to buy that excuse! 
+But anyway, this is not penetration testing. 
+My response was to say, very simply: “Responsible penetration testers only ever act [A] after receiving explicit permission, and [B] within behavioural limits agreed explicitly in advance.”
+You don’t just make up your own rules, and we have discussed this before. 
+So, as another commenter said, which is, I think, my favorite comment… Ecurb said, “I think somebody should walk house to house and smash windows to show how ineffective door locks really are. This is past due. Someone jump on this, please.” 
+And then, just in case you didn’t realize that was satire, folks, he says, “Not!”
+DUCK.  I get the idea that it’s a good reminder, and I get the idea that if you’re a GitHub user, both as a producer and a consumer, there are things you can do. 
+We list them in the comments and in the article. 
+For example, put a digital signature on all your commits so it’s obvious that the changes came from you, and there’s some kind of traceability.
+And don’t just blindly consume stuff because you did a search and it “looked like” it might be the right project. 
+Yes, we can all learn from this, but does this actually count as teaching us, or is that just something we should learn anyway? 
+I think this is *not* teaching. 
+It’s just *not of a high enough standard* to count as research.
+DOUG.  Great discussion around this article, and thanks for sending that in, Rob. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles;  or you can hit us up on social: @NakedSecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth reminding you, until next time, to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

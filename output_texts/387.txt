@@ -1,0 +1,38 @@
+Sophos Home protects every Mac and PC in your home 
+No zero-days this month, if you ignore the Edge RCE hole patched last week (make sure you’ve got that update, by the way):
+Chrome and Edge zero-day: “This exploit is in the wild”, so check your versions now
+
+
+For a full list of this month’s Microsoft Patch Tuesday fixes, take a look at our sister site Sophos News, where SophosLabs analysts have collated complete lists of the the numerous Microsoft CVEs that were fixed this month:
+A smorgasbord for June’s Patch Tuesday
+
+
+Helpfully, our researchers have created multiple lists, handily sorted by bug type and severity (so you can tell your remote code executions from your elevations-of-privilege); by Microsoft’s guesses at the likelihood of crooks figuring out working exploits for each bug (in case you like to prioritise your efforts that way), and by product type (if you like to divide up your patching efforts between your server team, your Office experts and your laptop support crew).
+In case you were wondering, there were 26 Remote Code Execution (RCE) patches, including four dubbed “Critical”, although three of those seem to be related bugs that were found and fixed together in a single Windows component.
+RCE patches generally cause the most concern, because they deal with bugs that can, in theory at least, be exploited by attackers who don’t yet have a foothold on your network, which means they represent possible ways of criminals breaking-and-entering in the first place.
+There were 17 Elevation-of-Privilege (EoP) fixes, just one of which is deemed “Critical” by Microsoft, ironically in the SharePoint Server, which is the very tool many companies rely on for exchanging large amounts data securely inside their networks.
+In other words, unauthorised access to SharePoint could hand attackers a free pass to get straight into your own, or even your customers’, trophy data, as happened recently to numerous companies using the competing file sharing service MOVEit.
+As you probably know, the problem with EoP bugs is that they are often exploited as the second step in an attack from outside, used by cybercriminals to boost their access privileges as soon as they can after they break in.
+This can turn a security breach that started out with comparatively limited initial exposure (for example, rogue access only to the local files on one user’s laptop)…
+…into a much more dangerous incident (for example, rogue access to everyone else’s laptop across the network, and perhaps to all your corporate servers as well, such as customer databases, payment systems, backups, and more).
+SophosLabs experts have identified six of the CVEs as “notable”.
+Head to our long-form report for more information on those six bugs.
+For now, we’ll just list five of them here:
+Intriguingly, the patch for CVE-2023-33146 seems to be symptomatic of broader unresolved security problems in Office’s support for handling SketchUp objects, presumably because of the difficulty of safely parsing, processing and embedding yet another complex file format into Office documents.
+Indeed, on 2023-06-01, Microsoft officially announced that it was turning off the SketchUp embedding system until further notice (our emphasis):
+The ability to insert SketchUp graphics (.skp files) has been temporarily disabled in Word, Excel, PowerPoint and Outlook for Windows and Mac. Versions of Office that had this feature enabled will no longer have access it. […] We appreciate your patience as we work to ensure the security and functionality of this feature.
+Feature creep whereby embedded objects in Office files introduce new security risks… who knew?
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+And Windows 11 KB5027231 breaks Chrome.  Chrome won’t run after the update.  Uninstalling it and rebooting works.
+Some might consider that a feature :-) (Those who aim to convince their chums to use Firefox instead, for example, but have been met with shrugs of indifference so far.)
+Funny, Paul.  Though since it was an MS “patch” I would think MS is trying to tell us to use Edge.  LOL
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

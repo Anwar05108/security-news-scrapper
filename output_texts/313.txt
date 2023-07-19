@@ -1,0 +1,88 @@
+Sophos Home protects every Mac and PC in your home 
+There’s no date on the update, but as far as we can make out, LastPass just [2023-02-27] published a short document entitled Incident 2 – Additional details of the attack.
+As you probably remember, because the bad news broke just before the Christmas holiday season in December 2022, LastPass suffered what’s known in the jargon as a lateral movement attack.
+Simply put, lateral movement is just a fancy way of saying, “Once you get into the lobby, you can sneak into a dark corner of the security office, where you can wait in the shadows until the guards get up to make tea, when you can grab an access card from the shelf next to where they usually sit, which will get you into the secure area next to the cloakroom, where you’ll find the keys to the safe.”
+As we’ve previously described, LastPass spotted, in August 2022, that someone had broken into their DevOps (development operations) network and run off with proprietary information, including source code.
+But that’s a bit like coming back from vacation to find a side window smashed and your favourite games console missing, with nothing else obviously amiss.
+You know what you know, because there’s broken glass on the kitchen floor and a console-shaped gap where your beloved PlayBox-5/360 games device used to be.
+But you don’t know, and you can’t easily figure out, what you don’t know, such as whether the crooks diligently scanned-but-replaced all the personal documents in your desk drawer, or took good-quality photos of the educational certificates on the wall, or found copies of your front door key that you’d forgotten you had, or went into your bathroom and used your toothbrush to…
+…well, you simply can’t be sure what they didn’t do with it.
+In LastPass’s case, the initial breach was immediately followed, as the company now says, by an extended period of attackers poking around elsewhere looking for additional cyberbooty:
+The threat actor pivoted from the first incident, which ended on 2022-08-12, but was actively engaged in a new series of reconnaissance, enumeration, and exfiltration activities aligned to the cloud storage environment spanning from 2022-08-12 to 2022-10-26.
+The burning question, it seems, was, “How was that pivoting possible, given that the needed access credentials were locked up in a secure password vault to which only four developers had access?” 
+(The word pivot in this context is just a jargon way of saying, “Where the crooks went next.”)
+LastPass now thinks it has the answer, and though it’s a bad look for the company to get pwned in this way, we’ll repeat what we said in last week’s podcast promo video in respect of the recent Coinbase breach, where source code was also stolen:
+“As simple as the attack was, it would be a bold company that would claim that not one of their users, ever, would fall for this kind of thing…”
+Listen now – Learn more!https://t.co/CdZpuDSW2f pic.twitter.com/0DFb4wALhi
+— Naked Security (@NakedSecurity) February 24, 2023
+
+Coinbase’s luckless employee got phished, but LastPass’s luckless developer apparently got keylogged, with the crooks exploiting an unpatched vulnerability to get their foothold:
+[Access to the vault password] was accomplished by targeting the DevOps engineer’s home computer and exploiting a vulnerable third-party media software package, which enabled remote code execution capability and allowed the threat actor to implant keylogger malware. The threat actor was able to capture the employee’s master password as it was entered, after the employee authenticated with MFA, and gain access to the DevOps engineer’s LastPass corporate vault.
+Sadly, it doesn’t matter how complex, long, random or unguessable your password is if your attackers can simply record you typing it in.
+(No, we’re not sure why there was apparently no requirement for 2FA for opening up the corporate vault, in addition to the 2FA used when the employee first authenticated.)
+That rotten thief who stole your games console probably just grabbed it and ran, so as not to get caught, and didn’t waste time going into your bathroom, let alone picking up your toothbrush…
+…but we reckon you’re going to replace it anyway.
+Now we’ve mentioned it.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Thanks for the advice. 
+Just wanted to mention that exchanging toothbrushes will be my number one priority after a break-in even before calling the police, but then I realised it might contain DNA data as evidence. This poses a dilemma: should we hope that thieves will use toothbrushes and get caught by brilliant cops; or should we hope they don’t use toothbrushes out of consideration for non-nakedsecurity-readers?
+Only useful if their DNA is in the database, or if someone in their family (I believe up to 3rd cousin) has done an ancestry DNA test. Which, in today’s day and age might be a pretty good chance (I have no idea what my 3rd cousins do at any time). So put that sucker in an evidence baggie just in case.
+Not worth trying to get to the bottom of it. 10 mins in bleach, quick swirl, then use it for cleaning the hard to reach bits on your bicycle (around the valve stems, under the brake lever, at the back of the cool multicoloured flashing wheel lights you got for Christmas, etc.)
+Perhaps in case of a breach disable remote access until it’s clear where the crooks were? Useful to have locks with different keys and cameras for each room, to go with the burglar theme. Or use Citrix terminals or other boot over network tech to avoid installation of a keylogger.
+Doesn’t stop a physical break-in and installation of cameras or physical devices.
+Rhetorical question: how does an attacker obtain such specific details about a specific engineer’s home computer that a keylogger can be installed remotely?
+Since many criminal gangs have more cash than most governments, for some time I have suspected there is a lot of unreported insider involvement in many of these breaches.
+Remember that in attack like this, the crooks don’t need to decide, “The way in is via user X”. (They could do that, of course, in which case there may be numerous hints of likely ways in, based on any number of sources, from social media posts to simple guesswork.)
+The crooks could have decided to have a go at LastPass because they bought a bunch of already-stolen data and figured that there was a good sample of attack-worthy data relevant to LastPass and thus the company was “targeted” on that account, not because the company was chosen in advance.
+Or they might have used a loop of the sort:
+for company in (list) do
+   for user in (list) do
+      for app in (list) do
+         have_a_go_at(c,u,a)
+      end
+   end
+end
+Or they could use what the jargon calls a “watering hole” attack: put booby-trapped content that works against app A at popular online gathering spot for users of A, and see who shows up and takes the bait… base final attack on most promisingly outcome.
+And anyway, don’t forget that “insider involvement” can take both explicit forms (rotten employee accepts bribe) and implicitly forms (helpful employee gives away too much to a social engineer).
+“I’m from Very Excellent Code Analysis Company looking to talk to someone about Continuous Software Integration, Secure Development Lifecycle, Shifting Left, and EDR/XDR/MDR/NDR. If you’re not the right person, could you let me know who in your company to get in touch with?”
+This ongoing cat-and-mouse gaming between crooks and citizens will continue to worsen. Remember the days in the 1990’s when the WWW was a fun place to explore, and computers were relatively easy to use? Now you have to “go to school”, use a password manager, and subscribe to security podcasts to stay on top of all this, just to keep your family and online (is there another way?) banking and financial transactions secure.
+I’m waiting for the next-gen computing platform (hardware, probably) for the “old” feel and fun of using my computer. Will this occur when quantum computing is ready for prime-time, or before then? Unplugging and going off the grid in these days is extremely impractical, but not impossible.
+For true “old-school” fun at low cost, take a look at brand-new ultra-miniature system-on-chip boards. Arduinos, Teensys, ESPs, even Raspbery Pis if you want a bit more of a traditional “computer”. Very cheap to get into and a thriving community of active and inventive users, including people far too young to remember when all computers were like that, with KBytes of RAM and MBytes of non-volatile storage. (But often with USB ports so that programming and powering them up is trivial.)
+Build your own bike computer, blinkenlights device, weather station… or hacking tool, if that is your thing and you don’t promote it for Bad Things but for investigative purposes.
+The vulnerable media software was Plex. People need to be advertising this fact since that software is so popular.
+Evidence needed.
+Having said that, the problem was almost certainly not the specific software in this case, but the issue of missed patches in general. (Unless you are suggesting this was a zero-day attack, in which case: evidence needed.)
+Patch early, patch often, and patch everything… you know it makes sense!
+Hi Paul, I apologise for using the comments to pose a question but I’ve just switched from LastPass to a different password manager and I’d love to know your view on whether it is sensible and worthwhile to use the same password manager for site passwords and 2FA?
+Assuming you mean a password manager that runs on your laptop and that “knows” both your static passwords and your 2FA code sequences…
+…I’ve never understood why you wouldn’t want to keep a clear “2” in 2FA, thus having your static passwords handled on one device and your dynamic one-time codes on another device (notably, one with a secure storage chip and that spend most of its time locked).
+That’s why I am more tolerant of SMS 2FA than some of the naysayers out there… if you crack my password vault and acquire my first-factor password, how is then also having to SIM-swap me * worse* than getting at my seed-based 2FA codes in the very same password vault?!
+That’s my opinion. I kind to have my first factor in my head (or an encrypted vault) and my second factor on a well-secured phone or hardware device. I don’t relish the “passwordless future” at all. I like passwords as a first factor and I wish we would focus on not allowing so many sites force us to “create accounts”, especially when the account is pitched as being “for our security” but is plainly implemented for the commercial and marketing benefit of the site’s owner.
+Not that I feel strongly about it 🙂
+On the other hand, many services which offer 2FA via Password plus SMS also offer Password reset via SMS verification, making them essential just a 1FA via SMS (imho).
+Or use a second vault in an unrelated location with distinct authentication factors to secure one’s 2FA seeds.
+This is what I do. The 2FA vault is stored elsewhere from my password vault, with a different password and different 2FA.
+The advantage of this approach is if my device “with a secure storage chip and that spend most of its time locked” is lost/stolen/otherwise unavailable, I still have a way to generate 2FA codes. Otherwise signing-in to anything becomes rather difficult.
+Availability is one of the 2 pillars of infosec, after all…
+I just received an email yesterday (1 March) from LastPass, informing me they have a new blog post from their CEO about the incident (which was also posted 1 March). 
+Having read the blog post, I’m much more satisfied knowing what was stolen, how much of it was encrypted, and what they have done to prevent it from happening again. It goes into MUCH more detail about what happened in both the incidents, and what they’ve done to mitigate the issue & prevent it from happening again. (there’s also two Security Bulletins: one for their Business customers, and one for their Free, Premium , & Families customers)
+Honestly, my biggest gripe with the blog post is that they keep using the word “rotated”, instead of a clearer word like “changed” (or, better yet, something like “removed and replaced”).
+I’m interested to get your thoughts on the new blog post, security bulletins, and their contents when you have the time to write-up an article about it.
+Following a quick read through of the revised incident report, I didn’t see anything that was really new.
+There’s some good news in that it seems like the company will at last make its password hashing improvement process retrospective, which was a reasonable criticism at the end of last year when it became obvious that the company’s claim to “have used industry leading salt-hash-stretch settings” was not true, and was less true the longer you’d been a customer. And it’s good that the password vaults will have more of their data encrypted, though it’s still not clear why they aren’t just fully encrypted, full stop, as the company originally implied they were.
+I would argue that the company’s claim to “have used industry leading salt-hash-stretch settings”, depending on how exactly the claim was worded, was *technically* true. At the time a given account was created, it was created with industry-leading encryption…but since they didn’t make the improvements in encryption retroactive, the encryption on that account became comparatively weaker the longer it had been since it was created.
+I don’t understand why they previously never made those changes retroactive. My (somewhat-cynical) guess is that it was one of those projects that was never given the proper resources to be implemented. Then, once the breach became widely known, all security-related projects suddenly received top priority and attention, as well as all the resources that were needed to complete them.
+Their PBKDF2 “stretch count” (number of iterations) was 100,100. That’s OK, but it’s not quite as advanced as the original report seemed to want people to believe. (In fact, you might just as well describe it as “industry trailing”. At that time, Naked Security’s own PBKDF2 recommendation was 200,000 iterations; OWASP’s was then 310,000, if memory serves, which was bumped up at the start of this year to 600,000.) 
+So their 100,100 iterations might have been considered satisfactory, but the fact that your code and configuration choices are OK or close enough is hardly “industry leading”. If you scrape through an exam with a borderline mark of 51%, you can rightfully and reasonably claim to have passed, but you probably aren’t going to risk bragging to your chums that you “aced it” and came at the top of your class 🙂
+Anyway, lots of users were still on 5000 iterations, and had never been advised that [a] that number was too low and [b] it was their own lookout to increase it in a comparatively obscure menu page.
+As you say, now they’ve been caught napping, it’s raining money to do all the things that an “industry leading” security company really ought to have done already anyway. Better late than never, I suppose.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

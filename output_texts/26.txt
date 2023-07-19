@@ -1,0 +1,280 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. 
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG. Bugs, scams, privacy and… *fonts*? 
+All that more on the Naked Security podcast. 
+[MUSICAL MODEM] 
+Welcome to the podcast, everybody: I am Doug; he is Paul…
+DUCK. Hello, everybody.
+DOUG. You have been *busy*. 
+We’ve got six stories of yours to talk about today… what have you been *doing*?
+DUCK. I didn’t make the bugs that I felt compelled to write about!
+BOTH. [LAUGHTER]
+DUCK. That’s all I’m saying.
+DOUG. Yes, that’s fair. 
+So we’ll jump right into it, because we’re going to do a lightning round and then we’ll dive a little deeper into some privacy issues. 
+But we like to start to show with a Fun Fact: I found today that the North American elk can reach 700lb, which is about 320kg, yet it can also reach running speeds of 40 mph or 65 km/hr, and is often able to outrun even horses. 
+So, a very large animal that can run very fast.
+DUCK. Did you say “elk”, Doug?
+DOUG. Yes. 
+And we will talk about elk later in the show. 
+DUCK. Whenever I hear that word – because we don’t get elk here [in the UK] – it means one particular thing to me, and I bet you it’s the same thing that you’re thinking about.
+DOUG. Yep! Wink, wink.
+Let’s talk about these two Linux bugs: a big one that happened a week ago but has since been patched, and a maybe-not-as-big one that is happening as we speak.
+DUCK. That’s right. 
+Let’s start with PwnKit, shall we? 
+DOUG. We shall.
+DUCK.  Whether it was a big one or not, I don’t know; that depends on your outlook.
+But it’s an interesting reminder that sometimes – and the other bug proves this as well – when you introduce tools that are designed to make security easier, they sometimes make security *too* easy, such that they introduce a bypass. 
+And this is CVE-2021-4034, also known as PwnKit. Apparently, that is meant to be a play on words, Doug, because the bug was in a part of Linux called “Polkit”, formerly known as the Policy Kit. 
+[LAUGHS] I don’t think it’s quite as much of a joke as the researchers at Qualys who found it thought, but I get where they’re coming from. 
+Polkit is meant to be a way in which unprivileged apps can securely interact with the operating system in order to say, “Engage some kind of password prompt that will authorise the user temporarily to do something they wouldn’t normally be allowed to do.” 
+And you can imagine that there are lots of cases in every operating system where you might need to do that.
+The classic example is when you plug in a USB stick:  maybe you’re allowed to read it and access the files on it, but when it comes to wiping it, and reformatting and zapping everything, maybe it’s time to pop up a password prompt to make sure that you are authorised. 
+However, there is a command line tool that goes with Polkit, and it’s like the Linux or Unix sudo tool, which is “Set UID and do”, which means “Run a command as another user”, exactly like Windows Run As....
+You usually use sudo for running things as root, but you can in fact use it to run as anybody else, depending on how it’s configured. 
+And it turns out that Polkit has a very similar program, imaginatively called pkexec, the “Polkit execute” command. 
+Anyway, it turned out that if you deliberately ran this pkexec app in a way that you could not normally do from the command line – in other words, if you ran it and said, “I want to give you absolutely no command line arguments at all”, two things happen. 
+One is that pkexec goes, “OK, you probably just want to run a command shell.”
+And the other thing is that it turns out that you could actually trick the program into doing something naughty: loading an external module or program that it wasn’t supposed to. 
+And, bingo!, you would convert yourself, if you already had access to the computer, from dear old doug to bad old root.
+Just like that, just literally by running one command – ironically, a command that was supposed to be there to improve security and to control your ability to get access to root commands.
+You could abuse the command to let you take over: one of those “elevation of privilege” bugs that turns a remote code execution bug that wouldn’t otherwise be harmful into a total disaster.
+DOUG. So that’s been patched?
+DUCK. It has.
+“PwnKit” security bug gets you root on most Linux distros – what to do
+
+
+DOUG. OK, very good. 
+And then we have a bug in the video driver…
+DUCK. Well, yes, but I don’t think it’s a new bug, actually.
+DOUG. Yes, it looks like they had it fixed in October.
+DUCK. Yes: the patch that was documented is originally dated October 2021. 
+I think that what happened is someone found that this was something that probably shouldn’t be in the code, but I presume they figured, “Well, we don’t really see a way that this can be exploited. And when we implement this patch, it might reduce performance slightly. So, because there’s no clear and present danger, we’ll just put it in the basket of things to do when the time comes.”
+And then suddenly the time came…
+DOUG. [LAUGHS]
+DUCK. …and the fix got rolled out. 
+This one was a bug in the Intel video driver. 
+The thing is that you might want to give a user access to run code raw code on the graphics card for performance reasons, because graphics cards aren’t just used by gamers. 
+They’re also used for things like [IRONIC CHUCKLE] cryptomining, video rendering, machine learning –  high-performance computing, because there’s a certain class of problem that graphics cards can attack really, really quickly. 
+And it turns out that, deeply hidden in this driver, the i915 driver, was a possibility that somebody who had the right to run GPU graphics card code could run some code, and then later could come back and say, “Dear kernel, I’d like to run some more GPU code”, and, inadvertently, they would get access – via their graphics code – *to the memory that they had last time*.
+DOUG. [WORRIED] Hmmmmmmmm.
+DUCK. Even though that memory might now have been allocated to another process. 
+So, if you could, for example, collide your memory buffer with one that you know gets allocated, say, to some cryptographic processing subsequently… 
+…you might be able to read out passwords or private keys. 
+You might even be able to write back to somebody else’s data. 
+And that was the bug, basically, caused by a component inside the chip itself that aims to speed up memory access when you access memory a second, third, fourth time: a thing in the chip called the TLB, the translation look-aside buffer.
+DOUG. OK, that has been patched as well.
+DUCK. It has.
+DOUG. Check that out: both those stories are on nakedsecurity.sophos.com. 
+Linux kernel patches “performance can be harmful” bug in video driver
+
+
+And those of you that tuned into last week’s show will know that we talked about an Apple Safari bug – a “supercookie” situation – that has now been patched. 
+And they kind of slipped as zero day in there at the same time…
+DUCK. The zero-day is not related to the Safari patch, but the Safari bug is maybe the thing that caused this fix to come out sooner than we thought it might have done. 
+Like you said, in there with the Safari bug fix – which now gets a CVE – is one that where  Apple just says (and we’ve read these words before), [FAST, QUIET ROBOTIC VOICE] “The company is aware of a report that this issue may have been actively exploited.” 
+Sounds like nothing, doesn’t it? 
+My translation is [DANGEROUS DALEK VOICE]: “This is an 0-day. An in-the-wild exploit is already doing the rounds.” 
+I’m not going to say, “Be very afraid”, but certainly Patch Now!
+I guess that’s good:  zero-day closed off, and that Safari data leak fixed.
+If you listened to us – I think it was last week, wasn’t it? – that bug was a special feature in a local database cache (again, caching data locally can be problematic!). 
+S3 Ep66: Cybercrime busts, wormable Windows, and the crisis of featuritis [Podcast + Transcript]
+
+
+And while you couldn’t read other people’s databases, you could read other people’s database *names*. 
+Of course, to make your database name unique, as a programmer, you have two choices.
+Either you pick a weird string that is specific to your website, which means that anyone else can see which website you’ve been visiting, because of the name of the database, without having to look inside it – it’s like having a phone number showing up.
+Or you pick a completely random number for each user, and then it doesn’t identify the website, but it does uniquely identify the user. 
+Apple fixed that: they made the list of names as private as the data concealed behind the names.
+DOUG. And they fixed it quickly… after fixing it slowly.
+DUCK. Yes. [LAUGHS] That’s a lovely way of putting it, Doug! 
+I forget when it was reported, but it was sometime in the middle to end of last year, wasn’t it? 
+The bug finders reported it and Apple, as usual… basically, when they don’t say anything, I think that means you infer, “Thank you.” 
+And they sort of sat and waited and waited and waited. 
+Suddenly Apple started working on it in WebKit; then they mentioned how it worked, and that kind of forced Apple’s hand. 
+So, I guess that’s why, these days, we do have responsible disclosure: give the vendor a break and let them fix it first. 
+But then there has to be some payback, doesn’t there? 
+If the vendor goes, “Thanks for telling us. Please hold the carpet while we sweep it underneath”…
+DOUG. [LAUGHS]
+DUCK. …so the idea is there’s a deadline. “Please do it by then.”
+DOUG. All right, so those updates are available wherever you get your Apple updates.
+We will move on to a COVID scam that promises an at-home PCR testing device… what’s the catch?
+DUCK. Well, the good news is that if you click the link…
+(It was reported to us by a naked security reader who got it on… I think it was Friday afternoon last week, and the domain it was using (which wasn’t completely unbelievable; it was omicron DOT testing-and-a-few-funny-characters DOT com… that domain had been set up *that morning*, and the Let’s Encrypt HTTPS certificate had been issued *that morning*.)
+…they haven’t got the site ready, and the site is still not working; everyone’s blocking it now.
+So, we don’t actually know whether it was crooks just testing how many people would click, or whether they were just looking for IP numbers. 
+I’m suspecting, from the files that we could see on that website that weren’t protected – very few of them – that it was just an attempt to set up a believable scam where they didn’t quite get the website right in time. 
+It’s not that unbelievable: I can see why there would be people who go, “I’m not surprised. Who would have thought the modern computer would have 16 processor cores in an affordable laptop? Who would have thought miniaturisation would get to where it is today? Maybe you *can* get a PCR testing device at home.”
+It’s not a laughable idea, and you can see why people would click through. 
+So: beware, folks!
+Coronavirus SMS scam offers home PCR testing devices – don’t fall for it!
+
+
+DOUG. OK, good. 
+And then our final quick story to cover is this “Google Font” brouhaha.
+The existential question for any web developer is to link or not to link to a font library? Download it and put it on your own server? Is it OK to link out?
+DUCK. Well, to be fair to Google Fonts, they actually say, “You can do this how you like. They’re open source fonts. Here’s the licensing.” 
+They’re trying to do the right thing because fonts have been one of the most ripped off bits of intellectual property in history, haven’t they, online and for printing.
+DOUG. Yes.
+DUCK. Google is trying to do the right thing, in my opinion, by having correctly licensed typefaces from lots of people, including reputable designers who want to make their fonts available free. 
+And they’re saying: “You can download them; you can use them on your own website; you can share them with other people because they are open source, but we will host them for you as well, if you like.”
+You and I were chatting about this earlier, weren’t we, Doug? 
+And you said that you would never have thought, in your web admin days, to copy the font, because they do surprisingly regularly get updated, don’t they?
+DOUG. Yes. I don’t want to have to worry… t’s one more thing to look after.
+DUCK. Absolutely!
+Anyway, Doug, a court in Bavaria, in Munich  – a District Court in Munich – heard a case where the plaintiff said, “I went to this website that fetched the font from Google so it could display the rest of their content, which was stored locally. They could have stored the font locally. They jolly well *should* have, because they violated my privacy by giving my IP number to Google.”
+And the court found in the plaintiff’s favour and find the website €100 [$110], I do believe, and said, “No, you have to store it locally.”
+DOUG. What’s the German phrase for “slippery slope”? Because that’s what I’m thinking this is.
+DUCK. Or the German for “very deep hole”. 
+It’s interesting that although – because it’s somewhat esoteric – this has not been the most viewed article of the week on Naked security, it’s *by far* the most commented on.
+DOUG. It is!
+DUCK. But, like you say, “slippery slope/great deep hole”. 
+Like,  “What next?” 
+As one commenter said, perhaps going a little bit over the top, “Well, then, you shouldn’t even be allowed an ISP!”
+BOTH. [LAUGHTER]
+DUCK. “Dial-up modem into your own basement. 386. Do it yourself!” 
+Where do you draw the line? 
+So, I don’t quite understand this. 
+I see where they’re coming from: IP numbers are personally identifiable information; GDPR says so; I don’t think that’s unreasonable. 
+But the idea that if you *can* host it locally, you *must* host it locally?
+Good luck with that in the cloud era.
+And good luck defining where self-hosting ends and “somebody else hosting it for you” starts.
+DOUG. Well, 25 comments and counting! 
+So if you want to opine, get over to that article, that’s:  Website operator fined for using Google Fonts the cloudy way on nakedsecurity.sophos.com – lots of discussion!
+Website operator fined for using Google Fonts “the cloudy way”
+
+
+DUCK. We shall see how it ends up – I’m sure we haven’t heard the end of that.
+DOUG. All right, it is now time for This Week in Tech History.
+We talked about elk earlier in the show, and this week in 1982, we were introduced to the Elk Cloner virus, one of the first viruses…
+DUCK. [TRIUMPHANT] I got it right, Doug!
+DOUG. …if not the first to spread in the wild.
+Cloner was a boot sector virus written by then-15-year-old Rich Skrenta, and distributed on Apple ][ floppy disks. 
+The virus was hidden inside a game and wouldn’t spring into action until the 50th time the game was loaded. 
+At that point, the virus, which had been loaded into memory, would spread to uninfected disks when they were inserted into the drive. 
+So, it spread, and I think Skrenta came out and said, “Look, man, this is a joke. A prank. I used it prank my friends. What’s the big deal?”
+And, back then, what was the big deal?
+DUCK. Well, I’m not sure that there was one then, although if only we had all learned a lesson from it before boot sector viruses became a huge problem on the IBM PC four years later. 
+Those of our listeners who don’t remember floppy disks will also probably not realise that the big hassle with boot sector viruses is that *every floppy disk had a boot sector*. 
+It didn’t have to be a bootable operating system disk, or a bootable game disk. 
+It could be a blank diskette: when you formatted a disk, it would get a boot sector on it. 
+But when you booted, it just said, “This is not a bootable disk.” 
+And by the time you saw that message, you could already have run the boot sector virus. 
+In those days, if you left a floppy in, it would *always* try to boot off the diskette, so the chance that you would contract a virus from an otherwise blank diskette by mistake was huge. 
+“Elk Cloner – the program with a personality”, Doug. 
+[RECITES POEM FROM VIRUS] “It will get on all your disks/It will infiltrate your chips/Yes, it’s Cloner!/It will stick to you like glue/It will modify RAM, too/Send in the Cloner!”
+BOTH. [LAUGHTER]
+DUCK. Well, I believe that Rich Skrenta went on to have a good career as a computer scientist, still does.
+DOUG. He did!.
+DUCK. So, it didn’t end badly for him. 
+I can’t imagine that he could easily have him prosecuted then.
+I guess the first time you do it, it *is* a joke. 
+Once people have realised that the joke isn’t funny, and you’ve realised it yourself, *that’s* when it starts becoming naughty.
+DOUG. Anyhoo, let’s talk about privacy.
+DUCK. [IRONIC] Malware won’t last, Doug! It’ll die out!
+DOUG. [LAUGHING] No, it’s a fad! 
+Last week, it was Data Privacy Day. 
+And, Paul, I thought you had a great article with some no-nonsense tips for keeping your data private. 
+So, let’s talk a little bit about those. 
+The first thing you say is, “Get to know your privacy controls”, which I’m guessing not a lot of people do.
+DUCK. Or perhaps they *think* they do.
+Because they’ve looked at… say if they’ve got a Mac, they’ve gone into System Preferences and they’ve clicked through to “Firewall”,  “Security”, “Privacy”, and they’ve fiddled with the settings there. 
+Maybe they’ve gone into Safari and they’ve changed some settings there…
+And then they forget, unfortunately, that if you then install Firefox, well, that’s got its own privacy settings!
+They’re in a “Settings” menu, but they don’t have quite the same names, and they’re not arranged in quite the same menu hierarchy. 
+And then maybe they install Edge, or Chrome, or Chromium and they all have their own menu systems as well. 
+And then maybe you think, “I know! Tonight I’m going to spend 38 minutes digging through all the Facebook privacy options and security settings.”
+Whether you love or hate Facebook, you actually might be pleasantly surprised at how much control you do have; the problem is that you have so much control that  there are so many different settings that you need to take into account, under so many different headings. 
+And then every other social network; every other website; every other online service: they’ll have some settings that are the same; some overlap;  some don’t; some turn on 2FA *here*; some turn it on *there*…
+And unfortunately, you don’t really have much choice other than to get yourself a plentiful supply of soft drink, maybe even some popcorn, if you don’t mind getting popcorn detritus on your keyboard…
+DOUG. [LAUGHS]
+DUCK. …and take the time to go through the privacy settings in all the apps and online services you use. 
+It *is* a bit of a pain in the behind, but you may find it’s well worth it. 
+Because even though social networking companies are getting a bit better about their defaults – both because they recognise that it makes users happier, and because there are regulations they now have to comply with – their opinion may not coincide with yours. 
+After all, you are the product, and they do have different expectations of what they can collect…
+DOUG. That is a great segue to another great tip: “Decide what your data is really worth.” 
+The ultimate question, with everything being free online.
+DUCK. It is, isn’t it? 
+Sadly, that’s one of the shortest tips that I put out, because the amount of advice or discussion or explanation I can give you is quite low. 
+I don’t know what your home address feels like it’s worth to you, or your home phone number; I don’t know whether you think it’s worthwhile to share this photo or that photo… 
+But the point is that you *can* set some limits on what you’re willing to hand over – and then back yourself and stick to them, if you do see an app or a website that is asking for more than you think it’s worth, or more than you think it needs. 
+So, if you’re getting free WiFi for 35 minutes, for instance,  at a shopping mall that you’ve never been to before, and they say., “We need your date of birth”, then just say, “You know what, maybe you do, maybe you don’t. But I don’t need your service.” 
+Find somewhere that isn’t so nosy! 
+To use old language. “Vote with your chequebook!”
+DOUG. Very good.
+And this next tip – I am absolutely delighted that this is the second week in a row we are talking about FOMO and JOMO!
+This tip is: “Be fair to yourself and to others.” 
+What did you mean by that, Paul?
+DUCK. I meant that it is sometimes easy, particularly if you’re out on the town. or you’re having fun with friends, or everyone else is talking about this fantastic new social network service that they love… 
+It’s really easy to go, “OK, you know what? I’ve decided how much my data is worth. I’ve decided how much I want to share. This service is asking for too much. But FOMO! I don’t want to miss out! I want to be in it. I want to be there with all my buddies. I’m going to let them push me into sharing stuff that I’m not really comfortable with.” 
+Maybe remember that, for every FOMO there is, as you said last week, a JOMO: the *joy* of missing out. 
+You don’t have to feel smug about it, but sometimes – particularly if there’s a security breach down the line – you’re going to be the one with a smile on your face, while everyone else is running around thinking, “Oh, golly!” 
+So, don’t let your friends talk you into sharing more about your digital life than you want to. 
+And the flip side of that is that if you’re more liberal with your data than one of your friends, and they say, “You know what? I was happy to be in that selfie, but I didn’t realize you planned to post it on XYZ service. Please don’t”…
+…then let them enjoy their JOMO moment. 
+So don’t… I nearly said a rude word there… don’t be a naughty person! 
+If they say, “Please don’t post it”, let them have their way. 
+Life’s too short to wind up your friends over something as simple as that.
+DOUG. OK, and then a very practical tip: “Don’t let scammers into your life.”
+DUCK. Yes, that’s once again FOMO and JOMO on the opposite sides of the coin. 
+Meeting new people online can be fun:; in theory, there’s nothing wrong with it.
+But it’s when you’re in a little bit of a hurry, or when you let yourself get pushed along, then it’s not just that you might leak data that you later regret – for example, where some crook comes along and figures out your birthday and your dog’s name and your cat’s name. and puts them all together and guesses your password. 
+It might be that you are simply befriending someone that, if you had kept your eyes and ears a bit wider open, you would have realised was up to no good from the start. 
+Stop. Think. Connect! 
+When you let someone trick you, squeeze you, press you into doing things online faster than you would naturally do them yourself, you could end up in trouble.
+DOUG. Great! 
+We’ve got some additional advice that you can share with your friends and family, so we invite you to check that out. 
+That article is called: Happy Data Privacy Day, and we really do mean happy
+Happy Data Privacy Day – and we really do mean “happy” 🙂
+
+
+And it’s that time of the show: the Oh! No! of the week. 
+Reddit user Computer1313 writes…
+“An old, short story from a previous co-worker.
+He was working at an automotive manufacturing plant, many years ago, and he was reprogramming the paint robotic arms for the incoming new truck model.”
+(What could possibly go wrong?)
+“He uploaded the changes and started the automated painting system with a test truck frame to see how the paint job is done. 
+He had his hand over the emergency stop button in case anything went wrong.
+All he remembered from the immediately ensuing chaos was that one of the robotic arms struck a steel beam and broke off its nozzle, so now a solid jet of paint was spraying everywhere. 
+Another arm repeatedly smashed the frame like a hammer, caving in the truck’s roof. 
+He said he was so shocked that he didn’t press the emergency stop button until he heard yelling.
+It took a long time for the paint fumes to be vented out so they could go in, clean up the paint mess, and repair the damages.
+Oh, and it was the day when the plant management was giving corporate executives a tour of the place. 
+I asked what their facial expressions looked like when they saw the ruined paint station and he said, ‘Pure horror.’
+So, just a cautionary tale that computer programming can sometimes be destructive and dangerous.”
+DUCK. I don’t like that story, Doug, because it is grist to the mill of anyone who stands firm against our advice to Patch early, patch often…
+DOUG. [LAUGHS]. Yes!
+DUCk. …because *that* is what I call a bug.
+DOUG. Yes, Sir!
+DUCK. Can you imagine a full “Fire Brigade-type spraying tube” of paint?
+DOUG. [LAUGHS] Instead of a beautiful little spritz.
+I like to imagine this thing looks just like an octopus too – just a bunch of arms flailing around.
+DUCK. I assume that the next update he tried, he had an artificial hand on a long stick, held over the button at a long distance.
+DOUG. Yes!
+DUCK. Terrifying.
+DOUG. Everyone be careful out there! 
+If you have an Oh! No! you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com. you can comment on any one of our articles,  or hit us up on social @NakedSecurity. 
+That’s our show for today – thhanks very much for listening.
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+DOUG. Stay secure!
+DUCK. Patch early, patch often, and STAND BACK!
+BOTH. [LAUGHTER]
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

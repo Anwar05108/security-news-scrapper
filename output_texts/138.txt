@@ -1,0 +1,84 @@
+Sophos Home protects every Mac and PC in your home 
+Remember 1999? 
+Well, the Melissa virus just called, and it’s finding life tough in 2022.
+It’s demanding a return to the freewheeling days of the last millennium, when Office macro viruses didn’t face the trials and tribulations that they do today.
+In the 1990s, you could insert VBA (Visual Basic for Applications) macro code into documents at will, email them to people, or ask them to download them from a website somewhere…
+…and then you could just totally take over their computer!
+In fact, it was even better/worse than that.
+If you created a macro subroutine with a name that mirrored one of the common menu items, such as FileSave or FilePrint, then your code would magically and invisibly be invoked whenever the user activated that option.
+Worse still, if you gave your macro a name like AutoOpen, then it would run every time the document was opened, even if the user only wanted to look at it.
+And if you installed your macros into a central repository known as the global template, your macros would automatically apply all the time.
+Worst of all, perhaps, an infected document could implant macros into the global template, thus infecting the computer, and the same macros (when they detected they were running from the global template but the document you just opened was uninfected) could copy themselves back out again.
+That led to regular “perfect storms” of fast-spreading and long-running macro virus outbreaks.
+Simply put, once you’d opened one infected document on your computer, every document you opened or created thereafter would (or could, at least) get infected as well, until you had nothing but infected Office files everywhere.
+As you can imagine, at that point in the game, any file you sent to or shared with a colleague, customer, prospector, investor, supplier, friend, enemy, journalist, random member of the public…
+…would contain a fully-functional copy of the virus, ready to do its best to infect them when they opened it, assuming they weren’t infected already.
+And if that wasn’t enough on its own, Office macro malware could deliberately distribute itself, instead of waiting for you to send a copy to someone else, by reading your email address book and sending itself to some, many or all of the names in there.
+If you had an address book entry that was an email group, such as Everyone, or All Friends, or All Global Groups, then every time the virus emailed the group, hundreds or thousands of infectious messages would go flying across the internet to all your colleagues. Many of them would soon mail you back as the virus got hold of their computer, too, and a veritable email storm would result.
+The first macro malware, which spread by means of infected Word files, appeared in late 1995 and was dubbed Concept, because at that time it was little more than a proof-of-concept.
+But it was quickly obvious that malicious macros were going to be more than just a passing headache.
+Microsoft was slow to come to the cybersecurity party, carefully avoiding terms such such as virus, worm, Trojan Horse and malware, resolutely referring to the Concept virus as a nothing more than a “prank macro”.
+Over the years, however, Microsoft gradually implemented a series of functional changes in Office, by variously:
+At last, in February 2022, Microsoft announced, to sighs of collective relief from the cybersecurity community, that it was planning to turn on the “inhibit macros in documents that arrived from the internet” by default, for everyone, all the time.
+The security option that used to require Group Policy intervention was finally adopted as a default setting.
+In other words, as a business you were still free to use the power of VBA to automate your internal handling of official documents, but you wouldn’t (unless you went out of your way to permit it) be exposed to potentially unknown, untrusted and unwanted macros that weren’t from an approved, internal source.
+At last! Office macros from the internet to be blocked by default
+
+
+As we reported at the time. Microsoft described the change thus:
+VBA macros obtained from the internet will now be blocked by default.
+For macros in files obtained from the internet, users will no longer be able to enable content with a click of a button. A message bar will appear for users notifying them with a button to learn more. The default is more secure and is expected to keep more users safe including home users and information workers in managed organizations.
+We were enthusiastic, though we thought that the change was somewhat half-hearted, noting that:
+We’re delighted to see this change coming, but it’s nevertheless only a small security step for Office users, because: VBA will still be fully supported, and you will still be able to save documents from email or your browser and then open them locally; the changes won’t reach older versions of Office for months, or perhaps years, [given that] change dates for Office 2021 and earlier haven’t even been announced yet; mobile and Mac users won’t be getting this change; and not all Office components are included. Apparently, only Access, Excel, PowerPoint, Visio, and Word will be getting this new setting.
+Well, it turns out not only that our enthusiasm was muted, but also that it was short-lived.
+Last week, Microsoft unchanged the change, and unblocked the block, stating that:
+Following user feedback, we have rolled back this change temporarily while we make some additional changes to enhance usability. This is a temporary change, and we are fully committed to making the default change for all users.
+Regardless of the default setting, customers can block internet macros through the Group Policy settings described in the article Block macros from running in Office files from the Internet.
+We will provide additional details on timeline in the upcoming weeks.
+In short, it seems that sufficiently many companies not only rely on receiving and using macros from potentially risky sources, but also aren’t yet willing to change that situation by adapting their corporate workflow.
+It’s an irony that a cybersecurity change that a cynic might have described “as too little, too late” turns out, in real life, to have been “too much, too soon.”
+Let’s make sure that we’re collectively ready for modest cybersecurity changes of this sort in future…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+If companies rely on receiving macro embedded documents from the Internet and accept the risk, they should be the ones that enable it by Group Policy. Protect the many and force them to allow security exceptions.
+Seems that in this case “the few” (who insist on liberally transferring macros) turned out to be more numerous, and perhaps more vocal, than Microsoft expected :-) 
+Perhaps less numerous but more vocal?
+I didn’t mean to imply that the few were in fact a majority (though if you remove those who never thought about the issue one way or another, perhaps they were?) but certainly that they were vocal enough to provoke a backtrack, even if only a temporary one.
+As you say, perhaps it was simply a case of “the squeaky wheel gets the oil”… 
+No, back in 1999, Clippy was the prevailing Office virus 🙂 Popping up and interrupting your work while pretending to be helpful.
+Technically you could argue that Clippy wasn’t a virus because he/she/it/they did not spread from computer to computer but was there all along… “not a bug but certainly not a feature either”.
+How we disliked Clippy, and with good reason… only to have the same #%$$%# thing all over again with those mindless “Hi! How can I help you today?” popup bots almost everywhere you go. 
+“Hi, I see you’ve found a product you want to buy. Would you like me to recommend EXACTLY THE SAME PRODUCT next time you visit the site, because if you just bought one fridge, surely two would be better? Or how about SIX fridges? And THREE new washing machines to go with the one you looked at last month but ended up buying somewhere else?”
+Clippy was a virus – and the spread vector was Microsoft Update. 😁
+Haha. It’s because you need to feed the big data warehouses more of your personal preferences. Enable 3rd party cookies and x-site tracking. Fill out every company survey and warranty registration card with your financial info and enter in as many sweepstakes as you can. oh yeah, don’t forget to tell Alexa and Siri your dreams too. Then they will be able to interpret your them for you and tell you want you want to eat and buy even before you do! The evolution of AI and big data. Don’t worry cause government and insurance companies say they won’t use it unethically…just for the bad people.
+I’ll go with the squeeky wheel analogy, with the exception that those who were squeeking were probably the hacktivist groups using microsoft tenants to distribute their wares!  And i bet they squeeked a lot!
+Personally after 20 yrs in the tech industry i don’t know of any legitimate business that sends or accepts macro loaded documents over the internet – they all know the risks and avoid them at all costs!  Even macros used internally are locked down to very specific uses and never sent outside.  So Microsoft, did you “fact check” your sqeeky wheels or simply knee-jerk your response because “someone” complained – albeit very loudly probably. 😉
+I wonder if OneDrive is somehow involved with this decision to reverse course.
+If companies use macro-enabled documents on OneDrive, is that file considered to be “from the internet?”
+Might be more than just 1drv… I guess plenty of small bizzes end up with various cloud storage locations that they think of as “ours” or “local”, even though they’re not, and that are used for file sharing…
+Shame on MS making security optional and not the default.
+But hey, idiots that put xbox on a corporate workstation, clearly don’t get it and never will.
+To be fair, in this case Microsoft upped the security ante by default…
+…and the marketplace  (or some of it, at least) pushed back.
+I just ran across an interesting fact related to Anyone who uses Microsoft 365 apps for business or any level lower than 365 for enterprise!  It could be a “financial” decision by Microsoft to drive higher “Suite” level purchases, assuming you want to be able to actually secure your data and company.  Never for the community, always for the bottom line.  You have to pay more to be secure, well according to Microsoft anyway.
+This is on the page linked to for adjusting your Policies to prevent the macros:
+ Important
+You can only use policies if you’re using Microsoft 365 Apps for enterprise. Policies aren’t available for Microsoft 365 Apps for business.
+from the following page link:  https://docs.microsoft.com/en-us/deployoffice/security/internet-macros-blocked#block-macros-from-running-in-office-files-from-the-internet
+That makes a lot more sense as the source of the pushback. Any enterprise with the clout to pressure MS can implement GPOs and/or code signing. However most businesses are moving to Office 365 and MS does not want negative publicity for that product.
+Our company uses Microsoft 365 Apps for business and we’ve used the group policy templates without any problem.  Despite what they say on that page, the policies work just fine on other versions of Microsoft 365.
+I agree with your overall assessment that Microsoft wants you to pay more for security. I see this particularly with Azure AD and their Defender products.  The more you pay the more secure they are.
+As a Data Protection Officer with 28 years in IT aswell, I struggle to see how this is a lawfully compliant change in the UK and EEA as GDPR requires Data Protection by Design and Default. This requires that systems are private and secure as they need to be by default, not by having to enable in GP.
+Well, the original idea was to reduce an area of risk by blocking a “feature” that a few people found useful but was dangerous…
+…and apparently macro blocking *is* coming back, just not in quite the form it appeared earlier this year.
+I think it’s a step too far to say that it’s illegal to introduce a security improvement that wasn’t being demanded by the regulator and then to have second thoughts as the consequences emerge and thus to go back to the status quo. (If the status quo of “macros allowed” had been officially considered non-compliant, I’d agree that this was reverting to non-compliance, but if you treat it as trying a change and then deciding to change the change, I think that’s very different.)
+My 2c.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

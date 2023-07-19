@@ -1,0 +1,73 @@
+Sophos Home protects every Mac and PC in your home 
+Java programmers love string interpolation features.
+If you’re not a coder, you’re probably confused by the word “interpolation” here, because it’s been borrowed as programming jargon where it’s not a very good linguistic fit…
+…but the idea is simple, very powerful, and sometimes spectacularly dangerous.
+In other programming ecosystems it’s often known simply as string substitution, where string is shorthand for a bunch of characters, usually meant for displaying or printing out, and substitution means exactly what it says.
+For example, in the Bash command shell, if you run the command:
+…you will get the output:
+But if you write:
+…you will get something like this instead:
+…because the magic character sequence ${USER} means to look in the environment (a memory-based collection of data values typically storing the computer name, current username, TEMP directory, command path and so on), retrieve the value of the variable USER (by convention, the current user’s login name), and use that instead.
+Similarly, the command:
+…prints out exactly what’s on the command line, thus producing:
+…while the very similar-looking command:
+…contains a magic $(...) sequence, with round brackets instead of squiggly ones, which means to execute the text inside the brackets as a system command, collect up the output, and write that out as a continous chunk of text instead.
+In this case, you’ll get back a slightly garbled dump of the username file (despite the name, no password data is stored in /etc/passwd any more), something like this:
+As you can imagine, allowing untrusted input, such as data submitted in a web form or content extracted from an email,  to be processed by a part of your program that performs substitution or interpolation can be a cybersecurity nightmare.
+If you aren’t careful, simply preparing a text message to be printed out to a logfile could trigger a whole load of unwanted side-effects in your app.
+These could include, at increasing levels of danger:
+As you no doubt remember from Log4Shell, unnecessary “features” in an Apache programming library called Log4J (Logging For Java) suddenly made all these scenarios possible on any server where an unpatched version of Log4J was installed.
+
+If you can’t read the text clearly here, try using Full Screen mode, or watch directly on YouTube. Click on the cog in the video player to speed up playback or to turn on subtitles.
+Worse, problems such as the Log4shell bug aren’t neatly confined only to servers that are directly at your network edge, such as your web servers.
+When Log4Shell hit, the initial reaction from lots of organisations was to say, “We don’t have any Java-based web servers, because we only use Java in our internal business logic, so we think we’re immune to this one.”
+But any server to which user data was ultimately forwarded for processing – even secure servers that were off-limits to connections from outsiders – could be affected if that server [A] had an unpatched version of Log4J installed, and [B] kept logs of data that oroiginated from outside.
+A user who pretended their name was ${env:USER}, for example, would typically get logged by the Log4J code under the name of the server account doing the processing, if the app didn’t take the precaution of checking for dangerous characters in the input data first.
+Sadly, history repeated itself in July 2022, when an open source Java toolkit called Apache Commons Configurator turned out to have similar string interpolation dangers:
+Apache “Commons Configuration” patches Log4Shell-style bug – what you need to know
+
+
+And history is repeating itself again in October 2022, with a third Java source code library called Apache Commons Text picking up a CVE for reckless string interpolation behaviour.
+This time, the bug is denoted as follows:
+CVE-2022-42889: Apache Commons Text prior to 1.10.0 allows RCE when applied to untrusted input due to insecure interpolation defaults.
+Commons Text is a general-purpose text manipulation toolkit, described simply as “a library focused on algorithms working on strings”. 
+Even if you are a programmer who hasn’t knowingly chosen to use it yourself, you may have inherited it as a dependency – part of the software supply chain – from other components you are using.
+And even if you don’t code in Java, or aren’t a programmer at all, you may have one or more applications on your own computer, or installed on your backend business servers, that include compoents written in Java.
+The Commons Text toolkit includes a handy Java component known as a StringSubstitutor object, created with a Java command like this:
+Once you’ve created an interpolator, you can use it to rewrite input data in handy ways, such as like this:
+The replace() function processes its input string as if it’s a kind of simple software program in its own right, copying the characters one-by-one except for a variety of special embedded ${...} commands that are very similar to the ones used in Log4J.
+Examples from the documentation (derived directly from the source code file String­Substitutor.java) include:
+The dns, script and url functions are particularly dangerous, because they could lead to untrusted data, received from outside your network but processed or logged on one of the business logic servers inside your network, doing the following:
+Sophos X-Ops is following reports of a new vulnerability affecting Apache CVE-2022-42889 affects versions 1.5-1.9, released between 2018-2022. https://t.co/niaeqL2Sr9 1/7
+— Sophos X-Ops (@SophosXOps) October 17, 2022
+
+Don’t forget that you may find multiple copies of the Common Text component on each computer you search, because many Java apps bring their own versions of libraries, and of Java itself, in order to keep precise control over what code they actually use.
+That’s good for reliability, and avoids what’s known in Windows as DLL hell or dependency disaster, but not quite as good when it comes to updating, because you can’t simply update a single, centrally managed system file and thus patch the entire computer at once.
+DO TRY THIS AT HOME
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I came across this [REDACTED SITE THAT STEALS CONTENT] and noticed it looked very familiar.
+There are some subtle changes though… for instance “What went wrong?” -> “What went incorrect?”, or “third time unlucky” -> “unfortunate third time”
+🙂
+Thanks so much for reporting this. I have passed it on to the relevant authorities.
+So shameless. 
+Obviously, in an attempt to add a thin and illiterate disguise, they have made some “context free” text substitutions.
+As well as the weird ones you noticed there was the spectacular replacement of “Naked Security” with “Bare Safety” (that is worth a T-shirt, surely, maybe for the podcast videos!)…
+…and the mind-numbing rewriting of “DO TRY THIS AT HOME” as “ATTEMPT IT AT HOUSE”, which reminded me of the graffiti scene in Life of Brian (ROMANES EUNT DOMUM).
+is this relevqant only to Apache  servers?
+It has nothing to do with Apache servers (assuming you mean Apache Web Server, often just called “httpd”).
+This bug exists in a Java programming library called “Apache Commons Text.”
+Apache is not the name of a software product. It’s the name of an open source foundation that produces dozens of different products. (In that sense, putting the word Apache in front of the product name is like putting “Microsoft” in front of “Windows”, “GitHub” and “Press” (Microsoft’s publishing house).
+Apache Web Server is in fact written in C, not in Java. Although you could have an Apache Web Server that also made use of backend code in Java (and that code might rely on Commons Text), a default install of httpd does not have Commons Text in it.
+In fact, this bug could theoretically affect *any* program written in Java, whether it’s a server-type product or not, if that Java app just happens to include Commons Text as part of what’s known as its “supply chain” or “bill of materials”.
+HtH
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

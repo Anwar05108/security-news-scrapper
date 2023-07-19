@@ -1,0 +1,39 @@
+Sophos Home protects every Mac and PC in your home 
+Using the Adobe Commerce online selling platform?
+Using Magento, the free, open-source variant of the same product?
+Buying products from online stores that use either of these?
+Using online services that themselves use services that (…repeat up the supply chain as needed…) ultimately depend upon Magento or Adobe’s paid version?
+If so, make sure that the site where Magento or Adobe Commerce is actually running has downloaded and applied Adobe’s latest patches.
+Note that these are so-called out-of-band updates, meaning that they’re new enough not to have made it into last week’s regular Patch Tuesday updates, but critical enough not to be left until next month’s Patch Tuesday comes round.
+The reason for the urgency is obvious from Adobe’s own security report:
+Adobe has released security updates for Adobe Commerce and Magento Open Source. These updates resolve a vulnerability rated critical. Successful exploitation could lead to arbitrary code execution.
+Adobe is aware that CVE-2022-24086 has been exploited in the wild in very limited attacks targeting Adobe Commerce merchants.
+Of course, the words “limited attacks targeting merchants” shown above don’t automatically imply that “minimal damage has been done”.
+Anyone who remembers the recent Colonial Pipeline ransomware incident will know how extensive the knock-on effects of a single cyberattack can be.
+Also, until we know what the attackers did when they exploited this hole, we can’t tell how much data they made off with, how many users might be affected, or what follow-up crimes – such as identity theft, password recovery and account takeover – the crooks might be able to try next.
+According to Adobe, it seems that any Adobe Commerce or Magento installation running a version later than 2.3.3 that hasn’t received the latest patches is vulnerable.
+The patches provided are listed as tested for all of these versions: 2.3.3-p1 to 2.3.7-p2, and 2.4.0 to 2.4.3-p1.
+Quite what version number will show up after patching we can’t tell you; the patch files themselves are identified as 2.4.3-p1_v1, so our assumption is that’s the version string you’ll see.
+If you’re a Magento user and you’ve applied the patch, please let us know in the comments below what version identifier shows up after the update. You may remain anonymous if you wish.
+Once again, the bug boils down to what MITRE refers to as CWE-20, which is shorthand for the more meaningful words improper input validation.
+Web services, notably those dealing with e-commerce, depend on accepting data from users, not least because you can’t process a credit card transaction without a minimal set of inputs, such as the cardholder’s name, card number, expiry date, and so on.
+Other data relevant to the transaction might be discount codes, customers numbers, and more.
+Although the vast majority of visitors will do their best to submit correct data (they generally want their transactions to go through, after all), there’s little to stop an attacker from supplying unusual, weird, malformed, or unlikely data instead, just to see what happens.
+As the old joke goes, “A penetration tester goes into a bar and orders 1 beer, 2 beers, 999,999,999,999,999 beers (one quadrillion minus one), -1 beers, zero beers and a lizard.”
+If incorrect or invalid data is accepted and processed by an e-commerce server, the outcome could be that the order goes awry, such as sending you two items for the price of one, or telling the stock control system it’s run out of stock even though nothing was bought. 
+Clearly, both of those would be bad for the retailer: one would allow items to be stolen at will; the other would turn away customers whose orders would otherwise have gone through fine.
+But the result might also be that the wrong database file gets accessed and revealed; that an otherwise prohibited and potentially dangerous script gets run instead of an authorised, safe one; that a configuration file gets incorrectly modified to open a new security hole for later; or even that the attacker uploads a malware file and infects the server right away.
+In these cases, the risks are not only bad for the retailer, who might suffer a data breach that would undermine trust and require disclosure to the regulator, but also bad for customers, whose data might be stolen and sold on to other cybercriminals for further abuse.
+Determining exactly what happened after an attack, especially if it was triggered via a zero-day exploit – which implies that at least the opening pages in the criminals’ playbook include things that no one’s seen before – can be a complex exercise.
+Let’s hope Adobe is able to figure out the whole story and report on it soon…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

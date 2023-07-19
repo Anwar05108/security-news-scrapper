@@ -1,0 +1,212 @@
+Sophos Home protects every Mac and PC in your home 
+I’M SORRY, DAVE, I’M AFRAID… SORRY, MY MISTAKE, I CAN DO THAT EASILY
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG  Patches aplenty, connected garage doors, and motherboard malfeasance. 
+All that and more on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do?
+DUCK  I am still trying to make sense of when you said “connected garage doors”, Doug.
+Because this is connectivity on a whole new scale!
+DOUG  Oh, yes! 
+What could possibly go wrong? 
+We’ll get into that… 
+We like to start the show with the This Week in Tech History segment. 
+We have many options… today we will spin the wheel. 
+What happened this week? 
+The first man in space, Yuri Gagarin, in 1961; Ronald Wayne leaves Apple and sells his stock for $800 in 1976 – probably a bit of regret there; the germination of COBOL in 1959; the first Space Shuttle launch in 1981; the Apollo 13 rescue mission in 1970; Metallica sues Napster in 2000; and the first West Coast Computer Faire in 1977. 
+Let’s go ahead and spin the wheel here, and see where we land.
+[FX: WHEEL OF FORTUNE]
+DUCK  [CHEERING THE WHEEL] COBOL, COBOL, COBOL!
+[FX: WHEEL SLOWS AND STOPS]
+DOUG  And we got COBOL!
+Congratulations, Paul – good job. 
+This week, in 1959, there was a meeting, and at the meeting were some very important and influential computing pioneers who discussed the creation of a common, business-friendly programming language. 
+The one-and-only Grace Hopper suggested that the US Department of Defense fund such a language. 
+And, luckily enough, a DOD computing director was at the same meeting, liked the idea, and agreed to fund it. 
+And with that, COBOL was born, Paul.
+DUCK  Yes!
+COBOL: COmmon Business-Oriented Language. 
+And it came out of a thing called CODASYL. 
+[LAUGHS} That’s the acronym to begin/end all acronyms: The Conference/Committee on Data Systems Languages. 
+But it was an intriguing idea that, of course, has come full circle several times, not least with JavaScript in the browser. 
+A language like FORTRAN (FORmula TRANslation) was very popular for scientific computing at the time. 
+But every company, every compiler, every little group of programmers had their own version of FORTRAN, which was better than everybody else’s. 
+And the idea of COBOL was, “Wouldn’t it be nice if you could write the code, and then you could take it to any compliant compiler on any system, and the code would, within the limits of the system, behave the same?”
+So it was a way of providing a cmmon, business-oriented language… exactly as the name suggests.
+DOUG  Exactly!
+Well-named! 
+Alright, we’ve come a long way (good job, everybody), including up to the most recent Patch Tuesday.
+We’ve got a zero-day; we’ve got two curious bugs; and we’ve got about 90-some other bugs. 
+But let’s get to the good stuff, Paul…
+Patch Tuesday: Microsoft fixes a zero-day, and two curious bugs that take the Secure out of Secure Boot
+
+DUCK  Yes, let’s just knock on the head the zero-day, which is CVE-2023-28252, if you want to search that one down.
+Because that’s one that crooks obviously already know how to exploit. 
+It’s a bug in a part of Windows that we’ve seen bugs in before, namely the Common Log File System driver. 
+And that’s a system driver that allows any service or app on your device to do system logging in (supposedly) a controlled, secure way.
+You write your logs… they don’t get lost; not everyone invents their own way of doing it; they get properly timestamped; they get recorded, even if there’s heavy load; etc.
+Unfortunately, the driver that processes these logs… it’s basically doing its stuff under the SYSTEM account. 
+So if there’s a bug in it, when you log something in a way that’s not supposed to happen, usually what happens is that you have what’s called an Elevation of Privilege, or EoP. 
+And somebody who a moment ago might have just been a GUEST user suddenly is running under the SYSTEM account, which basically gives them as-good-as total control over the system. 
+They can load and unload other drivers; they can access pretty much all the files; they can spy on other programs; they can start and stop processes; and so on.
+That’s the 0-day. 
+It only got rated Important by Microsoft… I presume because it’s not remote code execution, so it can’t be used by a crook to hack into your system in the first place. 
+But once they’re in, this bug could, in theory (and in practice, given that it’s an O-day), be used by a crook who’s already in to get what are effectively superpowers on your computer.
+DOUG  And then, if you take the Secure out of Secure Boot, what does it become, Paul? 
+Just…
+DUCK  “Boot”, I suppose? 
+Yes, these are two bugs that just intrigued me enough to want to focus on them in the article on Naked Security. (If you want to know everything about all the patches, go to news.sophos.com and read the SophosLabs report on these bugs.) 
+I won’t read out the numbers, they’re in the article… they both are headlined with the following words: Windows Boot Manager Security Feature Bypass Vulnerability. 
+And I’ll read out how Microsoft describes it:
+An attacker who successfully exploited these vulnerabilities could bypass Secure Boot to run unauthorised code. 
+To be successful, the attacker would need either physical access or administrator privileges…
+…which I imagine they might be able to get through the bug we spoke about at the start. [LAUGHS]
+DOUG  Exactly, I was just thinking that!
+DUCK  But the thing about, “Hey, guys, don’t worry, they’d need physical access to your computer” is, in my opinion, a little bit of a red herring, Doug.
+Because the whole idea of Secure Boot is it’s meant to protect you even against people who do get physical access to your computer, because it stops things like the so called “evil cleaner” attack…
+…which is where you’ve just left your laptop in your hotel room for 20 minutes while you nip down to breakfast.
+Cleaners come into hotel rooms every day; they’re supposed to be there.
+Your laptop’s there; it’s closed; you think, “They don’t know the password, so they can’t log in.”
+But what if they could just pop the lid open, stick in a USB key, and power it up while they complete the cleaning of your room…
+…so they don’t need to spend any time actually doing the hacking, because that’s all automated. 
+Close the laptop; remove the USB key. 
+What if they’ve implanted some malware? 
+That’s what’s known in the jargon as a bootkit. 
+Not a rootkit, even lower than that: a BOOT kit. 
+Something that actually influences your computer between the time that the firmware is run and Windows itself actually starts. 
+In other words, it completely subverts the underpinnings on which Windows itself bases the security that’s coming next. 
+For example, what if it had logged your BitLocker keystrokes, so it now knew the password to unlock your whole computer for next time? 
+And the whole idea of Secure Boot is it says, “Well, anything that isn’t digitally signed by a key that’s been preloaded into your computer (into what’s called the Trusted Platform Module), any code that somebody introduces, whether they’re an evil cleaner or a well intentioned IT manager, simply won’t run.
+Although Microsoft only rates these bugs Important because they’re not your traditional remote code execution exploits, if I were a daily-driver Windows user, I think I’d patch, if only for those alone.
+DOUG  So, get patched up now! 
+You can read about these specific items on Naked Security, and a broader article on Sophos News that details the 97 CVEs in total that have been patched. 
+And let’s stay on the patch train, and talk about Apple, including some zero-days, Paul.
+Apple issues emergency patches for spyware-style 0-day exploits – update now!
+
+DUCK  These were indeed zero-days that were the only things patched in this particular update released by Apple.
+As ever, Apple doesn’t say in advance what it’s going to do, and it doesn’t give you any warning, and it doesn’t say who’s going to get what when…
+…just at the beginning of the Easter weekend, we got these patches that covered a WebKit zero-day. 
+So, in other words, merely looking at a booby-trapped website could get remote code execution, *and* there was a bug in the kernel that meant that once you had pwned an app, you could then pwn the kernel and essentially take over the whole device.
+Which basically smells of, “Hey, browse to my lovely website. Oh, dear. Now I’ve got spyware all over your phone. And I haven’t just taken over your browser, I’ve taken over everything.” 
+And in true Apple fashion… at first, there were updates against both of those bugs for macOS 13 Ventura (the latest version of macOS), and for iOS and iPad OS 16.
+There were partial fixes – theere were WebKit fixes – for the two older versions of macOS, but no patches for the kernel level vulnerability.
+And there was nothing at all for iOS and iPadOS 15. 
+Does this mean that the older versions of macOS don’t have the kernel bug? 
+That they do have the kernel bug, but they just haven’t been patched yet? 
+Is iOS 15 immune, or is it needing a patch but they’re just not saying? 
+And then, lo and behold, in the aftermath of the Easter weekend, [LAUGHS] suddenly three more updates came out that filled in all the missing pieces. 
+Apple zero-day spyware patches extended to cover older Macs, iPhones and iPads
+
+It indeed turned out that all supported iOSes and iPadOSes (which is versions 15 and 16), and all supported macOSes (that is versions 11, 12 and 13) contained both of these bugs. 
+And now they all have patches against both of them. 
+Given that this bug was apparently found by a combination of the Amnesty International Security Lab and the Google Threat Response Team…
+…well, you can probably guess that it has been used for spyware in real life. 
+Therefore, even if you don’t think that you’re the kind of person who’s likely to be at risk of that kind of attacker, what it means is that these bugs not only exist, they clearly seem to work pretty well in the wild.
+So if you haven’t done an update check on your Mac or your iDevice lately, please do so. 
+Just in case you missed out.
+DOUG  OK!
+As we know, connected garage door companies code these garage doors with cybersecurity in mind. 
+So it’s shocking that something like this has happened, Paul…
+Hack and enter! The “secure” garage doors that anyone can open from anywhere – what you need to know
+
+DUCK  Yes. 
+In this case, Doug (and I feel we’d better say the brand name: it’s Nexx), they seem to have introduced a special form of cybersecurity.
+Zero-factor authentication, Doug! 
+That’s where you take something that is not intended to be made public (unlike an email address or a Twitter handle, where you want people to know it), but that is not actually a secret. 
+So, an example might be the MAC address of your wireless card. 
+In this case, they’d given each of their devices a presumably unique device ID…
+…and if you knew what any device’s ID was, that counted as basically username, password and login code all in one go.
+DOUG  [GROAN] That’s convenient…
+DUCK  Even more convenient, Doug: there’s a hard coded password in the firmware of every device.
+DOUG  Oh, there we go! [LAUGHS]
+DUCK  [LAUGHS] Once someone knows what that magic password is, it allows them to log into the cloud messaging system that these devices use around the globe. 
+What the researcher who did this found, because he had one of these devices…
+…he found that while he was watching for his own traffic, which he would maybe expect to see, he got everyone else’s as well, including their device IDs.
+DOUG  [BIGGER GROAN] Oh, my goodness!
+DUCK  Just in case the device ID wasn’t enough, they also happen to include your email address, your initial, and your family name in the JSON data as well. 
+Just in case you didn’t already know how to stalk the person back to where they lived.
+So, you could either go round to their house and open their garage and then steal their stuff. (Oh, by the way, this also seems applied to their home alarm systems as well, so you could turn off the alarm before you opened the garage door.) 
+Or, if you were of sufficiently evil intent, you could just randomly open people’s garage doors wherever they lived, because apparently that’s terribly amusing. Doug.
+DOUG  [IRONIC] The least that this researcher could have done would have been to alert the company, say, three-plus months ago, and give them time to fix this.
+DUCK  Yes, that is about the least he could have done.
+Which is exactly what he did do. 
+And that’s eventually why, several months later (I think it was in January he first contacted them, and he just couldn’t get them moving on this)…
+…eventually he said, “I’m just going to go public with this.” 
+To back him up, the US CISA [Cybersecurity and Infrastructure Security Agency] actually put out a sort of APB on this saying, “By the way, just so you know, this company isn’t being responsive, and we don’t really know what to advise you.” 
+Well, my advice was… consider using good old fashioned physical keys; don’t use the app. 
+To be fair, although the researcher described the nature of the bugs, as I have described them to you  here, he didn’t actually put out a proof-of-concept. 
+It wasn’t like he made it super-easy for everybody. 
+But I think he felt that he almost had a duty of care to people who had this product to know that maybe they too, needed to lean on the vendor.
+DOUG  Alright, this is a classic “we’ll keep an eye on that” type of story. 
+And a great reminder at the end of the article… you write, as the old joke puts it, “The S in IoT stands for Security”, which is very much the case.
+DUCK  Yes, it is time that we put the S in IoT, isn’t it? 
+I don’t know how many times we’re going to be telling stories like this about IoT devices… every time we do it, we hope it’s the last time, don’t we? 
+Hard coded passwords.
+Replay attacks being possible, because there’s no cryptographic uniqueness in each request.
+Leaking other people’s data.
+Including unnecessary stuff in requests and replies… if you’ve got the device ID and you’re trying to identify the device, you don’t need to tell the device its owner’s email address every time you want the door to open!
+It’s just not necessary, and if you don’t give it out, then it can’t leak!
+[IRONIC] But other than that, Doug, I don’t feel strongly about it.
+DOUG  [LAUGHS] OK, very good. 
+Our last story of the day, but certainly not the least.
+Motherboard manufacturer MSI is having some certificate-based firmware headaches lately.
+Attention gamers! Motherboard maker MSI admits to breach, issues “rogue firmware” alert
+
+DUCK  Yes, this is a rather terrible story. 
+Allegedly, a ransomware crew going by the name Money Message have breached MSI, the motherboard makers. (They’re very popular with gamers because they’re very tweakable motherboards.)
+The criminals claim to have vast quantities of data that they’re going to breach unless they get the money. 
+They haven’t got the actual data on their leak site (at least they hadn’t when I looked last night, which was just before the deadline expired), but they’re claiming that they have MSI source code. 
+They’re claiming that they have the framework that MSI uses to develop BIOS or firmware files, so in other words they’re implying that they’ve already got the insider knowledge they need to be able to build firmware that will be in the right format. 
+And they say, “Also, we have private keys.”
+They’re inviting us to infer that those private keys would allow them to sign any rogue firmware that they build, which is quite a worrying thing for MSI, who’ve kind of gone down the middle on this. 
+They admitted the breach; they’ve disclosed it to the regulator; they’ve disclosed it to law enforcement; and that’s pretty much all they’ve said. 
+What they *have* done is give advice that we strongly recommend you follow anyway, namely telling its customers:
+Obtain firmware or BIOS updates only from MSI’s official website, and do not use files from sources other than the official website.
+Now, we’d hope that you wouldn’t go off-piste to go and get yourself potentially rogue firmware BLOBs anyway… as some of our commenters have said, “What do people think when they do that?” 
+But in the past, if you couldn’t get them from MSI’s site, you could at least perhaps rely on validating the digital certificate by yourself if you liked. 
+So I think you should say what you usually do about watching this space, Doug…
+DOUG  Let’s keep an eye on this one then, too!
+And it begs the question from one of our readers (I couldn’t have said it better myself) on the MSI story… Peter asks:
+Could MSI not revoke the certificate that was used to sign the files? 
+So even if someone did download a file that had been compromised, it would then fail the certificate check? 
+Or does it not work like that?
+DUCK  Well, it does work like that in *theory*, Doug. 
+But if you just blindly start refusing anybody who’s already got firmware that was signed with the now deprecated certificate, you do run the risk, essentially, of having people who have as good as “locked their keys in the car”, if you know what I mean. 
+For example, imagine that you just go, “Right! On every computer in the world from tomorrow, any MSI firmware signed with this key that has been compromised (if the crooks are telling the truth) just won’t work. You’ll have to get a new one.” 
+Well, how are you going to boot up your computer to get online to get the new one? [LAUGHS]
+DOUG  [LAUGHS] A slight problem!
+DUCK  There is that chicken-and-egg problem. 
+And this does not just apply to firmware… if you’re too quick in blocking everybody’s access to files that are trustworthy but were signed with a certificate that has now become untrustworthy, you do risk potentially doing more harm than good. 
+You need to leave a bit of an overlap period.
+DOUG  Alright, excellent question, and excellent answer. 
+Thank you very much, Peter, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“Well, how are you going to boot up your computer to get online to get the new one?”
+How would the computer know that the certificate has been revoked until it checks online?
+At that point, it should essentially be told “Hey, here’s a new certificate for you” and then once it has the new one “Go ahead and invalidate that old certificate, as well.”
+I hear you… I suppose I was just simplifying greatly for effect: I meant to make it clear that secure revocation of trust after a breach can be harder than you think because of “the need for overlap”, as I perhaps rather too briefly put it verbally. (Look at how long it takes us to get rid of old cryptographic algorithms when they are past their sell by date.)
+As you say, it is *theoretically* easy to fix this problem. 
+But the original questioner asked, “Why not just revoke the existing keys?” As you explain, that alone won’t work – in your example, your algorithm explicitly requires a protocol that delays revoking the keys until after the new keys have been securely delivered, installed and blessed by the existing system. 
+Presumably, your system would need the new certificate to be signed by the old key… yet that it the very key that has just been revoked *because it has already been compromised*. In other words, you have to give the revoked key a stay of execution while it “trains its replacement”, as it were.)
+Fair point. I figured they would already have some sort of “trusted pipeline” or “trusted delivery system” for delivering software/firmware updates, but it’s been well over a decade since I last built my own computer, so I’m not exactly well-informed on the subject. 🙂
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

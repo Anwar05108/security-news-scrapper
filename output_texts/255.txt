@@ -1,0 +1,241 @@
+Sophos Home protects every Mac and PC in your home 
+DATA BREACHES – THE STING IN THE TAIL
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  SIM swapping, zero-days, the [dramatic voice] P-i-n-g of D-E-A-T-H, and LastPass… again.
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast everybody. 
+I am Doug Aamoth. 
+With me, as always, is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  Very well, Doug.
+You put some high drama sound into that intro, I’m pleased to see!
+DOUG.  Well, how do you say “Ping of Death” without saying [doom metal growl] “P-i-n-g of D-E-A-T-H”? 
+You can’t just say [gentle voice] “Ping of Death”. 
+You’ve got to punch it a little bit…
+DUCK.  I suppose so.
+It’s different in writing – what have you got? 
+Bold and italics. 
+I just went with normal text, but I did use capital letters, which helps.
+DOUG.  Yes, I think I would bold and italicise the word “death”, so [doom metal again] “The Ping of D-E-A-T-H”.
+DUCK.  And use multiple colours! 
+I’ll do that next time, Doug.
+DOUG.  Break out the old <blink> tag in HTML, make it blink a little bit? [LAUGHS]
+DUCK.  Doug, for a moment, I was worried you were going to use the word [LAUGHS] <marquee>.
+DOUG.  [LAUGHS] We love old stuff here! 
+And that dovetails nicely with our This Week in Tech History segment – I’m excited about this one because I hadn’t heard about it, but stumbled across it.
+This week, on 04 December 2001, the Goner worm ransacked the internet at a pace second only to that of the Love Bug virus.
+Goner spread via Microsoft Outlook, and promised unsuspecting victims a fun screen saver when executed.
+DUCK.  Goner… 
+I think it got that name because there was a popup at the end, wasn’t there, that mentioned the Pentagon? 
+But it was meant to be a pun – it was “Penta/Gone”.
+
+That was certainly the worm that reminded people that, in fact, Windows screensavers are just executable programs.
+So, if you were looking out specially for .EXE files, well, they could be wrapped up in .SCR (screensaver) files as well. 
+If you were only relying on filenames, you could easily be tricked.
+And many people were, sadly.
+DOUG.  Alright, we’ll go from the old-school to the new-school. 
+We’re talking about LastPass: there was a breach; the breach itself wasn’t terrible; but that breach has now led to another breach. 
+Or maybe this is just a continuation of the original breach?
+LastPass admits to customer data breach caused by previous breach
+
+DUCK.  Yes, LastPass has written about it essentially as a follow up to the previous breach, which I think was August 2022, wasn’t it?
+And as we said at the time, it was a very embarrassing look for LastPass. 
+But as breaches go, it was probably worse for their PR, marketing and (I guess) for their intellectual property departments, because it seems the main thing the crooks made away with was source code from their development system. 
+And LastPass was quick to reassure people… 
+Firstly, their investigations suggested that, whilst they were in there, the crooks weren’t able to make any unauthorised changes that might later percolate into the real code. 
+Secondly, access to the development system doesn’t give you access to the production system, where the actual code is built. 
+And thirdly, they were able to say it seemed that no encrypted password vaults were stolen, so the cloud storage of your encrypted passwords was not accessed. 
+And even if it had been accessed, then only you would know the password, because the decryption (what you called the “heavy lifting” when we spoke about it on the podcast) is actually done in memory on your devices – LastPass never sees your password.
+And then, fourthly, they said, as far as we can tell, as a result of that breach, some of the stuff that was in the development environment has now given either the same… or possibly a completely different load of crooks who bought the stolen data off the previous lot, who knows? 
+That did allow them to get into some cloud service where some as-yet apparently unknown set of customer data was stolen.
+I don’t think they quite know yet, because it can take a while to work out what actually did get accessed after a breach happened. 
+So I think it is fair to say this is sort of the B-side of the original breach.
+DOUG.  All right, we suggest that if you’re a LastPass customer, to keep an eye on the company’s security incident report.
+We will keep an eye on this story as it’s still developing. 
+And if you, like Paul and I, fight cybercrime for a living, there are some excellent lessons to be learned from the Uber breach. 
+So that’s a podcast episode – a “minisode” – with Chester Wisniewski that Paul has embedded at the bottom of the LastPass article:
+S3 Ep100.5: Uber breach – an expert speaks [Audio + Text]
+
+Lots to learn on that front!
+DUCK.  As you say, that’s a great listen, because it is, I believe, what is known in America as “actionable advice”, or “news you can use”.
+DOUG.  [LAUGHS] Wonderful. 
+Speaking of news-you-can’t-really-use, Apple is generally tight-lipped about its security updates… and there was a security update:
+Apple pushes out iOS security update that’s more tight-lipped than ever
+
+DUCK.  Oh, Doug, that’s one of your finest… I like that segue.
+DOUG.  [LAUGHS] Thank you; thank you very much.
+DUCK.  Yes, this surprised me. 
+I thought, “Well, I’ll grab the update because it sounds serious.” 
+And I gave myself the reason, “Let me do it for Naked Security readers.” 
+Because if I do it and there are no side-effects, then I can at least say to other people, “Look, I just blindly did it and no harm came to me. So maybe you can do it as well.” 
+I just suddenly noticed that there was an iOS 16.1.2 update available, although I had had no security advisory email from Apple. 
+No email?!
+That’s weird.. so I went to the HT201222 portal page that Apple has for its security bulletins, and there it was: iOS 16.1.2. 
+And what does it say, Doug, “Details will follow soon”?
+DOUG.  And did they follow soon?
+DUCK.  Well, that was more than a week ago, and they’re not there yet. 
+So are we talking “soon” meaning hours, days, weeks, or months? 
+At the moment, it’s looking like weeks. 
+And, as always with Apple, there’s no indication of anything to do with any other operating systems. 
+Have they been forgotten? 
+Do they not need the update? 
+Did they also need the update, but it’s just not ready yet? 
+Have they been dropped out of support? 
+But it did seem, as I said in the headline, even more tight-lipped than usual for Apple, and not necessarily the most helpful thing in the world.
+DOUG.  OK, very good… still some questions, which leads us to our next story. 
+A very interesting question! 
+Sometimes, when you sign up for a service and it enforces two-factor authentication, it says, “Do you want to get notified via text message, or do you want to use an authentication app?” 
+And this story is a cautionary tale to not use your phone – use an authentication app, even if it’s a little bit more cumbersome. 
+This is a very interesting story:
+SIM swapper sent to prison for 2FA cryptocurrency heist of over $20m
+
+DUCK.  It is, Doug!
+If you’ve ever lost a mobile phone, or locked yourself out of your SIM card by putting in the PIN incorrectly too many times, you’ll know that you can go into the mobile phone shop… 
+…and usually they’ll ask for ID or something, and you say, “Hey, I need a new SIM card.” 
+And they’ll generate one for you. 
+When you put it into your phone, bingo!… it’s got your old number on it. 
+So what that means is that if a crook can go through the same exercise that you would to convince the mobile phone company that they have “lost” or “broken” their SIM card (i.e. *your SIM card*), and they can get that card either handed to, or sent to, or given to them somehow…
+…then, when they plug it into their phone, they start getting your SMS two-factor authentication codes, *and* your phone stops working. 
+That’s the bad news. 
+The good news in this article is this was a case of a chap who got busted for it. 
+He’s been sent to prison in the US for 18 months. 
+He, with a bunch of accomplices – or, in the words of the Department of Justice, the Scheme Participants… [LAUGHS]
+…they made off with one particular victim’s cryptocurrency, apparently to the tune of $20 million, if you don’t mind.
+DOUG.  Oof!
+DUCK.  So he agreed to plead guilty, take a prison sentence, and immediately forfeit… the amount was [reading carefully] $983,010.72… just to forfeit that right away. 
+So, presumably, he had that lying around. 
+And he apparently also has some kind of legal obligation to refund over $20 million.
+DOUG.  Good luck with that, everyone! Good luck. 
+His other [vocal italics] Scheme Participants might cause some issues there! [LAUGHS]
+DUCK.  Yes, I don’t know what happens if they refuse to cooperate as well. 
+Like, if they just hang him out to dry, what happens? 
+But we’ve got some tips, and some advice on how to beef up security (in more ways than just the 2FA you use) in the article. 
+So go and read that… every little bit helps.
+DOUG.  OK, speaking of “little bits”… 
+…this was another fascinating story, how the lowly ping can be used to trigger remote code execution:
+Ping of death! FreeBSD fixes crashtastic bug in network tool
+
+DUCK.  [Liking the segue again] I think you’ve bettered yourself, Doug!
+DOUG.  [LAUGHS] I’m on a roll today…
+DUCK.  From Apple to the [weak attempt at doom vocals] Ping of D-E-A-T-H! 
+Yes, this was an intriguing bug. 
+I don’t think it will really cause many people much harm, and it *is* patched, so fixing it is easy. 
+But there’s a great writeup in the FreeBSD security advisory…
+…and it makes for an entertaining, and, if I say so myself, a very informative tale for the current generation of programmers who may have relied on,”Third-party libraries will just do it for me. Dealing with low level network packets? I never have to think about it…”
+There are some great lessons to be learned here. 
+The ping utility, which is the one network tool that pretty much everybody knows about it, gets its name from SONAR. 
+You go [makes movie submarine noise] ping, and then the echo comes back from the server at the other end. 
+And this is a feature that’s built into the Internet Protocol, IP, using a thing called ICMP, which is Internet Control Message Protocol. 
+It’s a special, low-level protocol, much lower than UDP or TCP that people are probably used to, that’s pretty much designed for exactly this kind of thing: “Are you actually even alive at the other end, before I go worrying about why your web server isn’t working?” 
+There’s a special kind of packet you can send out called “ICMP Echo”.
+So, you send this tiny little packet with a short message in it (the message can be anything you like), and it simply sends that very same message back to you. 
+It’s just a basic way of saying, “If that message doesn’t come back, either the network or the entire server is down”, rather than that there’s some software problem on the computer. 
+By analogy with SONAR, the program that sends out these echo requests is called… [pause] I’m going to do the sound effect, Doug … [fake submarine movie noise again] ping. [LAUGHTER]
+And the idea is, you go, say, ping -c3 (that means check three times) nakedsecurity.sophos.com.
+You can do that right now, and you should get three replies, each of them one second apart, from the WordPress servers that host our site. 
+And it’s saying the site is alive. 
+It’s not telling you that the web server is up; it’s not telling you that WordPress is up; it’s not telling that Naked Security is actually available to read.
+But it at least it confirms that you can see the server, and the server can reach you. 
+And who would have thought that that lowly little ping reply could trip up the FreeBSD ping program in such a way that a rogue server could send back a booby trapped “Yes, I am alive” message that could, in theory (in theory only; I don’t think anyone has done this in practice) trigger remote code execution on your computer.
+DOUG.  Yes, that’s amazing; that’s the amazing part. 
+Even if it’s a proof-of-concept, it’s such a small little thing!
+DUCK.  The ping program itself gets the whole IP packet back, and it’s supposed to divide it into two parts. 
+Normally, the kernel would handle this for you, so you’d just see the data part. 
+But when you’re dealing with what are called raw sockets, what you get back is the Internet Protocol header, which just says, “Hey, these bytes came from such and such a server.” 
+And then you get a thing called the “ICMP Echo Reply”, which is the second half of the packet you get back. 
+Now, these packets, they’re typically just 100 bytes or so, and if it’s IPv4, the first 20 bytes are the IP header and the remainder, whatever it is, is the Echo Reply.
+That has a few bytes to say, “This is an Echo Reply,” and then the original message that went out coming back. 
+And so the obvious thing to do, Doug, when you get it, is you split it into…
+…the IP header, which is 20 bytes long, and the rest.
+Guess where the problem lies?
+DOUG.  Do tell!
+DUCK.  The problem is that IP headers are *almost always* 20 bytes long – in fact, I don’t think I’ve ever seen one that wasn’t. 
+And you can tell they’re 20 bytes long because the first byte will be hexadecimal 0x45. 
+The “4”” means IPv4, and the “5”… “Oh, we’ll use that to say how long the header is.” 
+You take that number 5 and you multiply it by 4 (for 32-bit values), and you get 20 bytes..
+…and that is the size of probably six sigma’s worth of IP headers that you will ever see in the whole world, Doug. [LAUGHTER]
+But they *can* go up to 60 bytes. 
+If you put 0x4F instead of 0x45, that says there are 0xF (or 15 in decimal) × 4 = 60 bytes in the header. 
+And the FreeBSD code simply took that header and copied it into a buffer on the stack that was 20 bytes in size. 
+A simple, old-school stack buffer overflow. 
+It’s a case of a venerable network troubleshooting tool with a venerable type of bug in it. (Well, not any more.) 
+So, when you are programming and you have to deal with low-level stuff that nobody’s really thought about for ages, don’t just go with the received wisdom that says, “Oh, it’ll always be 20 bytes; you’ll never see anything bigger.” 
+Because one day you might. 
+And when that day comes, it might be there deliberately because a crook made it so on purpose. 
+So the devil, as always, is in the programming details, Doug.
+DOUG.  OK, very interesting; great story. 
+And we will stick on the subject of code with this final story about Chrome. 
+Another zero-day, which brings the 2022 total to nine times:
+Number Nine! Chrome fixes another 2022 zero-day, Edge patched too
+
+DUCK.  [Formal voice, sounding like a recording] “Number 9. Number 9. Number 9, number 9,” Douglas.
+DOUG.  [LAUGHS] Is this Yoko Ono? 
+DUCK.  That’s Revolution 9 off the Beatles “White Album”.
+Yoko can be heard riffing away in that song – that soundscape, I believe they call it – but apparently the bit at the beginning where there’s somebody saying “Number 9, number 9” over and over again, it was, in fact, a test tape they found lying around.
+DOUG.  Ah, very cool.
+DUCK.  An EMI engineer saying something like, “This is EMI test tape number 9” [LAUGHTER], and apparently I don’t even think anyone knows whose voice it was. 
+That has *nothing* to do with Chrome, Doug. 
+But given that somebody commented on Facebook the other day, “That Paul guy is starting to look like a Beatle”… [quizzical] which I found slightly odd. 
+DOUG.  [LAUGHS] Yes, how are you supposed to take that?
+DUCK.  …I figured I could dine out on “Number 9”. 
+It is the ninth zero-day of the year so far, it seems, Doug. 
+And it’s a one-bug fix, with the bug identified as CVE 2022-4282. 
+Because Microsoft Edge uses the Chromium open-source core, it too was vulnerable, and a couple of days later, Microsoft followed up with an update for Edge. 
+So this is both a Chrome and an Edge issue. 
+Although those browsers should update themselves, I recommend going to check anyway – we show you how to do that in the article – just in case. 
+I won’t read out the version numbers here because they’re different for Mac, Linux and Windows on Chrome, and they’re different again for Edge.
+Like Apple, Google’s being a bit tight-lipped about this one. 
+It was found by one of their threat hunting team, I do believe.
+So I imagine they found it while investigating an incident that happened in the wild, and therefore they probably want to keep it under their hat, even though Google usually has a lot to say about “openness” when it comes to bug-fixing.
+You can see why, in a case like this, you might want a little bit of time to dig a little bit deeper before you tell everybody exactly how it works.
+DOUG.  Excellent… and we do have a reader question that is probably a question a lot of people are thinking. 
+Cassandra asks, “Are the bug finders just getting lucky at finding bugs? Or have they struck a ‘seam’ full of bugs? Or is Chromium issuing new code that is more buggy than normal? Or is something else going on?”
+DUCK.  Yes, that’s a great question, actually, and I’m afraid that I could only answer it in a slightly facetious sort of way, Doug.
+Because Cassandra had given choices A), B) and C), I said, “Well, maybe it’s D) All of the above.” 
+We do know that when a bug of one particular sort shows up in code, then it’s reasonable to assume that the same programmer may have made similar bugs elsewhere in the software. 
+Or other programmers at the same company may have been using what was considered received wisdom or standard practice at the time, and may have followed suit. 
+And a great example Is, if you look back at Log4J… there was a fix to patch the problem. 
+And then, when they went looking, “Oh, actually, there are other places where similar mistakes have been made.” 
+So there was a fix for the fix, and then there was a fix for the fix for the fix, If I remember. 
+There is, of course, also the issue that when you add new code, you may get bugs that are unique to that new code and come about because of adding features. 
+And that’s why many browsers, Chrome included, have an if-you-like “slightly older” version that you can stick with.
+And the idea is that those “older” releases… they have none of the new features, but all of the relevant security fixes. 
+So, if you want to be conservative about new features, you can be. 
+But we certainly know that, sometimes, when you shovel new features into a product, new bugs come with the new features. 
+And you can tell that, for example, when there’s an update, say, for your iPhone, and you get updates, say, for iOS 15 and iOS 16.
+Then, when you look at the bug lists, there are few bugs that only apply to iOS 16. 
+And you think, “Hello, those must be bugs in the code that weren’t there before.” 
+So, yes, that’s a possibility. 
+And I think the other things that are going on can be considered good.
+The first is that I think that, particularly for things like browsers, the browser makers are getting much better at pushing out full rebuilds really, really quickly.
+DOUG.  Interesting.
+DUCK.  And I think the other thing that’s changed is that, in the past, you could argue that for many vendors… it was quite difficult to get people to apply patches at all, even when they came out only on a monthly schedule, and even if they had multiple zero-day fixes in them. 
+I think, maybe it also is a response to the fact that more and more of us are more and more likely not just to accept, but actually to *expect* automatic updating that is really prompt. 
+So, I think you can read some good stuff into this. 
+The fact not only that Google can push out a single zero-day fix almost instantaneously, but also that people are willing to accept that and even to demand it. 
+So I like to see that issue of, “Wow, nine zero-days in the year fixed individually!”…
+…I like to think of that more as “glass half fill and filling up” than “glass half empty and draining through a small hole in the bottom”. [LAUGHTER]
+That is my opinion.
+DOUG.  Alright, very good. 
+Thank you for the question, Cassandra. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you:  Until next time…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

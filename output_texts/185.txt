@@ -1,0 +1,105 @@
+Sophos Home protects every Mac and PC in your home 
+By all accounts, and sadly there are many of them, a hacker – in the break-and-enter-your-network-illegally sense, not in a solve-super-hard-coding-problems-in-a-funky-way sense – has broken into ride-sharing company Uber.
+According to a report from the BBC, the hacker is said to be just 18 years old, and seems to have pulled off the attack for the same sort of reason that famously drove British mountain climber George Mallory to keep trying (and ultimately dying in the attempt) to summit Mount Everest in the 1920s…
+…“because it’s there.”
+Uber, understandably, hasn’t said much more so far [2022-09-16T15:45Z] than to announce on Twitter:
+We are currently responding to a cybersecurity incident. We are in touch with law enforcement and will post additional updates here as they become available.
+— Uber Comms (@Uber_Comms) September 16, 2022
+
+If the scale of the intrusion is as broad as the alleged hacker has suggested, based on the screenshots we’ve seen plastered on Twitter, we’re not surprised that Uber hasn’t offered any specific information yet, especially given that law enforcement is involved in the investigation.
+When it comes to cyberincident forensics, the devil really is in the details.
+Nevertheless, publicly available data, allegedly released by the hacker himself and distributed widely, seems to suggest that this hack had two underlying causes, which we’ll describe with a medieval analogy.
+The intruder:
+The jargon term for blagging your way into the 21st century equivalent of the castle courtyard is social engineering.
+As we all know, there are many ways that attackers with time, patience and the gift of the gab can persuade even a well-informed and well-meaning user to help them bypass the security processes that are supposed to keep them out.
+Automated or semi-automated social engineering tricks include email and IM-based phishing scams.
+These scams lure users into entering their login details, often including their 2FA codes, on counterfeit web sites that look like the real deal but actually deliver the needed access codes to the attackers.
+For a user who is already logged in, and is thus temporarily authenticated for their current session, attackers may attempt to get at so-called cookies or access tokens on the user’s computer.
+By implanting malware that hijacks existing sessions, for example, attackers may be able to masquerade as a legitimate user for long enough to take over completely, without needing any of the usual credentials that the user themselves required to login from scratch:
+Cookie stealing: the new perimeter bypass
+
+
+And if all else fails – or perhaps even instead of trying the mechanical methods described above – the attackers can simply call up a user and charm them, or wheedle, or beg, or bribe, or cajole, or threaten them instead, depending on how the conversation unfolds.
+Skilled social engineers are often able to convince well-meaning users not only to open the door in the first place, but also to hold it open to make it even easier for the attackers to get in, and perhaps even to carry the attacker’s bags and show them where to go next.
+That’s how the infamous Twitter hack of 2020 was carried out, where 45 blue-flag Twitter accounts, including those of Bill Gates, Elon Musk and Apple, were taken over and used to promote a cryptocurrency scam.
+That hacking wasn’t so much technical as cultural, carried out via support staff who tried so hard to do the right thing that they ended up doing exactly the opposite:
+Bitcoin scammer who hacked celeb Twitter accounts gets 3 years
+
+
+The jargon term for the equivalent of getting into the castle’s keep from the courtyard is elevation of privilege.
+Typically, attackers will deliberately look for and use known security vulnerabilities internally, even though they couldn’t find a way to exploit them from the outside because the defenders had taken the trouble to protect against them at the network perimeter.
+For example, in a survey we published recently of intrusions that the Sophos Rapid Response team investigated in 2021, we found that in only 15% of initial intrusions – where the attackers get over the external wall and into the bailey – were the criminals able to break in using RDP.
+(RDP is short for remote desktop protocol, and it’s a widely used Windows component that’s designed to let user X work remotely on computer Y, where Y is often a server that doesn’t have a screen and keyboard of its own, and may indeed be three floors underground in a server room, or across the world in a cloud data centre.)
+But in 80% of attacks, the criminals used RDP once they were inside to wander almost at will throughout the network:
+S3 Ep86: The crooks were in our network for HOW long?! [Podcast + Transcript]
+
+
+Just as worryingly, when ransomware wasn’t involved (because a ransomware attack makes it instantly obvious you’ve been breached!), the median average time that the criminals were roaming the network unnoticed was 34 days – more than a calendar month:
+The Active Adversary Playbook 2022
+
+
+We’re not yet certain how the initial social engineering (shortened to SE in hacking jargon) was carried out, but threat researcher Bill Demirkapi has tweeted a screenshot that seems to reveal (with precise details redacted) how the elevation of privilege was achieved.
+Apparently, even though the hacker started off as a regular user, and therefore had access only to some parts of the network…
+…a bit of wandering-and-snooping on unprotected shares on the network revealed an open network directory that included a bunch of PowerShell scripts…
+…that included hard-coded security credentials for admin access to a product known in the jargon as a PAM, short for Privileged Access Manager.
+As the name suggests, a PAM is a system used to manage credentials for, and control access to, all (or at least a lot of) the other products and services used by an organisation.
+Wryly put, the attacker, who probably started out with a humble and perhaps very limited user account, stumbled on an ueber-ueber-password that unlocked many of the ueber-passwords of Uber’s global IT operations.
+We’re not sure just how broadly the hacker was able to roam once they’d prised open the PAM database, but Twitter postings from numerous sources suggest that the attacker was able to penetrate much of Uber’s IT infrastructure.
+The hacker allegedly dumped data to show that they’d accessed at least the following business systems: Slack workspaces; Uber’s threat protection software (what is often still casually referred to as an anti-virus); an AWS console; company travel and expense information (including employee names); a vSphere virtual server console; a listing of Google Workspaces; and even Uber’s own bug bounty service.
+(Apparently, and ironically, the bug bounty service was where the hacker bragged loudly in capital letters, as shown in the headline, that UBER HAS BEEN HACKED.)
+It’s easy to point fingers at Uber in this case and imply that this breach should be considered much worse than most, simply because of the loud and very public nature of it all.
+But the unfortunate truth is that many, if not most, contemporary cyberattacks turn out to have involved the attackers getting exactly this degree of access…
+…or at least potentially having this level of access, even if they didn’t ultimately poke around everywhere that they could have.
+After all, many ransomware attacks these days represent not the beginning but the end of an intrusion that probably lasted days or weeks, and may have lasted for months, during which time the attackers probably managed to promote themselves to have equal status with the most senior sysadmin in the company they’d breached.
+That’s why ransomware attacks are often so devastating – because, by the time the attack comes, there are few laptops, servers or services the criminals haven’t wrangled access to, so they’re almost literally able to scramble everything.
+In other words, what seems to have happened to Uber in this case is not a new or unique data breach story.
+So here are some thought-provoking tips that you can use as a starting point to improve overall security on your own network:
+Why not join us from 26-29 September 2022 for this year’s Sophos Security SOS Week:
+
+Four short but fascinating talks with world experts. 
+Learn about protection, detection and reponse,and how to set up a successful SecOps team of your own:
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This is a terribly written article. I’m surprised at the poor quality here. Wtf are you talking about with the castles and midevil analogies? Have a talk with whoever wrote this and encourage them to focus on facts and data and leave the fluff out.
+I *am* the person who wrote it, so telling me to talk to myself is not likely to achieve the result you want.
+…but, anyway, thanks for your kind words. 
+By the way, it’s “medieval” (which simply means “Middle Ages”) and not “midevil”, which would mean something quite different.
+For what it’s worth, many networks are still protected as if there were an old-school drawbridge and palisade at the perimeter that was enough to keep attackers out, with internal security getting rather neglected. So I think the castle analogy is unexceptionable, and easy enough to understand
+I also think there are plenty of facts in the article (try clicking on any of the articles that are linked to). And, as always, if you don’t like the style of the article body you can simply skip to “What to do?”, a section that most of our articles include. 
+At least some of our readers like the fact that we try to write without jargon, and to describe things (including by analogy) so that you don’t have to understand the topic in advance in order to make sense of the article. 
+You may not be one of those readers. In that case, you may find the screenshots littering Twitter will provide the literal, direct “fact” that you want.
+Have a nice day.
+The article is free, read it or leave and no need to go off on the author. Just rude.
+What surprised me the most with Jane’s failed attempt to contribute anything meaningful: he/she just sounds confused, unprofessional, scarred, ridiculous but at no point makes me question anything in the article.
+One might go even further: the goal of any good article should be to be disliked by confused and unprofessional people.
+TBH, I did edit out the word “castle” and its relatives in a couple of places after that comment. (I wasn’t convinced the changes were necessary, but I didn’t think it spoiled the analogy to make the edits and show that I don’t reject all criticism simply because I don’t accept some of it.)
+Perhaps the commenter was not from Europe, where the motte-and-bailey concept is well-known, widely covered in primary school history, visually apparent in many existing and reconstructed fortifications in the UK and in continental Europe, and therefore unexceptionable as an analogy. (Windsor Castle, in the grounds of which the late Queen Elizabeth II will be buried tomorrow, is a good, if comparatively modern, example of the M-and-B concept.)
+As a metaphor for network security, I admit that the castle analogy is old, but it’s easily understood IMO, and it’s easy to see why a traditional motte-and-bailey-like approach doesn’t work well enough in today’s connected, cloudy, distributed online world. 
+By all means have a network palisade. By all means maintain a cybersecurity keep where trophy data and vital information can be more strongly protected. But that’s not enough on its own, and hasn’t been for a while now. Probably since about 1982, though the need for a “zero trust” approach was less dramatically obvious back then, or perhaps I mean that the risk of relying on perimeter protection as your primary precaution was still tolerable until ubiquitous internet access arrived.
+Good article, thank you.
+I find the same issue with the castle analogy getting a bit old, but I switched it for a house analogy.
+House gate/fence provides outer-edge protection, but many avenues of entry available. You can do recon by looking though or over the perimeter, and can decide how much protection is in place you may have to compromise. This includes determining other detections such as motion-activated lights, protections such as evidence of animals/dogs, and locks/cameras.
+Once inside the perimeter, there are areas to wander, but still restricted areas that would require additional evaluation and breach. In the case of Uber, they left the keys under the doormat! Sometimes you see a shed that is less protected but still associated with the property, which is similar to having a satellite office with less security. You should see my approach at this point, and everyone understands about the security and insecurities of their home or dwelling.
+I use the inside of the house analogy to explain things like SIEM and visibility. It’s like standing in your living room with all the light off. You turn on one light (first time standing up a SIEM), and you see roaches scurry out of view. Ugh! Yuck! We Must Do Something Right Now! No Bob, they were always there, you are only just seeing them. But that single light doesn’t illuminate the whole house, there is still so much more you can’t see. So you turn on more light, but again you can’t see in the basement yet or the garage. It gets the point across and is very familiar to many people. You have to write to your audience, and not everyone is a technology or security expert. Rock on!
+Any suggestion that Uber customer payment credentials have been accessed?
+I don’t think we know just yet. In lots of breaches I’ve seen (and written about before) the breached party has rushed to say “no payment data was stolen”, but that’s often been because the payment part of the business was outsourced to a payment processing company. Thus information such as payment card numbers were collected and stored somewhere else entirely, by an entirely different sort of system, run in an entirely different way. So, the “data disconnect” could be established quickly. (“At least they didn’t get the credit cards!” makes for a spot of positive PR in the midst of otherwise negative news, which is presumably why companies like to say it quickly if they can.)
+Some of the screenshots I’ve seen this time include what look like employee names, so the story might be very different for the personally identifiable information of Uber staff, and perhaps of drivers. (You can get a new credit card easily enough. But not a new home address or SSN. And companies generally need to hold a lot more PII about staff than about customers.)
+I think we need to wait for Uber’s official followup.
+Figuring out that X *did* get taken in a breach is sometimes very easy – it might be right there in the logs, for example, that the data was accessed.
+Being sure that Y did *not* get stolen, and convincing a sceptical public that it didn’t… that’s often the lengthy and difficult part.
+Thank you for the heads-up! Changed my password just now and shared this with my friends.
+Glad you found it useful. 
+If, like the previous commenter, you are worried about payment data, keep your eye on your statements with a keener eye than usual.
+!! 26 for me !!.
+I use complex passwords and they are site-specific. But I use the internet widely in my professional work. Haveibeenpwned.com shows that I am the victim of 25 breaches. 26 when Troy posts the Uber results.
+LinkedIn recently surveyed me to find out why I use the service regularly, am frequently the subject or searches, but have not subscribed to their premium services. As you might guess, my response was along the lines of “You have twice exposed my credentials (2016 and 2021) and you want me to give you my credit card? It’s not gonna happen.” I already have to replace an average of more than one card a year.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

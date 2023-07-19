@@ -1,0 +1,51 @@
+Sophos Home protects every Mac and PC in your home 
+The latest scheduled Firefox update is out, bringing the popular alternative browser to version 101.0.
+This follows an intriguing month of Firefox 100 releases, with Firefox 100.0 arriving, as did Chromium 100 a month or so before it, without any trouble caused by the shift from a two-digit to a three-digit version number.
+Early in 2022, as both Chromium and Firefox co-incidentally approached their centuries at about the same time, it looked as though at least a few mainstream websites were extracting version numbers for both products incorrectly.
+Did we learn nothing from Y2K? Why are some coders still stuck on two digit numbers?
+
+
+Some sites, it seemed, were searching the browsers’ User-Agent text strings for patterns that were hard-wired to extract just two digits’ worth of version information.
+As you can imagine, folding three digits into two gives you an error a bit like the millennium bug, with 100 turning either into 10 or into 00, depending on which end you prune.
+Both 0 and 10 represent version numbers from a time long past, thus incorrectly flagging a brand-new browser as a recklessly outdated one, which some sites refused to accept.
+No doubt in part due to the efforts of both Google’s Chromium and Mozilla’s Firefox coders (who combined to identify ill-behaved websites, and even prepared emergency “escape mechanisms” whereby their respesective browsers would continue calling themselves 99.something when visiting ill-programmed web servers), the 100.0 release of both browsers was ultimately uneventful…
+…but Firefox followed its regular 100.0 release with an emergency 100.0.1 release, which turned on a brand new Windows security feature that hadn’t quite made the cut in 100.0.
+We wondered why this new feature, which had been a long time in the brewing and wasn’t designed to fix a specific, known-to-be-exploitable security vulnerability, hadn’t simply been saved up and release as a new feature in the scheduled 101.0 version.
+Firefox out-of-band update to 100.0.1 – just in time for Pwn2Own?
+
+
+But the fact that it was just a couple of days before the notorious Pwn2Own hacking competition, where contestants are presented with bang-up-to-date computers on which to try their attacks, led us to assume (or at least to guess) that Mozilla figured that it was worth getting out an official release with additional anti-hacking protection, just in case.
+Pwn2Own hacking schedule released – Windows and Linux are top targets
+
+
+Ultimately, however, Firefox was hacked, in a gloriously well-prepared double-exploit attack that took just seven seconds to break into the browser and then break back out of its protective shell for a full sandbox escape.
+To its credit, Mozilla then released 100.0.2 within 48 hours, with fixes for both of these newly-disclosed bugs.
+Mozilla patches Wednesday’s Pwn2Own double-exploit… on Friday!
+
+
+We don’t doubt, therefore, that the somewhat less dramatic release of 101.0, with no zero-day security holes fixed, and no patches deemed Critical, will have been something of a relief to the Mozilla team.
+In case you’re wondering, this was indeed the second full release of Firefox in the month of May 2022, which is Mozilla’s equivalent of a blue moon. (The moon doesn’t actually turn blue – that’s just the nickname used when there’s a second full moon squeezed into one calendar month).
+This is caused by the fact that Firefox updates are scheduled for every fourth Tuesday, which is once every 28 days, rather than for a specific Tuesday in each month, which is once in about every 30.5 days.
+Although none of the bugs fixed in this release are Critical, there are numerous High-category fixes, plus a handful of Moderate ones, including
+As well as these specific bugs, Mozilla also announced CVE-2022-31747 and CVE-2022-31748, vulnerability numbers designating a range of general memory mismanagement bugs found by the Firefox team and its automated bug-hunting tools.
+These bugs weren’t examined in detail to see which ones could actually be exploited, but were assumed to be potentially exploitable and fixed anyway.
+The first of these, CVE-2022-31747, denotes bugs fixed in both the 101.0 release and the Extended Support Release 91.10 (note that 91+10 = 101).
+This implies that those bugs have been in Firefox’s codebase since the 91 release or even earlier, given that ESR 91.10 consists of the Firefox 91.0 code with all interim security fixes applied, but no new features added.
+The latter designator, CVE-2022-31748, denotes bugs fixed in 101.0 only, and is a good reminder that new features do tend to bring new bugs, and helps explain why Mozilla maintains its ESR product branch.
+The ESR flavour of Firefox is popular with network sysadmins who are willing to wait for new features, but not at the expense of running software that’s outdated from a security point of view.
+As usual, go to Help > About Firefox to check if you’re up to date, and to force an update if it turns out you aren’t.
+(Linux/Unix users may need to refer to their distro for updates if they originally installed Firefox via a distro-managed package rather than by downloading Mozilla’s own installer.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The browser in the screenshot is evidently Microsoft Edge (Chromium) Dev not Firefox.
+Hmmm. Given that I took the screenshot, and it given that says “Edge Dev” right there in the title bar of the window… I probably should have known that :-)
+Fixed the image caption, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

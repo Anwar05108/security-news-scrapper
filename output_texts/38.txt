@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re using PHP in your network, check that you’re using the latest version, currently 8.1.3.
+Released yesterday [2022-02-17], this version fixes various memory mismanagement bugs, including CVE-2021-21708, which is a use-after-free blunder in a function called php_filter_float().
+(Versions 8.0 and 7.4 are still supported, and are vulnerable too; if you aren’t using the latest 8.1 flavour of PHP then you need 8.0.16 and 7.4.28 respectively.)
+A proof-of-concept exploit based on using PHP to query a database shows that the bug can be used to crash the PHP process, so a working Denial of Service (DoS) attack is already known to be possible.
+Of course, as Mozilla routinely and unswervingly likes to point out in its regular updates, when bugs are patched that show evidence of memory corruption, you should “presume that with enough effort some of [them] could have been exploited to run arbitrary code.”
+Remote Code Execution (RCE), where data submitted from outside can not only crash a program on your computer but also gain control of it in the process, typically leads to network intrusion, data exfiltration, malware implantation, or a foul-tasting cocktail of all of them.
+Ironically, the PHP filter functions are designed to validate incoming data, for example to ensure that if you’re expecting someone to send you an integer (e.g. 5, 7, 11), they haven’t sent you a string of text that can’t reliably be converted to a whole number, such as 3.14159 or 3/16 inch.
+The CVE-2021-21708 bug is part of the code that checks for valid floats, or floating point numbers, a jargon term for what you probably called “real numbers” or “decimals” at school.
+Decimals typically have a dot (or a comma, depending on your country) that separates the whole part and the fractional part, as in 2.5 to represent two and five-tenths, or two-and-a-half.
+PHP’s numeric filter functions allow you to check not only that the incoming number is valid, but also that it’s within a specified range, such as ensuring it’s no greater than 2.71828, or that it’s between -1 and 1.
+If the number that comes in is already a floating point number (a decimal), then the code goes as shown below, where the old PHP code (8.1.2) is on the left and the new code (8.1.3) is on the right. (There’s no bug here, so the two versions are identical.)
+Don’t worry if you don’t know C; the important thing to note is that the error checking is done first, followed by a line that frees up the memory currently used by PHP to store the number, followed immediately by a line that reallocates memory for PHP to use.
+In case you’re wondering, the curious name zval_ptr_dtor() is shorthand for PHP internal memory pointer destructor:
+If the number comes in as an integer, with no decimal part, slightly different code is used.
+Below, as you can see, the sequence of “do the check and exit if it fails; but if it’s OK then deallocate-and-reallocate storage for the number” was mixed up in the old version.
+The sequence was “deallocate the memory used by this PHP value, then do the check and exit if it fails, leaving behind a PHP object referring to memory that will soon get allocated to something else and will thus later cause a use-after-free conflict; but if the check is OK then reallocate new storage for the number.”
+That’s a bit like stepping into the road first, and only then checking if it’s safe and completing your crossing.
+The updated code in version 8.1.3 has restored the code to a safer sequence, although it would be safer still if there were a single function called, say, dtor_and_alloc_in_one_go(), so that future programmers couldn’t accidentally re-insert code between the call to the destructor and the call to the allocator.
+The new code is more like checking the road is safe first, then stepping into it and walking directly to the other side.
+The “diff” view (jargon for code difference) created by Visual Studio Code shows neatly how the line marked in red in the 8.1.2 version was moved down to the green spot in the 8.1.3 version:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Half an article, this. What about previous versions of PHP? A huge number of systems are still on PHP7.x  Do they have a problem?
+Hmmm. Apparently the 8.0 and 7.4 series are still supported, vulnerable and patched… I will add those version numbers to the article too…
+…done. 
+Current [2022-02-19] version numbers to look for are 8.1.3, 8.0.16 and 7.4.28. Thanks for the note.
+I can’t spot any differences in the first image. Please tell me if I need to see the my ophthalmologist 😬
+As it says in the explanation: “If the number that comes in is already a floating point number (a decimal), then the code goes as shown below, where the old PHP code (8.1.2) is on the left and the new code (8.1.3) is on the right. (There’s no bug here, so the two versions are identical.)”
+What about Windows environments? It seems they haven’t released the patch for that yet??
+https://windows.php.net/download#php-7.4
+On this page…
+https://windows.php.net/download#php-8.1
+…you can apparently get 8.1.3 and 8.0.16 for Windows. But the 7.4 series is still at 7.4.27. No idea why. 
+If you are still back on 7.4 and you don’t want to move up to the latest version, I guess you will need to build it yourself (or find someone you trust who can do this for you):
+https://wiki.php.net/internals/windows/stepbystepbuild_sdk_2
+Thank you for the reply! After I submitted my comment, I did notice that it was patched in the two different 8.x versions for windows. Researching with my team now to see if we feel 7.4.27 is good, or if we need to make the jump to 8.x.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

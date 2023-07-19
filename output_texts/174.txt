@@ -1,0 +1,65 @@
+Sophos Home protects every Mac and PC in your home 
+Well, we didn’t expect this!
+Our much-loved iPhone 6+, now nearly eight years old but in pristine, as-new condition until a recent UDI (unintended dismount incident, also known as a bicycle prang, which smashed the screen but left the device working fine otherwise), hasn’t received any security updates from Apple for almost a year.
+The last update we received was back on 2021-09-23, when we updated to iOS 12.5.5.
+Every subsequent update for iOS and iPadOS 15 has understandably reinforced our assumption that Apple had dropped iOS 12 support for evermore, and so we relegated the old iPhone to background duty, solely as an emergency device for maps or phone calls while on the road.
+(We figured that another crash would be unlikely to wreck the screen any further, so it seemed a useful compromise.)
+But we’ve just noticed that Apple has decided to update iOS 12 again after all.
+This new update applies to the following models:  iPhone 5s, iPhone 6, iPhone 6 Plus, iPad Air, iPad mini 2, iPad mini 3, and iPod touch 6th generation. (Before iOS 13.1 and iPadOS 13.1 came out, iPhones and iPads used the same operating system, referred to as iOS for both devices.)
+We didn’t receive a Security Advisory email from Apple, but an alert Naked Security reader who knows we still have that old iPhone 6+ let us know about Apple Security Bulletin HT213428. (Thanks!)
+Simply put, Apple has published a patch for CVE-2022-32893, which is one of the two mysterious zero-day bugs that received emergency patches on most other Apple platforms earlier in August 2022:
+Apple patches double zero-day in browser and kernel – update now!
+
+
+As you will see in the article just above, there was a WebKit remote code execution bug, CVE-2022-32893, by means of which a jailbreaker, a spyware peddler, or some devious cybercriminal could lure you to a booby-trapped website and implant malware on your device, even if all you did was glance at an otherwise innocent-looking page or document.
+Then there was a second bug in the kernel, CVE-2022-32894, by which said malware could extend its tentacles beyond the app it just compromised (such as  a browser or a document viewer), and get control over the innards of the operating system itself, thus allowing the malware to spy on, modify or even install other apps, bypassing Apple’s much vaunted and notoriously strict security controls.
+So, here’s the good news: iOS 12 isn’t vulnerable to the kernel-level zero-day CVE-2022-32894, which almost certainly avoids the risk of total compromise of the operating system itself.
+But here’s the bad news: iOS 12 is vulnerable to the WebKit bug CVE-2022-32893, so that individual apps on your phone definitely are at risk of compromise.
+We’re guessing that Apple must have come across at least some high-profile (or high-risk, or both) users of older phones who were compromised in this way, and decided to push out protection for everyone as a special precaution.
+Remember that WebKit bugs exist, loosely speaking, at the software layer below Safari, so that Apple’s own Safari browser isn’t the only app at risk from this vulnerability.
+All browsers on iOS, even Firefox, Edge, Chrome and so on, use WebKit (that’s an Apple requirement if you want your app to make it into the App Store).
+And any app that displays web content for purposes other than general browsing, such as in its help pages, its About screen, or even in a built-in “minibrowser”, is also at risk because it will be using WebKit under the covers.
+In other words, just “avoiding Safari” and sticking to a third-party browser is not a suitable workaround in this case.
+We now know that the absence of an update for iOS 12 when the latest emergency patches came out for more recent iPhones was not down to the fact that iOS was already safe.
+It was simply down to the fact that an update wasn’t available yet.
+So, given that we now know that iOS 12 is at risk, and that exploits against CVE-2022-32893 are being used in real life, and that there is a patch available…
+…then it’s an urgent matter of Patch Early/Patch Often!
+Go to Settings > General > Software Update, and check that you have iOS 12.5.6.
+If you haven’t yet received the update automatically, tap Download and Install to begin the process right away:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Apple’s “settings” icon has always resembled a bicycle sprocket in my mind.
+As an avid biker and Apple device user and geek who observes life’s unassuming details, I expect you like that.
+:,)
+I suppose it might be loosely based on a 2x front chainring setup on a traditional geared road bike, except that I don’t think you get three-arm spiders (typically there are five or four arms), the teeth are quite the wrong shape, the two sprockets have different pitches (which is absurd because the same chain needs to run on both), and there’s no obvious way to connect the sprockets to anything to transfer power to them (you would surely expect bolt holes on the arms or a spline fitting in the centre hole).
+TBH, the Android settings icon is more bicyclesque, looking a bit like a track cog plus a lock ring, but the Android one only has six teeth, while the smallest cogs I’ve heard of are 9T for BMX and on the new 13-speed rear gearsets. On a regular track hub you can’t go smaller than 12T and apparently that needs a special lockring to leave room for the chain. (I like 13T, because 13 is prime.)
+Don’t ignore, that 6 is a perfect number 😉
+https://en.m.wikipedia.org/wiki/Perfect_number
+The usefulness of a prime number in the case of a rear bicycle cog is that as long as you avoid a front sprocket that has an exact multiple number of teeth, you will always have a maximum number of skid patches, because the cog and the sprocket won’t have any common divisors. Always aim for teeth counts that are coprime.
+https://www.bikecalc.com/skid_patch_calculator
+Even better, make the chainring size prime… but you may only be able to get a chainring with an even number or teeth.
+Personally I’ve always seen the Apple settings icon as more clockwork than bicycle, Then again I’ve had a Crank Brothers sticker on my laptops for years which is clearly a bicycle drive train with a chain ring cog and chain.
+I think 9T cogs are the lower limit for bicycles due to a combination of axle size and chain geometry. Modern 9T cogs actually date back to 2003-4 when the Shimano Capreo group  was introduced for folding bicycles with small wheels to get a reasonable top gear without a ludicrously large front chain ring.
+Capreo, eh? Sheldon has pictures! 
+It’s a weird thing: the 9T high gear has splines that drive a 10T cog, which has splines that drive an 11T cog, which is splined to the hub as usual, along with the other cogs (which are 13-15-17-20-23-26).
+https://www.sheldonbrown.com/capreo.html
+Is the list of models correct as My wife’s 6+ has continued to update and recently updated  to iOS 15.6.1
+Are you certain that it’s not an “iPhone 6s Plus” (rather than an “iPhone 6 Plus”)? 
+That letter S after the 6 makes a big difference – it denotes the models that came out in 2015, a year after the plain “6” series (I got my 6 Plus brand new at the back end of 2014). To check, go to Settings > General > About and look at the third line: Model Name.
+From memory, the iPhone 6 and 6 Plus got stuck at iOS 12 when iOS 13 came out, so they couldn’t run iOS 13 or iOS 14, let alone iOS 15.
+The oldest models on Apple’s official iPhone models compatible with iOS 15.5 list are the 6s and the 6s Plus:
+https://support.apple.com/en-gb/guide/iphone/iphe3fa5df43/ios
+Any word of a patch for Macs running OSX 10.14.6?
+See our previous article on this issue:
+https://nakedsecurity.sophos.com/2022/08/18/apple-patches-double-zero-day-in-browser-and-kernel-update-now/
+Monterey users (macOS 12) received patches for both bugs in a full OS-level update. Big Sur (macOS 11) and Catalina (macOS 10) users received a patch specifically listed as an update to Safari (including the underlying WebKit code where the vulnerability was found).
+From this I assume that, like iOS 12, macOS 10 and macOS 11 were affected only by the WebKit bug, not by the kernel bug as well.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

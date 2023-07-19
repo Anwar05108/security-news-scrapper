@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Chinese “fast fashion” brand SHEIN is no stranger to controversy, not least because of a 2018 data breach that its then-parent company Zoetop failed to spot, let alone to stop, and then handled dishonestly.
+As Letitia James, Attorney General of the State of New York, said in a statement at the end of 2022:
+SHEIN and [sister brand] ROMWE’s weak digital security measures made it easy for hackers to shoplift consumers’ personal data. […]
+[P]ersonal data was stolen and Zoetop tried to cover it up. Failing to protect consumers’ personal data and lying about it is not trendy. SHEIN and ROMWE must button up their cybersecurity measures to protect consumers from fraud and identity theft.
+At the time of the New York court judgment, we expressed surprise at the apparently modest $1.9 million fine imposed, considering the reach of the business:
+Frankly, we’re surprised that Zoetop (now SHEIN Distribution Corporation in the US) got off so lightly, considering the size, wealth and brand power of the company, its apparent lack of even basic precautions that could have prevented or reduced the danger posed by the breach, and its ongoing dishonesty in handling the breach after it became known.
+Fashion brand SHEIN fined $1.9m for lying about data breach
+
+
+What we didn’t know, even as this case was grinding through the New York judicial system, was that SHEIN was adding some curious (and dubious, if not actually malicious) code to its Android app that turned it into a basic sort of “marketing spyware tool”.
+That news emerged earlier this week when Microsoft researchers published a retrospective analysis of version 7.9.2 of SHEIN’s Android app, from early 2022.
+Although that version of the app has been updated many times since Microsoft reported its dubious behaviour, and although Google has now added some mitigations into Android (see below) to help you spot apps that try to get away with SHEIN’s sort of trickery…
+…this story is a strong reminder that even apps that are “vetted and approved” into Google Play may operate in devious ways that undermine your privacy and security – as in the case of those rogue “Authenticator” apps we wrote about two weeks ago. 
+Beware rogue 2FA apps in App Store and Google Play – don’t get hacked!
+
+
+The Microsoft researchers didn’t say what piqued their interest in this particular SHEIN app.
+For all we know, they may simply have picked a representative sample of apps with high download counts and searched their decompiled code automatically for intriguing or unexpected calls to system functions in order to create a short list of interesting targets.
+In the researchers’ own words:
+We first performed a static analysis of the app to identify the relevant code responsible for the behavior. We then performed a dynamic analysis by running the app in an instrumented environment to observe the code, including how it read the clipboard and sent its contents to a remote server.
+SHEIN’s app is designated as having 100M+ downloads, which is a fair way below super-high-flying apps such as Facebook (5B+), Twitter (1B+) and TikTok (1B+), but up there with other well-known and widely-used apps such as Signal (100M+) and McDonald’s (100M+).
+The app itself is enormous, weighing in at 93 MBytes in APK form (an APK file, short for Android Package, is essentially a compressed ZIP archive) and 194 MBytes when unpacked and extracted.
+It includes a sizeable chunk of library code in a set of packages with a top-level name of com.zzkko (ZZKKO was the original name of SHEIN), including a set of utility routines in a package called com.zzkko.base.util.
+Those base utilities include a function called PhoneUtil.getClipboardTxt() that will grab the clipboard using standard Android coding tools imported from android.content.ClipboardManager:
+
+Searching the SHEIN/ZZKKO code for calls to this utility function shows it’s used in just one place, a package intriguingly named com.zzkko.util.­MarketClipboardPhaseLinker:
+
+As explained in Microsoft’s analysis, this code, when triggered, reads in whatever happens to be in the clipboard, and then tests to see if it contains both :// and $, as you might expect if you’d copied and pasted a search result involving someone else’s website and a price in dollars:
+
+If the test succeeds, then the code calls a function compiled into the package with the unimaginative (and presumably auto-generated) name k(), sending it a copy of the snooped-on text as a parameter:
+
+As you can see, even if you’re not a programmer, that uninteresting function k() packages the sniffed-out clipboard data into a POST request, which is a special sort of HTTP connection that tells the server, “This is not a traditional GET request where I’m asking you to send me something, but an upload request in which I’m sending data to you.”
+The POST request in this case is uploaded to the URL https://api-service.shein.com/marketing/tinyurl/phrase, with HTTP content that would typically look something like this:
+As Microsoft graciously noted in its report:
+Although we’re not aware of any malicious intent by SHEIN, even seemingly benign behaviors in applications can be exploited with malicious intent. Threats targeting clipboards can put any copied and pasted information at risk of being stolen or modified by attackers, such as passwords, financial details, personal data, cryptocurrency wallet addresses, and other sensitive information.
+Dollar signs in your clipboard don’t invariably denote price searches, not least because the majority of countries in the world have currencies that use diferent symbols, so a wide range of personal information could be siphoned off this way…
+…but even if the data grabbed did indeed come from an innocent and unimportant search that you did elsewhere, it would still be no one else’s business but yours.
+URL encoding is generally used when you want to transmit URLs as data, so they can’t be mixed up with “live” URLs that are supposed to be visited, and so that they won’t contain any illegal characters. For example, spaces aren’t allowed in URLs, so they’re converted in URL data into %20, where the percent sign means “special byte follows as two hexadecimal characters”, and 20 is the hexadecimal ASCII code for space (32 in decimal). Likewise, a special sequence such as :// will be translated into %3A%2F%2F, because a colon is ASCII 0x3A (58 in decimal) and a forward slash is 0x2F (47 in decimal). The dollar sign comes out as %24 (36 in decimal).
+According to Microsoft, Google’s response to this kind of behaviour in otherwise-trusted apps – what you might think of as “unintentional betrayal” – was to beef up Android’s clipboard handling code.
+Presumably, making clipboard access permissions very much stricter and more restrictive would have been a better solution in theory, as would being more rigorous with Play Store app vetting, but we’re assuming that these response were considered too intrusive in practice.
+Loosely speaking, the more recent the version of Android you have (or can upgrade to), the more restrictively the clipboard is managed.
+Apparently, in Android 10 and later, an app can’t read the clipboard at all unless it’s running actively in the foreground.
+Admittedly, this doesn’t help much, but it does stop apps you’ve left idle and perhaps even forgotten about from snooping on your copying-and-pasting all the time.
+Android 12 and later will pop up a warning message to say “XYZ app pasted from your clipboard”, but apparently this warning only appears the first time it happens for any app (which might be when you expected it), not on subsequent clipboard grabs (when you didn’t).
+And Android 13 automatically wipes out the clipboard every so often (we’re not sure how often that actually is) to stop data you might have forgotten about lying around indefinitely.
+Given that Google apparently doesn’t intend to control clipboard access as strictly as you might hope, we’ll repeat Microsoft’s advice here, which runs along the lines of, “If you see something, say something… and vote with your feet, or at least your fingers”:
+Consider removing applications with unexpected behaviors, such as clipboard access […] notifications, and report the behavior to the vendor or app store operator.
+If you have a fleet of company mobile devices, and you haven’t yet adopted some form of mobile device management and anti-malware protection, why not take a look at what’s on offer now?
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Definitely disconcerting as many users utilize the clipboard throughout their browsing sessions especially for copy / pasting of passwords.  Having an application be able to grab your clipboard contents, no matter, how benign the action may be is something we all need to be concerned about and aware of.
+Totally agree with you, Mark. Clipboards can be attractive target for cyber attacks because mobile users often use them to copy /paste sensitive information such as login credentials. Hence, this can be used to launch malicious activities. Personally, if possible, I would access the company’s website through a browser from my phone or laptop instead of installing apps, just to reduce my exposure from any vulnerabilities.
+Huh. Who’d have thought installing a Chinese app on your phone was a bad idea.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

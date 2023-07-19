@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+On Wednesday this week, virtualisation behemoth VMWare published a security advisory describing two just-patched security holes in its products.
+Virtualisation in general, and VMWare’s product set in particular, is widely used to turn individual physical computers into several “virtual computers” that share the same physical hardware.
+These virtual computers, known in the jargon as VMs (short for virtual machines), realistically pretend to be independent computers in their own right, each one booting and running an operating system of its own, as a physical computer would.
+This means that one physical server, located in an on-site server room or in a cloud data centre, can flexibly be divvied up amongst multiple different users, who could come from separate departments in one organisation, or even from different companies.
+Each user gets access to what looks like, feels like, and runs like a computer all of their own, with an operating system and application stack of their own choice.
+Each VM, known in the jargon as a guest, has its own virtual hard disks, stored as a regular files on the physical server, known as the host.
+This means you can not only divide up one physical disk array into a variety of differently-sized guest disks, to suit the varying needs of the various guest users, but also easily snapshot and archive entire VMs by copying their virtual disk files.
+You can even clone an existing VM, and migrate the files that store its content to another physical server, in order to adapt quickly to rising demand for service or to recover from regional outages.
+As you can imagine, however, this flexibility comes with some significant risks and challenges. 
+Firstly, the virtualisation software needs to stop guest VMs on the same physical computer from interfering with each other (or, worse, from interfering with the host operating system itself), given that they all share and compete for the same physical RAM and peripherals.
+Secondly, given that some networks may have tens of thousands of VMs or more running in data centres across the world at any moment, the control software that manages this ocean of VMs needs to be especially resilient against attack.
+Ransomware crooks, in particular, love to get access to VM control panels, not least because:
+Indeed, when the infamous REvil ransomware crime gang put up $1,000,000 in Bitcoin in 2020 as an enticement to attract new network hacking “affiliates” to its underworld business, knowledge of Hyper-V (Microsoft’s virtualisation software) was explicitly listed amonst the necessary “experience and skills”.
+REvil ransomware crew dangles $1,000,000 cybercrime carrot
+
+
+Other necessary skills for a “job” with REvil, in case you’re wondering, included experience with backup devices such as NAS and tape, representing another part of your network infrastructure that ransomware criminals like to attack before they launch their file-scrambling denouement. With your VMs disrupted along with all your regular computers, the attackers aim to increase the extent to which they derail your business. With your backups disrupted, ransomware attackers aim to decrease your ability to recover on your own, so that they can squeeze you harder with their blackmail demands for decrypting your scrambled files.
+The latest VMware updates close off two security vulnerabilities in the VM control and management tools that the company provides:
+A cybercriminal who already had a foothold on your network, even if they were only a regular user with limited security entitlements, could launch and access the above management tools as an adminstrative user. Although this wouldn’t give the attacker sysadmin equivalence on the physical network, it could put them instantly in charge of your entire fleet of virtual servers.
+
+While the first bug means that an invader could level up to your own sysadmins inside the VM management tools, this bug means that the invader could abuse the VM tools to level up to your sysadmins on the computer where they have their foothold.
+
+Ironically, therefore, these VMware security holes could be combined to give an intruder a leg-up to both physical and virtual root-level powers at the same time.
+Note that neither of these bugs can be abused from outside your network for what’s known as RCE, short for remote code execution.
+As the name suggests, RCE bugs are especially dangerous because they often provide a way for criminals to inject malware into your network in the first place, as the launching point for an intrusion.
+Nevertheless, the US government thinks that CVE-2022-22972 and CVE-2022-22973 are sufficiently serious, given their potential for abuse, that it has issued Emergency Directive 22-03: Mitigate VMware Vulnerabilities.
+This document doesn’t just talk about the risks, as we have above, or advise government agencies to get busy with their patching.
+If you strip out the offialese and the bureaucratic boilerplace from this Directive, you are left with these very simple but uncompromising instructions:
+And then:
+In three words: discover, remediate, report.
+Or, as we like to say on Naked Security: Don’t delay – do it today!
+Not enough time or staff?Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+There are other risks associated with server farms … which may, at least in part, be mitigated by the usual methods of storing your data in server farms in separate geographical locations.
+Risk 1: An incident may cause damage or loss to a server farm site (e.g. the fire in Strasbourg a couple of years ago).
+Risk 2: Law enforcement (even acting outside their jurisdiction) may seize part or all of a server farm, causing collateral damage to any customers unconnected to the investigation, but whose data happens to be located in the same server farm.  (Remember the seizure of the Megaupload servers by the FBI in New Zealand.)
+Risk 3: Geographical separation should be such as to avoid the risk of common-mode failure.  There was a recent comment about a company with two widely separate sites in northern and southern California, where it was pointed out that the San Andreas fault runs close to both sites …
+Of course, you can separate your sites to a pan-continental distance (e.g. Alexandria and Cape Town, or Fairbanks and Ushuaia) to no avail if both sites remain unpatched against a known vulnerability…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

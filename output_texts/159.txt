@@ -1,0 +1,77 @@
+Sophos Home protects every Mac and PC in your home 
+Popular collaboration tool Slack (not to be confused with the nickname of the world’s longest-running Linux distro, Slackware) has just owned up to a long-running cybersecurity SNAFU.
+According to a news bulletin entitled Notice about Slack password resets, the company admitted that it had inadvertently been oversharing personal data “when users created or revoked a shared invitation link for their workspace.”
+From 2017-04-17 to 2022-07-17 (we assume both dates are inclusive), Slack said that the data sent to the recipients of such invitations included…
+…wait for it…
+…the sender’s hashed password.
+Slack’s security advisory doesn’t explain the breach very clearly, saying merely that “[t]his hashed password was not visible to any Slack clients; discovering it required actively monitoring encrypted network traffic coming from Slack’s servers.”
+We’re guessing that this translates as follows:
+“Most recipients wouldn’t have noticed that the data they received included any hashed password information, because that information, although included in the network packets sent, was never deliberately displayed to them. And because the data was sent over a TLS connection, eavesdroppers wouldn’t have been able to sniff it out along the way, because it wouldn’t get decrypted until it reached the other end of the connection.”
+That’s the good news.
+But network packets often include data that’s never normally used or seen by recipients.
+HTTP headers are a good example of this, given that they’re meant to be instructions to your browser, not data for display in the web page you’re looking at.
+And data that’s irrelevant or invisible to users often ends up in logs anyway, especially in firewall logs, where it could be preserved indefinitely.
+That’s the bad news.
+According to Slack, the leaked data was not merely hashed, but salted too, meaning that each user’s password was first mixed together with random data unique to that user before the hash function was applied.
+Hashes are essentially “non-reversible” mathematical functions that are easy to calculate in one direction, but not in the other.
+For example, it’s easy to calculate that:
+But the only way to work “backwards” from 7FB376..DEAD4B3AF008 to DUCK is to work forwards from every possible word in the dictionary and see if any of them come out with the value you’re trying to match:
+And by including a per-user salt, which doesn’t need to be secret, merely unique to each user, you ensure that even if two users choose the same password, they won’t end up with the same password hash.
+You can see the effect of salting here, when we hash the word DUCK with three different prefixes:
+This also means that attackers can’t create a precomputed list of likely hashes, or create a table of partial hash calculations, known as as a rainbow table, that can accelerate hash checking. (They’d need a brand new hashlist, or a unique set of rainbow tables, for every possible salt.)
+In other words, hashed-and-salted passwords can’t trivially be cracked to recover the original input, especially if the the original password was complex and randomly chosen.
+What Slack didn’t say is whether they’d stretched the password hashes, too, and if so, how.
+Stretching is a jargon term that means repeating the password hashing process over and over again, for example, 100,000 times, in order to extend the time needed to try out a bunch of dictionary words against known password hashes.
+If it would take one second to put 100,000 dictionary words through a plain salt-and-hash process, then attackers who know your password hash could try 6 million different dictionary words and deriviatives every minute, or take more than one billion guesses every three hours.
+On the other hand, if the salt-and-hash computations were stretched to take one second each, then the extra one-second delay when you tried to log in would cause little or no annoyance to you…
+…but would reduce an attacker to just 3600 tries an hour, making it much less likely that they’d get enough time to guess anything but the most obvious passwords.
+Several well-respected salt-hash-and-stretch algorithms are known, notably PBKDF2, bcrypt, scrypt and Argon2, all of which can be adjusted to increase the time needed to try individual password guesses in order to reduce the viability of so-called dictionary and brute force attacks.
+A dictionary attack means you’re trying likely passwords only, such as every word you can think of from aardvark to zymurgy, and then giving up. A brute-force attack means trying every possible input, even weird and unpronouncable ones, from AAA..AAAA to ZZZ..ZZZZ (or from 0000..000000 to FFFF..FFFFFF if you think in hexadecimal byte-by-byte terms).
+Serious Security: How to store your users’ passwords safely
+
+
+Slack says that about 1 in 200 of its users (0.5%, presumably based on records of how many shared invitation links were generated in the danger period), and that it will be forcing those users to reset their passwords.
+Some further advice:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It wasn’t for three months, it was for five years! The start date was April 17, 2017, not 2022.
+Good Lord! I guess I mis-read that because, in my head, 5 years would have been – impossible ??!!!?!?!??
+Updating the headline now. Thanks!
+The dates in the article also need to be updated to reflect 2017 not 2022 as the start.
+I made heavy weather of that, but I think we’re there now. Instead of editing 2022-04-17 to read 2017-04-17, I managed to edit 2022-07-17 to read 2022-07-22, thus turning one error into two.
+Let’s hope it’s sorted out now…
+You need to update the content too – it still says 2022 as the starting year … “From 2022-04-17 to 2022-07-22”
+Hahahahahahaha, I edited the wrong number in the wrong direction (I changed the ending *day* from 17 to 22, not the starting year from -22 to -17, which is a curious kind of glitch.)
+It should be correct now. 
+First day of bug: the 17th day of the fourth month, commonly known as April, Month of Showers, in the year 2017 of the Christian Era. 
+Last day of bug: the 17th day of the seventh month, commonly known as July, the Second Month of Calm Seas, AD 2022.
+Please tell me I’ve got it right now…
+The third paragraph starts with “From 2022-04-17 to 2022-07-22 (we assume both dates are inclusive), ”
+Should “2022-04-17” be changed to “2017-04-17”?
+Got there in the end. I think. I hope.
+Yet another new low for this industry XD
+Pretty Slack!
+[:DRUM EMOJI:] [:CYMBAL EMOJI:]
+Great article. Really enjoyed how it was written. Explained some complicated ideas in really simple terms.
+Thanks! Glad you found it useful.
+Great article!
+Thanks. Glad you liked it…
+What hashing algorithm did they use?
+Which TLS and what encryption? 
+there is a HUGE difference in TLS 1.0’s weakest and TLS 1.2’s strongest, and a HUGE difference in hashing algorithms.
+We discussed this issue (that Slack could have been more forthcoming about exactly what hashing process and which associated parameters were used) in S3 Ep95 of the podcast (audio + full transcript available):
+https://nakedsecurity.sophos.com/2022/08/11/s3-ep95-slack-leak-github-onslaught-and-post-quantum-crypto-audio-text/
+Indeed quite slack! I wonder what is on the programmer mind when he decided to append the password hash into an shared invitation link??? what could he possibility be thinking?
+For all we know, the programmer might not have explicitly decided “let’s include the password hash”. 
+They might simply have been presented with a blob of “account info” data from some internal API that was supposed to include public info about an account only, but that hadn’t been correctly implemented/documented/tested before because it hadn’t previously been used for this sort of thing…
+A kind of “supply chain” error, where the supply chain is “existing code from somewhere else in the company that is part of the useful-library-functions-you-can-use-if-you-like list…
+Appreciated the easy to understand and thorough explanation of hashed, salted, stretched.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

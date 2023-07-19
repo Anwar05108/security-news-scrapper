@@ -1,0 +1,107 @@
+Sophos Home protects every Mac and PC in your home 
+Yesterday, we wrote about the waited-for-with-bated-breath OpenSSL update that attracted many column-kilometres of media attention last week.
+The OpenSSL team announced in advance, as it usually does, that a new version of its popular cryptographic library would soon be released.
+This notification stated that the update would patch against a security hole with a CRITICAL severity rating, the project’s highest.
+Unlike companies such as Apple, who deliberately announce forthcoming security patches simply by releasing them, claiming that this is the best way to protect users, OpenSSL thinks that some sort of advance warning is useful, even though it often can’t say exactly what fixes are coming for fear of giving cybercriminals a head start.
+Organisations including Microsoft, Adobe, Oracle and Mozilla also believe in advance notification of patches, albeit that theirs are implicit warnings created by sticking to a well-known schedule that you can plan your life around, such as Microsoft’s Patch Tuesday, Oracle’s Quarterly Updates, and Mozilla’s Every Fourth Tuesdays.
+However, when there’s an unspecified OpenSSL bugfix that gets a CRITICAL rating, there’s always the risk of provoking panic, like the difference between knowing that it will probably be rainy next week, and wondering whether there might be a wildly destructive storm.
+One reason for that, fairly or unfairly, is lots of IT teams have long memories that go back to an OpenSSL CRITICAL patch, back in 2014, that closed off the legendary Heartbleed vulnerability:
+Anatomy of a data leakage bug – the OpenSSL “Heartbleed” buffer overflow
+
+
+Heartbleed, unfortunately, was a data leakage bug in OpenSSL that could be triggered by clients, such as random people browsing the internet, against servers almost anywhere.
+Worse still, the bug became a sort of countercultural cause célèbre, and it was triggered fast and often by cybercriminals, troublemakers and self-proclaimed “researchers” all round the globe.
+Heartbleed attackers went to town trying to take advantage of a bug that was trivial to exploit and that could lead to embarrassment or worse for companies caught out with leaky servers because they hadn’t patched.
+Ever since, every time the words CRITICAL and OpenSSL have appeared predictively in the same sentence, the cybersecurity industry has drawn a deep and collective breath, and wondered, “Could this be another XxxxxBleed moment?”
+Fortunately, the latest update, once it came out, brought just one piece of mildly worrying news, along with three reasons to feel relieved.
+Although what was originally reported as one bug turned out to be two (the second hole was found while researching the first, given that bugs of a similar type often clump together), their impact wasn’t as dramatic as first thought, because:
+Nevertheless, the only sensible advice we can give at this stage is, “Update OpenSSL if you have it.”
+For SecOps teams and IT staff, that sort of advice makes sense, even if it raises the immediate question, “Where and how to start?”
+For everyone else, like Naked Security commenter none, there’s an even more perplexing concern, namely, “I have no idea what I’m supposed to update. Chrome? Firefox? Windows? Help!”
+Sadly, there’s no easy answer to that question, because the relationship between Windows and OpenSSL is complicated.
+Windows has its own independently developed and maintained encryption library with the wacky name Cryptography API: Next Generation (CNG), so in theory you would not expect to have to worry about OpenSSL on Windows at all.
+Yet our default install of Windows 11 has a DLL file called libcrypto.dll in its System folder, which is a filename typically associated with OpenSSL.
+Intriguingly, that one turns out to be a false alarm, because it was compiled from the LibreSSL code, a similar but alternative cryptographic library from the OpenBSD team that is loosely compatible with OpenSSL, but doesn’t have these bugs in it.
+But even if that Windows system file is nothing to worry about, you may have downloaded Windows apps, or have had them installed for you as part of the supply chain when installing other apps, that quietly brought along their own copies of OpenSSL.
+So, even though (as far as we are aware, anyway) the most popular browsers on Windows, namely Edge, Chrome and Firefox, don’t rely on OpenSSL and therefore aren’t at risk…
+…what about sysadmins and SecOps teams who want to find out which computers on the network have OpenSSL libraries installed by third-party products, so they can contact the relevant vendors for advice on whether patches are needed, and if so, when they’ll be ready?
+Similarly, IT teams looking after Unix and Linux servers, will want to know which OpenSSL libraries, if any, are part of their operating system distro, and which products bring their own builds of OpenSSL along for the ride?
+Here are some low-level ways to help you answer those questions.
+For software that relies on OpenSSL’s dynamically loaded libraries (many if not most programs use OpenSSL this way), you can quickly identify likely OpenSSL code on your system by searching for the most likely names used by the library files.
+On Linux, that’s usually libcrypto*.so* and libssl*.so*, and on Windows it’s usually libcrypto*.dll and libssl*.dll. (On macOS, shared libraries sometimes have names with .so, but many have a .dylib extension, so search for both forms.)
+Often the filenames will be suffixed (in the places where the wildcard * characters appear above) with some sort of version identifier, e.g. 1.1 or 3, which can help you determine which files are vulnerable to these bugs, and therefore need their updates prioritising.
+On Linux, we used a command like this to look for OpenSSL libraries:
+As you can see, we found a bunch of libraries almost certainly looked after by the distro, in /lib64 and /usr/lib64, plus a bunch of other copies that were apparently brought along with apps we use.
+Although we could, in theory, patch our distro and then temporarily copy the centrally updated libcrypto.so.1.1 files over those in the app-specific directories mapping and zerobrane, that might not work well, given that the app might never have been tested with the latest OpenSSL library.
+It would also would leave us prone to inadvertent downgrades later on if either product noticed it had an interloper file in its midst, and reinstalled what it thought was the right one.
+Asking your vendor directly is a good way to ensure you get the most reliable, long-term fix.
+(As an aside, we compiled the files in the Builds/openssl-3.0.5 directory specially for this test, in order to ensure we had a recent but not-yet-updated set of OpenSSL 3.0 libraries for completeness.)
+On Windows, we used the DIR /S command in a command prompt, and we got this:
+This was a recent Windows Enterprise Edition 11 2022H2 install, on which we’d deliberately installed the Shining Light Productions build of OpenSSL for Windows, to ensure we had at least one 64-bit copy of OpenSSL 3.0 in place.
+We’d also installed the popular network scanning tool Nmap, which brought with it 32-bit versions of both OpenSSL 1.1.1 and OpenSSL 3.0.
+As mentioned above, we found a libcrypto.dll file in the System folder that we didn’t expect, although the long name of its identical companion in the system WinSxS repository suggested that this wasn’t an OpenSSL-style libcrypto, but a LibreSSL one, which doesn’t have these bugs.
+Now we need to work out which libcrypto files have what version numbers.
+On Windows, it’s sometimes enough simply to browse to a libcrypto*.dll sample using File Explorer, right-click on it, and view Properties in order to determine the version details:
+
+But we’ve noticed in the past that some apps insert the version details of the main app into third-party DLLs instead, as a useful way of helping you keep track of which software brought those DLLs along in the first place.
+So we devised a more precise way of interrogating a DLL for its OpenSSL version, namely by actually loading the library into a test program and calling the OpenSSL_version() function, if there is one:
+Note that activating a DLL with LoadLibrary() doesn’t just load it, but also runs its startup code, which is found in the function DllMain() inside any Windows DLL.
+In other words, don’t use this technique blindly on untrusted DLLs, because it’s equivalent in risk to running an EXE file directly.
+If you don’t have a C compiler installed, you can get a fantastic, free, ready-to-use, minimalistic Windows 64-bit compiler toolkit (under 400KB, including program, headers and libraries!) based on Fabrice Bellard’s Tiny C Compiler (TCC) from here: 
+https://github.com/pducklin/minimalisti-C/releases
+
+Save the above C source file as cryptochk.c, download and unzip the petcc64-winbin.zip file anywhere on your Windows computer (the program will locate its own include and library files) and run…
+…to generate cryptchk.exe. (Note that it’s just 2560 bytes in size.)
+Now you can check the version data of libcrypto files like this:
+As you can now see, the system DLL that we guessed above wasn’t OpenSSL at all is indeed revealed as a LibreSSL component, which isn’t affected by these bugs.
+The newly-installed OpenSSL for Windows is confirmed as up to date.
+Other output you may see might look like this:
+That’s not an OpenSSL 1.1.1 or OpenSSL 3.0 DLL, so we wouldn’t expect it to have the necessary function to show us its version number.
+Or like this:
+Error 193 is ERR_BAD_EXE_FORMAT, denoting a file that is “not a valid Win32 application”, because petcc64 is stripped down specifically to build 64-bit Windows executables only, and 64-bit code can’t load 32-bit DLLs.
+But all 64-bit Windows versions still support apps compiled in 32-bit mode, which some vendors supply for both platform types so that they can provide just one build that runs on old and new flavours of Windows.
+However, if you have access to Visual Studio (the Community Edition is free for individual use, but takes up many gigabytes), you can compile the above code in 32-bit mode, like this:
+Those versions do need updating, so if you’re an NMap for Windows users, keep your eyes out for the next official release.
+On Unix and Linux, you can use this code in your cryptchk.c file to achieve a similar result:
+Where Windows uses LoadLibrary() and GetProcAddress(), the Unix coding style uses dlopen() and dlsym() instead, where dl is short for dynamic library.
+Here is some of the output we got on our own Linux system:
+Both the 1.1.1 and 3.0 versions need updating, the former by the distro and the latter by us, while the legacy 1.0.0 library (no, we’re not sure why it’s there, and will now consider removing it) doesn’t support the contemporary OpenSSL_version() function.
+Unfortunately, the OpenSSL code can be statically linked into Windows and Linux/Unix executable files, leaving no obvious .dll or .so files to guide you to potentially buggy packages.
+Static linking means that the OpenSSL code is built right into the main .EXE or binary file, mixed in along with everything else.
+In theory, you could search binary program files for identifying text strings that typically appear in OpenSSL’s code when it’s compiled, hoping to find the version number at the same time, but that’s an error-prone process so we shan’t cover it here.
+Ideally, software that incorporates OpenSSL should declare that it’s using the project’s code somewhere in its installer, documentation or website.
+This should help you to track down products that use OpenSSL, but in a way that doesn’t show up obviously, at which point we suggest contacting the vendor for further information.
+If you have any questions, you can leave them in the comments below, anonymously if you wish.
+If you want to contact us privately, you can email tips@sophos.com.
+We can’t promise to answer every question, but we’ll give it a good go…
+…and if you’d like to see more articles like this, with sample code in a do-it-yourself, “learn by trying” spirit, please let us know.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+For code examples I prefer if you could actually provide in such cases a pre-compiled 32-bit file for example or instructions for a smaller compiler of 32-bit apps.
+I prefer that you keep providing full code samples, we can always try to write our own code afterwards for a different but similar purpose afterwards based on your code.
+Code::Blocks IDE which is small enough and has many compilers bundled (atleast at the last time I checked).
+Another approach is to be looking for the About dialog of the programs on your computer and search for OpenSSL in the credits, it cans be a good thing to do.
+Also it could be in a LICENSE.txt file if no About dialog is available.
+This cans help answer questions such as ‘Which programs need updating?’.
+But I would like a bit of that $64,000,000,000 first as a one-time royalty!
+Make sure to also use Big Endian before giving me the last bit of that amount.
+(That’s sarcasm, of course. It’s a reference to your earlier ‘$64,000,000,000 question’ comment.)
+I did provide instructions for building a 32-bit file – you can use Visual Studio (link in article) and the compiler command Ito use is right there in the text just above where you see the output string “Microsoft (R) C/C++ Optimizing Compiler”.
+BTW, in Big Endian, the “last bit” of the amount shown is zero (it’s an even number!)… where should I send the amount :-)
+This is a great article. Just one thought:
+The DIR /S command will yield better results if used with more wildcard characters in filename, like:
+DIR C:\libc******.* /S,
+instead of:
+DIR C:\libcrypto.* /S
+cheers
+I must have corrupted that command when copying and pasting from my Windows VM given that my own results are of the form libcrypto*.*
+Will edit, thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

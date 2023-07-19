@@ -1,0 +1,82 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve often warned about the risks of browser extensions – not just for Chrome, but for any browser out there.
+That’s because browser extensions aren’t subject to the same strict controls as the content of web pages you download, otherwise they wouldn’t be extensions…
+…they’d basically just be locally-cached web pages.
+An ad-blocker or a password manager that was locked down so it worked on exactly one website wouldn’t be much use; a tab manager that could only manage one tab or site at a time wouldn’t be very helpful; and so on.
+Web pages aren’t supposed to be able to override any controls imposed by the browser itself, so they can’t alter the address bar to display a bogus servername, or bypass the Are you sure? dialog that verifies you really did want to download that Word document to your hard disk.
+Browser extensions, on the other hand, are supposed to be able, well, to extend and alter the behaviour of the browser itself.
+Amongst other things, browser extensions can:
+Screencastify is one example of a browser extension that provides a popular feature that wouldn’t be possible via a website alone, namely capturing some or all of your screen so you can share it with other users.
+The extension boasts 10,000,000+ users (apparently, there is no higher category, no matter how many users you get to), and invites you, in its own description, to:
+
+Security researcher Wladimir Palant, himself an extension developer, decided to look into Screencastify, given its popularity.
+Earlier this week, he published what he found.
+Amongst other things, his report is a well-written reminder of just how difficult it can be to work out who’s involved in the web of trust you need to have when you decide to use an app or service from company X.
+Just like source-code supply chain risks, where you install software from A, which is licensed from B, updates from C, pulls in additional modules from D (possibly repeated recursively in many interconnected stages)…
+…web-based service risks can come from an implicit delegation of trust to many other vendors or providers who are involved in the service delivery process.
+Palant started by looking at Screencastify’s Chrome manifest file, a JSON data file that comes with every extension to specify important information such as name, version number, security policy, update URL, and permissions needed.
+One of the entries in a Chrome manifest is a list called externally_connectable, which states which extensions, apps and websites are allowed to interact with your extension.
+Typically, other extensions and apps already installed on your system can do this by default, but for obvious security reasons, external websites can’t.
+This means that you can’t innocently  wander onto a website, just to take a look around, only to find that the server you’re visiting is trying to take control of the extension unexpectedly.
+But Screencastify provides all sort of additional cloud-based functionality from its own website, so it understandably included itself in the list of externally_connectable sources.
+When Palant first looked, the connection trust list looked like this:
+Given that the special character * means “match anything here”, the specification above says that any URL on any website under the screencastify.com domain is automatically authorised to interact remotely with your browser, via the Screencastify extension…
+…which, don’t forget, has access to your webcam to provide a popular aspect of its service.
+Palant quickly found that one of the requests that that these externally_connectable websites could send to your browser was tagged bg:getSignInToken, and making this request returned a Google access token for your Google Drive files. (In our tests, Screencastify won’t work unless you have a Google account and are logged into it.)
+Interestingly, according to Palant, the reason that Screencastify works with  full access to Google Drive (extensions can, in fact, request access only to a directory of their own) is that without full access, an extension can’t display a list of its own files. So, to keep a stash of uploaded files that you can later browse through, it seems that an extension needs to go for full access, create a directory of its own, and then display its own files from there.
+Additionally, as you would expect, given that Screencastify is all about screen capture with added webcam streaming, externally_connectable websites can request access to Chrome’s desktopCapture API (which can read in pixel content from anywhere on the screen), to the tabCapture API (which can extract content from inside the browser itself), and to the WebRTC API (short for web real-time communication, including webcam access). 
+Requests to capture your desktop or browser tabs are less controversial than they might sound, because they always produce an obvious popup dialog to request permission.
+Apparently, Chrome asks every single time – there’s not even any inferred permission if you turn on screen capturing multiple times in a single session.
+But webcam permisisons only need to be requested once, which Screencastify does when you set it up, after which they can be claimed without further popups appearing.
+Palant also found that Screencastify’s default video recording settings, once some sort of capture is enabled, include uploading the video to your Google Drive files.
+And, as we mentioned above, any website on the externally_connectable list can acquire an access token for your Google Drive and download the videos later on, even if it didn’t sneakily start an unwanted webcam capture itself.
+At this point, you might be thinking, “So what? I’ve already decided to trust Screencastify’s code and website, so this is not a surprise. I’m already expecting Screencastiy to capture and store the video, so they’ll have it anyway.”
+This is where the setting https://*.screencastify.com/* (see above) becomes significant.
+As Palant discovered at the time of his research, at least six Screencastify subdomains were operated by third parties:
+In other words, you not only needed to trust Screencastify’s extensions and its own servers with “silent” access to your webcam and your Google Drive, but also to trust at least all the other providers above.
+More specifically, you had to trust that there were no bugs such as cross-site scripting (XSS) flaws on any of those subdomains.
+An XSS bug means that you can trick a site such as example.com into generating and serving up a web page that includes unmodified, dangerous content of your own choosing, such as a search result that includes a raw snippet of JavaScript code instead of a simple text string.
+If you ask my website to search for Luap Nilkcud, and I return an HTML page that that includes, say, <bold>Luap Nilkcud</bold> not found, try again, that’s mostly harmless, because the generated HTML just means “print the given text in bold and the rest in a plain font”. But if you search for, say, <script>alert("Oops")</script>, and I reflect that text precisely, including the magic angle brackets, your browser will interpret and execute the code inside the script tags. (Those angle brackets should have been stripped out, or converted to the special codes &lt; and &gt; respectively). The “unescaped” script code will run with the same security powers as code stored on my own site, so you would effectively be able to inject JavaScript into my site’s served-up HTML without actually hacking my server.
+Ultimately, Palant did find an XSS bug on one of the Screencastify properties, which he reported back in February.
+To its credit, Screencastify acknowledged the bug on the very same day, and had it fixed by the next.
+This investigation is nevertheless a good reminder that there may be many more moving parts, and many more risk exposures, than you first think when you decide to go for product P or service S from vendor V.
+Interestingly, since Palant’s report came out, Screencastify decided to restrict that overly-broad trust list in its externally_connectable specification, which has now been reduced to an explicit set of subdomains:
+The www.screencastify.com subdomain, operated by a third-party, is still there, but the explicit list makes it much easier for SecOps (security operations) researchers to quantify the overall risk of this extension if they are so inclined.
+It’s a great reminder of the value of the need-to-know, or least-privilege principle, which says that you shouldn’t give anyone access to resources they don’t need, no matter how much you trust them, on the grounds that there’s less to go wrong if you specify your security settings explicitly rather than implicitly.
+Need-to-know also protects trusted users from making innocent mistakes that could be costly both for you and for them.
+For example, sometimes you need to be logged in with root or Administrator powers…
+…but you don’t need root to read your email or to browse the web, so you should set up your account so you can take on those superpowers only when needed, and relinquish them when you don’t.
+Less, in cybersecurity, is very often more.
+Update. Screencastify has further information about how it responded to this issue on its own blog. We’ve added a link here (and in the text above) because the company’s article gives additional details about possible XSS attacks and the defences they have against them. [2022-06-21T16:42Z]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Why isn’t this extension covered with application control using Sophos endpoint protection?
+I’m not sure of the purpose of this article, seems like there was no conclusion or solution.
+The conclusion is at the end.
+Try to be explicit rather than implicit about your security policies, as Screencastify ultimately did in this case. (For example, prefer explicit file, server and domain names over wildcards, so you can manage your overall risk more closely.) And embrace the principle of least privilege. (The example here: don’t give every subdomain access rights when you could enumerate the precise subdomains you are interested in.)
+As for “why isn’t this extension covered by Application Control”…well, technically, it isn’t an application, it’s an add-on to Chrome, and Chrome is an app that *can* be managed with Application Control.
+There are hundreds of thousands of extensions in the Chrome Store. If we were to add this one to the list, we’d pretty much have to add all the others, which would be an absurdly large task. Plus, these aren’t really applications, they’re add-ons for the Chrome app. We can manage Chrome; Chrome should IMO be used to manage itself. Indeed, you can allow/block indidivual or all extensions in Chrome.
+I suspect that if you are worried about this one, then you probably want to ban *all* extensions. Just blocking this one, which at least appears to be provided by a team that is responsive to cybersecurity changes (notice the quick fix to the XSS bug and the longer-term tightening of the externally_connectable setting), would not do much. IMO, it would probably cause users who were determined to share their screens, even when asked not to do so, to seek out less well-known screen sharing extensions.
+Remember that Application Control is not about stopping specific threats or malware but about helping you manage the range of endpoint apps your users can install in the first place. There’s no suggestion here that there is anything dangerous, malicious or even remotely dubious about this extension, so we’re not going to block it for those reasons.
+Also, remember that although this is Sophos Naked Security, and we therefore feel free to talk about issues that relate directly to Sophos products when appropriate, we also write about general cybersecurity issues that have no immediate connection to our own products, because this site isn’t “news about Sophos” (for that, we have the clearly and aptly named news.sophos.com). 
+This site discusses things of likely general use and interest to the community about cybersecurity, computer science, mathematics, SecOps, secure programming, and (once in a while) covers Fun Things From STEM Our Readers Enjoy, such as World Pi Day. 
+Not everything we talk about lies directly within our remit to “fix” with our products, and lots of our own customers come here for articles of a “this site is not only and all about Sophos” nature. A good example is our recent article about Clearview AI. We can’t block that company from scraping images uploaded to cloud services, but as a community we can help to influence public discussion about whether services like Clearview AI are good, bad or neutral.
+For specific community content about our products and services and how best to use them, I suggest taking a look at https://community.sophos.com/.
+HtH.
+Fun Things From STEM Our Readers Enjoy is probably my favorite.
+However there’s a seemingly-daily metric ton (tonne?) of dire news in the tech, political, and other spheres.
+Therefore articles like this are a great second choice, given Screencastify’s responsible response:
+Mea culpa and (insert Latin here for here, let me fix that really quick).
+Granted it appears to have been an easy fix, but it’s still encouraging to see.
+“Givem that the special character …”
+Small typo there. 🙂
+Fixed, thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,197 @@
+Sophos Home protects every Mac and PC in your home 
+WHY DID THAT TAKE SO LONG?
+Latest epidode – listen now.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.   Busts, shutdowns, Samba, and GitHub. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today, Sir?
+DUCK.   I’m very well, Douglas.
+DOUG.   Let us start the show with our Tech History segment – this is an interesting one. 
+This week, on 01 February 1982, the Intel 80286 16-bit microprocessor was introduced, and went on to become a mainstay in IBM PC/AT computers for years. 
+Interestingly, Intel didn’t expect the 286 to be used for personal computers, and designed a chip with multitasking and multi-user systems in mind.
+DUCK.   Its primary use, as you say, was the PC/AT, the “Advanced Technology” computer from IBM, which was basically designed to run DOS.
+Although DOS is limited to 1MB of RAM (or 640KB RAM and the rest ROM), you could have extra memory, and you could use it for things like…
+…remember HIMEM.SYS, and RAM caches, all of that stuff?
+Except that because Intel had security in mind, bless their hearts, when they designed the 286…
+…once you had switched from the mode where it ran like an 8086 into the super-powerful so-called “protected mode”, *you couldn’t switch back*. 
+Once you flipped into the mode that let you access your HIMEM or your RAMDISK, you were stuck. 
+You couldn’t go back and carry on running DOS!
+And IBM actually jury-rigged their PC – you sent this special command to (believe it or not) the keyboard controller,  and the keyboard controller basically rebooted the CPU. 
+Then, when the CPU started up again, the BIOS said, “Oh, that’s not a true reboot, that’s a sneaky ‘switch back illegally to real mode’ reboot,” [LAUGHTER] and it went back to where you were in DOS. 
+So the problem is, it was super-inefficient.
+The other thing with the 286, even though it could access 16MB RAM in total, is that, just like the 8086, it could only work on a maximum of 64KB at a time.
+So the 64-kilobyte limit was still basically wired into the DNA of that 286 microprocessor.
+It was majestically and needlessly, as it turned out, complicated. 
+It’s kind of like a product that was super-cool, but didn’t really fit a need in the market at the time, sadly.
+DOUG.   Well, let’s start in on our first stories. 
+We have a two-pack – it’s crime time. 
+Let’s talk about shutdowns and lock-ups, starting with the FBI shutting down the Hive ransomware servers at long last. 
+That’s good news!
+Hive ransomware servers shut down at last, says FBI
+
+DUCK.   It does seem so, doesn’t it, Doug? 
+Although we need to say, as we always do, essentially, that “cybercrime abhors a vacuum”. 
+Sadly, other operators steam in when one lot get busted…
+…or if all that happens is that their servers get taken down, and the actual people operating them don’t get identified and arrested, typically what happens is they keep their heads below the parapet for a little while, and then they just pop up somewhere else. 
+Sometimes they reinvent the old brand, just to thumb their nose at the world. 
+Sometimes they’d come back with a new name. 
+So the thing with Hive – it turns out that the FBI had infiltrated the Hive ransomware gang, presumably by taking over some sysadmin’s account, and apparently that happened in the middle of 2022. 
+But, as we have said on the podcast before, with the dark web, the fact that you have someone’s account and you can log in as them…
+…you still can’t just look up the IP number of the server you’re connecting to, because the dark web is hiding that. 
+So it seems that, for the first part of this operation, the FBI weren’t actually able to identify where the servers were, although apparently they were able to get free decryption keys for quite a number of people – I think several hundred victims.
+So that was quite good news!
+And then, whether it was some operational intelligence blunder, whether they just got lucky, or… we don’t know, but it seems that eventually they did work out where the servers were, and bingo! 
+Shutdown!
+DOUG.   OK, very good. 
+And then our second of these crime stories.
+We’ve got a Dutch suspect in custody, charged for not just personal data theft, but [DOOM-LADEN VOICE] “megatheft”, as you put it. Paul:
+Dutch suspect locked up for alleged personal data megathefts
+
+DUCK.   Yes!
+It seems that his “job” was… he finds data, or buys data from other people, or breaks into sites and steals huge tranches of data himself.
+Then he slices-and-dices it in various ways, and puts it up for sale on the dark web. 
+He was caught because the company that looks after TV licensing in Austria (a lot of European countries require you to have a permit to own and operate a TV set, which essentially funds national television)… those databases pretty much have every household, minus a few. 
+The Austrian authorities became aware that there was a database up for sale on the dark web that looked very much like the kind of data you’d get – the fields, and the way everything was formatted… “That looks like ours, that looks like Austrian TV licences. My gosh!”
+So they did a really cool thing, Doug. 
+They did an undercover buy-back, and in the process of doing so, they actually got a good handle on where the person was: “It looks like this person is probably in Amsterdam, in the Netherlands.”
+And so they got in touch with their chums in the Dutch police, and the Dutch were able to get warrants, and find out more, and do some raids, and bust somebody for this crime.
+Perhaps unusually, they got the right from the court, essentially, to hold the guy incommunicado – it was all a secret. 
+He was just locked away, didn’t get bail – in fact, they’ve still got a couple more months, I think, that they can hold him. 
+So he’s not getting out. 
+I’m assuming they’re worried that [A] he’s got loads of cryptocurrency lying around, so he’d probably do a runner, and [B] he’d probably tip off all his compadres in the cyberunderworld. 
+It also seemed that he was making plenty of money out of it, because he’s also being charged with money laundering – the Dutch police claim to have evidence that he personally cashed out somewhere in the region of half-a-million euros of cryptocoins last year. 
+So there you are! 
+Quite a lot of derring-do in an investigation, once again.
+DOUG.   Yes, indeed. 
+OK, this is a classic “We will keep an eye on that!” type of story. 
+In the meantime, we have a Samba logon bug that reminds us why cryptographic agility is so important:
+Serious Security: The Samba logon bug caused by outdated crypto
+
+DUCK.   It is a reminder that when the cryptographic gurus of the world say, “XYZ algorithm is no longer fit for purpose, please stop using it”, snd the year is – shall we say – the mid 2000s…
+…it’s well worth listening! 
+Make sure that there isn’t some legacy code that drags on, because you kind-of think, “No one will use it.” 
+This is a logon process in Microsoft Windows networking which relies on the MD5 hashing algorithm. 
+And the problem with the MD5 hashing algorithm is it is much too easy to create two files that have exactly the same hash. 
+That shouldn’t happen! 
+For me to get two separate inputs that have exactly the same hash should take me, on my laptop, approximately 10,000 years…
+DOUG.   Approximately! [LAUGHS]
+DUCK.   More or less.
+However, just for that article alone, using tools developed by a Dutch cryptographer for his Master’s thesis back in 2007, I created *ten* colliding MD5 hash-pair files… 
+…in a maximum of 14 seconds (for one of them) and a minimum of under half a second. 
+So, billions of times faster than it’s supposed to be possible. 
+You can therefore be absolutely sure that the MD5 hash algorithm *simply doesn’t live up to its promise*. 
+That is the core of this bug. 
+Basically, in the middle of the authentication process, there’s a part that says, “You know what, we’re going to create this super-secure authentication token from data supplied by the user, and using a secret key supplied by the user. So, what we’ll do is we’ll first do an MD5 hash of the data to make it nice and short, and then we’ll create the authentication code *based on that 128-bit hash.” 
+In theory, if you’re an attacker, you can create alternative input data *that will come up with the same authentication hash*. 
+And that means you can convince the other end, “Yes, I *must* know the secret key, otherwise how could I possibly create the right authentication code?”
+The answer is: you cheat in the middle of the process, by feeding in data that just happens to come up with the same hash, which is what the authentication code is based upon. 
+The MD5 algorithm died years ago, but yet it lives on –  and it shouldn’t! 
+So the fix is easy. 
+Samba just said, “What we’re going to do is, if you want to use this old algorithm, from now on, you will have to jump through hoops to turn it on. And if that breaks things, and if suddenly you can’t log into your own network because you were using weak security without realising it… that’s the price we’re all willing to pay.” 
+And I agree with that.
+DOUG.   OK, it’s version 4.17.5 that now forces those two options, so head out there and pick that up if you haven’t already. 
+And last, but certainly not least, we’ve got code-signing certificates stolen from GitHub. 
+But there’s a silver lining here, fortunately:
+GitHub code-signing certificates stolen (but will be revoked this week)
+
+DUCK.   It’s been quite the few months for cloud breaches and potential supply chain attacks.
+DOUG.   Seriously!
+DUCK.    “Oh dear, stolen signing keys”… GitHub realised this had happened on 07 December 2022. 
+Now, hats off to them, they realised the very day after the crooks had got in. 
+The problem is that they hadn’t got into wander around – it seems that their ability to get in was based on the fact that they could download private GitHub repositories. 
+This is not a breach of the GitHub systems, or the GitHub infrastructure, or how GitHub stores files – it’s just that GitHub’s code on GitHub… some of the stuff that was supposed to be private got downloaded. 
+And as we’ve spoken about before, the problem when source code repositories that are supposed to be private get downloaded…
+…the problem is that, surprisingly often, those repositories might have stuff in that you don’t want to make public. 
+For example, passwords to other services. 
+And, importantly, the code-signing keys – your signet ring, that you use to put your little seal in the wax of the program that you actually build. 
+Even if you’re an open source project, you’re not going to put your code-signing keys in the public version of the source code!
+So that was GitHub’s fear: “Oh dear. We found the crooks almost immediately, but they came in, they grabbed the code, they went… thus, damage already done.” 
+It took them quite a long time, nearly two months, to figure out what they could say about this. 
+Or at least it took two months until they said anything about it. 
+And it sounds as though the only things that might have an effect on customers that did get stolen were indeed code-signing keys. 
+Only two projects were affected. 
+One is the source code editor known as “Atom”, GitHub Atom.
+That was basically superseded in most developers’ lives by Visual Studio Code [LAUGHS], so the whole project got discontinued in the middle of 2022, and its last security update was December 2022. 
+So you probably shouldn’t be using Atom anyway. 
+And the good news is that, because they weren’t going to be building it any more, the certificates involved…
+…most of them have already expired. 
+And in the end, GitHub found, I think, that there are only three stolen certificates that were actually still valid, in other words, that crooks could actually use for signing anything. 
+And those three certificates were all encrypted.
+One of them expired on 04 January 2023, and it doesn’t seem that the crooks did crack that password, because I’m not aware of any malware that was signed with that certificate in the gap between the crooks getting in and the certificate expiring one month later.
+There is a second certificate that expires the day we’re recording the podcast, Wednesday, 01 February 2022; I’m not aware of that one having been abused, either.
+The only outlier in all of this is a code-signing certificate that, unfortunately, doesn’t expire until 2027, and that’s for signing Apple programs. 
+So GitHub has said to Apple, “Watch out for anything that comes along that’s signed with that.” 
+And from 02 February 2022, all of the code-signing certificates that were stolen (even the ones that have already expired) will be revoked. 
+So it looks as though this is a case of “all’s well that ends well.” 
+Of course, there’s a minor side-effect here, and that is that if you’re using the GitHub Desktop product, or if you’re still using the Atom editor, then essentially GitHub is revoking signing keys *for their own apps*. 
+In the case of the GitHub Desktop, you absolutely need to upgrade, which you should be doing anyway.
+Ironically, because Atom is discontinued… if you desperately need to continue using it, you actually have to downgrade slightly to the most recent version of the app that was signed with a certificate that is not going to get revoked. 
+I may have made that sound more complicated than it really is…
+…but it’s a bad look for GitHub, because they did get breached. 
+It’s another bad look for GitHub that included in the breach were code-signing certificates. 
+But it’s a good look for GitHub that, by the way they managed those certificates. most of them were no longer of any use. 
+Two of the three that could be dangerous will have expired by the time you listen to this podcast,  and the last one, in your words, Doug, “they’re really keeping an eye on.” 
+Also, they’ve revoked all the certificates, despite the fact that there is a knock-on effect on their own code. 
+So, they’re essentially disowning their own certificates, and some of their own signed programs, for the greater good of all.
+And I think that’s good!
+DOUG.   Alright, good job by GitHub. 
+And, as the sun begins to set on our show for today, it’s time to hear from one of our readers. 
+Well, if you remember from last week, we’ve been trying to help out reader Steven roll his own USB-key-based password manager. 
+Based on his quandary, reader Paul asks:
+Why not just store your passwords on a USB stick with hardware encryption and a keypad… in a portable password manager such as KeePass? No need to invent your own, just shell out a few bucks and keep a backup somewhere, like in a safe.
+DUCK.   Not a bad idea at all. Doug! 
+I’ve been meaning to buy-and-try one of those special USB drives… you get hard-disk sized ones (although they have SSDs in general these days), where there’s plenty of room for a keypad on the top of the drive. 
+But you even get USB sticks, and they typically have two rows of five keys or two rows of six keys next to each other. 
+It’s not like those commodity USB drives that, say, “Includes free encryption software,” which is on the stick and you can then install it on your computer. 
+The idea is that it’s like BitLocker or FileVault or LUKS, like we spoke about last week. 
+There’s a full-disk encryption layer *inside the drive enclosure itself*, and as soon as you unplug it, even if you don’t unmount it properly, if you just yank it out of the computer…
+…when the power goes down, the key gets flushed from memory and the thing gets locked again. 
+I guess the burning question is, “Well, why doesn’t everyone just use those as USB keys, instead of regular USB devices?” 
+And there are two reasons: the first is that it’s a hassle, and the other problem is that they’re much, much more expensive than regular USB keys.
+So I think, “Yes, that’s a great idea.” 
+The problem is, because they’re not mainstream products, I don’t have any I can recommend – I’ve never tried one. 
+And you can’t just go into the average PC shop and buy one. 
+So if any listeners have a brand, or a type, or a particular class of such product that they use and like…
+…we’d love to hear about it, so do let us know!
+DOUG.   OK, great.. I love a little crowd-sourcing, people helping people. 
+Thank you very much, Paul, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, comment on any one of our articles, or hit us up on social: @NakedSecurity.
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.   Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Hello Duck,
+It’s Stephen again. Thank you for the two podcasts addressing the question I raised regarding the creation and safe storage of encrypted passwords. I appended a second question relating the use of the facility provided by windows and browsers offer to ‘save your password’ so that windows or browsers can supply them the next time you visit the same site etc. My question was – how secure are these ‘saved’ passwords?
+PS. I understand the importance of using strong encryption, but I am still wary of password management services that have themselves been ‘hacked’ and of devices that have no real published reputation and my well physically fail over time.
+PPS. My current ‘home grown solution is to store autogenerated credentials in a an SQL Database (stored on a USB) which provides table and column level encryption.
+I haven’t looked into (or used) browser-based password managers, so I can’t answer your “how safe are they” question… one reason I’ve steered clear of them is that I have numerous passwords that I rely on outside my browser, so I figured I’d find a solution that worked for passwords in general, not *just* for web passwords. (And I decided I wanted to avoid a browser plugin to provide a sort-of browser-style addin for passwords that only relate to browsing.)
+I also avoid those “save/autofill your password/credit card/other ID” features that lots of people like in their browser, just so I don’t end up with passwords stored in multiple places that I later forget about. 
+I may be in a minority there, but every time I resinstall Firefox or Edge I make a point of going through and turning off all the autofill/autosave options, along with all the “share data” or “look up related information automatically” – notably making sure that interactive search suggestions don’t happen. I also set aggressive cookie deletion strategies to avoid staying logged in unexpectedly. 
+Reviewing and changing all those can take a surprisingly long time – I like to do it manually in case there are new options I didn’t yet know about.
+HtH.
+Hi there,
+I previously used an apricorn Aegis USB key (https://apricorn.com/aegis-secure-key-3) that comes with hardware-based encryption. While very expensive, I quite liked the key itself. Some features that stood out to me:
+– LED indicators
+– RO mode can be activated
+– Unnatended auto lock
+– Self-destruct PIN
+I used the key mainly when transferring data between different computers with different OSes, it was easy to manage and no pre-installed software required.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

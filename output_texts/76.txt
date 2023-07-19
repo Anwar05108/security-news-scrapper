@@ -1,0 +1,114 @@
+Sophos Home protects every Mac and PC in your home 
+Three years ago, we published an article with the dramatic-sounding title Serious Security: Post-Quantum Cryptography (and why we’re getting it).
+As you probaby know, so-called quantum computers work in a rather mysterious way compared to conventional computers, inasmuch as they can perform certain sorts of calculation so that they effectively “compute” all possible answers simultaneously in what’s known in the jargon as a quantum superposition.
+At some point, if the resulting superposition of entangled answers has not been affected by operating errors (quantum superpositions collapse when you try to observe them, settling into a specific condition that can be measured), you can extract the answer without having to repeat the calculation over and over again in a loop.
+Serious Security: Post-Quantum Cryptography (and why we’re getting it)
+
+
+Quantum computing makes it feel almost as though you could replace this sequential code…
+…with this rather magical-looking parallel code…
+Not all algorithms can be converted into quantum-friendly equivalents, but some can, including one known as prime factorisation.
+That’s where you take two prime numbers that have been multiplied together, giving an answer such as 15, and work backwards to figure out that 15 = 5×3, thus factoring the product into its original parts.
+Of course, to factor 15 is easy enough by traditional brute force:
+But numerous cryptographic algorithms, notably those widely used for public key cryptography, rely on the fact that this factoring process gets exponentially harder as the size of the variable product above increases.
+Loosely speaking, for every digit you add to the value of product, the number of times you have to go round the loop goes up multiplicatively, not additively.
+(Repeated addition is the same as multiplication, so that 12+12+12 = 12×3 = 36), but repeated multiplication is the same as exponentiation, so that 12×12×12 = 123 = 1728.)
+In other words, adding one digit to the iteration count doesn’t mean you need to go round the loop 10 more times (additive), but that you need to go round 10 times more times (multiplicative).
+Likewise, in binary arithmetic, each extra bit (short for binary digit, if you’ve ever wondered, which can be only 0 or 1) in an iteration count doubles the number of iterations needed.
+For example, bumping up your iteration count from a 16-bit number to a 32-bit number would increase the number of bits needed to store the counter from 16 to 16+16 = 32 (a doubling).
+But the number of iterations involved would increase from 216 = 65536 to 2(16+16) = 216×216 = 232 = 4,294,967,296 (a jump that’s exponential in the number of additional bits).
+And the prime products we’re dealing with in modern cryptography can be thousands of bits long.
+So although we can easily multiply together, say, two 3072-bit prime numbers to produce a 6144-bit prime product, we don’t currently know any reliably fast way to split that 6144-digit prime product back into its factors.
+The discrepancy in effort between multiplying two known primes together, and splitting that product back into its two factors, is pretty much the computational basis of a lot of modern online security…
+…so if quantum computers ever do become both reliable and powerful enough to work their superpositional algorithmic magic on 3072-digit prime factors, then breaking into messages we currently consider uncrackable in practice may become possible in theory.
+Even if you’d have to be a nation state to have even the tiniest chance of succeeding, you’d have turned a feat that everyone once considered computationally unfeasible into a task might just be worth having a crack at.
+This would undermine a lot of existing public-key crypto algorithms to the point that they simply couldn’t be trusted.
+Even worse, quantum computers that could crack new problems might also be used to have a go at older cryptographic puzzles, so that data we’d banked on keeping encrypted for at least N years because of its high value might suddenly be decryptable in just M years, where M < N, perhaps less by an annoyingly large amount.
+Beecause of this, the United States cryptographic standards body NIST has been running a Post Quantum Cryptography (PQC) competition for several years already, so that if quantum decryption ever does become a reality, we’ll be ready.
+The competition isn’t finished yet – these sorts of standards take years to coalesce, for three main reasons:
+Nevertheless, OpenSSH, one of the most widely-used secure remote access tools in the world, and a de facto standard in most Unix and Linux distros, has decided to get ahead of the PQC curve.
+The newly-published OpenSSH 9, released last Friday, has already picked its own winner from NIST’s current shortlist, and will now use a public-key encryption system called NTRU Prime by default.
+In both ssh, the client program used for connecting. and in sshd, the server program used for accepting secure connections:
+[we now] use the hybrid Streamlined NTRU Prime + x25519 key exchange method by default (“sntrup761x25519-sha512@openssh.com”). The NTRU algorithm is believed to resist attacks enabled by future quantum computers and is paired with the X25519 ECDH key exchange (the previous default) as a backstop against any weaknesses in NTRU Prime that may be discovered in the future. The combination ensures that the hybrid exchange offers at least as good security as the status quo.
+We are making this change now (i.e. ahead of cryptographically-relevant quantum computers) to prevent “capture now, decrypt later” attacks where an adversary who can record and store SSH session ciphertext would be able to decrypt it once a sufficiently advanced quantum computer is available.
+The new OpenSSH version supports all the cryptographic algorithms that it did before, so your existing installations won’t break, and you don’t have to use NTRU Prime even in new OpenSSH installations if you don’t want to.
+Presumably, if NTRU Prime doesn’t make NIST’s final, official list of winners, OpenSSH will quickly include one or all of the ultimate winners as well.
+But for those who were wondering when they’ve be able to enter their own Post-Quantum Cryptographic era proactively, without waiting to see how either quantum computing or the NIST PQC contest pans out…
+…that time is now.
+Just don’t tell Schrödinger’s cat.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Good news for encryption algorithms. I wish something could be done to galvanize the “human” side of the SSL (remember DigiNotar, Thawte, …)
+Btw, there is a slight oversight in the text. If we increase the size of the “product” from 10 digits to 20, the number of iterations, sqrt(product), will increase from 10^5 to  10^10, not from 10^10 to 10^20.
+Good point about the number of loops. I will reword that part to make the “multiply instead of add” aspect clearer. I’ll change it to talk about “the number of digits it the number of iterations”. Thanks for the comment…
+turnws–>turned
+Hmmm. ‘WS’ is one character to the left of ‘ED’ on a UK keyboard… I’m guessing that’s how that happened.
+“Check thine outputs” – with a spellchecker?
+One of the most helpful things for a writer on a website like this is when commenters say “there’s a mistake”…
+…but don’t say what it is. That’s a bit like answering someone who asks you in passing, “Do you have the time?” with the word, “Yes” and then walking away.
+Am I correct that this is all about signatures / authentication / key exchange?
+With encryption, once we have symmetric keys established, we can use AES or whatever which is already quantum resistant. Right?
+My understanding is that Shor’s algorithm (the “faster factoring and extracting discrete logs” trick) does not apply to AES, so AES is effectively PQC already.
+There is another quantum coding trick called Grover’s algorithm than can speed up things like SHA-style hashing, but not in the same way as Shor’s speeds up arithmetic. If I have it right, Grover’s algorithm could, in theory, let you test N different hashes in sqrt(N) goes rather than in N goes. 
+So a 256-bit hash would no longerhave a strength not of 2^256 bits but of sqrt(2^256) = 2^(256/2) = 2^128 instead, effectively making it as safe as a 128-bit hash today. So the PQC “solution” to SHA-256 seems simply to be to use SHA-512 instead. That gives you at least 256 bits of security in both pre-quantum and PQC worlds.
+The article has some factual errors that undermine it’s credibility… Factoring already has subexponential classic algorithms and openssh depends on discrete log by default (which also has subexponential algorithms). I hope the composition of the two ciphers is reducible to either one because naïvely combining algorithms can reduce security.
+I don’t think this sort of article was quite the right vehicle for explaining the lowest-known complexity of, say, prime factoring or finding discrete logarithms.
+For more on discrete logs and computational complexity, see:
+https://nakedsecurity.sophos.com/2015/05/21/anatomy-of-a-logjam-another-tls-vulnerability-and-what-to-do-about-it/
+https://nakedsecurity.sophos.com/the-logjam-vulnerability-in-tldr-format/
+The underlying point remains, though, that the best factoring (and discrete-logging) code known doesn’t run in polynomial time, so it can still reliably and predictably be defended against by simple linear increments in the bit size of the keys. And quantum computers – if they can actually be built and correctly operated at the needed scale – would stand this on its head.
+As you say, of course, introducing a not-yet-agreed-on algorithm in a not-yet-official combined cryptosystem and adopting it as the default…
+…well, let’s hope that there isn’t a non-exponential way to crack it that hasn’t been considered yet. I’m also interested to see whether NIST’s final recommendation actually includes NTRU Prime or not. This is reminiscent of the time leading up to the final approval of AES, when some cryptosystems couldn’t wait and backed one or the other of the finalists, thus leaving some products non-standard and non-compliant after AES got the nod, even though they might already have been well ahead of DES, with its no-longer-big-enough 56-bit keys.
+PS. See how I didn’t rise to the bait and mention the Muphry’s Law irony in your pointed but typographically incorrect phrase “undermine it’s credibility” in the first sentence?
+Was “Muphry’s Law” deliberate or just more irony? 🙂
+It’s a real thing. (And yes, it’s deliberately ironic.) 
+Muphry’s Law: Any post that pointedly corrects a mistake in someone else’s post will itself contain a mistake. (Some definitions insist that the mistake be typographical and like-for-like, as in, “You’re apostrophe placement is inept”. Others allow more leeway.) 
+Clearly, this means that any pointed remark that is error-free has, ipso facto, fallen foul of Murphy’s Law, by failing to comply with Muphry’s Law, wouldn’t you just know it.
+Murphy’s Law is more general than that, long pre-dating even its namesake (Edward Murphy), and often stated as “Anything that can go wrong will go wrong.” https://en.wikipedia.org/wiki/Murphy%27s_law
+I suspect you may have missed the ironic typo. Murphy’s Law is, indeed, the generic version of the principle that if there’s a mistake to be avoided, you probably won’t avoid it. Muphry’s Law (note the deliberate transposition) is a specific instance of Murphy’s Law that relates to typos: the embarrassment of making typos yourself *in a comment carping about someone else’s typos*.
+There’s probably a typo in this comment. But it will take someone else to find it, in accordance with Muphry’s special case of Murphy’s Law.
+Excellent article detailing a real implementation that will affect many aspects of network equipment and server software alike. Keep up the great work Paul!
+As Anonymous said (perhaps not as kindly as they might :-) just above…
+…let’s hope that this pre-empting of the NIST competition results works to push things forward (I can see why the OpenSSH team might be wondering how many more years we’ll be sitting waiting for NIST if someone doesn’t burst out of the gate and shake up the field a bit!), and doesn’t inadvertently introduce new and unexpected cryptograpic flaws.
+NTRU Prime did NOT make the round of NIST finalists, but NTRU did. (NTRU Prime is listed as an alternate or backup.)
+It seems curious that the OpenSSH team would be including this at this point…
+To avoid getting bogged down in those details, I said that OpenSSH “already picked its own winner from NIST’s current shortlist”. That “finalists’ page” is confusing enough as it is. As far as I am concerned, if you start on the bench (or in the pavilion) you are still part of the team and that’s that. I didn’t want to get involved in the reason for having two levels of finalist. 
+But technically, you are right. NTRU Prime is one of the final squad that starts on the bench, not on the field/court/pitch/track. But it’s still in the contest, and that’s IMO what matters.
+I too thought it was curious until I realised that my curiosity was what NIST meant by “in finals but on a second list”. If it’s an official alternate, it’s still offical, eh?
+Quantum superpositions are very much behaving like some kind of autonomous anti-tamper mechanism.
+So if you try to observe these they get altered by the observation?
+Instead of making anti-tampers the traditional way, we should take note of this quantum thing.
+For example, if a device has screws locking it, just derive a key from measuring the pressure of each screw that locks it.
+Pressure would be how deep the screw is fixed.
+If you open it, you ruin the key since it will never, ever be exactly the same measurements again when you close it back.
+You would get gibberish as decrypted output.
+I mean, just derive runtime parameters from the device’s current state.
+Tamper with it and it’s no longer the same state, which leads to different runtime parameters.
+This is all theory of course.
+But using device state as runtime parameters instead of using triggers as anti-tampers seems way more efficient as changing device state (opening it, etc) changes the parameters.
+Just a thought, but is it possible to do this in practice?
+I believe that Stuxnet did something similar software-side, by deriving data from the exact hardware of the target machines as decryption key for the malicious code?
+Many years ago, a non-quantum but hardware random anti-tampering system was devised that used glitter nail polish:
+https://nakedsecurity.sophos.com/2013/12/31/fashion-and-astronomy-lead-the-way-to-cost-effective-tamper-protection/
+Paint polish on screw, photograph, store photo. Later, photo again and compare the images in the same way astronomers compare similar images looking for celestial bodies that have arrived or departed. In theory, the entropy and uncertainty are such that recreating the same blob is as good as impossible, no matter how carefully you try or how long you take.
+“But the number of iterations involved would increase from 2^16 = 65536 to 2^(16+16) = 2^16×2^16 = 2^32 = 4,294,967,296 (a jump that’s exponential in the number of additional bits).” (Had to add ^’s)
+This is a *squared* increase in the number of bits.  An exponential increase would be faster than any power and does not just mean that an exponent was involved.
+The increase is not proportional to the square of the number of extra bits in the number, because the number of bits went up from 16 by 16, and yet 16^2 is 256. You’re comparing the already-computed exponentials (2^16 and 2^32), not the exponents themselves (16 and 32).
+I meant to denote that the volume of extra iterations is exponential in the number of added bits, because for N extra bits there are 2^N extra iterations – not a variable amount to some fixed power but a fixed base to a variable power. 
+If the increased number of iterations went up linearly in the number of added bits, the increase would be 16, which would in this example be a factor of 2. If it were proportional to the square of the number of new bits, the increase would be a factor of 16^2, or 256. But it’s exponential, so the increase a factor of 2^16, or 65,536. 
+2^N gets bigger as N increases much more dramatically than N^2 gets bigger. For example, 60^2 is 3600, the number of seconds in an hour. But 2^60 in seconds is a period longer than the age of the earth.
+This is really beautiful thank you
+Your pseudo-code for a factorisation loop has an off-by-one error: It will return the factors 1 and n starting at any positive integer n, for the counter value i=1; the proper loop would start at 2, although that would have the effect of being unable to factorise 1.
+Also, because the factorisation loop runs up to the square root of the input, an extra digit corresponds to a multiplying the number of steps by a factor of about three and a sixth (appending a 1, because the square root of 10 is about 3.162) to about nine and a half (prepending a 9 to an integer starting with 1 and having mostly 0 and 1 digits, because the square root of 91 is a bit over 9.5); a decent middling estimate is 5.5 (just over the fourth root of 91*10, the geometric mean of the square roots of 91 and 10). In terms of bits, the analysis is cleaner: Each bit makes factorisation take about 41.42% longer, because the square root of 2 is a bit over 1.412 (the only bit that can be appended or prepended to non-trivially increase factorisation time is 1).
+With that in mind, and with the understanding that binary numbers to be factorised are zero-padded to fit the bit-width, it takes about 2^((16-1)/2)≈181 steps to factorise a random 16-bit integer and about 2^((32-1)/2)≈ 46341 steps to factorise a random 32-bit integer (the average randomly chosen integer is about halfway through the value range, so for n bits that’s 2^(n-1)); the larger point does stand that the naïve method is exponential in the number of bits, though.
+As someone already pointed out, the best factoring algorithms don’t work like the naive algorithm anyway and are “subexponential”, but the point, as you say, is that even the best algorithms take worse than polynomial time in the number of bits.
+The loop starting at 1 and not 2 was an outright bug, givem that the loop terminates after the first factor is found. (The number could be a composite of many factors, not just two of them, but finding one is enough to make the point.) As it was, the loop always terminated in the first iteration, so it it wasn’t just non-exponential or non-polynomial, it wasn’t even linear in the number of bits in the chosen number… it always had O(1) running time :-) I edited the loop so it now starts at 2.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,68 @@
+Sophos Home protects every Mac and PC in your home 
+There’s been a bit of a kerfuffle in the technology media over the past few days about whether the venerable public-key cryptosystem known as RSA might soon be crackable.
+RSA, as you probably know, is short for Rivest-Shamir-Adleman, the three cryptographers who devised what turned into an astonishingly useful and long-lived encryption system by means of which two people can communicate securely…
+…without meeting up first to agree on a secret encryption key.
+Very simply put, RSA has not one key, like a traditional door lock, but two different keys, one for locking the door and the other for unlocking it.
+You can fairly quickly generate a pair of one-to-lock and the-other-to-unlock keys, but given only one of them, you can’t figure out what the other one looks like.
+So, you designate one of them as your “public key”, which you share with the world, and you keep the other as your “private key”.
+This means that anyone who wants to send you a private message can lock it up with your public key, but (assuming that you really do treat your private key as private), only you can unlock it.
+Working the other way around, someone who wants you to prove your identity can send you a message, and ask you to lock it up with your private key and send it back.
+If your public key correctly unlocks it, then they have some reason to think you’re who you say.
+We’re ignoring here the issues of how you ensure that a public key really belongs to the person you think, what you do if you realise your private key has been stolen, and numerous other operational complexities. The big deal is that RSA introduced a two-key system where one key can’t be worked out from the other, in contrast to the traditional one-key system, with the same key to lock and unlock your secrets, that had been in use for centuries.
+You’ll see this sort of process variously referred to as as public-key cryptography, public-private encryption, or asymmetric enccryption (symmetric enryption, such as AES, is where the same key is used for locking and unlocking your data).
+In fact, if you really know your cryptographic history, you might even have heard it called by the curious name of non-secret encryption (NSE), because cryptographers in the UK had come up with a similar idea some years earlier than R, S and A, but in what turned out to be a massively missed opportunity, the British government decided to suppress the discovery, and not to develop or even publish the process.
+Even though there are alternatives to RSA these days which let you have smaller public and private keys, and which are based on algorithms that run faster, RSA is still widely used, and there’s still a lot of potentially crackable data sitting around in archives, logfiles and network captures that was protected by RSA when it was transmitted.
+In other words, if RSA turns out to be easily crackable (for some senses of easily, at least), for example because a Big Fast Quantum Computer comes along, we would have reasonable cause for concern.
+Well, as cybersecurity expert Bruce Schneier recently observed, a large team of Chinese computer scientists just published a paper entitled Factoring integers with sublinear resources on a superconducting quantum processor.
+The big deal about factoring integers (where you figure out, for example, that 15 = 3×5, or that 261980999226229 = 15538213 x 16860433) is that doing just that lies at the heart of cracking RSA, which is based on calculations involving two huge, random prime numbers.
+In RSA, everyone knows the number you get when you multiply those numbers together (called the product), but only the person who originally came up with the starting numbers knows how the product was created – the factors together essentially form their private key.
+So, if you could split the product back into its unique pair of prime factors (as they are known), you’d be able to crack that person’s encryption.
+The thing is that if your initial prime numbers are big enough (these days, 1024 bits each, or more, for a product of 2048 bits, or more), you just won’t have enough computing power to prise the product apart.
+Unless you can make, buy or rent a powerful enough quantum computer, that is.
+Apparently, the biggest prime product yet factored by a quantum computer is just 249919 (491 x 509), which my eight-year old laptop can handle conventionally, including the time taken to load the program and print the answer, so quickly that my standard timing tool simply reports it as zero.
+And, as the Chinese researchers report, the standard ways of approaching RSA cracking with a quantum computer would require millions of so called qubits (quantum computer type bits), where the biggest such computer known today has just over 400 qubits.
+As you can see, if RSA-2048 needs millions of qubits to break, you need loads more qubits than there are bits in the number you want to factor.
+But the researchers suggest that they may have found a way of optimising the cracking process so it requires not just fewer than a million qubits, but even fewer qubits than the number of bits in the number you’re trying to crack:
+We estimate that a quantum circuit with 372 physical qubits and a depth of thousands is necessary to challenge RSA-2048 using our algorithm. Our study shows great promise in expediting the application of current noisy quantum computers, and paves the way to factor large integers of realistic cryptographic significance.
+The burning question is… 
+Are they right?
+If we already have computers with 100s of qubits, is the end of RSA-2048 indeed just round the corner?
+We just don’t have the mathematical expertise to tell you – their 32-page paper isn’t for the faint-hearted or even for the mathematical generalist – but the consensus, for now at least, seems to be… 
+No.
+Nevertheless, this is a great time to be thinking about how ready you are for any encryption or hashing algorithm suddenly to be found wanting, whether for quantum reasons or not.
+US passes the Quantum Computing Cybersecurity Preparedness Act – and why not?
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It depends on what you mean by crackable.  If you throw enough computer power (quantum or otherwise), then factorisation of products of two primes is feasible up to a certain size limit (which increases as more computer power becomes available).  So it can be fixed by increasing the key length.
+However, if some bright graduate student somewhere comes up with a truly efficient (nonprobabilistic) algorithm for factorising products of large primes, then changing the key length makes no difference and RSA (and similar) are “algorithmically broken”, i.e. dead in the water.
+This paper implies, suggests, actually states, that the research “paves the way to factor large integers of realistic cryptographic significance”, pretty much using computer hardware currently available. Given that the introduction to the paper mentions that current factoring algorithms require millions of qubits (not currently something you could just “throw” at the problem, no matter how big your budget), but the paper points you at how to do the job with just hundreds of qubits…
+…the implication is “crackable, in the regular sense of the word”, e.g. that at least one government on earth could do it *at will*, for any keylength that might be considered usable in the real world, or for which enough juicy stored data already exists that is worth cracking retrospectively.
+Simply put, the paper seems at least to imply that we’re already surprisingly close to, if not actually on the very cusp of, a giant and dangerous leap (a quantum leap?) in anti-RSA cracking power.
+The linked article about the cargo cult quantum computing is pretty good and entertaining too. Reading the cargo cult Wikipedia article might in general be a good introduction to all things quantum computing.
+I started coding an SSL stack a while back and it wasn’t RSA that generated the encryption key but DH (Diffie Hellman).  RSA was used for authentication over already encrypted channel.
+That doesn’t really change anything, though, since DH could be cracked by the same factoring of large numbers as mentioned here.
+Somebody please correct me if I’m wrong.  It’s been a long time and the code didn’t progress beyong the key exchange.
+Yes, that’s how it’s done in TLS (or SSL, as it is still broadly known).
+In TLS, there’s a key agreement part (where you might use DHM) and a mutual authentication part (where you might use RSA).
+RSA relies on the difficulty of prime factoring for its security. 
+DHM relies of the difficulty of computing discrete logarithms:
+ https://nakedsecurity.sophos.com/2015/05/21/anatomy-of-a-logjam-another-tls-vulnerability-and-what-to-do-about-it/
+I just described RSA here because that’s what the paper is focused on.
+PS. I try always to write DHM, not DH (which you will very often see) because the algorithm was created by Diffie, Hellman and Merkle, and all three names appear on the patent they acquired at the time.
+To quote Martin Hellman himself, commenting on the name:
+“[I]t is a public key distribution system, a concept developed by Merkle, and hence should be called ‘Diffie–Hellman–Merkle key exchange’ if names are to be associated with it. I hope this small pulpit might help in that endeavor to recognize Merkle’s equal contribution to the invention of public key cryptography.”
+“… some years earlier that R, S and A …”
+Earlier *than*, surely?
+Surely!
+Fixed, thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

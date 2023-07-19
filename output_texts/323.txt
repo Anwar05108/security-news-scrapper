@@ -1,0 +1,247 @@
+Sophos Home protects every Mac and PC in your home 
+THE PRICE OF FAST FASHION
+Lucky Thirteen! The price of fast fashion. Firefox fixes. Feature creep fail curtailed in Patch Tuesday.
+No audio player below? Listen directly on Soundcloud.
+With Paul Ducklin and Chester Wisniewski. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+[MUSICAL MODEM]
+DUCK.  Hello, everybody. 
+Welcome to the Sophos Naked Security podcast. 
+As you can hear, I am Duck; I am not Doug (Doug is on vacation).
+So, I am joined by my friend and colleague Chester Wisniewski once again. 
+Welcome back, Chester. 
+It’s great to have you!
+CHET.  Thanks, Duck. 
+I was just thinking… actually, I’m looking at my screen as you’re introducing the podcast, and realised that today is the 13th anniversary of when I started the ChetChat podcast, before it retired and eventually became this podcast. 
+So you and I have been at this for 13 years!
+DUCK.  Lucky 13, eh?
+CHET.  Yes!
+DUCK.  Well, how time flies when you’re having fun.
+CHET.  Yes, and it *is* fun. 
+And I feel really honoured to be in the seat of Andy Greenberg. 
+You’ve really stepped up the game since I was last on the podcast [LAUGHS].
+DUCK.  [LAUGHS] He was a very fun chap to talk to. 
+I don’t know if you’ve read that book that we featured on the podcast with him: Tracers in the Dark?
+Tracers in the Dark: The Global Hunt for the Crime Lords of Crypto
+
+CHET.  Absolutely, yes.
+DUCK.  It’s just a fascinating tale, very well told.
+CHET.  Yes, I mean, it was certainly the best book on this subject I’ve read…
+…probably since Countdown to Zero Day, and that’s a pretty high praise from me.
+DUCK.  Chester, let us start with our first topic for today, which is… I’ll just read the title of the article off Naked Security: SHEIN shopping app goes rogue, grabs price and URL data from your clipboard. 
+A reminder that even apps that aren’t overtly malicious can do dangerous stuff that collects data that was a good idea at the time… 
+…but they jolly well shouldn’t have.
+SHEIN shopping app goes rogue, grabs price and URL data from your clipboard
+
+CHET.  Yes – anything touching my clipboard immediately sets all kinds of alarm bells off in my head about the terrible things I’m imagining they’re doing. 
+And it does kind of beg the question,if I were a developer, even if I was doing something innocent… which I guess we’ll get to that in a second.
+It’s hard to say how innocent what they were trying to do was.
+DUCK.  Exactly.
+CHET.  When you ask for that kind of permission, all kinds of alarm bells go off in my head. 
+It’s sort of like on an Android phone, for a long time, in order to use Bluetooth to find an IoT device, the permission you needed was “Access devices nearby”, which required Bluetooth. 
+And you get this hairy warning on the screen, “This wants to know your location.” 
+And you’re going, “Why does this smart light bulb need to know my location?” 
+When you say you’re accessing my clipboard, my mind goes to, “Why is this app trying to steal my passwords?” 
+Maybe it’s something that we should clarify for people…
+…because I think when you say, “Put the contents of the clipboard into the app,” there are times when *you’re* doing it (you may choose to copy your password, or maybe that SMS two factor code from the Messages app and then paste it into the app that you’re authenticating in)…
+DUCK.  Yes.
+CHET.  That’s *not* what we’re talking about when we’re talking about this permission, right? 
+This permission is the app itself just peeping in on your existing clipboard content any time it chooses…
+…not when you’re actively interacting with the app and long-tapping and saying, “Paste.”
+DUCK.  Exactly. 
+Basically, it’s doing a paste when you didn’t intend it. 
+No matter how innocent the data that you’ve chosen to copy into the clipboard might be, it really shouldn’t be up to some random app to decide, “Hey, I’m just going to paste it because I feel like it.” 
+And it particularly rankles that it was essentially pasting it into a web request that it sent off to some RESTful marketing API back at head office!
+CHET.  It’s not even an expected behaviour, right, Duck? 
+I mean, if I am in my banking app and it’s asking for the code from the text message…
+…I might see how it would ask the text message app to copy it into the clipboard and paste it in automatically, to make that flow simple. 
+But I would never expect anything from my clipboard to end up in a fashion app! 
+Well, don’t use apps if you don’t need them. 
+That is, I think, a big issue here. 
+I see constantly, when I go to any kind of a shopping site now, I get some horrifying pop up in my Firefox on my phone saying, “Do I want to install the app? Why am I not accessing the site through the app? Would I prefer to use the app?” 
+And the answer is NO, NO, and NO, because this is the kind of thing that happens when you have untrusted code. 
+I can’t trust the code just because Google says it’s OK. 
+We know that Google doesn’t have any actual humans screening apps… Google’s being run by some Google Chat-GPT monstrosity or something. 
+So things just get screened in whatever way Google sees fit to screen them, and then they end up in the Play Store.
+So I just don’t like any of that code. 
+I mean, there are apps I have to load on my device, or things that I feel have more trust based on the publishers…
+…but in general, just go to the website!
+DUCK.  Anyone who listens to the Naked Security podcast knows, from when we’re talking about things like browser zero-days, just how much effort the browser makers put into finding and removing bugs from their code.
+CHET.  And folks can remember, as well, that you can make almost any website behave like an app these days as well. 
+There’s what’s called Progressive Web Apps, or PWA.
+DUCK.  Chester, let’s move on to the next story of the last week, a story that I thought was interesting. 
+I wrote this up just because I liked the number, and there were some interesting issues in it, and that is:  Firefox version 111 fixed 11 CVE holes, but there was not 1 zero-day.
+(And that’s my excuse for having a headline with the digit 1 repeated six times.) [LAUGHS]
+Firefox 111 patches 11 holes, but not 1 zero-day among them…
+
+CHET.  [LAUGHS] I’m a fan of Firefox and it’s nice to see that there was nothing discovered to be actively being exploited. 
+But the best part about this is that they include those memory safety issues that were preventatively discovered, right? 
+They’re not crediting them to an outside person or party who discovered something and reported it to them. 
+They’re just actively hunting, and letting us know that they’re working on memory safety issues…
+…which I think is really good.
+DUCK.  What I like with Mozilla is that every four weeks, when they do the big update, they take all the memory safety bugs, put them in one little basket and say, “You know what? We didn’t actually try and figure out whether these were exploitable, but we’re still going to give them a CVE number…
+…and admit that although these may not actually be exploitable, it’s worth assuming that if someone tried hard enough, or had the will, or had the money behind them, or just wanted badly enough to do so (and there are people in all those categories), you have to assume that they’d find a way to exploit one of these in a way which would be to your detriment.”
+And you’ve got a little story about something that you liked, out of the Firefox, or Mozilla, stable…
+CHET.  Absolutely – I was just thinking about that. 
+We were talking, before the podcast, about a project called Servo that Firefox (or the Mozilla Foundation, ultimately) created.
+And, as you say, it’s a browser engine rendering engine (currently the one in Mozilla Firefox is called Gecko)… the idea was to write the rendering engine entirely in Rust, and in fact this was the inspiration for creating the Rust programming language.
+The important point here is that Rust is a memory-safe language. 
+You can’t make the mistakes that are being fixed in these CVEs.
+So, in a dream world, you would be doing this Firefox update blog without the memory safety CVEs.
+And I was pretty excited to see some funding went to the Linux Foundation to continue developing Servo. 
+Maybe that, in the future, will be a new Firefox engine that’ll make us even safer?
+DUCK.  Yes! 
+Let’s be clear – just because you write code in Rust doesn’t make it right, and it doesn’t make it immune to vulnerabilities. 
+But, like you say, there are all sorts of issues, particularly relating to memory management, that are, as you say, much, much harder to do. 
+And in well-written code, even at compile time, the compiler should be able to see that “this is not right”. 
+And if that can be done automatically, without all the overhead that you need in a scripting language that does something like garbage collection, so you still get good performance, that will be interesting. 
+I just wonder how long it’ll take?
+CHET.  It sounds like they’re taking it in small bites.
+The first goal is to get CSS2 rendering to work, and it’s like you’ve got to take each thing as a little block of work, and break it off from the giant monstrosity that is a modern rendering engine… and take some small bites. 
+And funding for those projects is really important, right? 
+A lot of things embed browser engines; lots of products are based off the Gecko engine, as well as Google’s Blink, and Apple’s Webkit. 
+And so more competition, more performance, more memory safety…it’s all good!
+DUCK.  So, let’s get to the final topic of the week, that I guess is the big story…
+…but the nice thing about it, as big stories go, is that although it has some fascinating bugs in it, and although both of the bugs that we’ll probably end up talking about were technically zero-days, they’re not catastrophic. 
+They’re just a good reminder of the kind of problems that bugs can cause. 
+And that topic, of course, is Patch Tuesday.
+Microsoft fixes two 0-days on Patch Tuesday – update now!
+
+CHET.  Well, I’m going to be controversial and talk about the Mark of the Web bug first.
+DUCK.  [LAUGHS] It’s such a catchy name, isn’t it? 
+We all know it’s “Internet Zones”, like in the good old Internet Explorer days. 
+But “Mark of the Web”… it sounds so much grander, and more exciting, and more important!
+CHET.  Well, for you Internet Explorer (IE) admin people, you probably remember the you could set this to be in the Trusted Zone; that in the Intranet Zone; the other in the Internet Zone. 
+That setting is what we’re talking about. 
+But that not only lives in Internet Explorer, it’s also observed by many other Microsoft processes, to give the provenance of where a file came from…
+…on the concept that outside files are far more dangerous than inside files. 
+And so this very premise I disagree with. 
+I think it’s a stupid thing! 
+All files are dangerous! 
+It doesn’t matter where you found them: in the parking lot on a thumb drive; on the LAN; or on a website. 
+Why wouldn’t we just treat all of them as if they’re untrusted, and not do terrible things?
+DUCK.  I think I can see where Microsoft is coming from here, and I know that Apple has a similar thing… you download a file, you leave it lying around in a directory somewhere, and then you come back to it three weeks later. 
+But I think I’m inclined to agree with you that when you start going, “Oh well, that file came from inside the firewall, so it must be trusted”…
+…that’s good old fashioned “soft chewy interior” all over again!
+CHET.  Yes. 
+So that’s why these types of bugs that allow you to bypass Mark of the Web are problematic, right? 
+A lot of admins will have a group policy that says, “Microsoft Office cannot execute macros on files with Mark of the Web, but without Mark of the Web we allow you to run macros, because the finance department uses them in Excel spreadsheets and all the managers have to access them.” 
+This kind of situation… it’s dependent on knowing that that file is from inside or outside, unfortunately. 
+And so I guess what I was getting at, what I was complaining about, is to say: this vulnerability was allowing people to send you files from the outside, and not have them marked as if they were from the outside. 
+And because this kind of thing can happen, and does happen, and because there are other ways that this can happen as well, which you kindly point out in your Naked Security article…
+…that means your policy should be: if you think macros may be dangerous, you should be blocking them, or forcing the prompt to enable them, *no matter where they originate*. 
+You shouldn’t have a policy that differentiates between the inside and the outside, because it just puts you at risk of it being bypassed.
+DUCK.  Absolutely. 
+I guess the bottom line here is that although a bypass of this Mark of the Web “branding” (the Internet Zone label on a file)… although that’s something that is obviously useful to crooks, because they know some people rely on, *it’s the kind of failure that you need to plan for anyway*. 
+I get the idea of Mark of the Web, and I don’t think it’s a bad idea. 
+I just wouldn’t use it as a significant or an important cybersecurity discriminator.
+CHET.  Well, and to remind IT administrators…
+…the best approach to solving this problem isn’t to be looking at Mark of the Web. 
+The best approach is sign your internal macros, so that you know which ones to trust, and block all the rest of them.
+DUCK.  Absolutely. 
+Why don’t you just allow the things that you know you absolutely need, and that you have a good reason to trust…
+…and as you say, disallow everything else?
+I suppose one answer is, “It’s a bit harder”, isn’t it? 
+It’s not quite as convenient…
+CHET.  Well, this segues into the other vulnerability, which allows for criminals to exploit Microsoft Outlook in a way that could allow…
+…I guess, an impersonation attack? 
+Is that how you would refer to it, Duck?
+DUCK.  I think of this one as a kind of Manipulator in the Middle (MitM) attack.
+The term that I’ve generally heard used, and that Microsoft uses… they call it a relay attack, basically where you trick someone into authenticating with *you*, while *you’re* authenticating on their behalf, as them, behind the scenes, with the real server. 
+That’s the trick – you basically get someone, without realising, to go, “Hey, I need to sign into this server I’ve never heard of before. What a great idea! Let me send them a hash of my password!”
+What could possibly go wrong? 
+Quite a lot…
+CHET.  It’s another great example of a restrictive policy versus a permissive one, right? 
+If your firewall is not configured to allow outbound SMB (server message block) traffic, then you’re not at risk from this vulnerability. 
+Not that you shouldn’t patch it… you should still patch it, because computers go lots of places where all kinds of wacky network things happen. 
+However, the idea is if your policy is, “Block everything and only allow the things that should be happening”, then you’re less at risk in this case than if it’s permissive, and you’re saying, “We’re going to allow everything, except things that we’ve already identified as being bad.” 
+Because when a zero-day comes along, no one has identified it as being bad. 
+That’s why it’s a zero-day!
+DUCK.  Exactly. 
+Why would you want people signing into random external servers, anyway? 
+Even if they weren’t malevolent, why would you want them to go through a sort of corporate-style authentication, with their corporate credentials, to some server that doesn’t belong to you? 
+Having said that, Chester, I guess if you’re thinking about the “soft chewy centre”, there is a way that crooks who are already in your network, and who have a little bit of a foothold, could use this inside the network…
+…by setting up a rogue file server and tricking you into connecting to that.
+CHET.  [LAUGHS] Is that a BYOD? 
+A Bring Your Own Docker container?
+DUCK.  [LAUGHS] Well, I shouldn’t really laugh there, but that’s quite a popular thing with crooks these days, isn’t it? 
+If they want to avoid getting things like their malware detected, then they’ll use what we call “living off the land” techniques, and just borrow tools that you’ve got already installed…
+…like curl, bash, PowerShell, and commands that are absolutely everywhere anyway. 
+Otherwise, if they can, they’ll just fire up a VM [virtual machine]…
+…if they’ve somehow got access to your VM cluster, and they can set up an innocent-looking VM, then they’ll run the malware inside that.
+Or their docker container will just be configured completely differently to anything else you’ve got. 
+So, yes, I guess you’re right: that is a way that you could exploit this internally. 
+But I thought it was an intriguing bug, because usually when people think about email attacks, they normally think about, “I get the email, but to get pwned, I either have to open an attachment or click a link.” 
+But this one, I believe, can trigger while Outlook is preparing the email, before it even displays it to you!
+Which is quite nasty, isn’t it?
+CHET.  Yes.
+I thought the days of these kind of bugs were gone when we got rid of JavaScript and ActiveX plugins in our email clients.
+DUCK.  I thought you were going to say “Flash” for a moment there, Chester. [LAUGHS]
+CHET.  [LAUGHS] 
+Well, for developers, it’s important to remember that these kinds of bugs are from feature creep. 
+I mean, the reason emails got safer is we’ve actually been removing features, right?
+DUCK.  Correct.
+CHET.  We got rid of ActiveX and JavaScript, and all these things…
+…and then this nug was being triggered by the “received a new email” sound being a variable that can be sent by the sender of an email. 
+I don’t know who, on what planet thought, “That sounds like a good feature.”
+DUCK.  The proof of concept that I’ve seen for this, which is produced by (I think) a penetration testing company… that’s how they did it. 
+So it sounds like the crooks who are exploiting this, that’s how *they* were doing it. 
+But it’s by no means clear that that’s the only feature that could be abused. 
+My understanding is that if you can say, “Here’s a file name that I want you to use”, then that file name, apparently…
+…well, you can just put a UNC path in there, can’t you? 
+\\SOMEBODY.ELSES.SERVER.NAME\… and that will get accessed by Outlook. 
+So, you’re right: it does indeed sound like feature creep. 
+And, like I said, I wonder how many other missed features there might be that this could apply to, and whether those were patched as well? 
+Microsoft was a little bit tight-lipped about all the details, presumably because this thing was exploited in the wild.
+CHET.  I can solve this problem in one word. 
+Mutt. [A historic text-mode-only email client.]
+DUCK.  Yes, Mutt! 
+Elm, pine, mailx, mail…
+…netcat, Chester!
+CHET.  You forgot cat.
+DUCK.  I was thinking netcat, where you’re actually talking interactively to the mail server at the other end.
+CHET.  [LAUGHS] You can only receive email when you’re at the keyboard.
+DUCK.  If you patch, let’s hope it actually deals with all places in Outlook where a file could be accessed, and that file just happens to be on a remote server…
+…so Outlook says, “Hey, why don’t I try and log into the server for you?” 
+Now, Chester, when we were discussing this before the podcast, you made an interesting observation that you were surprised that this bug appeared in the wild, because lots of ISPs block SMB port 445, don’t they? 
+Not because of this authentication bug, but because that used to be one of the major ways that network worms spread…
+…and everyone got so sick of them 10, 15, 20 years ago that ISPs around the world just said, “No. Can’t do it. If you want to unblock port 445, you have to jump through hoops or pay us extra money.” 
+And most people didn’t bother. 
+So you might be protected against this by accident, rather than by design. 
+Would you agree with that?
+CHET.  Yes, I think it’s likely. 
+Most ISPs in the world block it. 
+I mean, you can imagine in Windows XP, years ago, how many computers were on the internet, with no password, sat directly on their Internet connections with the C$ share exposed. 
+We’re not even talking about exploits here. 
+We’re just talking about people with ADMI|N$ and C$ flapping in the wind!
+DUCK.  If that’s how you’re protected (i.e. it doesn’t work because your ISP doesn’t let it work)…
+…don’t use that as an excuse not to apply the patch, right?
+CHET.  Yes, absolutely. 
+You don’t want the attempts even occurring, let alone for them to be successful. 
+Most of us are travelling around, right? 
+I use my laptop at the coffee shop; and then I use the laptop at the restaurant; and then I use the laptop at the airport. 
+Who knows what they’re blocking? 
+I can’t rely on port 445 being blocked…
+DUCK.  Chester, I think we’d better stop there, because I’m mindful of time. 
+So, thank you so much for stepping up to the microphone at short notice. 
+Are you going to be back on next week? 
+You are, aren’t you?
+CHET.  I certainly plan on being on next week, unless there are unforeseen circumstances.
+DUCK.  Excellent! 
+All that remains is for us to say, as we customarily do…
+CHET.  Until next time, stay secure.
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The high price of fast fashion, hidden from consumer eyes, is worker exploitation (long hours, unlivable wages, and poor and unsafe working conditions leading to illness and preventable deaths), extreme wastefulness and environmental devastation diametrically opposed to the concept of sustainable living. I feel this deserves a mention, given the title of this piece! So snoopy code is just a small part of the picture and less inherent to the fast fashion industry than the other problems. There’s probably two morals here: “Don’t blindly trust apps, and demand reform from the fashion industry!”
+Your thoughts about websites pushing apps on users closely relates to Alexandre Oliva’s article on TRApps (Telescreen-Running Apps). He even observes the disturbing trend that some websites are discontinuing features to force users into using their TRApps!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

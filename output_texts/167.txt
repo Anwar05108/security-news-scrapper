@@ -1,0 +1,65 @@
+Sophos Home protects every Mac and PC in your home 
+You’ve probably heard the old joke: “Humour in the public service? It’s no laughing matter!”
+But the thing with downbeat, blanket judgements of this sort is that it only takes a single counter-example to disprove them.
+Something cannot universally be true if it is ever false, even for a single moment.
+So, wouldn’t it be nice if the public service could be upbeat once in a while…
+…as upbeat, in fact, as the catchy Janet Jackson dance number Rhythm Nation, released in 1989 (yes, it really was that long ago)?
+
+This was the era of shoulder pads, MTV, big-budget dance videos, and the sort of in-your-ears-and-in-your-face lyrical musicality that even YouTube’s contemporary auto-transcription system renders at times simply as:
+Well, as Microsoft superblogger Raymond Chen pointed out last week, this very song was apparently implicated in an astonishing system crash vulnerability in the early 2000s.
+According to Chen, a major laptop maker of the day (he didn’t say which one) complained that Windows was prone to crashing when certain music was played through the laptop speaker.
+The crashes, it seems were not limited to the laptop playing the song, but could also be provoked on nearby laptops that were exposed to the “vulnerability-triggering” music, and even on laptops from other vendors.
+Apparently, the ultimate conclusion was that Rhythm Nation just happened to include beats of the right pitch, repeated at the right rate, that provoked a phenomenon known as resonance in the laptop disk drives of the day.
+Loosely speaking, this resonance caused the natural vibrations in the hard disk devices (which really did contain hard disks back then, made of steel or glass and spinning at 5400rpm) to be amplified and exaggerated to the point that they would crash, bringing down Windows XP along with them.
+Resonance, as you may know, is the name given to the phenomenon by which singers can shatter wine glasses by producing the right note for long enough to vibrate the glass to pieces.
+Once they’ve locked the frequency of the note they’re singing onto the natural frequency at which the glass like to vibrate, their singing continually boosts the amplitude of the vibration until it’s too much for the glass to take.
+It’s also what lets you quickly build up height and momentum on a swing.
+If you time your kicks or thrusts randomly, sometimes they boost your motion by acting in harmony with the swing, but at other times they work against the swing and slow you down instead, leaving you joggling around unsatifactorily.
+But if you time your energy input so it always exactly matches the frequency of the swing, you consistently increase the amout of energy in the system, and thus your swings increase in amplitude, and you gain height rapidly.
+A skilled swingineer (on a properly designed, well-mounted, “solid-arm” swing, where the seat isn’t connected to the pivot by flexible ropes or chains – don’t try this at the park!) can send a swing right over the top in a 360-degree arc with just a few pumps…
+…and by deliberately timing their pumps out-of-sequence so as to counteract the swing’s motion, can bring it to a complete stop again just as quickly.
+We’re guessing that there were probably many other popular songs that could have provoked this hard-disk resonance to the point of failure, but Rhythm Nation was the proof-of-concept that showed this vulnerability could actively be exploited.
+Chen reports that the laptop vendor added a frequency filter to the laptop’s own audio system in order to remove the frequency bands that tended to produce the problem, thus leaving the sound audibly unchanged but acoustically harmless.
+By filtering the frequencies all the time, instead of trying to recognise Janet Jackson’s song specifically, this electronic countermeasure became a generic and proactive cybersecurity fix, not just a patch specific to one tune.
+Well, to return to the issue of humour in the public service…
+…it turns out that someone at MITRE in the US, where CVE bug numbers are co-ordinated, has assigned this issue an official bug number, as follows:
+CVE-2022-38392:  Denial of service (device malfunction and system crash):
+A certain 5400 RPM OEM hard drive, as shipped with laptop PCs in approximately 2005, allows physically proximate attackers to cause a denial of service (device malfunction and system crash) via a resonant-frequency attack with the audio signal from the Rhythm Nation music video.
+Even in a world where solid-state drives (SSDs, often still referred to as disks, even though they don’t have circular parts, let alone rotating ones) are widespread, you can still buy old-school hard disks with moving parts, typically running at 5400rpm, 7200rpm and even 10,000rpm.
+Old-school hard drives generally offer much higher capacity for a much lower price than SSDs, but they’re rarely found in business-class laptops these days, because they’re slower, generally require more power, and aren’t as shock-proof as their transistorised cousins.
+Whether SSDs are, in turn, vulnerable to music that focuses on other frequency ranges or amplitudes, we can’t say. 
+Whereas R&B might have been the Achilles heel of rotating-media storage devices in the early 2000s, perhaps louder but lower-tuned, sludgy, old-school “coding music” might ultimately prove to be too much for fully digital solid-state laptop storage?
+We don’t expect fans of bands such as Melvins, Sleep, Monolord and the like to take needless experimental risks with their own laptops.
+But if anyone knows of any heavy-duty riffs that can be turned into exploits…
+…they may be eligible for CVE numbers, though we have no idea where vulnerabilities of this sort would fit into the MITRE ATT&CK Tools, Tips and Procedures framework.
+Suggestions in the comments, please!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“…acoustically harmless”
+I wish there were a way to render all of the Auto-Tuned music of today “acoustically harmless.”
+😐
+You could simply specify for yourself that the use of AutoTune makes it “not music”, which would be one way to solve your issue – by redefinition.
+Perhaps I should have used the words “electromechanically harmless”, or somesuch?
+AutoTune dates from the late 1990s, if memory serves (with Cher’s “Do You Believe In Love” being the first bigtime song to use it, so far as I know, though for special effects rather than to correct pitchiness), so Rhythm Nation (1989) definitely precedes AutoTune. And I don’t think bands like Sleep, Melvins and so on could make much use of AutoTune even today, given the number and nature of the pedals they use to add more frequencies, fuzz and the lie into the mix. Once you’ve added impressive amounts of fuzz, overdrive, amplifier noise, switch spikes, cable buzz, mains frequency bleed and deliberate feedback already, I don’t know what point there would be in trying to “re-tune” it further down the effects chain…
+I thought they would crank it to 11, and the EMF would de-magnetize the Hard Drive–losing valuable files.
+Just listened to the video on my 2007 laptop. Fortunately it’s been upgraded to an SSD.
+Headphones are a handy workaround. No vibes reach the laptop itself.
+It’s odd that you didn’t mention the injection of “brown noise” into the tribal dance tunes of that period to enhance the bass lines… “Brown noise is a random signal that has been filtered in order to generate a lot of energy at low frequencies. Its power density is inversely proportional to f^2 and decreases by 6 dB per octave”.
+So I believe the solution was to filter out the filtering, thereby greatly reducing the harmonic effect it caused.
+There’s no suggestion that added “bass boost” was involved in the problem. For all we know it could have been the higher-frequency drumbeat spikes, or specific parts of the riff, rather than anything down to a surfeit of random, low frequencies. 
+If it were just down to exagerated bass noise spread across many frequencies, you might indeed expect fuzz/sludge/doom music – with downtnued bass and lots of fuzz-and-noise in it – to produce the same sort of result. And in 2005 there were plenty of sludge/doom/grunge listeners around, I’d guess. I imagine quite a few laptops in that timeframe would have experienced, say, Smells Like Teen Spirit. (I never quite grokked Nirvana myself, but millions did.)
+You rightly comment that Solid State Disks don’t contain anything disk-shaped. But have you ever seen a liquid state disk? Or a gaseous state disk? Mercury delay lines went out of fasion in the 1950’s and they’re the only liquid state memory I can think of. But there was a scheme devised a few years ago to store data as the payloads in ping requests to distant hosts. As soon as the echo reply comes in you send it out again in another ping. But even that would be solid state in so far as most of the Internet is made of fibre links. You could maybe achieve a higher storage capacity by bouncing your data off the moon with  radio beam or a laser. I suppose you’d have to class that as vacuum-state or ether memory.
+But since all practical storage media are solid state we really should be taking about semiconductor, or electrostatic, or stored charge, or non-magnetic or non-rotating memory. There’s plenty of choice.
+Back to the original topic of the thread, there was a video a few years ago (probably still on YouTube) in which this guy yelled at the top of his voice at a rack of hard drives, and you could see the soft error rate shoot up, displayed on a monitor. I’m a bit skeptical about specific songs though.
+As suggested in the article, I too am not convinced that this effect was song-specific, though I accept that one song probably made a reliable “PoC”. (I assume that the hardware vendor diagnosed the underlying issue using precise signal generators, but understandably wouldn’t want to reveal the exact “killer frequencies”.)
+The shouting-at-servers video was recorded in a server room full of Sun kit (anyone remember Sun?) back in 2008: https://www.youtube.com/watch?v=tDacjrSCeq4
+“This is not special effects. This is real. What we’re looking at here is the effect of disk vibration.” (Bellowing into the disk array caused the error rate to shoot up. Who would have thought :-)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

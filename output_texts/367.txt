@@ -1,0 +1,60 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at IoT security company Sternum dug into a popular home automation mains plug from well-known device brand Belkin.
+The model they looked at, the Wemo Mini Smart Plug (F7C063) is apparently getting towards the end of its shelf life, but we found plenty of them for sale online, along with detailed advice and instructions on Belkin’s site on how to set them up.
+Old (in the short-term modern sense) though they might be, the researchers noted that:
+Our initial interest in the device came from having several of these lying around our lab and used at our homes, so we just wanted to see how safe (or not) they were to use. [… T]his appears to be a pretty popular consumer device[; b]ased on these numbers, it’s safe to estimate that the total sales on Amazon alone should be in the hundreds of thousands.
+Simply put, there are lots of people out there who have already bought and plugged these things in, and are using them right now to control electrical outlets in their homes.
+A “smart plug”, simply put, is a power socket that you plug into an existing wall socket and that interposes a Wi-Fi-controlled switch between the mains outlet on the front of the wall socket and an identical-looking mains outlet on the front of the smart plug. Think of it like a power adapter that instead of converting, say, a round Euro socket into a triangular UK one, converts, say, a manually-switched US socket into an electronically-switched US socket that can be controlled remotely via an app or a web-type interface.
+The problem with many so-called Internet of Things (IoT) devices, as the old joke goes, is that the it is the letter “S” in “IoT” that stands for security…
+…meaning, of course, that there often isn’t as much cybersecurity as you might expect, or even any at all.
+As you can imagine, an insecure home automation device, especially one that could allow someone outside your house, or even on the other side of the world, to turn electrical appliances on and off at will, could lead to plenty of trouble.
+We’ve written about IoT insecurity in a wide range of different products before, from internet kettles (yes, really) that could leak your home Wi-Fi password, to security cameras that crooks can use to keep their eye on you instead of the other way around, to network-attached disk drives at risk of getting splatted by ransomware directly across the internet.
+Internet of Things – do you really need a kettle that can boil your security dry?
+
+
+In this case, the researchers found a remote code execution hole in the Wemo Mini Smart Plug back in January 2023, reported it in February 2023, and received a CVE number for it in March 2023 (CVE-2023-27217).
+Unfortunately, even though there are almost certainly many of these devices in active use in the real world, Belkin has apparently said that it considers the device to be “at the end of its life” and that the security hole will therefore not be patched.
+(We’re not sure how acceptable this sort of “end of life” dismissal would be if the device turned out to have a flaw in its 120V AC or 230V AC electrical circuitry, such as the possibility of overheating and emitting noxious chemicals or setting on fire, but it seems that faults in the low-voltage digital electronics or firmware in the device can be ignored, even if they could lead to a cyberattacker flashing the mains power switch in the device on and off repeatedly at will.)
+The problem that the researchers discovered was a good old stack buffer overflow in the part of the device software that allows you to change the so-called FriendlyName of the device – the text string that is displayed when you connect to it with an app on your phone.
+By default, these devices start up with a friendly name along the lines of Wemo mini XYZ, where XYZ denotes three hexadecimal digits that we’re guessing are chosen pseudorandomly.
+That means that if even you own two or three of these devices, they’ll almost certainly start out with different names so you can set them up easily.
+But you’ll probably want to rename them later on so they’re easier to tell apart in future, by assigning then friendly names such as TV power, Laptop charger and Raspberry Pi server. 
+The Belkin programmers (or, more precisely, the programmers of the code that ended up in these Belkin-branded devices, who might have supplied smart plug software to other brand names, too) apparently reserved 68 bytes of temporary storage to keep track of the new name during the renaming process.
+But they forgot to check that the name you supplied would fit into that 68-byte slot.
+Instead, they assumed that you’d use their official phone app to perform the device renaming process, and thus that they could restrict the amount of data sent to the device in the first place, in order to head off any buffer overflow that might otherwise arise.
+Ironically, they took great care not merely to keep you to the 68-byte limit required for the device itself to behave properly, but even to restrict you to typing in just 30 characters.
+We all know why letting the client side do the error checking, rather than checking instead (or, better yet, as well) at the server side, is a terrible idea:
+The researchers were quickly able to try ever-longer names to the point that they could crash the Wemo device at will by writing over the end of the memory buffer reserved for the new name, and corrupting data stored in the bytes that immediately followed.
+Unfortunately, in a stack-based operating system, most software ends up with its stack-based temporary memory buffers laid out so that most of these buffers are closely followed by another vital block of memory that tells the program where to go when it’s finished what it’s doing right now. 
+Technically, these “where to go next” data chunks are known as return addresses, and they’re automatically saved when a program calls what’s known as a function, or subroutine, which is a chunk of code (for example, “print this message” or “pop up a warning dialog”) that you want to be able to use in several parts of your program.
+The return address is magically recorded on the stack every time the subroutine is used, so that the computer can automatically “unwind” its path to get back to where the subroutine was called from, which could be different every time it is activated. 
+(If a subroutine had a fixed return address, you could only ever call it from one place in your program, which would make it pointless to bother packaging that code into a separate subroutine in the first place.)
+As you can imagine, if you trample on that magic return address before the subroutine finishes running, then when it does finish, it will trustingly but unknowingly “unwind” itself to the wrong place.
+With a bit (or perhaps a lot) of luck, an attacker might be able to predict in advance how to trample on the return address creatively, and thereby misdirect the program in a deliberate and malicious way.
+Instead of merely crashing, the misdirected program could be tricked into running code of the attacker’s choice, thus causing what’s known as a remote code execution exploit, or RCE.
+Two common defences help protect against exploits of this sort:
+To get their exploit to work quickly and reliably, the researchers needed to force the Wemo plug to turn ASLR off, which remote attackers would not be able to do, but with lots of tries in real life, attackers might nevertheless get lucky, guess correctly at the memory addresses in use by the program, and get control anyway.
+But the researchers didn’t need to worry about the stack canary problem, because the buggy app had been compiled from its source code with the “insert canary-checking safety instructions” feature turned off. 
+(Canary-protected programs are typically slightly bigger and slower than unprotected ones because of the extra code needed in every subroutine to do the safety checks.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+If it is at the end of life, then Belkin should recall all devices on sale. The argument is also weak as it is a manufacturing defect, not something caused by wear and tear. Hopefully they have enough insurance.
+Canary-protected programs are typically slightly bigger *and slower* than unprotected ones because of the extra code needed in every subroutine to do the safety checks.
+Some programmers – and some managers – want the code to run as fast as possible, even at the cost of turning the security off.
+That’s true… I zoomed in on size here because it’s more likely (IMO) to be an issue (or considered an issue) on a flash-and-RAM-limited device than speed, at least in code that doesn’t run regularly or frequently.
+I added “and slower” to the relevant sentence in the article… thanks for the suggestion! [2023-05-16T20:50:00Z]
+I’ve never  been impressed with Wemo.  They always seemed to be lacking in customer support.  Now it is even more evident.
+Is WSP080 affected too?
+Message received – avoid Belkin / Wemo.
+Their poor response of “end of life” should make anyone think twice about installing their smart equipment in your home. Seriously?  It starts with a smart plug, but what about Belkin light switches and any other smart device down the road.
+I would assume that you could only change the name if you were logged in. So my question is, what can you now do that a logged in user cannot? There are not likely to be levels of login on a simple power device. It’s possible that login would let you reflash the firmware – a much simpler exploit.
+Apparently, on this device the researchers were able to send commands using a Python script. It seems that the security of where the request comes from is dealt with by assuming that the device and your phone/laptop are on the same Wi-Fi network, and therefore both “know” the network secret key, they can interact. (I assume that this isn’t enough for firmware patches, only to run specific commands.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,55 @@
+Sophos Home protects every Mac and PC in your home 
+If you run a WordPress site with the Ultimate Members plugin installed, make sure you’ve updated it to the latest version.
+Over the weekend, the plugin’s creator published version 2.6.7, which is supposed to patch a serious security hole, described by user @softwaregeek on the WordPress support site as follows:
+A critical vulnerability in the plugin (CVE-2023-3460) allows an unauthenticated attacker to register as an administrator and take full control of the website. The problem occurs with the plugin registration form. In this form it appears possible to change certain values for the account to be registered. This includes the wp_capabilities value, which determines the user’s role on the website.
+The plugin doesn’t allow users to enter this value, but this filter turns out to be easy to bypass, making it possible to edit wp_capabilities and become an admin.
+In other words, when creating or managing their accounts online, the client-side web form presented to users doesn’t officially allow them to set themselves up with superpowers.
+But the back-end software doesn’t reliably detect and block rogue users who deliberately submit improper requests.
+The Ultimate Member software is meant to help WordPress sites to offer various levels of user access, listing itself as the “best user profile and membership plugin for WordPress”, and talking itself up in its advertising blurb as:
+The #1 user profile & membership plugin for WordPress. The plugin makes it a breeze for users to sign-up and become members of your website. The plugin allows you to add beautiful user profiles to your site and is perfect for creating advanced online communities and membership sites. Lightweight and highly extendible, Ultimate Member will enable you to create almost any type of site where users can join and become members with absolute ease.
+Unfortunately, the programmers don’t seem terribly confident in their own ability to match the “absolute ease” of the plugin’s use with strong security.
+In an official response to the above security report from @softwaregeek, the company described its bug-fixing process like this [quoted text sic]:
+We are working on the fixes related to this vulnerability since 2.6.3 version when we get a report from one of our customer. Versions 2.6.4, 2.6.5, 2.6.6 partially close this vulnerability but we are still working together with WPScan team for getting the best result. We also get their report with all necessary details.
+All previous versions are vulnerable so we highly recommend to upgrade your websites to 2.6.6 and keep updates in the future for getting the recent security and feature enhancements.
+We are currently working on fixing a remaining issue and will release a further update as soon as possible.
+If you were on cybersecurity duty during the infamous Log4Shell vulnerability over the Christmas vacation season at the end of 2021, you’ll know that some types of programming bug end up needing patches that need patches, and so on.
+Log4Shell: The Movie… a short, safe visual tour for work and home
+
+
+For example, if you have a buffer overflow at a single point in your code where you inadvertently reserved 28 bytes of memory but meant to type in 128 all along, fixing that erroneous number would be enough to patch the bug in one go.
+Now, however, imagine that the bug wasn’t down to a typing mistake at just one point in the code, but that it was caused by an assumption that 28 bytes was the right buffer size at all times and in all places.
+You and your coding team might have repeated the bug at other places in your software, so that you need to settle in for an extended session of bug-hunting.
+That way, you can promptly and proactively push out further patches if you find other bugs caused by the same, or a similar, mistake. (Bugs are generally easier to find once you know what to look for in the first place.)
+In the Log4J case, attackers also set about scouring the code, hoping to find related coding mistakes elswhere in the code before the Log4J programmers did.
+Fortunately, the Log4J programming team not only reviewed their own code to fix related bugs proactively, but also kept their eyes out for new proof-of-concept exploits.
+Some new vulnerabilities were publicly revelealed by excitable bug-hunters who apparently preferred instant internet fame to the more sober form of delayed recognition they would get from disclosing the bug responsibly to the Log4J coders.
+We saw a similar situation in the recent MOVEit command injection vulnerability, where associates of the Clop ransomware gang found and exploited a zero-day bug in MOVEit’s web-based front end, allowing the crooks to steal sensitive company data and then try to blackmail the victims into paying “hush money”.
+Progress Software, makers of MOVEit, quickly patched the zero-day, then published a second patch after finding related bugs in a bug-hunting session of their own, only to publish a third patch shortly afterwards, when a self-styled threat hunter found yet another hole that Progress  had missed.
+Sadly, that “researcher” decided to claim credit for finding the vulnerability by publishing it for anyone and everyone to see, rather than giving Progress a day or two to deal with it first.
+This forced Progress to declare it to be yet another zero-day, and forced Progress customers to turn the buggy part of the software off entirely for about 24 hours while a patch was created and tested.
+MOVEit mayhem 3: “Disable HTTP and HTTPS traffic immediately”
+
+
+In this Ultimate Members bug situation, the makers of the plugin weren’t as thoughtful as the makers of MOVEit, who explicitly advised their customers to stop using the software while that new and exploitable hole was patched.
+Ultimate Members merely advised their users to keep their eyes out for ongoing updates, of which the recently published 2.6.7 is the fourth in a chain of bug fixes for a problem first noticed in the middle of June 2023, when 2.6.3 was the current version number.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Not terribly impressed by the maintainers and makers of this plugin. Assuming that user-generated input is innocuous is a basic mistake. Should have been caught on code inspection and at testing. Hardly difficult to fix, surely?
+Depends how deeply knitted into the design it is… 
+…looking at the diffs suggests that quick and partial fixes were quite easy but fixing it fully without breaking the back-end system in other ways is probably a bit more of a fuss than it first seemed. (A breaking fix would probably be nice and quick, but if users got locked out or if even admins could no longer access admin powers, then site users would probably skip the patches altogether.)
+The concern seems to me to be that they’re just patching piecemeal “as more problems are found”, without explaining what extra security each patch has brought to the party so far, which isn’t IMO a good way to convince your customers [a] that you know what you are doing and [b] that you will be able to tell when you’ve actually fixed it fully.
+It’s important for developers to conduct thorough bug-hunting sessions when addressing vulnerabilities like the one in the Ultimate Members plugin. Bugs can often be repeated in multiple places within the codebase, so it’s crucial to search broadly for related issues and proactively fix them. Additionally, it’s wise to regularly validate input data and not solely rely on client-side code to ensure security. Taking these precautions can help mitigate the risks associated with vulnerabilities and ensure the overall robustness of the software.
+It’s more than merely “wise” not to rely solely on client-side code for data validation…
+…as the article points out, it’s vital!
+*Always* measure, *never* assume.
+I like the sound of ‘patch early, patch often’, but with so many bugs in releases, even from big boys like MS, does anyone really have it as a blanket rule? If not, I guess the phrase is moot?
+What’s the alternative? Keep the versions with known exploits?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

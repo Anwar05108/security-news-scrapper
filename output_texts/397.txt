@@ -1,0 +1,69 @@
+Sophos Home protects every Mac and PC in your home 
+Some hacks become so notorious that they acquire a definite article, even if the word THE ends up attached to a very general technical term.
+For example, you can probably trot out the names of dozens of well-known internet worms amongst the millions that exist in the zoos maintained by malware collectors.
+NotPetya, Wannacry, Stuxnet, Conficker, Slammer, Blaster, CodeRed and Happy99 are just a few from the past couple of decades.
+But if you say THE internet worm, then everyone knows that you mean the Great Worm of November 1988 – the one written by Robert Morris, student son of Robert Morris of the US National Security Agency, that ended with Morris Junior getting three years of probation, 400 hours of community service and a $10,050 fine:
+Memories of the Internet Worm – 25 years later
+
+
+And if you say THE Twitter hack, everyone knows you mean the one that happened in July 2020, when a small group of cybercriminals ended up in control of a small number of Twitter accounts and used them to talk up a cryptocoin fraud.
+But what accounts they were, as we wrote a year later, including Bill Gates, Elon Musk, Kanye West, Joe Biden, Barack Obama, Jeff Bezos, Mike Bloomberg, Warren Buffett, Benjamin Netanyahu, Kim Kardashian, and Apple (yes, THE Apple):
+Twitter limits tweeting as prominent accounts spam out cryptocoin scams
+
+
+One of the suspects in that case was Joseph O’Connor, then 21, who wasn’t in the US, and who eluded US authorities for a further year until he was arrested on the Costa del Sol in Spain in July 2021:
+US court gets UK Twitter hack suspect arrested in Spain
+
+
+O’Connor was ultimatly extradited to the US in April 2023, pleaded guilty in May 2023, and was sentenced last week.
+He wasn’t convicted only of the Twitter cryptocoin scam we mentioned above, where high profile accounts were used to trick people into sending “investments” to users they assumed were people such as Gates, Musk, Buffett and others.
+He was also convicted of:
+Swatting gets its name because the usual reaction of US law enforcement to a call claiming that a shooting is imminent is to send a so-called Special Weapons and Tactics (SWAT) team to deal with the situation, rather than expecting a regular patrol officer to stop by and investigate.
+As the US Department of Justice describes it:
+A “swatting” attack occurs when an individual makes a false emergency call to a public authority in order to cause a law enforcement response that may put the victim or others in danger.
+O’Connor was convicted of multiple offences: conspiracy to commit computer intrusions, conspiracy to commit wire fraud, conspiracy to commit money laundering, making extortive communications, stalking, and making threatening communications.  
+He received a five-year prison sentence, followed by three years of supervised release, and he was ordered to pay $794,012.64 in forfeiture. (What happens if he can’t or won’t pay, we don’t know.)
+SIM swaps are tricky to protect against, because the final decision to authorise a replacement SIM card is down to your mobile phone company (or the staff in one of its stores), not to you yourself.
+But the following tips can help:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Recently I noticed that Spain started handing out GDPR fines to telecom providers who fall for the sim swapping attack of 70.000€ per person:
+https://www.enforcementtracker.com/
+If you fall victim to the sim swap start reporting to the data privacy agencies. I guess enough fines will result in a safer system.
+(And as mentioned in the article use a safer 2FA option)
+Hello,
+Please never say that SMS-based 2FA is better than no 2FA.
+Totally wrong. Better no 2FA rather than insecure 2FA.
+2FA implies higher trust in authentication, so the server will trust you more with 2FA.
+If you have insecure 2FA, then it’s easy as hacker to escalate your trust with a server account.
+If there was no 2FA at all, then the server wouldn’t trust anybody at all, and wouldn’t think ‘this guy did 2FA, so it’s likely OK’.
+Insecure 2FA = worse than no 2FA at all.
+Why use 2FA at all anyway if it’s insecure, since the whole point of 2FA is to let users excert sensitive operations on their accounts more easily by giving them higher trust degree after the 2FA is done.
+Basically if you can’t do proper 2FA then don’t do any 2FA at all.
+2FA = automatic higher trust degree much like Windows UAC.
+If any program could auto-click Yes on the UAC prompts then UAC shouldn’t exist at all.
+Faulty 2FA = unnecessary liability pending.
+I heard you, but I don’t agree with your points, because I don’t agree that SMS-based 2FA is fundamentally broken while all the other commonly-used methods are faultless, which is what you seem to imply. 
+Also, for most accounts I have, 2FA isn’t used to grant me “extra powers” if I use it, or lower access rights if I don’t, so your premise that “the server will trust you more with 2FA” doesn’t really apply. (The services I use generally either require 2FA, so there is no 1FA-based way to connect at all, or they allow you to enable it but don’t reduce your rights if you don’t.)
+I stand by my suggestion that, all other things being equal, username + password + one-time code via SMS is no less secure, and is often more secure, than  username + password alone.
+After all, if you reject any 2FA system that has potential insecurities (for example, if you reject SMS-based 2FA because SIM-swapping is possible) then you must also reject app-based TOTP codes, because your TOTP seed could be leaked by the server you’re connecting to (they must store an unencrypted copy of it; no password-style hashing is possible). 
+And you must also reject things like non-biometric Yubikeys, because anyone who has the key can press the button to activate it, given that there is no independent lock code for the key itself as there is on a mobile phone.
+I generally advise people to avoid SMS-based 2FA if they can, but it does have a few good points, including:
+* If someone gets your password and tries to use it, you will get an unexpected SMS that acts as a rogue logon alert. (TOTP-based and public/private key-based 2FA systems generally can’t or don’t do this.)
+* There is no shared secret (the magic “starting seed”) that both you and the server need to store securely and that could therefore get leaked or stolen at either end.
+* If your SIM gets swapped, you have at least a fighting chance of noticing it, because the attacker can’t stop your phone losing its connection. (If your TOTP-based starting seed is stolen you may never know.)
+* It works on almost any device, and the SIM itself can be secured with its own PIN.
+* Some mobile phone companies have added security protections you can add to your account to make SIM swapping a bit more of a pain for you, but a lot harder for crooks.
+My 2c.
+“Watch out if your phone goes dead unexpectedly”
+Surely there’s an app for that? The moment your mobile provider reports to the phone “this SIM doesn’t work here anymore” it cranks up the volume to 11 and plays some sort of end-of-the-world alarm. And if wifi is available it immediately alerts you by any other means necessary (and sends an alert to your MDR team)
+For some reason, this comment (audio alert for SIM being blocked) made me think of “The Final Countdown”. Now I have Stuck Song Syndrome, a.k.a. an earworm.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

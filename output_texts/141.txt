@@ -1,0 +1,238 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  A brief history of Office macros, a Log4Shell style bug, two OpenSSL crypto bugs, and more…
+…on the Naked Security podcast. 
+[MUSICAL MODEM]
+All right, welcome to the podcast, everybody. 
+I am Doug Aamoth, and he is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  I’m well, Doug! 
+Welcome back – hope you enjoyed last week off.
+DOUG.  Thank you, I did. 
+It was warm, but not as warm as it is where you are now.
+DUCK.  We’re having what in the UK counts as a heatwave, and there’s not a breath of wind today, so it is pretty sweltering.
+DOUG.  Perhaps you will make history with the hottest recorded temperature?
+But I will give you this bit of tech history while you wait…
+This week, in 2001, the CodeRed worm started making its way through the internet.
+It attacked computers running Microsoft IIS Web server, and spread by leveraging a buffer overflow. 
+And my, how times have…
+..haven’t changed much, a couple of decades later.
+DUCK.  Yes!
+And when CodeRed happened, everyone said, “Oh, golly. One of the ways it spreads is just like what the Internet worm, the Morris Worm, did, way back in 1988. Have we learned nothing?”
+And it turns out that was a rhetorical question, Doug.
+[LAUGHTER]
+DOUG.  Do you remember dealing with this worm?
+DUCK.  It’s not one of the ones that one would ever forget, because of the speed and suddenness of it all…
+…and the fact that it’s this network packet that just showed up, and then went revving off elsewhere. 
+I think the huge deal, particularly given the timing of it, at the beginning of the 21st century, was that although it fortunately didn’t have any badness directly programmed into it such as “Hey, download ransomware and scramble the computer”,  it nevertheless generated so much network traffic…
+Outbound traffic for you, attacking the next guy, and inbound for everyone else. 
+And with lots and lots of countries having very strict internet usage caps in those days, it raised the issue of, “Who’s going to pay? I didn’t ask for this traffic. I didn’t ask to have somebody who hadn’t secured their IIS server pound me. I couldn’t actually stop this. It reached my router because it got through the ISP!” 
+So there was this whole thing of, “Who takes responsibility? Who pays for it?”
+I was in Sophos Australia at the time, and my ISP actually came out and said they were basically going to unmeter everything, loosely speaking, for a bit, while they got to the bottom of it.
+So, fortunately, it ended without too many tears, but it is a great indicator that sometimes the side effects of malware, even if it was intended as a “prank” right at the start, can be much worse than dangerous things that are programmed into the malware itself.
+DOUG.  I love listening to these stories of you living through these awful times, even though they were awful, because it’s such a good context for stuff that’s going on now… because it hasn’t changed all that much.
+DUCK.  Fortunately, Doug, we did have good mobile phone coverage in those days.
+So at least you knew that you could phone home and say, “I might be a bit late.”
+[LAUGHTER]
+I’m glad to have lived through it, but I would not have said that at the time!
+DOUG.  Well, speaking of coming home late, there are OpenSSL two “one-liner” crypto bugs that some headlines are referring to as ‘Worse Than Heartbleed’.
+OpenSSL fixes two “one-liner” crypto bugs – what you need to know
+
+
+DUCK.  These are fascinating bugs. 
+They were basically what I call one-liners… in other words, with one line of code changed or added, the bug could be fixed. 
+And one of them was specific to the special numeric calculations for public key cryptography. 
+That one was CVE-2022-2274: Memory overflow in RSA modular exponentiation. 
+I won’t go into what modular exponentiation is, but it’s basically multiplying a number by itself over and over and over again and doing divisions as you go along. 
+And it turns out that you can greatly accelerate that iterative calculation if you have a CPU or chip in your computer that supports what’s called vector arithmetic, which is where you do the same calculation at the same time on multiple lots of data, so you effectively get four instructions for the price of one. 
+And some Intel chips have a super-special, extra-powerful version of that called AVX512. 
+And so OpenSSL goes, “Well, if you’ve got that chip, I’ll use this super-fast extra way of accelerating everything.” 
+And in the middle of it, the programmer was given a number of bits that were supposed to be copied from A to B in memory…
+…but in fact, because the code is dealing with a special chip that works with big integers, the programmer didn’t copy N bits. 
+They copied N unsigned long integers, meaning that this was a memory buffer overflow of potentially spectacular proportions – you could be copying 64 times as much data as there was space for! 
+And so, one line fixed it: take the number of bits, and divide it down to convert it into the number of *integers* you need to copy instead of the number of bits. 
+Literally a one line fix.
+Phew!
+DOUG.  OK, what about the other one?
+DUCK.  The other one is the delightfully named CVE-2022-2097: Data leakage in AES-OCB encryption. 
+This is a special type of what’s called “authenticated encryption”. 
+Again, I won’t go into that, but it’s a way of doing AES encryption where you take a number of 16-byte chunks, and you scramble those chunks one-by-one. 
+And in this particular variant of AES encryption, the programmer was supposed to go through the blocks from 1 to N, encrypting them, starting at block 1, 2, 3… up to to and including N, thereby scrambling every block in the input. 
+Unfortunately, the code went from 1 to a value *less than* N, not *less than or equal to* N. 
+So the last block that was supposed to be encrypted never got encrypted! 
+And so, depending on how you were using the algorithm, it could actually mean that the encrypted data that you got back, and maybe saved to disk, was all perfectly encrypted, *except that the last 16 bytes would still be the original plaintext*. 
+So, plaintext would leak out every time you used the algorithm, which is not the idea of an encryption algorithm! 
+Everything or nothing, not arbitrary parts of it.
+That too was fixed by a single-line change. 
+A test for “less than” was changed to a test for “less than or equal to” – a one-byte change in the final compiled code. 
+Wow!
+DOUG.  OK, so you say the modular exponentiation bug is more severe, but you should just update them both, right?
+DUCK.  Yes, the fixes are there, and they work, and they should be uncontroversial. 
+That’s the nice thing about a one-liner fix – it’s not like you’re changing an algorithm or changing the API. 
+So I think it’s a very uncontroversial update to apply. 
+And there are two updates, for the two supported versions of OpenSSL. 
+Version 3.0.4 gets updated to 3.0.5 – that has both the fixes in, because both the bugs are in that code.
+And OpenSSL 1.1.1 goes from version P-for-Papa to Q-for-Quebec. 
+That doesn’t have the modular exponentiation bug; it only has the other one. 
+But one bug is bad enough! 
+So here’s my advice: Patch early, patch often, as always.
+DOUG.  OK, you can read about that on nakedsecurity.sophos.com. 
+Now we move from something called ‘Worse than Heartbleed’… [WHISPERS] but it doesn’t sound like it was actually worse than Heartbleed.
+DUCK.  No, I think that makes good headline, though!
+DOUG.  Yes, of course!
+But now, we have a Log4Shell-style bug in Apache…
+Apache “Commons Configuration” patches Log4Shell-style bug – what you need to know
+
+
+DUCK.  Yes, that makes a good headline as well: “It could be like Log4Shell!” 
+And I have to be honest, I did use the word Log4shell in the Naked Security headline, but I just described it as a ‘Log4Shell-style bug’, because it is. 
+And to me, that’s the most important part here, for any programmers now coming onto the scene. 
+Try not to make this mistake, which is the same sort of blunder that was made in the Log4Shell bug, and the same sort of blunder that we spoke about recently in Microsoft Follina. 
+And yes, Doug, it involves dollar signs and brackets. 
+If you remember Log4Shell…
+If I said, “Log this word: DOUG,” then it would log DOUG, exactly as I sent it. 
+But if I said log this word: ${special_weird_command}, then I was actually telling the other end, “No, don’t log what I sent you. Do some funky calculations *based on what I sent you*, even though you can’t trust it, and then take the result of that, and log that instead.” 
+Sounds dangerous, because it is dangerous!
+In Follina, it was $(command), where instead of that text being used literally and exactly to identify a file name, Windows would go, “Oh, hang on. What you should do is: don’t use that as the file name, but run what’s in the brackets *as a PowerShell command* and use that as the file name.” 
+And this was very much the same.
+Because it’s Java, it’s like Log4Shell: ${dangerous_stuff}.
+That’s how it worked. 
+Now, the code that the bug was in is called Apache Commons Configuration. 
+It’s a free utility library, part of the Apache Commons set of sub-projects, which is a load of super-useful packages and stuff. 
+And this one lets you handle configuration files – it’ll handle XML files, and it’ll handle INI files, and a whole load of other stuff. 
+And that dangerous stuff could be: “Run a command and take the output of the command,” which obviously means potential remote code injection.
+It could be: “Do a DNS lookup with this computer name, and see what comes back.” 
+That’s a very simple, low-key way of exfiltrating data in the middle of a servername lookup request. 
+And the last one: you could say, “Go to this URL and, whatever comes back, use that.”
+You’ve supplied data, but you actually get to instruct the other end, “Hey, run a command, do a DNS lookup, or visit my website.” 
+So even though you can’t send it code back to run, in the case of the website lookup, it means you’ve forced an outbound request, so you could have leaked all sorts of stuff to the crooks…
+…and clearly, at least by default, that’s a terribly bad idea! 
+In the last few versions of this Apache Commons Configuration (by a few versions, I mean over the last few years), this was added as a “feature”, but of course it turns out to be more of a liability. 
+So, in the latest version, that behaviour has been understandably reversed.
+DOUG.  OK, that’s been sitting there since 2018 but has been patched in version 2.8.0, which you should update to if you can. 
+And we’ve got some instructions on the site on Naked Security, in the article, about how to check if you’re vulnerable.
+So people can go there to check that out.
+DUCK.  And of course the advice to programmers is: if you are writing code that can accept potentially untrusted data and has any kind of ${...} or $(...) feature meaning, “Hey, run this command that someone else decided upon”…
+…check your inputs and outputs! 
+Not that we’ve ever said that before, Doug.
+[LAUGHTER]
+Don’t go for convenience over security if you can possibly help it.
+DOUG.  Great! 
+All right, check that out: that article is on nakedsecurity.sophos.com. 
+Now, we come to my favorite article of the week, because it offers a brief history of Office macros, and then a little back-and -forth wherein everyone seemingly was saying, “Come on, Microsoft! Do this thing”…
+…and then Microsoft did the thing, and then everyone’s saying, “Why did you do that?”
+That didn’t last! Microsoft turns off the Office security it just turned on
+
+
+DUCK.  Yes!
+You may have oversimplified slightly… or at least you’ve left out the key thing: it took 20 years for Microsoft to get around to putting this feature in, but only 20 weeks to go, “Oh, golly, we’re taking it out again!”
+I don’t think *everybody* told them to remove it… I just think that there was an unfortunate side-effect that hit not a majority, but a sufficiently vocal small minority, so Microsoft had to go, “OK, we’re backing this off for a bit, but watch this space, we’ll be back! We meant to put this feature in, and we now intend to. It took us 20 years to think about it. We won’t be diverted at this stage.”
+And that feature is that if you receive an Office file of a certain type (in particular Word, Excel and PowerPoint amongst others)… if you receive such a file that contains macros, executable , visual Basic for Applications code, and the file came off the internet, then *the macros just won’t work*. 
+Initially, in the early days, hey, they just worked whenever, and that was clearly a disaster. 
+And then Microsoft tightened things up a bit, and they said, “If it came off the Internet, we’ll pop up a warning and you’ll have to go, Yes, I really want to do this.”
+And we’ll have a non-default feature that well-informed sysadmins can use, saying. “No, I don’t want to *ask*, I want to *tell* users, Sorry, you can’t do it.”
+And finally Microsoft decided, “You know what, it seems that when you have this non-default feature turned on, it greatly reduces the risk that you will get phished using documents with macros in. so we’re going to make it the default.” 
+And that was the change they announced… I think we spoke about on the podcast, what was it, back in February or March 2022? 
+And they implemented it, but it turned out, like you said, that you can please some of the people some of the time, but not all of the people all of the time! 
+[LAUGHTER]
+ And in this case, for better or for worse, I guess the squeaky wheel got the oil, because what some people are saying is, “No, this is a step too far! How dare you protect me from myself? ”
+ [LAUGHTER]
+ So there we are. 
+ But, like I said, Microsoft is apparently insisting, “This feature is coming back!” 
+ Myself, I wish they could have done this 20 years ago.
+DOUG.  Given that this is again not on by default, you can take steps to lock this down yourself.
+DUCK.  If you have a Windows network where you can use Group Policy, for example, then as an administrator you can turn this function on to say, “As a company, we just don’t want macros off the internet. We’re not going to even offer you a button that you can say, Why not? Why not let the macros run?”
+But if you’re a smaller business, just with a few people working together, and you’re working with cloud-based services, including Microsoft cloud services, it may not be quite so easy. 
+You can apply Group Policy protections by editing the registry on your own computer… it’s not that hard, but there isn’t just a magic button you can easily press to do it if you want. 
+So, if you’re a small business, I would just suggest that you read about this, learn what the change is meant to do for you, and see if you can accommodate it for when it comes back. 
+Because all the evidence suggests that this does make a useful impact on document-based phishing where crooks use documents to sneak dodgy code into the company and then trick you into running it by going, “Yes, you need to click this to decrypt the document, or to un-copyprotect it, or to reveal the hidden content.”
+And, lo and behold, you press the button; you authorise something that you shouldn’t have… after which, bad stuff happens and next thing you know, your computer is being invaded. 
+So it seems that as a protective vehicle, it does work. 
+It’s just ironic that what I was almost ready to describe as “Too little, too late” ended up, for some people, being “Too much, too soon.” 
+But we’ll get there in the end, I think… just hang in there if you don’t yet quite know what to do.
+DOUG.  All right, we will keep an eye on that. 
+And last, but certainly not least, is a story about paying ransomware crooks. 
+So… I have a business; I get hit with ransomware; I get regulators coming after me saying, “You got hit by ransomware, you’re in big trouble for not protecting people’s data”… and I say, “But I paid the ransom, that’s got to be worth something, right?
+Paying ransomware crooks won’t reduce your legal risk, warns regulator
+
+
+DUCK.  Yes. I must admit, I was quite surprised that this became the deal that it was, but I thought it was important to remind people about it.
+Now, it’s a UK-specific story, as it stands, because it’s an open letter that came from the UK Information Commissioner’s Office (ICO), backed by the National Cybersecurity Center (NCSC), which is part of the secret intelligence service in the UK. 
+It’s an open letter to attorneys, to lawyers, around the UK, and I suspect that there will be many other countries where lawyers, perhaps understandably, are kind of thinking along these lines… of saying to people, “Look, if you’re stuck with paying the ransom to get the data back, and it’s going to get the business going again, it’s not illegal. And given that’s the negotiation that the crooks want to do, so they don’t leak the data, we can’t for the life of us see why that would make the regulator more cross than if you just showed the middle finger to the crooks, and they did leak the data and bad things happened.” 
+Thus this open letter – like I said, specific to the UK, but there may be other countries where people are thinking along these lines.
+And, as the Information Commissioner’s Office very bluntly put it:
+It has been suggested to us that a belief persists that payment of a ransom may protect the stolen data and or result in a lower penalty by the regulator should it undertake an investigation.” 
+[LAUGHS] 
+But here’s the kicker: 
+We would like to be clear that this is not the case. […] For the avoidance of doubt, the Information Commissioner’s Office does not consider the payment of monies to criminals who have attacked a system as mitigating the risk to individuals, and this will not reduce any penalties incurred.
+Paying the crooks for getting you out of the hole that the crooks dug you into… it’s not a security precaution! 
+Who knew, Doug?
+[LAUGHTER]
+DOUG.  Seriously… 
+And you do say in the article… I thought this was interesting, you are reasonable about this: “If it’s likely to be the only hope of saving your business and keeping your staff and their jobs, it seems fair to consider paying up as a sort of necessary evil.”
+DUCK.  The regulator in the UK is saying it’s not automatically unlawful to pay ransomware demands. 
+In the UK, there’s no actual law that says: if you do it, you’re a criminal yourself. 
+Although the ICO says it hopes, as far as it can, that you don’t pay up, it can’t stop you. But there may be reasons, you do need to remember, particularly in the current era, for which you may nevertheless get into trouble because of what they call the “relevant sanctions regulations, particularly those related to Russia.” 
+Although it’s not blanket unlawful to pay ransoms in general in the UK (I don’t know whether any countries have that rule yet), there may be cases where you are not supposed to pay or not *allowed* to pay for other reasons… because of where the money is going. 
+And, of course, if you do pay, then you have little choice but to risk being in trouble for that. 
+So the regulators are warning you that, although you may want to pay with the deepest dread in your heart… do your very best to avoid doing so!
+And, of course, all those other reasons that we spoke about when we talked about this year’s Sophos Ransomware Survey…
+Ransomware Survey 2022 – like the Curate’s Egg, “good in parts”
+
+
+Basically, paying up should only ever be a last resort. 
+What were the stats in our latest survey? A third of the people only got half their data back. (They don’t get to choose which half it is, by the way!) 
+That’s the important thing to remember… and at least some of the people who paid up got nothing at all. 
+And very few of the people who did pay up actually got everything back. 
+So the idea that, “I will pay –  obviously, it’ll at least get my business running again, and the regulator might go, ‘Well, at least you tried to make the best of a bad job'”…
+The first part doesn’t work that way. 
+You might get absolutely nothing at all after you paid the money. 
+Colonial Pipeline spent, what $4.4 million, was it? 
+And what did they get? A decryptor that was so slow they couldn’t even use it – they just went for their backups anyway, which they could have done, and kept $4.4 million in their pocket. 
+And the fact that the regulator is not going to thank you for paying the money and say, “Gosh, what a thoughtful person you were.” 
+The least they’re going to do is say, “Irrelevant. You didn’t look after the data properly; you didn’t mitigate the risk as you should. Let’s talk about what we’re going to do to punish you, and make sure you don’t do it again.”
+DOUG.  Very good… you can read more about that on the site nakedsecurity.sophos.com. 
+And as the sun slowly begins to set on our show for this week, it’s time to hear from one of our readers on the Office Macros article. 
+Keith writes:
+“If companies rely on receiving macro-embedded documents from the internet, and accept the risk, they should be the ones that enable it by group policy. Protect the many and force them to allow security exceptions.” 
+I think that’s a sentiment that’s probably shared by others as well.
+DUCK.  Yes. 
+My first thought when I saw that comment… well, apart from hitting the approve button immediately [LAUGHTER] was, “That’s how it should be.”
+Shouldn’t even need to say it… in the same way that who would have thought you need to send a letter to lawyers saying, “Hey, paying the ransom isn’t a good thing to do”!
+My gut feeling is that what’s happened with Microsoft is they found that small businesses, including those who are actually keen to adopt Microsoft’s own cloud solutions, are finding that this is actually harder to handle than they would ever have thought. 
+Som maybe for a while the bigger companies just have to go, “OK, we’ll use group policy; we know how to do that. We’ll just turn this on, leave it on.!
+If you do have it on already, by the way, then this change… I don’t think it will makee any difference when it’s turned on because it would already have been on; and although it’s now off by default, i won’t be off on your network. 
+But the sentiment is absolutely correct.
+If there are people who go, “You can’t do that”… the sort of people who say, “I’m not going to put lights on my bicycle. That’s my business, not yours. If you run me over and squash me flat, that’s my problem,” they’re forgetting about the fact that there are all these knock-on effects to the rest of the community when they do things that are insecure. 
+So I agree: ideally, when we finally decide this is a security feature that’s working out so well we’re going to turn it on for everybody, I absolutely agree that it should be a non-contentious change.
+But, like we said earlier in the podcast, it looks as though Microsoft is hoping for just a few weeks of rethinking this.
+Though, as we know, the problem with thinking about software things “for a few weeks” is… where does few end and many start? 
+Is that six weeks, or is 56 weeks “a few”?
+When lockdown started, did you think it was going to be 104 weeks, two years, or did you think, “Probably three, maybe eight?”
+[LAUGHTER]
+In this case, let’s hope that we finish up in a situation where it’s “all’s well that ends well”, and that the default does become more secure for everybody, except for those who insist on turning the feature *off*.
+DOUG.  All right, very good. 
+Thank you for the comment, Keith! 
+And if you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles; or hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening… 
+For Paul Ducklin, I’m Doug Aamoth, reminding you: until next time…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

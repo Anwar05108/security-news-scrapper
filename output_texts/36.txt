@@ -1,0 +1,54 @@
+Sophos Home protects every Mac and PC in your home 
+VMware’s latest security bulletin doesn’t mince its words about how quickly you should patch: 
+When do I need to act?
+Immediately. The ramifications of this vulnerability are serious, especially if attackers have access to workloads inside your environments.
+[… G]iven the severity, we strongly recommend that you act.
+The issues referred to here are covered in the company’s just-released advisory VMSA-2022-0004.
+The good news, we’re pleased to tell you, is that this is the bad news.
+Acting now will almost certainly jump you ahead of the many inquisitive (and acquisitive!) cybercriminals out there, given that none of the bugs patched in this update seem to be zero-day security holes.
+According to VMware, the company “has not seen evidence that this has been exploited in the wild”.
+VMware says that he bugs were responsibly disclosed during the Tianfu Cup, a organised hacking contest run in China along the lines of the well-known Pwn2Own contest in Canada.
+The bugs patched in VMSA-2022-0004 cover five different CVE numbers (CVE-2021-22040, -41, -42, -43, and -50), but the first two are the ones to focus on if your change control committee insists on taking time to rank vulnerabilities into decreasing order of badness before acting.
+Both CVE-2021-22040 and CVE-2021-22041 are annotated with the comment that “a malicious actor with local administrative privileges on a virtual machine may exploit this issue to execute code as the virtual machine’s VMX process running on the host.”
+At first glance, the fact that an attacker first needs to login with a superuser account first might make this seem like an inconsequential sort of bug.
+After all, if you’re already root, you can already do almost anything you like to the computer you’re on, so why bother with an exploit that gets you root again?
+The big difference in this case is that virtual machine (VM) software is supposed to allow one computer, known as the host, to run numerous “guest machines” that are oblivious to each other’s presence, even though they’re actually running on the same hardware.
+The VM host software is supposed to prevent the guest VMs from messing with one another without prior arrangement.
+That’s because, in a typical VM setup, even one that isn’t hosted in the cloud, one physical VM server might act as the host for many guests, all of them administered by different company departments – or even split up amongst different organisations – that can’t, don’t, or shoudn’t trust each other.
+In other words, a VM server hosting 10 different VM guests might have 11 different administrators: one each for the various guest operating systems installed, and one for managing the host server itself.
+That’s entirely by design: the idea is that if I’m the root user of the host computer, I can let you choose and install your own operating system, set it up how you like, and dish out usernames and passwords to your own users…
+…without having to worry that you might “escape” from your VM and mess either with other VM users assigned to the same server, or (worse still) get access to the host operating system itself, which would probably let you snoop on me and all the other VMs on the server at will.
+Indeed, I should assume not merely that you might know the superuser password for your own VM, but that you will and indeed must know it on account of having set the guest VM up in the first place; and I should remember that I have little or no control over how widely you might share your own administrator login details anyway.
+After all, different VMs on the same server hardware are meant, by default, to operate independently and separately, as if they were running on their own separate physical servers. 
+(This is good for resilience, redundancy and availability: if you suddenly need a couple of extra servers to tide you through a busy period, for example, you don’t need to buy and install new hardware; you can just rent some additional “VM space” from your VM provider, perhaps even hosted in another part of the world for speed or efficiency reasons.)
+Therefore any bug that undermines either guest-to-host cybersecurity separation, or even just guest-to-guest separation, must always be considered a serious security risk.
+A VM guest escape bug is a bit like finding out that someone you’ve never heard of has got hold of a key to your server room or your network patch closet, and could sneak in at will and fiddle with your kit and your cabling without permission.
+There’s a second security advisory that came out at the same time, VMSA-2022-0005, which fixes another responsibly disclosed vulnerability, though this one didn’t emerge from the Tianfu Cup competition.
+This one apparently closes off a bug (CVE-2022-22945) in the NSX Data Center for vSphere Edge Appliance: anyone with SSH access to such a device, typically used for managing the network connectivity of multiple VM servers in a network data centre, could promote themselves to an administrator.
+Presumably, this might include low-privilege users who normally have only minimal access, for example to look at usage statistics.
+In other words, even if your general network security controls shield your Edge Appliances from direct probes from the internet, and therefore this bug might only be triggerable by network “insiders”, the list of insiders with enough access to abuse this bug might be a long one. 
+Cybercriminals who compromised the accounts of any of the users on that list might be able to use this bug to set up a beachhead for a much bigger-scale onward attack.
+Affected products include:
+Consult VMware’s advisories here and here for the version numbers to look for after you’ve updated, in order to track the progress of your patching.
+If, for some reason, you can’t patch right away, VMware has published a temporary workaround to prevent the guest-to-host escape bugs (CVE-2022-22040 and CVE-2022-22041) from being exploited, although this means managing without USB support inside your guest VMs.
+Happy patching!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Tianfu Cup, an organized hacking contest run in China and not a zero-day? I am sure China already has this vuln and is using it.
+If so, no one has spotted it yet. I am guessing – now you have a good idea where to look – that if might be possible to test your hypothesis by looking for signs of this bug actively being probed over the past few months. You’d imagine that the artefacts of such an exploit might be visible somewhere in the sea of historical threat logs everyone collects these days…
+Reminds me of Meltdown / Spectre and everyone hoping their shared environs were patched by hosting providers. I bet dedicated private cloud sales went up after that.
+Can probably add Log4Shell to that list :-) Not a VM data-leakage bug, but the kind of thing that could have been lurking almost anywhere (and probably was)
+Your CVEs should start CVE-2021, not CVE-2022 (remember they were found last year, not this year) with the exception for the VMSA-2022-0005 (CVE-2022-22945)
+In the section “Competitive Bug Hunting”, I think you mean CVE-2021-22040 and CVE-2021-22041 (the last number had the wrong year as well as the wrong ending — 22021 instead of 22041).
+I only notice because I had to write about these patches yesterday, and the CVEs were rolling around in my head. Loads of numbers, and it’s easy to mix up the year during Jan & Feb, especially when the advisory has 2022 in it.
+Fixed, thanks! Not only are we well into 2022 already, but the CVE sequence numbers start with 22- as well.
+As you say, the bugs were found last year, because that’s when the most recent Tianfu Cup happened.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

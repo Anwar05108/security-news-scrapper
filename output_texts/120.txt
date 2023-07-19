@@ -1,0 +1,68 @@
+Sophos Home protects every Mac and PC in your home 
+Marion County, right in the middle of the US state of Indiana, and home to the state’s capital Indianapolis, is also currently home to a tragic court case. 
+(Thanks to fellow writers at The Register for that link – we couldn’t get to the official court site while we were writing this up.)
+The short version of events is alleged to be as follows: 
+In the sombre and tragic words of the charge sheet, the court alleges that the accused “did knowingly kill another human being, […], all of which is contrary to statute and against the peace and dignity of the State of Indiana.”
+The charge sheet makes interesting reading, and is a fascinating reminder of how old-school policing, such as promptly interviewing witnesses at the scene and securing relevant property that might be neeed in evidence…
+…is mixed in with the need for today’s investigators to be familiar with modern technology and to how to involve it right from the start in the evidence they collect.
+Some of the evidence is quite chilling, such as the discrepancy between the claim by the accused that she did drive at the dead man, but “didn’t mean for him to go under the car”, and the claim by other witnesses that after hitting him, she reversed back over him and then drove into him again, at which point he allegedly got trapped under the front of the vehicle, wedged beneath the gearbox.
+Presumably in an attempt to “dot the Is and cross the Ts”, a crime-scene technican “measured the distance from the ground to the transmission pan with the [vehicle] sitting level on all four tires at just over six inches [15cm]”, which doesn’t bode well for anyone pinned down under the engine.
+(The transmission pan is the bottom section of the oil sump under the gearbox, and forms the lowest part of the transmission.) 
+The technician also found an empty Apple AirTag container in the accused’s car.
+This evidence seemed to line up with a witness statement that the dead man assumed “there was a GPS on his car because [the accused] was texting him that she knew where he was at”.
+In the end, the accused apparently decided to co-operate with the police, presumably given the very public nature of the confrontation and the incident.
+After denying that she’d AirTagged the dead man’s car, an investigator asked, “if a search warrant was served [for the dead man’s car], would a a tracker […] be located?”
+At this point, she allegedly “admitted that she had a tracker on his car, and stated that she placed it in the backseat of his vehicle near the cup holder.”
+We’ll steer clear of any moral, legal or social pronouncements in what sounds like a tragic case of O! What a tangled web we weave, when first we practise to deceive.
+But we have written about AirTags and other tracking devices before, noting that:
+Of course, you might not hear the beeping noise if the AirTag is well-hidden or otherwise muffled. 
+It’s also possible to buy second-hand AirTags that are modified so the speaker doesn’t work, though the accused in this case doesn’t seem to have done that.
+And even if you decide to run an AirTag tracking app yourself, despite having no AirTags of your own, you need to remember to consult the app see if there are any warnings pending.
+In this case, the dead man seems to have been aware that he was being tracked, and that his partner would probably be able to find him anyway through knowing his habits.
+Lastly, if the person tracking you is someone you expect to meet up with regularly anyway, their device is likely to make contact with the hidden tracker frequently enough to avoid suspicion, which would suppress the alarms it might otherwise give out.
+In short, there isn’t a robust and reliable way to detect that you’re being tracked, but if you are worried about getting snooped on via a Bluetooth-based device, you might want to consider a Bluetooth monitoring app that can detect and list any “beaconing” devices in your vicinity.
+Unfortunately, in urban areas at least, there are usually loads of Bluetooth devices around, so picking out the suspicious devices from the background noise can be quite hard.
+If you’re determined, and you can find a location that’s secluded enough to show no Bluetooth traffic when you stand there alone with your scanner, then you can test your own items one-by-one by bringing them within 10 metres.
+LEARN MORE ABOUT AIRTAGS
+Apple AirTag anti-stalking protection bypassed by researchers
+
+
+Apple AirTag jailbroken already – hacked in rickroll attack
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It should be relatively simple to put together an app which could detect, and alert you to, an AirTag which satisfies the following two conditions:
+[1] It is not in your personal collection of iThings, and
+[2] It is in your vicinity at two different times (within, say, 24 hours) and places (say, more than 50 miles / 80 km apart).
+Or indeed, to apply the “Goldfinger coincidence” algorithm: once is happenstance, twice is a coincidence, and the third time is enemy action.
+The AirTag changes its ID once every 15 mins. Unless you can keep consistently above 320km/hr then you cannot do more than 80km in that period, so this sort of tracking  couldn’t work.
+Wow. What an article.I just discovered  AirTags last week. Someone told me their 29$ and it sounds like you can do a lot of things with AirTags for what it’s worth, but killing someone!? Crazy!
+Well, it was the car that was the weapon, allegedly. And, as we mention in the article, she knew roughly where to look for the victim anyway…
+…but the thing with products  like AirTags (other trackers are available) is that they can be used for bad as well as good.
+Remember all those tiny trackers that James Bond aka Sen Connery used in the movies. I never did believe they could send a signal as far as the map in the Lotus showed. That beep always sounded like the Sputnik signal to me. This was the 1960’s. But then, later, late 1980’s, I had a visit by a salesman selling the idea of a tracker that could fit in the heel of a shoe and the signal would be picked up by a proprietary series of satellites circling overhead and redirected to earth. I don’t remember the company’s name, but the technology was astounding 20 years after the fiction of Mr. Bond. Air Tags don’t have James Bond’s range. Apple claims you can get up to 400 ft. If everything works to perfection. Unless she was following him, say 100 ft away ( the signal has to pass through two boxes with lots of metal) it should be very difficult to track a car. The lady must have thought that these Bluetooth devices were as good as anything MI6 created. My guess is that this Air Tag is a red herring in this case and not too relevant, except in the parking lot to confirm that the victim’s car was there. But then, any reasonable person would see the car before the iPhone starts beeping.
+The thing is that AirTags don’t need *you* to be in range. They emit a cryptographically encoded identification string every few seconds (the ID itself changes every few minutes) and *any* nearby iPhone or Mac that picks up the transmission will relay it to Apple via the mobile phone network or Wi-Fi. The GPS location data that records the location of the AirTag is added by the phone or computer that is relaying the data back to Apple.
+Neither the person doing the relaying nor Apple itself knows which tag the encrypted ID refers to. Only the owner of the device knows the right encrypted data to search for on Apple’s servers. If there’s a match, the tag’s owner can then decrypt the location from the data that’s found.
+In other words, the AirTag doesn’t need to transmit far enough to reach *you*. It just needs to transmit far enough to reach *someone* every now and then. 
+Bluetooth Low Energy range is about 10 metres (30 feet or so). In a pub car park, that covers anyone parking in the two or three spaces either side of the tagged vehicle, or anyone walking past the car on the way in or out. If any one of those people happens to have an iPhone… job done.
+One problem with this situation is that Apple is using random peoples devices/bandwidth without their permission to support this other(air tag) product – and possibly contribute to crimes. Or maybe it’s buried in the most recent EULA from apple (with the sewing of the mouth to …)…….
+I suppose they man that “iPhones that pass by right out to 100’ or even 400’ might be able to catch signals from a tag”.
+Apparently my “10m range” is quite conservative. The spec for Bluetooth Low Energy seems to suggest that “up to 100m” is possible (about 330’).
+I know that I have set off on foot for the shops with my headphones on and had them cut out about 15m away because they were paired with the wrong device… so more than 10m certainly must be possible. But I definitely haven’t experienced 100m of range.
+I assume 100m is an ideal situation. I wonder how much an automotive body (probably pressed steel) and big chunks of metal close by (the rear seat of a RWD car is close to the differential and rear driveshafts) would affect the range?
+I am tempted to buy an AirTag to find out… but there are lots of other things I can think of to spend £29.95 on first!
+Thank you Paul. I was not aware of the actual ways and means of transmitting the air tag signal. Apple’s marketing claim of 100 to 400 ft. must be referring to an ideal Bluetooth signal only.
+Informative as always, but I do have some qualms about the wording of the title, and the occasional casual tone used in the context of a gruesome murder of a human being. Reverse the genders, and would you still use the same wording? The title smells of victim-blaming — I don’t think “cheating” belongs in there.
+Not sure that I accept your complaint that the article adopts a casual tone anywhere. We described this as “a tragic court case”, referred to the “sombre and tragic words of the charge sheet”, and wrote that “some of the evidence is quite chilling”. Nothing casual about this matter at all.
+We could have used the pronoun “they” in the headline but given that the accused and the victim seemed to be known as “she” and “he”, and given that there is indeed exactly one suspect and one victim, the use of an unambiguously singular pronoun seems both unexceptionable and useful.
+(The headline doesn’t mention the victim’s gender.)
+We could have said “murder case involves AirTag”, but an interesting and important part of the story is that the victim is alleged to have said not only that she used one but also how and where she “planted” it, thus “says” in the headline. And the alleged “cheating” is germane to the story too.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

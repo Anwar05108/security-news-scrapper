@@ -1,0 +1,79 @@
+Sophos Home protects every Mac and PC in your home 
+Apple’s latest collection of security updates has arrived, including the just-launched macOS 13 Ventura, which was accompanied by its own security bulletin listing a whopping 112 CVE-numbered security holes.
+Of those, we counted 27 arbitrary code execution holes, of which 12 allow rogue code to be injected right into the kernel itself, and one allows untrusted code to be run with system privileges.
+On top of that, there are two elevation-of-privilege (EoP) bugs listed for Ventura that we assume could be used in conjunction with some, many or all of the remaining 14 non-system code execution bugs to form an attack chain that turns a user-level code execution exploit into a system-level one.
+That’s not the most critical part of this story, however.
+The “clear-and-present danger” prize goes to iOS and iPadOS, which get updated to version 16.1, where one of the listed security vulnerabilities allows kernel code execution from any app, and is already actively being exploited.
+In short, iPhones and iPads needs patching right away because of a kernel zero-day.
+Apple hasn’t said which cybercrime group or spyware company is abusing this bug, dubbed CVE-2022-42827, but given the high price that working iPhone zero-days command in the cyberunderworld, we assume that whoever is in possession of this exploit [a] knows how to make it work effectively and [b] is unlikely to draw attention to it themselves, in order to keep existing victims in the dark as much as possible.
+Apple has trotted out its usual boilerplate remark to the effect that the company “is aware of a report that this issue may have been actively exploited”, and that’s all.
+As a result, we can’t offer you any advice on how to check for signs of attack on your own device – we’re not aware of any so-called IoCs (indicators of compromise), such as weird files in your backup, unexpected configuration changes, or unusual logfile entries that you might be able to search for.
+Our only recommendation is therefore our usual urging to patch early/patch often, by heading to Settings > General > Software Update and choosing Download and Install if you haven’t received the fixes already.
+Why wait for your device to find and suggest the updates itself when you can jump to the head of the queue and fetch them right away?
+As you might have assumed, given that the release of Ventura takes macOS to version 13, three-versions-ago macOS 10 Catalina doesn’t appear in the list this time.
+Apple typically provides security updates only for the previous and pre-previous versions of macOS, and that’s how the patches played out here, with patches to take macOS 11 Big Sur to version 11.7.1, and macOS 12 Monterey to version 12.6.1.
+However, those versions also get a separate update listed as Safari 16.1, which fixes several dangerous-sounding bugs in Safari and its underlying software library WebKit.
+Remember that WebKit is used not only by Safari but also by any other apps that rely on Apple’s underlying code to display any sort of HTML-based content, including help systems, About screens, and built-in “minibrowsers”, commonly seen in messaging apps that offer an option to view HTML files, pages or messages.
+Apple watchOS and tvOS also get numerous fixes, and their version numbers update to watchOS 9.1 and tvOS 16.1 respectively.
+The good news is that only early adopters and software developers are likely to be running Ventura already, as part of Apple’s Beta ecosystem.
+Those users should update as soon as possible, without waiting for a system reminder or for auto-updating to kick in, given the huge number of bugs fixed.
+If you aren’t on Ventura but intend to upgrade right away, your first experience of the new version will automatically include the 112 CVE patches mentioned above, so the version upgrade will automatically include the needed security updates.
+If you’re planning on sticking with the previous or pre-previous macOS version for a while yet (or if, like us, you have an older Mac that can’t be upgraded), don’t forget that you need two updates: one specific to Big Sur or Monterey, and the other an update for Safari that’s the same for both operating system flavours.
+To summarise:
+Note that macOS 10 Catalina gets no updates, but we assume that’s because it’s the end of the road for Catalina users, not because it’s still supported but was immune to any of the bugs found in later versions.
+If we’re right, Catalina users who can’t upgrade their Macs are stuck with running increasingly outdated Apple software forever, or switching to an alternative operating system such as a Linux distro that is still supported on their device.
+Quick links to Apple’s security bulletins:
+As shown in the list above, Apple’s bulletin explicitly lists the iPadOS update as iPadOS 16, but after updating, the Settings > General > About > iPadOS Version screen reports a version number of 16.1, using the same version identification string 20B82 as the equivalent update on iOS.
+You can compare our own updated iOS phone on the left with the information from an iPad on the right, kindly sent in by a helpful reader (the Dutch text on the right means the same as the English on the left):
+SECURITY SOFTWARE AND THE VENTURA UPGRADE PROCESS
+Note. Some security products, including Sophos Central Endpoint, may require administrator attention before or after upgrading to Ventura, due to a security lockdown applied by Apple during the operating system upgrade. (An access control setting allowing security products Full Disk Access privileges gets removed, so the affected app may no longer be able to provide the same level of protection it did before.) Specific information for Sophos users, plus some general advice about this issue that you may find useful even if you aren’t a Sophos customer, can be found in Sophos Knowledgebase article KB-000044555.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The new iPadOS is 16.1 just like the phone, there wasn’t a 16 release for iPads…
+The security bulletin explicitly refers to the iPad update as “iPadOS 16” (and to the iPhone update as iOS 16.1).
+See: https://support.apple.com/en-gb/HT213489
+If you have a post-update iPad where the About screen shows the number as 16.1, I would greatly appreciate a screenshot (send to tips@sophos.com) that I can add to the article because if that’s what it says IRL, it would be useful to show it. 
+My iPhone now says “iOS Version 16.1”, but I don’t have an iPad to compare it with…
+Update. Thanks to Stefaan, who sent in the corresponding info screen from a just-updated iPad. Although the security bulletin title refers to iPadOS 16, the update apparently identifies itself after you install it as 16.1.
+I can only guess that Apple thought that calling it iPadOS 16.1 in the bulletin might confuse people who wondered when they were going to get an iPadOS 16 upgrade that they could then update to 16.1. Instead, they confused many of us here who wondered when the iPadOS upgrade they were being offered now would get the update needed to align it with iOS.
+Thanks very much as always Paul for the in-depth details of these updates, going far deeper than most websites on them.
+Will updates for iOS 16 and iPadOS 16 work differently from now on if the user chooses to install the new Rapid Security Response updates? Its not clear how the user will verify these updates are installed once they are deployed in the future. I wonder if Apple will adapt a patch level similar to Android which applies and lists a date for the updates installed. It will be interesting to see how this works in the future.
+Thanks again.
+Thanks for your kind words…
+…as for the Rapid Security Response thing (which sounds sort of like what Microsoft and others call “out of band”, except there is no band to step out of), I guess we shall have to wait and see.
+Surely there will have to be a list on the About page? Or, as you say, at least a “patch level” number that confirms you have them all?
+I wonder what sort of choice we will end up with for those emergency updates? If they can’t be deferred then some people will be unhappy about that (jailbreakers for sure :-)
+You’re welcome and agreed we will have to wait and see. I don’t see a choice right now for the emergency updates. What I mean is, they are an opt-in choice within the Automatic Updates setting screen. Once opted-in, who knows when they are installed. According to the settings screen, a restart of the device is not always needed for the emergency updates to be applied. As you say, jailbreakers won’t be happy but they could choose to opt-out.
+Whether the usual feature updates such as 16.2 and so on include security updates or just feature updates is not clear either. What if the person doesn’t opt-in to emergency updates? Do they then receive the security updates as part of 16.2 (which then has a larger download size for their device)? As you say, we will see.
+Thanks.
+Will the 15.7 update for iPads resolve this, or do I have to update to 16? I am waiting until the minor nuisance bugs in 16 are resolved before updating.
+I can’t answer that. The last update I can see on Apple’s official security portal (HT201222) is iOS/iPAD)S 15.7 from more than a month ago, back when iOS 16 and Monterey 12.5.1 came out. Now, iPadOS 16 is listed as fixing the same vulnerabilities as those patched in iOS 16.1, i.e. bugs fixed since iOS 16 came out, and thus since iOS/15.7 came out. 
+The burning question, therefore is this: has Apple now given up on iOS and iPadOS 15, so that upgrading to version 16 is actually your only update path for iOS 15 security fixes; is iOS/iPadOS 15.7 immune to any of the bugs fixed in any of the other products, and therefore not in need of an update right now; or is iOS/iPadOS 15.7 vulnerable but just not patched yet, so watch this space?
+That’s the problem with Apple security bulletins: they tell you what there *is*, but they don’t inform you about what *isn’t* there, and why it’s absent… is it because you needn’t worry at all, because a patch is under construction but not quite ready yet, or because a patch is needed but will never arrive?
+Thanks Paul. It is really a privilege to count on your knowledge!
+Best
+Ricky
+Thanks, Paul. That’s exactly what I was wondering.
+Update to update: iOS 15.7.1 came out (fixing the same zero-day) a few days later:
+https://nakedsecurity.sophos.com/2022/10/28/updates-to-apples-zero-day-update-story-iphone-and-ipad-users-read-this/
+I’m stuck on iOS 15.7 (iPhone 7). Can I update to Ventura, or should I avoid it?
+Earlier there were problems (like with Reminder) when the 2 OS were not in sync.
+Thank you!
+Thanks for a great blog (as usual)! Anyone else experiencing issues with Bitdefender after the Ventura update? After the update, Bitdefender claims it no longer has the full disc access it needs for its EDR sensor and advanced threat control to work. Dropped both Apple and Bitdefender an email about this, but haven’t received any answers yet.
+See the special section at the end of the article about this. The Sophos Knowledgebase link includes an explanation of how to restore Full Disk Access to the Sophos product. You should easily be able to adapt these instructions to other products affected by this problem. (Apparently Apple has acknowledged this an an operating system bug and will be fixing it, but who knows when the next Ventura update will turn up?) 
+In brief (haven’t tried this myself as my own Mac won’t run Ventura), use the System Preferences > Privacy and Security > Full Disk Access (FDA) settings page to fix the issue. 
+Apparently, even if a security app appears to have FDA privileges after the Ventura update… it doesn’t. So you need to remove the app from the list yourself, then add it back manually afterwards, which should restore its functionality.
+If that works for you, then you can send Bitdefender the link to our advice :-)
+Our system administrator advised us not to instal Ventura, as there i sa problem with Sophos.
+Is that right?
+See above in the article, in the special section with the subheading “SECURITY SOFTWARE AND THE VENTURA UPGRADE PROCESS”.
+Apple revoked a system privilege used by various security products, including Sophos. This can temporarily block some security features of various products… there’s a link to a Sophos knowledgebase article above that will be useful. Apple will apparently be fixing the bug that causes this, after which you can update normally. Or you will need some admin-level intervention if you need or want to update now.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

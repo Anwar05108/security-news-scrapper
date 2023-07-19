@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+You wouldn’t know it from visiting the company’s main website, but General Bytes, a Czech company that sells Bitcoin ATMs, is urging its users to patch a critical money-draining bug in its server software.
+The company claims worldwide sales of more than 13,000 ATMs, which retail for $5000 and up, depending on features and looks.
+Not all countries have taken kindly to cryptocurrency ATMs – the UK regulator, for example, warned in March 2022 that none of the ATMs operating in the country at the time were officially registered, and said that it would be “contacting the operators instructing that the machines be shut down”. 
+Cryptocoin ATMs ruled illegal – “Shut down at once”, says regulator
+
+
+We went to check on our local crypto ATM at the time, and found it displaying a “Terminal offline” message. (The device has since been removed from the shopping centre where it was installed.)
+Nevertheless, General Bytes says it serves customers in more than 140 countries, and its global map of ATM locations shows a presence on every continent except Antarctica.
+According to the General Bytes product knowledgebase, a “security incident” at a severity level of Highest was discovered last week.
+In the company’s own words:
+The attacker was able to create an admin user remotely via CAS administrative interface via a URL call on the page that is used for the default installation on the server and creating the first administration user.
+As far as we can tell, CAS is short for Coin ATM Server, and every operator of General Bytes cryptocurrency ATMs needs one of these.
+You can host your CAS anywhere you like, it seems, including on your own hardware in your own server room, but General Bytes has a special deal with hosting company Digital Ocean for a low-cost cloud solution. (You can also let General Bytes run the server for you in the cloud in return for a 0.5% cut of all cash transactions.)
+According to the incident report, the attackers performed a port scan of Digital Ocean’s cloud services, looking for listening web services (ports 7777 or 443) that identified themslves as General Bytes CAS servers, in order to find a list of potential victims.
+Note that the vulnerability exploited here was not down to Digital Ocean or limited to cloud-based CAS instances. We’re guessing that the attackers simply decided that Digital Ocean was a good place to start looking. Remember that with a very high-speed internet connection (e.g. 10Gbit/sec), and using freely available software, determined attackers can now scan the entire IPv4 internet address space in hours, or even minutes. That’s how public vulnerability search engines such as Shodan and Censys work, continually trawling the internet to discover which servers, and what versions, are currently active at which online locations.
+Apparently, a vulnerability in the CAS itself allowed the attackers to manipulate the settings of the victim’s cryptocurrency services, including:
+As far as we can see, this means the attacks conducted were limited to transfers or withdrawals where the customer made a mistake.
+In such cases, it seems, instead of the ATM operator collecting the misdirected funds so they could subsequently be reimbursed or correctly redirected…
+…the funds would go directly and irreversibly to the attackers.
+General Bytes didn’t say how this flaw came to its attention, though we imagine that any ATM operator faced with a support call about a failed transaction would quickly notice that their service settings had been tampered with, and raise the alarm.
+The attackers, it seemed, left behind various telltale signs of their activity, so that General Bytes was able to identify numerous so-called Indicators of Compromise (IoCs) to help their users identify hacked CAS configurations.
+(Remember, of course, that the absence of IoCs doesn’t guarantee the absence of any attackers, but known IoCs are a handy place to start when it comes to threat detection and response.)
+Fortunately, perhaps because of the fact that this exploit relied on invalid payments, rather than allowing the attackers to drain ATMs directly, overall financial losses in this incident don’t run into the multimillion dollar amounts often associated with cryptocurrency blunders.
+General Bytes claimed yesterday [2022-08-22] that the “[i]ncident was reported to Czech Police. Total damage caused to ATM operators based on their feedback is US$16,000.”
+The company also automatically deactivated any ATMs that it was managing on behalf of its customers, thus requiring those customers to login and review their own settings before reactivating their ATM devices.
+General Bytes has listed an 11-step process that its customers need to follow in order to remediate this issue, including:
+This attack, by the way, is a strong reminder of why contemporary threat response isn’t simply about patching holes and removing malware.
+In this case, the criminals didn’t implant any malware: the attack was orchestrated simply through malevolent configuration changes, with the underlying operating system and server software left untouched.
+Not enough time or staff?Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Featured image of imagined Bitcoins via Unsplash licence.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I think CAS refers to configuration auditing system. Used frequently in DevSecOps
+CAS stands for many different things at various times and in various places. If you’re studying computer science, it means one thing (you got on the course); if you’re using computers to process chemicals, it’s another thing (here’s some formal data about a known substance).
+The software definitely is *a* Coin ATM Server (and it is not a configuration auditing system, even if it has some auditing features in it). The other components that General Bytes sell have names like “Coin ATM {X, Y, Z}”, so “the server you need to make a Coin ATM service work” at least *ought* to be called the “Coin ATM Server”, and as an acronym, that comes out CAS.
+If it does represent an already-known acronym in computer science, I’d plump for “Central Authentation Service” before I’d go for “configuration auditing system”…
+…but if it doesn’t stand for “Coin ATM Server” officially, then it at least *refers* to a Coin ATM Server, so I’m sticking with that :-)
+I thought ATMs were cash dispensers and Bitcoin was virtual – so surely you can just imagine ATMs rather than have to go to physical ones?  Or am I missing something?
+These ATMs do have banknote readers (for buying BTC ) and optionally cash dispensers (for converting cryptocoins back to regular money).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

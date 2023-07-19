@@ -1,0 +1,44 @@
+Sophos Home protects every Mac and PC in your home 
+There are plenty of military puns in operating system history.
+Unix famously has a whole raft of personnel known as Major Number, who organise the batallions of devices such as disk drives, keyboards and webcams in your system.
+Microsoft once struggled with the apparently incompetent General Failure, who was regularly spotted trying to read your DOS disks and failing.
+Linux has intermittently has trouble with Colonel Panic, whose appearance is typically followed by lost data, potentially damaged file systems, and an urgent need to turn off the power and reboot your computer.
+And a Czech cryptocurrency company doesn’t seem to be getting the sort of reliability you might reasonably expect from a personality called General Bytes.
+Actually, General Bytes is the name of the company itself, a business that sadly is no stranger to unwanted intrusions and unauthorised access to cryptocurrency funds.
+In August 2022, we wrote how General Bytes had fallen victim to a server-side bug in which remote attackers could trick a customer’s ATM server into giving them access to the “set up a brand new system” configuration pages.
+If you’ve ever reflashed an iPhone or an Android device, you’ll know that the person who performs the original setup ends up with control over the device, notably because they get to configure the primary user and to choose a brand new lock code or passphrase during the process.
+However, you’ll also know that modern mobile phones forcibly wipe the old contents of the device, including all of the old user’s data, before they reinstall and reconfigure the operating system, apps, and system settings.
+In other words, you can start again, but you can’t take over where the last user left off, otherwise you could use a system reflash (or a DFU, short for device firmware upgrade, as Apple calls it) to get at the previous owner’s files.
+In the General Bytes ATM server, however, the unauthorised access path that got the attackers into the “start from scratch” setup screens didn’t neutralise any data on the infiltrated device first…
+…so the crooks could abuse the server’s “set up a new administrative account” process to create an additional admin user
+Bitcoin ATMs leeched by attackers who created fake admin accounts
+
+
+Last time, General Bytes suffered what you might call a malwareless attack, where the criminals didn’t implant any malicious code.
+The 2022 attack was orchestrated simply through malevolent configuration changes, with the underlying operating system and server software left untouched.
+This time, the attackers used a more conventional approach that relied on an implant: malicious software, or malware for short, that was uploaded via a security loophole and then used as what you might call an “alternative control panel”.
+In plain English: the crooks found a bug that allowed them to install a backdoor so they could get in thereafter without permission.
+As General Bytes put it:
+The attacker was able to upload his own Java application remotely via the master service interface used by terminals to upload videos and run it using batm user privileges.
+We’re not sure why an ATM needs a remote image-and-video upload option, as though it were some sort of community blogging site or social media service…
+…but it seems that the Coin ATM Server system does include just such a feature, presumbly so that ads and other special offers can be promoted directly to customers who visit the ATMs.
+Unfortunately, any server that allows uploads, even if they come from a trusted (or at least an authenticated source) needs to be careful of several things:
+General Bytes, it seems, didn’t take these precautions, with the result that the attackers were able to perform a wide range of privacy-busting and cryptocurrency-ripping actions.
+The malicious activity apparently included: reading and decrypting authentication codes used to access funds in hot wallets and exchanges; sending funds from hot wallets; downloading usernames and password hashes; retrieving customer’s cryptographic keys; turning off 2FA; and accessing event logs.
+Note that the company has confirmed that both standalone Coin ATM Servers and its own cloud-based systems (where you pay General Bytes a 0.5% levy on all transactions in return for them running your servers for you) were affected.
+Intriguingly, General Bytes reports that it will be “shuttering its cloud service”, and insisting that “you’ll need to install your own standalone server”. (The report doesn’t give a deadline, but the company is already actively offering migration support.)
+In an about-turn that will take the company in the opposite direction to most other contemporary service-oriented companies, General Bytes insists that “it is theoretically (and practically) impossible to secure a system granting access to multiple operators at the same time where some of them are bad actors.”
+Hot wallets are essentially funds that are ready to trade at a moment’s notice (perhaps automatically), and typically require either that you entrust your own cryptographic keys to someone else, or temporarily transfer funds into one or more of their wallets.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+typo: userames
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

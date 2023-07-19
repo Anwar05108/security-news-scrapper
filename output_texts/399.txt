@@ -1,0 +1,205 @@
+Sophos Home protects every Mac and PC in your home 
+PONG FOR ONE!?
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Emergency Apple patches, justice for the 2020 Twitter hack, and “Turn off your phones, please!” 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  I’m very well, Douglas. 
+And just to be clear, when we talk about “turning off your phone”, that’s not just when you’re travelling in the Quiet Carriage on the train… 
+…though that would be certainly nice. [LAUGHTER]
+DOUG.  That would! 
+Well, stick around for more on that. 
+But first we start with our This Week in Tech History segment. 
+Paul, should I go with the transistor, which is our obvious choice this week, or go mildly countercultural? 
+What say you?
+DUCK.  I don’t know what you’re proposing for the countercultural thing, but let me try this…
+…I spy, with my little eye, something beginning with “A”?
+DOUG.  Correct!
+This week, on 27 June 1972, pioneering video game company Atari was founded by Nolan Bushnell and Ted Dabney. 
+Fun fact: before Atari was named “Atari”, it went by “Syzygy”. 
+However, Atari co-founder Nolan Bushnell considered various terms from the game Go, eventually choosing Atari, referencing a position in the game when a group of stones is imminently in danger of being taken.
+DUCK.  That’s where a young Steve Jobs got his start, isn’t it?
+DOUG.  Exactly right!
+DUCK.  And he drafted in his chum Woz [Steve Wozniak] to design the follow up for PONG, but you only needed one player.
+Namely, Breakout.
+DOUG.  Great game! 
+Still, to this day, it holds up, I can tell you first hand.
+DUCK.  It certainly does!
+DOUG.  Well, let’s stick with Apple and start our stories. 
+This is an emergency patch for silent, dangerous iPhone malware. 
+So, what’s going on here, Paul?
+Apple patch fixes zero-day kernel hole reported by Kaspersky – update now!
+
+DUCK.  This is the Triangulation Trojan that was announced at the start of June 2023 by Russian anti-malware company Kaspersky. 
+They claimed they’d found this thing not because they were doing threat analysis for a customer, but because they found something weird on their own executives’ phones.
+They went looking and, “Oh, golly, here are some 0-days.” 
+And that was the big story of the start of June 2023. 
+Apple issued a double patch. 
+As often seems to happen when these emergency patches come out, there was a WebKit bug,  basically of the “reports exist that this was exploited” sort (it’s an 0-day!), and a kernel-level code execution hole. 
+That was the one found by Kaspersky researchers. 
+And, as we’ve said many times before, those two types of exploit are often combined in iPhone attacks. 
+Because the WebKit exploit gets the crooks in, although it gives them limited power, and then the kernel-level hole that they exploit with the code they’ve injected into the browser gives the full takeover. 
+And therefore you can essentially implant malware that not only spies on everything, but survives reboots, etc.
+That certainly smells of “spyware”, “complete phone takeover”, “utter jailbreak”…
+So, go and check that you have the latest updates, because although these bugs are only known to have been exploited on iPhones, the actual vulnerabilities exist pretty much in every Apple device, notably including Macs running macOS (all supported versions).
+DOUG.  OK, Settings > General > Software Update to see if you’ve gotten the patch already.
+If not, patch! 
+Now let’s move on to the… [LAUGHS]
+…it’s a shame that this is still a thing, but just the low-hanging fruit of cybercrime. 
+Guessing your way into Linux servers.
+Beware bad passwords as attackers co-opt Linux servers into cybercrime
+
+DUCK.  This was South Korean anti-virus researchers who, sadly (I guess that’s the right word), discovered that the old tricks are still working.
+Crooks are using automated systems to find SSH servers, and just trying to log in with one of a well-known set of username/password pairs.
+One of the ones that was commonly used on their list: the username nologin with the password nologin. [LAUGHTER]
+As you can imagine, once the crooks had found their way in… 
+…presumably via servers that either you’d forgotten about, or that you didn’t realise you were running in the first place because they just magically started up on some device you bought, or that they came as part of another software installation and were weakly configured.
+Once they’re in, they’re doing a mixture of things, these particular crooks: attacks that can be automated. 
+They’re implanting DDoS-for-hire zombies, which is software that they can later trigger to use your computer to attack somebody else, so you’re left looking like a Bad Guy. 
+They’re also injecting (can you believe it!) cryptomining code to mine for Monero coins. 
+And lastly, just because they can, they’re routinely inserting zombie malware called ShellBot, which basically means that they can come back later and instruct the infected device to upgrade itself to run some new malware.
+Or they can sell access on to somebody else; they can basically adapt their attack as they want.
+DOUG.  Alright, we’ve got some advice in the article, starting with: Don’t allow password-only SSH logins, and frequently review the public keys that your SSH server relies on for automated logins.
+DUCK.  Indeed.
+I think, if you asked a lot of sysadmins these days, they’d say, “Oh, no, password only logins on SSH? We haven’t been allowing those for years.” 
+But are you sure? 
+It may be that you force all of your own official users to use public/private key logins only, or to use password-plus-2FA. 
+But what if, at some time in the past, some previous crook was able to fiddle with your configuration so that password-only logins are allowed? 
+What if you installed a product that brought with it an SSH server in case you didn’t have one, and set it up weakly configured, assuming that you would go in and configure it correctly afterwards? 
+Remember that if crooks do get in once, particularly via an SSH hole, often what they will do (particularly the cryptomining crooks) is they will add a public key of their own to your authorised-public-keys-that-can-login list. 
+Sometimes they’ll also go, “Oh, we don’t want to mess around, so we’ll turn on root logins,” which most people don’t allow. 
+Then they don’t need your weak passwords anymore, because they’ve got an account of their own that they have the private key for, where they can log in and do root stuff right away.
+DOUG.  And, of course, you can also use XDR Tools (extended detection and response) to review for activity you wouldn’t expect, such as high spikes in traffic and that kind of stuff.
+DUCK.  Yes! 
+Looking for bursts of outbound traffic is very useful, because not only can you detect potential abuse of your network to do DDoS, you might also catch ransomware criminals exfiltrating your data in the run up to scrambling everything. 
+You never know! 
+So, keeping your eye out is well worth it. 
+And of course, malware scanning (both on-demand and on-access) can help you an awful lot. 
+Yes, even on Linux servers! 
+But if you do find malware, don’t just delete it. 
+If one of those things is on your computer, you’ve got to ask yourself, “How did it get there? I really need to find out.” 
+That’s where threat hunting becomes very important.
+DOUG.  Careful out there, folks. 
+Let’s talk about the Great Twitter Hack of 2020 that has finally been resolved with, among other things, a five-year prison sentence for the perpetrator.
+UK hacker busted in Spain gets 5 years over Twitter hack and more
+
+DUCK.  I saw a lot of coverage in this in the media: “Twitter Celeb Hacker Gets Five Years”, that sort of thing. 
+But the headline that we had on Naked Security says: UK hacker busted in Spain gets five years over Twitter hack and more. 
+The key things I’m trying to get into two lines of headline there, Doug, are as follows.
+Firstly, that this person was not in the US, like the other perpetrators were, when he did the Twitter hack, and he was ultimately arrested when he travelled to Spain. 
+So there are lots of international gears going here. 
+And that, actually, the big deals that he was convicted for…
+…although they included the Twitter hack (the one that affected Elon Musk, Bill Gates, Warren Buffett, Apple Computer, where they were used to promote a cryptocurrency scam), that was a small part of his cybercrime doings. 
+And the Department of Justice wanted you to know that.
+DOUG.  And “plenty more” it was. 
+SIM swapping; stealing; threatening people; swatting people’s homes. 
+Bad stuff!
+DUCK.  Yes, there was a SIM swap…
+…apparently he made $794,000 worth of Bitcoins out of this, by SIM-swapping three executives at a cryptocurrency company, and using that to access corporate wallets and drain them of almost $800,000. 
+As you say, he was taking over TikTok accounts and then basically blackmailing the people saying, “I’ll leak…” well, the, the Department of Justice just refers to it as “stolen sensitive materials.”
+You can use your imagination for what that probably includes. 
+He had this fake online persona, and he hacked some celebs who were already online and then told them, “I’ve got all your stuff; I’ll start leaking it unless you start promoting me so I can become as popular as you.” 
+The last things that he was convicted for were the really evil-sounding ones. 
+Stalking and threatening a minor by swatting them.
+As the Department of Justice describes it:
+A swatting attack occurs when an individual makes false emergency calls to a public authority in order to cause a law enforcement response that may put the victim or others in danger.
+And when that didn’t work (and remember, this victim is a minor), they called up other family members and threatened to kill them.
+I think the Department of Justice wanted to make it clear that although the celeb Twitter hack was in amongst all of this (where they tricked Twitter employees into letting them get access to internal systems), it’s almost as though those were the minor parts of this crime. 
+The person ended up with five years (not perhaps more, which they might have got if they decided to go to trial – they did plead guilty), and three years of supervised release, and they have to forfeit $794,012.64.
+Though it doesn’t say what happens if they go, “Sorry, I don’t have the money anymore.”
+DOUG.  We’ll find out sooner or later.
+Let’s end the show on a slightly lighter note. 
+Inquiring minds want to know, Paul, “Should we turn off our phones while we brush our teeth?”
+Aussie PM says, “Shut down your phone every 24 hours for 5 mins” – but that’s not enough on its own
+
+DUCK.  Oh, I wonder which story you’re referring to, Doug? [LAUGHTER]
+In case you haven’t seen it, it’s one of the most popular stories of the year so far on Naked Security.
+The headline says Australian Prime Minister says, “Shut down your phone every 24 hours for 5 minutes.”
+Presumably, somebody in the government’s cybersecurity team had pointed out that if you happen to have spyware on your phone (this followed the Apple story, right, where they fixed the zero-day found by Kaspersky, so spyware was in everyone’s mind)…
+…*if* you have spyware that doesn’t survive a reboot because it doesn’t have what the jargon calls “persistence” (if it’s a transient threat because it can only inject itself into memory until the current process ends), then when you reboot your phone, you get rid of the spyware. 
+I guess this seemed like a harmless idea, but the problem is that most serious spyware these days *will* be a “persistent threat”. 
+So I think the real problem with this advice is not that it might get you to brush your teeth longer than is advised, because obviously, if you brush too much, you can damage your gums…
+…the problem is that it implies that there’s this magic thing that you have to do, and if you do so, you’re helping everybody.
+DOUG.  As luck would have it, we have a long list of things you can do other than just turning off your phone for five minutes. 
+Let’s start with: Get rid of apps you don’t need.
+DUCK.  Why have apps that may have data stored on your phone that you don’t need? 
+Just simply get rid of apps if you’re not using them, and get rid of all the data that goes with them. 
+Less is very much more, Douglas.
+DOUG.  Excellent.
+We’ve also got: Explicitly log out from apps when you aren’t using them.
+DUCK.  Yes.
+Very unpopular advice when we give it [LAUGHTER]…
+…because people go, “Oh, you mean that, on my phone, I won’t just be able to press the Zoom icon and I’ll be straight in a call?” 
+No amount of rebooting your phone will log you out from apps that you’ve stayed logged into. 
+So you can reboot your phone, which might just throw away some spyware that you’re probably never going to get anyway, but it won’t log you out from Facebook, Twitter, TikTok, Instagram, etc.
+DOUG.  Alright, and we’ve got:  Learn how to manage the privacy settings of all the apps and services you use.
+That’s a good one. 
+DUCK.  I thank you for saying it’s a good one, and I was very proud of it when I wrote it myself…
+…but then I had that sinking feeling, when I came to explain it, that I’m not going to be able to do it unless I write a series of 27 sub-articles. [LAUGHTER]
+DOUG.  Probably going to have to search for it…
+DUCK.  Maybe take the time to go into your favorite apps, go into the settings, have a look at what’s available. 
+You may be pleasantly surprised at some of the things you can lock down that you didn’t realise.
+And go into the Settings app of the phone itself, whether you’re running iOS or Android, and actually dig through all the things you can do, so you can learn how to turn off things like Location Settings, how to review which apps have access to your photos, and so on.
+DOUG.  OK.
+And this one is probably overlooked by many, but: Turn off as much as you can on the lock screen.
+DUCK.  My recommendation is try to have nothing on your lock screen except what the phone forces you to have.
+DOUG.  Alright, and on a similar note: Set the longest lock code and the shortest lock time you can tolerate.
+DUCK.  Yes. 
+That doesn’t need much explanation, does it? 
+Once again, it’s not popular advice. [LAUGHTER]
+DOUG.  A little inconvenience goes a long way!
+DUCK.  Yes, I think that’s the good way to put it.
+DOUG.  And then: Set a PIN code on your SIM card if you have one.
+DUCK.  Yes, a lot of phones and mobile operators still provide SIM cards. 
+Now, in the future, phones probably won’t have a SIM slot; it will all be done electronically. 
+But at the moment, certainly if you’re doing pay-as-you-go stuff, you buy a little SIM card (it’s a secure chip), and you plug it into a little slot in the side of your phone. and you don’t think about it anymore. 
+And you imagine that when you lock your phone, you’ve somehow magically locked the SIM. 
+But the problem is that if you power down the phone, eject the SIM, plug it into a new device, and there isn’t a lock code on the SIM card itself, *then the SIM just starts working*. 
+A crook who steals your phone shouldn’t be able to unlock your phone and use it to make calls or get your 2FA codes.
+But locking your SIM card also means that if they take the SIM card out, they can’t just magically acquire your number, or literally do a “SIM swap”, by just sticking it into another device. 
+A lot of people don’t even realise you can or should set a lock code on hardware SIM cards, but remember that they are removable by design *precisely so you can swap them*.
+DOUG.  And then we had a tip that said: Learn how to clear your browser history and do so frequently. 
+This prompted a comment, our comment of the week, from Jim, who asked if you could clarify the difference between clearing a browser *history* and clearing browser *cookies*:
+Clearing cookies erases tracking data, login sessions, etc. 
+Clearing history erases the list of places that you’ve been, which breaks autocompletion of addresses, which increases the chance of mistyping an address, which plays into the hands of typosquatting malware sites. 
+Not ideal.
+DUCK.  I had two responses to that comment. 
+One was, “Oh, dear. I didn’t write that clearly enough.” 
+So I went back and changed the tip to say: Learn how to clear your browser history, cookies and site data, and do so frequently. 
+In that sense, it was a very good comment. 
+The bit where I disagree with Jim is the idea that clearing your browser history puts you at greater risk of typosquatting. 
+And I think what he’s saying is that if you’ve typed in a URL correctly, and it’s in your history, and you want to go back to that URL later by, say, clicking the back button…
+…you’ll get back to where you want to be. 
+But if you make the person type in the URL over and over again, eventually they’ll type in the wrong word, and they’ll get typosquatted. 
+Now, while that is technically true, if you want a site that you go to regularly to have a fixed URL that you go to directly from a menu, my recommendation is to use a bookmark. 
+Do not rely on your browser history or browser autocompletion.
+Because, in my opinion, that actually makes it more likely that you will compound a mistake you made earlier, rather than that you won’t get the wrong site in the future.
+You also have the problem, with your browser history list, that it can give away an awful lot of information about what you’ve been doing lately. 
+And if you don’t clear that history list regularly, “lately” might not just be hours; it could be days or even weeks. 
+So why keep it lying around where a crook might happen upon it by mistake?
+DOUG.  Alright, great. 
+Thank you very much, Jim, for sending in that comment. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you: Until next time…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Pong screenshot in featured image via pong74ls from Wikimedia, under Creative Commons Attribution 3.0 Unported licensing.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

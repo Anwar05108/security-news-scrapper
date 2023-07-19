@@ -1,0 +1,109 @@
+Sophos Home protects every Mac and PC in your home 
+You’ve probably seen the news, even if you’re not sure what happened.
+Unless you’re a JavaScript programmer and you relied on either or both of a pair of modules called faker.js and colors.js.
+If you were a user of either of those projects, and if you are (or were!) inclined to accept any and all updates to your source code automatically without any sort of code review or testing…
+…you’re probably well aware of exactly what happened, and how it affected you.
+Long term readers of Naked Security will be familiar with the problem of so-called supply-chain attacks in open source software libraries, because we’ve written about this sort of problem in programming ecosystems before.
+We’ve written about security holes suddenly showing up in numerous coding communities, including PHP programmers, Pythonistas, Ruby users, and NPM fans.
+Last year, we even had reason to debate the morality of self-styled academic researchers who deliberately used the Linux kernel source code repository as a testing ground for what they unashamedly referred to as hypocrite commits.
+Linux team in public bust-up over fake “patches” to introduce bugs
+
+
+Software supply chain attacks typically involve poisonous, dangerous or otherwise deliberately modified content that infects your network or your development team indirectly, unlike a direct hack where attackers break into your network and mount a head-on assault.
+Supply chain attacks are often passed on entirely unwittingly by one of your suppliers of products and services, who may themselves have ingested the unauthorised modifcations from someone upstream of them, and so on.
+LEARN MORE ABOUT SUPPLY CHAIN ATTACKS
+Click-and-drag on the soundwaves below to skip to any point in the podcast.You can also listen directly on Soundcloud, or read a complete transcript.
+As we mentioned above, however, supply chain problems of this sort don’t always arise from criminal intent, even though they may ultimately be judged unethical (or infantile, or ill-thought-out, or any combination of those).
+We already mentioned hypocrite commits, which were intended to remind us all that it’s possible to inject malicious backdoor code under cover of two or more changes that don’t introduce security holes on their own, but do create a vulnerability when they’re combined.
+And we linked to the story of a “researcher” who was so keen to remind us how easy it is to create treacherous software packages that he deliberately uploaded close to 4000 of them in a sustained burst of “helpfulness”.
+As we suggested at the time, both those “experts” – the hypocrites and the overloader – seem to have adopted the selfish motto that a job worth doing is worth overdoing…
+…thereby creating huge amounts of unnecessary work for other innocent volunteers in the Linux and Python communities respectively.
+This time, the founder of two popular JavaScript coding modules known as colors.js and faker.js has thrown two slightly different spanners into the works.
+Colors is a small and simple toolkit that helps you add coloured text in your console output, often in order to make the information more interesting to look at, and easier to read.
+For example, when we made our Log4Shell – The Movie video recently, we added a dash of colour to the output of our mocked-up LDAP server to make it easier to track incoming requests, using ANSI control sequences in the terminal output to add green and red marks to denote successes and failures:
+Unfortunately for colors.js users, the project’s founder, after not publishing any updates since 2019, suddenly added new code to take the release number from 1.4.0 to the somewhat unusual version identifier of 1.4.4-liberty-2.
+Fed up, apparently, with never getting the financial recognition he felt he deserved from the many people that were using his work, the founder trashed his own code by adding an infinite loop like this:
+The loop at the end of this code prints the text testing testing ... testing over and over again, after applying a function called zalgo to it. 
+Zalgoification, if you’ve never heard of it, is a way of making regular Roman characters look weird and meaningless by littering them with accents, cedillas, umlauts and other so-called diacritical marks – a bit like naming your band Motörhead instead of Motorhead, but without the restraint of just adding a single extra symbol.
+Zalgoed text is not only meaningless, but also often puts a heavy load on the underlying text rendering software that’s trying to compose it and lay it out for display. 
+A human calligrapher would baulk at being asked to add every possible accent to every letter in a word, knowing that it would make no sense at all.
+But a computerised compositor will simply try to oblige by combining all the markings that you request, giving your band Zalgometal a stylised name something like this:
+Faker users experienced a different sort of update, with the project essentially wiped out and replaced with a README file asking “What really happened with Aaron Swartz?”
+Schwartz, a “hacktivist” charged with federal offences relating to unauthorised access to academic papers that he thought should not be kept behind a paywall, sadly killed himself while under the stress of waiting for his trial.
+Faker was a handy toolkit for developers that made it easy to generate large quantities of realistic but made-up data for quality assurance, such as creating 100,000 names and addreses you could add to your user database during development.
+Fake data is a vital aspect of avoiding a privacy disaster while you are still working with untested, incomplete code because it means you aren’t exposing genuine, sensitive data in thoughtless (and possibly illegal) ways.
+The author of Faker apparently tried to commercialise the project during 2021, but without success, so it looks as though he’s now given the code its coup de grace.
+Given that the code has been released for many years under the MIT licence – which basically means that anyone can use it for free, even in commercial, closed-source products, as long as they don’t claim to have created it themselves – there's nothing to stop existing users continuing with the previous version, or indeed any version before that.
+They can even make their own modifications and improvements as they wish…
+…so it’s not clear what the ultimate outcome of trashing the project so spectacularly is likely to be for the author, given that he can’t retrospectively rewrite the licences of users who have already downloaded and deployed it.
+As one aggrieved commenter said (someone who presumably did grab the update into production without reviewing what had changed, and who suffered a temporary outage as a result), it hasn’t really ended well for anyone:
+
+Isn’t it interesting that its the people with no reputation that seem to think reputation has no value?? To all the people in here saying “we have been taught a valuable lesson about trusting free software”; understand this…
+To cause me 15 min of grief all Marak had to do was irreversibly destroy his own reputation.
+
+Whose side are you on in a case like this? Let us know in the comments below…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+BTW: Historic  fact: As I recall, a “supply chain” attack occurred in the late 60’s early 70’s 🙂  The data center received a tape marked Upgrade (or some such) 🙂   It wasn’t!
+After that I heard a story about a computer center that didn’t care what you took out of it but deadly serious about what you brought  in.  Didn’t make sense to me at the time; we live to learn (whether we want to or not).
+🙂
+IMHO, what really was unethical and criminal: the way github dealt with this.  Github has disqualified itself as a trustworthy repository.
+It might help other readers to evaluate your position if you were to explain what GitHub  has done that you consider “criminal” and untrustworthy.
+The repositories mentioned above are still present (complete with hundreds of comments, both of support and dismay, from users); the still-usable version 1.4.0 of colors.js is there for the taking (though you can get the infinite loop one of you really want); and GitHub has put out a security warning about the infinite loop (which it describes, not unreasonably, as a DoS).
+The thinned-to-nothing faker.js repository is still present in what we must assume from the word “endgame” is its final, empty-of-code, withdrawn-from-service form, with the note about Aaron Schwartz still in place.
+GitHub suspended Maraks account locking him out of every public/private repo he has up there. Now you could argue just setup a new account that will work for his public code but a lot of his private work is now lost to him. This is a massive abuse of power by GH and by extension Microsoft. This raises the question who owns the code we put up on their platform us or them?
+Given that GitHub is a Git repository, how does locking someone out of their GitHub account (or any other public Git server) cause their “private work to be lost”?
+It means he can’t host his code on GitHub any more… but given that the whole idea of GitHub is that it’s essentially a recent copy of the Git tree from which it was last synced…
+…how does closing someone’s GitHub account magically reach out and delete their own local version of the code from which the GitHub copy was created, and stop them using Git everywhere else too? 
+How does closing his GitHub account prevent him “owning” his code? That’s a bit like saying that if you get banned from a specific hotel or hotel chain for trashing your room last time you stayed there, then you’re no longer allowed to live in your own house, either.
+@John how did they deal with this (badly)? I’m in the dark on what happened
+With a vague reference to “ToS” the Github access of the user was removed, and later restored. Might have been out of fear of the account having been taking over. Without asking the user and probably against her/his will the 2 repo’s were reverted on npm. Apparently, when it’s on Github, you’re not in control.
+They do this for legal and security reasons. From what I’ve seen in the past, they’ll always shut down the repo first, then ask questions, then get lawyers involved, and then do whatever the repo owner wants (assuming the repo owner isn’t outright breaking a law or being intentionally malicious). They did this with youtube-dl as well, and after a week or so fully restored the repo despite its very grey area use. They could’ve pulled an EA or Epic and said “This isn’t representative of our company [blah].”
+I didn’t like this style of dealing with problems myself at first, but after realising just how much money they consistently throw at lawyers to get problems resolved for the small-time devs, I’m not sure I’m completely against their current approach. Playing it safe it fine, IMO. Removing repos without the option for discussion on the other hand, wouldn’t be. I say this is a good middle-ground.
+Github repo’s are open source, you are aware of what you are pulling into your project every time you do so.
+The source code is available, It’s not there to be part of your project, you are taking a users public repository and installing those files into your project at your own risk.
+I think the point of this was exhibition, were against big tech conglomerates that cut corners, pull popular users repos and take advantage of the open source platform. Sure its all public domain / open source to use as you please. And if a user wants to change his repo they can.
+So its hilarious that companies and journalists are considering github as a supply chain, its not, its a platform for developers to open their code to the public, not a code monkey farm where you try to extract as much free resources and labor by definition of the license lmao.
+Uh, no. Github is not the one being called a “supply chain”, NPM is, which he deployed to…
+I get the feeling it’s time for opensource distribution to mature.
+Random thoughts;
+Those that use people projects would be good to add their name to a list of known users, or at least be subscribed to their (blog/page/project) to be aware of updates, and be able to contribute, maybe a donation box (and not the super skimming operation like googs play store), devs can get more feed back, and funding/motivation to do what they enjoy and makes money for others.
+getting people to know what opensource projects are in the tools they use – is another story. maybe a list of all software/projects and their devs that are utilized in each product would be a good start. (Example, we buy Network scanning appliance X, and it is built on 8 open source projects – those should be listed in multiple ways – so the end customer knows what the hell is in it, so we can manage products better. and not this crazy scanning the network for log4j. We should have had a list and known where it was and not have to hunt.
+I’m sure devs and users can (and likely have) good methods for the above.
+But yeah, people should get paid for work – if worthy, the world of licensing has room for improvement, hopefully the right people will make them.
+“Software bill of materials” regulations are being pondered by several countries at the moment. If you sell food items, you have to list the ingredients on the packaging so you can be held accountable for what’s in the product… so why not something similar for software? After all, if you don’t know what goes into it, how can you reliably predict how it’s going to behave, or which vulnerabilities it is going to inherit?
+So looking it up after talking with a friend today, figured I should share: https://www.ntia.gov/SBOM
+Note to other readers: SBOM in the link above is short for Software Bill of Materials. And ntia.gov is the website of the National Telecommunications and Information Administration, part of the US Department of Commerce.
+“‘Software bill of materials’ regulations are being pondered by several countries at the moment. If you sell food items, you have to list the ingredients on the packaging so you can be held accountable for what’s in the product… so why not something similar for software?” This is a big deal when a small startup is trying to be acquired by a large corporation. Due diligence on the buyer’s part means examining every line of code to make sure it’s unencumbered. Even a decade ago, the big companies were automating this search because the problem was so labor-intensive.
+I’m not sure this requires legislation. Many open source license specifically call out that you have to display their license or link back to their project, and companies usually follow through. I see it in video games all the time these days. The bad actor in this article used an MIT licenses, which requires no such action. In fact it says you can do w/e with it for free as long as you don’t claim you made it.
+The MIT licence does, in fact, require the original copyright notice (which includes the name of the copyright holder and serves the purpose of replicating the licensing terms) to be included.
+“The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software,” is how it runs.
+It requires you copy the license, it says nothing about prominent display. It is copied automatically into distribution binaries when deployed to hosts like NPM, which satisfies the license.
+The creator’s expectations were unreasonable. There is nothing about colors.js that couldn’t be created in an hour or so by even a mediocre programmer. Sure, it’s convenient but it’s not much different than finding an ASCII table online rather than creating one yourself by entering decimal codes at the keyboard.
+Faker surely took a little more time to develop, but there’s nothing novel in the concept. Faced with a slightly different problem (had the private data, needed to keep the format but obscure the data), I invented something similar 22 years ago: See US patent 6631482 which expired in 2020.
+As an open source developer myself, I’ll say this: you release to open source only if you want to give back the community, you keep your source closed if you want to make money. Because, and this is important, you can ALWAYS open source your work later, but you CANNOT undo open source for existing code once its out there (especially once others have contributed to your code, at which point copyright splits).
+The feeling I’m getting from these devs are a sense of entitlement – I gave you something, now I want something in return. But, this wasn’t the agreement. If I wanted such bait-switch deals I’d join a Mafia. The agreement was, you may use my source as long as you follow the license. If those terms can hurt you, then you shouldn’t release under those terms. If you commercialised it, I might have bought it – but I probably wouldn’t have. I can create my own colouriser in an afternoon, my own psudo-data generator in an hour. Will it be as good as yours? Obviously not. It won’t be, because you spent years on yours. I spent few hours on mine. It’ll still however get the job done, and the bosses would be none the wiser. I can spend an 2 hours making mine, or I can spend 10 minutes installing yours. And that’s the point: I’m only using your software because reinventing the wheel for no reason is foolish, and I’m on tight deadlines.
+For devs who do want to undo open sourcing: make future updates use a proprietary license (Mapbox did this). It’s bit dirty and don’t like it myself, but it can help struggling devs set up their future. You then market the old version as free, the updated version as paid. Two years from now, if people start to switch to your paid version, you clearly have a product people are willing to pay for. If however everyone keeps using the old version, maybe the only reason people used your stuff was because it’s free, and you should pursue a different market. Poisoning your own code is betraying your userbase and shows your intentions were never what open source is about.
+Thank you! I was beginning to think no one understood open source anymore. It’s always been, in my mind, a way to build something together as a global development community; making the lives of devs easier in the long run by having code that anyone can build off of without having to start with nothing. I don’t maintain any OS projects, but I do contribute to OS when I can, and it’s never once crossed my mind that I should be paid for my bug fixes because that’s not what it’s about. 
+We’re all building on the work of others. OS devs often use OS themselves without ever paying them a dime. Guarantee you that Marak never contributed to Git, or w/e linux distro he works on, or any of the many OS services running in the background of his computer that make his life easier, or his free code editor, etc etc.
+Do I believe OS devs should get paid, absolutely. And I’d love to find a way to do that, and would support anyone making a good faith attempt to make it happen. But extorting your userbase is NOT the way to go.
+Open Source is just to show examples of your work for jobs or is something you want to donate to the Open Source community.  Best to start with a paid private repository so you can get paid for your work.  You can always share it later on in Open Source if you decide to.
+Never work for free as your work is worth getting paid for.
+I only kinda agree with this… You should never work for free with the HOPE that you’ll be paid for your work eventually. But I disagree with everything else. Open Source has historically been a means for devs to accelerate the industry’s growth by allowing others to not have to start from 0. And these days many very large OS projects are maintained by the same large corporations that Marak claims to be “taken advantage of”.
+https://github.com/Netflix
+https://github.com/pinterest
+https://github.com/google
+Etc etc
+Nobody asked you to open-source your project. Nobody asked you to keep maintaining it for free. You are entitled to sabotage your project, as well. It is a dishonorable thing to do.
+I think this does a great disservice to the open source community. I’ve seen many projects get abandoned but do it in a way that doesn’t destroy another community. When a project owner wants to abandon a project, they should just archive the repo and move on. Don’t trash your work, and the work of others who have contributed.
+Take LuaJIT. For a long time Mike Pall abandoned it, but the community started creating forks (albeit some more successful than others) to maintain and fix bugs. Now he’s back, which is amazing. If he had trashed his repo no one would trust him. As he simply stopped updating it, everyone still trusted him, and places his opinions as one of the only JIT experts in the industry.
+There is a lot of work that goes into open source code. I never realized how much work goes into an open source project until I had to go through making a PR. That said, if it’s too much just stop doing it. If the reason someone opened a repo is for fun, and it stops being fun, just stop doing it. Please don’t make it painful for others though, we’re all trying to get tasks done with limited time and resources.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

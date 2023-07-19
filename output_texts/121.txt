@@ -1,0 +1,100 @@
+Sophos Home protects every Mac and PC in your home 
+A few hours ago, we recorded this week’s Naked Security podcast, right on Patch Tuesday itself.
+It was just after 18:00 UK time when we hit the mics, which meant it was just after 10:00 Microsoft HQ time, which meant we had access to this month’s official June 2022 Security Updates bulletin from Redmond itself just before we started.
+According to this bulletin, the CVEs fixed this month, listed in increasing numeric order, are as follows:
+As you can see, CVE-2022-30190, popularly known as Follina, isn’t on the list. 
+We said as much in the podcast, and inferred (as we expect you did, too), that Follina either wasn’t really considered a bug, and therefore didn’t get fixed, or was still in the process of getting some sort of fix that wasn’t ready in time.
+As you will no doubt recall (and as we will demonstrate and explain in tomorrow’s live Sophos Spotlight security webinar), we like to describe Follina as:
+A feature that no one really wanted, combined with a feature no one really needed, to produce a malware implantation exploit than no one really expected.
+You’re invited! Join us for a live walkthrough of the “Follina” story…
+
+
+Simply put (but please join us tomorrow for that 30 minute jargon-free explainer session!), you can use the Object Linking and Embedding (OLE) system in Windows to tell an Office document to fetch and display an HTML web page.
+In that web page, you can embed a short JavaScript program that references a little-known proprietary Microsoft URL starting ms-msdt: in order to trigger the Microsoft Support Diagnostic Tool (MSDT). 
+(This, by the way, is the feature we can’t imagine anyone really wanted, given that OLE is typically used for pulling images into presentations or for embedding live spreadsheet data into documents, not for starting software tests for locally installed apps.)
+Unfortunately, that ms-msdt: URL can not only be used to fire up the MSDT app, but also to feed it parameters so the user doesn’t need to choose the troubleshooting settings from the usual menus, including pre-identifying the app that needs testing by providing its precise path and filename.
+And in that filename, you can embed a “metacommand” (a bit like Log4Shell or the recent Atlassian Confluence bug) buried inside a $(...) sequence of characters.
+That weird sequence $(...)is apparently ignored when the system checks to see if the named app exists, so even though there aren’t any apps with $(...) in their names that could match those characters, and even though the troubleshooter should bail at this point, you don’t get an error and Windows ploughs on regardless.
+But when the system actually kicks off its troubleshooting, that weird filename apparently gets re-processed, and the character sequence inside the $(...) markers isn’t used literally.
+Instead, it’s executed as a PowerShell command that’s supposed to generate the text that will actually be used at that point in the filename.
+(That, of course, is the feature that we can’t imagine anyone really needed, as useful and as “proactive” as it might have seemed at the time.)
+Loosely speaking, the embedded PowerShell code can do anything you want it to, from popping up a calculator to opening a reverse shell for a waiting cybercriminal (yes, we’ll show you how that part works in the demo, and how to stop it from happening).
+You don’t even need to open a booby-trapped file in Word itself, because simply scrolling to an RTF file in File Explorer with the Preview Pane turned on is enough.
+As you see here, moving the cursor to our test file t1.rtf opened up the Windows Troubleshooter automatically and popped up a calculator  without any warning or Are you sure? message, based on the sneaky JavaScript URL in the booby-trapped HTML file loaded by our booby-trapped document:
+
+Having recorded the podcast, based on the June 2022 Security Update bulletin that we mentioned above, we checked with our sister site, Sophos News, where SophosLabs had by then published its own analysis of that security bulletin, covering the CVEs in the official list in useful detail.
+Lighter Patch Tuesday for June remains rich in LDAP vulns
+
+
+But SophosLabs agrees: there was still no obvious sign of CVE-2022-30190 having been attended to!
+Anyway, a short while after that, we noticed reports that the Follina bug was apparently “fixed” after all.
+So we installed 2022-06 Cumulative Update for Windows 11 for x64-based Systems (KB5014697), rebooted…
+
+…and this time, even though previewing our booby-trapped RTF triggered a web download and launched the troubleshooter, the Diagnostic Tool seemed to detect that sneakily-hidden $(...) sequence in the filename specification as an illegal value, and produced error 0x80070057, the numeric code for INVALID_PARAMETER:
+
+We repeated the test with Windows 10, where (on our system) the update announced itself as 2022-06 Cumulative Update for Windows 10 Version 21H2 for x64-based Systems (KB5014699).
+As on Windows 11, we could trivially exploit he bug (using the latest Microsoft 365 flavour of Office) before the update; couldn’t do so afterwards; and could once again exploit it after rolling back the update.
+So, as far as we can see, the June 2022 “Patch Tuesday” update does suppress this bug, at least in our brief testing.
+As mentioned above, we checked to see that the update was indeed the change that did the trick, by uninstalling KB5014697 (or KB5014699), and verifying that the exploit starting working once again.
+Therefore, the CVE-2022-30190 bug does seem to have been recognised as a genuine security flaw by Microsoft, and it has been patched, even if you weren’t sure about that to start with, and even if it’s not officially acknowledged in the FAQs, Mitigations, and Workarounds section of this month’s security bulletin.
+You’re welcome.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+There was also a security problem discovered for the “search-ms” handler about 2 weeks ago.
+Was this also fixed now?
+We wrote that up here:
+https://nakedsecurity.sophos.com/2022/06/02/yet-another-zero-day-sort-of-in-windows-search-url-handling/
+I don’t think I’d consider that a “zero-day exploit”. It allows you to  a nicer-than-usual list of clickable links to file names that are UNC paths on a remote server, in the hope that someone might open one of them… but so does sending someone a message saying, “please run the file \\live.sysinternals.com\pslist.exe”.
+I haven’t checked whether this is “fixed”… not entirely sure what or how to fix it.
+On the 14th of June Microsoft has updated the original Follina CVE description at https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2022-30190 to version 2.0 with the following note:
+“The update for this vulnerability is in the June 2022 cumulative Windows Updates. Microsoft strongly recommends that customers install the updates to be fully protected from the vulnerability. Customers whose systems are configured to receive automatic updates do not need to take any further action.”
+I guess this could be considered as an official statement of fix 🙂
+Ah. Thanks for that.
+Strange that they didn’t link to that vulnerability page in the security bulletin, as they did with all the other 54 CVEs listed.
+Was it left out on purpose because it’s not considered a true “security update”, just more of a bug fix, or was it simply overlooked by mistake?
+I saw on another Security vendor’s tool  that Follina’s fix is KB5014699 .
+Are you sure about KB5014697 ?
+I’m sure that KB5014697 is what I installed, as suggested by Windows Update… I have added a screenshot to the article to show exactly what I saw on my test device, which is running Windows 11.
+After installing that Cumulative Update, the side-effects of my own Follina “test attack” (popping the calculator you see in the first picture) no longer happened, apparently because the troubleshooter app now reports an error and bails out early. After I removed that Cumulative Update, the calculator poppage behaviour returned. 
+So although I am not *sure* that {the bug has been fully fixed/the security hole properly patched/an existing product “feature” improved} [delete to suit to your preferred risk assessment]…
+…I have strong circumstantial evidence that the danger of the exploit has been greatly reduced, at least insofar as currently-known attack tricks are concerned :-) (I am not a lawyer but I can hedge my words with the best of ’em!)
+I think that KB5014699 may be what it’s called if you have certain versions of Windows 10. There may be other KB numbers for other still-supported OSes or server platforms. As an earlier commenter pointed out, the common ground seems to be that an update with a name starting “2022-06 Cumulative Update” (Microsoft doesn’t call it Patch Tuesday any more, of course) is supposed to mitigate Follina, though you will have to check your own Windows Update history to find your own precise URL and KB identifier.
+Why use one unique ID when you can have lots of them?!
+I am currently repeating the test on a Windows 10 system. The update there is, indeed, tagged KB5014699:
+https://support.microsoft.com/en-us/topic/june-14-2022-kb5014699-os-builds-19042-1766-19043-1766-and-19044-1766-5c81d49d-0b6e-4808-9485-1f54e5d1bb15
+The update name on my system says “2022-06 Cumulative Update”, plus the specific tag “for Windows 10 21H2 for x64-based Systems”. (The 21H2 version is what was offered when I most recently downloaded from the Enterprise Evaluation portal, just before starting work on Follina when the news first broke.)
+Outcome: same outcome on W10 as on W11. I updated the article accordingly. Exploit worked before updating, broke afterwards, worked again after rolling back.
+Thanks for the heads up about this!
+I received an email from Microsoft on Tuesday at 10:15, Titled Microsoft Security Update Revision, containing the following information.
+NOTE: it states the information has been updated but I do not recall receiving the original announcement.
+The following CVEs have undergone a revision increment.
+====================================================================================
+* CVE-2021-26414
+* CVE-2022-23267
+* CVE-2022-24513
+* CVE-2022-24527
+* CVE-2022-26832
+* CVE-2022-30190
+~~~~ Bla-Bla-Bla… bla ~~~~
+ – CVE-2022-30190 | Microsoft Windows Support Diagnostic Tool (MSDT) Remote Code
+   Execution Vulnerability
+ – https://msrc.microsoft.com/update-guide/vulnerability/CVE-2022-30190
+ – Version: 2.0
+ – Reason for Revision: The update for this vulnerability is in the June 2022
+   cumulative Windows Updates. Microsoft strongly recommends that customers install
+   the updates to be fully protected from the vulnerability. Customers whose systems are
+   configured to receive automatic updates do not need to take any further action.
+ – Originally posted: May 30, 2022
+ – Updated: June 14, 2022
+ – Aggregate CVE Severity Rating: Important
+Well, I guess that counts as having this bugfix officially deemed “security related”…
+I still wish they had put the CVE in the security bulletin!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

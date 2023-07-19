@@ -1,0 +1,209 @@
+Sophos Home protects every Mac and PC in your home 
+AN INSIDER ATTACK (WHERE THE PERP GOT CAUGHT)
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Inside jobs, facial recognition, and the “S” in “IoT” still stands for “security”. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today?
+DUCK.  Very well, Doug. 
+You know your catchphrase, “We’ll keep an eye on that”? 
+DOUG.  [LAUGHING] Ho, ho, ho!
+DUCK.  Sadly, there are several things this week that we’ve been “keeping an eye on”, and they still haven’t ended well.
+DOUG.  Yes, we have kind-of an interesting and non-traditional lineup this week. 
+Let’s get into it. 
+But first, we will start with our This Week in Tech History segment. 
+This week, on 19 May 1980, the Apple III was announced. 
+It would ship in November 1980, at which point the first 14,000 Apple IIIs off the line were recalled. 
+The machine would be reintroduced again in November 1981. 
+Long story short, the Apple III was a flop. 
+Apple co-founder Steve Wozniak attributed the machine’s failure to it being designed by marketing people instead of engineers. 
+Ouch!
+DUCK.  I don’t know what to say to that, Doug. [LAUGHTER]
+I’m trying not to smirk, as a person who considers himself a technologist and not a marketroid.
+I think the Apple III was meant to look good and look cool, and it was meant to capitalise on the Apple II’s success. 
+But my understanding is that the Apple III (A) could not run all Apple II programs, which was a bit of a backward compatibility blow, and (B) just wasn’t expandable enough like the Apple II was. 
+I don’t know whether this is an urban legend or not…
+…but I have read that the early models did not have their chips seated properly in the factory, and that recipients who were reporting problems were told to lift the front of the computer off their desk a few centimetres and let it crash back. 
+[LAUGHTER] 
+This would bang the chips into place, like they should have been in the first place. 
+Which apparently did work, but was not the best sort of advert for the quality of the product.
+DOUG.  Exactly. 
+All right, let’s get into our first story. 
+This is a cautionary tale about how bad inside threats can be, and perhaps how difficult they can be to pull off as well, Paul.
+Whodunnit? Cybercrook gets 6 years for ransoming his own employer
+
+DUCK.  Indeed it is, Douglas. 
+And if you’re looking for the story on nakedsecurity.sophos.com, it’s the one that is captioned, “Whodunnit? Cybercrook gets 6 years for ransoming his own employer.” 
+And there you have the guts of the story.
+DOUG.  Shouldn’t laugh, but… [LAUGHS]
+DUCK.  It is kind-of funny and unfunny.
+Because if you look at how the attack unfolded, it was basically:
+“Hey, someone’s broken in; we don’t know what the security hole was that they used. Let’s burst into action and try and find out.”
+“Oh, no! The attackers have managed to get sysadmin powers!”
+“Oh, no! They’ve sucked up gigabytes of confidential data!”
+“Oh, no! They’ve messed with the system logs so we don’t know what’s going on!”
+“Oh, no! Now they’re demanding 50 bitcoins (which at the time was about $2,000,000 US) to keep things quiet… obviously we’re not going to pay $2 million as a hush job.” 
+And, bingo, the crook went and did that traditional thing of leaking the data on the dark web, basically doxxing the company. 
+And, unfortunately, the question “Whodunnit?” was answered by: One of the company’s own sysadmins.
+In fact, one of the people who’d been drafted into the team to try and find and expel the attacker. 
+So he was quite literally  pretending to fight this attacker by day and negotiating a $2 million blackmail payment by night. 
+And even worse, Doug, it seems that, when they became suspicious of him…
+…which they did, let’s be fair to the company. 
+(I’m not going to say who it was; let’s call them Company-1, like the US Department of Justice did, although their identity is quite well known.) 
+His property was searched, and apparently they got hold of the laptop that later turned out was used to do the crime.
+They questioned him, so he went on an “offence is the best form of defence” process, and pretended to be a whistleblower and contacted the media under some alter ego.
+He gave a whole false story about how the breach had happened – that it was poor security on Amazon Web Services, or something like that. 
+So it made it seem, in many ways, much worse than it was, and the company’s share price tumbled quite badly. 
+It might have dropped anyway when there was news that they’d been breached, but it certainly seems that he went out of his way to make it seem much worse in order to deflect suspicion from himself.
+Which, fortunately, did not work. 
+He *did* get convicted (well, he pleaded guilty), and, like we said in the headline, he got six years in prison.
+Then three years of parole, and he has to pay back a penalty of $1,500,000.
+DOUG.  You can’t make this stuff up!
+Great advice in this article… there are three pieces of advice. 
+I love this first one: Divide and conquer. 
+What do you mean by that, Paul?
+DUCK.  Well, it does seem that, in this case, this individual had too much power concentrated in his own hands. 
+It seems that he was able to make every little part of this attack happen, including going in afterwards and messing with the logs and trying to make it look as though other people in the company did it. 
+(So, just to show what a terribly nice chap he was – he did try and stitch up his co-workers as well, so they’d get into trouble.) 
+But if you make certain key system activities require the authorisation of two people, ideally even from two different departments, just like when, say, a bank is approving a big money movement, or when a development team is deciding, “Let’s see whether this code is good enough; we’ll get someone else to look at it objectively and independently”…
+…that does make it much harder for a lone insider to pull off all these tricks.
+Because they’d have to collude with everyone else that they’d need co-authorisation from along the way.
+DOUG.  OK. 
+And along the same lines: Keep immutable logs. 
+That’s a good one.
+DUCK.  Yes. 
+Those listeners with long memories may recall WORM drives.
+They were quite the thing back in the day: Write Once, Read Many. 
+Of course they were touted as absolutely ideal for system logs, because you can write to them, but you can never *rewrite* them.
+Now, in fact, I don’t think that they were designed that way on purpose… [LAUGHS] I just think nobody knew how to make them rewritable yet. 
+But it turns out that kind of technology was excellent for keeping log files. 
+If you remember early CD-Rs, CD-Recordables – you could add a new session, so you could record, say, 10 minutes of music and then add another 10 minutes of music or another 100MB of data later, but you couldn’t go back and rewrite the whole thing. 
+So, once you’d locked it in, somebody who wanted to mess with the evidence would either have to destroy the entire CD so it would be visibly absent from the chain of evidence, or otherwise damage it. 
+They wouldn’t be able to take that original disk and rewrite its content so it showed up differently. 
+And, of course, there are all sorts of techniques by which you can do that in the cloud.
+If you like, this is the other side of the “divide and conquer” coin. 
+What you’re saying is that you have lots of sysadmins, lots of system tasks, lots of daemon or service processes that can generate logging information, but they get sent somewhere where it takes a real act of will and co-operation to make those logs go away or to look other than what they were when they were originally created.
+DOUG.  And then last but certainly not least: Always measure, never assume.
+DUCK.  Absolutely. 
+It looks as though Company-1 in this case did manage at least some of all of these things, ultimately. 
+Because this chap was identified and questioned by the FBI… I think within about two months of doing his attack. 
+And investigations don’t happen overnight – they require a warrant for the search, and they require probable cause. 
+So it looks as though they did do the right thing, and that they didn’t just blindly continue trusting him just because he kept saying he was trustworthy. 
+His felonies did come out in the wash, as it were.
+So it’s important that you do not consider anybody as being above suspicion.
+DOUG.  OK, moving right along.
+Gadget maker Belkin is in hot water, basically saying, “End-of-life means end of updates” for one of its popular smart plugs.
+Belkin Wemo Smart Plug V2 – the buffer overflow that won’t be patched
+
+DUCK.  It does seem to have been a rather poor response from Belkin. 
+Certainly from a PR point of view, it hasn’t won them many friends, because the device in this case is one of those so called smart plugs. 
+You get a Wi-Fi enabled switch; some of them will also measure power and other things like that. 
+So the idea is you can then have an app, or a web interface, or something that will turn a wall socket on and off. 
+So it’s a little bit of an irony that the fault is in a product that, if hacked, could lead to someone basically flashing a switch on and off that could have an appliance plugged into it. 
+I think, if I were Belkin, I might have gone, “Look, we’re not really supporting this anymore, but in this case… yes, we’ll push out a patch.” 
+And it’s a buffer overflow, Doug, plain and simple.
+[LAUGHS] Oh, dear…
+When you plug in the device, it needs to have a unique identifier so that it will show up in the app, say, on your phone… if you’ve got three of them in your house, you don’t want them all called Belkin Wemo plug.
+You want to go and change that, and put what Belkin calls a “friendly name”.
+And so you go in with your phone app, and you type in the new name you want. 
+Well, it appears that there is a 68-character buffer in the app on the device itself for your new name… but there’s no check that you don’t put in a name longer than 68 bytes. 
+Foolishly, perhaps, the people who built the system decided that it would be good enough if they simply checked how long the name was *that you typed into your phone when you used the app to change the name*: “We’ll avoid sending names that are too long in the first place.” 
+And indeed, in the phone app, apparently you can’t even put in more than 30 characters, so they’re being extra-super safe. 
+Big problem!
+What if the attacker decides not to use the app? [LAUGHTER] 
+What if they use a Python script that they wrote themselves…
+DOUG.  Hmmmmm! [IRONIC] Why would they do that?
+DUCK.  …that doesn’t bother checking for the 30-character or 68-character limit? 
+And that’s exactly what these researchers did.
+And they found out, because there’s a stack buffer overflow, they could control the return address of a function that was being used.
+With enough trial and error, they were able to deviate execution into what’s known in the jargon as “shellcode” of their own choice. 
+ Notably, they could run a system command which ran the wget command, which downloaded a script, made the script executable, and ran it.
+DOUG.  OK, well…
+…we’ve got some advice in the article. 
+If you have one of these smart plugs, check that out. 
+I guess the bigger question here is, assuming Belkin follows through on their promise to not fix this… [LOUD LAUGHTER]
+…basically, how hard of a fix is this, Paul? 
+Or would it be good PR to just plug this hole?
+DUCK.  Well, I don’t know. 
+There might be many other apps that, oh, dear, they have to do the same sort of fix to. 
+So they might just not want to do this for fear that someone will go, “Well, let’s dig deeper.”
+DOUG.  A slippery slope…
+DUCK.  I mean, that would be a bad reason not to do it. 
+I would have thought, given that this is now well-known, and given that it seems like an easy enough fix… 
+…just (A) recompile the apps for the device with stack protection turned on, if possible, and (B) at least in this particular “friendly name” changing program, don’t allow names longer than 68 characters! 
+It doesn’t seem like a major fix. 
+Although, of course, that fix has to be coded; it has to be reviewed; it has to be tested; a new version has to be built and digitally signed. 
+It then has to be offered to everybody, and lots of people won’t even realise it’s available. 
+And what if they don’t update? 
+It would be nice if those who are aware of this issue could get a fix, but it remains to be seen whether Belkin will expect them to simply upgrade to a newer product.
+DOUG.  Alright, on the subject of updates…
+…we have been keeping an eye, as we say, on this story. 
+We’ve talked about it several times: Clearview AI.
+Zut alors! Raclage crapuleux! Clearview AI in 20% more trouble in France
+
+France has this company in its sights for repeated defiance, and it’s almost laughable how bad this has gotten. 
+So, this company scrapes photos off the internet and maps them to their respective humans, and law enforcement uses this search engine, as it were, to look up people. 
+Other countries have had problems with this too, but France has said, “This is PII. This is personally identifiable information.”
+DUCK.  Yes.
+DOUG.  “Clearview, please stop doing this.” 
+And Clearview didn’t even respond. 
+So they got fined €20 million, and they just kept going…
+And France is saying, “OK, you can’t do this. We told you to stop, so we’re going to come down even harder on you. We’re going to charge you €100,000 every day”… and they backdated it to the point that it’s already up to €5,200,000.
+And Clearview is just not responding. 
+It’s just not even acknowledging that there’s a problem.
+DUCK.  That certainly seems to be how it’s unfolding, Doug. 
+Interestingly, and in my opinion quite reasonably and very importantly, when the French regulator looked into Clearview AI (at the time they decided the company wasn’t going to play ball voluntarily and fined them €20 million)…
+…they also found that the company wasn’t just collecting what they consider biometric data without getting consent. 
+They were also making it incredibly, and needlessly, and unlawfully difficult for people to exercise their right (A) to know that their data has been collected and is being used commercially, and (B) to have it deleted if they so desire. 
+Those are rights that many countries have enshrined in their regulations. 
+It’s certainly, I think, still in the law in the UK, even though we are now outside the European Union, and it is part of the well known GDPR regulation in the European Union. 
+If I don’t want you to keep my data, then you have to delete it.
+And apparently Clearview was doing things like saying, “Oh, well, if we’ve had it for more than a year, it’s too hard to remove it, so it’s only data we’ve collected within the last year.” 
+DOUG.  Aaaaargh. [LAUGHS]
+DUCK.  So that, if you don’t notice, or you only realise after two years? 
+Too late!
+And then they were saying, “Oh, no, you’re only allowed to ask twice a year.”
+I think, when the French investigated, they also found that people in France were complaining that they had to ask over, and over, and over again before they managed to jog Clearview’s memory into doing anything at all. 
+So who knows how this will end, Doug?
+DOUG.  This is a good time to hear from several readers. 
+We usually do our comment-of-the-week from one reader, but you asked at the end of this article: 
+If you were {Queen, King, President, Supreme Wizard, Glorious Leader, Chief Judge, Lead Arbiter, High Commissioner of Privacy}, and could fix this issue with a {wave of your wand, stroke of your pen, shake of your sceptre, a Jedi mind-trick}…
+…how would you resolve this stand-off?
+And to just pull some quotes from our commenters:
+And then James dismounts with: “I fart in your general direction. Your mother was an ‘amster, and your father smelt of elderberries.” [MONTY PYTHON AND THE HOLY GRAIL ALLUSION]
+Which I think might be a comment on the wrong article. 
+I think there was a Monty Python quote in the “Whodunnit?” article. 
+But, James, thank you for jumping in at the end there…
+DUCK.  [LAUGHS] Shouldn’t really laugh. 
+Didn’t one of our commenters say, “Hey, apply for an Interpol Red Notice? [A SORT-OF INTERNATIONAL ARREST WARRANT]
+DOUG.  Yes!
+Well, great… as we are wont to do, we will keep an eye on this, because I can assure you this is not over yet. 
+If you have an interesting story, comment, or question you’d like to submit, we’d love to read on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today; thank you very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to… 
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+In regards to the Apple III, “I don’t know whether this is an urban legend or not…
+…but I have read that the early models did not have their chips seated properly in the factory, and that recipients who were reporting problems were told to lift the front of the computer off their desk a few centimetres and let it crash back.”
+I don’t know about that, but the company I was working for at the time was using them for offline library circulation terminals, and 9 times out of 10, if there was a problem with it, the fix was to reseat the chips.  The biggest culprit was (if I remember correctly) the Z80 processor chip.
+I read it in a biography of Steve Jobs (the factory-based cause adn the desk-drop fix parts of story) and have heard about these “chip seating” troubles elsewhere…
+…thanks for confirming that there is at least some truthful background to the story :-)
+What I don’t know of is whether this was a one-off manufacturing problem with a one-off fix, or whether the chips could creep out of their sockets anyway due to repeated heating and cooling. 
+Was your “percussive maintenance” process a one-time intervention for each afflicted computer, or were some of them repeat offenders? (And if so was there any pattern to it, e.g. the bad ones were in the worst ventilated corners of the stacks, or in specific offices that got really hot in summer?)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

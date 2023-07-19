@@ -1,0 +1,47 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re a programmer, whether you code for a hobby or professionally, you’ll know that creating a new version of your project – an official “release” version that you yourself, or your friends, or your customers, will actually install and use – is always a bit of a white-knuckle ride.
+After all, a release version depends on all your code, relies on all your default settings, goes out only with your published documentation (but no insider knowledge), and needs to work even on computers you’ve never seen before, set up in configurations you’ve never imagined, alongside other software you’ve never tested for compatibility.
+Simply put, the more complex a project becomes, and the more developers you have working on it, and the more separate components that have to work smoothly with all the others…
+…the more likely it is for the whole thing to be much less impressive than the sum of the parts.
+As a crude analogy, consider that the track team with the fastest individual 100m sprinters doesn’t always win the 4x100m relay.
+One attempt to avoid this sort of “but it worked fine on my computer” crisis is a technique known in the jargon as Continuous Integration, or CI for short.
+The idea is simple: every time anyone makes a change in their part of the project, grab that person’s new code, and whisk them and their new code through a full build-and-test cycle, just like you would before creating a final release version.
+Build early, build often, build everything, build always!
+Clearly, this is a luxury that projects in the physical world can’t take: if you’re constructing, say, a Sydney Harbour Bridge, you can’t rebuild an entire test span, with all-new raw materials, every time you decide to tweak the riveting process or to see if you can fit bigger flagpoles at the summit.
+Even when you “build” a computer software project from one bunch of source files into a collection of output  files, you consume precious resources, such as electricity, and you need a sudden surge in computing power to run alongside all the computers that the developers themselves are using.
+After all, in software engineering processess that use CI, the idea is not to wait until everyone is ready, and then for everyone to step back from programming and to wait for a final build to be completed.
+Builds happen all day, every day, so that coders can tell long in advance if they’ve inadvertently made “improvements” that negatively affect everyone else – breaking the build, as the jargon might say.
+The idea is: fail early, fix quickly, increase quality, make predictable progress, and ship on time.
+Sure, even after a successful test build, your new code may still have bugs in it, but at least you won’t get to the end of a development cycle and then find that everyone has to go back to the drawing board just to get the software to build and work at all, because the various components have drifted out of alignment.
+Early software development methods were often referred to as following a waterfall model, where everyone worked harmoniously but independently as the project drifted gently downriver between version deadlines, until everything came together at the end of the cycle to create a new release, ready to plunge over the tumultuous waterfall of a version upgrade, only to emerge into another gentle period of clear water downstream for further design and development. One problem with those “waterfalls”, however, was that you often ended up trapped in an apparently endless circular eddy right at the very edge of the waterfall, gravity notwithstanding, unable to get over the lip of the precipice at all until lengthy hacks and modifications (and concomitant overruns) made the onward journey possible.
+As you can imagine, adopting CI means having a bunch of powerful, ready-to-go servers at your disposal whenever any of your developers triggers a build-and-test procedure, in order to avoid drifting back into that “getting stuck at the very lip of the waterfall” situation.
+That sounds like a job for the cloud!
+And, indeed, it is, with numerous so-called CI/CD cloud services (this CD is not a playable music disc, but shorthand for continuous delivery) offering you the flexibility to have an ever-varying number of different branches of different products going through differently configured builds, perhaps even on different hardware, at the same time.
+CircleCI is one such cloud-based service…
+…but, unfortunately for their customers, they’ve just suffered a breach.
+Technically, and as seems to be common these days, the company hasn’t actually used the words “breach”, “intrusion” or “attack” anywhere in its official notification: so far, it’s just a security incident.
+The original notice [2023-01-04] stated simply that:
+We wanted to make you aware that we are currently investigating a security incident, and that our investigation is ongoing. We will provide you updates about this incident, and our response, as they become available. At this point, we are confident that there are no unauthorized actors active in our systems; however, out of an abundance of caution, we want to ensure that all customers take certain preventative measures to protect your data as well.
+Since then, CircleCI has provided regular updates and further advice, which mostly boils down to this: “Please rotate any and all secrets stored in CircleCI.”
+As we’ve explained before, the jargon word rotate is badly chosen here, because it’s the legacy of a dangerous past where people literally did “rotate” passwords and secrets through a small number of predictable choices, not only because keeping track of new ones was harder back then, but also because cybersecurity wasn’t as important as it is today.
+What CircleCI means is that you need to CHANGE all your passwords, secrets, access tokens, environment variables, public-private keypairs, and so on, presumably because the attackers who breached the network either did steal yours, or can’t be proved not to have stolen them.
+The company has a provided a list of the various sorts of private security data that was affected by the breach, and has created a handy script called CircleCI-Env-Inspector that you can use to export a JSON-formatted list of all the CI secrets that you need to change in your environment.
+Additionally, cybercriminals may now have access tokens and cryptographic keys that could give them a way back into your own network, especially because CI build processes sometimes need to “call home” to request code or data that you can’t or don’t want to upload into the cloud (scripts that do this are known in the jargon as runners).
+So, CircleCI advises: 
+We also recommend customers review internal logs for their systems for any unauthorized access starting from 2022-12-21 [up to and including 2023-01-04], or upon completion of [changing your secrets].
+Intriguingly, if understandably, some customers have noted that the date implied by CircleCI on which this breach began [2022-12-21] just happens to coincide with a blog post the company published about recent reliability updates.
+Customers wanted to know, “Was the breach related to bugs introduced in this update?” 
+Given that the company’s reliability update articles seem to be rolling news summaries, rather than announcements of individual changes made on specific dates, the obvious answer is, “No”… 
+…and CircleCI has stated that the coincidental date of 2022-12-21 for the reliability blog post was just that: a coincidence.
+Happy keyregenning!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

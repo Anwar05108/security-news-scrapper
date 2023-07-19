@@ -1,0 +1,198 @@
+Sophos Home protects every Mac and PC in your home 
+SING A SONG OF SUPERCOOKIES
+Remembering the slide rule. What you need to know about Patch Tuesday. Supercookie surveillance shenanigans. When bugs arrive in pairs. Apple’s rapid patch that needed a rapid patch. User-Agent considered harmful.
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  An emergency Apple patch, gaslighting computers, and WHY CAN’T I KEEP USING WINDOWS 7?
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  Well, I’m a little bit startled, Doug. 
+You were very dramatic about the need to keep using Windows 7!
+DOUG.  Well, like many people, I am angry about it (joke!), and we’ll talk about that in a bit. 
+But first, a very important This Week in Tech History segment. 
+11 July 1976 marked the last gasp for a once-common mathematical calculation tool. 
+I am, of course, referring to the slide rule.
+The final US model produced, a Keuffel & Esser 4081-3, was presented to the Smithsonian Institution, marking the end of a mathematical era…
+…an era made obsolete by computers and calculators such as Paul’s favourite, the HP-35. 
+So, Paul, I believe you have blood on your hands, Sir.
+DUCK.  I never owned an HP-35. 
+Firstly, I was much too young, and secondly, they were $395 each when they came in. 
+DOUG.  [LAUGHS] Wow!
+DUCK.  So it took another couple of years for prices to crash, as Moore’s Law kicked in. 
+And then people didn’t want to use slide rules any more. 
+My Dad gave me his old one, and I treasured that thing because it was great… 
+…and I’ll tell you what a slide rule does teach you, because when you’re using it for multiplication, you basically convert the two numbers you want to multiply to numbers between 1 and 10, and then you multiply them together. 
+And then you need to work out where the decimal point goes. 
+If you divided one number by 100 and multiplied the other by 1000 to get them in range, then overall you have to add one zero, to multiply by 10, at the end. 
+So it was a fantastic way of teaching yourself whether the answers you got from your electronic calculator, where you typed in long numbers like 7,000,000,000…
+…whether you’d actually got the order of magnitude, the exponent, right.
+Slide rules and their printed equivalent, log tables, taught you a lot about how to manage orders of magnitude in your head, and not accept bogus results too easily.
+DOUG.  I’ve never used one, but it sounds very exciting from what you just described. 
+Let’s keep the excitement going. 
+Last week, Firefox released version 115:
+Firefox 115 is out, says farewell to users of older Windows and Mac versions
+
+They included a note which I’d like to read, and I quote:
+In January 2023, Microsoft ended support for Windows 7 and Windows 8. 
+As a consequence, this is the last version of Firefox that users on those operating systems will receive.
+And I feel that every time one of these notes gets appended to a final release, people come out and say, “Why can’t I keep using Windows 7?” 
+We even had a commenter saying that Windows XP is just fine. 
+So what would you say to these people, Paul, that don’t want to move on from operating system versions that they love?
+DUCK.  The best way for me to put it, Doug, is to read back what I consider the better-informed commenters on our article said.
+Alex Fair writes:
+It’s not just about what *you* want, but about how you could be used and exploited, and in turn harm others. 
+And Paul Roux rather satirically said:
+Why are people still running Windows 7, or XP for that matter? 
+If the reason is that newer operating systems are bad, why not use Windows 2000? 
+Heck, NT 4 was so awesome it received SIX service packs!
+DOUG.  [LAUGHS] 2000 *was* awesome, though.
+DUCK.  It’s not all about you. 
+It is about the fact that your system includes bugs, that crooks already know how to exploit, that will never, ever get patched. 
+So the answer is that sometimes you simply have to let go, Doug.
+DOUG.  “It is better to have loved and lost than to never have loved at all,” as they say. 
+Let’s stay on the subject of Microsoft.
+Patch Tuesday, Paul, giveth bountifully.
+Microsoft patches four zero-days, finally takes action against crimeware kernel drivers
+
+DUCK.  Yes, the usual large number of bugs fixed. 
+The big news out of this, the stuff that you need to remember (and there are two articles you can go and consult on news.sophos.com if you want to know the gory details)….
+One issue is that four of these bugs are in the wild, zero-day, already-being-exploited holes. 
+Two of them are security bypasses, and as trivial as that sounds, they do apparently relate to clicking on URLs or opening stuff in emails where you would normally get a warning saying, “Are you really sure you want to do this?” 
+Which might otherwise stop quite a few people from making an unwanted mistake. 
+And there are two Elevation-of-Privilege (EoP) holes fixed. 
+And although Elevation of Privilege usually gets looked down on as lesser than Remote Code Execution, where crooks use the bug to break in in the first place, the problem with EoP has to do with crooks who are already “loitering with intent” in your network. 
+It’s as though they’re able to upgrade themselves from being a guest in a hotel lobby to a super-secretive, silent burglar who suddenly and magically has access to all the rooms in the hotel.
+So those are definitely worth watching out for. 
+And there’s a special Microsoft security advisory…
+…well, there are several of them; the one I want to draw your attention to is ADV23001, which basically is Microsoft saying, “Hey, remember when Sophos researchers reported to us that they’d found a whole load of rootkittery going on with signed kernel drivers that even contemporary Windows would just load because they were approved for use?” 
+I think in the end there were well over 100 such signed drivers. 
+The great news in this advisory is that all these months later, Microsoft has finally said, “OK, we’re going to stop those drivers from being loaded and start blocking them automatically.”
+[IRONIC] Which I suppose is quite big of them, really, when at least some of those drivers were actually signed by Microsoft itself, as part of their hardware quality programme. [LAUGHS]
+If you want to find the story behind the story, as I said, just head to news.sophos.com and search for “drivers“.
+Microsoft Revokes Malicious Drivers in Patch Tuesday Culling
+
+DOUG.  Excellent. 
+Alright, this next story… I am intrigued by this headline for so many reasons: Rowhammer returns to gaslight your computer.
+Serious Security: Rowhammer returns to gaslight your computer
+
+Paul, tell me about… 
+[TO THE TUNE OF PETER GABRIEL’S “SLEDGEHAMMER”] Tell me about…
+BOTH.  [SINGING] Rowhammer!
+DOUG.  [LAUGHS] Nailed it! 
+DUCK.  Go on, now you have to do the riff.
+DOUG.  [SYNTHESISING A SYNTHESISER] Doodly-doo da doo, doo do doo.
+DUCK.  [IMPRESSED] Very good, Doug! 
+DOUG.  Thank you. 
+DUCK.  Those who don’t remember this from the past: “Rowhammer” s the jargon name that reminds us that the capacitors, where bits of memory (ones and zeros) are stored in modern DRAM, or dynamic random access memory chips, are so close together…
+When you write to one of them (you actually have to read and write the capacitors in rows at a time, thus “rowhammer”), when you do that, because you’ve read the row, you’ve discharged the capacitors. 
+Even if all you’ve done is look at the memory, you have to write back the old contents, or they’re lost forever. 
+When you do that, because those capacitors are so tiny and so close together, there is a tiny chance that capacitors in one or both of the neighbouring rows might flip their value. 
+Now, it’s called DRAM because it doesn’t hold its charge indefinitely, like static RAM or flash memory (with flash memory you can even turn the power off and it will remember what was there).
+But with DRAM, after about a tenth of a second, basically, the charges in all those little capacitors will have dissipated.
+So they need rewriting all the time. 
+And if you rewrite super-fast, you can actually get bits in nearby memory to flip. 
+Historically, the reason this has been a problem is that if you can play with memory alignment, even though you can’t predict which bits are going to flip, you *might* be able to mess with things like memory indices, page tables, or data inside the kernel. 
+Even if all you’re doing is reading from memory because you have unprivileged access to that memory outside the kernel. 
+And that’s what rowhammer attacks to date have tended to focus on. 
+Now, what these researchers from the University of California in Davis did is that they figured, “Well, I wonder if the bit-flip patterns, as pseudorandom as they are, are consistent for different vendors of chips?”
+Which is kind-of/sort-of sounding like a “supercookie”, isn’t it? 
+Something that identifies your computer next time.
+And indeed, the researchers went even further and  found that individual chips… or memory modules (they usually have several DRAM chips on them), DIMMs, double inline memory modules that you can clip into the slots in your desktop computer, for example, and in some laptops.
+They found that, actually, the bit-flip patterns could be converted into a sort of iris scan, or something like that, so that they could recognise the DIMMs later by doing the rowhammering attack again.
+In other words, you can clear your browser cookies, you can change the list of applications you’ve got installed, you can change your username, you can reinstall a brand new operating system, but the memory chips, in theory, will give you away. 
+And in this case, the idea is: supercookies. 
+Very interesting, and well worth a read.
+DOUG.  It is cool!
+Another thing about writing news, Paul: you are a good news writer, and the idea is to hook the reader right away. 
+So, in the first sentence of this next article you say: “Even if you haven’t heard of the venerable Ghostscript project, you may very well have used it without knowing.” 
+I am intrigued, because the headline is: Ghostscript bug could allow rogue documents to run system commands.
+Ghostscript bug could allow rogue documents to run system commands
+
+Tell me more!
+DUCK.  Well, Ghostscript is a free and open source implementation of Adobe’s PostScript and PDF languages. 
+(If you haven’t heard of PostScript, well, PDF is sort of “PostScript Next Generation”.)
+It’s a way of describing how to create a printed page, or a page on a computer screen, without telling the device which pixels to turn on. 
+So you say, “Draw square here; draw triangle here; use this beautiful font.” 
+It’s a programming language in its own right that gives you device-independent control of things like printers and screens. 
+And Ghostscript is, as I said, a free and open source tool to do just that. 
+And there are numerous other open source products that use exactly this tool as a way of importing things like EPS (Encapsulated PostScript) files, such as you might get from a design company. 
+So you might have Ghostscript without realising it – that’s the key problem. 
+And this was a small but really annoying bug. 
+It turns out that a rogue document can say things like, “I want to create some output, and I want to put it in a filename XYZ.”
+But if you put, at the beginning of the file name, %pipe%, and *then* the file name… 
+…that filename becomes the name of a command to run that will process the output of Ghostscript in what’s called a “pipeline”.
+That may sound like a long story for a single bug, but the important part of this story is that after fixing that problem: “Oh, no! We need to be careful if the filename starts with the characters %pipe%,  because that actually means it’s a command, not a filename.” 
+That could be dangerous, because it could cause remote code execution. 
+So they patched that bug and then someone realised, “You know what, bugs often go in pairs or in groups.” 
+Either similar coding mistakes elsewhere in the same bit of code, or more than one way of triggering the original bug. 
+And that’s when someone in the Ghostscript Script team realised, “You know what, we also let them type | [vertical bar, i.e. the “pipe” character] space-command name as well, so we need to check for that as well.” 
+So there was a patch, followed by a patch-to-the-patch.
+And that is not necessarily a sign of badness on the part of the programming team. 
+It’s actually a sign that they didn’t just do the minimum amount of work, sign it off, and leave you to suffer with the other bug and wait until it was found in the wild.
+DOUG.  And lest you think we are done talking about bugs, boy do we have a doozie for you! 
+An emergency Apple patch emerged, and then un-emerged, and then Apple kind-of/sort-of commented on it, which means that up is down and left is right, Paul.
+Urgent! Apple fixes critical zero-day hole in iPhones, iPads and Macs
+
+DUCK.  Yes, it’s a little bit of a comedy of errors. 
+I nearly, but not quite, feel sorry for Apple on this one…
+…but because of their insistence on saying as little as possible (when they don’t say nothing at all), it’s still not clear quite whose fault it is.
+But the story goes like this: “Oh no! There’s an 0-day in Safari, in WebKit (the browser engine that’s used in every single browser on your iPhone and in Safari on your Mac), and crooks/spyware vendors/somebody is apparently using this for great evil.”
+In other words, “look-and-be-pwned”, or “drive-by install”, or “zero-click infection”, or whatever you want to call it. 
+So Apple, as you know, now has this Rapid Security Response system (at least for the latest iOS, iPadOS and macOS) where they don’t have to create a full system upgrade, with a whole new version number that you can never downgrade from, every time there’s an 0-day. 
+Thus, Rapid Security Responses. 
+These are the things that, if they don’t work, you can remove them afterwards. 
+The other thing is they’re generally really tiny. 
+Great! 
+The problem is… it seems that because these updates don’t get a new version number, Apple had to find a way of denoting that you had already installed the Rapid Security Response.
+So what they do is you take your version number, such as iOS 16.5.1, and they add after it a space character and then (a). 
+And the word on the street is that some websites (I shan’t name them because this is all hearsay)… 
+…when they were examining the User-Agent string in Safari, which includes the (a) just for completeness, went: “Whoooooa! What’s (a) doing in a version number?” 
+So, some users were reporting some problems, and Apple apparently pulled the update. 
+Apple silently pulls its latest zero-day update – what now?
+
+And then, after a whole load of confusion, and another article on Naked Security, and nobody quite knowing what was going on… [LAUGHTER]
+…Apple finally published HT21387, a security bulletin that they produced before they actually had the patch ready, which they normally don’t do. 
+But it was almost worse than saying nothing, because they said, “Because of this problem, Rapid Security Response (b) will be available soon to address this issue.” 
+And that’s it. [LAUGHTER]
+They don’t quite say what the issue is. 
+They don’t say if it it is down to User-Agent strings because, if so, maybe the problem’s more with the website at the other end than withg Apple themselves?
+But Apple isn’t saying. 
+So we don’t know whether it’s their fault, the web server’s fault, or both of them. 
+And they just say “soon”, Doug.
+DOUG.  This is a good time to bring in our reader question.
+On this Apple story, reader JP asks:
+Why do websites need to inspect your browser so much? 
+It’s too snoopy and relies on old ways of doing things.
+What do you say to that, Paul? 
+DUCK.  I wondered that very question myself, and I went looking for, “What are you supposed to do with User-Agent strings?”
+It does seem to be a bit of a perennial problem for websites where they’re trying to be super-clever. 
+So I went to MDN (what used to be, I think, Mozilla Developer Network, but it’s now a community site), which is one of the best resources if you wonder, “What about HTTP headers? What about HTML? What about JavaScript? What about CSS? How does this all fit together?”
+And their advice, quite simply, is, “Please, everybody, stop looking at the User-Agent string. You’re just making a rod for your own back and a bunch of complexity for everybody else.” 
+So why do sites look at User-Agent? 
+[WRY] I guess because they can. [LAUGHTER]
+When you’re creating a website, ask yourself, “Why am I going down this rabbit hole of having a different way of responding based on some weird bit of a string somewhere in User-Agent?” 
+Try and think beyond that, and life will be simpler for all of us.
+DOUG.  Alright, very philosophical! 
+Thank you, JP, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, comment on any one of our articles, or hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you: Until next time… 
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

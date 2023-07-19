@@ -1,0 +1,221 @@
+Sophos Home protects every Mac and PC in your home 
+GUESS YOUR PASSWORD? NO NEED IF IT’S STOLEN ALREADY!
+Guess your password? Crack your password? Steal your password? What if the crooks already have one of your passwords, and can use it to figure out all your others as well?
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  LifeLock woes, remote code execution, and a big scam meets big trouble. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+And Paul, I’m so sorry… but let me wish you a belated Happy ’23!
+DUCK.  As opposed to Happy ’99, Doug?
+DOUG.  How did you know? [LAUGHS]
+We dovetail immediately into our Tech History segment. 
+This week, on 20 January 1999, the world was introduced to the HAPPY99 worm, also known as “Ska”. 
+Paul, you were there, man!
+Tell us about your experience with HAPPY99, if you please.
+DUCK.  Doug. I think the most fascinating thing for me – then and now – is what you call the B-word…
+…the [COUGHS APOLOGETICALLY] “brilliant” part, and I don’t know whether this was down to laziness or supreme cleverness on the part of the programmer. 
+Firstly, it didn’t use a pre-generated list of email addresses. 
+It waited till *you* sent an email, scraped the email address out of it, and used that, with the result that the emails only went to people that you’d already just communicated with, giving them a greater believability. 
+And the other clever thing it had: it didn’t bother with things like subject line and message body. 
+It just had an attachment, HAPPY99.EXE, that when you ran it in the foreground, showed fireworks.
+And then you closed it; seemed like no harm done. 
+So there were no linguistic clues, such as, “Hey, I just got an email in Italian from my Italian buddy wishing me H\appy Christmas, immediately followed by an email in English wishing me a Happy 1999.” 
+And we don’t know whether the programmer foresaw that or, as I said, whether it was just, “Couldn’t be bothered to work out all the function calls I need to add this to the email…
+…I know to create an email; I know to add an attachment to it; I’m not going to bother with the rest.”
+And, as a result, this thing just spread and spread and spread and spread. 
+A reminder that in malware programming, as in many things in life, sometimes… less is a lot more.
+DOUG.  Alright! 
+Well, let’s move on to a happier subject, a kind-of sort-of remote code execution hole in a popular cloud security library. 
+Wait, that’s not happier… but what happened here?
+Popular JWT cloud security library patches “remote” code execution hole
+
+DUCK.  Well, it’s happier in that the bug was not revealed in the wild with a proof-of-concept. 
+It was only documented some weeks after it had been patched. 
+And fortunately, although technically it counts as a remote code execution [RCE] bug, which caused a lot of drama when it was first reported…
+…it did require that the crooks essentially broke into your apartment first, and then latched the door open from the inside for the next wave of crooks who had come along. 
+So it wasn’t as if they could just show up at the front door and get instant admission. 
+The irony, of course, is that it involves a popular open source toolkit called jsonwebtoken, or JWT for short. 
+A JWT is basically like a session cookie for your browser, but that’s more geared towards a zero-trust approach to authorising programs to do something for a while. 
+For example, you might want to authorise a program you’re about to run to go and do price lookups in a price database. 
+So, you need to authenticate first.
+Maybe you have to put in a username, maybe to put a password… and then you get this access token that your program can use, and maybe it’s valid for the next 100 requests, or the next 20 minutes or something, which means that you don’t have to fully reauthenticate every time.
+But that token only authorises your program to do one specific thing that you set up in advance. 
+It’s a great idea – it’s a standard way of doing web-based coding these days. 
+Now, the idea of the JWT, as opposed to other session cookies, is that in a “zero-trusty” sort of way, it includes: who the token is for; what things it’s allowed to do; and, as well as that, it has a cryptographic keyed hash of the data that says what it’s for. 
+And the idea is that that hash is calculated by the server when it issues the token, using a secret key that’s buried in some super-secure database somewhere. 
+Unfortunately, if the crooks could break into your apartment in advance by jimmying the lock…
+…and if they could get into the secret database, and if they could implant a modified secret key for a particular user account, and then sneak out, apparently leaving nothing behind?
+Well, you’d imagine that if you mess up the secret key, then the system just isn’t going to work, because you’re not going to be able to create reliable tokens anymore. 
+So you’d *think* it would fail safe. 
+Except it turns out that, if you could change the secret key in a special way, then next time the authentication happened (to see whether the token was correct or not), fetching the secret key could cause code to execute.
+This could theoretically either read any file, or permanently implant malware, on the authentication server itself…
+…which clearly would be a very bad thing indeed!
+And given that these JSON web tokens are very widely used, and given that this jsonwebtoken toolkit is one of the popular ones out there, clearly there was an imperative to go and patch if were using the buggy version. 
+The nice thing about this is that patch actually came out last year, before Christmas 2022, and (presumably by arrangement with the jsonwebtoken team) the company that found this and wrote it up only disclosed recently, about a week ago. 
+So they gave plenty of time for people to patch before they explained what the problem was in any detail. 
+So this *should* end well.
+DOUG.  Alright, let us stay on the subject of things ending well… if you are on the side of the good guys! 
+We’ve got four countries, millions of dollars, multiple searches, and several arrested, in a pretty big investment scam:
+Multi-million investment scammers busted in four-country Europol raid
+
+DUCK.  This was a good, old-fashioned, “Hey, have I got an investment for you!”. 
+Apparently, there were four call centres, hundreds of people questioned, and 15 already arrested…
+… this scam was “cold-calling people for investing in a non-existing cryptocurrency.” 
+So, OneCoin all over again… we’ve spoken about that OneCoin scam, where there was something like $4 billion invested in a cryptocurrency that didn’t even exist. 
+OneCoin scammer Sebastian Greenwood pleads guilty, “Cryptoqueen” still missing
+
+In this case, Europol talked about cryptocurrency *schemes*. 
+So I think we can assume that the crooks would run one until people realised it was a scam, and then they’d pull the rug out from under them, run off with the money, start up a new one. 
+The idea was: start really small, saying to the the person, “Look, you only have to invest a little bit, put in €100 maybe, as your first investment.” 
+The idea was that people would think, “I can just about afford this; if this works out, *I* could be the next Bitcoin-style billionaire.”
+They put in the money… and of course, you know how the story goes. 
+There’s a fantastic looking website, and your investment basically just keeps inching up some days, leaping up on other days.
+Basically, “Well done!”
+So, that’s the problem with these scams – they just *look* great. 
+And you will get all the love and attention you need from the (big air quotes here) “investment advisors”, until the point that you realise it’s a scam. 
+And then, well… you can complain to the authorities. 
+I recommend you do go to the police if you can. 
+But then, of course, law enforcement have the difficult job of trying to figure out who it was, where they were based, and getting them before they just start the next scam.
+DOUG.  OK, we have some advice here. 
+We have given this advice before – it applies to this story, as well as others. 
+If it sounds too good to be true, guess what?
+DUCK.  It IS too good to be true, Doug.
+Not “it might be”. 
+It IS too good to be true – just make it as simple as that. 
+That way, you don’t have to do any more evaluation. 
+If you’ve got your doubts, promote those doubts to the equivalent of a full-blown fact. 
+You could save yourself a lot of heartache.
+DOUG.  We’ve got: Take your time when online talk turns from friendship to money. 
+And we talked about this: Don’t be fooled because a scam website looks well-branded and professional. 
+As a reformed web designer, I can tell you it’s impossible to make a bad looking website nowadays. 
+And another reason I’m not a web designer anymore is: no one needs me. 
+Who needs a web designer when you can do it all yourself?
+DUCK.  You mean you click the button, choose the theme, rip off some JavaScript from a real investment site…
+DOUG.  …drop a couple of logos in there.
+Yep!
+DUCK.  It’s a surprisingly easy job, and you don’t need to be a particularly experienced programmer to do it well.
+DOUG.  And last, but certainly never least: Don’t let scammers drive a wedge between you and your family…
+…see Point 1 one about something being too good to be true.
+DUCK.  Yes.
+There are two ways that you could inadvertently get into a really nasty situation with your friends and family because of how the scammers behave. 
+The first is that, very often, if they realise that you’re about to give up on the scam because friends and family have almost convinced you that you’ve been scammed, then they will go out of their way to poison your opinion of your family in order to try and prolong the scam. 
+So they’ll deliberately drive that wedge in. 
+And, almost worse, if it’s a scam where it looks like you’re doing well, they will offer you “bonuses” for drawing in members of your family or close friends.
+If you manage to convince them… unfortunately, they’re going down with you, and they’re probably going to hold you to blame because you talked them into it in the first place. 
+So bear that in mind.
+DOUG.  OK, our last story of the day.
+Popular identity protection service LifeLock has been breached, kind-of, but it’s complicated… it’s not quite as straightforward as a *breach* breach:
+Serious Security: Unravelling the LifeLock “hacked passwords” story
+
+DUCK.  Yes, that’s an interesting way of putting it, Doug!
+DOUG.  [LAUGHS] 
+DUCK.  The reason that I thought it was important to write this up on Naked Security is that I saw the notification from Norton LifeLock, about unauthorised login attempts en masse into their service, that they sent out to some users who had been affected. 
+And I thought, “Uh-oh, here we go – people have had their passwords stolen at some time in the past, and now a new load of crooks are coming along, and they’re knocking on the door, and some doors are still open.” 
+That’s how I read it, and I think that I read it correctly.
+But I suddenly started seeing headlines at least, and in some case stories, in the media that invited people to think that, “Oh, golly, they’ve got into Norton LifeLock; they’ve got in behind the scenes; they’ve dug around in the databases; they’ve actually recovered my passwords – oh, dear!” 
+I guess, in the light of recent disclosures by LastPass where password databases were stolen but the passwords were encrypted…
+…this, if you just follow the “Oh, it was a breach, and they’ve got the passwords” line, sounds even worse. 
+But it seems that this is an old list of potential username/password combinations that some bunch of crooks acquired somehow.
+Let’s assume they bought it in a lump from the dark web, and then they set about seeing which of those passwords would work on which accounts.
+That’s known as credential stuffing, because they take credentials that are thought to work on at least one account, and stuff them into the login forms on other sites. 
+So, eventually the Norton LifeLock crew sent out a warning to customers saying, “We think you’re one of the people affected by this,” probably just to people where a login had actually succeeded that they assumed had come from the wrong sort of place, to warn them. 
+“Somebody’s got your password, but we’re not quite sure where they got it, because they probably bought it off the Dark Web… and therefore, if that happened, there may be other bunches of crooks who’ve got it as well.” 
+So I think that’s what the story adds up to.
+DOUG.  And we’ve got some ways here how these passwords end up on the dark web in the first place, including: Phishing attacks.
+DUCK.  Yes, that’s pretty obvious… 
+…if somebody does a mass phishing attempt against a particular service,  and N people fall for it.
+DOUG.  And we’ve got: Keylogger spyware.
+DUCK.  That’s where you get infected by malware on your computer, like a zombie or a bot, that has all kinds of remote-control triggers that the crooks can fire off whenever they want:
+How bots and zombies work, and why you should care
+
+And obviously, the things that bots and zombies tend to have pre-programmed into them include: monitor network traffic; send spam to a giant list of email addresses; and turn on the keylogger whenever they think you’re at an interesting website. 
+In other words, instead of trying to phish your passwords by decrypting otherwise-secure web transactions, they’re basically looking at what you’re typing *as you hit the keys on the keyboard*.
+DOUG.  Alright, lovely. 
+We’ve got: Poor server-side logging hygiene.
+DUCK.  Normally, you’d want to log things like the person’s IP number, and the person’s username, and the time at which they did the login attempt. 
+But if you’re in a programming hurry, and you accidentally logged *everything* that was in the web form… 
+…what if you accidentally recorded the password in the log file in plaintext?
+DOUG.  All right, then we’ve got: RAM-scraping malware. 
+That’s an interesting one.
+DUCK.  Yes, because if the crooks can sneak some malware into the background that can peek into memory while your server is running, they may be able to sniff out, “Whoa”! That looks like a credit card number; that looks like the password field!” 
+7 types of virus – a short glossary of contemporary cyberbadness
+
+Obviously, that sort of attack requires, as in the case we spoke of earlier… it requires the crooks to break into your apartment first to latch the door open. 
+But it does mean that, once that’s happened, they can have a program that doesn’t really need to go through anything on disk; it doesn’t need to search through old logs; it doesn’t need to navigate the network. 
+It simply needs to watch particular areas of memory in real time ,in the hope of getting lucky when there’s stuff that is interesting and important.
+DOUG.  We’ve got some advice. 
+If you’re in the habit of reusing passwords, don’t do it! 
+I think that’s the longest running piece of advice I can remember on record in the history of computing. 
+We’ve got: Don’t use related passwords on different sites.
+DUCK.  Yes, I thought I would sneak that tip in, because a lot of people think:
+“Oh, I know what I’ll do, I’ll choose a really complicated password, and I’ll sit down and I’ll memorize X38/=?..., so I’ve got a complicated password – the crooks will never guess it, so I only have to remember that one. 
+Instead of remembering it as the master password for a password manager, which is a hassle I don’t need, I’ll just add -fb for Facebook, -tt for Tik Tok, -tw for Twitter, and that way, literally, I will have a different password for every website.” 
+The problem is, in an attack like this, the crooks have *already got the plaintext of one of your passwords.* 
+If your password has complicated-bit dash two-letters, they can probably then guess your other passwords…
+…because they only have to guess the spare letters.
+DOUG.  Alright, and: Consider turning on 2FA for any accounts you can.
+DUCK.  Yes. 
+As always, it’s a little bit of an inconvenience, but it does mean that if I go on the dark web and I buy a password of yours, and I then come steaming in and try and use it from some unknown part of the world… 
+…it doesn’t “just work”, because suddenly I need the extra one-time code as well.
+DOUG.  Alright, and on the LifeLock story, we’ve got a reader comment. 
+Pete says:
+“Nice article with good tips and a very factual approach (smileyface emoticon).”
+DUCK.  I agree with the comment already, Doug! [LAUGHS]
+But do go on…
+DOUG.  “I guess people like to blame companies like Norton LifeLock […], because it is so easy to just blame everyone else instead of telling people how to do it correctly.”
+DUCK.  Yes.
+You could say those are slightly harsh words. 
+But, as I said at the end of that particular article, we’ve had passwords for more than 50 years already in the IT world, even though there are lots of services that are trying to move towards the so-called passwordless future – whether that relies on hardware tokens, biometric measurements, or whatever. 
+But I think we’re still going to have passwords for many years yet, whether we like it or not, at least for some (or perhaps even many) of our accounts. 
+So we really do have to bite the bullet, and just try and do it as well as we can. 
+And in 20 years time, when passwords are behind us, then we can change the advice, and we can come up with advice on how you protect your biometric information instead.
+But for the time being, this is just one in a number of reminders that when critical personal data like passwords get stolen, they can end up having a long lifetime, and getting widely circulated among the cybercrime community.
+DOUG.  Great. 
+Thank you, Pete, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth reminding you, until next time, to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Dear Duck,
+I am a Sophos Partner and as you would expect, make every effort to listen to (and as much as possible, read between) your Naked Security Podcasts. My comments and the questions that follows emanate not only from the podcast to which I am adding this comment, but from several of your recent Podcasts;
+I take fully on board your advice regarding passwords, particularly their re-use, or the use of similar passwords (old habits die hard), but keeping track of unique passwords and using the correct one when necessary is tiresome to say the least.
+You have mentioned the use of ‘dongles’ or ‘password managers’ on many occasions, both of which I am fairly ignorant and given my concerns regarding the reliability/compatibility of the former and the recent focus of attention given by cyber criminals to the latter, I have embarked on my own approach which, although clearly achievable, may very well prove to be inconveniently impractical;
+i) I have produced a small and simple to use ‘password generator’. It has parameters to enable the length of the password to be generated to be specified and a choice of character types to be included, at least one of which must be selected; UpperCase, LowerCase, Numeric, Special (!# etc.).
+ii) Each time a password is generated (consisting of a random selection of suitable characters, with at least one each type selected for inclusion), I record it in a Sophos Notebook (very handy they are too), along with a note of the use to which it is being put.
+iii) So far, so good. The tedious bit is looking up the appropriate password and typing it in each time it is required! Unlike passwords ‘plucked out of the air’, e.g. ‘pa55w0rd’, it is not at all easy to remember their purpose, let alone which characters and in what order!
+I could store them on a memory stick or sticks), only connecting the stick when I needs to extract and use a password. I could produce a small and simple utility to read the stick, copy the required password, so all I have to do is paste it where necessary.
+Question 1: Would the stick approach be reasonable low risk? (I guess I could become familiar with encryption techniques, to encode/decode information on the stick, but I can’t help feeling that may take me way beyond the simple approach I am seeking.
+My second two-part question would I imagine be of interest to many people who follow your Naked Security Podcasts. Windows and other software that requires ‘user names’ & ‘passwords’ to be supplied, often offer to ‘remember’ these credentials, so that the next time they are required, it will supply them for you.
+Question 2a: How ‘safe’ is allowing Windows or other software to remember your credentials. Can they be discovered by malware having been ‘stored’ for re-use?
+Question 2b: Is such a record of credentials machine centric (only on the machine it was ‘remembered’). i.e. if the software is used on several machines, it has to be remembered on first use on each machine?
+Kind Regards,
+Stephen L. Bentall
+Hmmm. IMO, the best way to have a dedicated USB drive that you use to store encrypted data is not to try to do the encryption yourself on a file-by-file or a record-by-record basis (which means a lot of programming and testing, and the possibility, nevertheless, of an unforeseen blunder). My approach is simply to encrypt the entire device using some tool already available at the operating system level – what’s usually referred to as FDE, short for full-disk encryption. 
+(On Macs and Linux computers, it’s also possible to create a blank file, and to treat file file itself as a disk device: you can format it, encrypt it, mount it, use it and unmount it as if it were a USB drive, so when fully umounted it’s just a BLOB of shredded digital cabbage. But let’s stick to a dedicated USB-with-FDE.)
+On Macs and Linux, USBs encypted at device level are actually quite easy to do, once you know how. Use FileVault on a Mac and LUKS (e.g. via the command cryptsetup) on Linux. 
+Take a USB drive you don’t care about and practise on it a few times until you get the hang of the process needed to wipe, encrypt, mount, use and unmount safely. Oh, and don’t forget the master password… FileVault will create a long recovery string for you that you coould write down and lock away if you like. LUKS can have backup keys, too, that can be kept physically secure just in case.
+On Windows it *might* be easy, by using BitLocker, which is an FDE layer built into Windows 10 and Windows 11. The problem is that, AFAIK, if you have a so-called Home edition of Windows, BitLocker can only be used on internal hard drives. You can’t encrypt removable devices unless you upgrade to one of the pricier Windows versions. It’s a shame that’s Microsoft’s attitude to consumer security and privacy, but I think that’s how it is, at least for now. So the code is right there in Windows, but you might not have paid enough money to be allowed to use it.
+(To me, this feels a dangerously close to making TLS, aka HTTPS, a paid option in the web browser, which no one would accept. IMO, we should be making it easier for people to do the right thing in securing their data, both at home and at work. If you buy operating system X, and it supports FDE, I would like to see that as a built-in component that’s available for all uses, not as a “special feature” that might be retricted in some versions. But I am a scientist – it says so in my job title – not a sales manager, so that’s just IMO.)
+There is an add-on full-device encryption tool for Windows called VeraCrypt… but it has a kind-of weird backstory, having emerged from the ruins of an earlier project called TrueCrypt that imploded very curiously just under 10 years ago:
+https://nakedsecurity.sophos.com/2014/05/28/true-mystery-of-the-disappearing-truecrypt-disk-encryption-software/
+Any readers using VeraCrypt for USB device encryption on Windows? Comments? Thoughts? 
+(Heck, tell us your TrueCrypt cryptographic conspiracy theories, if you have any. But please try to keep largely to traditional physics, with currently accepted values for the various important universal constants.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,213 @@
+Sophos Home protects every Mac and PC in your home 
+YOU MUST HAVE THIS CHIP! EVEN IF IT HAS BUGS!
+Memories of Michelangelo (the virus, not the artist). Data leakage bugs in TPM 2.0. Ransomware bust, ransomware warning, and anti-ransomware advice.
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.   Ransomware, more ransomware, and TPM vulnerabilities. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today?
+DUCK.   Snow and sleet, Doug.
+So it was a cold ride into the studio. 
+I’m using air-quotes… not for “ride”, for “studio”. 
+It’s not really a studio, but it’s *my* studio! 
+A little secret space at Sophos HQ for recording the podcast. 
+And it’s lovely and warm in here, Doug!
+DOUG.   Alright, if anyone’s listening… stop by for a tour; Paul will be happy to show you around the place. 
+And I’m so excited for This Week in Tech History, Paul.
+This week on 06 March 1992, the dormant Michelangelo boot sector virus sprang to life, overwriting sectors of its victims’ hard disks. 
+Surely this meant the end of the world for computers everywhere, as media tripped over itself to warn people of impending doom? 
+However, according to the 1994 Virus Bulletin conference report, and I quote:
+Paul Ducklin, an energetic and entertaining speaker, firmly believes that, in many ways, the effort to educate made by both the corporates and media has missed its target..
+Paul, you were there, man!
+DUCK.   I was, Doug.
+Ironically, March the 6th was the one day that Michelangelo was not a virus. 
+All other days, it simply spread like wildfire. 
+But on 06 March, it went, “Aha! It’s payload day!” 
+And on a hard disk, it would go through the first 256 tracks, the first 4 heads, 17 sectors per track… which was pretty much the “lower left hand corner”, if you like, of every page of most hard disks in use at that time. 
+So, it would take about an 8.5MByte chunk out of your hard disk. 
+It not only zapped a lot of data, it ruined things like the file allocation tables. 
+So you could recover some data, but it was a huge and uncertain effort for every single device that you wanted to try and recover. 
+It’s as much work for the second computer as it was for the first, for the third computer as it was for the second… very, very hard to automate. 
+Fortunately, as you say, it was very much overhyped in the media. 
+In fact, my understanding is that the virus was first analyzed by the late Roger Riordan, who was a famous Australian anti-virus researcher in the 1990s, and he actually came across it in February 1991. 
+And he was chatting to a chum of his, I believe, about it, and his chum said, “Oh, March the 6th, that’s my birthday. Did you know it’s also Michelangelo’s birthday?” 
+Because I guess people who are born on March the 6th might just happen to know that… 
+Of course, it was such a trendy and cool name… and a year later, when it had had chance to spread and, as you say, often lie dormant, that’s when it came back. 
+It didn’t hit millions of computers, as the media seemed to fear, and as the late John McAfee liked to say, but that’s cold comfort to anyone who was hit, because you pretty much lost everything.
+Not quite everything, but it was going to cost you a small fortune to get some of it back… probably incompletely, probably unreliably. 
+And the bad thing about it was that because it spread on floppy disks; and because it spread in the boot sector; and because in those days almost every computer would boot from the floppy drive if there simply happened to be a disk in it; and because even otherwise blank diskettes had a boot sector and any code in there would run, even if all it led to was a “Non-system disk or disk error, replace and try again” sort-of message…
+…by then it was too late. 
+So, if you just left a disk in the drive by mistake, then when you powered on next morning, by the time you saw that message “Non-system disk or disk error” and thought, “Oh, I’ll pop the floppy out and reboot boot off the hard drive”… 
+…by then, the virus was already on your hard disk, and it would spread to every single floppy that you had. 
+So, even if you had the virus and then you removed it, if you didn’t go through your entire corporate stash of floppy diskettes, there was going to be a Typhoid Mary out there that could reintroduce it at any time.
+DOUG.   There’s a fascinating story. 
+I’m glad you were there to help clean it up a little bit! 
+And let’s clean up a little something else. 
+This Trusted Platform Module… sometimes controversial. 
+What happens when the code required to protect your machine is itself vulnerable, Paul?
+Serious Security: TPM 2.0 vulns – is your super-secure data at risk?
+
+DUCK.   If you want to understand this whole TPM thing, which sounds like a great idea, right… there’s this tiny little daughterboard thing that you plug into a tiny little slot on your motherboard (or maybe it’s pre-built in), and it’s got one tiny little special coprocessor chip that just does this core cryptographic stuff.
+Secure boot; digital signatures; strong storage for cryptographic keys… so it’s not inherently a bad idea. 
+The problem is that you’d imagine that, because it’s such a tiny little device and it’s just got this core code in, surely it’s quite easy to strip it down and make it simple? 
+Well, just the specifications for the Trusted Platform Module, or TPM… they have collectively: 306 pages, 177 pages, 432 pages, 498 pages, 146 pages, and the big bad boy at the end, the “Part Four: Supporting Routines – Code”, where the bugs are, 1009 PDF pages, Doug.
+DOUG.   [LAUGHS] ust some light reading!
+DUCK.   [SIGHS] Just some light reading. 
+So, there’s a lot of work. and a lot of place for bugs. 
+And the latest ones… well, there are quite a few that were noted in the latest errata, but two of them actually got CVE numbers. 
+There’s CVE-2023-1017, and CVE-2023-1018. 
+And unfortunately, they’re bugs, vulnerabilities, that can be tickled (or reached) by commands that a normal user-space program might use, like something that a sysadmin or you yourself might run, just in order to ask the TPM to do something securely for you. 
+So you can do things like, say, “Hey, go and get me some random numbers. Go and build me a cryptographic key. Go away and verify this digital signature.” 
+And it’s nice if that’s done in a separate little processor that can’t be messed with by the CPU or the operating system – that’s a great idea.
+But the problem is that in the user-mode code that says, “Here’s the command I’m presenting to you”… 
+…unfortunately, unravelling the parameters that are passed in to perform the function that you want – if you booby-trap the way those parameters are delivered to the TPM, you can trick it into either reading extra memory (a buffer read overflow), or worse, overwriting stuff that belongs to the next guy, as it were.
+It’s hard to see how these bugs could be exploited for things like code execution on the TPM (but, as we’ve said many times, “Never say never”). 
+But it’s certainly clear that when you’re dealing with something that, as you said at the start, “You need this to make your computer more secure. It’s all about cryptographic correctness”… 
+…the idea of something leaking even two bytes of somebody else’s precious secret data that nobody in the world is supposed to know?
+The idea of a data leakage, let alone a buffer write overflow in a module like that, is indeed quite worrying. 
+So that’s what you need to patch. 
+And unfortunately, the errata document doesn’t say, “Here are the bugs; here’s how you patch them.” 
+There’s just a description of the bugs and a description of how you should amend your code. 
+So presumably everyone will do it in their own way, and then those changes will filter back to the central Reference Implementation. 
+The good news is there’s a software based TPM implementation [libtpms] for people who run virtual machines… they’ve already had a look, and they’ve come up with some fixes, so that’s a good place to start.
+DOUG.   Lovely.
+In the interim, check with your hardware vendors, and see if they’ve got any updates for you. 
+DUCK.   Yes.
+DOUG.   We will move on… to the early days of ransomware, which were rife with extortion, and then things got more complicated with “double extortion”.
+And a bunch of people have just been arrested in a double-extortion scheme, which is good news!
+DoppelPaymer ransomware supsects arrested in Germany and Ukraine
+
+DUCK.   Yes, this is a ransomware gang known as DoppelPaymer. (“Doppel” means double in German.) 
+So the idea is it’s a double-whammy. 
+It’s where they scramble all your files and they say, “We’ll sell you the decryption key. And by the way, just in case you think your backups will do, or just in case you’re thinking of telling us to get lost and not paying us the money, just be aware that we’ve also stolen all your files first.” 
+“So, if you don’t pay, and you *can* decrypt by yourself and you *can* save your business… we’re going to leak your data.” 
+The good news in this case is that some suspects have been questioned and arrested, and many electronic devices have been seized. 
+So even though this is, if you like, cold comfort to people who suffered DoppelPaymer attacks back in the day, it does mean at least that law enforcement doesn’t just give up when cybergangs seem to put their heads down. 
+They apparently received as much as $40 million in blackmail payments in the United States alone. 
+And they notoriously went after the University Hospital in Düsseldorf in Germany. 
+If there’s a low point in ransomware…
+DOUG.   Seriously!
+DUCK.   …not that it’s good that anybody gets hit, but the idea that you actually take out a hospital, particularly a teaching hospital?
+I guess that’s the lowest of the low, isn’t it?
+DOUG.   And we have some advice. 
+Just because these suspects have been arrested: Don’t dial back your protection.
+DUCK.   No, in fact, Europol does admit, in their words, “According to reports, Doppelpaymer has since rebranded [as a ransomware gang] called ‘Grief’.” 
+So the problem is, when you bust some people in a cybergang, you maybe don’t find all the servers…
+…if you seize the servers, you can’t necessarily work backwards to the individuals. 
+It makes a dent, but it doesn’t mean that ransomware is over.
+DOUG.   And on that point: Don’t fixate on ransomware alone.
+DUCK.   Indeed!
+I think that gangs like DoppelPaymer make this abundantly clear, don’t they? 
+By the time they come to scramble your files, they’ve already stolen them. 
+So, by the time you actually get the ransomware part, they’ve already done N other elements of cybercriminality: the breaking in; the looking around; probably opening a couple of backdoors so they can get back in later, or sell access onto the next guy; and so on.
+DOUG.   Which dovetails into the next piece of advice: Don’t wait for threat alerts to drop into your dashboard. 
+That’s perhaps easier said than done, depending on the maturity of the organisation. 
+But there is help available!
+DUCK.   [LAUGHS] I thought you were going to mention Sophos Managed Detection and Response for a moment there, Doug.
+DOUG.   I was trying not to sell it. 
+But we can help! 
+There’s some help out there; let us know.
+DUCK.   Loosely speaking, the earlier you get there; the earlier you notice; the more proactive your preventative security is…
+…the less likely it is that any crooks will be able to get as far as a ransomware attack. 
+And that can only be a good thing.
+DOUG.   And last but not least: No judgment, but don’t pay up if you can possibly avoid it.
+DUCK.   Yes, I think we’re sort of duty bound to say that.
+Because paying up funds the next wave of cybercrime, big time, for sure. 
+And secondly, you may not get what you pay for.
+DOUG.   Well, let’s move from one criminal enterprise to another. 
+And this is what happens when a criminal enterprise uses every Tool, Technique and Procedure in the book!
+Feds warn about right Royal ransomware rampage that runs the gamut of TTPs
+
+DUCK.   This is from CISA – the US Cybersecurity and Infrastructure Security Agency.
+And in this case, in bulletin AA23 (that’s this year) dash 061A-for-alpha, they’re talking about a gang called Royal ransomware.
+Royal with a capital R, Doug. 
+The bad thing about this gang is that their tools, techniques and procedures seem to be “up to and including whatever is necessary for the current attack”.
+They paint with a very broad brush, but they also attack with a very deep shovel, if you know what I mean. 
+That’s the bad news. 
+The good news is that there’s an awful lot to learn, and if you take it all seriously, you will have very broad-brush prevention and protection against not just ransomware attacks, but what you were mentioning in the Doppelpaymer segment earlier: “Don’t just fixate on ransomware.” 
+Worry about all the other stuff that leads up to it: keylogging; data stealing; backdoor implantation; password theft.
+DOUG.   Alright, Paul, let’s summarise some of the takeaways from the CISA advice, starting with: These crooks break in using tried-and-trusted methods.
+DUCK.   They do! 
+CISA’s statistics suggest that this particular gang use good old phishing, which succeeded in 2/3 of the attacks. 
+When that doesn’t work well, they go looking for unpatched stuff. 
+Also, in 1/6 of the cases, they’re still able to get in using RDP… good old RDP attacks.
+Because they only need one server that you forgot about. 
+And also, by the way, CISA reported that, once they’re inside, even if they didn’t get in using RDP, it seems that they’re still finding that lots of companies have a rather more liberal policy about RDP access *inside* their network. 
+[LAUGHS] Who needs complicated PowerShell scripts where you can just connect to somebody else’s computer and check it out on your own screen?
+DOUG.   Once in, the criminals try to avoid programs that might obviously show up as malware.
+That’s also known as “living off the land”.
+DUCK.   They’re not just saying, “Oh well, let’s use Microsoft Sysinternal’s PsExec program, and let’s use this one particular popular PowerShell script.
+They’ve got any number of tools, to do any number of different things that are quite useful, from tools that find out IP numbers, to tools that stop computers from sleeping. 
+All tools that a well-informed sysadmin might very well have and use regularly. 
+And, loosely speaking, there’s only one bit of pure malware that these crooks bring in, and that’s the stuff that does the final scrambling. 
+By the way, don’t forget that if you’re a ransomware criminal, you don’t even need to bring your own encryption toolkit. 
+You could, if you wanted, use a program like, say, WinZip or 7-Zip, that includes a feature to “Create an archive, move the files in,” (which means delete them once you put them in the archive), “and encrypt them with a password.” 
+As long as the crooks are the only people who know the password, they can still offer to sell it back to you…
+DOUG.   And just to add a little salt to the wound: Before scrambling files, the attackers try to complicate your path to recovery.
+DUCK.   Who knows whether they’ve created new secret admin accounts? 
+Deliberately installed buggy servers? 
+Deliberately removed patches so they know a way to get back in next time? 
+Left keyloggers lying behind, where they’ll activate at some future moment and cause your trouble to start all over again? 
+And they’re doing that because it’s very much to their advantage that when you recover from a ransomware attack, you don’t recover completely.
+DOUG.   Alright, we’ve got some helpful links at the bottom of the article. 
+One link that will take you to learn more about Sophos Managed Detection and Response [MDR], and another one that leads you to the Active Adversary Playbook, which is a piece put together by our own John Shier. 
+Some takeaways and insights that you can use to better bolster your protection.
+Know your enemy! Learn how cybercrime adversaries get in…
+
+DUCK.   That’s like a meta-version of that CISA “Royal ransomware” report. 
+It’s cases where the victim didn’t realise that attackers were in their network until it was too late, then called in Sophos Rapid Response and said, “Oh golly, we think we’ve been hit by ransomware… but what else went on?” 
+And this is what we actually found, in real life, across a wide range of attacks by a range of often unrelated crooks. 
+So it gives you a very, very broad idea of the range of TTPs (tools, techniques and procedures) that you need to be aware of, and that you can defend against. 
+Because the good news is that by forcing the crooks to use all these separate techniques, so that no single one of them triggers a massive alarm all on its own…
+…you do give yourself a fighting chance of spotting them early, if only you [A] know where to look and [B] can find the time to do so.
+DOUG.   Very good. 
+And we do have a reader comment on this article. 
+Naked Security reader Andy asks:
+How do the Sophos Endpoint Protection packages stack up against this type of attack? 
+I’ve seen first-hand how good the file ransomware protection is, but if it’s disabled before the encryption begins, we are relying on Tamper Protection, I guess, for the most part?
+DUCK.   Well, I’d hope not!
+I’d hope that a Sophos Protection customer wouldn’t just go, “Well, let’s run only the tiny part of the product that’s there to protect you as the kind-of Last Chance saloon… what we call CryptoGuard. 
+That is the module that says, “Hey, somebody or something is trying to scramble a large number of files in a way that might be a genuine program, but just doesn’t look right.” 
+So even if it’s legit, it’s probably going to mess things up, but it’s almost certainly somebody trying to do your harm.
+DOUG.   Yes, CryptoGuard is like a helmet that you wear as you’re flying over the handlebars of your bike. 
+Things have gotten pretty serious if CryptoGuard is kicking into action!
+DUCK.   Most products, including Sophos these days, have an element of Tamper Protection which tries to go one step further, so that even an administrator has to jump through hoops to turn certain parts of the product off.
+This makes it harder to do it at all, and harder to automate, to turn it off for everybody.
+But you have to think about it…
+If cybercrooks get into your network, and they truly have “sysadmin equivalence” on your network; if they’ve managed to get effectively the same powers that your normal sysadmins have (and that is their true goal; that’s what they really want)…
+Given that the sysadmins running a product like Sophos’s can configure, deconfigure, and set the ambient settings…
+…then if the crooks *are* sysadmins, it’s kind of like they’ve won already. 
+And that’s why you need to find them in advance! 
+So we make it as hard as possible, and we provide as many layers of protection as we can, hopefully to try and stop this thing before it even comes in.
+And just while we’re about it, Doug  (I don’t want this to sound like a sales schpiel, but it’s just a feature of our software that I rather like)…
+We have what I call an “active adversary adversary” component! 
+In other words, if we detect behaviour on your network that strongly suggests things, for example, that your sysadmins wouldn’t quite do, or wouldn’t quite do that way…
+…”active adversary adversary” says, “You know what? Just at the moment, we’re going to ramp up protection to higher levels than you’d normally tolerate.” 
+And that’s a great feature because it means, if crooks do get into your network and start trying to do untoward stuff, you don’t have to wait till you notice and *then* decide, “What dials shall we change?” 
+Doug, that was rather a long answer to an apparently simple question.
+But let me just read out what I wrote in my reply to the comment on Naked Security:
+Our goal is to be watchful all the time, and to intervene as early, as automatically, as safely and as decisively as we can – for all sorts of cyberattack, not just ransomware.
+DOUG.   Alright, well said! 
+Thank you very much, Andy, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us on social: @NakedSecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you. Until next time, to…
+BOTH.   Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

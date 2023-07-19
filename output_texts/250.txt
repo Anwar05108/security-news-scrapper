@@ -1,0 +1,59 @@
+Sophos Home protects every Mac and PC in your home 
+Back in August 2022, popular password manager company LastPass admitted to a data breach.
+The company, which is owned by sofware-as-a-service business GoTo, which used to be LogMeIn, published a very brief but nevertheless useful report about that incident about a month later:
+LastPass source code breach – incident response report released
+
+
+Briefly put, LastPass concluded that the attackers managed to implant malware on a developer’s computer.
+With a beachhead on that computer, it seems that the attackers were then able to wait until the developer had gone through LastPass’s authentication process, including presenting any necessary multi-factor authentication credentials, and then “tailgate” them into the company’s development systems.
+LastPass insisted that the developer’s account hadn’t given the criminals access to any customer data, or indeed to anyone’s encrypted password vaults.
+The company did admit, however, that the crooks had made off with LastPass proprietary information, notably including “some of our source code and technical information”, and that the crooks were in the network for four days before they were spotted and kicked out.
+According to LastPass, customer passwords backed up on the company’s servers never exist in decrypted form in the cloud. The master password used to unscramble your saved passwords is only ever requested and used in memory on your own devices. Therefore, any passwords stored into the cloud are encrypted before they’re uploaded, and only decrypted again after they’ve been downloaded. In other words, even if password vault data had been stolen, it would have been unintelligible anyway.
+Right at the end of November 2022, however, LastPass further admitted that there was a bit more to the story than perhaps they’d hoped.
+According to a security bulletin dated 2022-11-30, the company was recently breached again by attackers “using information obtained in the August 2022 incident”, and this time customer data was stolen.
+In other words, even if the criminals weren’t able to dig around in customer records directly from the account of the developer who got infected by malware back in August, it seems that the crooks nevertheless made off with internal details that indirectly gave them, or someone to whom they sold on the data, access to customer information later on.
+Unfortunately, LastPass isn’t yet giving out any information about what sort of customer data was stolen, reporting simply that it is “working diligently to understand the scope of the incident and identify what specific information has been accessed”.
+All that LastPass can say for sure right now [2022-12-01-T23:30Z] is to reiterate that “[o]ur customers’ passwords remain safely encrypted due to LastPass’s Zero Knowledge architecture.”
+(Zero knowledge is a jargon term that reflects the fact that although LastPass holds some sort of data in its customers’ password vaults, it has no knowledge of what that data actually refers to, or even if it actually consists of account names and passwords at all.)
+In short, even if it ultimately turns out that the crooks could have made off with personal information such as home addresses, phone numbers and payment card details (though we hope that’s not the case, of course), your passwords are still as safe as the master password you originally chose for yourself, which LastPass’s cloud services never ask for, let alone keep copies of.
+In the podcast below (there’s a full transcript if you prefer reading to listening), Chester discusses a similar sort of breach that happened in September 2022 at ride-hailing business Uber, and reminds you why “divide and conquer”, also known by the jargon term zero trust, is an important part of contemporary cyberdefence.
+As Chester explains, even though all breaches cause some harm, either to your reputation or to your bottom line, the outcome will inevitably be a lot worse if crooks who get access to some of your network can roam around wherever they like until they get access to all of it.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+There is a concern  that if hackers obtained source code for LastPass, how do we know that they didn’t modify the code to inject an algorithm that could provide them future access to encrypted passwords.  Four months seems like a long time to have a level of access.
+According to LastPass (links passim in article), the crooks were in the development part of the network for four days. Although they apparently stole a bunch of source code and other stuff while they were in there, LastPass claims that a review of the developers’ source code repository afterwards didn’t reveal any unwanted code changes left behind that could have ended up in the shipping product later on.  
+So, if you take LastPass at its word from back in September 2022, there was no “four months” during which the criminals were at large inside the development environment, and the code damage done during the intrusion involved reading the source, not writing to it.
+That’s my interpretation of what LastPass claimed last time, anyway. Thus if the company’s analysis of the previous attack was correct, the code wasn’t modified, which means no backdoors were implanted.
+Is it time to bin lastpass?
+I can’t answer that for you.
+I suggest that you wait and see what the intrusion post mortem report reveals this time, and make your decision then.
+(Disclaimer: I am not a LastPass user myself, so I am personally decoupled from these breaches both technically and emotionally.)
+I find this post a bit rich coming from Sophos who posted customer details online, took days to notify anyone after the unauthorised disclosure and still hasn’t provided their partners with the promised RCA and then to top it, is punishing the partners who stayed and were loyal with yet another price rise (what are we at, 6 this year?). At least LastPass were open and rapidly disclosed and have been making information public.
+I hear you, though it seems you are saying that we *did* notify people within days, which doesn’t seem far off what happened in the LastPass case.
+I’m not sure why it’s “a bit rich” for me to have written this article. (FWIW, I have been pretty supportive of LastPass, both this time and last time, as you can see from the comments here and before… should I have felt compelled to keep quiet and thus effectively have been *un*supportive of LastPass’s plight?)
+As for price rises… those are outside my remit and influence, I’m afraid, but I’m not sure how price rises and security disclosures really go together. (Are you suggesting that if we’d put prices *down* then suddenly the RCA wouldn’t matter to you any more?)
+I’m not sure what to suggest as a way for you to chase up your RCA other than to note that our official security team contact details can be found at: https://sophos.com/security.txt
+HtH.
+My only concern is that last pass is a closed source system. The software was audited years ago and passed scrutiny with flying colors. Sadly that was years ago and it could have changed since then.
+The TNO policy is the only reason I am comfortable using a password manager but with the recent breach I would feel a lot better if they willingly submit themselves to another source audit.
+If the source is sound then the data is useless to anyone without the master password.
+Ironically, perhaps (or do I mean “by Murphy’s law”?), it looks as though the data that would have remained safe even if it were stolen…
+…is exactly the data that didn’t get stolen.
+However, that does at least suggest that LastPass has taken a “divide and conquer” approach, such that getting into one part of its network doesn’t make it easy to get into all of it. 
+I came across something interesting, that it’s even mentioned on their websites – LastPass uses a third-party server to store the data, so they actually ”rent” the space from a 3rd party provider. – https://blog.lastpass.com/2022/11/notice-of-recent-security-incident/ ”LastPass detected “unusual activity” within a third-party cloud storage solution that it uses. ” This is super disturbing for me, as I have trusted LastPass for several years, believing that they actually store my passwords in a super-high security place, which they maintain and encrypt… Now I am in the chase of finding a new good solution. I no longer want to go with the BIG players. At the moment I am testing [ADS REDACTED]. Both seem pretty decent.
+I hear you, but (a) for better or worse, I don’t think that “using third-party servers to store data” can be considered anything but mainstream these days (you can bemoan the cloud as much as you like, but the chances are that in 2022, most of the data that most companies keep about you is saved “on someone else’s computer” ), (b) there isn’t yet any suggestion that encrypted password vaults were actually part of the unlawfully accessed data, and (c) LastPass’s claim is that even if your password vault did get stolen, the data in it isn’t encrypted by them, it’s encrypted by you, by means of passwords and authentication codes that aren’t sent to or processed by them.
+Even if we weren’t in “the cloud era”, we’ve been in “the outsourcing era” for decades, where many, perhaps even most, companies that hold data about you end up letting “staff” who aren’t actually regular employees do the work of supplying, installing, managing, supporting, perhaps even selecting, the IT hardware and software in the mix.
+I can understand the security of the password vault (I think) because they just hold an unintelligible blob of data and the browser add-in does all the decoding, updating and encoding etc. If I add a single password, presumably the entire vault is updated, encoded, hashed, salted etc. and sent in totality to LastPass’s servers, as an incremental update would be a security fail because a hacker could start comparing “unintelligible blob before” with “unintelligible blob after” knowing that the difference only applied to a single update?
+But more worrying surely is that “the crooks could have made off with personal information such as home addresses, phone numbers and payment card details”. If you are a subscribing user to LastPass, presumably you also have an “eCommerce” account with them (holding personal information such as home addresses, phone numbers and payment card details) plus the password to your LastPass eCommerce account – which they have to store on their servers? Now no one would be stupid enough to share passwords from their  LastPass eCommerce account with their LastPass Password Vault. Or would they?
+I don’t know exactly how the “blob synchronisation” works but I agree that it ought to disguise any and all patterns that might otherwise show up by looking for structure in the differences between successive blobs.
+This is the reason why I chose Enpass App years ago! Enpass is an Offline Password Manager that does not store any data on its server and let users store their data on their own device or any cloud service of their choice.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

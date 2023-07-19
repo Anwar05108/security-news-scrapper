@@ -1,0 +1,48 @@
+Sophos Home protects every Mac and PC in your home 
+Apple’s latest security updates have arrived.
+All still-supported flavours of macOS (Monterey, Big Sur and Catalina), as well as all current mobile devices (iPhones, iPads, Apple TVs and Apple Watches), get patches.
+Additionally, programmers using Apple’s Xcode development system get an update too.
+The details are below.
+The bug fixes for iPhones and iPads include remote code execution flaws (RCEs) in components from the kernel itself to Apple’s image rendering library, graphics drivers, video processing modules and more. Several of these bugs warn that “a malicious application may be able to execute arbitrary code with kernel privileges”. That’s the sort of security hole that could lead to a complete device takeover – what’s known in the jargon as a “jailbreak“, because it escapes from Apple’s strict lockdown and app restrictions. 
+Kernel-level code execution holes could grant an attacker control over the entire system, including the parts that manage the security of the rest of the system. 
+Other notable bugs include: a flaw that could allow rogue apps to evade their sandbox restrictions (such as accessing files they’re not supposed to see, or using resources such as your camera or microphone that they shouldn’t have access to; a Safari bug that could allow you to be tracked even in Private Mode; and a hole in the Security subsystem that provides a way for sneakily modified apps to bypass the digital signature check by which the operating system is supposed to verify that they haven’t been tampered with. 
+Lastly, there’s a lock screen bug, whereby someone who picks up your iPhone while you’re not looking (or who steals it, of course) could access your photos without knowing the unlock code.
+Macs get patches for many of the same bugs listed above in the iPhone and iPad section. There are several “bonus bugs” that apply only to macOS, notably in laptop/desktop components such as AppleScript, a powerful system automation tool that allows you to launch and control apps, including entering keystrokes, clicking the mouse, configuring devices such as your microphone and webcam, and snapping screenshots. 
+There’s also a patch for CVE-2022-0778, a cryptographic bug in OpenSSL that was patched by the OpenSSL team nearly two months ago. You may remember that bug – it was what’s known in the jargon as a code smell, a poorly laid out and badly-programmed loop that didn’t check carefully enough whether it had exceeded the maximum time it was supposed to spend verifying a digital certificate. 
+OpenSSL patches infinite-loop DoS bug in certificate verification
+
+
+Intriguingly, OpenBSD’s LibreSSL, a “security enhanced” replacement for OpenSSL that was introduced after the infamous Heartbleed flaw in the OpenSSL code, is listed as having been patched against exactly the same bug. This is a timely reminder not only that software projects with common origins may may share latent bugs for years after development diverges, but also that operating systems often have many different code libraries with similar or overlapping functionality. 
+Apple macOS, for example, includes at least LibreSSL, OpenSSL and Apple’s own proprietary cryptographic library known as Secure Transport.
+12 Days competition: Day 3 – This buffer overflow broke sysadmins’ hearts
+
+
+Apple’s still-supported but previous version of macOS, Big Sur, includes patches for many of the same bugs as Monterey, with the notable addition of a video decoding bug that gives remote attackers a way to acquire kernel-level powers, presumably via booby-trapped files. 
+In this case, we say “gives attackers”, not “might or could give attackers”, because this bug, CVE-2022-22675 is what’s known as a zero-day. Cybercriminals found it first and are already exploiting it in the wild. 
+As we mentioned above, kernel-level remote code execution exploits are often enough for a complete system compromise, making them highly sought after amongst jailbeakers, cybercriminals and the creators of spyware and other surveillance tools.
+Whatever you do, don’t miss this update!
+Like Big Sur (but unlike iOS, even though tvOS has the same version number as iOS), the latest tvOS update fixes CVE-2022-22675, the in-the-wild kernel-level RCE bug described above.
+Despite the significantly different version number from tvOS (8.6 instead of 15.5), Apple Watch users also get a patch for the zero-day video decoding bug  CVE-2022-22675.
+Catalina, the pre-previous version of macOS, and its oldest currently supported flavour,  gets many of the same patches as Big Sur. 
+However, CVE-2022-22675, the zero-day hole that was fixed in Big Sur, tvOS and watchOS, doesn’t seem to be present here. We’re assuming that the bug was introduced after Catalina was released, thus leaving it immune.
+This update fixes two RCE flaws that could be triggered simply by viewing booby-trapped content. Apple isn’t saying what sort of content, but given that the bug is in WebKit, the web rendering engine, rather than one of Apple’s multimedia libraries, we’re guessing the bug relates to the handling of web-specific data such as HTML, CSS or JavaScript.
+Note that this update won’t be offered to you unless you have macOS Big Sur or macOS Catalina. In macOS Monterey and all of Apple’s mobile device platforms, these patches are included in the main system update.
+Don’t forget, therefore, that if you are a Big Sur or a Catalina user, you will be installing two updates, not just one, with Safari updated separately from the rest of the operating system.
+Programmers should get this update, especialy if they use the popular source code management system Git. 
+According to the brief report on CVE-2022-24765, “on multi-user machines Git users might find themselves unexpectedly in a Git worktree.” This sounds like an authentication bypass of sorts, as though while logged in as user X you might suddenly get access to source code belonging to user Y or to project Z that you’re not working on.
+Most Apple users have automatic updating turned on these days, and therefore expect to get the latest security fixes pushed to them anyway, without needing to keep track of when updates get published.
+Nevertheless, we strongly recommend that you check for updates manually whenever you know that there are fixes on offer, especially if there are kernel-level flaws or zero-day bugs. (Or, as happened here, both at the same time!)
+Why risk being behind when you could be ahead?
+As the zero trust school of cybersecurity suggests: never assume; always verify, so:
+Take care out there!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

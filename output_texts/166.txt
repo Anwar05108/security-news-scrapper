@@ -1,0 +1,279 @@
+Sophos Home protects every Mac and PC in your home 
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Paul Ducklin and Chester Wisniewski.
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+[MUSICAL MODEM]
+DUCK.  Welcome to the podcast, everybody. 
+I am not Douglas… I am Paul Ducklin.
+Doug’s on vacation, so I’m joined by my good friend and colleague, Chester Wisniewski, from our Vancouver office.
+Hello, Chet!
+CHET.  Hi, Duck. 
+How are you doing?
+DUCK.  I am very well, thank you. 
+We had our first rain in Oxfordshire today for… must be at least a couple of months. 
+At least we got some water into the ground, because it’s been very, very dry here – atypically dry. 
+How about you?
+CHET.  Well, I’m recovering from DEF CON despite not having attended DEF CON, which I didn’t even know was a thing. 
+DUCK.  [LAUGHING] Oh, yes! 
+CHET.  I spent the whole weekend with my eyes glued to Twitter and Twitch and Discord and all these platforms that you could kind of remotely pseudo-participate in all the festivities. 
+And, I have to say, it’s a lot more fun when you’re actually in Las Vegas. 
+But considering the tally of people I know that have come back with COVID already is approaching more fingers and thumbs than I have, I think I made the right choice, and I’m happy to be exhausted from over-internetting all weekend.
+DUCK.  Do you think they really got a coronavirus infection, or did they just come back feeling, how can I put it… “unwell” due to having Black Hat followed by DEF CON.
+CHET.  You know, as bad as the CON FLU can be…
+DUCK.  CON FLU?! [LAUGHS] Oh, dear!
+CHET.  …I’m quite confident that in this case it’s COVID, because not only are people testing, but for most of the people I’m familiar with, COVID is significantly more painful than even CON FLU. 
+So the two combined were probably extra awful, I have to think. [LAUGHTER]
+DUCK.  Yes! 
+But let us not tarry at DEF CON coronavirus/CON FLU problems…
+…let us turn our attention actually to a *talk* that was given at DEF CON. 
+This is about a Zoom zero-day that was written up by Patrick Wardle, and presented at DEF CON. 
+Zoom for Mac patches critical bug – update now!
+
+
+Rather an unfortunate series of bugs, including one that did not get properly patched, Chester?
+CHET.  Well, Patrick is not the only macOS security researcher in the world, but he is quite prodigious in finding issues.
+And the last time I saw Patrick Wardle present was at the Virus Bulletin conference, several times, and each time he kind of took Apple to school over some questionable decisions on signature verification, certificate verification, this type of stuff. 
+And I’m starting to get the impression that Apple has largely shaped up their security posture around some of these things. 
+And so now he’s out hunting for additional vendors who may be making similar cryptographic errors that could allow malware onto the platform.
+DUCK.  I guess in the old days, everyone thought, “Well, as long as you’ve got a TLS connection,” or, “As long as you’ve got something that’s digitally signed by *somebody*.” 
+So, code would often not bother to go and check. 
+But in this case, they decided to check downloaded update packages to make sure they were from Zoom. 
+But they didn’t do it very well, did they? 
+Instead of calling the official system API, which goes away, does the checking, and basically comes back with a true or false…
+…they kind of “knitted their own”, didn’t they?
+CHET.  Yes. 
+I mean, knitting your own things related to crypto always ends painfully. 
+And I recall, in the last podcast, you were talking about the new quantum-safe crypto algorithm that was cracked in an hour on a laptop. 
+DUCK.  SIKE!
+CHET.  Everybody was so focused on the quantum side of it that they kind of missed the conventional side, even amongst some of the world’s smartest mathematicians and cryptographers, right? 
+Post-quantum cryptography – new algorithm “gone in 60 minutes”
+
+
+So it’s really easy to make mistakes that can be devastating. 
+And knitting your own is something that you and I have been talking about, I want to say, for approaching 20 years, in different communications formats, on behalf of Sophos. 
+And I don’t think we’ve ever changed our position that it’s a terrible idea!
+DUCK.  The problem here is not that they decided to use their own digital signature algorithms, or invent their own elliptic curve. 
+It’s just that instead of saying, “Here’s a file. Dear Operating System, use your standardized API-based tools for verifying it and come back True/False,” they chose to essentially shell out…
+…they ran the pkgutil command line utility in the background, which is what you can do from the command line if you want to get a human-readable, visual display of who signed what. 
+And then they wrote a program that would pass the text based output of this to decide whether they wanted to get the answer “true” or “false”. 
+They got out a list of the certificate chain, and they were looking for “Zoom”, followed by “Developer Certification Authority”, followed by “Apple Root CA”. 
+So, they look for those strings *anywhere in the output*, Chester! 
+So [LAUGHS] it turns out that if you created a package that had a name along the lines of Zoom Video Communications Inc Developer ID Certification Authority Apple Root CA.pkg, then when pkgutil wrote the file name into its output, all three magic strings would appear!
+And Zoom’s rather inept parser would decide that that could only happen if it had been signed, in the right order, by those three organisations.
+Whereas, in fact, it was just simply the name that you provided.
+Oh, dear!
+CHET.  The issue here is that what’s leading to the problem is this kind of rudimentary signature check that they’re doing. 
+But the real problem, of course, is it means any package that can given that name will get installed *as root* on the system, even if the user running the update process is unprivileged.
+DUCK.  That was the whole problem.
+Because it seemed that what happened, in time for DEF CON, Zoom *did* patch this problem. 
+They use the API correctly, and they reliably verify the integrity and the authenticity of the file they’re about to run. 
+But in moving it to the temporary directory from which Zoom orchestrates the installation, they left it world-writable!
+So, the directory was protected, and everything in the directory was protected… *except the most important file*. 
+So, guess what you could do? 
+If you timed it just right (a so-called race condition),  the original user could change the file *after* it had passed its digital identity check, but *before* it was used in earnest. 
+The installer is using a file that it thinks has been validated, and indeed was validated…
+…but got invalidated in the gap between the validation and the use.
+CHET.  Yes, and as you point out in the article, Duck, this type of vulnerability, rather than just being a simple race condition, is often referred to as a TOCTOU, which to me sounds like some sort of Caribbean bird. 
+But it’s referring to a more complicated, scientific name for the flaw, called a Time-of-check to Time-of-use. 
+So, T-O-C-T-O-U… “Toctou”!
+DUCK.  Like you, I always imagined it was some kind of very pretty polynesian parrot. 
+But it’s actually, like you say, an ugly form of bug where you check your facts, but you check them too early and by the time you come to rely on those facts, they’ve changed. 
+So Zoom’s fixed it – and Patrick Wardle did say he gave them congratulations… they fixed it within one day after he’d done the paper at DEF CON. 
+They correctly locked down the privileges on the file before they started the process of validating it in the first place. 
+So, the validation, once completed, remained valid until the end of the installation. 
+Problem solved. 
+Should never really have been there in the first place, though, should it?
+CHET.  If you’re a Mac user, you can check your version number to be sure you’re on the fixed one. 
+The version that is fixed is 5.11.5 or higher – I don’t know if there have been releases subsequently. 
+[Note. A further update to 5.11.6 came out between recording and publishing this episode.]
+DUCK.  Now, it doesn’t mean that an outsider can break into your computer if you don’t have this patch, but it is a nasty problem to have…
+…where a crook who’s broken into your network but only has, say, guest privileges, can suddenly elevate themselves and get root or sysadmin superpowers. 
+That’s exactly what ransomware crooks love to do. 
+They come in with low power, and then they work their way up until they’re on equal footing with the regular sysadmins. 
+And then, unfortunately, there’s very little limit to what they can do for bad afterwards. 
+Chester, let’s move on to the next bug. 
+This is a bug known as… well, it’s A and E written together, which is an old English letter – it’s not used in English anymore ,and it’s the letter called ash, but in this case, it’s meant to be APIC/EPIC. 
+APIC, because it affects APICs, the Advanced Programmable Interrupt Controller, and they consider it to be an EPIC leak.
+APIC/EPIC! Intel chips leak secrets even the kernel shouldn’t see…
+
+
+CHET.  I found it interesting, but let’s start with the fact that I don’t think it’s quite as epic, perhaps, as its name is implying. 
+The APIC is certainly involved, but I’m not so sure about the EPIC! 
+The truth of the matter, when you unravel all of this, is it affects part of Intel’s CPUs known as the SGX, which is the… I’m going to forget now… Software Guard Extensions, I want to say?
+DUCK.  You’re correct! 
+CHET.  Well, this is not the first bug to affect SGX. 
+I didn’t count all of them, but I found at least seven previous instances, so it’s not had a great track record at doing the very thing it’s designed to do. 
+And the only practical use of it I could find anywhere was that you need this functionality to store the secret keys to play back UltraHD Blu-ray disks on Windows. 
+And with chips that don’t support SGX, you’re just not allowed to watch movies, apparently.
+DUCK.  Which is ironic, because Intel have now, in the 12th generation of their CPUs… they’ve discontinued SGX for so-called “client” chips. 
+So the chips that you now get if you’ve got a brand new laptop – this doesn’t apply, because there’s no SGX in it. 
+It seems they see it as something that might be useful on servers.
+CHET.  Well, I think it’s fair to say SGX’s fate has been sealed by Intel already pulling it out of the 12th-gen CPUs. 
+If not for the fact that this is like the eighth different clever way that somebody’s found to extract secrets… from the thing that’s designed to only hold secrets.
+DUCK.  Yes, it’s a reminder that performance gets in the way. 
+Because my understanding is that the way this works is that the old-fashioned way of getting the data out of the Programmable Interrupt Controller, the APIC, was basically to read it out of a block of memory that was allocated specifically to that device. 
+The block of memory used for the interrupt data that was extracted was 4KB… one memory page in size.
+But there wasn’t that much data to extract, and what was there before – for example, in the system cache – got written back. 
+In other words, the interrupt processor didn’t flush out the memory it was going to use before it wrote in the bytes that it intended to deliver. 
+So, sometimes it would accidentally deliver data values from arbitrary other parts of memory that the CPU had accessed recently. 
+And by controlling what happened, and in what order, the researchers found that they could persuade RAM contents that were supposed to be sealed in these SGX “enclaves” to emerge as kind-of uninitialised memory in the middle of interrupt handling. 
+So, always a reminder that when you try and speed things up by taking security shortcuts, you can end up with all sorts of trouble.
+CHET.  If you’re going to trust this thing to keep secrets, it needs a lot of vetting. 
+And it feels like this SGX technology was kind of half-baked when it launched.
+DUCK.  Complexity always comes with cost/risk, doesn’t it? 
+If you think, Chester, back to the 6502 processor that was famously in the Apple II, the VIC-20, the Commodore 64… if you’re from the UK, it was in the BBC Micro. 
+I believe that chip had around about 4000 transistors. 
+So it was truly a Reduced Instruction Set Chip, or RISC. 
+Whereas I understand that the latest Apple M2 processor has 20 billion (as in 20,000,000,000) transistors, just in one CPU. 
+So, you can see that when you start adding things like the Interrupt Controller (that can go in the chip), the secure enclave (well, that can go in the chip), hyperthreading (that can go in the chip), [SPEEDING UP MANICALLY] vector instructions (those could go in the chip), speculative execution, instruction reordering, multicores…
+…all of that stuff, it’s not surprising that sometimes things do not work as you might expect, and that it takes quite a long time for anybody to notice.
+CHET.  Well, good work to the researchers who did find it, because it’s certainly interesting research. 
+And if you want to understand a little more about it, your Naked Security article explains it incredibly well for people that are not normally acquainted with things like APIC controllers. 
+So I do recommend that folks check it out, because it is a perfect example of unintended consequences from simple decisions made about very complex things.
+DUCK.  I think that is an excellent way to put it. Chester. 
+It also leaves us free to move on to another controversial issue, and that is the fact that the US Government is offering a reward that it says is “up to $10 million” for information about the Conti ransomware crew. 
+Now, it seems they don’t know anybody’s real name. 
+These people are known only as Dandis, Professor, Reshaev, Target, and Tramp. 
+And their pictures are just silhouettes…
+US offers reward “up to $10 million” for information about the Conti gang
+
+
+CHET.  Yes, when I first saw the article, I thought the description of the criminals was like the people on Gilligan’s Island. 
+We have the Professor, and the Tramp… and I wasn’t quite sure where this was going with the nicknames. 
+I hope this attempt is more successful than the last one… I mean, there was another group that they offered $10 million for, which was the Evil Corp group.
+And to my knowledge, no arrests or any kind of legal action has been taken yet. So presumably the $10 million to get Evil Corp was not enough of an incentive for people to flip on the perpetrators of that group. 
+So, hopefully, this one is a little more successful. 
+But there was a fantastic photo that caused a lot of speculation and conversation on the Twitters and even on Naked Security, in the post that you wrote up, of one of the alleged perpetrators. 
+We don’t know if he’s a member of the control group that ran or operated the Ransomware-as-a-Service, or whether he was simply perhaps an affiliate that used the malware, and contributed to paying commissions of ill-gotten gains from victims.
+But you couldn’t get more stereotypically Russian… I mean, we’re looking at this: the guy’s got a red star on his cap, and I speculate a small bottle of vodka in his hand, and there’s a balalaika.
+This this is almost too good to be true.
+DUCK.  And, in good hacker dress, he’s wearing a sort of puffy jacket with a hoodie on…
+…although he’s got the hoodie down, so maybe it doesn’t count?
+Do you think, Chester, that they’ve targeted the Conti gang because they had a little bit of dishonour among thieves, as it were? 
+About a year ago, some of the affiliates got very steamed up, claimed they were getting ripped off, and there was a data breach, wasn’t there, where one of them dumped a whole load of operating manuals and software files?
+CHET.  You know, there’s a lot of pieces there. 
+As you point out – I believe it was in August 2021 – somebody leaked their operating manuals, or their “playbook”, as it’s been referred to.
+Conti ransomware affiliate goes rogue, leaks “gang data”
+
+
+After the invasion of Ukraine, Conti as an entity seemed to come out very pro-Russian, which caused a bunch of Ukrainians that were part of their scheme to turn on them and leak a bunch of information about their operations and things as well. 
+So, there’s certainly been stuff there.
+ I think another reason, Duck, is simply the massive amount of damage they’ve caused. 
+What to expect when you’ve been hit with Conti ransomware
+
+
+ I mean, when we did our writeups from our Rapid Response Team, without question the most prolific group in 2021 causing harm was Conti. 
+ Nobody’s really buying that they’re out of the criminal underground. 
+ It’s not like they took their money and went away… they’ve simply evolved into new schemes, and broken themselves up into different ransomware groups, and are playing different roles in the community than they were. 
+ And most recently, some people may have heard that there were some attacks against the Costa Rican government that were attributed to Conti, and it wasn’t even very long ago.
+So I think there are layers here, and one of those layers might be that Dandis, Professor, Reshaev…
+…these people have somewhat been doxxed publicly [had personal data leaked deliberately] by people that claim to know who they are, but without providing evidence that would be worthy of indictments and convictions. 
+And so maybe this is a hope that maybe they will step forward if the price is high enough, and turn on their former comrades.
+DUCK.  However, even if they all get busted tomorrow, and they all get charged, and they all get convicted, that would make a dent in ransomware proceedings, wouldn’t it? 
+But unfortunately, it would be a *dent*, not *the end of*.
+CHET.  Absolutely.
+Unfortunately, that’s the world we live in these days.
+I think we’ll continue to see these crimes evolve in different ways, and that hopefully will provide some relief as we get better and better at defending ourselves. 
+But with $25 million potential ransoms out there, there are plenty of people willing to take a chance and continue to perpetrate these crimes, whether these particular crime lords are at the helm or not.
+DUCK.  Yes. 
+You think, “Oh, well, they’d never get $25 million. They’d probably settle for less in the end.” 
+But even if that number comes down to, say, $250,000.. 
+…as the US Rewards for Justice team points out: since 2019, they claim that the Conti gang alone (quoting from the RfJ site), that their ransomware has been used to conduct more than 1000 ransomware attacks targeting US and international critical infrastructure.
+Medical services, 9-1-1 dispatch centers, towns, municipalities.
+And they suggest that of healthcare and first responder networks alone – things like ambulance drivers, fire brigades, hospitals – more than 400 worldwide have been hit, including 290 in the US. 
+So, if you multiply 290 by the (I’m using giant air quotes here) by the “discount fee” of $250,000 that should have gone into providing healthcare…
+…you get an enormously large number anyway.
+CHET.  Remember four years ago when we published a report on SamSam and we were astounded that they made $6 million over three years?
+SamSam: The (almost) $6 million ransomware
+
+
+DUCK.  That’s still a lot of money, Chester!
+Well, it is to me… maybe you’re a high flyer. [LAUGHTER] 
+I know you have a topic – we haven’t written this up on Naked Security, but it’s something that you’re very interested in…
+…and that is the fact that there can’t be “one ring to rule them all” when it comes to cybersecurity. 
+Particularly when it comes to things like healthcare and first responders, where anything that might get in the way in order to make security better could actually make the service dangerously worse. 
+And you have a story from the National Institutes of Health to tell…
+CHET.  Yes, I think it’s an important reminder that we, first and foremost, are responsible for managing risk, not results that end up in perfect security. 
+And I think a lot of practitioners forget that too often.
+I see a lot of these arguments going on, especially in social media: “the perfect is the enemy of the good”, which we’ve talked about previously in podcasts as well…
+…where, “You should do it this way, and this is the only right way to do it.” 
+And I think this is interesting – this study of the relationship between hospitals that had a data breach and patient outcomes in the wake of those data breaches.
+That might not make sense on the surface, but let me read to you the principal findings, which I think makes it quite clear what we’re talking about. 
+The principal findings are:
+The hospital’s time to electrocardiogram increased as much as 2.7 minutes, and 30-day acute myocardial infarction mortality increased as much as 0.36 percentage points, during the three year window following a data breach.
+In essence, what we’re saying is a third of a percent more people died of heart attacks in hospitals that had data breaches afterwards than before, as a percentage of patients that had fatal outcomes.
+DUCK.  Presumably the implication there is that if they had been able to get that electrocardiogram machine onto them and get the results out and make a clinical decision more quickly, they might have been able to save non trivial number of those people who died?
+CHET.  Yes, and I think when you think about a busy hospital, where people are regularly coming in with heart attacks and strokes, 1 in 300 patients dying because of new security protocols is kind of a concern. 
+And the Health and Human Services Administration in the United States goes on that they recommend that breached hospitals “carefully evaluate remedial security initiatives to achieve better data security without negatively affecting patient outcomes.” 
+And I think this is really where we have to be super cautious, right? 
+We all want better information security, and I want my patient records kept safe when I’m visiting the hospital. 
+And we certainly want to be sure that people aren’t accessing computers and records they shouldn’t, and people aren’t dispensing medicines that they shouldn’t that can be harmful. 
+On the other hand, this is life and death. 
+And while this may not apply to your law firm, or marketing company, or factory that you’re responsible for the security of… I think it’s an important reminder that there is no one size fits all to how we should do security. 
+We have to evaluate each situation, and make sure that we’re tailoring it with the amount of risk that we’re willing to accept.
+And personally, I’m willing to accept a lot more risk of my medical records being compromised than I am the risk of dying because somebody had to go get a two-factor code in order to unlock the electrocardiogram machine!
+DUCK.  Well, Chester, you’re a Type 1 diabetic, aren’t you? 
+And you have one of those magical insulin pumps. 
+Now, I bet you don’t rush to install the latest Linux kernel on that the moment that it comes out!
+CHET.  Absolutely! 
+I mean, these devices go through rigorous testing… that’s not to say they’re bug free, but the known is better than the unknown when you’re talking about your health and being able to manage it. 
+And certainly there are software bugs in these devices, and  they’re getting modernised and including technologies like Bluetooth… or the big leap for my device was that it got a colour screen, which tells you how old some of the technology that goes into these things is! 
+The medical authorities to approve these devices have a very, very long process.
+And “tried and true” (as in the earlier conversation about transistors and processors), simple things that we can understand, are much preferred to new, complicated things that are much more difficult to figure out and find those security flaws. 
+I can’t imagine, if there was such a thing as a Patch Tuesday for this insulin pump, that I would be lining up to be the first guy on the block on Tuesday to install the update! 
+For all its warts, I know exactly how it works, and how it doesn’t. 
+And to your point, I coexist with it well…
+…the device knows its responsibility to stay consistent, and I’ve learned how to exploit it for my benefit to improve my health.
+Any change in that can be scary and disruptive. 
+So, the answer isn’t always better, faster and smarter. 
+Sometimes it’s the “known knowns” in the reliability and the trust.
+DUCK.  Having said that, not having data breaches also helps!
+And there are some surprisingly simple things you can do to protect your organisation from data getting out where it shouldn’t.
+CHET.  And one of the things, Duck, is we don’t have the time we used to have. 
+Criminals are perpetually scanning the internet looking for any of these mistakes you may have made, whether it’s an outdated policy to allow too many things, or whether it’s exposed services that maybe were perfectly fine to expose ten years ago, but are now dangerous to have exposed to the Internet.
+DUCK.  “The RDP that time forgot.”
+CHET.  Yes, well, I’m sad to think that RDP keeps coming up, but in fact, at Black Hat last week, we just released a paper and wrote a blog about a situation where an organisation had three different ransomware attacks within a few weeks, all inside the same organisation, happening somewhat concurrently. 
+Multiple attackers increase pressure on victims, complicate incident response
+
+
+And it’s not the first time we’ve seen more than one attacker inside a network.
+I think it may be the first time we’ve seen *three* inside the same network.
+DUCK.  Oh, golly, did they overlap? 
+Were they literally still dealing with attack A when attack B came along?
+CHET.  Yes, I believe there was a gap between attacker B and attacker C, but A and B were in at the same time, presumably coming in through the exact same remote access tool flaw that they both had found and exploited. 
+And then, I believe, group B installed their own remote access tool, sort of as a secondary back door just in case the first one got closed…
+…and group C found their remote access tool and came in.
+DUCK.  Golly… we shouldn’t laugh, but it’s sort-of a comedy of errors. 
+It’s easy to say, “Well, in any half-well-managed network, you should know what your official remote access tool is, so that anything that isn’t that one should stand out obviously.” 
+But let me ask our listeners this: If you’re in charge of a network, can you put your hand on your heart and tell me exactly how many teleconferencing tools you have in use in your company right now?
+CHET.  Yes, absolutely. 
+We had one victim we wrote up earlier this year that I believe had *eight* different remote access tools that we found during our investigation, some of which were legitimately used ten years ago, and they just stopped using them but never removed them. 
+And other ones that had been introduced by multiple threat actors. 
+So this is certainly something to keep an eye out for!
+DUCK.  Well, Chester, let’s hope that is an upbeat enough suggestion on which to end, because we are out of time for this week. 
+Thank you so much, as always, for stepping up to the mic at very short notice. 
+And, as always, it remains simply for me to say:  Until next time…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What, no spell check at NS?
+Ahh, nothing in the world is quite as helpful as a typo report that doesn’t identify the actual error.
+(Others came to my very public rescue, however :-)
+heath: An extensive tract of uncultivated open land covered with herbage and low shrubs; a moor.
+So heathcare is one of those uniquely British things like save the hedge hogs.
+Well, at least in the Oxfordshire part of the world (Sophos HQ is in Abingdon-on-Thames), it’s droughtly dry enough right now, by English standards at least, that we could do with some heath care.
+As for hedgehogs… they could do with saving. They don’t have a lot of their regular territory left (garden fences are a huge problem because they typically cover huge distances when foraging).
+But it was, of course, supposed to be healthcare. 
+Headlines are %#$$#%s to proofread because the text is so big that it kind of imposes itself on your brain and thus you see what you expect (or hope) more easily than you do in regular text. That’s my excuse and I am sticking to it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

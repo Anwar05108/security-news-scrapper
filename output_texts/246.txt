@@ -1,0 +1,86 @@
+Sophos Home protects every Mac and PC in your home 
+In a fascinating legal deliberation handed down by the French data protection regulator CNIL (Commission Nationale de l’Informatique et des Libertés), the energy company Électricité de France, or EDF for short, has been fined EUR 600,000 (about $600,000).
+The legal declaration is, in the manner of such things, rather long and (to non-lawyers, at least) linguistically orotund, which means you need reasonable proficiency in French to understand all the ins and outs of the matter, but the overall case boils down to four infringements.
+The first three are concerned with general data-related interactions with customers, covering: 
+But it’s the last complaint that piqued our interest: Sur le manquement à l’obligation d’assurer la sécurité des données.
+In English, this loosely translates as failure to store data securely, and relates very specifically to the insecure handling of passwords.
+The regulator noted, amongs other things, that despite claiming it was salting-and-then-hashing passwords using an accepted hashing algorithm, EDF still had more than 25,000 users’ passwords “secured” with a single MD5 hash as recently as July 2022.
+As you will have heard many times on Naked Security, storing the cryptographic hash of a password means that you can validate a password when it is presented simply by recomputing its hash and comparing it with the hash of the password that was originally chosen.
+If the hashes match, then you can safely infer that the passwords match, without ever needing to store the actual password.
+When presented, the password only ever needs to be held temporarily in memory, and can be discarded as soon as its hash is calculated.
+As long as the hashing algorithm is considered cryptographically secure, it can’t usefully be “run in reverse”, so you can’t work backwards from the hash to reveal anything about the password itself. (A hash of this sort is known in the jargon as a one-way function.)
+Similarly, a decent hashing algorithm prevents you starting with a known hash and devising some input value – any input, not necessarily the original password – that produces the desired hash. 
+You would need to try input after input until you got lucky, which for hashes even of 128 bits would take too long to be a practicable attack. (A hash with the safety precaution of not allowing you to figure out multiple inputs with the same output is said to be collision resistant.)
+But MD5, as you probably know, has significant problems with collisions, as does its immediate successor SHA-1 (both these hashes came out in the early 1990s). 
+These days, neither algorithm is recommended for use anywhere, by anyone, for any purpose, given that there are similar but still-secure alternatives that can easily be used to replace them, such as SHA-256 and SHA-512:
+Bang! SHA-1 collides at 38762cf7­f55934b3­4d179ae6­a4c80cad­ccbb7f0a
+
+
+MD5 hashes are 128 bits, or 16 bytes, long. SHA-256 and SHA-512 are 2x and 4x as long respectively. But it is not this extra hash length alone that makes them more suitable. Their primary advantage over MD5 is that they don’t have any specific known problems with collisions, so their cryptographic safety is not considered generally doubtful as a result.
+In short, you wouldn’t expect any company, let alone an energy sector behemoth like EDF, to use MD5 for any cryptographic purpose at all, let alone for securing passwords.
+Even worse, however, was the lack of salting, which is where a chunk of data that’s chosen randomly for each user is mixed in with the password before its hash is calculated.
+The reason for a salt is simple: it ensures that the hash values of potential passwords cannot be calculated in advance and then brought along to help with an attack.
+Without salting, every time any user chooses the password 123456, the crooks know in advance what its hash would be.
+Even if the user chooses a more suitable password, such as 34DF6467!Lqa9, you can tell in advance that its MD5 hash will be 7063a00e 41866d47 f6226e60 67986e91.
+If you have a long enough list of precomputed passwords, or of partially computed passwords (known rather splendidly in the jargon as a rainbow table), you may be able to recover the password via the table rather than by trying trillions of password combinations until you get lucky.
+Salting means that you would need a complete, precomputed rainbow table for every user (the table is determined by the combination of salt + password), and you wouldn’t be able to compute each rainbow table – a task that can take several weeks and occupy terabytes of disk space – until you recovered the salts anyway,
+But there’s more you need to do.
+Even if you include a salt, so that precomputed “hash dictionaries” can’t be used, and you use a trusted cryptographic algorithm such as SHA-512, one hash calculation alone is sufficiently quick that attackers who have acquired a database of hashes can still try out billions of possible passwords a second, or even more.
+So you should use what’s called stretching as well, where you not only salt the initial password, but then pass the input through the hashing algorithm thousands of times or more in a loop, thus making attacks considerably more time-consuming for any crooks who want to try.
+Unlike repeated addition, where you can use a single multiplication as a shortcut to replace, say, the calcuation 5+5+5+5+5+5 with 6×5, there are no shortcuts for repeated hashes. To hash an input 1000 times requires 1000 “turns” of the cryptographic calculation handle.
+Ironically, it seems that although EDF only had 25,800 passwords hashed with MD5, and claimed in its defence that it was mostly using SHA-512 instead, it still wasn’t always salting or stretching the stored hashes.
+The regulator reports that 11,200,000 passwords had correctly been salted-and-hashed, but there were nevertheless 2,400,000 that had simply been hashed directly once, whether with MD5 or SHA-512.
+Apparently, EDF has now got its password storage up to scratch, but the company was fined EUR 600,000 anyway, and will remain publicly listed online on CNIL’s “naughty step” for the next two years.
+We can’t be sure what fine would have been imposed if the judgment had involved poor hashing only, and EDF hadn’t also had to answer for the three other data protection offences listed at the start…
+…but it does go to show that bad cryptographic choices can cost you money in more ways than one!
+Store your customers’ passwords securely!
+The extra computational cost of salting-and-stretching can be chosen so that individual users are not inconvenienced when they login, yet would-be attackers have their rate of attack decreased by several orders of magnitude.
+A password recovery attack that might take a week to extract 10% of passwords stored as simple one-shot hashes would, in theory, take 200 years (10,000 weeks) if you were to make the the cost of computing each trial password 10,000 times harder.
+Read our excellent explainer article on this very subject:
+Serious Security: How to store your users’ passwords safely
+
+
+In short, we recommend the PBKDF2 “stretching” algorithm with SHA-256 as its core hash, with a per-user random salt of 16 bytes (128 bits) or more.
+This matches the recommendations in CNIL’s latest judgement.
+CNIL doesn’t offer advice for the number of PBKDF2 iterations, but as you will see in our article, our advice (October 2022) is to use 200,000 or more. (You can regularly increase the number of loops to keep up with the increase in computing power.)
+If you don’t want to use PBKDF2, we suggest reading up on the algorithms bcrypt, scrypt and Argon2 to help you make a wise choice.
+Don’t get caught out on the cryptographic naughty step!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+…to say nothing of the fact that the very common and usually default encryption for Kerberos in Active Directory is RC4_HMAC_MD5, which has been present in Active Directory since its very inception (Windows 2000).
+Getting rid of RC4_HMAC_MD5 in your entire AD environment in favor of newer AES encryption options – AES128_HMAC_SHA1 and/or AES256_HMAC_SHA1 – is an important security step. It is not necessarily a simple one, however – since so many applications, appliances and systems (especially older ones) simply expect RC4_HMAC_MD5 to be available. Yes, both of the newer ones still use SHA1, but they are still notably better.
+I don’t know a lot about cryptographic security. I know that one of the applications we use on our network stores passwords salted and hashed; I’ve tested this by creating accounts using the same password and then checking the password field in the accounts, and they are different.
+Where do applications get the salts from? Is is some other field in the record, a table, or someplace else?
+You can store the salt and iteration count along with the hash if you like. For example, on Linux a password hash might look like this:
+$6$salt$5000-iteration-SHA-512-hash
+Where the $6$ is metadata that tells you the algorithm to use (SHA-512 with 5000 loops, IIRC) and the rest of the data is the salt separated from the hash by another $ sign. 
+You can store the salts separately if you like,  but they are effectively part of the hash so can be kept along with it to reduce complexity. If they are in the same file then they will, ipso facto, be equally secure (or insecure) against theft.
+Remember that hashing passwords is not an excuse to worry less about the security of the authentication data than you would if they were in plaintext… they are hashed to avoid disclosing the plaintext to anyone (even authorised software or techies) and as an extra layer of security just in case… an additional , not an not alternative, form of security!
+There’s some missing information here. Were the insecurely stored passwords associated with inactive accounts? Assuming EDF wasn’t storing the actual password there’s no way for them to proactively upgrade hashes to a more secure algorithm. You have to wait for the user to login, verify using the insecure algorithm, then update the hash with one calculated via the secure algorithm.
+if the account is inactive to the point the hash can’t be updated, then you can argue that the account should genuinely be be set as “inactive” (which means the old hash can be deleted) with the user forced to re-establish the account with a fresh password, hashed in the new way, if ever they do.
+Mike: I guess no-one prevents a company from hashing the already existing MD5 hashes again with a decent hashing algorithm plus salt and then getting rid of the MD5 hashes. I don’t see any reason to not do it like this. Obviously, during log-in you then need to decide how to process the entered information depending on the user, but this is obviously already done when the company has MD5 and other hashes in the database – so not much implementation work to be done.
+If you think, this is too complicated then you can also just delete the MD5 hashes and ask the affected users to start the password-reset process (which obviously is less user friendly, but also less work compared to the first approach).
+The thing is you can’t know the original password from the MD5 hash itself (you can of course brute force the original/use rainbow tables, but still, it is one of the possible matches). This leads to only viable solution which is to delete the hash and require the user to re-authenticate through password-reset functionality.
+I think what @Pete is suggesting is to rehash the MD5 hash, thus creating what amounts to a new hashing algorithm, say, PBKDF2(salt,rounds,MD5(password)). You don’t need to know the password to do that, only the MD5 of the password, which you already have.
+If the user ever tries to login again then you can verify their old password against the new “double hash”, but if the database of hashes gets stolen after you’ve done the update then there aren’t any single-shot MD5 hashes that the crooks can crack.
+The disadvantages of that are (1) you end up with some hashes computed in a non-standard way (extra complexity in the code) and (2) you essentially keep an inactive account active instead of actually labelling it “frozen” and fixing the hashing problem in the way you describe.
+You say “would-be attackers have their attack speeds increased by several orders of magnitude”. It would be better to DEcrease their speed.
+I meant that the “time taken for each attempt in the attack is increased”, of course!
+Thanks for reporting this. I have changed the wording to note that their rate of attack is decreased by several orders of magnitude.
+I use md5 for archival stuff mostly because of it’s shorter output length still makes it moderately readable, where I can visually scan the string, mainly first cluster of hex chars and last cluster of hex chars, when manually checking. In one case I was able to detect several problems I would not have detected when I was recovering files from a disk with bad sectors  So what is the probably that a the md5 of a file with random error — not a maliciously crafted file — would match the md5 of the original file?
+In other words how problematic are its collisions for file integrity against random errors? I assume that the larger the file, the smaller the probability of collisions? Since passwords are relatively short compared to files in the many megabytes to gigabytes range, that the chances collisions here wouldn’t pose a problem?
+For comparison’s sake, BTRFS and ZFS use still relatively simple checksum (not true hashing) algorithms by default, crc32c and fletcher respectively, for error detection.
+The risk of MD5 collisions for pure error detection are not, as far as I know, particularly troublesome…
+…but the reason for dropping it altogether is that given that collisions *can be constructed*, and given that one of the design claims of the algorithm is that this should not be possible, the algorithm should be considered unsafe to use. (A car with one bald tyre is probably safer in the rain than one with four bald tyres, but it’s nevertheless considered unsafe enough to be illegal to use anyway.)
+After all, if your intention is to ensure a file has not changed for any reason, you should assume you are not dealing only with random errors, but perhaps also dealing with errors caused by a malicious adversary who has deliberately swapped out one file for another, and gets to choose the “damage” or the “errors” in the new one.
+As for constructing collisions, I don’t think the size of the file is relevant. For an unsalted hash, the internal state of the algorithm will be identical when hashing two files for as long as the files have the same content. 
+As for the hash being easier to check by eye if it’s shorter, you could either (a) use SHA-256 and simply discard the second half of the output (keep just the first 128 bits) or (b) reformat the output so it’s visually easier of the eye (e.g. print with spaces or dashes in it so that the first 32 bits and the last 32 bits are easy to spot).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

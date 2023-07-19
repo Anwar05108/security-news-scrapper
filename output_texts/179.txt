@@ -1,0 +1,72 @@
+Sophos Home protects every Mac and PC in your home 
+Yes, ransomware is still a thing.
+No, not all ransomware attacks unfold in the way you might expect.
+Most contemporary ransomware attacks involve two groups of criminals: a core gang who create the malware and handle the extortion payments, and “members” of a loose-knit clan of “affiliates” who actively break into networks to carry out the attacks. 
+Once they’re in, the affiliates then wander around the victim’s network, getting the lie of the land for a while, before abruptly and often devastatingly scrambling as many computers as they can, as quickly as they can, typically at the worst possible time of day.
+The affiliates typically pocket 70% of the blackmail money for any attacks they conduct, while the core criminals take an iTunes-ike 30% of every attack done by every affiliate, without ever needing to break into anyone’s computers themselves.
+That’s how most malware attacks happen, anyway.
+But regular readers of Naked Security will know that some victims, notably home users and small business, end up getting blackmailed via their NAS, or networked attached storage devices.
+NAS boxes, as they are colloquially known, are miniature, preconfigured servers, usually running Linux, that are typically plugged directly into your router, and then act as simple, fast, file servers for everyone on the network.
+No need to buy Windows licences, set up Active Directory, learn how to manage Linux, install Samba, or get to grips with CIFS and other network file system arcana.
+NAS boxes are “plug-and-play” network attached storage, and popular precisely because of how easily you can get them running on your LAN.
+As you can imagine, however, in today’s cloud-centric era, many NAS users end up opening up their servers to the internet – often by accident, though sometimes on purpose – with potentially dangerous results.
+Notably, if a NAS device is reachable from the public internet, and the embedded software, or firmware, on the NAS device contains an exploitable vulnerability, you could be in real trouble.
+Crooks could not ony run off with your trophy data, without needing to touch any of the laptops or mobile phones on your network, but also modify all the data on your NAS box…
+…including directly rewriting all your original files with encrypted equivalents, with the crooks alone knowing the unscrambling key.
+Simply put, ransomware attackers with direct access to the NAS box on your LAN could derail almost all your digital life, and then blackmail you directly, just by accessing your NAS device, and touching nothing else on the network.
+That’s exactly how the infamous DEADBOLT ransomware crooks operate.
+They don’t bother attacking Windows computers, Mac laptops, mobile phones or tablets; they just go straight for your main repository of data. 
+(You probably turn off, “sleep”, or lock most of your devices at night, but your NAS box probably quietly runs 24 hours a day, every day, just like your router.)
+By targeting vulnerabilities in the products of well-known NAS vendor QNAP, the DEADBOLT gang aims to lock everyone else on your network out of their digital lives, and then to squeeze you for several thousands dollars to “recover” your data.
+After an attack, when you next try to download a file from the NAS box, or to configure it via its web interface, you might see something like this:
+
+In a typical DEADBOLT attack, there’s no negotiation via email or IM – the crooks are blunt and direct, as you see above.
+In fact, you generally never get to interact with them using words at all.
+If you don’t have any other way to recover your scrambled files, such as a backup copy that’s not stored online, and you’re forced to pay up to get your files back, the crooks expect you simply to send them the money in a cryptocoin transaction.
+The arrival of your bitcoins in their wallet serves as your “message” to them.
+In return, they “pay” you the princely sum of nothing, with this “refund” being the sum total of their communication with you.
+The “refund” is a payment worth $0, submitted simply as a way of including a bitcoin transaction comment.
+That comment consists of 16 apparently random data bytes, seen encoded as 32 hexadecimal characters in the screenshot below, which constitute the AES decryption key you will use to recover your data:
+
+The DEADBOLT variant pictured above even included a built-in taunt to QNAP, offering to sell the company a “one size fits all decryption key” that would work on any affected device:
+
+Presumably, the crooks above were hoping that QNAP would feel guilty enough about exposing its customers to a zero-day vulnerability that it would pony up BTC 50 (currently about $1,000,000 [2022-09-07T16:15Z]) to get everyone off the hook, instead of each victim paying up BTC 0.03 (about $600 now) individually.
+QNAP has just reported that DEADBOLT is doing the rounds again, with the crooks now exploiting a vulnerability in a QNAP NAS feature called Photo Station.
+QNAP has published a patch, and is understandably urging its customer to ensure they’ve updated.
+If you have a QNAP NAS product anywhere on your network, and you are using the Photo Station software component, you may be at risk.
+QNAP’s advice is:
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The message to the customer states your data has been locked and you need to pay a 0.03 bitcoins but down below you specify 0.3 bitcoins, a far cry difference between paying a million dollars for one size fits all key and $600 per instance. Value of learning to keep your stuff up to date, host redundant backups or harden it and protect it from strangers.. priceless…
+The mention of BTC 0.3 in the text was a typo… now fixed, thanks! 
+As you say, BTC50 was the blackmail attempted on QNAP itself for the (alleged) master decryption key, and BTC 0.03 was the demand made against the individual victim in the example ransom note that’s pictured.
+Can someone point me to instructions on how to pay the bitcoin ransom?  I patched my QNAP and now I can’t access the Deadbolt page.  I have the bitcoin address though.
+If you’re determined to pay the crooks (not going to judge you; it’s your call) then the screenshots in the article almost certainly provide enough information on how to do it, given that you have the BTC address and the amount demanded in your case. (The BTC 0.03 above seems commonplace, but could easily be changed between attacks, for example if the crooks wanted to increase the BTC price to make up for the recent slide in cryptocoin values.)
+What I can’t advise you is what you would do with the decryption password if you were to receive it, given that the decryption is usally invoked via the DEADBOLT “portal” page, which triggers the actual decryption program in the background. Without the specific decryption program that applies to your device (or without being able to guess how the encryption was done by examining the encrypted files on your device), it’s hard to say from a distance how you might decrypt your files reliably.
+QNAP has some relevant-looking advice here:
+https://www.qnap.com/en/how-to/faq/article/what-should-i-do-if-i-found-the-nas-encrypted-by-deadbolt
+That page references a QNAP support article with a title that sounds like just what you want:
+https://www.qnap.com/go/how-to/faq/article/restore-deadbolt-page-to-decrypt-files-if-i-have-correct-password 
+But that page didn’t seem to exist when I checked. 
+QNAP also has a support page that suggests that if you can login to your device using SSH, then you may be able to find the low-level data-scrambling program (binary) injected by the crooks, and run it by hand to achieve the desired result:
+https://www.qnap.com/en/how-to/faq/article/i-have-paid-and-got-decryption-key-for-deadbolt-but-the-decrypt-files-button-does-not-work-what-should-i-do
+As you will see, the instructions are fairly complex, and require some care – notably, you will need to try decryption out on a file that you already know the exact contents of, so you can verify by hand that the decrypted content comes out correctly. (You don’t want to launch the decryption without testing it first, in case you find out afterwards that it went wrong and all your files really *are* just shredded cabbage.)
+I am having the same issue… I cAnt find the Deadbolt page anymore.
+I’ve been through this and came out ok after paying the ransom. Finding the specific return code with my decryption key was the hardest part. I used a tool from Emsisoft to perform the actual decryption. Learned a most valuable lesson here.
+I hope this helps ppl:
+Summar: I paid the ransom and got the key (after a frustrating 10 minutes of navigating the blockchain). My files are back.
+1) I had to use a cached google version of a QNAP article from a different region to find the SSH command needed to restore the Deadbolt page and get the bitcoin address for my hacked NAS. I believe its pretty hard to find now so you probably need to contact QNAP at this point for help with this part.
+2) I used Paypal to buy the bitcoin I needed. I had to wait almost 4 days before I could transfer to the BTC address from the “hack login page”.
+3) I had to get some forum help to find the right OP_RETURN code for me. I kept clicking links on the blockchain and reaching the wrong code or a dead end. Finally a post on a QNAP forum got me the exact steps. https://forum.qnap.com/viewtopic.php?p=818604#p818604
+4) I downloaded a tool from Emsisoft for Deadbolt decryption. I coped all of my data over to a standalone computer, ran the tool against a couple files to test and VIOLA everything was working. I recommend the option for “keep encrypted files” be unchecked after you’ve confirmed it works (when running against your dataset).
+I’m embarassed to say I work in IT, have been for 20+ years, and got bit by this QNAP uPNP bug. Glad to be through it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

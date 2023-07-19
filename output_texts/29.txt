@@ -1,0 +1,73 @@
+Sophos Home protects every Mac and PC in your home 
+Yesterday, we wrote that Microsoft had decided to turn off a handy software deployment feature, even though the company described itself as “thrilled” by the feature, and described its functionality as “popular”.
+#ICYMI, that was about the use of so-called App Bundles to make software available for download via your browser.
+By clicking on an App Bundle link (which starts with ms-appinstaller:// instead of the more usual https://), you would kickstart an installation process that looked much more official and trustworthy than just downloading an EXE file.
+Criminals learned how to abuse App Bundles in order to give the impression that their malware installers were somehow approved or vetted by Microsoft, almost as though the download had come from the Microsoft Store itself (it hadn’t).
+So, for the greater good of all, Microsoft essentially told its own software to block a useful feature of its own software, until further notice, at any rate:
+Microsoft blocks web installation of its own App Installer files
+
+
+This sort of thing doesn’t happen often, especially at Microsoft.
+But no sooner had we written up the App Installer changes than we received an ever bigger – and, if we’re honest, a better – surprise…
+… when Microsoft announced a change to the security settings in Office.
+Macro code from the internet will at last be turned off by default!
+If you’ve been in cybersecurity since the last millennium, you will certainly remember, and may still have occasional nightmares about, Microsoft Office macro viruses.
+In fact, macro viruses were already a problem even before the Office apps merged into a suite of tools with a common macro coding language known as VBA, short for Visual Basic for Applications.
+Before 1997, for example, Microsoft Word had its own scripting languge called WordBasic – similar to VBA, but not compatible with it – that was widely abused by malware writers for programming self-speading computer viruses.
+But VBA was more powerful, more standardised, and once Office appeared, the malware writers took to it like… well, like a duck to water.
+Simply put, if an Office document contained an embedded macro with a name that matched one of the Office menu options, then that macro would be triggered automatically whenever the user clicked on that menu item.
+This made it easy for companies to adapt the behaviour of their Office apps to match their own workflow, which was enormously handy if you needed or wanted such a feature, for example to limit documents labelled ‘confidential’ from being printed out by mistake.
+Even more dramatically, some special event-based macros, such as Auto_Open, were automatically triggered even if all you did was look at the document.
+As a result, a malware writer who wanted to booby-trap a document file, getting it to run an embedded virus every single time the document was viewed, didn’t have to learn any special hacking or low-level coding skills at all.
+As you probably know, the family of languages known as BASIC are meant to live up to their name. The word has even been wrangled backwards into the acronym Beginners’ All-purpose Symbolic Instruction Code, to remind you that it’s easy to learn because it was designed to be easy to learn.
+Suddenly, anyone and everyone could be a virus writer.
+Given that people typically exchanged Office documents many times a day (hundreds or thousands of times more frequently than they ever exchanged programs, or EXE files), macro viruses quickly became an ever-present, ever-troublesome problem.
+Why Word “macro malware” is back, and what you can do about it…
+
+
+Part of the problem was that that the vast majority of users, who didn’t really need VBA at all, were forced to have it installed and enabled by default.
+Even those who didn’t want it and knew they didn’t want it couldn’t choose to skip the VBA part at installation time, or reliably turn it off afterwards.
+For years, the cybersecurity industry urged Microsoft to change the Office defaults to allow installs where VBA functionality could be turned off (at the least), omitted entirely if desired (better still), or not installed by default at all (best of all).
+The answer was always a resounding “No”.
+Microsoft’s annoying, but understandable, argument was that endpoint software products generally get judged, by users and reviewers alike, based on what they do “out ot the box”.
+Redmond suggested that full-power-Office-with-non-default-VBA would quickly become known in the market as a low-end-document-suite-with-no-macro-support-at-all, and thus the company would effectively be undermining its own product to give more aggressive competitors an unfair advantage. 
+(We’ve simplified enormously, but you get the idea, and anyone who has ever worked in a product management department or in product marketing will probably sympathise with Microsoft’s position. If your regular product already has features that influential customers expect, you don’t do yourself any favours by pretending that it doesn’t.)
+Ultimately, Microsoft did come to the cybersecurity party, and made steady changes to the VBA ecosystem that definitely helped to curb the virus writers’ “free-for-all” that existed in the late 1990s.
+Sample security-related changes include:
+We still haven’t reached the point where an informed user with a local Office installation can remove VBA entirely and open Office files in a world in which VBA cannot work, rather than simply not working (which is nearly, but ultimately not at all, the same thing).
+But Microsoft claims that this year’s Office 2203 releases will have one significantly different default – different by Redmond’s standards, anyway: 
+VBA macros obtained from the internet will now be blocked by default.
+For macros in files obtained from the internet, users will no longer be able to enable content with a click of a button. A message bar will appear for users notifying them with a button to learn more. The default is more secure and is expected to keep more users safe including home users and information workers in managed organizations.
+It took us ages to figure out the version number 2203. Having lived through Y2K – and, indeed, having been on duty in SophosLabs at that magical midnight hour, we’ve naively assumed that no one in the world, let alone anyone in IT or computer science, would now knowingly write the year as YY instead of YYYY. But 2203 apparently refers to “March 2022”, which means official releases starting in early April 2022.
+According to Microsoft, any document tagged as having come from the internet, e.g. an email attachment or a web download, will be treated as though it contains no macros.
+By default, you won’t be able to enable the macros from inside Office, even if you’re convinced (or are certain) that the macros are both expected and trustworthy.
+Instead, says the report, you’ll see this:
+
+We’re delighted to see this change coming, but it’s nevertheless only a small security step for Office users, because:
+For further information, consult Microsoft’s official article, Macros from the internet will be blocked by default in Office.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Well, that will break a bunch of important business processes! How long before we have to start password-protected-zipping those Excel files and dynamic Word templates? Another 13 months, you say?
+I know that it’s easy to wreak havoc with VBA, but  I can’t say I’ve ever known anyone it happened to.
+But business processes don’t need to rely on macros shipped between users over the Internet. Why not set up signed templates at each end and swap just the data between the users? You don’t package NOTEPAD.EXE into every text file… you just get a matching NOTEPAD each end and shuttle the text on its own.
+Let’s see…I get this mess of data exported into a flat .CSV file from someone’s relational database. I can’t pull data from it in that form, or even break it into categories. It’s updated daily. Several highly-placed individuals are waiting for it.
+So I paste the update into a “data table” in my .xlsm sheet and the macros break it out into readable columns from columns that 4 or five data elements per cell via a cute bit of recursive programming. Then more typical pivot tables on several sheets put the data into meaningful form. Then I send the sheets.
+So how would you “extract the data and send it” without the macros in Excel? Re-send the unusable stuff I get? The downstream recipients would not have the faintest idea how to deal with a signed template. (Last week I sent out a 12-step instruction sheet on installing a custom Word template I had created and still had questions.)
+I suppose I could print the sheets to PDF form each day. I’m not sure if that will break the downstream users; not sure how they use the data. Or I could take the macro-expanded data and paste it as data into another sheet, discard the first sheet, and generate all the presentation sheets from the new one. Undeniably, either of those approaches is “breaking a business process” in my view. 
+Did you know that WordPress plug-ins that accept input have a checkbox labelled “Allow newlines in input”? Have you considered checking it on the Sophos site?
+I don’t understand why the recipients need the file with the macros once you’ve used the macros on your end to create a properly-formatted spreadsheet. Or, if you’ve created a macro-based template that can automatically consume the data in the form you receive it and present it in the way you want, why you have to send them the macros that do the transformation *every time*.
+How come you can’t simply send them the macro-based XLSM file *once*, or have IT install it for them, as (presumably) happened when Excel itself was installed in the first place, and then send just the input file to them each, after checking first at your end that it’s not mangled, and having them open the “display-the-data” spreadsheet and getting your macro to read in the text file for them?
+After all, you don’t send them the data wrapped in macros wrapped in a spreadsheet wrapped inside an Excel installation tool every time… in the same way you don’t send them text files wrapped into a self-extracting NOTEPAD blob.
+(As for paragraph breaks, just hit [Enter] twice in a row, as I did here, and in your edited comment above :-)
+While it makes security sense that files from the Internet are treated differently from those within the corporate network, every now and again, an internal file will be flagged up as “This file came from the Internet”, which means that it is opened as read-only. And that is just straight .docx or .xlsx files.
+If the “auto-disable” then applies to .xlsm files that get wrongly flagged as external, then that may cause issues. Though maybe that’s a long term goal of Microsoft, as they are trying to kill off features from the full products if they can’t get them to work properly in the online versions (Mail Merge, drill down of Pivot Tables, VBA code, for example)
+Apparently not, according to https://www.theregister.com/2022/07/08/office_macro_block_rollback/ and https://techcommunity.microsoft.com/t5/microsoft-365-blog/helping-users-stay-safe-blocking-internet-macros-by-default-in/bc-p/3566698/highlight/true#M4280
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

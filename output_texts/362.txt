@@ -1,0 +1,76 @@
+Sophos Home protects every Mac and PC in your home 
+About a month ago, we wrote about a data breach notification issued by major motherboard manufacturer MSI.
+The company said:
+MSI recently suffered a cyberattack on part of its information systems. […] Currently, the affected systems have gradually resumed normal operations, with no significant impact on financial business. […] MSI urges users to obtain firmware/BIOS updates only from its official website, and not to use files from sources other than the official website.
+The company’s mea culpa came two days after a cyberextortion gang going by the name Money Message claimed to have stolen MSI source code, BIOS development tools, and private keys.
+At the time, the criminals were still in countdown mode, and claimed they would “publish stolen data when timer expires”:
+The “reveal timer” in the screenshot above expired on 2023-04-07, just over a month ago, but the Money Message site on the dark web is otherwise unchanged since the gang’s initial posting:
+Nevertheless, researchers at vulnerability research company Binarly claim not only to have got hold of the data stolen in the breach, but also to have searched through it for embedded crpyotgraphic keys and come up with numerous hits.
+So far, Binarly is claiming on Github and Twitter to have extracted numerous signing keys from the data in its possession, including what it describes [2023-05-09T14:00Z] as: 
+According to Intel’s own documentation, modern Intel-based motherboards can be protected by multiple layers of cryptographic safety.
+First comes BIOS Guard, which only allows code that’s signed with a manufacturer-specified cryptographic key to get write access to the flash memory used to store so-called Initial Boot Block, or IBB.
+As the name suggests, the IBB is the where the first component of the motherboard vendor’s startup code lives. 
+Subverting it would give an attacker control over an infected computer not only at a level below any operating system that later loads, but also below the level of any firmware utilities installed in the official EFI (extended firmware interface) disk partition, potentially even if that partition is protected by the firmware’s own Secure Boot digital signature system.
+After BIOS Guard comes Boot Guard, which verifies the code that’s loaded from the IBB.
+The idea here seems to be that although BIOS Guard should prevent any unofficial firmware updates from being flashed in the first place, by denying write access to rogue firmware updating tools…
+…it can’t tell that firmware “officially” signed by the motherboard vendor can’t be trusted due to a leaked firmware image signing key.
+That’s where Boot Guard steps in, providing a second level of attestation that aims to detect, at run-time during every bootup, that the system is running firmware that’s not approved for your motherboard.
+To strengthen the level of cryptographic verification provided by both BIOS Guard and Boot Guard, and to tie the process to a specific motherboard or motherboard family, the cryptographic keys they use aren’t themselves stored in rewritable flash memory.
+They’re saved, or blown, in the jargon, into write-once memory embedded on the motherboard itself.
+The word blown derives from the fact that the storage ciruitry is constructed as a series of nanoscopic “connecting wires” implemented as tiny electrical fuses. 
+Those connections can be left intact, which means they’ll read out as binary 1s (or 0s, depending on how they’re interpreted), or “blown” – fused in other words – in a one-shot modification that flips them permanently into binary 0s (or 1s).
+Triggering the bit-burning process is itself protected by a fuse, so the motherboard vendor gets a one-time chance to set the value of these so-called Field Programmable Fuses.
+That’s the good news.
+Once the BIOS Guard and Boot Guard cryptographic verification keys are written to the fusible memory, they’re locked in forever, and can never be subverted.
+But the corresponding bad news, of course, is that if the private keys that correspond to these safe-until-the-end-of-the-universe public keys are ever compromised, the burned-in public keys can never be updated.
+Similarly, a debug-level OEM key, as mentioned above, provides a motherboard vendor with a way to take control over the firmware as it’s booting up, including watching it instruction-by-instruction, tweaking its behaviour, spying on and modifying the data it’s holding in memory, and much more.
+As you can imagine, this sort of access to, and control over, the bootup process is intended to help developers get the code right in the lab, before it’s burned into motherboards that will go to customers.
+Intel’s documentation lists three debugging levels. 
+Green denotes debug access allowed to anyone, which isn’t supposed to expose any low-level secrets or to allow the bootup process to be modified.
+Orange denotes full, read-write debugging access allowed to someone who has the corresponding vendor’s private key.
+Red denotes the same as orange, but refers to a master private key belonging to Intel that can unlock any vnedor’s motherboard.
+As Intel rather obviously, and bluntly, states in its documentation:
+It is assumed that the Platform Manufacturer will not share their [Orange Mode] authentication key with any other set of debuggers.
+Unfortunately, Binarly claims the crooks have now leaked an Orange Mode key that can enable low-level boot-time debugging on 11 different motherboards supplied by HP, Lenovo, Star Labs, AOPEN and CompuLab.
+Binarly’s claims therefore seem to suggest that with a firmware signing key and a Boot Guard signing key, an attacker might not only be able to trick you and your firmware updating tools into installing what looks like a genuine firware update in the first place…
+…but also be able to trick a motherboard that’s been hardware-locked via Boot Guard protection into allowing that rogue firmware to load, even if the update patches the Initial Boot Block itself.
+Likewise, being able to boot up a stolen computer in firmware debugging mode could allow an attacker to run or implant rogue code, extract secrets, or otherwise manipulate the low-level startup process to leave a victim’s computer in an untrusted, unsafe, and insecure state.
+Simply put, you could, in theory at least, end up not just with a rootkit, but a bootkit.
+A rootkit, in the jargon, is code that manipulates the operating system kernel in order to prevent even the operating system itself from detecting, reporting or preventing certain types of malware later on.
+Some rootkits can be activated after the operating system has loaded, typically by exploiting a kernel-level vulnerablity to make unauthorised internal changes to the operating system code itself.
+Other rootkits sidestep the need for a kernel-level security hole by subverting part of the firmware-based startup sequence, aiming to have a security backdoor activated before the operating system starts to load, thus compromising some of the the underlying code on which the operating system’s own security relies.
+And a bootkit, loosely speaking, takes that approach further still, so that the low-level backdoor gets loaded as early and as undetectably as possible in the firmware bootstrap process, perhaps even before the computer examines and reads anything from the hard disk at all.
+A bootkit down at that level means that even wiping or replacing your entire hard disk (including the so-called Extended Firmware Interface System Partition, abbreviated EFI or ESP) is not enough to disinfect the system.
+As an analogy, you could think of a rootkit that loads after the operating system as being a bit like trying to bribe a jury to acquit a guilty defendant in a criminal trial. (The risk of this happening is one reason why criminal juries typically have 12, 15 or more members.) 
+A rootkit that loads late in the firmware process is a bit like trying to bribe the prosecutor or the chief investigator to do a bad job and leave at least some evidential loopholes for the guilty parts to wriggle through.
+But a bootkit is more like getting the legislature itself to repeal the very law under which the defendant is being charged, so that the case, no matter how carefully the evidence was collected and presented, can’t proceed at all.
+Boot Guard public keys, once burned into your motherboard, can’t be updated, so if their corresponding private keys are compromised, there’s nothing you can do to correct the problem.
+Compromised firmware signing keys can be retired and replaced, which gives firmware downloaders and updating tools a chance of warning you in the future about firmware that was signed with a now-untrusted key, but this doesn’t actively prevent the stolen signing keys being used.
+Losing signing keys is a bit like losing the physical master key to every floor and every suite in an office building.
+Every time you change one of the compromised locks, you’ve reduced the usefulness of the stolen key, but unless and until you have changed every single lock, you haven’t properly solved your security problem.
+But if you immediately replace every single lock in the building overnight, you’ll lock out everyone, so you won’t be able to let genuine tenants and workers keep on using their offices for a grace period during which they can swap their old keys for new ones.
+Your best bet in this case, therefore, is to stick closely to MSI’s original advice:
+[O]btain firmware/BIOS updates only from [MSI’s] official website, and [do not] use files from sources other than the official website.
+Unfortunately, that advice probably boils down to five not entirely helpful words and an exclamation point.
+Be careful out there, folks!
+Update. Intel’s PR company emailed us to tell us that the company “is aware of these reports and actively investigating.” They also asked us to point out that “Intel Boot Guard OEM keys are generated by the system manufacturer, [so] these are not Intel signing keys.” The abbreviation OEM is short for original equipment manafacturer, a slightly confusing but long-established term that refers not to the supplier or suppliers of the individual components built into a product, but to the vendor who manufactured the complete system. For example, when you buy what you might refer to as an “Intel motherboard” from MSI, MSI is the OEM, while Intel is the supplier of the processor chip, and perhaps other chipset components, at the heart of the finished product. (If your motherboard were a bicycle security cable, then Intel would have made the lock, but the OEM would have welded up the cable, covered the product in its protective coating, and and chosen the numbers for the combination.) [2023-05-09T22:45Z]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It would be extremely helpful if somebody would create an automated tool that could scan your motherboard and tell you if yours is one of the affected devices.
+In an enterprise environment, where there may be a high volume of computers across multiple locations, being able to run such a tool remotely, across all devices, could make an enormous difference to a company’s attack surface.
+Replacing  multiple, vulnerable machines could potentially cost a lot of money, (perhaps the risk could be grounds for an insurance claim?), but for a company to not even know which of their computers are at risk could, potentially, cost far more.
+All told, not a great situation, but good information could maybe make it a little less bad.
+*Someone*? Perhaps MSI, but otherwise running such software could load a bootkit and return a message saying your system was not affected. I guess the firmware loading software should be signed by MSI or the OEM with a valid new signature, current stolen signatures should be invalidated.
+Great point. As mentioned above, there’s a list on GitHub of mobos that Binarly claims are affected, and Intel says it is investigating further, so you may get some official advice from them soon…
+In an enterprise environnement, users can’t load firmware or BIOS updates.
+A symbiotic cyber parasite that has worked its way down to the hardware layer……Apple Silicon has maybe just become a little more favourable?
+Because Macs never get malware or have security bugs, eh :-)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

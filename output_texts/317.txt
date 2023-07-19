@@ -1,0 +1,73 @@
+Sophos Home protects every Mac and PC in your home 
+Even if you’re not entirely sure what a TPM is, you’ll probably know that if you want to run Windows 11, you need one.
+More precisely, you need a TPM 2.0 (although there’s an official Microsoft workaround to get by with TPM 1.2, the previous, incompatible version of the technology).
+TPM is short for trusted plaftorm module, a encryption-and-cybersecurity gizmo that was invented by an industry grouping known as the TCG, short for trusted computing group, whose controlling members, known as Promoters, are AMD, Cisco, Dell, Hewlett Packard Enterprise, HP, Huawei, IBM, Infineon, Intel, Juniper, Lenovo, Microsoft and Toyota. 
+TPMs are sometimes implemented as a miniature plug-in board (usually with 14 or 20 pins in two rows of 7 or 10) that plugs into a designated TPM socket on your computer’s motherboard.
+Hardware TPMs of this sort contain a tiny, dedicated coprocessor with its own secure storage that provides a range of security-related functionality, including hardware random number generation, trusted creation of cryptographic keys, and secure digital signatures.
+Other TPMs work by building the functionality into the regular firmware of your computer, or even by running a software-level emulator.
+Obviously, a software TPM that runs as a Unix daemon or a Windows service under your regular operating system is handy when you want to run multiple VMs, or virtual machines, in order to simulate multiple computers on a single device. But a software TPM can only be activated once your operating system has loaded, so you can’t use this solution to install Windows 11 on a computer without a hardware-level or firmware-level TPM. Windows 11 insists that you have a TPM ready and active before Windows itself starts up.
+One reason for forcing users to have a TPM is to secure the bootup process to stop attackers tampering with your BIOS or computer firmware and installing malware that loads before the operating system itself even gets going.
+Another more controversial reason for requiring a TPM, especially in consumer laptops, is to use it for what’s known as DRM, or digital rights management.
+DRM is accepted by many people as a reasonable solution to cut down on piracy, but opposed by others because it can provide a way for vendors to lock down or restrict your access to content of your choice.
+Whether you welcome DRM or not (or simply don’t care), or whether you think a TPM gives you a potentially harder-to-hack Windows system than a computer without one…
+…is largely irrelevant, because Microsoft insists that you have one to run Windows 11. 
+(There are hacks that claim to bypass this requirement, but we can’t recommend these tricks, and even in virtual machines, we’ve had unsatisfactory results when trying them out.)
+Unfortunately, and as you’ve probably guessed by now, the diminutive size of TPM hardware devices belies an extraordinary complexity that makes it hard for anyone, even the TCG itself, to create a compliant implementation that’s free from bugs.
+The TPM Library 2.0 specifications alone, which form just a tiny part of the hundreds of different TCG specification documents, come in four parts, split into six documents – confusingly, there are two Part 3s and two Part 4s, one sub-part consisting of documentation alone, and the other consisting of interleaved code and explanation.
+To give you an idea of the scale of TPM 2.0, the official specification files at the time of writing [2023-03-07] are:
+Microsoft’s GitHub copy of the TCG “reference implementation” includes 5MBytes of source code totalling about 100,000 lines of C split into nearly 500 files.
+On top of that, you need to import in a number of cryptographic algorithms from some other library and compile them into your TPM code.
+You can’t rely on cryptographic functions supplied by your operating system, because a TPM chip is designed to operate independently of the rest of your computer, so it doesn’t depend on anything that could easily be replaced, subverted or left unpatched.
+Microsoft’s source tree lets you pick by default from LibTomCrypt, OpenSSL and wolfSSL as your underlying code provider for symmetric encryption, hashing and big-number arithmetic. (Precise calculations involving numbers with hundreds or thousands of decimal digits are needed to implement public-key encryption algorithms such as RSA and Elliptic Curve cryptography.)
+Amongst all this complexity, of course, lurks an unknown number of bugs, including two CVE-numbered vulnerabilities discovered in November 2022 by researchers at security spelunking company Quarkslab. 
+(We don’t know whether you pronounce that company name kwork slab or kworx lab; we suspect it’s the latter but secretly hope it’s the former.)
+Quarkslab, admittedly with a dramatic flourish, announced the bugs as follows (their emphasis and capitalisation):
+Two vulnerabilities found by Quarkslab in the TPM2.0 reference implementation and reported in November 2022 are now publicly revealed and could affect Billions of devices.
+Who can be affected? Large Tech vendors[, and] organisations using Enterprise PCs, many servers and embedded systems that include a TPM.
+In fact, the official TPM Library 2.0 “Errata” bulletin lists numerous other bugs along with these two, but as far as we know, the vulnerabilities reported by Quarkslab are the only two that received official CVE designation: CVE-2023-1017 and CVE-2023-1018.
+Loosely speaking, these bugs are two sides of the same coding coin:
+The reported vulnerabilities occur when handling malicious TPM 2.0 commands with encrypted parameters. Both vulnerabilities are in the CryptParameterDecryption function, which is defined in the Part 4: Supporting Routines – Code document. […] 
+One of the vulnerabilities is an out-of-bounds read identified as CVE-2023-1018. The second one is an out-of-bounds write identified as CVE-2023-1017. These vulnerabilities can be triggered from user-mode applications by sending malicious commands to a TPM 2.0 whose firmware is based on an affected TCG reference implementation.
+Additional instances may be identified because of the TPM Work Group ongoing analysis and may result in a larger scope of potential vulnerabilities included in TCGVRT0007.
+A “quick-fix” for these bugs was rapidly published for libtpms, a popular software-based TPM implementation that can be used to provide as many virtual TPMs as you like for multiple virtual machines:
+
+The lines marked in green were added as patches against the flaws, and we’ll explain them quickly now.
+The underlying problem with the unpatched code is that the function CryptParameterDecryption() receives redundant and potentially inconsistent information about how much data to process when decrypting the parameter buffer that’s sent in.
+The function parameter bufferSize tells you how big the memory buffer is into which decrypted data will be written.
+But the first two (or, depending on how the code is compiled, four) bytes of the buffer itself tell you how much space there is for decrypted data.
+The original code therefore extracts those first bytes from the buffer and uses it as a counter to see how much actual data to decrypt…
+…without bothering to check that there actually are two or four bytes available in buffer (as denoted by bufferSize) to start with.
+This bug could result in a read overflow, with the code accessing bytes that it shouldn’t, which is why the updated code now includes a pre-flight check that the buffer has enough bytes to store the count value.
+Even if the buffer does safely contain at least enough data for the length count, thus preventing a read buffer overflow, the original code consumes some of the bufferSize bytes in buffer, by extracting the bytes denoting the decryption length and advancing the buffer pointer accordingly.
+But the code doesn’t decrease the value of bufferSize to match the fact that the buffer pointer has now been moved along in memory. 
+(If you “burn” the top two cards of a pack before starting to deal in a card game, you no longer have 52 cards left – you only have 50; if you’re dealing a poker hand, you’ll probably be OK, but if you’re dealing for a round of bridge, two of the players are going to end up short-handed.)
+This bug could result in a write overflow, with decryption continuing past the end of the buffer and modifying two or four bytes that could belong to another process in the TPM’s memory.
+In fact, those patches alone are not enough, as the TCG’s bulletin warned above, and the libtpms code has already been updated again, though the additional patches have not yet made it into an official release:
+
+This time, the similarly-defective “partner function” CryptParameterEncryption() has been updated, too.
+As you can see above, the original version of the encryption function didn’t even have a bufferSize parameter, and always simply grabbed and computed the effective buffer length via the buffer pointer.
+This means that the function prototype needed changing, which meant in turn that anywhere in the TPM code that called this function needed updating as well.
+Fortunately, the code paths into the formerly buggy code are easy to trace backwards and retrofit with the additional security checks required. 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I recall when TPM was first being marketed by/to the industry. It was all around “Identity”. Identifying who (who’s computer) it is. Yes for preventing media from working for those not apparently authorized, and yes to identify you on every web page, every thing your PC does/touches – said would prevent credit fraud lol. Save the world by destroying anonymity. Of course if you want to be anonymous, you must be a criminal – in the eyes of the TPM associations. That turned me off to it. Caught my PC trying to auto update to 11 a year ago, disable TPM in the bios, so now it says it’s not qualified and stopped bugging me 🙂 I’m sure it has its good and great points, but I’m not a fan of forced tech.
+If the industry giants force you to use certain hardware or software, they should be fully liable for the security flaws.
+I hear you, though no one forces you to use Windows 11, and no one forces TPM vendors to use the reference implementation… so chasing the liability back to (say) Microsoft might require quite a bit log legal hoop-jumping. (Presumably the TPM vendor gets a chance to patch any known bugs first?)
+It’s not entirely clear what the consequences of these bugs are. Does the TPM function call simply fail if you don’t account for the bugs in your code and try to write outside the buffer? Does said attempt push data into cleartext memory space that would otherwise be protected? How much data is exposed? Can it be exploited by an attacker to retrieve something stored in the TPM, like a bitlocker key?
+The leaked data is probably going to be just two (or four) bytes of someone else’s buffer. As to just how exploitable this might be or what might be exposed… I can’t tell you that. 
+As far as I know, no one has yet figured out a practical exploit that could be used to implant rogue data or extract secret data from a TPM device…
+…but the problem is that the TPM is specifically designed to control access to anything stored in it, and therefore any sort of data leak will undermine the T in TPM.
+(Remember Heartbleed? No one quite knew what might leak, though it was soon decided that the pattern of memory usage in some servers could lead to cryptographic keys being mixed in with other, unpredictable content. Other “tiny leak” bugs we’ve seen before have theoretically been exploitable to reveal multiple tiny pieces of secret data that can be assembled to reconstruct part or all of various secret content, such as cryptographic keys or authentication tokens.) 
+If you find a way to trigger this bug using booby-trapped data in an otherwise legimitate-looking program request from userland, you may then be able to trigger it repeatedly under slightly-changed conditions every time, and gradually leak or at least extrapolate secret data that is located in memory in a way you can figure out and thus abuse, simply by trial and error with the sequence of command requests you send to the TPM…
+Typo
+“trying then out”: them?
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

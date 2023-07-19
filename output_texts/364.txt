@@ -1,0 +1,186 @@
+Sophos Home protects every Mac and PC in your home 
+“PRIVATE KEY”: THE HINT IS IN THE NAME
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Bluetooth trackers, bothersome bootkits, and how not to get a job. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I’m Doug Aamoth. 
+He’s Paul Ducklin… 
+Enjoy this titbit from Tech History. 
+This week, on 11 May 1979, the world got its first look at VisiCalc, or Visible Calculator, a program that automated the recalculation of spreadsheets. 
+The brainchild of Harvard MBA candidate Daniel Bricklin and programmer Robert Frankston, VisiCalc effectively turned the Apple II into a viable business machine, and went on to sell north of 100,000 copies in the first year.
+DUCK.  Incredible, Doug.
+I remember the first time I saw a computerised spreadsheet. 
+I wasn’t at work… I was just a kid, and it sounded to me, from what I’d read about this, it was just a glorified, full-screen calculator. 
+But when I realised that it was a calculator that could redo everything, including all these dependencies, it was, to use a perhaps more contemporary term, “Mind blown”, Doug.
+DOUG.  A very important application back in the early days of computing. 
+Let’s stick with applications as we get into our first story. 
+Paul, if I’m looking for a job in application security, I think the best thing I can do is to poison a popular application supply chain. 
+Is that right?
+PHP Packagist supply chain poisoned by hacker “looking for a job”
+
+DUCK.  Yes, because then you could modify the JSON file that describes the package, and instead of saying, “This is a package to help you create QR codes”, for example, you can say, “Pwned by me. I am looking for a job in Application Security.” 
+[LAUGHTER]
+And who wouldn’t rush to employ you, Doug?
+DOUG.  Yes!
+DUCK.  But it is, sadly, yet another reminder that the supply chain is only as strong as its weakest link. 
+And if you’re allowing those links to be decided, and satisfied, entirely automatically, you can easily get stitched up by something like this. 
+The attacker… let’s call him that. 
+(Was it really a hack? I suppose it was.)
+They simply created new repositories on GitHub, copied legitimate projects in, and put in the “Hey, I want a job, guys” message.
+Then they went to PHP Packagist and switched the links to say, “Oh, no, don’t go to the real place on GitHub. Go to the fake place.” 
+So it could have been a lot worse.
+Because, of course, anyone doing that… if they can modify the JSON file that describes the package, then they can modify the code that’s in the package to include things like keyloggers, backdoors, data stealers, malware-installing malware, and so on.
+DOUG.  OK, so it sounds like the hackiest part of this is that he guessed some usernames and passwords for some old inactive accounts, and then redirected the traffic to these packages that he’d cloned, right?
+DUCK.  Correct. 
+He didn’t need to hack into GitHub accounts. 
+He just went for packages that people seem to like and use, but where the developers either haven’t needed or wanted to bother with them in a while, haven’t logged in, probably haven’t changed their password or added any kind of 2FA in the last few years.
+And that is, indeed, how he got in. 
+And I think I know where you’re going, Doug, because that leads nicely to the kind of tips that you like.
+DOUG.  Exactly! 
+There are several tips… you can head over to the article to read all of them, but we’ll highlight a couple of them, starting with my favourite: Don’t do this.
+DUCK.  Yes, I think we’ve gone through why it is not going to get you a job. 
+[LAUGHTER]
+This case… it might not be quite enough to land you in prison, but certainly I would say, in the US and in the UK, it would be an offence under our respective Computer Fraud and Misuse Acts, wouldn’t it? 
+Logging into somebody else’s account without permission, and fiddling with things.
+DOUG.  And then perhaps a slightly more tangible piece of advice: Don’t blindly accept supply chain updates without reviewing them for correctness. 
+That’s a good one.
+DUCK.  Yes. 
+It’s one of those things, isn’t it, like, “Hey, guys, use a password manager; turn on 2FA”? 
+Like we went through on Password Day… we have to say those things because they do work: they are useful; they are important. 
+No matter where the future is taking us, we have to live in the present. 
+And it’s one of those things that everybody knows… but sometimes we all just need to be reminded, in big, bold letters, like we did in the Naked
+Security article.
+DOUG.  Alright, very good. 
+Our next story… I do believe the last time we talked about this, I said, and I quote, “We’ll keep an eye on this.” 
+And we have an update. 
+This is about the MSI motherboard breach; those security keys that were leaked. 
+What’s going on here, Paul?
+Low-level motherboard security keys leaked in MSI breach, claim researchers
+
+DUCK.  Well, you may remember this, if you’re a regular listener. 
+It was just over a month ago, wasn’t it, that a ransomware crew going by the street name of Money Message put, on their dark web site, a note to say, “We’ve breached MicroStar International”, better known as MSI, the well-known motherboard manufacturer, very popular with gamers for their tweakable motherboards. 
+“We’ve hacked their stuff, including source code, development tools, and private keys. We will publish stolen data when timer expires,” they said. 
+I went back a couple of days ago, and the timer expired more than a month ago, but it still says, “We will publish stolen data when timer expires.” 
+So they haven’t quite got round to publishing it yet. 
+But researchers at a company called Binarly claimed that they actually have copies of the data; that it has been leaked. 
+And when they went through it, they found a whole load of private keys buried in that data. 
+Unfortunately, if what they found is correct, it’s quite an eclectic mix of stuff. 
+Apparently, there are four keys for what’s called Intel Boot Guard. 
+Now, those are not Intel’s keys, just to be clear: they’re OEM, or motherboard manufacturers’, keys that are used to try and lock down the motherboard at runtime against unauthorised firmware updates. 
+27 firmware image signing keys. 
+So those are the private keys that a motherboard maker might use to sign a new firmware image that they give you for download, so you can make sure it’s the right one, and really came from them. 
+And one key that they referred to as an Intel OEM debugging key. 
+Now, again, that’s not a key from Intel… it’s a key that is used for a feature that Intel provides in its motherboard control hardware that decides whether or not you are allowed to break into the system while it’s booting, with a debugger. 
+And, obviously, if you can get right in with a debugger at the lowest possible level, then you can do things like reading out data that’s supposed to be only ever in secure storage and fiddling with code that normally would need signing.
+It is, if you like, an Access All Areas card that you have to hold up that says, “I don’t want to sign new firmware. I want to run the existing firmware, but I want to be able to freeze it; fiddle with it; snoop on memory.”
+And, as Intel wryly states, almost satirically, in its own documentation for these debugging authorisation keys: “It is assumed that the motherboard manufacturer will not share their private keys with any other people.” 
+In short, it’s a PRIVATE key, folks… the hint is in the name. 
+[LAUGHTER]
+Unfortunately, in this case, it seems that at least one of those leaked out, along with a bunch of other signing keys that could be used to do a little bit of an end run around the protections that are supposed to be there in your motherboard for those who want to take advantage of them. 
+And, as I said in the article, the only advice we can really give is: Be careful out there, folks.
+DOUG.  It’s bolded!
+DUCK.  It is indeed, Doug.
+Try and be as careful as you can about where you get firmware updates from. 
+So, indeed, as we said, “Be careful out there, folks.” 
+And that, of course, applies to MSI motherboard customers: just be careful of where you get those updates from, which I hope you’re doing anyway. 
+And if you’re someone who has to look after cryptographic keys, whether you are a motherboard manufacturer or not, be careful out there because, as Intel has reminded us all, it’s a PRIVATE key.
+DOUG.  Alright, great. 
+I’m going to say, “Let’s keep an eye on that”… I have a feeling this isn’t quite over yet. 
+Microsoft, in a semi-related story, is taking a cautious approach to a bootkit zero-day fix. 
+This was kind of interesting to see, because updates are, by-and-large, automatic, and you don’t have to really worry about it. 
+This one, they’re taking their time with.
+Bootkit zero-day fix – is this Microsoft’s most cautious patch ever?
+
+DUCK.  They are, Douglas. 
+Now, this is not as serious or as severe as a motherboard firmware update key revocation problem, because we’re talking about Secure Boot – the process that Microsoft has in place, when Secure Boot is turned on, for preventing rogue software from running out of what’s called the EFI, the Extensible Firmware Interface startup partition on your hard disk. 
+So, if you tell your system, “Hey, I want to blocklist this particular module, because it’s got a security bug in it”, or, “I want to retire this security key”, and then something bad happens and your computer won’t boot…
+…with the Microsoft situation, the worst that can happen is you’ll go, “I know. I’ll reach for that recovery CD I made three months ago, and I’ll plug it in. Oh dear, that won’t boot!” 
+Because that probably contains the old code that’s now been revoked. 
+So, it’s not as bad as having firmware burned into the motherboard that won’t run, but it is jolly inconvenient, particularly if you’ve only got one computer, or you’re working from home. 
+You do the update, “Oh, I’ve installed a new bootloader; I’ve revoked permission for the old one to run. Now my computer’s got into problems three or four weeks down the line, so I’ll grab that USB stick I made a few months ago.” 
+You plug it in… “Oh no, I can’t do anything! Well, I know, I’ll go online and I’ll download a recovery image from Microsoft. Hopefully they’ve updated their recovery images. Oh dear, how am I going to get online, because my computer won’t boot?” 
+So, it’s not the end of the world: you can still recover even if it all goes horribly wrong. 
+But I think what Microsoft has done here is that they’ve decided to take a very softly-softly, slow-and-gentle approach, so that nobody gets into that situation… 
+…where they’ve done the update, but they haven’t quite got round to updating their recovery disks, their ISOs, their bootable USBs yet, and then they get into trouble. 
+Unfortunately, that means forcing people into a very clumsy and complicated way of doing the update.
+DOUG.  OK, it’s a three-step process. 
+Step One is to fetch the update and install it, at which point your computer will use the new boot up code but will still accept the old exploitable code.
+DUCK.  So, to be clear, you’re still essentially vulnerable. 
+DOUG.  Yes.
+DUCK.  You’ve got the patch, but you can also be “unpatched” by someone with your worst interests at heart. 
+But you’re ready for Step Two.
+DOUG.  Yes.
+So the first part is reasonably straightforward. 
+Step Two, you then go and patch all your ISOs, and USB keys, and all the DVDs that you burned with your recovery images.
+DUCK.  Unfortunately, I wish we could have put instructions in the Naked Security article, but you need to go to Microsoft’s official instructions, because there are 17 different ways of doing it for each sort of recovery system you want. 
+It’s not a trivial exercise to replenish all of those.
+DOUG.  So, at this point, your computer is updated, yet will still accept the old buggy code, and your recovery devices and images are updated. 
+Now, Step Three: you want to revoke the buggy code, which you need to do manually.
+DUCK.  Yes, there’s a bit of registry messing about, and command line stuff involved in doing that. 
+Now, in theory, you could just do Step One and Step Three in one go, and Microsoft could have automated that. 
+They could have installed the new boot up code; they could have told the system, “We don’t want the old code to run anymore”, and then said to you, “At some time (don’t leave it too long), go and do Step Two.” 
+But we all know what happens [LAUGHS] when there isn’t a clear and pressing need to do something like a backup, where you put it off, and you put it off, and you put it off… 
+So, what they’re trying to do is to get you to do these things in what is perhaps the least convenient order, but the one that is least likely to put your nose out of joint if something goes wrong with your computer three days, three weeks, three months after you’ve applied this patch. 
+Although that means that Microsoft has kind of made a bit of a rod for their own back, I think it’s quite a good way to do it, because people who really want to get this locked down now have a well defined way of doing it.
+DOUG.  To Microsoft’s credit, they’re saying, “OK, you could do this now (it’s kind of a cumbersome process), but we are working on a much more streamlined process that we hope to get out in the July time frame. And then early next year, in 2024,if you haven’t done this, we’re going to forcibly update, automatically update all the machines that are susceptible to this.”
+DUCK.  They’re saying, “At the moment we’re thinking of giving you at least six months before we say, for the greater good of all, ‘You’re getting this revocation installed permanently, come what may’.”
+DOUG.  OK.
+And now our final story: Apple and Google are joining forces to set standards for Bluetooth trackers.
+Tracked by hidden tags? Apple and Google unite to propose safety and security standards…
+
+DUCK.  Yes.
+We’ve talked about AirTags quite a few times, haven’t we, on Naked Security and in the podcast.
+Whether you love them or hate them, they seem to be pretty popular, and Apple is not the only company that makes them. 
+If you have an Apple phone or a Google phone, it can kind of “borrow” the network as a whole, if you like, for volunteers to go, “Well, I saw this tag. I have no idea who it belongs to, but I’m just calling it home to the database so the genuine owner can look up and see if it’s been sighted since they lost track of it.” 
+Tags are very convenient… so wouldn’t it be nice if there were some standards that everybody could follow that would let us continue to make use of these admittedly very useful products, but not have them be quite the stalker’s paradise that some of the naysayers seem to claim? 
+It’s an interesting dilemma, isn’t it? 
+In one part of their life, they need to be absolutely careful about not showing up as obviously the same device all the time. 
+But when they move away from you (and maybe someone snuck one into your car or stuck it in your rucksack), it actually needs to make it fairly clear to you that, “Yes, I’m the same tag that *isn’t* yours, that’s been with you for the last couple of hours.”
+So sometimes they have to be quite secretive, and at other times they have to be a lot more open, to implement these so called anti-stalking protections.
+DOUG.  OK, it’s important to bring up that this is just a draft, and it came out in early May.
+There are six months of comment and feedback, so this could change tremendously over time, but it’s a good first start. 
+We have plenty of comments on the article, including this one from Wilbur, who writes: 
+I don’t use any Bluetooth gadgets, so I keep Bluetooth turned off on my iDevices to save battery. Plus, I don’t want to be discovered by people two tables away in a restaurant. All of these tracking prevention schemes rely on victims having active, proprietary Bluetooth devices in their possession. I consider that a major flaw. It requires people to purchase devices they may not otherwise need or want, or it forces them to operate existing devices in a way they may not desire. 
+What say you, Paul?
+DUCK.  Well, you can’t really disagree with that. 
+As Wilbur goes on to say in a subsequent comment, he’s actually not terribly worried about being tracked; he’s just conscious of the fact that there is this almost crushing irony that because these products are really popular, and they rely on Bluetooth in order to know that you are being followed by one of these tags that doesn’t belong to you…
+…you kind of have to opt into the system in the first place.
+DOUG.  Exactly! [LAUGHS]
+DUCK.  And you have to have Bluetooth on and go, “Right, I’m going to run the app.” 
+So Wilbur is right. 
+There is a sort of irony that says if you want to catch these trackers that rely on Bluetooth, you have to have a Bluetooth receiver yourself. 
+My response was, “Well, maybe it’s an opportunity, if you like having a bit of technical fun…” 
+Get a Raspberry Pi Zero ([LAUGHS] if you can actually find one for sale), and you could build your own tag-tracking device as a project.
+Because, although the systems are proprietary, it is fairly clear how they work, and how you can determine that the same tracker is sticking with you.
+But that would only work if the tracker follows these rules.
+That’s a difficult irony, and I suppose you could argue, “Well, Pandora’s Jar has been opened.” 
+These tracking tags are popular; they’re not going to go away; they are quite handy; they do provide a useful service. 
+But if these standards didn’t exist, then they wouldn’t be trackable anyway, whether you had Bluetooth turned on or not. 
+So, maybe that’s the way to look at Wilbur’s comment?
+DOUG.  Thank you, Wilbur, for sending that in. 
+And if you have an interesting story, comment or question you’d like to submit, we’d love to read on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to…
+BOTH.  Stay secure.
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Most people have bluetooth on, because they are using earbuds (I don’t).
+I have Bluetooth headphones, but I try to have BT on only *if* I am using them… rather than turning it on permanently because I have them.
+But it is pretty easy to forget to turn it off when you’re done…
+…and immmediately after writing the text above, I turned on my headphones to use with my laptop, only to hear an artifical voice saying, softly but reassuringly, “Bluetooth connected”, as my still-Bluetooth-enabled phone found its way automatically back into my aurisphere.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

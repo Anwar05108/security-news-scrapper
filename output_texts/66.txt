@@ -1,0 +1,57 @@
+Sophos Home protects every Mac and PC in your home 
+Tomorrow is 31 March 2022, and the last day of March is World Backup Day…
+…which is a good time for us to remind you of a little saying that we like.
+You’ll have heard it before if you listen to the Naked Security Podcast; if so, here it is again, because it’s advice that never gets old:
+The only backup you will ever regret is the one you didn’t make.
+Try saying that out loud to yourself every time you find yourself thinking, “Should I make a copy of my (thesis, source code, tax documentation, visa application, mortgage files, insurance claim, job offer) now, or should I leave it until (tomorrow, the weekend, year-end, never)?”
+The good news about backups seems to be that more and more companies are taking the matter seriously, and not only making backups that remain intact after disaster strikes, but also recovering succesfully when needed.
+We’re saying that because, in our State of Ransomware 2021 Survey, 57% of companies who had the misfortune to get hit by ransomware (about one-third of those who responded) were able to recover their data and get their business running again via their backups.
+The bad news about backups, however, is that we still had 32% of ransomware respondents who were stuck with paying the criminals instead, which not only increased the cost of getting their business on its feet again, but didn’t work reliably anyway. 
+One-third of those in our survey who paid the ransom nevertheless ended up losing more than half their data, because even crooks who claim to “specialise” in ransomware and extortion don’t seem to know how to get the restoration part of the process right. A backup that you can’t reliably restore on demand isn’t a backup. It isn’t even a talisman. It gives you nothing but a false sense of security.
+Ransomware: don’t expect a full recovery, however much you pay
+
+
+So, what about home users, hobbyists and small businesses?
+If even big companies with IT departments, sysadmins and security operations teams have trouble doing backups correctly, what hope do the rest of us have?
+The good news is that useful backups don’t have to consume a lot of time and money.
+Even if you don’t regularly backup every data file you’ve ever created…
+…you can still give yourself reasonable security against a total data disaster by identifying the most important files you have, and making a point of looking after them well.
+Losing your wedding photos or that video of your daughter’s first steps would be disappointing, but it wouldn’t stop you getting on with your digital life.
+But losing data such as scans of your ID documents, which might be vital in getting back into compromised accounts, or taxation files that you’re obliged by law to keep for so many years, could land you in trouble.
+So here are our tips for home users and small businesses for World Backup Day:
+1. DECIDE WHICH DATA IS CRITICAL, AND PROTECT IT PROPERLY
+It’s OK to decide that you aren’t going to back up everything all the time, but you should make a list of the data you need to keep safe, and a rota that lets you keep track of when you last backed it up. If you have a process you use to ensure you pay the household bills regularly, use that system to keep on top of your backups, too. You don’t need a high-tech system: even just adding a visible weekly check-box to the calendar in your kitchen wall is a good way to do it.
+2. REMEMBER THE 3-2-1 PRINCIPLE
+The 3-2-1 rule suggests having at least three copies of your data, including the master copy; using two different types of backup, so that if one fails, it’s less likely the other will be similarly affected; and keeping one of them offline, and preferably offsite, so you can get at it even if you’re locked out of your home or office. 
+3. DON’T LEAVE BACKUPS WHERE CYBERCROOKS CAN FIND THEM
+Many people keep backups so they are always online, such as in a live cloud storage account or on a network-attached storage (NAS) device. But if your backups are accessible online, they’re also accessible to any crooks who compromise your account or your network. Indeed, ransomware crooks make a point of searching for online backups and wiping them out as part of the attack, hoping to force you into paying up.
+Remember the 3-2-1 rule: think of online snapshots and real-time backups as just one of the two backup types you keep, and make sure you always have at least one other backup that’s offline. Whether you’re at home or at work, remember to unplug offline backup devices and put them somewhere safe unless you are in the process of backing up or restoring, and remember to logout explicitly from cloud backup accounts when you aren’t using them.
+4. DON’T MAKE BACKUPS THAT EVERYONE CAN READ
+Encrypt your backups so that if they’re lost or stolen, the thief can’t simply read out all your precious data for themselves. Windows has BitLocker, Macs have FileVault, and Linux has LUKS and cryptsetup, which can be used to create encrypted drives and partitions.
+There are also numerous archiving tools, some free and open source, that can create encrypted backup files, such as WinZip and 7-Zip.
+Note that FileVault and BitLocker are proprietary to Apple and Microsoft respectively, so you will need a matching operating system setup to restore your data. Also, BitLocker for removable drives isn’t available on home-user Windows versions. You’ll need to upgrade to Windows Pro for that.
+5. LEARN HOW TO DO THE “RESTORE” PART OF THE PROCESS
+We’ve helped numerous people over the years who made backups regularly and carefully, but weren’t able to get back the files they wanted when they needed to. 
+Ironically, none of these cases happened because the user forgot or lost their decryption password – they simply weren’t well-practised enough in using the restore process to do it reliably, or even at all. Don’t be one of those people!
+BONUS TIP. DON’T PUT IT OFF UNTIL TOMORROW
+We’ll finish as we started: The only backup you will ever regret is the one you didn’t make.
+We published this article on the afternoon before World Backup Day specifically so you could get a backup done the night before!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+it always surprises me how people tell me “yea I have a backup, I set it up 2 years ago” but then never check it. more often than I like the backup they are talking about stopped working months ago. Uh yea, this conversation only happens when they need to use their backup! 
+I would simplify tip 5 here to  “If you don’t test restore your backup, you don’t have a backup!”
+I did make that point explicitly at the top of the article: “A backup that you can’t reliably restore on demand isn’t a backup. It isn’t even a talisman. It gives you nothing but a false sense of security.”
+I thought I’d been blunt enough at that point that it might be overbearing to make the point again :-)
+I agree, Kyle.  I think specifically adding an actual test of restoring a backup is a good one.  It’s too easy for people who use a known good backup product to then assume that the restore will go smoothly.  No matter how well known a product or procedure is, actually testing the restore is the only way to be sure a backup can actually be counted on.
+Just remember that YOU SHOULD PRACTISE ON A SPARE COMPUTER! Firstly, if you lose your laptop, you need to know how to set up and restore from scratch on a new computer, not one that’s already configured for backup-and-restore. Secondly, if you restore incorrectly (you’re still learning, right?) you might end up ruining your master copy by overwriting files wrongly in what was supposed to be a non-destructive test!
+good point Mr. Ducklin. also Great work as always!
+The problem I have is that I’m not aware of any good Linux server backup tools. Literally all my backup processes involve writing a purpose-built bash script to rsync things periodically. This has never failed me and always works as expected, but each setup is insanely tedious, particularly because I refuse to use admin accounts for backups. This means I end up with an insane amount of user access control, and requires a huge amount of documentation. And it’s not even like I can reuse my work, because each scenario I encounter is so different.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

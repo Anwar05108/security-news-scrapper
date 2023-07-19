@@ -1,0 +1,70 @@
+Sophos Home protects every Mac and PC in your home 
+Yesterday was the first Patch Tuesday of 2022, with more than 100 security bugs fixed.
+We wrote up an overview of the updates, as we do every month, over on our sister site news.sophos.com: First Patch Tuesday of 2022 repairs 102 bugs.
+For better or for worse, one update has caught the media’s attention more than any other, namely CVE-2022-21907, more fully known as HTTP Protocol Stack Remote Code Execution Vulnerability.
+This bug was one of seven of this month’s security holes that could lead to remote code execution (RCE), the sort of bug that means someone outside your network could trick a computer inside your network into running some sort of program without asking for permission first.
+No need to log in up front; no pop-up warning at the other end; no Are you sure (Y/N)? questions.
+Just give the order, and the malware runs.
+That’s the theory, anyway.
+One thing to remember about most RCE vulnerabilities is that if you can attack someone else’s computer from outside and instruct it to run a malicious program of your choice…
+…then it’s possible, perhaps even probable, that you could tell it to run the very same program that you yourself just used to launch your own attack.
+In other words, you might be able to use the vulnerability to locate and infect Victim 1 with malicious program W that instructs Victim 1 to locate and infect Victim 2 with malicious program W that instructs Victim 2 to locate and innfect Victim 3… and so on, perhaps even ad infinitum.
+In an attack like this, we give the program W a special name: we call it a worm. 
+Worms form a proper subset of a type of malicious software (or malware for short) known generally as computer viruses, the overarching term for self-replicating malware of any sort.
+This means that most RCE bugs are, in theory at least, wormable, meaning that they could potentially be exploited to initiate a chain of automatic, self-spreading and self-sustaining malware infections.
+The reasoning here is obvious: if an RCE bug allows you to run an arbitrary program of your own choice on someone else’s computer, such as popping up CALC.EXE or launching NOTEPAD, then it almost certainly allows you to run a specific program of your choice, such as a worm.
+As you can imagine, some classes of RCE bug are considered much more wormable than others, especially bugs that can be triggered directly via a simple network interaction.
+That was a risk of considerable concern in the recent Log4Shell saga, where a single booby-trapped web request with some curious but otherwise unexceptionable ASCII text in it could trigger arbitrary remote code execution.
+Unfortunately, CVE-2022-21907 is a bug in the same category, with Microsoft’s own security bulletin explicitly saying the following in its FAQ section:
+Where and how does the HTTP Protocol Stack get activated? 
+Is this an issue unique to Windows servers, as Microsoft’s bulletin implies when it talks about patching “affected servers”? 
+Does the attack depend on you having a known web server such as Microsoft IIS (Internet Information Services) already installed and activated?
+The answers to these questions are as follows:
+The last point above makes it clear that that you may have any number of apps in use – perhaps without realising it – that provide an HTTP-based interface via HTTP.sys, whether you have deployed IIS or not.
+In fact, Microsoft’s own documentation notes that “HTTP.sys is useful […] where there’s a need to expose the server directly to the Internet without using IIS.”
+Indeed, IIS is based on HTTP.sys, not the other way around, as Microsoft explains:
+HTTP.sys is mature technology that protects against many types of attacks and provides the robustness, security, and scalability of a full-featured web server. IIS itself runs as an HTTP listener on top of HTTP.sys.
+Simply put: you could, in theory, have apps installed, even on a desktop or laptop computer, that provide some sort of web-based interface that is serviced by the HTTP.sys driver code.
+The silver lining, for some users at least, is that the part of HTTP.sys that contains the CVE-2022-21907 bug:
+As far as we can tell, the reason that this vulnerability isn’t present in earlier versions of Windows and Windows Server is that the bug was found in the code that deals with HTTP Trailers (these are like HTTP Headers, except that they are sent after the HTTP data instead of before it); HTTP Trailer support was only added after support for HTTP/2; and HTTP/2 support only arrived in the Windows 10 era.
+If you are truly unable to patch right away, and if you know that you are not running (or at least do not intend to run) any web-based software that uses HTTP.sys, you can temporarily block HTTP.sys on your computer by setting the following registry entry:
+The usual value of this registry entry is 3, denoting “start on demand”; changing the value to 4 marks the driver as “service disabled”.
+After a reboot, you can check the status of HTTP.sys from a regular command prompt with the SC (Service Control) command:
+Note that we have tested this workaround in only the most cursory fashion. We installed Server 2022, enabled IIS, created a home page and verified from another computer that it worked. We changed the service start value for HTTP to 4, as suggested above, and rebooted. Our IIS server was no longer accessible. We reverted the registry entry to 3, rebooted once more and verified that IIS came back to life automatically. From this we infer that disabling the HTTP service does indeed block HTTP-based network access to higher-level software that might otherwise be exposed to this bug, and we assume that this renders the vulnerability temporarily “untriggerable”.
+Our primary recommendations are:
+Don’t delay… do it today!
+LEARN MORE ABOUT THE JANUARY 2022 PATCH TUESDAY
+First Patch Tuesday of 2022 repairs 102 bugs
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Windows 8??
+Just ran the “sc query http” on my 8.1 box and I still have service running.  Start Registry entry is 3.
+As far as I can see, Windows 8.1 does have HTTP.sys (as listed above this driver was added in the Windows 7 era) but Windows 8.1 it doesn’t suffer from this particular vulnerability, which seems to have entered the codebase from Windows 10 onwards.
+To be clear: the ‘sq query HTTP’ command is listed above merely as a way to check that our unofficial workaround for Windows 10 and later (setting the service status to “disabled”) has worked.
+If you have a non-vulnerable version of Windows (see this article and Microsoft’s bulletin for further details), or you have applied the January 2022 patches, or both, you don’t need to worry about the service startup setting show above (and if you check the services status you will almost certainly see it shown as RUNNING).
+HtH.
+hi Paul,
+so u mean to say if its Windows 10 or later need to have 2022 Tuesday Patch installed ?
+There are Patch Tuesday updates for all supported versions of Windows. I recommend you install those updates.
+If you have Windows 10 or later then this bug is one of the many that were fixed.
+You would also need to have a port forward set up in your router, for Port 80 to your PC. I guess that would rule out most domestic PCs. This issue is more a concern to any and all commercial hosting operations.
+Yes… and no. Remember that you might have an app that’s offering some kind of web console or web UI on any port – doesn’t have to be port 80 (most apps with web UIs don’t use port 80 so they don’t clash with other web services)..
+The listening port doesn’t have to be exposed to the internet to put you at risk – obviously things are much worse if this bug is open to external attack, but even a LAN-only web service that you weren’t aware of might put you at risk of an elevation of privilege (EoP) attack or open up a lateral movement hole.
+EoP means crooks who already have access to your computer via an initial malware infection but only with a very limited user account might be able to boost their powers; lateral movement means malware already on the laptop of someone else on your LAN (e.g. a friend in a shared house with a poorly-protected personal computer) might be able to use this bug to connect “sideways” to reach other internal targets (e.g. to sneak across from your housemate’s low-value computer to your work laptop).
+So this is worse for company networks, but just the fact that your home router does NAT and won’t do port forwarding by default doesn’t mean this bug is irrelevant on SoHo networks…
+It really isn’t that simple. Most modems & routers today have UPnP enabled by default, too, so even if you didn’t manually assign a port forward any application can request it and the modem/router will comply and create one for it.
+And it’s NOT just IIS, which the article made clear, but any application that uses HTTP.sys. This includes WSD, media streaming services (like Windows Media Player or Plex), PushBullet, Dell SupportAssist, Intel Driver & Support Assistant, Microsoft Network Discovery, Windows Update “Delivery Optimization”, blackhole DNS apps, VoIP services, and of course, various telemetry “features” that are enabled by default when users install certain applications. This is just from a cursory look at a dozen client devices.
+January updates that break Hyper-V.
+On Windows 2012 R2 all VMs will fail to start due to bad KB5009624.
+KB5009624 (Windows Server 2012 R2), KB5009557 (Windows Server 2019) and KB5009555 (Windows Server 2022) are failed updates that should never be installed.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

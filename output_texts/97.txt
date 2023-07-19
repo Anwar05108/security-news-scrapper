@@ -1,0 +1,31 @@
+Sophos Home protects every Mac and PC in your home 
+You may not have heard of Curl (or curl, as it is more properly written), but it’s one of those open source toolkits that you’ve almost certainly used anyway, probably very often, without knowing.
+The open source world provides numerous tools of this sort – ubiquitous, widely used in software projects all over the globe, but often invisible or hidden under the covers, and therefore not perhaps as well-appreciated as they ought to be.
+SQLite, OpenSSL, zlib, FFmpeg, Minix…
+…the list of supply-chain components that are built into hardware and software that you use all the time, often under completely different names, is long.
+Curl is one of those tools, and as its own website explains, it’s a “command line tool and library for transferring data with URLs (since 1998).”
+It’s part of almost every Linux distribution on the planet, including many if not most embedded IoT devices, which use it to script things like updates and data uploads; it’s shipped with Apple’s macOS; and it’s handily included with Windows 10 and Windows 11.
+You can also build and use curl as a shared library (look for files named libcurl.*.so or CURL*.DLL), so that you can call curl’s code without running a separate process and collecting the output from that, but that still counts as “using curl”.
+The project just pushed out its latest update, fixing six medium-level CVE-numbered bugs, and bringing curl to version 7.83.1.
+You can check what version you’ve got with the command curl --version, like this:
+The bugs were:
+RubyGems supply chain rip-and-replace bug fixed – check your logs!
+
+
+The curl project makes it easy to find out how to report bugs; tells what you can expect when you report them; and even includes a Security item in its drop-down Documentation menu, thus making it clear that security reports are first class citizens in its software development ecosystem.
+One little thing you can do that the curl team hasn’t done yet. Add a security.txt file, in a standard format, at a standard well-known place on your website. That way, there’s a canonical place, in a canonical format, where security researchers can find your offical bug-reporting channels. You can use ours as an example by looking at sophos.com/security.txt and at sophos.com/.well-known/security.txt.
+Serious Security: How to make sure you don’t miss bug reports!
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I hadn’t realized Windows pre-installed curl. I have a long-standing habit of using wget for jobs like this. So (Windows 10) I entered cd\ followed by dir curl*.exe /s and found that I have 16 copies of curl.exe installed in sizes from 132,431 bytes to 523,776 bytes. If this is how Windows Update helps me, it’s no wonder I’m running out of space.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

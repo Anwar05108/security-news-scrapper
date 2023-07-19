@@ -1,0 +1,32 @@
+Sophos Home protects every Mac and PC in your home 
+Just under two weeks ago, we wrote about an Apple Safari bug that could allow rogue website operators to track you even if they gave every impression of not doing so, and even if you had strict privacy protection turned on.
+In fact, that vulnerability, now known as CVE-2022-22594, showed up in Safari because of a bug in WebKit, the “browser rendering engine”, as these things are generally known, on which the Safari app is based.
+And although Safari is the only mainstream WebKit-based browser on Apple’s macOS (Edge and Chromium use Google’s Blink engine; Firefox uses Mozilla’s Gecko renderer), that’s not the case on Apple’s mobile devices.
+Any browser or browser-like app in the App Store, which is essentially the only source of software for iPhones, iPads, Apple Watches and so on, must be programmed to use WebKit, even if it uses a third-party rendering engine on other platforms.
+As a result, macOS users could simply switch browsers to sidestep the bug, while iDevice users could not.
+The CVE-2022-22594 bug was annoyingly simple. It relied on the fact that although your website couldn’t access any of the data stored locally by my website (a consequence of the Same Origin Policy enforced by browsers to keep web data private to the page that created it in the first place), it could list the names of any databases I’d created for my data. If I chose a database name unique to my own service, to avoid clashing with anyone else, that name would uniquely identify my site, and would therefore leak the user’s browsing history. But if I chose a random name in order to avoid clashes while not identifying my website, that name would instead act as a kind of “supercookie” that would uniquely identify the user. Lose/lose.
+Serious Security: Apple Safari leaks private data via database API – what you need to know
+
+
+The good news is that CVE-2022-22594 has been patched in Apple’s latest security updates, available as follows:
+Of course, the big-news Safari “supercookie” bug isn’t the only security hole patched in this batch of updates: numerous other yet-more-serious bugs were patched as well.
+There aren’t any updates for iOS 12 or iOS 14, the previous two official versions of Apple’s iDevice platform, but there are bulk patches for both Catalina and Big Sur, the previous two macOS versions:
+These security updates can be considered critical, given the number of remote code execution (RCE) bugs that could, in theory at least, be used without your consent to install covert surveillance software, implant malware, steal data, secretly jailbreak your device, and more.
+Indeed, on iOS 15, iPadOS 15, Monterey 12 and BigSur 11, one of the RCE bugs that potentially gives kernel-level control – typically the worst sort of RCE bug you can get – is listed with Apple’s typically understated warning that the company “is aware of a report that this issue may have been actively exploited.”
+In plain English, we translate those words as follows: “This is a zero-day bug. An in-the-wild exploit is already doing the rounds.” (Simply put: patch right now, because the crooks are onto this one already.)
+As we just said above, the equation here is really simple: Zero-day kernel hole in the wild –> Patch right now.
+The new version numbers that you should look out for are listed above.
+Once again: on a Mac, it’s Apple menu > About this Mac > Software Update… and on an iDevice, it’s Settings > General > Software Update.
+Don’t delay; do it today!
+(And don’t forget that, on older Macs that aren’t running Monterey 12, there are two updates to install: one for the operating system in general, and a second specifically for WebKit and Safari.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

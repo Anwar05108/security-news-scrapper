@@ -1,0 +1,94 @@
+Sophos Home protects every Mac and PC in your home 
+Late last year (November 2021), we reported on an unusual campaign of scammy emails warning recipients that they were in big trouble at work.
+If you saw one of these, you’ll probably remember it: a customer had made a formal complaint and the company was scrambling to hold a meeting to investigate your alleged poor conduct…
+…so you were expected to follow a link to download and read the complaint against you.
+Here at Sophos, many of us were on the spamming list and received emails of this sort:
+Some of us subsequently received follow-up messages telling us that we were no longer technically in trouble, for the rather dramatic reason that we’d been fired; our “termination letters” were attached, once again as a document download link.
+The downloads looked like PDF files:
+
+But the download links weren’t conventional http:// or https:// downloads; instead, they relied on an unusual link starting ms-appinstaller://, which (on Windows, at least), triggers Microsoft’s App Installer system to orchestrate the download process.
+This ms-appinstaller protocol not only takes you down a very different visual path than a traditional web download, but also mirrors the sort of experience that you would only ever have seen before, if you had seen it at all, when using the Microsoft Store.
+Notably, the process insists on a digitally-signed application bundle (for bundle, think Android APK or Linux package), and therefore starts with a reassuring, if unfamiliar, popup assuring you, with a confident-looking green tick (check mark), that this is a Trusted App, apparently coded by a vendor you know:
+
+Note that in the screenshot above, the publisher’s name (fraudulently given as “Adobe Inc.”) is just a text string in the app bundle itself; to “verify” the signer, you need to click on the blue text Trusted App].
+Unfortunately, the signer’s name doesn’t tell you much at all, or at least it didn’t last year when we first saw this trick used for distributing “trusted” malware.
+In the example above, the app signer claimed to be a accounting firm and was a registered UK business.
+But if you had chased it further than that, you would have found a company that had never really done any business, was located at an unlikely address, and was about to be deregistered anyway.
+Simply put, based on an online-and-apparently-never-used-for-real company registration that probably cost just a few pounds (and who knows whether the attackers actually paid anything for it, or simply acquired access to the company data via an earlier hack or data breach?), cybercriminals were able to:
+In the you’ve-been-fired email example we encountered here at Sophos, the purveyors of the “Trusted App” turned out to be the BazarLoader malware gang.
+BazarLoader ‘call me back’ attack abuses Windows 10 Apps mechanism
+
+
+So, if the legitimate-looking, Microsoft Store-like installation process was enough to ensnare your trust, you’d have ended up with persistent backdoor malware – what’s often referred to as a bot or zombie.
+How bots and zombies work, and why you should care
+
+
+The backdoor bot started off by leaking system configuration information to the crooks, and then waited for remote instructions on what new malware to download and run next.
+Cybercriminals with generic remote code executiuon (RCE) access like this typically use your computer as a pawn in the underground economy, “renting” it out – possibly repeatedly – to other crooks to conduct further cybercrimes, either against your computer, or via your computer, or both.
+Sometimes, sadly, this sort of zombification only gets detected by the victim when the bot operators “rent out” the infected computer (or use it themselves) one last time for a final round of malware that you can’t help but notice… 
+…typically, a ransomware attack.
+Ransomware: What REALLY happens if you pay the crooks?
+
+
+Note that the level of cybersecurity belief you are invited to adopt in the case of an ms-appinstaller:// download is significantly greater than the cybersecurity inference you’re expected to make from a regular https:// web certificate.
+Web certificates, which use the TLS (transport layer security) protocol to encrypt and to integrity-check the data exchanged in an HTTP session between a client and the server, don’t say anything about how trustworthy the site at the other end actually is.
+Indeed, browser makers have gone out of their way, over the past decade or so, to adjust the words, icons and colours used in the browser itself to describe an HTTPS-protected site.
+After all, TLS, by design and by definition, provides transport-level security, thus putting the S (for secure) in HTTP (short for hypertext transfer protocol), but doesn’t aim or claim to perform any verification or trust assessment for the content that’s transmitted.
+Firefox, for example, still uses a padlock icon to denote a “secure” site, but annotates the padlock simply with the words “Connection secure” and “You are securely connected”, without making any claims about the site itself:
+
+
+The Edge browser does something similar when you click on a website’s padlock, mentioning the confidentiality of the connection, but not suggesting that you can therefore ultimately trust the contents of the site: 
+This site has a valid certificate, issued by a trusted authority. This means information (such as passwords or credit cards) will be securely sent to this site and cannot be intercepted. Always be sure you’re on the intended site before entering any information.​
+In contrast, the App Installer popup that verifies the digital signature of the App Bundle you’re downloading explicitly identifies the software itself as a Trusted App, even though it allows the signer of the app to include entirely bogus vendor data in the app bundle, and then helpfully displays that fraudulent “identification” directly beneath to the “Trusted App” designator.
+This implies, in our minds, anyway, that a much higher cybersecurity bar has been reached: it acts as a type of content-level assertion that lives on after installation, rather than merely denoting some degree of transport-level security that protects the network part of the download only.
+We recommended, and still recommend, various security workarounds, including:
+For the Group Policy tweaks that help with this issue (which was given the vulnerability idenfitier CVE-2021-43890), you can consult Microsoft’s published guidelines on which settings to use.
+
+Our middle recommendation above might seem rather drastic, either for your internal users if your company relies on vendors that ship their software via App Bundles, or for external customers if you have gone down the App Bundle path for software delivery.
+After all, App Bundles are supposed to have several advantages, notably for vendors with endpoint products that support a range of different Windows versions running on various computer types (e.g. Intel, AMD, ARM):
+In Microsoft’s own words:
+The ms-appinstaller protocol handler was introduced to enable users to seamlessly install an application by simply clicking a link on a website. What this protocol handler provides is a way for users to install an app without needing to download the entire MSIX package. This experience is popular, and we are thrilled that it has been adopted by so many people today.
+Despite the upbeat paragraph at the end of the previous section, Microsoft isn’t so thrilled that cybercriminals have adopted this “seamless” process that works “by simply clicking a link”, as we documented for the first time last last year.
+For the time being, at any rate:
+We are actively working to address this vulnerability. For now, we have disabled the ms-appinstaller scheme (protocol). This means that App Installer will not be able to install an app directly from a web server. Instead, users will need to first download the app to their device, and then install the package with App Installer. This may increase the download size for some packages.
+In other words, Microsoft itself has given up entirely on supporting its own ms-appinstaller:// URL type via the web, because it thinks the process is still too easily abused.
+Therefore:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“More security implied that an HTTPS certificate”  Did you mean “than”?
+Fixed, thanks!
+Does this include MS Apps such as Office Home and Student 2019 and all their variations which include Outlook.live?
+Would this have any effect on JUNK EMAIL?  I ask because hundreds upon hundreds of MS Outlook.live program users are being deluged by junk email every single day, and when I say deluged I’m talking about hundreds and thousands of junk mail every single day. MS Outlook Support is useless including their Support Moderators. Everyone on their blog has tried every suggestion they dish out, and not ONE of them works. I have been dealing with this issue for approximately 3 years, now numerous users are complaining of overwhelming amounts of junk email. I have been blamed by one of the MS support staff that “it’s my fault” if I wouldn’t browse websites and click on any of their links I wouldn’t be receiving the junk mail. I’ve heard them all.
+I know there is nothing you can do about this however, I know that Sophos has a huge audience, maybe someone knows someone who knows someone…can clue in Microsoft about their Outlook.live app. They are so busy with all of their new platforms that I honestly believe that don’t care about this silly Outlook issue. There HAS to be a problem at their end, no one can receive 500 junk emails in one day then 450 junk emails the next day and, so on. 
+As a side note, yesterday I received another couple of the pornographic junk emails I frequently get so I decided to forward it to MS Support with the case # they assigned to my email questions. Within seconds I received the postmaster undeliverable message, I viewed the source and discovered that Microsoft Support emails will reject “those” types of emails. Well then, why can’t mine be deleted?
+Thank you
+This issue only deals with the download and installation of malware, where someone has clicked on a dodgy link. It doesn’t aim to address the problem of dodgy emails getting sent or received in the first place.
+Nice.
+So, on the Sophos Home how would you block “ms-appinstaller://” (*.*?) ?
+I don’t know if you can (you will need to check with Support about that).
+You can use the policy editor on a standalone machine, which will provide some OS-level protection as described above.
+One immediate question I couldn’t see addressed: if the bundle is signed by “an accounting firm in the UK”, how is it able to show the publisher as “Adobe Inc.”? I thought part of the point of signing the bundle was that it would show the company the certificate was issued to, not some random text controlled by the publisher.
+As mentioned in the article, to see the details of the actual signer, you need to click on ‘Trusted App’. I guess the analog here is that on a website you need to click on the padlock to bring up the details on the certificate, which might not have an obvious relationship to the name of the site (or even to the name of the company running the site itself).  The signer controls the metadata in the bundle itself, and the name “Publisher” doesn’t have to be the same. The publisher  text doesn’t have to be a company name – could be a department, a subsidiary, a contractor, or indeed anything.
+Expecting “normal” users to understand that seems like a bit of a stretch. Most people would see that screen and assume that they were installing something published and signed by Adobe.
+(OK, to be fair, a lot of people wouldn’t get look past the application title, and would just click “Install”.)
+Even if you do click “Trusted App”… then what? In this case, it might make the criminals’ choice of “Adobe, Inc” as the brand to hijack seem unlikely. But even in this case the crooks still apparently had the use of an actual, valid signing certificate issued to an actual, registered company. If Microsoft thinks this is a legitimate company that can sign trusted apps, why shouldn’t you? (That’s a rhetorical question.)
+Shouldn’t .appinstaller be blocked as well?
+https://docs.microsoft.com/en-us/windows/msix/app-installer/web-install-iis
+I’m not sure exactly how .appinstaller files fit into the mix (they are, AFAIK, XML files that describe App Bundles rather than App Bundles themselves).
+But they do, as you say, appear in Microsoft’s “How to set up IIS for web installs” document, so I shall add this extension to the article… thanks!
+Firefox, for example, still uses a padlock icon to denote a “secure” site, but annotates the padlock simply with the words “Connection secure” and “You are securely connected”, without making any claims about the site itself
+However hovering over the padlock does give the potentially slightly misleading (in the case of nakedsecurity.sophos.com) tooltip: “Verified by Let’s Encrypt” without making it clear that it is the connection not the actual website that is verified?
+Hmmm. That’s true. Given that clicking once doesn’t mention Let’s Encrypt (that takes a second click), and given that you would reasonably expect that drilling down into the certificate data would add detail, not reduce it…
+…I think that’s a bug. Will you report it to Mozilla, or should I :-)
+Bug 1754811 submitted “Tooltip on padlock suggests Verified by X without making clear that it is the connection that is verified and not the website”
+Nice one!
+Status now changed from bug to enhancement!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

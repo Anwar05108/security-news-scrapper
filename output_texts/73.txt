@@ -1,0 +1,102 @@
+Sophos Home protects every Mac and PC in your home 
+German police have located and closed down the servers of Hydra, allegedly one of the world’s biggest underground online stores.
+Investigators at the Bundeskriminalamt (BKA – the Federal Criminal Police Office) claim that the Russian-language Hydra darkweb site, accessible via the Tor network, had about 17 million customer accounts (many individual buyers may have had several accounts, of course) and more than 19,000 seller accounts at the time they shuttered it.
+As you probably expect from a darkweb marketplace, the main products traded online were illegal drugs, but the site also apparently offered a money-laundering “coin tumbler” service aimed at creating hard-to-trace cryptocurrency transaction records, and did a brisk trade in forged identification documents.
+According to a report from the BBC, locating the actual servers used to run Hydra was not an easy task (the site has been online since at least 2015), but German police said they started following up on a tip in the middle of 2021 that suggested the servers were actually hosted in Germany.
+That led to the shutdown on Tuesday 2022-04-05, with the site’s main page changed to look like this:
+Tracking back both clients and servers to their source on the Tor network, which was deliberately designed to protect privacy and resist takedowns, is much more complex than tracking conventional network traffic.
+What is… Tor?
+
+
+Regular network packets on their way to a destination contain a source IP number (network location) that denotes the earliest known device in the traffic chain, and a destination address that determines the IP number they’re supposed to be sent to.
+But source IP numbers don’t always identify the exact computer that originated the request, because there could be an intermediate server that handles traffic on behalf of that computer, although source IPs often identify a related device that could help track down the true origin.
+In a typical home network, for example, your router presents itself as the source address for all your outbound network traffic, so that the rest of the world sees your whole network as a single device, with a single IP number. 
+Your router keeps track of which reply packets belong to which internal devices, and redirects the necessary data internally when the replies come back.
+This prevents law enforcement from immediately identifying exactly which device inside your household was responsible for any specific network connection, but the IP number of your router usually, and very conveniently, identifies your home address, given that your router’s IP number is allocated to your connection by your ISP.
+Your ISP can, and almost certainly will, reply to lawfully authorised demands from investigators by identifying the household associated with your IP address, whether your router is the start (e.g. you’re visiting suspicious locations) or the destination (e.g. you’re running a server accepting suspcious connections) of apparently illegal activity.
+Likewise, if you use a VPN (virtual private network), all your network traffic appears to originate from one of the VPN provider’s servers, often in a different country.
+What is… a VPN?
+
+
+The VPN provider effectively becomes both your router and your ISP, and while tracking you back to the VPN itself might be easy, law enforcement might have difficulty getting the VPN to tell them where you live, not least because the VPN operator might be in a different jurisdiction, and might not even know your real identity.
+Nevertheless, the VPN provider can identify your IP number while you’re connected, because without it they wouldn’t be able to relay traffic back to you – you’d be able to send packets out, but not to receive any replies.
+Some VPNs claim not to keep any logs of past connections, and therefore claim that it’s impossible for the police in their country or anywhere else to track back old traffic, because no records of any IP numbers are retained.
+But there are many cases where “log-free” VPN providers turned out not only to be keeping logs anyway, but also to have suffered data breaches that leaked this “non-existent” information to outsiders.
+In fact, the problem with relying on a VPN provider as the primary way of maintaining your anonymity is that you have to have total trust in the technical abilities and ethics of the provider and all their staff.
+7 VPNs that leaked their logs – logs that weren’t even supposed to exist
+
+
+Tor aims to improve on the “what if you can’t trust the person in the middle” problem by bouncing anonymised traffic through three different, randomly chosen “routers” in succession.
+When you create a Tor connection, your client software randomly selects three nodes from a pool of about 7000 different Tor nodes run by volunteers around the world, and directs your traffic through those three nodes, like this:
+Additionally, and this is the clever part, the identity of Server is encrypted with the public key of the Tor3 node, and this encrypted blob is then encrypted with the public key of Tor2, which is then encrypted with the public key of Tor1. 
+Thus the routing details of your network traffic are encrypted in multiple layers, like an onion, which is why Tor’s full name is The Onion Router.
+So the Tor1 node knows your IP number, and can use its private key to decrypt the outer layer of the onion to find the the IP number of theTor2 node, to which it passes on the remaining layers of the onion. 
+But Tor1 can’t peek any deeper into the encrypted onion and find out the identity of Tor3 or of the Server you want to end up on.
+Likewise, the Tor3 node can strip off the final layer of the onion, which reveals the innermost secret of the Server you want to visit, but it can only trace your traffic back to Tor2, and therefore has no idea where Tor1 is located, let alone where the Client computer is.
+The Tor2 node in the middle is there to add another layer of anonymity protection, because it keeps Tor1 and Tor3 apart.
+That means, if Tor1 and Tor3 just happen to be nodes “volunteered” by collaborating law enforcement teams or intelligence agencies, they can’t directly collude to match up your traffic patterns and unmask your identity that way.
+In other words, to unmask an individual connection, an attacker would need to control all the Tor nodes chosen for that connection, and to keep a careful and detailed record of each relay connection on each node.
+(Tor also works against collusion by “rewiring” long-lasting connections regularly, typically rebuilding each virtual circuit automatically every 10 minutes, and creates a new circuit with new nodes for each new connection.)
+Tor and anonymous browsing – just how safe is it?
+
+
+If the Server you connect to in the diagram above is a regular server on the internet, then your network connection emerges from Tor into plain sight after Tor3, so the content of your traffic to Server, and that server’s physical location online, is also in plain sight.
+But if the final server is itself a darkweb server on the Tor network, identified by one of those mysterious URLs that end with .onion instead of a regular top-level domain name, your traffic never leaves Tor once it’s entered the Tor network via the Tor1 node.
+Loosely speaking, in a true darkweb connection, the final server connection is handled as a fourth hop in the Tor chain, which rather neatly adds anonymity at both ends.
+A “four-hop” Tor-only connection means not only that the server doesn’t know your IP number, and therefore couldn’t reveal it even if it wanted to, but also means that you never know the server’s IP number.
+In other words, even if you get put under surveillance yourself, or busted, your browsing activity and your logs won’t, and can’t, give away the likely physical locations of any darkweb services you’ve been using.
+So, ISPs who don’t care what sort of customers they serve, and who don’t tell the truth when presented with search warrants or other “know your customer” requests, can, in theory, surreptitiously operate services known in the jargon as bullet-proof hosts, even though they may themselves be in a country with strict know-your-customer rules and powerful lawful interception provisions.
+Thanks to the multi-hop “onion encryption” of an anonymising service such as Tor, clients and servers can make contact without giving away where on the internet the other end can be found, which makes servers of this sort much harder to locate, and therefore much harder to take down.
+In this case, Tor wasn’t enough to prevent the location of the alleged Hydra servers being tracked down and “repurposed” by law enforcement, as happened when the BKA replaced the Hydra home page with the site seizure message shown above.
+As an aside, we noticed that the handcuffs in the image very unusally have three identical wrist-cuffs, which seems redundant, given than almost all humans have at most two arms, and dangerous, given that, if those restraints were applied to a two-armed suspect, the loose cuff could be swung around by the person being arrested as an improvised weapon. 
+We therefore can’t help wondering whether those triple-cuffs are a visual metaphor that references the three-node basis of Tor connections. 
+Perhaps the three interconnected cuffs are there to remind us that, with good intelligence and technical determination, even three apparently unconnected and anonymous Tor relays can be linked together evidentially and bust the anonymity of the system?
+The Dark Web: just how dark is it?
+
+
+(Note that Tor doesn’t claim to guarantee your anonymity or to be able to immunise your connection from takedown no matter what, so if you have a legitimate reason to use Tor, be sure to read the project’s guidelines before you start, and to remember Tor’s own advice that “[g]enerally, it is impossible to have perfect anonymity, even with Tor.”)
+Following the German takedown, during which about $25,000,000 in cryptocurency was seized, both the US Department of Justice (DOJ) and the Department of the Treasury’s Office of Foreign Assets Control (OFAC) put out press releases about the US follow-up to the invervention.
+As the OFAC notes:
+In addition to sanctioning Hydra, OFAC is identifying over 100 virtual currency addresses associated with the entity’s operations that have been used to conduct illicit transactions. Treasury is committed to sharing additional illicit virtual currency addresses as they become available.
+The DOJ added:
+In conjunction with the shutdown of Hydra, announced criminal charges against Dmitry Olegovich Pavlov, 30, a resident of Russia, for conspiracy to distribute narcotics and conspiracy to commit money laundering, in connection with his operation and administration of the servers used to run Hydra.
+Russia, like many other countries, doesn’t extradite its own citizens, even in peacetime, so whether those criminal charges will have any effect is anyone’s guess.
+Nevertheless, as the three-armed handcuff metaphor reminds us, as the Tor Project itself carefully and explicitly states, and as this multinational takedown operation shows, it’s impossible to have perfect anonymity on the internet.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The abbreviation for Bundeskriminalamt is BKA (at least in German, as also shown on the picture), not BKI as twice mentioned in the text.
+Don’t know how that happened. (And it was three times, not twice, but let’s pretend I didn’t admit to that.)
+Thanks… I’ve fixed it now.
+I know what I did. I was typing BKA but my mind was thinking of the BSI, and out came the I at the end! (BSI = Bundesamt für Sicherheit in der Informationstechnik.)
+(Another amusing excuse would be that the final letters are swapped in their US equivalents, where I’d say the BS*A* sort-of aligns with the FB*I* while the BS*I* is a bit like the NS*A*. But that is not how it happened. I saw BKA but thought of “Informationstechnik” :-)
+Thank you for the explanation of the Tor network’s method of hiding the target from the source. That is something I’d never grokked before.
+Great write-up.
+Thanks. Glad you found it useful.
+I probably should have mentioned (or perhaps this is a topic for another day) that although the source knows the *name* of the .onion site it wants to go to, onion names are not regular domain names and don’t have IP numbers that you can look up (they aren’t, indeed can’t be, resolved using DNS). They exist only as pseudoanonymous destinations *inside* the Tor network.
+Just letting you know, the three-rings cuff is an ironic pun dropped by the german authorities.
+What you see is a logo where the three blue columns are the 3 Hydra heads.
+Basically the police made a logo of a 3 rings cuff that catches all the 3 hydra heads at once.
+If you slash only one neck off the Hydra it will make get a new head since it’s still alive.
+But if you cut all the heads at once the Hydra is defeated.
+Instead of using swords for the metaphor of defeating the hydra, they used the special hydracuffs(TM).
+And since all the Hydra heads are cuffed at once, one head will be unable to break the cuffs to free the others.
+So they’ve shutdown the Hydra network & arrested their Hydra mascot as well.
+It’s funny that the german police did this.
+I hope they will let that poor Hydra creature go when they’re done investigating.
+That poor Hydra just wanted to protect its owner, it doesn’t even know what police is.
+Sorry if the line breaks / newlines don’t work in my comment.
+I’ve properly written it with paragraphs before submitting, even if it ends up looking botched.
+The Hydra, however, had nine heads. (As depicted in the headline image at the top of the article.)
+“… your client software randomly selects three nodes from a pool of about 7000 different Tor nodes …”
+If Alice has control over the “your client software”, i.e., can modify it,  then can’t Alice select the nodes in a deterministic fashion – to be the Tor Nodes owned by her friends Bob, Carol, and Dick?
+Yes. Though if Alice has that sort of control then they could probably just read out your IP number directly. But an attacker on your computer could indeed pre-select one, two or three of the nodes used each time. (In fact, you can do this yourself fairly easily, for example if you want your exit node – assuming you are emerging into the regular web, not staying dark – to be in a specific country for apparent geolocation reasons, though this is not recommended due to the serious limitation in randomness it imposes.)
+So how was the identity of those criminals revealed while using TOR, do we know that?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,75 @@
+Sophos Home protects every Mac and PC in your home 
+What does the word Glib mean to you?
+Does it make you think of a popular programming library from the GNOME project? 
+Do you see it as a typo for glibc, a low-level C runtime library used in many Linux distros? 
+Do you picture someone with the gift of the gab trying to sell you a product of a type you don’t need with a quality you wouldn’t accept anyway?
+
+In this article, it turns out to be the first name (in Latin script, anyway) of a convicted cybercriminal called Glib Oleksandr Ivanov-Tolpintsev.
+Originally from Ukraine, Tolpintsev, who is now 28, was arrested in Poland late in 2020.
+He was extradited to the US the following year, first appearing in a Florida court on 07 September 2021, charged with “trafficking in unauthorized access devices, and trafficking in computer passwords.”
+In plain English, Tolpintsev was accused of operating what’s known as a botnet (short for robot network), which refers to a collection of other people’s computers that a cybercriminal can control remotely at will.
+A botnet acts as a network of zombie computers ready to download instructions and carry them out without the permission, or even the knowledge, of their legitimate owners.
+Tolpintsev was also accused of using that botnet to crack passwords that he then sold on the dark web.
+
+Zombie networks can typically be ordered around by their so-called bot-herder in many different ways.
+Co-opted computers can be controlled individually, so each can be set to a different task; groups of zombies can each be assigned one of a set of tasks; or all the zombies can be harnessed simultaneously.
+(Don’t forget that the tasks that crooks can and do launch on infected computers include spying on their owners to log keystrokes, take screenshots and identify interesting files, followed by uploading any and all interesting information collected during the data gathering phase.)
+How bots and zombies work, and why you should care
+
+
+When all the bots in a botnet co-operate on the same task, the bot-herder ends up with what is essentially a massively distributed “cloud supercomputer” that can split up one time-consuming project, such as trying to crack a million different passwords, into hundreds, thousands or even millions of subtasks.
+Password cracking is a computer science problem that is sometimes referred to in the jargon as embarrassingly parallel, because the algorithmic process involved in cracking the password hash 499a5cb2 7ca65c36 d239ebce 7af641e5 is entirely independent of cracking, say, 800e8536 0c6997fa 909bb9f5 d0fabe46.
+In contrast, in applications such as modelling river flows or making weather forecasts, each computer or node in the network needs to share intermediate results with its neighbours, and they with theirs, and so on, to model the highly dynamic nature of fluids and gases.
+This makes the processor interconnections in most supercomputer applications at least as important as the raw computing power of each processor node in the system.
+But password cracking in its simplest form can trivially be sliced up into as many sub-tasks as you have processor cores available.
+Each processing node needs to communicate with the bot-herder just twice – once at the start to receive its part of the password list to work on, and once at the end to send back a list of any successful cracks.
+Quite literally, the problem scales linearly, so that if it would take you 100 years to crack 1,000,000 passwords on your own computer, then it would take only one year using 100 computers; just over a month with 1000; and under an hour if you had 1,000,000 computers at your disposal.
+The US Department of Justice (DOJ) doesn’t say how big Tolpintsev’s botnet was, but does say that he ran a dark web password forum known simply as The Marketplace, and claimed to add about 2000 newly-cracked usernames and passwords to his “sales stock” every week.
+If we assume that many, if not most, of Tolpintsev’s illegally-acquired passwords were cracked from password databases stolen from various cloud services, then it’s reasonable to assume that many of the new passwords added to his online catalogue each week came from a randomly chosen pool of users.
+In other words, we’re assuming that those 2000 new passwords probably weren’t the logins of 2000 users who all happened to work for the same organisation.
+Instead, he probably gave potential password purchasers the chance to buy access to accounts associated with large numbers of different companies. (A cybercriminal doesn’t need a password for every user in your network to break in – one password on its own might be enough for a beachhead inside your business.)
+We’re also guessing that Tolpintsev had sources beyond his botnet, because the DOJ’s press release claims that he had a total of 700,000 compromised accounts for sale, including 8000 in the US state of Florida alone, which is presumably why Florida was chosen for his trial.
+The DOJ says that the servers for which Tolpintsev claimed to have access credentials…
+…spanned the globe and industries, including local, state, and federal government infrastructure, hospitals, 911 and emergency services, call centers, major metropolitan transit authorities, accounting and law firms, pension funds, and universities.
+Tolpintsev pleaded guilty in February 2022.
+He’s now been sentenced to four years in prison, and ordered to pay up $82,648 that the DOJ could show he’d “earned” by selling on the passwords he’d cracked.
+Tolpintsev’s ill-gotten gains, at just over $80,000, may sound modest compared to the multi-million dollar ransoms demanded by some ransomware criminals.
+But the figure of $82,648 is just what the DOJ was able to show he’d earned from his online password sales, and ransomware criminals were probably amongst his customers anyway.
+So, don’t forget the following:
+When it comes to cybersecurity, you can’t sit around on the sidelines taking a shrug-your-shoulders-and-see-what-happens approach.
+As we’ve said before many times, if you aren’t part of the solution, then you are part of the problem.
+Don’t be that person!
+
+Serious Security: How to store your users’ passwords safely
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Nice article.
+One suggestion – I would consider hyphenating bot-herder.
+It took me several moments of confusion until I worked out how it was supposed to be pronounced (-:
+(Botherder – one who is actively being botherd?)
+Cheers.
+I’ve always written it unhyphenated before but I can see how the word could be a nuisance (like the difference between “shepherd” and “emphatic”).
+I think I’ll go back and change it… thanks for the comment.
+Annoying that we used to have letters of our own in English for the different “th” sounds in the words in “there” and “thick”, but got rid of those letters ages ago. The letters “Eth” (Ð, ð) and “thorn” (Þ, þ), which you still get in Icelandic, got dumped from English despite being rather useful. So TH can now represent T (e.g. River Thames, which ironically comes from the Latin TAMESIS, with no -H- in sight), in the same way that PH can be confusingly be the single letter F, yet TH can also represent two other sounds for which we once had special letters but decided we didn’t need them.
+If we still had Eth and Thorn then BOTHERDER would be unambiguous…
+(In chemistry, they just stopped writing “sulphur”, which is still widely used in Britain and the Commonwealth in non-scientific texts, and started calling it “sulfur” instead. Confusion removed.)
+> …for which we once had special letters but decided we didn’t need them
+Per Wikipedia, the modern digraph th began to grow in popularity during the 14th century, with thorn losing its ascender (becoming similar in appearance to the old wynn (Ƿ, ƿ) and ultimately our modern letter P.
+One of the last major uses of thorn was the King James Bible’s first printing in 1611.
+– – –
+I expect the (ye?) decision to dump extra letters like thorn and eth was made knowing that my 104-character keyboard wouldn’t have space for poor ol’ (ye olde?) thorn.
+:,(
+A good reminder that “Ye”, as in “Ye Olde Overwprice Tourist Shoppe” (rather than “Ye” as in “Now hear ye”, or the artist formerly known as Mr West) should be spoken aloud as “The”, because that is what is is, in the same way that the titles “Mr” and “Mrs”, which are now words in their own right rather than abbreviations, are not pronounced “myrrh” and “myrrhs”.
+Phabhulous comment.
+Tanks Duck.
+I always phind a trill reading your filosofy.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

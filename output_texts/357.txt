@@ -1,0 +1,92 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve written about the uncertainty of Apple’s security update process many times before.
+We’ve had urgent updates accompanied by email notifications that warned us of zero-day bugs that needed fixing right away, because crooks were already onto them…
+…but without even the vaguest description of what sort of criminals, and what they were up to, which would at least help to round out the story.
+Our approach has therefore been simply to assume the worst, and to infer that the story that Apple wasn’t telling ran something like this: “Devices analysed in the wild found to have hidden spyware implanted by unknown threat actors.”
+And we’ve therefore followed our own rhyming advice of: Do not delay/Simply do it today.
+We’ve had updates arrive for the very latest macOS and iOS versions, but with nothing for earlier supported versions, with no mention of whether those devices were immune by good fortune, at risk but left in limbo for a while, or at risk but never going to be fixed.
+Sometimes, those older versions have received their own patches for exactly the same zero-day holes, without explanation, days or weeks later.
+At other times, the next updates for those older versions have at least implied that the zero-day holes didn’t affect them after all.
+Well, today (which just happens to be a public holiday in the UK, as we celebrate Beltane and the approximate halfway point between vernal equinox and summer solstice), we received a brand new sort of update notification for both our Mac and our iPhone.
+This one announced what Apple calls a Security Response, tagged not with a new version number, but with a letter in round brackets after the existing version number.
+For macOS Ventura, we were offered version 13.3.1 (a) and for our iPhone, we were offered 16.4.1 (a).
+On both devices, there was a brand new URL that linked not to Apple’s usual HT201222 Security Updates portal (which hasn’t been updated since 2023-04-12 – we checked), but to a brand new page named HT201224, entitled Rapid Security Responses:
+Rapid Security Responses are a new type of software release for iPhone, iPad, and Mac. They deliver important security improvements between software updates — for example, improvements to the Safari web browser, the WebKit framework stack, or other critical system libraries. They may also be used to mitigate some security issues more quickly, such as issues that might have been exploited or reported to exist “in the wild.”
+We couldn’t help but smile at the choice of words, as we suspect you will too.
+The well-known and widely-understood phrase in the wild is stuck between air-quotes; the phrase zero-day is avoided entirely, and any possible in-the-wildness is waved away as might have been exploited, and left unadmitted with the words reported to exist.
+As Apple notes, this sort of rapid patch is the firt of its sort: New Rapid Security Responses are delivered only for the latest version of iOS, iPadOS and macOS — beginning with iOS 16.4.1, iPadOS 16.4.1, and macOS 13.3.1.
+So, at least we know that there aren’t supposed to be updates right noe for iOS and iPadOS 15, or for macOS 11 and 12 (Big Sur and Monterey), because those versions don’t support the this new rapid-patching system.
+But that’s all we know, because what you see above is, as the saying goes, all she wrote.
+There are no release notes to go with the 13.3.1 (a) and 16.4.1 (a) patches for macOS and iOS/iPadOS, so the parts of the system needed patching, and the nature of the vulnerabilities that were fixed, are left unsaid.
+The HT201224 web page invites us to assume that this sort of emergency fix will be use to patch serious WebKit or kernel-level bugs (the very sort that malware implanters and spyware operators love to exploit), but just how dangerous and exploitable the unknown bugs are in this case is, obviously, unknown.
+Nevertheless, given that these Rapid Security Responses sound very much like zero-day anti-spyware fixes, and that Apple is at least clear that they relate to “important security improvements”, we went ahead with them, forcing an update of our devices right away.
+We tried logging into our App Store account (we normally login only to get app updates, which do require an authenticated connection, as explicitly noted by the App Store app), but that made no difference.
+Retrying didn’t help either.
+Have you updated yet, and if so, how did you get along with the process?
+Update. About an hour after we first tried installing the update on our phone, we had another go. This time the update verification succeeded, our phone instantly rebooted and the Rapid Security Response was installed and the reboot completed within a few tens of seconds, rather than the usual tens of minutes or longer. [2023-05-01T20:00:00Z]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+i Updated my company phone. Process was faster than usual. Took 3-4 minutes which is probably half what i usually get. Didn’t prompt to restart like it usually does just did the restart.
+Yes, I noticed that. Once I chose chosen Install Now after it had downloaded (and I didn’t get a network error), the reboot kicked in immediately after the verification stage, which took a few seconds, rather than a few minutes that it grinds away when applying a full-size update.
+I didn’t have any unsaved work or unsent emails, and I was sitting looking at the update app screen itself when it rebooted, so I don’t know what would happen if you had another app active and were in the middle of something. Would it wait until the update app came to the foreground? Would it send a notification? Obvs. Apple hates downgrades (because they help jailbreakers) so I can’t try it again until next time.
+And I still don’t see anything from Apple to give me the slightest clue what sort of bug was fixed, or why, or in which part of the system.
+I suppose it will be a secret until the details of this urgent update are documented in the release notes at the next system update (the emergency updates are rolled into those in case you have these urgent updates turned off, so you will get them eventually even so).
+When my download finished, it did prompt me if I wanted to restart or postpone the update. I was just flicking through System Settings and had nothing else open.
+I also find interesting that you can actually remove the Security Response patches and essentially downgrade iOS
+Settings > General > About > iOS Version
+Oh. I didn’t realise you can remove them! Presumably that’s to allow Apple to be a bit more aggressive and quick? (You aren’t stuck if it doesn’t work.) 
+I did update my iPhone just now, only took a hot minute and went smoothly without any issues. Still keeping automatic updates off 🙂
+Updated an hour ago, no issues, did prompt for a reboot. Rebooted, tested work apps and phone, no issues so far. A hounding search found no info on what they patched,,, very interested to know.
+The implications of the HT201224 page is that this sort of thing is only for clear and present dangers at browser or core system level. 
+Even when the release notes just said “one WebKit RCE and one kernel level total security bypass, both zero-days”… that was at least of some use. Because you knew it probably meant that some purveyor of sneaky surveillance software was using it to track people that they or their customers didn’t like very much, and that the exploits really did work (and probably weren’t terribly noticeable).
+There is a summary of *some* of the things that got patched. As another commenter said, it’s in Settings > About > iOS Version. But the summary on my phone says that the fixes include: pushing-hands emoji doesn’t show skin tone variations, and Siri doesn’t always respond when asked. Oh, and possibly other important bug fixes and security updates. It then tells me that HT201222 will tell me about the security fixes, but there is nothing new there…
+Neither of those things sound like serious WebKit bugs or critical code library holes to me that would provoke a Rapid Security Response, I must say. But I have the update anyway. Just in case.
+The Pushing Hands Skin Tones and Siri fixes were part of the prior update.  My iPhone has not updated to (A) yet, but I noticed those bug fix comments after the last update.
+Ah, you are right. That text (about the Hands and Siri) is in a box headlined 16.4.1, while the 16.4.1 (a) is in a separate (and presumably subsequent box) below it. 
+The immediate appearance implies to me that it was the latest news but it seems it is the latest news and the latest patch to that news. Presumably if there is a (b), (c) etc. they will get their own boxes…
+We’ll be discussing this new feature in this week’s Naked Security Podcast, which we’re recording tomorrow (Wednesday 2023-05-03). If you have any comments or questions you would like us to cover…
+…please let us know below! 
+(If you want to ask a question anonymously but not to have the comment published here, you can simply say so in the comment – or email us on tips@sophos.com instead.)
+My iPhone and iPad were set to do these automatically, but hadn’t. Doing it manually it downloaded and installed (via 5G/FTTC+WiFi) quickly with no issues…
+OK. I took one (two, actually) for the team. I removed the Rapid Security Response from my phone. It did a minute or so of “preparing”, then rebooted from the Settings > General >About > iOS Version page automtically. After a few seconds I was being asked for my lock code and my SIM PIN, and that was the update reverted. 
+I then went back into Settings > General > Software Update and kicked off the update a second time. While it was downloading, I came to this very web page in my browser and started typing in a comment, sticking around as if busy for about 10 or 15 mins. When I switched back to the home page I was only then warned about the need to reboot, and was asked to choose whether to do it now, to do in the middle of the night, or to be reminded again later.
+When I triggered the reboot cycle again, via Install Now on the Settings > General > Software Update screen, there was a verification check (this time, done in seconds, no network trouble), an instant black-screen reboot taking a few more seconds, and that was it. Reinstalling it was quicker that removing it.
+So it seems like a decent convenience for urgent fixes, though not much help to users of older devices that need older versions of macOS or iOS. Let’s hope this feature doesn’t end up leaving them waiting even longer to get the patches in “roll-up” form later on…
+iPhone just now manually updated.  For about four minutes it said “preparing security response” and then automatically restarted the phone.
+On my iPad, the update downloaded okay, but during installation the same warning, about not being connected to the internet that Paul saw, flashed up.
+However it seems that the installation went ahead, as my device restarted and showed the installed OS as 16.4.1(a) without any intervention on my part.
+If the option to remove it is there in Settings >  General > About > iOS Version then it must be installed :-)
+Manually updated  iphone and i pad all within 5 minutes all seems to be ok  after reading article
+A second to download, half minute to verify, <10 seconds to update and reboot.
+Update worked on my iPhone 14 Pro Max in less than a minute. Maybe 10 seconds in my iPad Pro, it was waiting for me on that, no notice of it on the iPhone – something I wish they would do so I wouldn’t have to rely on newsletters to know when an update is there! Both show it installed.
+I updated iPads 7th gen and 9th gen, iPhones X snd SE2, and observed a friend update an iPhone X.  All the devices had wildly different installation times.  The iPad 7th gen was the fastest with only a few seconds to prepare the update and a quick reboot.  The slowest was the iPad 9th gen which took minutes to download, several minutes to prepare and then close to 10 minutes with slowly progressing white line and two reboots almost as if it were doing a full iPad OS upgrade.  In all cases the devices were starting out with iPad OS 16.4 or IOS 16.4.
+It is hard to say what was going on with the protracted reboot cycle on several devices, but in some cases it may be that the security update also includes  a firmware update.  I did not experience the loss of Internet issue which some others have reported.
+Apple Watch Series 7 and 7th generation iPod have as yet not received security updates.
+Neither watchOS or tvOS are on the list of platforms that will get these Rapid updates. 
+Only devices already running the latest macOS (13.3.1) or iPadOS/iOS (16.4.1) are included in the process. For everything else, it’s “wait until next version number update”.
+Both iPhone 13 Pro Max and MacBook Pro, (2023 M2 chip) installed the Rapid Security Update (a) smoothly and without a hitch. Each updated much more quickly than normal. I also found that each machine allows the Rapid Security Update to be removed.
+Hi Paul
+Yeah that was one hell of a fast update I clicked on update, I went to the kitchen to grab a beer and a snack was about 3mins came back and BANG updated gotta be a first for 🍏
+Oh yeah sorry I never stated it was for iphone
+Presumably Apple stays tight-lipped on the details to limit what the miscreant community knows about vulnerabilities, patched and unpatched. No point in drawing a roadmap for the bad guys.
+There’s “tight-lipped” (e.g. “bug in WebKit could allow drive-by malware delivery”, or “kernel system call could leak address layout data”), where you have some idea of why the patch is important and what sort of malevolence it could be used for…
+…and there’s “total information blackout”, or (as a cynic might say) “blindly trust us to know what we are doing, even though we coded the hole in the first place.”
+I was gifted an ancient (by mobile phone standards) an old (5 yrs.) iPhone SE. It is set to auto upddate so I guess I don’t need this as it says I am already at 15.7.5?
+Should I leave auto update on? I rarely go into Settings…
+iOS 15 isn’t getting these Rapid Security Responses. So you are stuck with waiting for the next full “version number” update, which Apple says will have all intermediate Rapid patches rolled into it.
+HtH.
+My iPhone updated quickly and easily. But I don’t see any update for my iPad.
+Is your iPad [a] new(ish) and [b] already running ipadOS 16.4.1? If not, you aren’t elegible…
+My iPhone XR is now just about bricked.  (Infinite boot loop, can’t update…). And backups have been failing for a few months – both local and to cloud – even with Genius Bar help for ~6 hours.  So frustrated.  Headed back to the “Genius Bar” – air quotes clearly needed here, shortly…
+You’ll lose all your data…
+…but have you tried a DFU? (Device firmware upgrade.)
+It’s not so much an upgrade as a “start again with the latest factory image”, following a special reboot into recovery mode.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,69 @@
+Sophos Home protects every Mac and PC in your home 
+Here on Naked Security, we’ve been lamenting the mysterious nature of Apple’s security updates for ages.
+For example, even when widely-known security problems appear in components that are part of Apple’s operating system, Apple routinely refuses to say when, or even if, it plans to address the issues itself.
+Back in February 2013, for instance, a dangerous bug was found and patched in the widely-used sudo command:
+Anatomy of a bug – the five minute insecurity window in the sudo command
+
+
+As you probably know, sudo is a program that allows you to substitute the current user and do a command (strictly, su here stands for setuid(), the Unix/Linux function used to switch between accounts).
+Because the most prevalent use of sudo is to switch up to the root account, rather than down to a less privileged one…
+…any authentication bypass bug in sudo should be considered critical, because it could provide anyone who’s currently logged into your computer with a trivial and apparently official way to to turn themselves instantly into an administrator.
+The bug in this case, CVE-2013-1775, was patched almost immediately by the sudo project, and the update was distributed almost immediately and universally throughout the BSD and Linux ecosystems.
+Apple, however, infamously said nothing, even though the bug affected its own products.
+After six months of silence, a public exploit appeared for use with the popular cybersecurity attack tool Metasploit, perhaps in an effort to squeeze Apple into action:
+Apple neglects OS X privilege escalation bug for six months, gets Metasploit on its case…
+
+
+By not saying anything at all – and that is Apple’s official policy on cybersecurity updates: no comment until after the fix is out – the company leaves its users unable to figure out whether Apple:
+In the sudo bug case, Apple did eventually come to the party, and updated its own products in September.
+Of course, Apple’s style of public security discourse means that we still don’t know whether the company sluggishly took seven months to implement a fix that took other operating system distros just a few days to sort out, or worringly decided to ignore the bug it altogether until the Metasploit exploit forced its hand:
+Apple ships OS X 10.8.5 security update – fixes “sudo” bug at last
+
+
+The flip side of Apple’s “cybersecurity cone of silence” is that security patches that arrive suddenly – as welcome as they are if they fix critical problems – often show up with uncertain and incomplete explanations that leave users and network administrators with little to work with.
+When a zero-day security hole gets patched, how do you go threat hunting to see if you were one of the unlucky people who already got targeted by cybercriminals…
+…if you have next to nothing to go on even after the update is available and you know you’re safe now?
+That’s where Apple users are today, following last night’s release of emergency updates for macOS, iOS and iPadOS.
+If this were a Microsoft patch, we’d probably be referring to it as “out of band”, a jargon term commonly used to denote that an update is a critical one-off that just couldn’t wait for the next round of scheduled updates, and therefore doesn’t fit into the expected cycle.
+Of course, in Apple’s world, there is no “band” that an individual update can be “out of”, given that all its updates arrive unnannounced and unexpected.
+Nevetheless, this one feels even more urgent and important than usual, given that there is just one bug fixed, dubbed CVE-2022-22620, that affects Apple’s WebKit browser substrate, and is described with these words:
+Impact: Processing maliciously crafted web content may lead to arbitrary code execution. Apple is aware of a report that this issue may have been actively exploited.
+Description: A use after free issue was addressed with improved memory management.
+You should assume this means “booby-trapped web pages could pwn your phone in a zero-click attack.”
+A zero-click browser attack means that just looking at a web page, even if you don’t download anything from it or see any warnings or pop-ups on it, could steal private data, make unauthorised changes, or implant malware, including spyware.
+(You may also have heard this sort of attack, when used to infect your device with malware, referred to by the jargon term drive-by download, where just window-shopping a website could leave you unknowingly infiltrated.)
+Remember that bugs in WebKit always affect Safari, which is based on WebKit, and often affect apps with browser-like features, because those apps often use WebKit as a utility library to simplify their own coding.
+Also, bugs in WebKit also affect every browser on iPhones and iPads, even non-Apple browsers like Firefox, Edge and Chrome, because Apple won’t allow other vendors’ browsers into the App Store if they bring their own low-level browser engine with them: under the surface, it’s WebKit or nothing.
+Users of the previous two iOS and iPadOS versions, iOS 14 and iOS 12, you’re out of luck yet again: Apple has once more maintained its oath of silence about your situation. 
+Are you unaffected because this bug isn’t in older WebKit code? Affected but won’t get the update for a while yet? Or simply and silently unsupported and never going to get a fix for this or any other future bugs? (Those are rhetorical questions: there’s no way to tell.)
+In the list above, you’ll note that we wrote Safari 15.3* for Catalina and Big Sur users (that asterisk is not a typo), which is how Apple denotes the patch in its own bulletin.
+Annoyingly, the version you already have is Safari 15.3, and the version you’ll have after updating is still Safari 15.3.
+The only way to tell the old and new verions apart is to do Safari > About, and check the five-part version meganumber that comes up: if it ends 4.9.1.7 then you are out of date; if it says 4.9.1.8 then you’re patched.
+Surprisingly, perhaps, the copyright notice still says 2003-2021 in both versions, as though Apple knew about this bug and coded up the fix last year, even though there have been numerous other WebKit bugs fixed in the interim:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+How much, if any impact does this bug have if you don’t use Safari?  I do all my Mac web browsing with Firefox.
+I realize that macOS uses WebKit internally for some apps (e.g. the Music store), but I assume that Apple’s sever would have to be compromised in order to receive malicious content through that vector.
+(I did install the update.  I’m just curious, not cavalier.)
+The problem ia that even if you don’t use Safari explicitly for browsing, it’s still there, along with WebKit and any number of other network-based apps, and so either Safari or any of those WebKit-connected apps *could* get launched for some reason, could fetch data via HTTP (or in any other way), and could end up using WebKit to render it for display. (Help screens often use a “minibrowser” window, because it’s an excellent way of writing, maintaining and displaying advice or instructions.)
+So I recommend updating in the same way that you’d update Windows for an Internet Explorer/MSHTML bug even if you were a Firefox user, and even now that Edge is the default web browser on Windows.
+From the article: 
+Also, bugs in WebKit also affect every browser on iPhones and iPads, even non-Apple browsers like Firefox, Edge and Chrome, because Apple won’t allow other vendors’ browsers into the App Store if they bring their own low-level browser engine with them: under the surface, it’s WebKit or nothing
+Thanks for this informative “patch now” article. No bashing please. Patches were already applied or pending. Sophos does an awesome job with hardware, software, support and information. On a side note, after nearly 30 years in IT, I have found the most reliable, trouble-free OS, to be Linux and Mac. They just work. But they are not perfect.
+Saying that “su” stands for substitute seemed odd to me. I’d always assumed it stood for “superuser”.
+I think of “su-” as standing for setuid(), the system call for “set user identity”. So, although sudo is most commonly used to trigger a “setuid(0)” call, where 0 is ID of the root (superuser) account, the man page officially says: “sudo –  execute a command as another user”.
+For example:
+$ sudo -u ‘#1002’ whoami
+bernoldus
+$ sudo -u ‘#0’ whoami
+root
+Admittedly, the default is to switch to root (if allowed), but you can tell sudo to setuid() to any account name or number you like…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

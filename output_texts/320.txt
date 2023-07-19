@@ -1,0 +1,48 @@
+Sophos Home protects every Mac and PC in your home 
+Linux has never suffered from the infamous BSoD, short for blue screen of death, the name given to the dreaded “something went terribly wrong” message associated with a Windows system crash.
+Microsoft has tried many things over the years to shake that nickname “BSoD”, including changing the background colour used when crash messages appear, adding a super-sized sad-face emoticon to make the message feel more compassionate, displaying QR codes that you can snap with your phone to help you diagnose the problem, and not filling the screen with a technobabble list of kernel code objects that just happened to be loaded at the time.
+(Those crash dump lists often led to anti-virus and threat-prevention software being blamed for every system crash, simply because their names tended to  show up at or near the top of the list of loaded modules – not because they had anything to do with the crash, but because they generally loaded early on and just happened to be at the top of the list, thus making a convenient scapegoat.)
+Even better, “BSoD” is no longer the everyday, throwaway pejorative term that it used to be, because Windows crashes a lot less often than it used to. 
+We’re not suggesting that Windows never crashes, or imlying that it is now magically bug-free; merely noting that you generally don’t need the word BSoD as often as you used to.
+Of course, Linux has never had BSoDs, not even back when Windows seemed to have them all the time, but that’s not because Linux never crashes, or is magically bug-free.
+It’s simply that Linux doesn’t BSoD (yes, the term can be used as an intransitive verb, as in “my laptop BSoDded half way through an email”), because – in a delightful understatment – it suffers an oops, or if the oops is severe enough that the system can’t reliably stay up even with degraded performance, it panics.
+(It’s also possible to configure a Linux kernel so that an oops always get “promoted” to a panic, for environments where security considerations make it better to have a system that shuts down abruptly, albeit with some data not getting saved in time, than a system that ends up in an uncertain state that could lead to data leakage or data corruption.)
+An oops typically produces console output something like this (we’ve provided source code below if you want to explore oopses and panics for yourself):
+Unfortunately, when kernel version 6.2.3 came out at the end of last week, two tiny changes quickly proved to be problematic, with users reporting kernel oopses when managing disk storage.
+Kernel 6.1.16 was apparently subject to the same changes, and thus prone to the same oopsiness.
+For example, plugging in an removable drive and mounting it worked fine, but unmounting the drive when you’d finished with it could cause an oops.
+Although an oops doesn’t immediately freeze the whole computer, kernel-level code crashes when umounting disk storage are worrisone enough that a well-informed user would probably want to shut down as soon as possible, in case of ongoing trouble leading to data corruption…
+…but some users reported that the oops prevented what’s known in the jargon as an orderly shutdown, requiring forcibly cycling the power, by holding down the power button for several seconds, or temporarily cutting the mains supply to a server.
+The good news is that kernels 6.2.4 and 6.1.17 were immediately released over the weekend to roll back the problems.
+Given the velocity of Linux kernel releases, those updates have already been followed by 6.2.5 and 6.1.18, which were themselves updated (today, 2023-03-13) by 6.2.6 and 6.1.19.
+If you are using a 6.x-version Linux kernel and you aren’t already bang up-to-date, make sure you don’t install 6.2.3 or 6.1.16 along the way.
+If you’ve already got one of those versions (we had 6.2.3 for a couple of days and were unable to provoke a driver crash, presumably because our kernel configuration shielded us inadvertently from triggering the bug), consider updating as soon as you can…
+…because even if you haven’t suffered any disk-volume-based trouble so far, you may be immune by good fortune, but by upgrading your kernel again you will become immune by design.
+EXPLORING OOPS AND PANIC EVENTS ON YOUR OWN
+You will need a kernel built from source code that’s already installed on your test computer.
+Create a directory, let’s call it /test/oops, and save this source code as oops.c:
+Create a file in the same directory called Kbuild to control the build parameters, like this:
+Then build the module as shown below. 
+The -C option tells make where to start looking for Makefiles, thus pointing the build process at the right kernel source code tree, and the M= setting tells make where to find the actual module code to build on this occasion.
+You must provide the full, absolute path for M=, so don’t try to save typing by using ./ (the current directory moves around during the build process):
+You can load and unload the new oops.ko kernel module with the parameter level=0 just to check that it works.
+Look in dmesg for a log of the init and exit calls:
+To provoke an oops (recoverable) or a panic (will hang your computer), use level=1 or level=2 respectively.
+Don’t forget to save all your work before triggering either condition (you will need to reboot afterwards), and don’t do this on someone else’s computer without formal permission.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“scaepgoat”?
+Great article as always!
+Thanks, fixed. 
+Thanks, glad you liked it.
+typo: does’t
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

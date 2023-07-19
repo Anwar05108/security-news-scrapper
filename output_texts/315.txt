@@ -1,0 +1,45 @@
+Sophos Home protects every Mac and PC in your home 
+The US Cybersecurity and Infrastructure Security Agency (CISA), which dubs itself “America’s Cyber Defense Agency”, has just put out a public service annoucement under its #StopRansomware banner.
+This report is numbered AA23-061a, and if you’ve slipped into the habit of assuming that ransomware is yesterday’s threat, or that other specific cyberattacks should be at the top of your list in 2023, then it is well worth reading.
+The risks you introduce by taking your eyes off the ransomware threat in 2023 to focus on the next, old-is-new-again shiny topic (ChatGPT? Cryptojacking? Keylogging? Source code theft? 2FA fraud?) are similar to the risks you would have faced if you started focusing exclusively on ransomware a few years ago, when it was the hot new fear of the day.
+Firstly, you’ll often find that when one cyberthreat seems to be decreasing, the real reason is that other threats are increasing in relative terms, rather than that the one you think you’ve seen the back of is dying out in absolute terms.
+In fact, the apparently increase of cybercrime X that goes along with an apparent drop in Y might simply be that more and more crooks who previously tended to specialise in Y are now doing X as well as, rather than instead of, Y.
+Secondly, even when one particular cybercrime shows an absolute decline in prevalence, you’ll almost always find that there’s still plenty of it about, and that the danger remains undiminished if you do get hit.
+As we like to say on Naked Security, “Those who cannot remember the past are condemned to repeat it.”
+The AA23-061a advisory focuses on a ransomware family known as Royal, but the key takeaways from CISA’s plain-speaking advisory are as follows:
+To be clear, you need to build up your confidence in defending against all these TTPs (tools, techniques and procedures), whether or not any particular wave of attackers are aiming to blackmail you as part of their end-game.
+Having said that, of course, this Royal gang are apparently very interested indeed in the technique identified by the US government’s MITRE ATT&CK framework by the unassuming tag T1486, which is labelled with the distressing name Data Encrypted for Impact.
+Simply put, T1486 generally denotes attackers who plan to extort money out of you in return for unscrambling your precious files, and who aim to squeeze you harder than ever by creating as much disruption as possible, and therefore giving themselves the biggest blackmail leverage they can.
+Indeed, the AA23-061a bulletin warns that:
+Royal [ransomware criminals] have made ransom demands ranging from approximately $1 million to $11 million USD in Bitcoin.
+And, just to be clear, they typically steal (or, more precisely, take unauthorised copies of) as much of your data as they can before freezing up your files, for yet more extortion pressure:
+After gaining access to victims’ networks, Royal actors disable antivirus software and exfiltrate large amounts of data before ultimately deploying the ransomware and encrypting the systems.
+Crooks like the Royal gang are known in the jargon as active adversaries, because they don’t just fire malware at you and see if it sticks.
+They use pre-programmed tools and scripts wherever they can (the criminals love automation as much as anyone), but they give individual attention to each attack.
+This makes them not only more adaptable (they’ll change their TTPs at a moment’s notice if they spot a better way to do worse things), but also more stealthy (they’ll adapt their TTPs in real time as they figure out your defensive playbook).
+The Active Adversary Playbook 2022
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+How do the Sophos Endpoint protection packages stack up against this type of attack? I’ve seen first hand how good the file ransomware protection is, but if its disabled before the encryption begins, we’re relying on Tamper Protect I guess for the most part?
+I’m the wrong person to ask, because I am just going to say “our products work superbly” 🙂 
+But here goes anyway.
+Our goal is strong defence-in-depth so you are not relying just on our final-step protection called CryptoGuard (which aims to spot rogue file scrambling by any program or any ransomware family). 
+Remember that by breaking their attacks into lots of small stages, the crooks do offer a broader and more varied series of targets to a well-thought-out endpoint protection strategy and to a proper endpoint protection product that does more than just plain XDR (i.e. we don’t just rely on telling you a bad thing happened after it’s finished). 
+So we will aim to notice, warn you about and actively block as many steps of an attack like this as we can, from the opening salvo of phishing emails or RDP probes, through the unusual use of potentially unwanted apps, the injection of unwanted code invocations into the registry, the command-and-control traffic, the injection of unusual or untrusted “add on” apps, the use of outright malware programs (the Royal gang seem to favour bringing a non-living-off-the-land file scrambling binary), right through to the behavioural analysis of the scrambling process itself.
+We also have a built-in “active adversary adversary” system that will automatically ramp up your protection if certain types of untrusted behaviour are spotted. Although this might stop you running some regular software that you usually have access to (which is why this system pops its extra shields up only when needed), it’s intended to raise your company’s “DEF CON” level automatically in order to: halt the crooks, raise the alarm, bring our MDR team to the rescue… but not to lock you out of your own systems altogether while you (or we, or both) investigate, remediate, kick any crooks out, and determine what unauthorised modifications to your systems need to be reversed.
+And, as you say, our software also goes out of its way to made it hard for crooks to reconfigure it willy-nilly, thanks to what’s known in the trade as “tamper protection”. 
+That’s where you make it as difficult as you can even for someone who already has sysadmin superpowers to “deconfigure” your security settings without being spotted.
+(FYI Sophos Central also now won’t let you use it without 2FA turned on. This doesn’t guarantee to keep crooks out but it definitely helps!)
+That’s quite a long answer but our goal is to be watchful all the time and to intervene as early, as automatically, as safely, and as decisively as we can (for all sorts of cyberattack, not just ransomware).
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

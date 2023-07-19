@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+The latest update to Google’s Chrome browser is out, bumping the four-part version number to 104.0.5112.101 (Mac and Linux), or to 104.0.5112.102 (Windows).
+According to Google, the new version includes 11 security fixes, one of which is annotated with the remark that “an exploit [for this vulnerability] exists in the wild”, making it a zero-day hole.
+The name zero-day is a reminder that there were zero days on which even the most well-informed and proactive user or sysadmin could have been patched ahead of the Bad Guys.
+Details about the updates are scant, given that Google, in common with many other vendors these days, restricts access to bug details “until a majority of users are updated with a fix”.
+But Google’s release bulletin explicitly enumerates 10 of the 11 bugs, as follows:
+As you can see, seven of these bugs were caused by memory mismanagement.
+A use-after-free vulnerability means that one part of Chrome handed back a memory block that it wasn’t planning to use any more, so that it could be reallocated for use elsewhere in the software…
+…only to carry on using that memory anyway, thus potentially causing one part of Chrome to rely on data it thought it could trust, without realising that another part of the software might still be tampering with that data.
+Often, bugs of this sort will cause the software to crash completely, by messing up calculations or memory access in an unrecoverable way.
+Sometimes, however, use-after-free bugs can be triggered deliberately in order to misdirect the software so that it misbehaves (for example by skipping a security check, or trusting the wrong block of input data) and provokes unauthorised behaviour.
+A heap buffer overflow means asking for a block of memory, but writing out more data than will fit safely into it.
+This overflows the officially-allocated buffer and overwrites data in the next block of memory along, even though that memory might already be in use by some other part of the program.
+Buffer overflows therefore typically produce similar side-effects to use-after-free bugs: mostly, the vulnerable program will crash; sometimes, however, the program can be tricked into running untrusted code without warning.
+The zero-day bug CVE-2022-2856 is presented with no more detail than you see above: “Insufficient validation of untrusted input in Intents.”
+A Chrome Intent is a mechanism for triggering apps directly from a web page, in which data on the web page is fed into an external app that’s launched to process that data.
+Google hasn’t provided any details of which apps, or what sort of data, could be maliciously manipulated by this bug…
+…but the danger seems rather obvious if the known exploit involves silently feeding a local app with the sort of risky data that would normally be blocked on security grounds.
+Chrome will probably update itself, but we always recommend checking anyway.
+On Windows and Mac, use More > Help > About Google Chrome > Update Google Chrome.
+There’s a separate release bulletin for Chrome for iOS, which goes to version 104.0.5112.99, but no bulletin yet [2022-08-17T12:00Z] that mentions Chrome for Android.
+On iOS, check that your App Store apps are up-to-date. (Use the App Store app itself to do this.)
+You can watch for any forthcoming update announcement about Android on Google’s Chrome Releases blog
+The open-source Chromium variant of the proprietary Chrome browser is also currently at version 104.0.5112.101.
+Microsoft Edge security notes, however, currently [2022-08-17T12:00Z] say:
+August 16, 2022
+Microsoft is aware of the recent exploit existing in the wild. We are actively working on releasing a security patch as reported by the Chromium team.
+You can keep your eye out for an Edge update on Microsoft’s official Edge Security Updates page.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+So how on Earth are there so many memory issues?  I am noticing with Apple and Google that memory issues get fixed most frequently.
+I assume that nobody codes in assembly or C anymore and use some sort of interpreted language that will do a check before compiling the code.  Is there an issue with code interpreters where they are not handling the memory accordingly?
+Being Google, I would expect them to use some GO code in Chromium.
+That would be an interesting write-up!
+IIRC, Chromium (the bits that aren’t JavaScript that runs inside the lower-level parts of the browser) and the V8 JavaScript engine it uses are mostly in C/C++.
+As for “why are there so many memory bugs” (or perhaps why are there *still* so many memory bugs in modern code), I guess there are two reasons: bigger, more “feature-rich”, apps with MORE CODE TO GO WRONG in the first place, leading to more new bugs being introduced…
+…along with more aggressive and effective bug hunting techniques that help to detect and pinpoint memory mismanagement bugs more accurately, leading to old bugs getting found where they might have lain dormant for years more in the past.
+Note on updating Chrome: if you installed the “Enterprise” version of Chrome, for example with PDQ’s pre-prepared package, auto-updating is disabled. A simple registry change does the trick though.
+I was surprised to see “Your admin disabled auto updates” when trying to update, so that might something to check if you use PDQ!
+I think the lesser people stop using Chorme the better tbh there are far better browsers doing way more better jobs at a way faster rate.
+I assume you mean “the more people stop”?
+In my experience, Chrome is a very sticky browser. Many are aware of and okay with Google holding all their data (credit cards, passwords, searches, mail, photos, maps, youtube etc). Chrome also has extensions that aren’t supported on all browsers, like cryptocurrency wallets. I don’t see a reason to switch even though people tell me Brave or Firefox may be a better / more private experience. Everything would need to be ported over so it’s akin to switching to a new mobile device or laptop, just a virtual one.
+Great blog post! I just updated my Chrome browser to the latest version.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

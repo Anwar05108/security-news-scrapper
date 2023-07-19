@@ -1,0 +1,33 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at healthcare cybersecurity company Cynerio just published a report about five cybersecurity holes they found in a hospital robot system called TUG.
+TUGs are pretty much robot cabinets or platforms on wheels, apparently capable of carrying up to 600kg and rolling along at just under 3km/hr (a slow walk).
+They’re apparently available in both hospital variants (e.g. for transporting medicines in locked drawers on ward rounds) and hospitality variants (e.g. conveying crockery and crumpets to the conservatory).
+During what we’re assuming was a combined penetration test/security assessment job, the Cynerio researchers were able to sniff out traffic to and from the robots in use, track the network exchanges back to a web portal running on the hospital network, and from there to uncover five non-trivial security flaws in the backend web servers used to control the hospital’s robot underlords.
+In a media-savvy and how-we-wish-people-wouldn’t-do-this-but-they-do PR gesture, the researchers dubbed their bugs The JekyllBot Five, dramatically stylised JekyllBot:5 for short.
+Despite the unhinged, psychokiller overtones of the name “Jekyllbot”, however, the bugs don’t have anything to do with AI gone amuck or a robot revolution.
+The researchers also duly noted in their report that, at the hospital where they were investigating with permission, the robot control portal was not directly visible from the internet, so a would-be attacker would have already needed an internal foothold to abuse any of the bugs they found.
+Nevertheless, the fact that the hospital’s own network was shielded from the internet was just as well.
+With TCP access to the server running the web portal, the researchers claim that they could:
+Cross-site scripting is where website X can be tricked into serving up HTML content for display that, when loaded into the visitor’s browser, is actually interpreted as JavaScript code and executed instead.
+This typically happens when a web server tries to display some text, such as a robot ID or ward name, but that text itself contains HTML control tags that get passed through unaltered.
+Imagine, for example, that a server wanted to display a ward name, but the name were stored not as NORTH WARD, but as <script>...</script>.
+The server would need to take great care not to pass through the <script> tag directly, because that character sequence tells the browser, “What comes next is a JavaScript program; execute it with all the privileges any script offically stored on the server would have.”
+Instead, the server would need to recognise the “dangerous” HTML tag delimiter < (less-than sign), and convert it to the safe-for-display code &lt;, which means, “Actually display a less-than sign, don’t treat it as a magic tag marker.”
+Attackers can, and do, use XSS bugs to trick even well-informed users – the sort of users who routinely check the URLs in their address bar and who avoid using links or attachments they weren’t expecting – into automatically running malicious script code under the apparently safe umbrella of a server they assume they can trust.
+Although the researchers behind the name JekyllBot seem to have indulged themselves with dramatic examples of how these bugs might be used to wreak low-speed/high-torque robotic havoc in a hospital corridor, for example by describing robots “crashing into staff, visitors and equipment”, and attackers “wreak[ing] havoc and destruction at hospitals using the robots”…
+…they also make the point that these bugs could result in the more pedestrian-sounding but no less dangerous side effect of helping attackers implant malware on the computers of unsuspecting internal users.
+And healthcare malware attacks, very sadly, often turn out to involve ransomware, which typically ends up derailing a lot more than just the hospital’s autonomous delivery robots.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+the problem is getting an internal foothold to abuse any of the bugs they found in most hospitals is a lot easier than it should be.
+For ease of use and “medical Expediency,” NAC is not as common as it should be.
+Thanks Paul for the valuable information.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

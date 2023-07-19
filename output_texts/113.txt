@@ -1,0 +1,114 @@
+Sophos Home protects every Mac and PC in your home 
+Just as the dust started to settle on the weirdly-named Follina vulnerability…
+… along came another zero-day Windows security hole.
+Sort of.
+We’re not convinced that this one is quite as dramatic or as dangerous as some of the headlines seem to suggest (which is why we carefully added the words “sort of” above), but we’re not surprised that researchers are currently looking for new ways to abuse the many proprietary URL types in Windows.
+To recap.
+The Follina bug, now more properly known as CVE-2022-30190, hinges on a weird, non-standard URL supported by the Windows operating system.
+Loosely speaking, most URLs are structured so they tell you, or the software you’re using, where to go, how to get there, and what to ask for when you arrive.
+For example, the URL…
+…says, “Use the scheme called https: to connect to a server called example.com and then request a file called /ask/forthis.item.”
+Similarly, the URL… 
+…says, “Look for a file on the local computer called thisone.txt in the directory /Users/duck“.
+And the URL… 
+…says, “Do an LDAP lookup via TCP port 8888 to server 192.168.1.79, and search for an object called Runthis.
+But Windows includes a lengthy list of proprietary URL schemes (the letters up to the first colon character), also known as protocol handlers, that can be used to trigger a range of non-standard activities simply by referencing the special URL.
+The Follina bug, for example, took devious advantage of the URL scheme ms-msdt:, which relates to system diagnostics.
+Mysterious “Follina” zero-day hole in Office – here’s what to do!
+
+
+This ms-msdt: scheme, which we assume made sense at the time it was implemented even though it seems foolhardy now, says, “Run the Microsoft Support Diagnostic Tool”, a program called MSDT.EXE that is meant to walk you through a series of basic steps when troubleshooting a misbehaving app.
+But a bunch of cybercriminals discovered that you can abuse the ms-msdt: protocol handler by means of a URL embedding inside a document or email that’s opened by Outlook or Office.
+With a rogue ms-msdt: URL, attackers can not only silently launch the MSDT.EXE app on your computer, but also feed it a bunch of rogue PowerShell script code to force you into running malware of their choice.
+Instead of helping you troubleshoot your computer, the crooks exploit MSDT into infecting it instead.
+It turns out that ms-msdt: isn’t the only weird-and-wonderful Windows-specific URL scheme that Microsoft has dreamed up.
+There are numerous “helper” URL schemes, standard and non-standard, hooked up to protocol handlers via entries in the Windows registry.
+These registry keys signify that special actions should be triggered when someone tries to access the relevant URLs.
+For example, as you know from experience, accessing an https: URL usually fires up your browser, if it isn’t running already.
+And, as we explained above, visiting an ms-msdt: URL fires up MSDT.EXE, although we suspect that very few people knew that before the start of this week. (We didn’t – we’d never used or even seen a URL of that type before the Follina story broke.)
+Well, a cybersecurity researcher known as @hackerfantastic has uncovered a Windows URL scheme called  search-ms: that could, like ms-msdt:, be misused for cybercriminal treachery.
+As we’ve already said, we’re not quite convinced this sits in what we’d call “zero-day exploit” territory, because it doesn’t lead directly to unexpected remote code execution…
+…but we accept that it’s a close call, and that you may want to block this special URL from working in future.
+Simply put, search-ms: URLs will pop up and perform a Windows search automatically, as though you’d clicked on the magnifying glass in the task bar yourself, entered text of your choice, and waited for the result.
+And by embedding this type of URL in a document such as a DOC or RTF file, in much the same way that the Follina trick was pulled off, an attacker can therefore lure you into opening a document, and then automatically pop up an official-looking list of search results in association with it:
+Microsoft Office 2019 / Windows 10 / search-ms: URI handler exploitation and post-exploitation steps to SYSTEM. pic.twitter.com/r512uF3vQ4
+— hackerfantastic.crypto (@hackerfantastic) June 1, 2022
+
+The attackers who embed the special URL in the booby-trapped document get to choose, in advance, what appears in the title of the search bar, and which files to display.
+The files that show up don’t have to be locally-stored files such as C:\Users\duck\mypreso.ppt, but can be remote files (UNC paths) such as \\live.sysinternals.com\psshutdown.exe or \\example.org\dodgy.exe.
+Of course, this doesn’t automatically launch the offending files, which is why we only consider this a “sort of” zero-day.
+You still need to choose one of the files, double-click to execute it and react to a security warning, as you see in the Twitter video above.
+Nevertheless, this trick certainly puts you much more believably into harm’s way than an old-school email lure with suspicious-looking web links in it.
+The window that pops up isn’t a browser or an email client.
+Instead, it looks just like what you’d see if you did a regular search on your local computer, and doesn’t contain anything that looks like a traditional web link.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Yuck, I just went into the registry to see what other ‘undocumented features’ are in HKEY_CLASSES_ROOT. What did I find? Job security.
+Given that Microsoft like to set Windows to hide file extensions, I suspect we could get a situation similar to the LoveLetter virus, where the target file is shown, but looks innocent.
+If I remember correctly, LoveLetter consisted of an email with an attached file named messageforyou.txt.scr, and the email told the unsuspecting user that it was a text file, so when they saw an attachment named messageforyou.txt (.scr hidden by Windows), they assumed it was a text file and safe to double-click to open the file to view it in Notepad. What actually happened was that the script ran and renamed every graphic file it could find – making Windows unusable.
+Hopefully someone can confirm my hypothesis.
+Aaargh! I left something out of my “what to do?” advice at the end… I should have definitely have a suggestion to  “show file extensions” in there. 
+Thanks for the reminder – I am going to add that into the article right away.
+First thing I do on a new Winstallation.  Uncheck that stupid box.
+I hate that MS still willfully makes it more difficult for people to learn about how their computer works.
+It’s probably done in the name of a tidy UI, but it’s not that much cleaner anyway.
+My house would look tidier if I just got rid of that unsightly doorknob; it’d also be handy with an armload of groceries to simply push the door open with my foot.
+(sorry for the late post)
+Is there a difference between URI and URL?
+Yes, there is. See also https://webmasters.stackexchange.com/questions/19101/what-is-the-difference-between-a-uri-and-a-url
+Yes. 
+Very loosely speaking (“loosely” because understanding the differences in detail requires untangling years’ worth of committee meetings and working group wrangling), all URLs are URIs but not all URIs are URLs, because some URIs are URNs instead.
+UR = universal resource…
+I = indicator, telling you either what it is or where to get one.
+N = name, which tells you what something is.
+L = locator, which tells you where to get one (or to learn about it).
+So, both URNs and URLs are types of URI. If this sounds confusing, then all those working group meetings and committee arguments will have been well worth the effort :-)
+An example of a URN is an ISBN, one of those 10-digit or 13-digit codes that uniquely identifies a book. It doesn’t tell you where to buy a copy, but it does allow you to verify, when you pick up what you think is a copy, that you have the book you wanted.
+And an example of a URL is a web address, which might tell you where to learn more about (or to buy an actual copy of) a specific book.
+Thus the URN…
+urn:isbn:0393310728 
+…refers to the seminal book How To Lie With Statistics by Darryl Huff, while the URL…
+https://openlibrary.org/books/OL1418542M/How_to_lie_with_statistics
+…takes you to an Open Library web page about the book, which is well worth reading, even though (or perhaps especially because) it was first published almost 70 years ago.
+In the early 2000s it was trendy to say URI instead of URL in order to pretend you knew the difference, but almost every time anyone said URI they actually meant URL. (In fact, when URI was still a cool thing to say, on 99% of the occasions people used the word they could just have said “web address” instead.)
+Nice!
+it was trendy to say URI instead of URL in order to pretend you knew the difference
+In that era, we had a project manager who learned in a meeting what Network Address Translation was.
+I no longer recall why NAT was part of that day’s discussion, but a member of our data center ops (sysadmins) team explained it to him.  
+That PM became notorious for months afterward, asking “is it the NAT?” for nearly every issue. †
+Haven’t thought about that dude in a long while… 
+† If memory serves, he inquired if NAT was the cause of (probably others):
+ – Degraded performance in the production environment.
+ – An update from the developers caused application issues while in the test stacks, where incorrect data points were pulled from database queries.  It was naturally fixed before going to production.
+Admittedly, failed NAT could have caused the performance hit.  But I doubt he knew about load balancing and subsequently suspected that one node was unreachable while the other(s) struggled to meet demand–and it wasn’t the case anyway.
+I don’t like to deride someone’s lack of knowledge †† but a kajillion people changed careers to tech in the early 2000s–around the same time I got my first real job
+My observation was that many of these folks had their eye on the lucrative DotCom career growth, irrespective of tech acumen or even interest.  I’m clearly still somewhat bitter about it, since some of these people were making twice what I made at the time (and more than I still make now).  But some of these people working geek jobs were very clearly not geeks.
+Maybe I’d  rather do what I’m good at (and what interests me), but if there’s suddenly a profitable expansion in neurosurgery jobs, you won’t find me applying for one.
+Whew. Rant over I suppose.  I really only began with the intent of sharing a humorous story, “is it the NAT?”
+†† (unless it’s an obstinate, willful lack of knowledge–but that’s another entire can of worms).
+Before it was always NAT it was always DNS. Before it was always DNS it was always cabling. Before it was always cabling, it was the fact that someone else had dialled up just before you AND WOULD NOT HANG UP. 
+(In countries where all calls, even local ones, were metered, there was at least a financial penalty for modem line hogs. Forgetting to disconnect was a mistake that people didn’t make terribly often.)
+hahah  yep.
+Growing up, my house had only one phone; we were pretty good about
+is anyone dialed in?
+before grabbing it for a voice call.
+…but my best friend had a sister at the time, and they fought like… well, siblings.
+She consequently never bothered to check before picking up the other extension, and he’d complain how it always inserted loads of nonsense characters into his BBS discussions and so forth.
+—
+PS: Our first modem was the cradle style, Dad brought it home from the university. At the time it was pretty far-out stuff.
+“Acoustic coupler”. Apparently, they were invented to bypass the rules against plugging non-Bell data devices into the phone socket itself (for which privilege you had to pay extra).
+So the mitigation for this risk is to delete the search-ms register value?
+sophos Endpoint protection will not detect this attack?
+As we explain in the article, although this has been pitched as a “new zero-day”, it’s more of a way to make phishing scams looks tidier and smarter. So there isn’t really “an attack” that Sophos products can detect and block, short of doing exactly what you could do of your choice by deleting the relevant registry entry. Strictly speaking, this “attack” doesn’t introduce or launch files, but simply displays them in a neat-looking frame.
+Having said that, Sophos products will monitor, assess, detect, block (and even automatically clean up, if you want) threats that are delivered using this trick, *and it will provide similar blocking features no matter how the offending files are delivered, displayed or launched*. 
+I assume that if this attack presented a clear and present danger (e.g. you could force a program in the search results to me launched automatically) then SophosLans would deliver some sort of behavioural detection to block that sort of activity. If you think that we really would serve the general interest better by blocking the display of lists of files, you are welcome to open that discussion with Sophos… but the Naked Security site isn’t really the right place, because we aim to write about threats in general, and not specifically about our products. Instead, I’d suggest contacting Support (if you are a customer) or joining one of our product communities (see https://community.sophos.com/).
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

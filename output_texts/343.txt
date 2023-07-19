@@ -1,0 +1,35 @@
+Sophos Home protects every Mac and PC in your home 
+Last week, we warned about the appearance of two critical zero-day bugs that were patched in the very latest versions of macOS (version 13, also known as Ventura), iOS (version 16), and iPadOS (version 16).
+Zero-days, as the name suggests, are security vulnerabilities that were found by attackers, and put to real-life use for cybercriminal purposes, before the Good Guys noticed and came up with a patch.
+Simply put, there were zero days during which even the most proactive and cybersecurity conscious users amongst us could have patched ahead of the crooks.
+Notably, in this recent Apple zero-day incident:
+It’s not a big jump to assume that this bug was spotted by privacy and social justice activists at Amnesty, and investigated by incident response handlers at Google; if so, we’re almost certainly talking about security holes that can be, and already have been, used for implanting spyware.
+Just to be clear: the Apple Safari browser uses WebKit for “processing web content” on all Apple devices, although third-party browsers such as Firefox, Edge and Chromium don’t use WebKit on Macs.
+But all browsers on iOS and iPadOS (along with any apps that process web-style content for any reason at all, such as displaying help files or even just popping up About screens) are required to use WebKit.
+This thou-shalt-use-WebKit rule is an Apple pre-condition for getting software accepted into the App Store, which is pretty much the only way to install apps on iPhones and iPads.
+Last week, iOS 16, iPadOS 16 and macOS 13 Ventura received simultaneous updates for both these security holes, thus patching not only against drive-by installs that exploited the WebKit bug (CVE-2023-28205), but also against device takeover attacks that exploited the kernel vulnerability (CVE-2023-28206).
+At the same time, macOS 11 Big Sur and macOS 12 Monterey received patches, but only against the WebKit bug.
+Although that stopped criminals using booby-trapped web pages to exploit CVE-2023-28705 and thus to infect you via your browser, it didn’t do anything to prevent attackers with other ways into your system taking over completely by exploiting the kernel bug.
+Indeed, we didn’t know at the time whether the older macOSes didn’t get patched against CVE-2023-28206 because they weren’t vulnerable to the kernel bug, or because Apple simply hadn’t got the patch ready yet.
+Even more worryingly, iOS 15 and iPadOS 15, which are still officially supported, and are indeed all you can run if you have an older iPhone and iPad that can’t be upgraded to version 16, didn’t get any patches at all.
+Were they vulnerable to drive-by installs via web pages but not to kernel-level compromise?
+Were they vulnerable in the kernel but not in WebKit?
+Were they actually vulnerable to both bugs, or simply not vulnerable at all?
+We now know the answer to the questions above.
+All supported versions of iOS and iPadOS (15 and 16) and of macOS (11, 12 and 13) are vulnerable to both of these bugs, and they have now all received patches for both vulnerabilities.
+This follows Apple’s email announcements earlier today (ours arrived just after 2023-04-10T18:30:00Z) of the following security bulletins:
+In short: check for updates now.
+If you’ve got a recent-model Mac or iDevice you will probably already have all the updates you need, but it makes sense to check, just in case.
+If you have an older Mac, you need to ensure you have last week’s Safari update and this latest patch to go with it.
+If you have an older iPhone or iPad, you need to get today’s update, or else you remain vulnerable to both bugs, as used in the wild in the attack discovered by Amnesty and investigated by Google.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

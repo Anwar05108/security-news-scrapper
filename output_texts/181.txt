@@ -1,0 +1,155 @@
+Sophos Home protects every Mac and PC in your home 
+Dates, times and timezones are troublesome things.
+Daylight saving, or “summer time” as it’s also commonly known, makes matters even worse, because many countries tweak their clocks twice a year in order to shift the apparent time of sunrise and sunset in relation to the regular working day.
+In the UK, for instance, our clocks are set to Greenwich Mean Time when New Year comes round, but we wind them forward to GMT+1 at the end of March, and back to GMT again at the end of October.
+Much of North America does something very, very similar, yet annoyingly different, setting the dates on which the clocks change to the start of November and the middle of March instead.
+So our colleagues in Boston are always five hours behind us here in Oxfordshire, except for the brief period each autumn (or fall, given that we can’t even agree on the names of the seasons in our common language, let alone the alignment of our clocks) and spring when they aren’t.
+Opponents of daylight savings dismiss it as a pointless complexity that we simply don’t need in the internet era, which is mildly ironic given that internet-era devices generally manage to adjust themselves automatically. Proponents of the system note that, for many people, shifting their working day to suit the season is no longer possible, because their days are ruled by the clock and not by the diurnal position of the sun, so shifting the clock to suit the season is the simplest alternative.
+Indeed, daylight saving timing trouble raised its head all this week when Chile decided to alter its customary clock-switch date temporarily (to add yet more complexity, the clock changes go the other way below the equator, because the seasons are reversed).
+The temporary change was announced to avoid confusion on the day of the the country’s recent constitutional referendum.
+The referendum took place on 04 September 2022, the day when clocks would normally go forwards for summer.
+The clock change was therefore postponed for a week, lest people who forgot to reset their clocks before going to bed on Saturday night might misread the time on Sunday, and innocently end up arriving at their local voting station after it had closed, not realising they were an hour late because their clocks were an hour slow.
+Even Microsoft felt the need to warn its users that Windows clocks, operating system timekeeping, meeting schedules and more might be thrown out of whack, given that the Chilean government didn’t announce this temporary change-to-the-change until last month, thus requiring a last-minute update to the Windows timezone database.
+At least users of traditional operating systems can make temporary timezone adjustments themselves if needed.
+Some devices are entirely dependent on firmware updates to display local time correctly.
+For example, I have a miniature bicycle “computer” that I use as a compass and distance tracker when taking a journey (it’s amazing how fluidly and naturally you can navigate without ever looking at a map if you can keep track of time, distance and direction)…
+…and although you can fiddle with all sorts of settings stored in the device, such as your body mass (apparently used in guessing your power output), map settings, location reference format, font size and more, the one thing you can’t do is set the date and time manually.
+There simply isn’t a way to do it, at least for the builtin apps, and you can’t even tweak or hack those yourself, because the whole thing runs a digitally-signed, firmware-locked version of Linux
+You can write your own add-on apps, and they can disply the date and time however they like, but they have to be compiled to run in a dedicated virtual machine inside a somewhat limited sandbox.
+The theory is that if the device is working properly, it knows the absolute time via its GPS receiver, with an accuracy significantly better than the finest, largest, most expensive and most complex mechanical chronometers ever made.
+It also knows where you are on the planet with an accuracy of well under 10 metres (you can clearly tell which lane you were in, or see where you overtook buses, when you look back at a journey you recorded), so it can compute which physical timezone you’re in, and set the local time exactly, too.
+Well, it can do that if its timezone database, showing the exact location of timezone boundaries, and the necessary displacements from UTC (the modern replacement for GMT on digital timepieces) are up-to-date.
+Otherwise, you may have to add or subtract an hour in your head, if the device gets it wrong.
+Or half an hour, because some regions use 30-minute timezones. 
+(It’s astonishing how many people refuse to accept that non-integer timezones exist, insisting that “all legal timezones go in hours”, which will be news to anyone in India or South Australia.)
+Or 15 minutes. 
+(Try visiting Nepal or Eucla.)
+Those who don’t like daylight savings, either because they think it’s an affront to the natural order of things, or because they can never remember to change the manually-operated clocks in their household, will assure us all that banning “summer time” will neatly solve all these issues.
+But it won’t solve the problem of how to make sense of computer logs, and how to use them in IT troubleshooting, notably in cybersecurity threat response, where the sequence in which things happened can be very important indeed.
+For example, if the logs show that crooks almost certainly got in at 03:30 on Tuesday evening, based on an exploit that was first abused at that time…
+…did the new account creation timestamped 03:00 really happen before the exploit triggered, or could it have been afterwards?
+Are the configuration changes timestamped 04:00 ones that need rolling back, because they happened after the attack started, or are they changes you need to keep because the logs are denominated in different timezones?
+There’s one thing you can do to help, both as a logfile creator and a logfile consumer.
+Always reduce timestamps to UTC (universal co-ordinated time), thus factoring timezones out of your logfiles, and always record timestamps in a simple, unambiguous, alphabetically sortable format.
+Simply put: consult, RFC 3339, and stick to Zulu time timestamps everwhere.
+These look something like this:
+The date always has four-digit years, so there’s no risk of reinventing the millennium bug.
+Times don’t need AM and PM (computers can count to 24 at least as easily as you can count to 12), which removes ambiguity.
+And that Z at the end denotes that the date and time shown have no timezone adjustment applied, so that any two Zulu time log entries can directly be compared to determine the sequence in which they took place.
+Threat response is much easier, and much safer, when your timestamps are unambiguous, so we recommend this approach to everyone.
+FURTHER READING ABOUTTHE IMPORTANCE OF CLARITY IN TIMESTAMP FORMATS
+Serious Security: The decade-ending “Y2K bug” that wasn’t
+
+
+SOME LIGHT-HEARTED (YET GENUINE) REASONS FOR RFC 3339
+Serious Security: What we can all learn from #PiDay
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+For years I’ve maintained that we waste pointless time in our company dealing with DST shifts and multiple time zones. At one point I was in conversation with the most senior architect in my company (it’s a large company with a lot of data centers) and told him we should just switch all servers to Zulu time. He told me it would not work, but could not give me a reason why.
+A long-term problem with log entries (a problem that perhaps I ought to have mentioned explicitly above) that include timezone specifiers is that unless you only ever use explicit numeric values such as UTC+14 (yes, there is such a thing), UTC+8.75 (exists but is unofficial) or UTC-10, then you need to keep a long-term list of timezone data too, so that when you see a region-specific abbreviation such as EDT you know what that actually meant *on the day the abbreviation was used*. And everyone who ever tries to use your logs in the future needs to have that same list, which needs to maintain and record any errors or discrepancies in the timezone data *on your network and amongst your different operating systems* at the time*.
+(I can’t recall when I last saw a server that didn’t have its internal clock set to UTC. So reporting Zulu timestamps should work *better* because it means simply recording *the server’s clock time* without needing to know how to convert it to local timezone format first. Occam’s Razor surely says that, because the TZ component is superfluous, it should be removed from the equation?)
+If you aren’t using UTC offsets in your timezones, then you are probably using well-known abbreviations instead, and they introduce yet more problems.
+For example, a timezome name with -S- in the middle in North America implies “winter time”, where S is for Standard. In Europe and the UK, -S- stands for “summer”, and therefore implies daylight saving. And EST/EDT could refer to Boston or Sydney, as they are both “Eastern” (and note also that summer and winter periods are reversed in those places).
+I guess your company has to decide whether “it won’t work” (if we change it) is a better sort of broken than “it isn’t working” (right now).
+Zulu timestamps are so much easier for human threat-hunting experts to compare at a glance, and so much simpler to work with programmatically, that I can’t imagine how anyone could prefer anything else… 
+Forcing your sysadmins/x-ops/IT teams to work with non-Zulu times feels to me like forcing your accountants to go back to Britain’s weird pre-decimal currency of pounds, shillings and pence (an astonishing amalgam of base 10, base 20 and base 12 that we apparently borrowed from the French), simply because you like the nicknames that the coins used to have back in the day. (They needed names: a “half crown” was equivalently 1/8 of a pound, 2.5 shillings, or 30 pence. Try adding that up in your head. Heck, try adding that up on a calculator!)
+Have you ever seen the innards of a pre-1971 UK cash register?  They were mechanical (before the advent of computers!) and they really were triumphs of engineering.  Earlier models also had to cope with halfpennies and farthings …
+I first visited Britain in 1970, just before Decimalization. I was amazed at the ability of bar staff to ad up a round of drinks in their heads. that’s back when a pint of decent beer might be 1s 8d.
+What about e-mail messages that are allegedly sent Tomorrow because their first mail relay server is physically local but nobody has bothered to tell the server what timezone it is in and it defaults to “Microsoft time” (not GMT).
+And my local ISP who provides me with mail logs that are all GMT timestamps to which I have to add 9:30.  They have improved, because the origins of the logs are across at least two machines (received by one and spam filtered by another) and once-upon-a-time they had differing tine formats (and zones).
+GMT is *sort of* Zulu time, but not quite. (GMT is a mean solar time, determined by monitoring the movement of the sun in the sky throughout the year, while UTC is determined by the speed of light, with occasional one-second “jumps” to keep it within one second of GMT, as GMT drifts due to tiny but cumulative changes in the earth’s rotational speed.)
+During my tme at Sophos in Sydney, the Government of New South Wales explicitly redefined NSW standard time, by law, from being GMT-based (solar) to UTC-based. 
+Instead of “the mean time of the meridian of longitude 150 degrees east of Greenwich in England”, the law now says “10 hours in advance Co-ordinated Universal Time”. 
+Fascinating “legal diff”:
+https://legislation.nsw.gov.au/view/html/compare/1995-06-23/2005-09-01/act-1987-149
+I have searched what I think are the relevant web pages for the laws of England and Wales, but I can’t find a definitive legislative document that will tell me whether standard time here really is still GMT, or if it is officially UTC. Everyone *calls* it GMT, but then they still talk about “dialling” their phones and “filming” a video. Any have a URL for a clear answer?
+If you are ever in Sydney (I am guessing from your TZ that you are in Adelaide) then the old observatory (just at the southern end of the Harbour Bridge, a short walk from Circular Quay) is well worth a visit – they have the original Transit Telescope in place, beautifully restored, with an excellent visual explanation of how it was used to keep track of solar time throughout the year, until atomic clocks came along:
+https://www.maas.museum/observations/2020/06/08/station-1-sydney-observatory-transit-circle-telescope/
+Years ago (late 1990s) I worked on a piece of software that collected user login time and duration information for a manufacturer/supplier from their remote access devices around the world (they needed to ensure sufficient capacity in each location). The aggregated data so collected had to be presented as graphs either globally (UTC) or by local time. In the end we had to record not only UTC data points but also the timezone offset in use at that instant.
+UTC datestamps are all very well, but location timezone data can be important too, so that you have the possibility of correlating a world of Monday 9am clicks on phishing emails (or whatever)
+Strictly speaking, you just need the user’s location, rather than the TZ (which, for all you know, may be recorded in the log based on settings such as environment variables that can be modified in userland)… however, it sounds as though you are recordoing what you need, namely UTC times for “an absolute record of when it happened”, plus additional data to give the activity local context, e,g. “was it during lunchtime”.
+But you’re right: the TZ may be relevant, and so it might not be appropriate to discard it…
+…just so long as you don’t knit it into the raw data field that denotes the timestamp of the log entry.
+As you say, it can often be very useful to know not only when an event happened, but when the the computer concerned *thought* it happened, so that user-tweakable settings may be important too. One good way to do this is with a standalone UTC-stamped logfile entry that simply records what the user would have seen as local time at that time, if that makes sense. This can be very handy in trying to figure out why some computers on the network seem to do their very best to do big downloads or to kick off heavy CPU workloads at reliably *inconvenient* times.
+As for the tendency of US software (no names, no pack drill) to assume by default that you live and work on the Pacific coast… 
+…when it’s 3am in Bellevue, Washington, and most people are asleep, it’s 11am in the UK and most people are working. Heck, if you don’t know my timezone, why not guess pseudorandomly, perhaps based on global population distribution, not just based on “where the vendor’s HQ is located” :-)
+Well, Paul ole bruddah, I’se a Newf, and by gum, that precious haf’n hour difference in Newfoundland is bloody well precious to all o’us. By Gum, we’re different from the rest o’ Nort America and the rest o’ the planet as well. Deal with it.
+Ahhh, I was so hoping that someone from The True Maritime Province would chime in 🙂 
+Heck, if I have my history correct, you folks drove on the left until the late 1940s…
+I did a PhD in astronomy.  Julian days/dates are interesting (among other features, they are offset by 12 hours from UT [GMT without leap second adjustments], because astronomers tend to be more interested in nights than in days).  They are also measured in “days after a fixed start point” where the start point is before any date in recorded history.
+The actual start point (day 0.00) is noon (UT) on Monday January 1, 4713 BC (year -4712) in the proleptic (extrapolated) Julian calendar [= November 24, 4714 BC in the proleptic Gregorian calendar].  The Julian day number for January 1, 2000 (noon UT) was 2451545, so the dates would be expected for the usual purposes to be in the 2-million-plus range.   Julian dates are typically expressed in terms of decimal fractions of a day …
+Julian days/dates are used in software more frequently than one might think, as they simplify the calculation of time intervals (and they are independent of time zones, etc.).
+I have used Julian Day Numbers myself for days-between-dates calculations – very useful. 
+I came across the concept in my HP Programmable Calculator manual as an excitable schoolboy and tucked it away for future reference… within about 3 years it came in handy for a Turbo Pascal vacation job I got as a student. (Something to do with creating on-screen tables of dates to remind farmers when to take and enter various measurements relevant to the cultivation of maize. In my experience, farmers have always been surprisingly early adopters of technology… PCs for breeding records and crop mananagment, RFID for tracking individual animals, GPS for keeping automatic irrigators on track, mesh networks for telemetry, and so on.)
+As a Met Office forecaster I used UTC throughout my 40-year professional life, as did our largest customers, the defence and aviation industries. We also used Sophos anti-virus, to which I have stuck in retirement. Our IT guys had to dig deeply into the Unix and Windows systems to stop the time zone changing twice a year.
+Other units are less scientific. Aviation uses nautical miles for distances, knots for speeds, and hundreds of feet for flight levels (e.g. FL330 = 33,000 feet), They are pressure altitudes rather than actual geometric heights because aircraft altimeters are glorified aneroid barometers, but that doesn’t matter because all aircraft have the same system.
+I always wondered why sailors had their own mile and why they couldn’t just use the statute mile (now the international mile), until I realised that the nautical mile is perfectly logical in a world that still uses base 60 for measuring angles… it is, quite conveniently, the length of one arc-minute (1/60th of a degree, like a time minute is 1/60th of an hour) measured along a meridian (a line of longitude).
+Thus it is 90×60 = 5400 nautical miles from pole to equator.
+Intriguingly, the kilometre was devised in a similar but decimally-flavoured way, by defining that same 5400 nmi pole-to-equator distance as 10,000km.
+Then, in the 1920s, the nautical mile was redefined in terms of the kilometre, being exactly 1852 metres (so 5400 nmi is now 800 metres longer than 10,000km).
+For yet more circular fun, the statute mile was replaced by the international mile in the 1950s, defined as (25146/15625) kilometres. This means 1 inch comes out at precisely 25.4mm, so the conversion can be memorised with just three significant digits. Or you can use 1 yard = 0.9144m.
+So metres, yards and nautical miles are now all defined as multiples of the distance travelled by light in a vacuum in 1/299,792,458 of a second. (For the metre, that multiple is 1.)
+Even systems that try to do the right thing can get it wrong.
+One of the delights I used to get working in a university CERT team was dealing with the copyright complaints on behalf of the major Hollywood studios, thanks to some of our dear students downloading and sharing content via Bittorrent and similar.  Generally these came in a standard format, including the time that the notification was generated, generally an hour or two after their systems had detected the issue.  Timestamps in GMT, saving us the worry of relating time in California to that in the UK.
+Working one evening some years back, I look at a notification that’s just come in.  Generated nearly an hour in the future?  Can’t be right – surely I’ve misread the date, and it was generated yesterday?  No, definitely today.  What about the time of the actual detection?  A few minutes ago, fair enough.  But I’m suspicious, and check the timestamps in the mail headers.  Delivered to us three minutes before the time of the infringement.  I must be mistaken, and ask a coworker to double-check.  Nope – same conclusion.
+So, either the studio’s copyright police have gone all Minority Report and opened a department of pre-crime, or else something’s broken in their systems.  It’s early March, and I know (most of) the US moved to daylight saving a couple of days earlier.  Sorry folks. We’re not going to take any action based on these reports until we’re satisfied we can trust your timestamps again.
+If you work in international companies, it’s always amusing when people try to be specific by adding CET to the meeting times, not realising they mean CEST and that there might be people in other countries who might get seriously confused by it.
+As someone who has to deal with the nightmare of systems using actual GMT time stamps (don’t ask me how, I was told it was that causing issues, validated it, threw up my hands in disgust and moved on with my life) alongside UTC systems that log all of actual action time (local time), actual action time in UTC, log saved to logical DB time (local), and log saved to logical DB time in UTC, I would suggest saving multiple values to “bake in” knowledge of what the timezone is doing around the location you’re looking at logs for, and making sure any human looking at things validates the data against something verifiable if at all possible, is the best practice.
+(for the curious: CCTV running on GMT, human actions happening, virtual tracking of those delayed while ML determines exactly what was done, and system time stamps in UTC are for ML completing its decisionmaking and submitting the activity completion, not lined up with the physical motion… so the data never lines up, and that human knowledge of the discrepancy is now baked into multiple teams’ training material)
++1
+In the same way that logging systems typically insert entries to report that “nothing happened” specifically as reassurance markers to confirm that the logging system seems to have been working at time X, it’s easy enough to log the current OS rendition of the time, for future reference. 
+In fact, you could combine the two by making your regular **MARK** entries in the logfile into time records, too. 
+Below (on Linux) the text after **MARK** is the current epoch time converted with the strftime() format string "%c %Z %z":
+“… drifted apart slightly earlier this century”
+Do you really mean since 2000? Or did you mean *last* century? 🙂
+I meant this century, when the US extended its daylight saving period, but I had forgotten that we weren’t perfectly aligned even before that. So I have deleted that bit entirely :-)
+Thanks for the comment.
+The inconsistency of timestamp formats has driven me bonkers for as long as I’ve been dealing with working with computer log files. To add to the misery, I’ve run into systems where instead of running the ntp daemon  the sysadmins run ntpdate several times a day or less via cron and I’ve the clocks drift wildly due to this.
+Another pet peeve of mine, which has already been mentioned, is people using the incorrect time zone abbreviation. We are currently observing daylight time (summer time) for most areas of the United States but many folks will write 10:30 am EST / 9:30 am CST / 7:30 am PST when it should be EDT/CDT/PDT.
+Posted approximately 08:48 EDT on September 12, 2022 to see what I see for the blog timestamp.
+The times on Naked Security are, as far as I know, UK time, thus GMT (or, more precisely, UTC) in the winter months and BST (i.e. UTC+1) in the summer months. With no TZ specifer. 
+In articles, I try to make a point of writing all dates and times (at least where the exact date or time matters) in RFC 3339 format, on Zulu time. So I might describe a previous comment of mine that I refer to as “about a year ago”, but add [YYYY-mm-DDTHH:MM:SSZ] afterwards if any sort of precision would be useful.
+My post had timestamp “September 12, 2022 at 1:49 pm” which was +5 hours ahead of the time I posted..
+another pet peeve
+– sites that use “DST” as the time zone during US summer time.. How lame can one get.
+Is there a reason for not having TZ specifier for the times?
+If you mean “the times in the comments”…
+…I assume the reason is “because WordPress”. I think, if you will pardon the tautological cliche, that it is what it is.
+Typo in the URL.  “hoe-to-deal-with-dates-and-times-without-any-timezone-tantrums” In slang, it is pretty funny.  Great article BTW.
+Thanks. 
+The URL is already “in the wild” and therefore can’t easily be edited (it was a typo due to E and W being on adjacent keys , and due to “hoe”, pronounced “who”, being the equivalent word to “how” in a non-English Germanic language that I can read fluently, and that I thus interprered visually as if it were correct). 
+My own understanding is that the word to which I think you are referring is commonly spelled with just two letters. The typo refers to an agricultural implement used for breaking clods of soil, and is a word that can surely be considered unexceptionable…
+It’s even worse than you make out, Paul, and eliminating DST (assuming you could be get the whole world to agree) would hardly help. And even if you did, what if you wanted to calculate the time since an event back in the DST era?
+Check out this video https://m.youtube.com/watch?v=-5wpm-gesOY
+and you’ll never want to have ANYTHING TO DO with tinkering with time zones!
+The TZ files in Linux keep (or try to keep) a historical record of time zone rules going way back… in the case of the UK all the way to 1847, when “railway time” was commonly adopted, with a 1’15” adjustment, followed by the start of DST during WW1, including double-summer time as implemented briefly during WW2 and in 1947, and correctly recording the brief experiment with no DST at the end of the 1960s.
+Current activism (if that is not too strong a word for it) in this part of the world seems to fall into two polarised camps: ditch daylight saving in the UK altogether and use GMT all year round, or keep daylight saving and go an hour ahead of now all year round (UTC+1 and UTC+2). 
+I gather there is a “permanent DST” movement in the US, known as Forward Time, but given that some states (and some parts of some states) don’t want DST right now I can see that being a tough fight.
+Spare a thought, however, for people in the PRC, a large and wide country that uses UTC+8 at all its longitudes. (If you are able to cross the Nepal/China border, you’ll have to put your watch forward 2 hours and 15 mins.)
+During an InterRail holiday with my brother in 1981, we passed from (then) Yugoslavia to Greece and back, which was then a 2-hour adjustment (Yugoslavia on BST, Greece on BST+2) while travelling north-south (and back).
+So … time-zone fun for climbers on Mount Everest, which lies on the Nepal/Tibet border.
+I assume you go by elapsed time (and time of day) once you’re up there. Plus if you climb from the Nepal side, I assume you don’t want to cross the border inadvertently – I imagine that’s illegal.
+Here in rural Cornwall we are around 15 minutes behind GMT, given our distance from Greenwich. So, we use Cornish Meal Time (CMT), However, as most locals don’t use a watch or a clock (and wouldn’t consider using one of they new fangled mobile phones) they do things dreckly anyway!
+By my calculations, Land’s End is just under 23 minutes behind London (no jokes about “and 23 years” please), and the Isles of Scilly just over 25 minutes behind. 
+If you consider the UK, not just GB, then Belleek in Northern Ireland is more than half and hour adrift of Greenwich.
+I believe that the Great Tom bell at Christ Church in Oxford (once the curfew signal for students) still rings at 9pm “Oxford time”, which is 21:05 by a proper clock.
+Intriguing just how much of the UK’s quarter-million square kilometres or so is west of Greenwich, and how little to the east.
+…clods of siol… another typo?
+Fixed, thanks. (In a comment above.)
+I’m confused. Chile is in the Southern Hemisphere, yet its clocks go forward in Summer. In the Northern Hemisphere, I was always taught the aid memoir of ‘spring forward, fall back’ for remembering which way to add/subtract an hour for daylight saving time. Yet, …the clock changes go the other way below the equator, because the seasons are reversed. So, I would have expected Chile’s clocks to have gone backwards in Summer, or am I just tying myself up in knots?
+The clock changes work the same way (because dawn is earlier in summer so you can afford to have the sun lagging an hour behind your wake-up time), but the seasons are reversed.
+So southern hemisphere clocks go forward, where DST is used, at about the same time of year that the northern hemisphere clocks go back, and vice versa. So you still spring forward and fall back…except that the spring equinox is in September (thus Christmas and New Year’s are at midsummer, where they jolly well belong), and the autumnal equinox is in March, so the springing and falling appear reversed from the other half of the globe.
+I found some more Daylight-Saving-Time fun and games at —
+http://www.webexhibits.org/daylightsaving/k.html  —
+which includes the following gem: “Widespread confusion was created during the 1950s and 1960s when each U.S. locality could start and end Daylight Saving Time as it desired. One year, 23 different pairs of DST start and end dates were used in Iowa alone.”  —   
+There was also a case where a time-zone change disrupted a terrorist attack: “In September 1999, the West Bank was on Daylight Saving Time while Israel had just switched back to standard time. West Bank terrorists prepared time bombs and smuggled them to their Israeli counterparts, who misunderstood the time on the bombs. As the bombs were being planted, they exploded–one hour too early–killing three terrorists instead of the intended victims–two busloads of people.”
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+The best-known cryptographic library in the open-source world is almost certainly OpenSSL.
+Firstly, it’s one of the most widely-used, to the point that most developers on most platforms have heard of it even if they haven’t used it directly.
+Secondly, it’s probably the most widely-publicised, sadly because of a rather nasty bug known as Heartbleed that was discovered more than eight years ago.
+Despite being patched promptly (and despite reliable workarounds existing for developers who couldn’t or wouldn’t update their vulnerable OpenSSL versions quickly), Heartbleed remains a sort of “showcase” bug, not least because it was one of the first bugs to be turned into an aggressive PR vehicle by its discoverers.
+Anatomy of a data leakage bug – the OpenSSL “heartbleed” buffer overflow
+
+
+With an impressive name, a logo all of its own, and a dedicated website, Heartbleed quickly became a global cybersecurity superstory, and, for better or worse, became inextricably linked with mentions of the name OpenSSL, as though the danger of the bug lived on even after it had been excised from the code.
+But there are several other open-source cryptographic libraries that are widely used as well as or instead of OpenSSL, notably including Mozilla’s NSS (short for Network Security Services) and the GNU project’s GnuTLS library.
+As it happens, GnuTLS just patched a bug known as CVE-2022-2509, reported in the project’s security advisory GNUTLS-SA-2022-07-07.
+This patch fixes a memory mismanagement error known as a double-free.
+Simply put, a double-free vulnerability is created when a programmer asks the operating system to allocate a block of memory to use temporarily… 
+…and hands it back so it can be deleted from the list of loaned-out blocks to be freed up for use by other parts of the program…
+…and then accidentally asks the system to free up the very same memory block all over again.
+Ideally, the memory allocation software will detect that the block no longer belongs to the part of the program that’s “returning” it, will figure out that the offending block has already been recycled, and won’t deallocate it a second time, thus sidestepping the risks of “freeing” it again.
+Dealing gently with a double-free that’s detected proactively is a tricky issue. The C function that hands back memory is prototyped as void free(void *ptr); so that you pass in the address of a block you want to free up, but don’t get back a return code. (A C function with a void return value is what other programming languages call a procedure: it does something for you, but it has no way of reporting a result.) Thus even carefully-written C code has no standard way of detecting that something went wrong in free(), and therefore no way of handling the error by trying to shut down gracefully. Terminating the offending program unilaterally is the only safe solution for the system.
+But if the memory allocaor doesn’t realise (perhaps because that very same block has since been handed out to another part of the same program, so it’s back in the “loaned-out” list in exactly the same form as it was before), then bad things are likely to happen.
+Notably, the memory manager might inadvertently and unexpectedly “confiscate” the double-freed block from the code that’s now legitimately using it, and reassign it to yet another part of the program, perhaps even malicious code that an attacker has timed carefully to take advantage of the mismanagement.
+So, you could end up with two parts of the same program manipulating the same chunk of memory.
+One part of the program assumes it can trust the memory content implicitly, because it considers itself the legitimate “owner” of the block.
+At the same time, another part of the program knows it can mess with the data (or can be tricked into messing with it) in order to trip up the first part deliberately.
+Ironically, the CVE-2022-2509 bug exists in the certificate verification code in GnuTLS. 
+(The irony, in case you’re wondering, is that software that’s insecure in general because it doesn’t bother checking for trustworthy TLS connections is immune to this specific security bug.)
+For example, when you visit a website (or other type of server) that’s secured with TLS, the other end will typically send you a web certificate that asserts that the server really is owned and operated by the organisation you expect.
+Of course, given that anyone can create a certificate in any name they like, a raw certificate on its own doesn’t tell you much, so the certificate owner usually gets it digitally signed by a company that your browser already trusts.
+In practice, certificates are usually signed by a certificate that is, in turn, signed by a certificate that your browser trusts, but the end result is what’s called a chain of trust that can be securely traced to a certificate that’s already installed in a list of so-called Trusted Authorities, also known as Roots, that’s managed by your browser or your operating system.
+To simplify and speed up the process of validating the certificate chain, many servers don’t just send their own certificate and leave it to the browser to “chase the chain” to a trusted root.
+The server typically includes the chain of trust it’s relying on, which it only needs to construct once, so that your browser, or whatever software is verifying the certificate, can simply check that the chain is digitally valid, and then verify that the last certificate in the chain matches one that’s already trusted.
+In that case, GnuTLS will correctly and safely validate the supplied certificate, before freeing up the memory block just used to store it.
+But if the other end doesn’t provide a pre-generated certificate chain, thus leaving GnuTLS to create and check the chain on its own, then the GnuTLS code accidentally frees up the memory used to store the supplied certificate before it starts the chain-checking process…
+…and then frees it up again after the check is complete.
+This causes a double-free mishap, which could lead to lead to memory corruption, followed by a program crash.
+Usually, or at least often, crashes cause such wayward behaviour that the operating system detects the offending program has lost control of the flow of program execution – for example, if the program leaps off to a random memory address and tries to run code from a memory block that hasn’t been allocated at all.
+In this case, the crash would provoke a system error, and although this sort of bug could be abused for what’s called a Denial of Service (DoS) attack, where the entire goal is simply to disrupt the program being attacked, it doesn’t lead to Remote Code Execution (RCE), where untrusted and unwanted software code gets triggered instead.
+But whenever there’s a program crash that attackers can provoke at will, based on untrusted data that they supplied themselves, there’s always a risk that the crash could be shepherded in such a way as to misdirect the crashing program so that it jumps into executable code provided by the attackers.
+As you can imagine, attackers can often exploit such vulnerabilities to implant malware, either temporarily or permanently, given that they get to inject untrusted code into your computer without producing any popup warnings asking for permission first.
+Update to the latest version of GnuTLS, which is 3.7.7 at the time of writing.
+(This bug was apparently introduced in GnuTLS 3.6.0, and exists in every version from then, up to and including 3.7.6.)
+Note that many popular applications and programming toolkits either include or may be built to make use of GnuTLS, even though you may not be aware of it, including but by no means limited to: FFmpeg, GnuPG, Mplayer, QEMU, Rdesktop, Samba, Wget, Wireshark and Zlib.
+Many Linux or *BSD packages that use GnuTLS will rely on a central version managed by your distro itself, so be sure to update as soon as your distro has this version available.
+Happy patching!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+If we are using OpenSSL on XG Firewall, do we need to update anything?
+OpenSSL isn’t where the bug is, so certificate validation via OpenSSL isn’t affected.
+In fact, as far as I’m aware, the GnuTLS code isn’t part of the XG or XGS firmware at all.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

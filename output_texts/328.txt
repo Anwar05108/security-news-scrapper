@@ -1,0 +1,223 @@
+Sophos Home protects every Mac and PC in your home 
+DELETED DATA THAT JUST WON’T GO AWAY
+The mobile phone bugs that Google kept quiet, just in case. The mysterious case of ATM video uploads. When redacted data springs back to life.
+No audio player below? Listen directly on Soundcloud.
+With Paul Ducklin and Chester Wisniewski. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+[MUSICAL MODEM]
+DUCK.  Hello everybody. 
+Welcome back to the Naked Security Podcast. 
+Doug’s still away this week, so it is me, Duck, and my good friend Chester Wisniewski again. 
+Hello, Chet. 
+
+CHET.  Hey, Duck! 
+
+DUCK.  You said you’d be back, and you are back! 
+Nothing untoward, or no major malware catastrophe, has headed you off at the pass.
+So let’s kick straight off with the opening story of this week, which is interesting, and in a way complex to explain…
+…because the devil’s in the details, and the details are hard to find. 
+And I’ll just read out the title from Naked Security: Dangerous Android Phone 0-day bugs Revealed – patch or work around them now. 
+This has to do with a thing called “the baseband”.
+Dangerous Android phone 0-day bugs revealed – patch or work around them now!
+
+
+CHET.  Well, these baseband chips in your mobile phone actually run their own little operating system…
+…for your 5G modem, for it to talk to the cellular towers, maybe the GPS receiver, for receiving your location information.
+
+DUCK.  My understanding is that baseband doesn’t even include Wi-Fi and Bluetooth. 
+Those are handled by different parts of the System-on-Chip [SoC] because there are much stricter regulations about radio transmissions and phone availability and stuff for the mobile network than there are for things like Wi-Fi and Bluetooth.
+
+CHET.  Yes, the regulation of this is quite tight, probably for safety reasons, right? 
+GSM is a specification from the European Telecommunications Standards Institute, and I am assuming that they very strictly test these for being at the precisely right frequency, at the precise right amount of power, and that they’re not designed in such a way where it could connect and denial-of-service the network, or interfere with the ability to make emergency calls, or all this kind of stuff. 
+So it’s not like a commodity chip that 20 different companies in China are pumping out 30-cent versions of.
+There are only (as far as I know) two manufacturers who make these: Samsung and Qualcomm. 
+ So it’s very hard to make them. 
+ I mean, Intel tried to get into the modem baseband business a few years back, spent billions of dollars, and then ended up leaving because they couldn’t do it.
+
+DUCK.  So, the baseband, let’s call it a chip, even though it’s part of a bigger chip, which I described in the article as a System-on-Chip… you can sort of think of it as an “integrated integrated circuit”. 
+It’s like a very, very tiny motherboard, in one chip package. 
+And then there’s this part of it which is, if you like, a chip-within-a chip.
+The idea is that it’s supposed to work independently of, say, Android, or iOS if you’ve got an iPhone. 
+That means that if you have a bug in your baseband firmware which is reachable from the internet, a crook might be able to interfere with the mobile network communications part of your phone, even if they can’t get any further and actually take over Android or your apps. 
+And I imagine that if they’re in amongst your network business, then that means they can probably snoop on your data, snoop your calls, mess with your calls, maybe block your calls, maybe read all your SMSes. 
+So, having a bug in the baseband modem part of your chip…
+…not only is it independent of any bugs in Android, it doesn’t even necessarily go with the phone model you’ve bought, does it?
+Because it could depend on which chip version just happened to be installed in that device, or which market it was sold into, or which factory it was made in.
+
+CHET.  Yes, absolutely. 
+I mean, there’s certainly been a lot of phones in the past where, depending on all those factors you just mentioned, you would get the same exact devices with different modems in them.
+Maybe in the United States… they use a different frequency for 5G than we use here in Canada, so that might have facilitated you getting one brand of chip over another brand of chip.
+But when you buy it at the shop, it’s still just a “Pixel 7”, or a “Samsung S21”, or whatever it’s called on the tin. 
+You don’t really know what’s in there.
+There’s no way for you, ahead of time,  to go, “Oh, I’m only buying a phone that has a Qualcomm Snapdragon version of the modem chip.” 
+I mean, it’s not something you can really do…
+
+DUCK.  Google went looking for bugs in this “baseband” part of devices. 
+Presumably, they picked the Samsung Exynos modem chip component because that just happens to be the one that they use in their latest and greatest Pixel phones… in the Pixel 6 and Pixel 7. 
+But it also covers a whole load of other devices: from Samsung, Vivo and even some cars. 
+And it seems that they stumbled across 18 vulnerabilities. 
+But four of them, they decided, were so severe that even though 90 days have now passed since they found them and revealed them, and therefore they’re in a position where they would normally essentially “drop an 0-day” if there wasn’t a patch available, they decided to suppress that. 
+They actually overrode their own drop-an-0-day policy.
+
+CHET.  And, just miraculously, it happens to impact one of their devices. 
+What a coincidence, Duck…
+
+DUCK.  My understanding is the Pixel 6 series and the Pixel 7 series do have this buggy firmware. 
+And although Google proudly said, “Oh, we’ve come up with patches for the affected Pixel devices”…
+…at the time they announced this, when the 90 days were up, although they *had* patches for the Pixel 6es, they hadn’t actually made them *available* yet, had they? 
+So although it’s normally March the 6th (or the 5th) when their monthly updates come out, they somehow didn’t manage to get updates for the Pixel 6 series until, what was it, the 20th?
+
+CHET.  Well, I have a Pixel 5, Duck,  which is not affected, and yet I also didn’t get my updates till the 20th. 
+So it seems to have gummed up the works over in Mountain View, to the point where everything – even if it was fixed – just sat parked on the shelf.
+
+DUCK.  In this case, it seems to be what they called “internet-to-baseband remote code execution”. 
+In other words, somebody who has internet access could somehow dodgily ping your phone, and without actually compromising the Android part, or tricking you into downloading a rogue app, they could implant some sort of malware on your phone, and you’d have almost no way of knowing.
+So, what to do, Chester?
+
+CHET.  Well, of course, the answer is: Patch! 
+Of course, there’s very little aside from that, but there may be some settings in your device. 
+It appears the most worrisome of the 18 bugs that were discovered impacts what’s called Voice over LTE, or Voice over Wi-Fi. 
+If you think about how your phone’s communicating, it typically (in the old days) used a completely different way of sending your voice, compressed across the wireless network for a telephone call, than it did for, say, sending you a text message or allowing you to access data. 
+And the bug seems to be in the more modern way of doing things, which is just to treat everything like data. 
+You make your voice phone calls go packetised in IP packets – Voice over IP, if you will, using the *data* part of the network, and not the designated voice part of the network. 
+So if your phone has an option that says “Turn on Wi-Fi Calling”, or “Use VoLTE” (which is Voice over LTE), you may be able to turn these things off if you haven’t received a patch yet from your manufacturer.
+
+DUCK.  It’s a tricky one, but definitely a question of “watch this space”. 
+So, let’s move on to the next story, Chester.
+[LAUGHS] It involves your favourite topic, which is, of course, cryptocurrency. 
+It involves a company that makes Bitcoin ATMs that are managed by a server that allows customers to run a whole network of ATMs from one thing, called a CAS (Core ATM server). 
+And they had a bug that just reminds me of those old bugs that we used to speak about way back in the Chet Chat days, where you have an upload plugin that lets you upload videos or images…
+… but then doesn’t verify that what was uploaded really was an image, *and* leaves it in a place where the attacker can trick the system into executing it. 
+Who knew, Chester, that cryptocurrency ATMs needed video upload features?
+Bitcoin ATM customers hacked by video upload that was actually an app
+
+
+CHET.  I was thinking more along the lines of, “Who in their right mind thinks you want a Java runtime environment on an ATM?” 
+So I have a question, Duck.
+I’m trying to picture this in my head…
+I was at Black Hat, gosh, it had to be ten or more years ago, and Barnaby Jack jackpotted an ATM, and $20 bills started flying out of the cash cassette. 
+And I’m trying to picture what happens when I backdoor a Bitcoin ATM.
+What comes out? 
+Can we jackpot one of these at DEF CON this year? 
+And what would I see?
+
+DUCK.  I think what you might see is Bitcoin transactions that the legal owner of the Bitcoins, or whatever cryptocurrency it is, did not approve. 
+And, apparently, private keys that people have uploaded. 
+Because, of course, if you want a “hot wallet” scenario where your cryptocoins can actually be traded on the fly, at a moment’s notice, by someone else on your behalf in their decentralised finance network…
+…then either you have to give them your cryptocurrency (transfer it into their wallet so it’s theirs), and just hope they’ll give it back. 
+Or you have to give them your private key, so that they can act on your behalf as necessary.
+
+CHET.  Any transaction that, for it to be functional, requires me to surrender a private key means that private key is no longer private, and that has to just stop right there!
+
+DUCK.  [LAUGHS] Yes, it is a rather strange thing.
+Like you say, when it comes to private keys, the clue is in the name, isn’t it?
+
+CHET.  We certainly don’t have enough time to go through all the reasons that cryptocurrency is a bad idea, but just in case you needed another, we’ll add this one to the list.
+
+DUCK.  Yes, and we have some advice. 
+I won’t go through the tips that we have, but we’ve got a “What to do?” section, as usual, in the article on Naked Security. 
+We’ve got some tips for people who use this particular company’s products, but also general advice for programmers who feel they need to build some kind of online service that allows for uploads. 
+There are lessons that we should have learned 20 years ago, that we hadn’t learned ten years ago, and apparently some of us still haven’t learned in 2023…
+…about the caution you need when you’re letting untrusted people give you content that you later magically turn into something trusted. 
+So, talking about trusting applications on your device, Chester, let’s move on to the final topic of the week, which turns out to be a double story. 
+I had to write two separate articles on two consecutive days on Naked Security! 
+There was a bug found by some very excitable researchers, who dubbed it “aCropalypse”, because bugs deserve impressive names when they’re exciting. 
+And they found this bug in the app on Google Pixel Phones that lets you take a screenshot, or a photo you’ve captured, and crop it, or blank out bits of it.
+The problem is that the cropped file would be sent *along with the data that was at the trailing end of the original file, not removed from it*. 
+Google Pixel phones had a serious data leakage bug – here’s what to do!
+
+So the new data was written over the old file, but then the old file wasn’t chopped off at the new end-point. 
+Once it became obvious how this bug happened, people figured, “Hey, let’s see if there are any other places where programmers have made a similar mistake.” 
+And, lo and behold, at least the Windows 11 Snipping Tool turns out to have exactly the same bug…
+…though for a completely different reason, because the one on Pixel Phones, I believe, is written in Java, and the one on Windows, I assume, is written in C++. 
+If you Save the file, instead of Save As to a new file, it writes over the old file but doesn’t get rid of the data that’s left over. 
+How about that, Chester?
+Windows 11 also vulnerable to “aCropalypse” image data leakage
+
+
+CHET.  [IRONIC] Well, as you know, we always like to have workarounds. 
+I guess the workaround is only crop up to the first 49% of an image.
+
+DUCK.  Oh, you mean crop from the top?
+
+CHET.  Yes.
+
+DUCK.  Alright… so then you get the bottom of the old image at the top of the new image, and you get the bottom of the old image?
+
+CHET.  However, if you’re redacting a signature at the bottom of the document, make sure you turn it upside down first.
+
+DUCK.  [LAUGHS] Well, there are some other workarounds, aren’t there? 
+Which is, if you’re using an app that has a Save As option, where you create a new file, obviously there’s no content to get overwritten that could get left behind.
+
+CHET.  Yes. 
+Once again, I suspect these bugs will be fixed, and most people just need to make sure that they’re staying on top of Patch Tuesday, or Google Patch Day, as we discussed earlier… whatever day it ends up being on, because you never quite know.
+
+DUCK.  The real problem really seems to be (and I’ve put some hex dumps in the Naked Security article) that the way PNG files work is they contain almost like a load of opcodes, or internal little blocks. 
+And there are blocks that say: IDAT… so that’s data that’s in the file. 
+And then eventually there’s one that says IEND, which means, “This is the end of the image.” 
+So the problem is, if you crop a file and it leaves 99% of the old data in there, when you go and view it with something like File Explorer, or any image viewing program, *you’ll see the cropped file*, because the PNG library that’s loading the data back will reach that first IEND tag and go, “OK, I can stop now.” 
+And I guess that’s probably why the bug never got found.
+
+CHET.  Usually when doing comparison checks programmatically, you’re often working with hashes, which would be different, right? 
+So you specifically needed to look at the *size*, not even that the hash changed, right?
+
+DUCK.  If you’re a programmer, in fact, this kind of bug, where you overwrite a file in-place on the disk, but forget, or neglect, to open the file in the mode where it will get chopped off where the new data ends…
+…this is a bug that could actually affect an awful lot of programs out there. 
+And any data format that has a “this is the end of the image tag” inside the file could easily be vulnerable to this.
+
+CHET.  I suspect there may be a lot of talks in August in Las Vegas discussing this in other applications.
+
+DUCK.  So, it’s all down to how the file was opened. 
+If you’re a programmer, go and research the open mode O_TRUNC, which means that when you open a file for writing and it already exists, you want to truncate the file, not overwrite in place. 
+Sometimes you do want to do that… for example, if you’re patching an EXE file header to add in the correct checksum, then obviously you don’t want to truncate the file at that point. 
+But in this case, particularly where you’re cropping an image *specifically to get rid of the dodgy parts* [LAUGHS], you definitely don’t want anything left over that isn’t supposed to be there.
+
+CHET.  Yes, those are all great points, Duck, and I think the bottom line is, for now…
+…we know you need to patch Windows 11, and you need to patch your Android device, at least if it’s using Google’s picture editor, which is probably pretty much just the Pixel phones. 
+But we’re probably going to see more of this kind of thing, right? 
+So stay on top of *all* your patches! 
+I mean, you shouldn’t wait for the Naked Security podcast and go, “Oh, I need to go apply the Android fix because Duck said so.” 
+We need to be getting the habit of just consuming these when they’re coming out, because these aren’t the only applications making these mistakes; this is not the only Firefox bug that’s going to result in a memory leak; these things are happening all the time.
+And staying up to date is important in general, not just when you hear about some critical bug.
+
+DUCK.  It’s a little bit like the “ransomware problem”, isn’t it? 
+Which is really the “general active adversary/malware problem”. 
+Focusing on one tiny part of it, just the ransomware, isn’t enough. 
+You need defence in breadth as well as defence in depth. 
+And when it comes to patching, like you say, if you always need a newsworthy excuse, or a bug with a fancy name to get you over the line, you’re kind of part of the problem, not part of the solution, wouldn’t you say?
+
+CHET.  Yes, precisely! 
+[LAUGHS] Maybe if this concept is what it takes, then we should just have a Bug With An Impressive Name generator tool, that we could put up on the Sophos website somewhere, and then any time somebody finds a bug, they could give it a name…
+…if that’s what it takes to motivate people to get this done.
+
+DUCK.  Ah, you mean… even if it’s not a very dangerous bug, and it’s got a CVSS score of -12, you just give it some amazing names!
+And there have been some great ones in the past, haven’t there?
+We’vwe had Logjam, Heartbleed… Orpheus’s Lyre, if you remember that one. 
+That bug not only had a website and a logo, it had a theme tune!
+How about that?
+Windows security hole – the “Orpheus’ Lyre” attack explained
+
+
+CHET.  [LAUGHS] I feel like we’re entering a MySpace page, or something.
+
+DUCK.  Of course, when you create the theme tune, and then you crop it down to the neat 7-second sting, you need to be careful that you haven’t left some unwanted audio data in the file due to the aCropalypse bug. [LAUGHS]
+Excellent. 
+Thank you so much, Chester, for filling in for Doug while he’s away, and for sharing your insights with us. 
+As always, it remains only for us to say…
+
+CHET.  Until next time, stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It would be a nice little feature if you can click somewhere around subtopic picture and listen audio from that point on.
+The pictures are meant to link to the related articles (because the transcripts are intended for those who prefer to read than to listen, and the articles don’t have their own audio). Let me see if I can find a simple way to add “listen to this bit” links… perhaps they could go at the *top* of the podcast page, in the list of topics (thus making that list into a sort of listening menu)?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,29 @@
+Sophos Home protects every Mac and PC in your home 
+Logging software has made cyberinsecurity headlines many times before, notably in the case of the Apache Log4J bug known as Log4Shell that ruined Christmas for many sysadmins at the end of 2021.
+The Log4Shell hole was a security flaw in the logging process itself,  and boiled down to the fact that many logfile systems allow you to write what almost amount to “mini-programs” right in the middle of the text that you want to log, in order to make your logfiles “smarter” and easier to read.
+For example, if you asked Log4J to log the text I AM DUCK, Log4J would do just that.
+But if you included the special markup characters ${...}, then by choosing carefully what you inserted between the squiggly brackets, you could as good as tell the logging server, “Don’t log these actual characters; instead, treat them as a mini-program to run for me, and insert the answer that comes back.”
+Log4Shell: The Movie… a short, safe visual tour for work and home
+
+
+So by choosing just the right sort of booby-trapped data for a server to log, such as a sneakily constructed email address or a fake surname, you could maybe, just maybe, send program commands to the logger disguised as plain old text.
+Because flexibility! Because convenience! But not because security!
+This time round, the logging-related bug we’re warning you about is CVE-2023-20864, a security hole in VMWare’s Aria Operations for Logs product (AOfL, which used to be known as vRealize Log Insight).
+The bad news is that VMWare has given this bug a CVSS “security danger” score of 9.8/10, presumably because the flaw can be abused for what’s known as remote code execution (RCE), even by network users who haven’t yet logged into (or who don’t have an account on) the AOfL system.
+RCE refers to the type of security hole we described in the Log4Shell example above, and it means exactly what it says: a remote attacker can send over a chunk of what’s supposed to be plain old data, but that ends up being handled by the system as one or more programmatic commands.
+Simply put, the attacker gets to run a program of their own choice, in a fashion of their own choosing, almost as though they’d phoned up a sysadmin and said, “Please login using your own account, open a terminal window, and then run the following sequence of commands for me, without question.”
+The good news in this case, as far as we can tell, is that the bug can’t be triggered simply by abusing the logging process via booby-trapped data sent to any server that just happens to keep logs (which is pretty much every server ever).
+Instead, the bug is in the AOfL “log insight” service itself, so the attacker would need access to the part of your network where the AOfL services actually run.
+We’re assuming that most networks where AOfL is used don’t have their AOfL services opened up to anyone and everyone on the internet, so this bug is unlikely to be directly accessible and triggerable by the world at large.
+That’s less dramatic than Log4Shell, where the bug could, in theory at least, be triggered by network traffic sent to almost any server on the network that happened to make use of the Log4J logging code, including systems such as web servers that were supposed to be publicly accessible.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

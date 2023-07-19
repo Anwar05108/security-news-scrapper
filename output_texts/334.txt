@@ -1,0 +1,36 @@
+Sophos Home protects every Mac and PC in your home 
+NB. Detection names you can check for if you use Sophos products and servicesare available from the Sophos X-Ops team on our sister site Sophos News.
+Internet telephony company 3CX is warning its customers of malware that was apparently weaseled into the company’s own 3CX Desktop App by cybercriminals who seem to have acquired access to one or more of 3CX’s source code repositories.
+As you can imagine, given that the company is scrambling not only to figure out what happened, but also to repair and document what went wrong, 3CX doesn’t have much detail to share about the incident yet, but it does state, right at the very top of its official security alert:
+The issue appears to be one of the bundled libraries that we compiled into the Windows Electron App via Git. 
+We’re still researching the matter to be able to provide a more in depth response later today [2023-03-30].
+Electron is the name of a large and super-complex-but-ultra-powerful programming toolkit that gives you an entire browser-style front end for your software, ready to go.
+For example, instead of maintaining your own user interface code in C or C++ and working directly with, say, MFC on Windows, Cocoa on macOS, and Qt on Linux…
+…you bundle in the Electron toolkit and program the bulk of your app in JavaScript, HTML and CSS, as if you were building a website that would work in any browser.
+If you’ve ever wondered why popular app downloads such as Visual Studio Code, Zoom, Teams and Slack are as big as they are, it’s because they all include a build of Electron as the core “programming engine” for the app itself.
+The good side of tools like Electron is that they generally make it easier (and quicker) to build apps that look good, that work in a way that users are aready famiilar with, and that don’t behave completely differently on each different operating system.
+The bad side is that there’s a lot more underyling foundation code that you need to pull down from your own (or perhaps from someone else’s) source code repository every time you rebuild your own app, and even modest apps typically end up several hundreds of megabytes in size when they’re downloaded, and even bigger after they’re installed.
+That’s bad, in theory at least.
+Loosely speaking, the bigger your app, the more ways there are for it to go wrong.
+And while you’re probably familiar with the code that makes up the unique parts of your own app, and you’re no doubt well-placed to review all the changes from one release to the next, it’s much less likely that you have the same sort of familiarity with the underlying Electron code on which your app relies.
+It’s therefore unlikely that you will have the time to pay attention to all the changes that may have been introduced into the “boilerplate” Electron parts of your build by the team of open-source volunteers who make up the Electron project itself.
+In other words, if you’re keeping your own copy of the Electron repository, and attackers find a way into your source code control system (in 3CX’s case, they’re apparently using the very popular Git software for that)…
+…then those attackers might well decide to booby-trap the next version of your app by injecting their malicious bits-and-pieces into the Electron part of your source tree, instead of trying to mess with your own proprietary code.
+After all, you probably take the Electron code for granted as long as it looks “mostly the same as before”, and you you are almost certainly better placed to spot unwanted or unexpected additions in your own team’s code than in a giant dependency tree of source code that was written by someone else.
+When you’re reviewing your own company’s own code, [A] you have probably seen it before, and [B] you may very well have attended the meetings in which the changes now showing up in your diffs were discussed and agreed. You’re more likely to be tuned into, and more proprietorial – sensitive, if you wish – about changes in your own code that don’t look right. It’s a bit like the difference between noticing that something’s out-of-kilter when you drive your own car than when you set off in a rental vehicle at the airport. Not that you don’t care about the rented car because it isn’t yours (we hope!), but simply that you don’t have the same history and, for want of a better word, the same intimacy with it.
+Simply put, if you’re a 3CX user and you’ve got the company’s Desktop App on Windows or macOS, you should:
+NEED TO KNOW MORE? KEEP TRACK OF IOCS, ANALYSIS AND DETECTION NAMES
+3CX users under DLL-sideloading attack: What you need to know
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

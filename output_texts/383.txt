@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+Even if you’re not a MOVEit customer, and even if you’d never heard of the MOVEit file sharing software before the end of last month…
+…we suspect you’ve heard of it now. 
+That’s because the MOVEit brand name has been all over the IT and mainstream media for the last week or so, due to an unfortunate security hole dubbed CVE-2023-34362, which turned out to be what’s known in the jargon as a zero-day bug.
+A zero-day hole is one that cybercriminals found and figured out before any security updates were available, with the outcome that even the most avid and fast-acting sysadmins in the world had zero days during which they could have patched ahead of the Bad Guys.
+Regrettably, in the case of CVE-2023-34362, the crooks who got there first were apparently members of the infamous Clop ransomware crew, a gang of cyberextortionists who variously steal victims’ data or scramble their files, and then menace those victims by demanding protection money in return for suppressing the stolen data, decrypting the ruined files, or both.
+As you can imagine, because this security hole existed in the web front-end to the MOVEit software, and because MOVEit is all about uploading, sharing and downloading corporate files with ease, these criminals abused the bug to grab hold of trophy data to give themselves blackmail leverage over their victims.
+Even companies that are not themselves MOVEit users have apparently ended up with private employee data exposed by this bug, thanks to outsourced payroll providers that were MOVEit customers, and whose databases of customer staff data seem to have been plundered by the attackers.
+(We’ve seen reports of breaches affecting tens or hundreds of thousands of staff at a range of operations in Europe and North America, including organisations in the healthcare, news, and travel sectors.)
+SQL INJECTION AND WEBSHELLS EXPLAINED
+MOVEit zero-day exploit used by data breach gangs: The how, the why, and what to do…
+
+
+The creators of the MOVEit software, Progress Software Corporation, were quick to publish patches once they knew about the existence of the vulnerability.
+The company also helpfully shared an extensive list of so-called IoCs (indicators of compromise), to help customers look for known signs of attack even after they’d patched.
+After all, whenever a bug surfaces that a notorious cybercrime crew has already been exploiting for evil purposes, patching alone is never enough.
+What if you were one of the unlucky users who had already been breached before you applied the update?
+Well, here’s a spot of good but urgent news from the no-doubt beleaguered developers at Progress Software: they’ve just published yet more patches for the MOVEit Transfer product.
+As far as we know, the vulnerabilities fixed this time aren’t zero-days. 
+In fact, these bugs are so new that at the time of writing [2023-06-09T21:30:00Z] they still hadn’t received a CVE number.
+They’re apparently similar bugs to CVE-2023-34362, but this time found proactively:
+[Progress has] partnered with third-party cybersecurity experts to conduct further detailed code reviews as an added layer of protection for our customers. [… We have found] additional vulnerabilities that could potentially be used by a bad actor to stage an exploit. These newly discovered vulnerabilities are distinct from the previously reported vulnerability shared on May 31, 2023.
+As Progress notes: 
+All MOVEit Transfer customers must apply the new patch, released on June 9. 2023.
+For official information about these additional fixes, we urge you to visit the Progress Overview document, as well as the company’s specific advice about the new patch.
+By the way, finding one bug in your code and then very quickly finding a bunch of related bugs isn’t unusual, because flaws are easier to find (and you’re more inclined to want to hunt them down) once you know what to look for.
+So, even though this means more work for MOVEit customers (who may feel that they have enough on their plate already), we’ll say again that we consider this good news, because latent bugs that might otherwise have turned into yet more zero-day holes have now been closed off proactively.
+By the way, if you’re a programmer and you ever find yourself chasing down a dangerous bug like CVE-2023-34362…
+…take a leaf out of Progress Software’s book, and search vigorously for other potentially related bugs at the same time.
+THREAT HUNTING FOR SOPHOS CUSTOMERS
+Update 1: Information on MOVEit Transfer and MOVEit Cloud Vulnerability CVE-2023-34362
+
+
+MORE ABOUT THE MOVEIT SAGA
+S3 Ep138: I like to MOVEit, MOVEit
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Looks like there’s even more to this story.
+June 15, 2023, Today, a third-party publicly posted a new SQLi vulnerability. We have taken HTTPs traffic down for MOVEit Cloud in light of the newly published vulnerability and are asking all MOVEit Transfer customers to immediately take down their HTTP and HTTPs traffic to safeguard their environments while the patch is finalized. We are currently testing the patch and we will update customers shortly. More information can be found in this Knowledge Base article (https://community.progress.com/s/article/MOVEit-Transfer-Critical-Vulnerability-15June2023).
+Thanks for the note. I’ve written it up as a separate article, due to the different advice this time:
+https://nakedsecurity.sophos.com/2023/06/15/moveit-mayhem-3-disable-http-and-https-traffic-immediately/
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

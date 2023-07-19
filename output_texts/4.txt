@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+“It’s Log4Shell, Jim,” as Commander Spock never actually said, “But not as we know it.”
+That’s the briefest summary we can come up with of the bug CVE-2021-42392, a security hole recently reported by researchers at software supply chain management company Jfrog.
+This time, the bug isn’t in Apache’s beleagured Log4j toolkit, but can be found in a popular Java SQL server called the H2 Database Engine.
+H2 isn’t like a traditional SQL system such as MySQL or Microsoft SQL server.
+Although you can run H2 as a standalone server for other apps to connect into, its main claim to fame is its modest size and self-contained nature.
+As a result, you can bundle the H2 SQL database code right into your own Java apps, and run your databases entirely in memory, with no need for separate server processes.
+As with Log4j, of course, this means that you may have running instances of the H2 Database Engine code inside your organisation without realising it, if you use any apps or development components that themselves quietly include it.
+Like the Log4Shell vulnerability, this one depends on abuse of the Java Naming and Directory Interface, better known as JNDI, which is an integral part of every standard Java installation.
+JNDI is supposed to make it easier to identify and access useful resources across your network, including finding and fetching remotely stored software components using well-known search-and-discovery protocols such as LDAP (the Lightweight Directory Access Protocol).
+As dangerous as this sounds, it’s important to remember that similar functionality can be coded into any software (compiled or interpreted, script or binary) that has network access, can download arbitrary data, and is able to turn that data into executable code of some sort. JNDI merely makes it very much easier to build distributed apps that find and load remote components. This sort of programmatic convenience sometimes improves security, because it’s often easier to audit and review code when it follows a well-documented path. But sometimes it reduces security, because it makes it easier to introduce unexpected side-effects by mistake. We saw this in Log4j, where “write out a text string to keep a record of data submitted by a remote user” could inadvertently turn into “download and run an untrusted program specified by a remote user”.
+Fortunately, unlike Log4Shell, the CVE-2021-42392 bug can’t be triggered simply by emebdding booby-trapped text into queries that get sent to the H2 database engine.
+Although Jfrog has documented several ways that cybercrimimals could, in theory, trick H2 into running arbitary remote code, the most likely attack path involves:
+According to H2, apps that embed the H2 engine directly into their code “are not externally exposed”, but as far as we can see this note refers only to the database engine itself when it’s not running as a SQL server, and not to the web console component.
+Unfortunately, Jfrog notes:
+We’ve observed that some third-party tools relying on the H2 database will run the H2 console exposed to remote clients by default. For example, the JHipster framework also exposes the H2 console, and by default sets the webAllowOthers property to true.
+(The setting webAllowOthers is the Java property used by H2 to decide whether to accept connections from external network interfaces.)
+The default web console login page includes a form that allows users to specify how they want to connect to the database.
+A malevolent user could use this form to request a JNDI lookup via LDAP, just like in a Log4Shell attack, in order to trick H2 into fetching and running a remote Java .class file (a compiled Java program).
+Although a treacherous URL used to launch an attack would be submitted in the the same login form that requests a username and password, Jfrog discovered that the JNDI lookup happens before the username and password are verified.
+This means an attacker doesn’t need working credentials to exploit the vulnerability, so that the bug opens up what’s known as an unauthenticated remote code execution (RCE) hole, the most dangerous sort.
+LEARN HOW JNDI AND LDAP COMBINE FOR REMOTE CODE EXECUTION
+For a live demonstration of how JNDI can be maliciously combined with JDAP lookups to download and run untrusted remote code, watch this video:
+
+If you can’t read the text in the video clearly here, try using Full Screen mode, or watch directly on YouTube. Click on the cog in the video player to speed up playback or to turn on subtitles.
+At the time of writing, 2.0.206 (released 2022-01-04) is listed as the latest version, although the H2 changelog still lists 2.0.206 as “unreleased”, and doesn’t document CVE-2021-42392 as one of the issues fixed.
+Jfrog, however, states that 2.0.206 includes a similar code change to the one that Apache used in the Log4j 2.17.0 update: H2 no longer allows JNDI to be used with any remote references.
+This means, in theory, that attackers can no longer pull off the trick of saying “do a lookup, but use a network request that takes you to an untrusted exernal location so that we can manipulate the results”.
+As far as we can see, the updated H2 Database Engine now only uses JNDI for what are essentially local Java function calls, so that remote code execution as an unexpected side-effect of  using JNDI is no longer possible, neither by accident nor design.
+The wildcard text denoted by * should be of the form X.Y.Z, representing the version number of H2 that’s in use – anything below 2.0.206 should be replaced with the latest version.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+As for the console, this is more of an educational feature, rarely will anyone leave it for production.
+But the TCP server is interesting. Can you give an example of a malicious connection string?
+Assuming that by “the TCP server” you mean “a socket-based interface to the database engine itself”, I can’t provide you with a malicious connection string because I don’t have one. (And if it were that easy, I probably wouldn’t document it here anyway.)
+As explained above, and as detailed in the Jfrog article, the most likely route to exploitation is via the console, and as documented by Jfrog, leaving it open in production doesn’t happen “rarely”, as you suggest – indeed, there are mainstream products that include H2 that not only have it enabled but also expose the console on external networm interfaces by default.
+Anyway, even if you have the console open only to connections from localhost, this is a security hole nevertheless (if nothing else, it’s an elevation or substitutiuon of privilege exploit) and should be patched anyway, so that you can’t taint the login process by injected a remote code exection request.
+Therefore I stand by the advice in this article without feeling the need to reveal any additional, specific information on how to go about exploiting this hole:
+1. Find which apps you have that use H2. (You might be surprised to find the code bundled in and installed where you didn’t expect. And if that happens – as happened to 1000s of sysadmins when they went looking for Log4j – then you would be unwise to base your security assessment on a guess that “the console would rarely be left active in production.”. If you didn’t even realise that H2 was there in the first place, then second-guessing the person who put it there without you noticing is a risk not worth taking.)
+2. Patch them when you can.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

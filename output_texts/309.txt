@@ -1,0 +1,54 @@
+Sophos Home protects every Mac and PC in your home 
+Jonathan Swift is probably most famous for his novel Gulliver’s Travels, during which the narrator, Lemuel Gulliver, encounters a socio-political schism in Liiliputian society caused by unending arguments over whether you should open a boiled egg at the big end or the little end.
+This satirical observation has flowed directly into modern computer science, with CPUs that represent integers with the least significant bytes at the lowest memory addresses called little-endian (that’s like writing the year AD 1984 as 4 8 9 1, in the sequence units-tens-hundreds-thousands), and those that put the most significant bytes first in memory (as numbers are conventionally written: 1 9 8 4) known as big-endian.
+Swift, of course, gave us another satirical note that applies rather neatly to open-source supply chain attacks, where programmers decide to use project X, only to find that X depends on Y, which itself depends on Z, which depends on A, B and C, which in turn…
+…you get the picture.
+That observation came in a series of remarks about poets that appeared, appropriately enough, in a poem:
+We’re not sure, but we’re guessing that the Great Vowel Shift was still not complete in the late 1600s and early 1700s, and that the -EA in Swift’s word Flea was pronounced then as we still, rather peculiarly, pronounce the -EY in prey today. Thus the poem would be read aloud with the sound flay to rhyme with pray. (This E-used-to-be-A business is why British people still say DARBY when they read the placename Derby, or BARKSHIRE when they visit Royal Berkshire.)
+We’ve therefore got used to the idea that rogue content uploaded to open source package repositories generally aims to inject itself unnoticed into the “flea stacks” of code dependencies that some products inadvertently download when updating automatically.
+But researchers at supply-chain security testing outfit Checkmarx recently warned about a much less sophisticated, yet potentially much more intrusive, abuse of popular repositories: as phishing link “redirectors”.
+Researchers noticed hundreds of online properties such as WordPress blogging sites that had been littered with scammy-looking posts…
+…that linked off to thousands of URLs hosted in the NPM package repository.
+But those “packages” didn’t exist to publish source code.
+They existed simply as placeholders for README files that included the final links that the crooks wanted people to click on.
+These links typically including referral codes that would net the scammers a modest reward, even if the person clicking through was doing so simply to see what on earth was going on.
+The NPM package names weren’t exactly subtle, so you ought to spot them.
+Fortunately, the crooks (inadvertently, we assume) managed to include their list of poisonous packages in one of their uploads.
+Checkmarx has therefore published a list containing more than 17,000 unique bogus names, of which just a small sample (one each for the first few letters of the alphabet) shows you what sort of “goods and services” these crooks claim to offer:
+Checkmarx also published a list of close to 200 web pages on which posts had been published that promoted and linked to these bogus NPM packages.
+It sounds as though the scammers already had usernames and passwords for some of these sites, which allowed them to post as named or otherwise “trusted” users and reviewers.
+But any site with unmoderated or poorly-moderated comments could be peppered anonymously with this sort of rogue link, so just forcing all your community members to create an account on your site is not itself enough to control this sort of abuse.
+Creating clickable links in many, if not most, online source code repositories is surprisingly easy, and automatically follows the look-and-feel of the site as a whole.
+You don’t even need to create full-blown HTML layouts or CSS page styles – usually, you just create a file in the root directory of your project called README.md.
+The extension .md is short for Markdown, a super-easy-to-use text markkup language (see what they did there?) that replaces the complex angle-bracket tags and attributes of HTML with simple text annotations. 
+To make text bold in Mardown, just put stars round it, so that **this bit** would be bold. For paragraphs, you just leave blank lines. To create a link, just put some text in square brackets and follow it with a URL in round brackets. To display an image from a URL instead of creating clickable text to it, put an exclamation point in front of the link, and so on.
+Remember…
+…think before you click, and if in doubt, don’t give it out!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Thanks for including that tidbit about the British language in the article. That was some interesting bonus information.
+> “…we’re guessing that the Great Vowel Shift was still not complete in the late 1600s…”
+You’re such an interesting person. I’m learning as much about philology from your blogposts as I am about cybersecurity. I bet you’d be brilliant in a pub quiz.
+> “…put an exclamation point in front of the link…”
+I assume that this departure from the King’s English is to appeal to your American readership. I can sympathise with the sentiment, even if it still stings a little.
+Anyway, bravo on the article, as usual.
+I’m not aware of “exclamation mark” and “exclamation point” being specifically UK and US English respectively. 
+I am aware that for some punctuation symbols, Americans use the same word for the mark as for the type of sentence it denotes, which I guess has a pleasing symmetry to it. (E.g. “period” used to mean both a complete, rounded sentence or explanation, essentially how the Ancient Greeks used the word, and the dot used to denote the end of one; “parenthesis” used to describe both a type of clause and one of the symbols used to set such a remark off from the rest of the sentence;  “exclamation” used to describe both a statement of that sort and the shriek-mark used to label it in print; and “interrogative” for the equivalent when asking questions.)
+I generally use the words period, parenthesis and exclamation for the types of clause or sentence; and full stop, bracket (round, square, angle or squiggly), exclamation point and question mark for the symbols.
+I prefer “exclamation point” to “exclamation mark” because exclamations are there to make a point, and questions often need marking to ensure you pronounce them suitably.
+In common speech I would say “shriek”, not “bang” as Americans do. Thus the Unix special executable marker string that American curiously call “shebang” (#!) is more properly, and splendidly (if I say so myself) known as “hashriek”.
+I had a computer science prof (in 1979) explain that ! was called a ‘bang’ due to the sound generated when a 133 character row of ! was printed on a printer of the time.   🙂
+Followed by ‘shriek’ when the punched line acted as a perforation and the paper separated…
+I once used a line printer where the form length was controlled by a loop of old-style punched tape with a row of holes where a form feed should advance to… if you switched to a different size of fan-fold you had to change the loop or the pages would get of of sync.
+When the paper loop started to wear out it could slip off the feed sprocket thingy and at the next form feed character the printer would spew paper at full speed, basically forever, without ever realising it had overdone things.
+The paper would arc out of the back of the printer until the box was empty and an giant pile of unfanfolded eye-line stationery was heaped up behind the printer. 
+You learned pretty quickly to check and replace that loop regularly… probably £99,999 of hardware (when new – this was when the machine was surplus to requirements and used by school kids) let down by a crummy little loop of paper tape… we couldn’t afford to waste the paper so it had to be patiently folded back into the box and used again.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

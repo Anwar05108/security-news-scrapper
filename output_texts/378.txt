@@ -1,0 +1,69 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at firmware and supply-chain security company Eclypsium claim to have found what they have rather dramatically dubbed a “backdoor” in hundreds of motherboard models from well-known hardware maker Gigabyte.
+In fact, Eclypsium’s headline refers to it not merely as a backdoor, but all in upper case as a BACKDOOR.
+The good news is that this seems to be a legitimate feature that has been badly implemented, so it’s not a backdoor in the usual, treacherous sense of a security hole that’s been deliberately inserted into a computer system to provide unauthorised access in future.
+So, it’s not like a daytime visitor knowingly unlatching a little-known window round the back of the building so they can come back under cover of darkness and burgle the joint.
+The bad news is that this seems to be a legitimate feature that has been badly implemented, leaving affected computers potentially vulnerable to abuse by cybercriminals.
+So, it’s a bit like a little-known window round the back of the building that’s forgetfully been left unlatched by mistake.
+The problem, according to Ecylpsium, is part of a Gigabyte service known as APP Center, which “allows you to easily launch all GIGABYTE apps installed on your system, check related updates online, and download the latest apps, drivers, and BIOS.”
+The buggy component in this APP Center ecosystem, say the researchers, is a Gigabyte program called GigabyteUpdateService.exe, a .NET application that is installed in the %SystemRoot%\System32 directory (your system root is usually C:\Windows), and runs automatically on startup as a Windows service.
+Services are the Windows equivalent of background processes or daemons on Unix-style systems: they generally run under a user account of their own, often the SYSTEM account, and they keep running all the time, even if you sign out and your computer is waiting unassumingly at the logon screen.
+This GigabyteUpdateService program, it seems, does exactly what its name suggests: it acts as an automated downloader-and-installer for other Gigabyte components, listed above as apps, drivers and even the BIOS firmware itself.
+Unfortunately, according to Eclypsium, it fetches and runs software from one of three hard-wired URLs, and was coded in such a way that:
+That’s bad enough on its own, but there’s a bit more to it than that.
+You can’t just go out and grab a new version of the GigabyteUpdateService utility, because that particular program may have arrived on your computer in an unusual way.
+You can reinstall Windows at any time, and a standard Windows image doesn’t know whether you’re going to be using a Gigabyte motherboard or not, so it doesn’t come with GigabyteUpdateService.exe preinstalled. 
+Gigabyte therefore uses a Windows feature known as WPBT, or Windows Platform Binary Table (it’s pitched as a feature by Microsoft, though you might not agree when you learn how it works).
+This “feature” allows Gigabyte to inject the GigabyteUpdateService program into the System32 directory, directly out of your BIOS, even if your C: drive is encrypted with Bitlocker.
+WPBT provides a mechanism for firmware makers to store a Windows executable file in their BIOS images, load it into memory during the firmware pre-boot process, and then tell Windows, “Once you’ve unlocked the C: drive and started booting up, read in this block of memory that I’ve left lying around for you, write it out to disk, and run it early in the startup process.”
+Yes, you read that correctly.
+According to Microsoft’s own documentation, only one program can be injected into the Windows startup sequence in this way: 
+The on-disk file location is \Windows\System32\Wpbbin.exe on the operating system volume.
+Additionally, there are some strict coding limitations placed on that Wpbbin.exe program, notably that:
+WPBT supports only native, user-mode applications that are executed by the Windows Session Manager during operating system initialization. A native application refers to an application that does not have a dependency on the Windows API (Win32). Ntdll.dll is the only DLL dependency of a native application. A native application has a PE subsystem type of 1 (IMAGE_SUBSYSTEM_NATIVE).
+At this point, you’re probably wondering how a low-level native app that starts life as Wpbbin.exe ends up as a full-blown .NET-based update application called GigabyteUpdateService.exe that runs as a regular system service.
+Well, in the same way that the Gigabyte firmware (which can’t itself run under Windows) contains an embedded IMAGE_SUBSYSTEM_NATIVE WPBT program that it “drops” into Windows…
+…so, too, the WPBT native-mode code (which can’t itself run as a regular Windows app) contains an embedded .NET application that it “drops” into the System32 directory to be launched later on in the Windows bootup process.
+Simply put, your firmware has a specific version of GigabyteUpdateService.exe baked into it, and unless and until you update your firmware, you’ll carry on getting that hard-wired version of the APP Center updater service “introduced” into Windows for you at boot time.
+There’s an obvious chicken-and-egg problem here, notably (and ironically) that if you let the APP Center ecosystem update your firmware for you automatically, you may very well end up with your update getting managed by the very same hard-wired, baked-into-the-firmware, vulnerable update service that you want to replace.
+In Microsoft’s words (our emphasis):
+The primary purpose of WPBT is to allow critical software to persist even when the operating system has changed or been reinstalled in a “clean” configuration. One use case for WPBT is to enable anti-theft software which is required to persist in case a device has been stolen, formatted, and reinstalled. […] This functionality is powerful and provides the capability for independent software vendors (ISVs) and original equipment manufacturers (OEMs) to have their solutions stick to the device indefinitely. 
+Because this feature provides the ability to persistently execute system software in the context of Windows, it becomes critical that WPBT-based solutions are as secure as possible and do not expose Windows users to exploitable conditions. In particular, WPBT solutions must not include malware (i.e., malicious software or unwanted software installed without adequate user consent).
+Quite.
+Is this really a “backdoor”? 
+We don’t think so, because we’d prefer to reserve that particular word for more nefarious cybersecurity behaviours, such as purposely weakening encryption algorithms, deliberately building in hidden passwords, opening up undocumented command-and-control pathways, and so on.
+Anyway, the good news is that this WPBT-based program injection is a Gigabyte motherboard option that you can turn off.
+The Eclypsium researchers themselves said, “Although this setting appears to be disabled by default, it was enabled on the system we examined,” but a Naked Security reader (see comment below) writes, “I just built a system with a Gigabyte ITX board a few weeks ago and the Gigabyte App Center was [turned on in the BIOS] out of the box.” 
+So, if you have a Gigabyte motherboard and you’re worried about this so-called backdoor, you can sidestep it entirely: Go into your BIOS setup and make sure that the APP Center Download & Install option is turned off.
+You could even use your endpoint security software or your corporate network firewall to block access to the three URL slugs that are wired into the insecure update service, which Eclypsium lists as:
+Just to be clear, we haven’t tried blocking these URLs, so we don’t know whether you’d block any other necessary or important Gigabyte updates from working, though we suspect that blocking downloads via that HTTP URL is a good idea anyway.
+We’re guessing, from the text LiveUpdate4 in the path part of the URL, that you’ll still be able to download and manage updates manually and deploy them in your own way and on your own time…
+…but that is only a guess.
+Also, keep your eyes open for updates from Gigabyte.
+That GigabyteUpdateService program could definitely do with improvement, and when it’s patched, you may need to update your motherboard firmware, not merely your Windows system, to ensure that you don’t still have the old version buried in your firmware, waiting to come back to life in the future.
+And if you’re a programmer who is writing code to handle web-based downloads on Windows, always use HTTPS, and always perform at least a basic set of certificate verification checks on any TLS server you connect to. 
+Because you can.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Wasn’t Asus guilty of the same practice?
+Which practice? Not validating downloads, or using WPBT? (Or both?)
+I did wonder how that first boot junkware got onto the system. I mean I always decline to install it but it was curious. Asus motherboard here at work and a Gigabyte at home, they both do it.
+There’s a project named dropWPBT on Github that you can inject in modified Windows install disks (the author name is Jamesits).
+I guess this dropWPBT EFI loader is better for Windows PE than a full OS since this way you just have to temporarily disable Secure Boot during the Windows install.
+Then after the full OS install is done reboot again in Windows PE and mount the installed OS registry to create the DisableWpbtExecution value and set it to 1.
+The exact details are on the dropWPBT project page, and if you do this way then you will be able to never execute any WPBT binary at any point in time during your new OS installs.
+So it’s also possible to never run this firmware program in the first place, which makes the installed system stay clean.
+I just built a system with a Gigabyte ITX board a few weeks ago and the Gigabyte App Center was on out of the box. I even deleted it a few times before I found out it was hidden in the BIOS settings. I’m not a fan of those shenanigans.
+Thanks for that info… it pays to check!
+(I guess if you delete that GigabyteUpdateService.exe file and it comes back but only after a reboot… that’s a strong sign the option is on :-)
+I’ve added a reference to your comment into the article itself, given that Eclypsium suspected it was off by default (yet found it on when they looked at their test system), while you didn’t realise there was a BIOS option (but discovered that there was, and that it had been on by default all along).
+Thanks again.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

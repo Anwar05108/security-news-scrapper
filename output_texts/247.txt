@@ -1,0 +1,50 @@
+Sophos Home protects every Mac and PC in your home 
+Forget Sergeant Pepper and his Lonely Hearts Club Band, who taught the band to play a mere 20 years ago today.
+December 2022 sees the 35th anniversary of the first major self-spreading computer virus – the infamous CHRISTMA EXEC worm that temporarily crushed the major mainframe networks of the day…
+… not by any deliberately coded side-effects such as file scrambling or data deletion, but simply by leeching too much network bandwidth for its own unauthorised purpose.
+As a decoy to disguise the fact that it read in the 1980s IBM equivalents of your email address book (NAMES) and your known-hosts file (NETLOG) in order to find as many new recipients of the malware as possible to send itself to, the malware displayed this:
+If you’re wondering why the virus is widely known as CHRISTMA EXEC, rather than by the full word CHRISTMAS…
+…that’s because filenames were limited to eight characters, which could be followed by a space and what we would today call an “extension” of EXEC in order to turn them into scripts that could be run directly by the user – executed, in technical jargon.
+The virus itself was written in IBM’s powerful text-based scripting language REXX (the resoundingly named Restructured Extended Executor), so a non-programmer looking at the message would probably recognise it as “program code”, and therefore tend to ignore it as unimportant and irrelevant, for all that it might look interesting.
+Except that the author of the virus found a cheerful way to embed an instructional lure right into the code itself, which starts with a remark (as in the C language, text between /* and */ in REXX programs is treated as a comment and ignored when the file gets used)…
+…and then offers the following cheery advice to non-techies:
+CMS is short for Conversational Monitor System, a command prompt environment on top of IBM’s venerable VM/370 operating system and its many variants, which offered individual users a real-time virtual machine that behaved like a computer all of their own, with its own disk space for storing personal files and programs.
+Handily, the user didn’t have to be taught to leave the final -S off the word CHRISTMAS, because CMS would automatically ignore any extra characters and hunt for CHRISTMA EXEC, which was the very script program that the user had just received without expecting it or asking for it.
+As stated above, the code did indeed display the Christmas Tree ASCII art – or, more precisely, EBCDIC art, given that IBM famously had its own character encoding system known as Extended Binary Coded Decimal Interchange Code (pronounced ebb-si-dick).
+But it also trawled through your NAMES and NETLOG files, which listed other users and computers you regularly contacted, and copied itself to all of them, so that for every user who innocently typed CHRISTMAS at the command prompt…
+…a sea of copies of the virus (20? 50? 200?) would be distributed, potentially worldwide, and if any of those recipients (20? 50? 200?) innocently typed CHRISTMAS at the command prompt…
+…a sea of copies of the virus would be distributed, and so on, and so on.
+As we said in this week’s podcast, where we discussed this seminal worm:
+[This is j]ust like modern macro malware that says to the user, “Hey, macros are disabled, but for your ‘extra safety’ you need to turn them back on… why not click the button? It’s much easier that way.” 
+35 years ago, malware writers had already figured out that if you ask users nicely to do something that is not at all in their interest, some of them, possibly many of them, will do it.
+S3 Ep111: The business risk of a sleazy “nudity unfilter” [Audio + Text]
+
+
+We also remarked that:
+[The Christmas Tree worm] should have been a warning shot across all our bows, but I think it was felt to be a little bit of a flash in the pan.
+Until a year later – then came the Internet Worm, which of course attacked Unix systems and spread far and wide. 
+And by then I think we all realised, “Uh-oh, this viruses-and-worms scene could turn out quite troublesome.”
+If only we’d been wrong, eh?
+Memories of the Internet Worm – 25 years later
+
+
+Featured image of IBM 3279 terminal thanks to user Shieldforyoureyes via Wikimedia. 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Always love your width of experience and writing, Merry Christma
+Thanks for your kind words (and your many contributions to our community as a commenter).
+MY BEST WISHES FOR THE NEXT YEAR.
+The CHRISTMA EXEC wreaked exceptional havoc on IBM’s internal network, which is where it originated, if I recall correctly. It escaped to the Bitnet college and government network through a gateway.
+Various reports suggest various ordering for the networks it attacked. (For example, I’ve just seen one article that says it started on BITNET and then hit IBM).
+My recollection (I need to double-check in the archives of comp.risks), though this is received wisdom and not personal experience, is that it first showed up on EARN (the European Academic Research Network), at a university in Germany. Then it either travelled of its own accord or was “helped” onto BITNET (the Because It’s There Network joining various US universities), and finally got onto IBM’s VNET, all in the month of December 1987. 
+The original perpetrator, IIRC, was quickly identified by their institution and given a jolly good talking to.
+I avoided getting grabbed by it because I was bogged down with lab work that day. Not so for many of my colleagues.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

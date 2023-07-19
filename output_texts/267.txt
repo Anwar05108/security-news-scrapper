@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+Hot on the heels of the LastPass data breach saga, which first came to light in August 2022, comes news of a Twitter breach, apparently based on a Twitter bug that first made headlines back in the same month.
+According to a screenshot posted by news site Bleeping Computer, a cybercriminal has advertised:
+I’m selling data of +400 million unique Twitter users that was scraped via a vulnerability, this data is completely private. 
+And it includes emails and phone numbers of celebrities, politicians, companies, normal users, and a lot of OG and special usernames.
+OG, in case you’re not familiar with that term in the context of social media accounts, is short for original gangsta.
+That’s a metaphor (it’s become mainstream, for all that it’s somewhat offensive) for any social media account or online identifier with such a short and funky name that it must have been snapped up early on, back when the service it relates to was brand new and hoi polloi hadn’t yet flocked to join in.
+Having the private key for Bitcoin block 0, the so-called Genesis block (because it was created, not mined), would be perhaps the most OG thing in cyberland; owning a Twitter handle such as @jack or any short, well-known name or phrase, is not quite as cool, but certainly sought-after and potentially quite valuable.
+Unlike the LastPass breach, no password-related data, lists of websites you use or home addresses seem to be at risk this time.
+Although the crooks behind this data sell-off wrote that the information “includes emails and phone numbers”, it seems likely that’s the only truly private data in the dump, given that it seems to have been acquired back in 2021, using a vulnerability that Twitter says it fixed back in January 2022.
+That flaw was caused by a Twitter API (application programming interface, jargon for “an official, structured way of making remote queries to access specific data or perform specific commands”) that would allow you to look up an email address or phone number, and to get back a reply that not only indicated whether it was in use, but also, if it was, the handle of the account associated with it.
+The immediately obvious risk of a blunder like this is that a stalker, armed with someone’s phone number or email address – data points that are often made public on purpose – could potentially link that individual back to a pseudo-anonymous Twitter handle, an outcome that definitely wasn’t supposed to be possible.
+Although this loophole was patched in January 2022, Twitter only announced it publicly in August 2022, claiming that the initial bug report was a responsible disclosure submitted through its bug bounty system.
+This means (assuming that the bounty hunters who submitted it were indeed the first to find it, and that they never told anyone else) that it wasn’t treated as a zero-day, and thus that patching it would proactively prevent the vulnerability from being exploited.
+In mid-2022, however, Twitter found out otherwise:
+In July 2022, [Twitter] learned through a press report that someone had potentially leveraged this and was offering to sell the information they had compiled. After reviewing a sample of the available data for sale, we confirmed that a bad actor had taken advantage of the issue before it was addressed.
+Well, it now looks as though this bug may have been exploited more broadly than it first appeared, if indeed the current data-peddling crooks are telling the truth about having access to more than 400 million scraped Twitter handles.
+As you can imagine, a vulnerability that lets criminals look up the known phone numbers of specific individuals for nefarious purposes, such as harassment or stalking, is likely also to allow attackers to look up unknown phone numbers, perhaps simply by generating extensive but likely lists based on number ranges known to be in use, whether those numbers have ever actually been issued or not.
+You’d probably expect an API such as the one that was allegedly used here to include some sort of rate limiting, for example aimed at reducing the number of queries allowed from one computer in any given period of time, so that reasonable use of the API would not be hindered, but excessive and therefore probably abusive use would be curtailed.
+However, there are two problems with that assumption.
+Firstly, the API wasn’t supposed to reveal the information that it did in the first place.
+Therefore it is reasonable to think that rate limiting, if indeed there were any, wouldn’t have worked correctly, given the attackers had already found a data access path that wasn’t being checked properly anyway.
+Secondly, attackers with access to a botnet, or zombie network, of malware-infected computers could have used thousands, perhaps even millions, of other people’s innocent-looking computers, spread all over the world, to do their dirty work.
+This would give them the wherewithal to harvest the data in batches, thus sidestepping any rate limiting by making a modest number of requests each from lots of different computers, instead of having a small number of computers each making an excessive number of requests.
+How bots and zombies work, and why you should care
+
+
+In summary: we don’t know how many of those “+400 million” Twitter handles are:
+Nevertheless, the Guardian newspaper in the UK reports that a sample of the data, already leaked by the crooks as a sort of “taster”, does strongly suggest that at least part of the multi-million-record database on sale consists of valid data, hasn’t been leaked before, wasn’t supposed to be public, and almost certainly was extracted from Twitter.
+Simply put, Twitter does have plenty of explaining to do, and Twitter users everywhere are likely to be asking, “What does this mean, and what should I do?”
+Apparently, the crooks themselves seem to have assessed the entries in their purloined database as having little individual value, which suggests that they don’t see the personal risk of having your data leaked this way as terribly high.
+They’re apparently asking $200,000 for the lot for a one-off sale to a single buyer, which comes out at 1/20th of a US cent per user.
+Or they’ll take $60,000 from one or more buyers (close to 7000 accounts per dollar) if no one pays the “exclusive” price.
+Ironically, the crooks’ main purpose seems to be to blackmail Twitter, or at least to embarrass the company, claiming that:
+Twitter and Elon Musk… your best option to avoid paying $276 million USD in GDPR breach fines… is to buy this data exclusively.
+But now that the cat is out of the bag, given that the breach has been announced and publicised anyway, it’s hard to imagine how paying up at this point would make Twitter GDPR compliant.
+After all, the crooks have apparently had this data for some time already, may well have acquired it from one or more third parties anyway, and have already gone out of their way to “prove” that the breach is real, and at the scale claimed.
+Indeed, the message screenshot that we saw didn’t even mention deleting the data if Twitter were to pay up (forasmuch as you could trust the crooks to delete it anyway).
+The poster promised merely that “I will delete this thread [on the web forum] and not sell this data again.”
+Twitter isn’t going to pay up, not least because there’s little point, given that any breached data was apparently stolen a year or more ago, so it could be (and probably is) in the hands of numerous different cyberscammers by now.
+So, our immediate advice is:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

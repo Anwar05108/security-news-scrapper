@@ -1,0 +1,51 @@
+Sophos Home protects every Mac and PC in your home 
+Early in April 2022, news broke that various users of Microsoft’s GitHub platform had suffered unauthorised access to their private source code.
+GitHib has now updated its incident report to say that it is “in the process of sending the final expected notifications to GitHub.com customers who had either the Heroku or Travis-CI OAuth app integrations authorised in their GitHub accounts.”
+The good news is that GitHub itself was not breached, so this is not cause for general concern for every GitHub user.
+The bad news is that indirect intrusions of this sort are hard to predict.
+GitHub, if you’ve never used it, is a cloud-based source code control system, best known for hosting the public repositories of many open source software projects.
+Source code control systems don’t just ensure that the latest version of your software is available for download, but also maintain a continuous history of all recent changes and why they were made (and, if neccessary, why they were later rejected).
+Source control systems typically also provide historical lists of official releases, tools for supporting and maintaining different release versions alongside each other, and online forums for reporting bugs and suggesting changes. 
+You’ve probably heard the jargon term pull request, which refers to a proposed change for which a contributor supplies a potential code update, along with a justification for it. To the suggester, of course, it’s essentially a push request, aiming to inject new code into the system; if approved by the project team, the code gets pulled, or merged, into the codebase and becomes an official part of the project.
+Source code control gives software projects a formal record of changes, which makes hunting down new bugs much easier because each change can be reviwed and re-tested individually.
+It also makes it easier for developers scattered around the world to co-operate efficiently without inadvertently trampling on each others’ suggested updates.
+Examples of popular open source projects hosted on GitHub include the cryptographic library OpenSSL, Microsoft’s own scripting language PowerShell, and privacy-centric alternative browser Brave.
+But not all GitHub projects are public, open-source repositories of code.
+Many organisations use cloud-based tools like GitHub to host proprietary, closed-sourced projects that they don’t want to become public knowledge.
+Startups, for instance, many not want potential competitors to know that they’re working on project X, or even that they’re experimenting in field Y at all.
+Established software companies may have existing products that include algorithms and other intellectual property that they don’t want competitors to be able to clone easily.
+Initial investigations revealed that the organisations breached had one of two things in common: they were users either of Heroku or Travis-CI, examples of so-called continuous integration (CI) systems.
+These days, a lot of software development teams have adopted what’s often referred to as an agile or a devops approach.
+Coders don’t just get together every so often to combine their collective updates into a full test build.
+Instead, they use an automated system that regularly and frequently scoops up all recent changes, then rebuilds and re-tests the system automatically, perhaps even several times a day.
+The idea is that the sooner each proposed change gets tried out, the sooner any easily-detectable defects will get found.
+This, in turn, means that newly-introduced bugs can be investigated quickly, before other parts of the project become entangled with that new code, so that fewer changes need to be taken into account when trying to figure out what went wrong.
+Better still, code changes that break the build process itself are exposed right away, so that the project rarely gets bogged down to the point that it can’t be rebuilt at all, let alone re-tested.
+As you can imagine, automated CI systems don’t have a real-life developer handy to put in a password and enter a 2FA code every time they want to logon to the source code control system to clone the very latest version of the project…
+…so they need to be supplied with a so-called authentication token that they can inject into their network traffic to prove their access rights.
+These authentication tokens generally act as a sort of medium-term “sub-password” that allows automated software tools to carry out a predetermined set of actions, for example by granting download access to all the code, and allowing bug reports to be uploaded, but not permitting any code changes to be approved.
+In fact, even if you’re not a programmer, you’ll have used a system like this yourself if you’ve ever authorised a third-party toolkit to interact with your social media accounts.
+If you’re a Hootsuite user, for instance, you’ve probably used your own passwords and 2FA codes to generate access tokens to allow the Hootsuite system to poke around in your social media accounts on your behalf.
+You may have given the app, or one like it, the right to peek at everything coming into your social media accounts, and even to send tweets or make Facebook posts in your name.
+So, if a cybercriminal got access to the stored secrets used by one of your pre-authorised apps, or was able to implant malware on your computer or in your network to spy on your network traffic and sniff out the authentication tokens in transit…
+…those tokens could used by the attackers to meddle with your online acccount, or sold on to other crooks for similarly nefarious purposes.
+According to GitHub, that’s what happened in this source code pilfering incident, where the attackers:
+In other words, even though GitHub accounts of the victims weren’t directly compromised, those accounts were indirectly compromised due to the exposure of what you might call “sub-passwords” that the victims had delegated to the automated tools Heroku or Travis-CI.
+That’s a bit like an intruder getting access to your office building not by hacking the system that generates ID cards and creating a new pass of their own, but by stealing an active access card already issued to an authorised employee.
+Indirect data breaches like this are a form of supply chain intrusion, where you aren’t attacked directly, but instead via part of your operational process that you’ve entrusted to someone else.
+Tips for protecting against this type of mishap, or for reacting promptly if you do get caught out, include:
+Remember that preparing for a cyberattack is not an admission that you expect to fail. 
+Indeed, regular and purposeful cybersecurity practice can help you improve your resilience by exposing gaps in your policies and procedures, and by revealing access permissions that you intended to revoke but never did.
+If you don’t have the experience or the time to maintain ongoing threat response by yourself, consider partnering with a service like Sophos Managed Threat Response. We help you take care of the activities you’re struggling to keep up with because of all all the other daily demands that IT dumps on your plate.
+Not enough time or staff?Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

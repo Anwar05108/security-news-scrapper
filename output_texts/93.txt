@@ -1,0 +1,79 @@
+Sophos Home protects every Mac and PC in your home 
+Remember the jokes (OK, they were sold as “jokes” when you were at school to add a touch of excitement to Eng. Lang. lessons) about creating valid and allegedly meaningful sentences with a single word repeated many times?
+There’s an very dubious one with the word BUFFALO seven times in a row, which relies on the various meanings Buffalo-the-placename, referring to the riverside city in New York State; buffalo-the-bovine-beast, also known as a bison; and buffalo-the-metaphorical-verb meaning “to bully or intimidate.” 
+There’s a slightly less bizarre sentence with HAD repeated a whopping 11 times, which imagines a Latin grammar lesson in which pupils are asked to compare the ancient Roman perfect tense, often translated with “had”, and the pluperfect, commonly translated as “had had”.
+But the best known, and perhaps the most believable, is five ANDs in a row, a sentence helped by the fact that AND is a conjuction, so with a suitable comma you can insert it between almost any two English sentences and produce a legal compound clause.
+Thus the famous complaint by the innkeeper who’s just had their pub sign repainted badly, and disappointedly tells the signwriter, “You didn’t leave enough space between ROSE and AND, and AND and CROWN.”
+Well, in an amusing start to the weekend, Google Docs has apparently just fixed a five-ANDs-in-a-row crisis in its online, real-time grammar checker.
+Apparently, until Google quickly fixed the problem earlier today, entering five ANDs in a row was considered a sufficiently grievous conjunctional blunder that entering such a sequence into your browser…
+…would instantly crash Google Docs.
+To be slightly more precise, it seems that the bug only appeared if you had grammar checking turned on.
+If you never had it on, or if you had had it on (we couldn’t resist trying out a pluperfect there) but later turned it off, you’d be OK.
+Also, the ROSE AND CROWN sentence above wouldn’t do it, because you had to commit the solecism of using AND in a sentence all of its own five times in a row, with a leading capital letter each time, like this:
+The original reporter uncovered a curious but inconclusive error message in the background that said, TypeError: Cannot read properties of null (reading 'C'). (No, we don’t know what sort of ‘C’ that refers to.)
+We’re guessing that some of recursive grammatical parsing function hit some untested internal limit, such as unexpectedly running out of input data, not having enough storage space left over to carry on its analysis, or blundering into a dead-end street in some convoluted grammatical state machine.
+The internet (especially the weekend-is-coming-soon-internet) being what it is, keen Google Docs users promptly set out to find other grammatical constructs that might also trigger the bug, quickly finding that other conjunctions, if used unexpectedly in five consecutive solo sentences, would do the trick.
+The words ANYWAY, BESIDES, BUT, HOWEVER, THEREFORE, WHO and WHY were quickly added to the trigger-list, but human-based guessing wasn’t enough for one Ycombinator user, who decided that a problem this obscure deserved more extensive and automated research.
+Hacker News contributor JoshuaDavid wrote that they “started running through the entire dictionary in batches of 500 words to see if each batch of 500 triggered the behaviour, then binary search[ed] within the batch to find the problem word(s). Got bored partway through D.”
+Fortunately, JoshuaD reports that they soon became “unbored”, and decided to start where they left off, resuming their dictionary divide-and-conquer project at the letter E.
+Intriguingly, they found that the numerical adverbs FIRSTLY, SECONDLY, THIRDLY and FOURTHLY all caused the document crashing problem, but not the adverbs of any higher numbers, such as FIFTHLY or FOURTEENTHLY, which is admittedly not a word you need to use very often.
+Google hasn’t yet said what caused the bizarre bug, but it did quickly say it was “working on a fix”, and reports suggest that the fix is already in.
+We don’t use Google Docs ourselves, and we tend to turn grammar checkers off because we find that today’s “writing assistants” seem happiest when everyone writes in the same, predictable way, which feels dull to us…
+…so we don’t know whether you need to take any special measures if you have any genuine documents that were victims of this crash before it was patched.
+Internet commenters proposed various workarounds while the bug was still in play, including opening buggy documents on your mobile phone (where the problem didn’t show up) in order to edit out the crashtastic text, thus making the file safe again to open in your browser.
+Other “fixes” were to turn off grammar checking, create at least one new document, then open the ones that you couldn’t open before without re-crashing the document.
+We’re assuming, now that the bug is fixed or at least suppressed in Google’s cloud code, that you can simply re-open crashy documents and carry on where you left off.
+Oh, and if you hear what actually happened, please let us know in the comments… we suspect that the backstory will be a fascinating tale!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Reminds me of
+that that is is that that is not is not
+It amazes me to see
+ (a) how a bizarre, unexpected combination of input can trash what until a moment ago was considered a stable, tested system, and
+ (b) how involved and clever people can become in the quest to unearth the source of the anomaly.
+Fourteenthly, it’s always going to be a fun article when I need to read the title three times to make sense of it in my head.
+:,)
+Malvolio, isn’t it? From memory, the full quote is, “That that is, is; that that is not, is not. Ergo, that that is not is not that that is, and that that is is not that that is not.”
+> Malvolio, isn’t it?
+No idea.  I just remembered it from (7th grade) English class a thousand years ago.  One solitary girl raised her hand as the rest of us probably resembled a dog trying to understand a magic trick.  She spoke it perfectly aloud, and then it was clear where the punctuation would lie.  
+Never seen it with the “ergo” part, which of course makes it that much better.
+In fact I’m pretty sure I’ve not seen it since seventh grade.
+PS: Wikipedia didn’t give much in the way of origins.
+One One was a race horse,
+One Two was one too.
+One One won one race,
+One Two won one too.
+Sorry – that’s the best I could come up with on short notice!
+I first saw that in a more cryptic form, viz:
+11 was 1 racehorse
+22 was 12
+1111 race
+22112
+Your description (and perhaps Joshua David’s) of the binary search assumes that either there is only one target item in the sample, or that you are content to stop with only one item in each sample. In this case (exhaustive search) f you find a target in the first half, you are NOT free to discard the second half (or even stop searching in the middle of the first half).
+————————————————————————————————————————-
+Binary search is a red herring for this problem. An exhaustive search is required. Might as well go A-Z.
+I think my description of a binary search (where you are a looking for one item at a time) was fine in general terms, but you are right that it wasn’t  a good explanatory match for the searching done in this case. 
+However, I think you are wrong when you insist that you need to do an exhaustive search from A-Z, at least if you can assume that a sizeable majority of the words in the dictionary will *fail* to cause a crash. If that’s the case, then it’s worth testing words in batches of N in a single document so that whenever there isn’t a crash, you can eliminate that whole batch of N words in one go and move on.
+Here’s what I am guessing: JoshuaD started by trying word 1 (repeated 5 times), then word 2 (repeated 5 times) and so on, and realised that most words don’t cause a crash, and that creating a new Google Doc document to test each dictionary word one-by-one on its own made things quite slow.
+So if you create a single document and paste in 2500 words (500 dictionary entries in sequence, each repeated the necessary 5 times), and there is no crash, you can eliminate all 500 dictionary entries immediately and move onwards, with only one “create new document” and one “paste text into document” API interaction with Google Docs each time. (I am betting that’s the slow part, because it happens over the network, and doesn’t need to be super-speedy because users don’t create new documents that often.)
+If there *is* a crash, split the list in half and retry both halves. Obviously, one half *will* cause a crash, because there’s at least one crashtastic word in there; the other half might not, and if it doesn’t, all 250 of those words can be eliminated at once.
+Split any remaining sublists in half again, eliminating any that don’t cause a crash when pasted, and keeping the rest. Repeat until only sublists of length 1 remain. (If the first test of the full 500 word batch caused a crash, at least one “singleton list” must remain at the end.) 
+In short, you don’t need to construct one new crash-test document for every word in the dictionary, because you can batch up the tests and then do a binary chop to divide and conquer for each batch that doesn’t get eliminated outright. 
+(For those wondering what you were talking about… I have now removed my sidebar about “binary searching” [2022-05-06T20:00Z].)
+As you said, my sidebar didn’t really match the procedure that was probably used in this case, which is a “split list in half, hope that you can immediately eliminate one of those halves, then split all remaining sublists in half again” sort of search rather than a traditional “Higher! Lower!” sort of search.
+Thanks for the comment.
+Buffalo can be repeated indefinitely and still be a valid sentence!
+I found the seven-buffalo sentence contrived to the point of meaninglessness, so I’d be interested to hear how you would make a sentence consisting of an indefinite number or repetitions…
+The irony of, “[w]e’re don’t,” in an article like this.
+It’s known officially as “Muphry’s Law”. (Technically, this isn’t an example of Muphry’s, and it’s not really ironic because nothing crashed because of the typo, but I am accepting it as it it were an example of both. Also, I have fixed it, thanks.)
+anlysis
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

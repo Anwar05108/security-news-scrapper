@@ -1,0 +1,72 @@
+Sophos Home protects every Mac and PC in your home 
+A keen-eyed researcher at SANS recently wrote about a new and rather specific sort of supply chain attack against open-source software modules in Python and PHP.
+Following on-line discussions about a suspicious public Python module, Yee Ching Tok noted that a package called ctx in the popular PyPi repository had suddenly received an “update”, despite not otherwise being touched since late 2014.
+In theory, of course, there’s nothing wrong with old packages suddenly coming back to life.
+Sometimes, developers return to old projects when a lull in their regular schedule (or a guilt-provoking email from a long-standing user) finally gives them the impetus to apply some long-overdue bug fixes.
+In other cases, new maintainers step up in good faith to revive “abandonware” projects.
+But packages can become victims of secretive takeovers, where the password to the relevant account is hacked, stolen, reset or otherwise compromised, so that the package becomes a beachhead for a new wave of supply chain attacks.
+Simply put, some package “revivals” are conducted entirely in bad faith, to give cybercriminals a vehicle for pushing out malware under the guise of “security updates” or “feature improvements”.
+The attackers aren’t necessarily targeting any specific users of the package they compromise – often, they’re simply watching and waiting to see if anyone falls for their package bait-and-switch…
+…at which point they have a way to target the users or companies that do.
+In this attack, Yee Ching Tok noticed that altough the package suddenly got updated, its version number didn’t change, presumably in the hope that some people might [a] take the new version anyway, perhaps even automatically, but [b] not bother to look for differences in the code.
+But a diff (short for difference, where only new, changed or deleted lines in the code are examined) showed added lines of Python code like this:
+You may remember, from the infamous Log4Shell bug, that so-called environment variables, accessible via os.environ in Python, are memory-only key=value settings associated with a specific running program.
+Data that’s presented to a program via a memory block doesn’t need to be written to disk, so this is a handy way of passing across secret data such as encryption keys while guarding against saving the data improperly by mistake.
+However, if you can poison a running program, which will already have access to the memory-only process environment, you can read out the secrets for yourself and steal the, for example by sending them out buried in regular-looking network traffic.
+If you leave the bulk of the source code you’re poisoning untouched, its usual functions will still work as before, and so the malevolent tweaks in the package are likely to go unnoticed.
+Apparently, the reason this package was attacked only recently is that the server name used for email by the original maintainer had just expired.
+The attackers were therefore able to buy up the now-unused domain name, set up an email server of their own, and reset the password on the account.
+Interestingly, the poisoned ctx package was soon updated twice more, with more added “secret sauce” squirrelled away in the infected code, this time including more aggressive data-stealing code.
+The requests.get() line below connects to an external server controlled by the crooks, though we have redacted the domain name here:
+The redacted exfiltration server will receive the encoded environment variables (including any stolen data such as access keys) as an innocent-looking string of random-looking data at the end of the URL.
+The response that comes back doesn’t actually matter, because it’s the outgoing request, complete with appended secret data, that the attackers are after.
+If you want to try this for yourself, you can create a standalone Python program based on the pseudocode above, such as this::
+
+Then start a listening HTTP pseudoserver in a separate window (we used the excellent ncat utility from the Nmap toolkit, as seen below), and run the Python code.
+Here, we’re in the Bash shell, and we have used env -i to strip down the environment variables to save space, and we’ve run the Python exfiltration script with a fake AWS environment variable set (the access key we chose is one of Amazon’s own deliberately non-functional examples used for documentation):
+
+The listening server (you need to start this first so the Python code has something to connect to) will answer the request and dump the data that was sent:
+
+The GET /... line above captures the encoded data that was exfiltrated in the URL.
+We can now decode the base64 data from the GET request and reveal the fake AWS key that we added to the process environment in the other window:
+
+Intrigued, Yee Ching Tok went looking elsewhere for the exfiltration servername that we redacted above.
+Surprise, surprise!
+The same server turned up in code recently uploaded to a PHP project on GitHub, presumably because it just happened to be compromised by the same attackers at around the same time.
+That project is what used to be a legitimate PHP hashing toolkit called phppass, but it now contains these three lines of unwanted and dangerous code:
+Here, any Amazon Web Services access secrets, which are pseudorandom character strings, are extracted from environment memory (getenv() above is PHP’s equivalent of os.environ.get() in the rogue Python code you saw before) and fashioned into a URL.
+This time, the crooks have used http instead of https, thus not only stealing your secret data for themselves, but also making the connection without encryption, thus exposing your AWS secrets to anyone logging your traffic as it traverses the internet.
+Threat detection tools such as Sophos XDR (the letters XDR are industry jargon for extended detection and response) can help here by allowing you to keep your eye on programs you’re testing, and then to review their activity record for types of behaviour that shouldn’t be there.
+After all, if you know what your software is supposed to do, you should also know what it’s not supposed to do!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“Don’t blindly accept open-source package updates when they show up.” – People seem genuinely offended when I tell them this. I believe this is because they keep adding packages blindly until they reach ridiculous numbers (I’ve seen a private project run by only 3 people with over 8,000 installed npm packages). They eventually lose all technical capability to audit their own code as a result, shrugging it off as “normal for this industry.”
+I agree.
+“Hey, look how easy it in language X to code an app that will locate faces in an image so you can crop them automatically! It’s just TWO LINES OF CODE!”
+The second line of code is:
+subimage = autofacecrop(‘filename.png’);
+The first line of code is:
+import anotheronemillionlinesofcode;
+(Some of that onemillionlines probably isn’t even in language X. For all you know half, of it could be extension code written in language named after another letter of the alphabet, say, C.)
+That’s a bit like saying that you “wrote a complete web server” in one line of bash because you figured out how to install httpd or nginx and then called its startup script.
+Which raises the question, “At what level of blindly-trusted dependencies does it stop being your app and essentially become everyone else’s instead?”
+to be fair, this isn’t limited to just the libraries you use.
+there’s an entire ecosystem of software running that code that’s entirely transparent to the developer.
+on a team long ago, our licensing department asked me for a list of all of the software (and the license behind them) that we used to “run” our product.   this was SOP for all products.   but most people just returned a list of the libraries they’d used.
+I pulled all of the packages off of the OS, too – I vaguely remember sending a list of over 120,000 pieces of software with tens of thousands of license variations (this was generated, of course!).   of course, some of those included build-time libraries, not run-time libraries, so they weren’t visible to the package management system.  I acked this in my response to the team.
+…….that team never asked me for a report like that again.
+so who’s going to audit ALL of the changes in that?  Every one of those pieces could potentially have this sort of infection.
+dockerized worlds don’t make this better in any useful way – unikernels might, but I’ve never looked past the marketing glossy.    arguably PaaS/FaaS services at least abstract away the trust to another team that maybe is doing the work.  maybe.
+Well, many jurisdictions are starting to look at “Software Bill of Materials” regulations that will force companies to know those 120,000 items!
+You can argue that both MIT/BSD and GPL-style open source licensing rules have forced companies to address this issue, because many licences require you to idenitfy which components you use. (Of course, some products allow dual licensing, where you can pay the vendor some money in return for not having to declare you use it.)
+Genuinely reproducible builds (including the build environment) are increasingly popular, too. 
+I think the particular issue for open source repositories like PyPi, Ruby Gems, NPM, LuaRocks (there’s an enormous list) is that there’s a temptation just to automate everything so as not to fall behind –  a noble goal compared to being stubbornly unwilling to change! – and to assume that everyone else is acting in good faith (and with as much competence as you would like).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

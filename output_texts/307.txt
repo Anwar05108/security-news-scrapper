@@ -1,0 +1,57 @@
+Sophos Home protects every Mac and PC in your home 
+Late last week [2023-02-16], popular web hosting company GoDaddy filed its compulsory annual 10-K report with the US Securities and Exchange Commission (SEC).
+Under the sub-heading Operational Risks, GoDaddy revealed that:
+In December 2022, an unauthorized third party gained access to and installed malware on our cPanel hosting servers. The malware intermittently redirected random customer websites to malicious sites. We continue to investigate the root cause of the incident.
+URL redirection, also known as URL forwarding, is an unexceptionable feature of HTTP (the hypertext transfer protocol), and is commonly used for a wide variety of reasons.
+For example, you might decide to change your company’s main domain name, but want to keep all your old links alive; your company might get acquired and need to shift its web content to the new owner’s servers; or you might simply want to take your current website offline for maintenance, and redirect visitors to a temporary site in the meantime.
+Another important use of URL redirection is to tell visitors who arrive at your website via plain old unencrypted HTTP that they should visit using HTTPS (secure HTTP) instead.
+Then, once they have reconnected over an encrypted connection, you can include a special header to tell their browser to start with HTTPS in future, even if they click on an old http://... link, or mistakenly type in http://... by hand.
+In fact, redirects are so common that if you hang around web developers at all, you’ll hear them referring to them by their numeric HTTP codes, in much the same way that the rest of us talk about “getting a 404” when we try to visit a page that no longer exists, simply because 404 is HTTP’s Not Found error code.
+There are actually several different redirect codes, but the one you’ll probably hear most frequently referred to by number is a 301 redirect, also known as Moved Permanently. That’s when you know that the old URL has been retired and is unlikely ever to reappear as a directly reachable link. Others include 303 and 307 redirects, commonly known as See Other and Temporary Redirect, used when you expect that the old URL will ultimately come back into active service.
+Here are two typical examples of 301-style redirects, as used at Sophos.
+The first tells visitors using HTTP to reconnect right away using HTTPS instead, and the second exists so that we can accept URLs that start with just sophos.com by redirecting them to our more conventional web server name www.sophos.com.
+In each case, the header entry labelled Location: tells the web client where to go next, which browsers generally do automatically:
+The command line option -D - above tells the curl program to print out the HTTP headers in the replies, which are what matters here. Both these replies are simple redirects, meaning that they don’t have any content of their own to send back, which they denote with the header entry Content-Length: 0. Note that browsers generally have built-in limits on how many redirects they will follow from any starting URL, as a simple precaution against getting caught up in an never-ending redirect cycle.
+As you can imagine, having insider access to a company’s web redirection settings effectively means that you can hack their web servers without modifying the contents of those servers directly.
+Instead, you can sneakily redirect those server requests to content you’ve set up elsewhere, leaving the server data itself unchanged.
+Anyone checking their access and upload logs for evidence of unauthorised logins or unexpected changes to the HTML, CS , PHP and JavaScript files that make up the official content of their site…
+…will see nothing untoward, because their own data won’t actually have been touched. 
+Worse still, if attackers trigger malicious redirects only every now and then, the subterfuge can be hard to spot.
+That seems to have been what happened to GoDaddy, given that the company wrote in a statement on its own site that:
+In early December 2022, we started receiving a small number of customer complaints about their websites being intermittently redirected. Upon receiving these complaints, we investigated and found that the intermittent redirects were happening on seemingly random websites hosted on our cPanel shared hosting servers and were not easily reproducible by GoDaddy, even on the same website.
+This is the same sort of problem that cybsersecurity researchers encounter when dealing with poisoned internet ads served up by third-party ad servers – what’s known ih the jargon as malvertising.
+Malvertising – learn more about this pernicious problem
+
+
+Obviously, malicious content that appears only intermittently doesn’t show up every time you visit an affected site, so that even just refreshing a page that you aren’t sure about is likely to destroy the evidence.
+You might even perfectly reasonably accept that what you just saw wasn’t an attempted attack, but merely a transient error.
+This uncertainty and unreproducibility typically delays the first report of the problem, which plays into the hands of the crooks.
+Likewise, researchers who follow up on reports of “intermittent malevolence” can’t be sure they’re going to be able to grab a copy of the bad stuff either, even if they know where to look.
+Indeed, when criminals use server-side malware to alter the behaviour of web services dynamically (making changes at run-time, to use the jargon term), they can use a wide range of external factors to confuse researchers even further.
+For example, they can change their redirects, or even suppress them entirely, based on the time of day, the country you’re visiting from, whether your’re on a laptop or a phone, which browser you’re using…
+…and whether they think you’re a cybersecurity researcher or not.
+Notes from SophosLabs: The anti-anti-virus arms race
+
+
+Unfortunately, GoDaddy took nearly three months to tell the world about this breach, and even now there’s not a lot to go on.
+Whether you’re a web user who’s visited a GoDaddy-hosted site since December 2022 (which probably includes most of us, whether we realise it or not), or a website operator who uses GoDaddy as a hosting company…
+…we aren’t aware of any indicators of compromise (IoCs), or “signs of attack”, that you might have noticed at the time or that we can advise you to search for now.
+Worse still, even though GoDaddy describes the breach on its website under the headline Statement on recent website redirect issues, it states in its 10-K filing that this may be a much longer-running onslaught than the word “recent” seems to imply:
+Based on our investigation, we believe [that this and other incidents dating back to at least March 2020] are part of a multi-year campaign by a sophisticated threat actor group that, among other things, installed malware on our systems and obtained pieces of code related to some services within GoDaddy.
+As mentioned above, GoDaddy has assured the SEC that “we continue to investigate the root cause of the incident”.
+Let’s hope that it doesn’t take another three months for the company to tell us what it uncovers in the course of this investigation, which appears to stretch back three years or more…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“dating back to at least March 2000”
+“appears to stretch back three years or more”
+Having not read GoDaddy’s filing, I’m not sure which of those sentences contains the typo…but March 2000 was almost 23 years ago, and I’m hoping that was supposed to be “March 2020”.
+Fixed, thanks! (AFAIK, the company was originally Jomax Technologies, and only took the name “GoDaddy” in 2006…)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

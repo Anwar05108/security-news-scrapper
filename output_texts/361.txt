@@ -1,0 +1,42 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve written about PHP’s Packagist ecosystem before.
+Like PyPI for Pythonistas, Gems for Ruby fans, NPM for JavaScript programmers, or LuaRocks for Luaphiles, Packagist is a repository where community contributors can publish details of PHP packages they’ve created.
+This makes it easy for fellow PHP coders to get hold of library code they want to use in their own projects, and to keep that code up to date automatically if they wish.
+Unlike PyPI, which provides its own servers where the actual library code is stored (or LuaRocks, which sometimes stores project source code itself and sometimes links to other repositories), Packagist links to, but doesn’t itself keep copies of, the code you need to download.
+There’s an upside to doing it this way, notably that projects that are managed via well-known source code services such as GitHub don’t need to maintain two copies of their official releases, which helps avoid the problem of “version drift” between the source code control system and the packaging system.
+And there’s a downside, notably that there are inevitably two different ways that packages could be booby-trapped.
+The package manager itself could get hacked, where changing a single URL could be enough to misdirect users of the package.
+Or the source code repository that’s linked to could get hacked, so that users who followed what looked like the right URL would end up with rogue content anyway.
+This attack (we’ll call it that, even though no booby-trapped code was published by the hacker concerned) used what you might call a hybrid approach.
+The attacker found four old and inactive Packagist accounts for which they’d somehow acquired the login passwords. 
+They then identified 14 GitHub projects that were linked to by these inactive accounts and copied them a newly-created GitHub account. 
+Finally, they tweaked the packages in the Packagist system to point to the new GitHub repositories.
+Cloning GitHub projects is incredibly common. Sometimes, developers want to create a genuine fork (alternative version) of the project under new management, or offering different features; at other times, forked projects seem to be copied for what might unflatteringly be called “volumetric reasons”, making GitHub accounts look bigger, better, busier and more committed to the community (if you will pardon the pun) than they really are.
+Although the hacker could have inserted rogue code into the cloned GitHub PHP source, such as adding trackers, keyloggers, backdoors or other malware, it seems that all they changed was a single item in each project: a file called composer.json.
+This file includes an entry entitled description, which usually contains exactly what you’d expect to see: a text string describing what the source code is for.
+And that’s all our hacker modified, changing the text from something informative, like Project PPP implements the QQQ protocol so you can RRR, so that their projects instead reported:
+The second sentence, written half in Russian, half in English, means:
+We can’t speak for everyone, but as CVs (résumés) go, we didn’t find this one terribly convincing.
+Also, the Packagist team says that all unauthorised changes have now been reverted, and that the 14 cloned GitHub projects hadn’t been modified in any other way than to include the pwner’s solicitation of employment.
+For what it’s worth, the would-be Application Security expert’s GitHub account is still live, and still has those “forked”” projects in it. 
+We don’t know whether GitHub hasn’t yet got round to expunging the account or the projects, or whether the site has decided not to remove them.
+After all, forking projects is commonplace and permissible (where licensing terms allow, at least), and although describing a non-malicious code project with the text Pwned by XXXX@XXXX.com is unhelpful, it’s hardly illegal.
+HERE’S THAT ADVICE FROM WORLD PASSWORD DAY
+Happy Intergalactic Password Day!
+Our own @daamoth quizzes @duckblog for some short and simple advice – and not just the same old stuff as always 😀#WorldPasswordDay pic.twitter.com/uOYjrI3Hhj
+— Naked Security (@NakedSecurity) May 4, 2023
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+typo: Alhough
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

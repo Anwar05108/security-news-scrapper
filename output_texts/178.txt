@@ -1,0 +1,74 @@
+Sophos Home protects every Mac and PC in your home 
+Just three days after Chrome’s previous update, which patched 24 security holes that were not in the wild…
+…the Google programmers announced the release of Chrome 105.0.5195.102, where the last of the four numbers in the quadruplet jumps up from 52 on Mac and Linux and 54 on Windows.
+The release notes confirm, in the clipped and frustrating “indirect statement made in the passive voice” bug-report style that Google seems to have borrowed from Apple:
+Microsoft has put out an update, too, taking its browser, which is based on Chromium, to  Edge 105.0.1343.27.
+Following Google’s super-brief style, Microsfoft wrote merely that:
+As always, our translation of security holes written up in this non-committal way is: “Crooks or spyware vendors found this vulnerability before we did, have figured out how to exploit it, and are already doing just that.”
+We’d love to be able to determine, given that the bug relates to the incorrect handling of input data, whether this bug leads to a worrying security outcome such as EoP, short for elevation of privilege, or if it can be abused for a more disastrous result such as full-blown RCE, short for remote code execution.
+EoP typically means that crooks need a malware foothold to start with, so that EoP bugs usually can’t be exploited for breaking in the first place.
+They’re still vital to patch, because a crook who’s sneaking round your computer under cover of a limited user such as GUEST will often bring along an EoP exploit to “promote” themselves so they have root or sysadmin powers, aiming to turn what might otherwise have been a modest risk on a single computer into a total compromise of your whole network.
+RCE exploits, on the other hand, are commonly used either to get a beachhead inside a network to initiate an attack, or to jump repeatedly from computer to computer once inside, or both. 
+Once again, the brevity of Google’s report means that, even though the bug report is High and not Critical, we’re going to invite you to infer that we’re talking about RCE here, and therefore to assume that a determined attacker could use this bug to implant malware from scratch.
+Mojo, in case you’re wondering, is a Google code library for what’s known as IPC, short for inter-process communication.
+These days, for security reasons, browsers generally don’t run as a single, monolithic operating system process.
+Loosely speaking, a process can consist of multiple threads, which are essentially “sub-processes” inside the main process, by means of which a single program can quietly get on with doing two things at the same time, such as printing out a document while you’re scrolling through it, or carrying out a spelling check in the background.
+Splitting a single-process application into threads is more convenient (by which we mean “is much quicker and easier, but way less secure”) than splitting it into separate processes, because all the threads inside a process have access to the same chunk of memory.
+That means that threads can interact and share data much more easily, because they can simply dip directly into the same common pool of data, including checking the current configuration settings, exchanging memory addresses, sharing file handles, re-using cached images directly from RAM, and much more.
+On the other hand, sharing one big memory space means that a bug in one part of the program, such as the thread that is busily rendering and displaying your first browser tab, could trample on or affect code that’s busy with other things, such as the threads handling the rest of the tabs you have open.
+As a result, modern browsers generally split themselves into numerous separate processes, for example so that each tab is handled in an independent process, thus preventing one runwaway tab from trivially leeching data such as cookies and access tokens from others tabs related to completely different websites.
+This means you need a secure and reliable way of shuffling data between the separate processes of the browser.
+Instead of tab A and tab B simply consulting a common block of  memory M in the main browser thread, the indpendent processess of tab A and tab B processes need to be supplied with their own copies of the data they’ll need.
+And that’s where you need an aptly named inter-process communincation system, or IPC.
+Any processes that shuffling data between themselves via IPS need to agree on how to construct that data correctly for sending, and how to deconstruct it safely at the other end.
+The jargon term for this is serialisation and deserialisation, because you’re taking chunks of data, possibly plucked out of content already stored in numerous different areas of memory, and converting those chunks into a structured list of “here is your very own record of the data items, the types and the values of the stuff you need to know”.
+Once serialised, the data can then be transmitted to another process – perhaps via a shared block of memory, or over a communication pipe at the operating system level, via a network link, or even tapped out in Morse code for anyone to pick up – in such a way that the receiver can make sense of the data, and unpack it independently, without needing to know anything about the current or future internal state of the sender’s process.
+For example, if A sends B a blob of 128 bytes, is that two 32-bit integers and two 64-bit floating point numbers (4+4+8+8 = 24 bytes so far), followed by the single byte 0x67 (103 in decimal), followed by 103 bytes of ASCII text (4+4+8+8+1+103 = 128 bytes overall)?
+Or is it a UTF-8 text message of exactly 120 bytes, padded with zeros if necessary to fill out the space, followed by two 32-bit numbers that denote the width and height of the on-screen window in which to display it?
+As you can imagine, misinterpeting the data you receive via IRC, or failing to check that it makes sense before relying on it, could have serious consequences.
+In the first example, if the string-length byte denotes a size bigger than the amount of data left (e.g. 0xFF instead of 0x67), then blindly trusting that erroneous size byte will cause you to read past the end of the buffer.
+In the second example, if process A forgets about the width and height data and sends a full 128 bytes of UTF-8 text instead, then blindly “decoding” two 32-bit numbers at the end will produce incorrect values, perhaps even dangerously so.
+If you multiply those incorrectly encoded numbers together to work out how many bytes of storage to allocate for the on-screen window, you are probably heading towards memory mismanagement problems somewhere down the line.
+Ideally, senders will validate their IPC data outputs before transmitting them, and receivers will independently re-validate their IPC inputs before consuming and using them, but [a] that doesn’t always happen and [b] even when it does, you could still end up in trouble if you have inconsistent validation procedures at each end.
+In other words, “insufficient data validation” of IPC data exchanged by co-operating processes is always a bug, and could end up being serious, as in this case.
+Patch early, patch often!
+In Chrome, check that you’re up to date by clicking Three dots > Help > About Google Chrome, or by browsing to the special URL chrome://settings/help. 
+The Chrome version you are looking for (or Chromium version , if you’re using the non-proprietary, open source flavour) is: 105.0.5195.102 or later.
+In Edge, it’s Three dots > Help and feedback > About Microsoft Edge.
+The Edge version you’re after is: 105.0.1343.27 or later.
+Google’s release notes also list an update to the Extended Stable Channel, which you might be using if you’re on a computer provided by work – like Mozilla’s Extended Support Release or ESR, it’s an official version that lags behind on features but keeps up with security patches, so you aren’t forced to adopt new features just to get patched.
+The Extended Stable version you want is: 104.0.5112.114.
+Google has also just announced a Chrome for iOS update, available (as always) via the App Store.
+There’s no mention of whether the iOS version was affected by CVE-2022-3075, but the version you’re after, in any case, is 105.0.5195.100. 
+(We’re guessing that by iOS, Google means both iOS and iPadOS, now shipped as different variants of Apple’s underlying mobile operating system.)
+Nothing in the release notes so far [2022-09-05T13:45Z] about Android – check in Google Play to see if you’re up to date.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+You have to be careful casting stones at Google, Make sure that you are not in your own glass house first.
+I think calling the words in this article “casting stones” is stretching things a bit, don’t you?
+I wrote simply that the brevity was “frustrating”, and it is. Not saying there is anything devious, or dubious, or dangerous about it. Just wishing aloud for more techies who are able and willing speak plain English in the world of IT and computer science.
+The bug was fixed quickly, and the prompt update is much appreciated, and that’s why we’re reminding you about it here. 
+But wouldn’t you prefer a clearer explanation, albeit still a brief one? 
+PS. For all we know, the reason the report was so abbreviated might be operational (e.g. there’s a lockdown on information so that a more complete investigation can be done without tipping anyone off about anything). But that’s would just be *doubly* frustrating, surely? 
+Ok, I will use clear English for you.
+Google is not the only company to withhold information. Sophos does this too.
+Remember that it is easier for anyone to criticize someone/something than it is to support or nurture improvement.
+It’s easy for you to criticize Google , though, do you as readily criticize Sophos when it does the same?
+Not sure what “witheld information” you are referring to (if it was truly witheld, how would I know, whether it was Google, Sophos or anyone else?). So I can’t really comment on your comment.
+I wondered if this might have had something to do with the hive ransomware “outbreak” that happened between 6.45pm Sydney time Sunday when Microsoft shipped faulty defender virus signatures and the next morning when they had shipped multiple replacement signatures to overcome the problems created by the first set. These signatures falsely identified all chromium based browsers (eg. Chrome, edge, electron, etc) as hive ransomware, and accordingly sent people into a panic around the world, some even wiping their machines before the fix was shipped by Microsoft.  See https://www.itpro.co.uk/security/cyber-security/368972/microsoft-defender-causes-mass-confusion-after-legitimate-apps-trigger-ransomware-alerts.  I thought we might have read about this in naked security.
+The MIcrosoft bulletin expressly ties this update to the Chromium 0-day shared with Chrome et al.
+No malware (mis)detection involved, as far as I can see.
+I did see that story about Microsoft’s false alarm… I guess that while journos can zoom in on that story with zeal and pointy sticks (I didn’t laugh, honest!), it might look a bit, well, like schoolboy sniggering for us to comment on it here.
+Another day another exploit…
+Also a recent update in Firefox, up to version 104.0.2 (which may or may not be connected).
+Different codebase, different web engine (Gecko not Blink), and no security fixes listed in the 104.0.2 release notes (no CVEs listed at all, let alone this one).
+So I don’t see any connection there myself…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

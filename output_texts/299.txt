@@ -1,0 +1,80 @@
+Sophos Home protects every Mac and PC in your home 
+OpenSSL, probably the best-known if not the most widely-used encryption library in the world, has just release a trifecta of security updates.
+These patches cover the two current open-source versions that the organisation supports for everyone, plus the “old” 1.0.2-version series, where updates are only available to customers who pay for premium support.
+(Getting into a position where you no longer need to pay for support is probably better for you, even if you don’t care about the cost, because it means you’ll finally be weaning yourself off a version that OpenSSL itself tried to retire years ago.)
+The versions you want to see after you’ve updated are:
+If you’re wondering why the older versions have three numbers plus a letter at the end, it’s because the OpenSSL project used to have four-part version identifiers, with the trailing letter acting as a counter that could support 26 sub-versions.
+As you can see from what’s happened to version 1.0.2, 26 sub-versions turned out not to be enough, leaving a quandary of what to do after version Z-for-Zulu: go back to Alpha-Alpha, which confusingly breaks alphabetic ordering, or just stick with Z-for-Zulu and start a sub-sub-version cycle of A-to-Z.
+Also, as you may remember, the mismash of digits and lower-case letters was especially confusing when version 1.1.1l (L-for-Lima) appeared. 
+Naked Security happily uses a typeface based on the Bauhaus-era road sign lettering still used in many countries, where lower-case L characters are different from upper-case Is and the digit 1, entirely on purpose, but many typefaces render lower-L and upper-I identically.
+When version 3 appeared, the OpenSSL team decided to adopt the popular-at-the-moment X.Y.Z three-number versioning system, so the current version series is 3.0 and the sub-version is now 8. (The next version, under development at the moment, will be 3.1.)
+In case you’re wondering, there was no regular OpenSSL 2.x series , because that version number had already been used for something else, in the same sort of way that IPv4 was followed by IPv6, because v5 had appeared in another context for a short while, and might have caused confusion.
+There are eight CVE-numbered bug fixes in all, and you probably won’t be surprised to hear that seven of these were caused by memory mismanagement.
+Like OpenSSH, which we wrote about at the end of last week, OpenSSL is written in C, and taking care of memory allocation and deallocation in C programs typically involves a lot of “do it yourself”.
+OpenSSH fixes double-free memory bug that’s pokable over the network
+
+
+Unfortunately, even experienced programmers can forget to match up their malloc() calls and their free() calls correctly, or can lose track of which memory buffers belong to what parts of their program.
+The seven memory-related bugs are:
+To explain.
+A NULL dereference happens when you try to treat the number 0 as a memory address.
+This often indicates an incorrectly initialised storage variable, because zero is never considered a valid place to store data.
+Indeed, every modern operating system deliberately labels the first few thousand or more bytes of memory as unusable, so that trying to read or write the so-called “zero page” causes a hardware-level error, allowing the operating system to shut the offending program down.
+There’s no sensible way to recover from this sort of mistake, because it’s impossible to guess what was really intended.
+As a result, programs with remotely triggerable bugs of this type are prone to denial-of-service (DoS) attacks, where a cybercriminal deliberately provokes the vulnerability to force the program to crash, possibly over and over again.
+An invalid pointer dereference is similar, but means you try to use a number that doesn’t represent a memory address as if it did.
+Because the bogus memory address doesn’t actually exist, this sort of bug generally doesn’t corrupt anything – it’s like trying to defraud someone by mailing out  a fake summons or a false invoice to a property that isn’t there.
+But, like a NULL dereference, the side-effect (crashing the program) could be turned in an DoS attack.
+Read buffer overflows means what they say, namely accessing data past where you’re supposed to, so they generally can’t be directly exploited to corrupt or to take over a running program.
+But they’re always worrying in cryptographic applications, because the superfluous data an attacker gets to peek at might include decrypted information that they’re not supposed to see, or cryptographic material such as passwords or private keys.
+One of the most famous read overflows in history was the OpenSSL bug known as Heartbleed, where a client could ask a server to “bounce back” a short message to prove it was still alive – a heartbeat, as it was known – but could trick the receiver into sending back up to 64Kbytes more data than the incoming message originally contained. By “bleeding” data from the server over and over again, an attacker could gradually piece together all sorts of data fragments that should never have been revealed, sometimes even including cryptographic keys.
+12 Days competition: Day 3 – This buffer overflow broke sysadmins’ hearts
+
+
+A use-after-free means that you hand back memory to the system, which may well hand it out to another part of your program, but then continue to rely on what’s in that memory block even though it might have changed under your feet without you knowing. 
+In theory, this could allow an attacker to trigger apparently innocent-looking behaviour in another part of the program with the deliberate aim of provoking a memory change that misdirects or takes control of your code, given that you’re still trusting memory that you no longer control.
+A double free is similar, though this means that you return to the system a block of memory that you already gave back earlier, and that might therefore already have been allocated elsewhere in the program.
+As with a use-after-free, this can result in two parts of the program trusting the same block of memory, with each part being unware that the data it expects to be present (and that it may already have validated and therefore be willing to rely upon immediately) might have been malevolently switched out by the other part.
+Finally, the type confusion bug is the most serious one here.
+Type confusion, simply put, means that you supply a parameter to the program under the guise of it containing one type of data, but later trick the program into accepting it as a different sort of parameter.
+As a very simple example, imagine that you could tell a “smart” household oven that the time should be set to, say, 13:37 by sending it the integer value 1337.
+The receiving code would probably carefully test that the number was between 0 and 2359 inclusive, and that the remainder when divided by 100 was in the range 0 to 59 inclusive, to prevent the clock being set to an invalid time.
+But now imagine that you could subsequently persuade the oven to use the time as the temperature instead.
+You’d have sneakily bypassed the check that would have happened if you’d admitted up front that you were supplying a temperature (1337 is far too hot for a cooking oven on any of the common scales currently in use, whether K, °C or °F).
+In C programs, type confusion is often particularly dangerous because you may be able to swap plain old numbers with memory pointers, thus sneakily either discovering memory addresses that were supposed to be secret or, much worse, reading from or writing to memory blocks that are supposed to be off-limits.
+As the OpenSSL team admits, in respect of the High severity type confusion bug above, “When certificate revocation list checking is enabled, this vulnerability may allow an attacker to pass arbitrary pointers to a memcmp() [memory comparison] call, enabling them to read memory contents”.
+If you can misdirect one of the two memory blocks compared in a memcmp(), then by comparing a secret memory buffer repeatedly against a memory block of your choice, you can gradually figure out what’s in the secret buffer. For example, “Does this string start with A?” If not, how about B? Yes? What’s next? How about BA? BB? And so on.
+The eighth bug is:
+Cryptographic code needs to be especially sensitive to how long its various calculations take, so that an attacker can’t guess which text strings or numbers are involved by probing to see if the speed of response indicates that some sort of “easy” case applies.
+As a simple example, imagine that you been asked to multiply a given number by 13 in your head.
+It will almost certainly take you a lot longer do this than it would to multiply the number by 0 (instant answer: zero!) or 1 (instant answer: the same number, unchanged), and a fair bit longer than multiplying by 10 (stick a zero on the end and read out the new number).
+In cryptography, you have to ensure that all related tasks, such as looking up data in memory, comparing text strings, performing arithmetic, and so on, take the same amount of time, even if that means slowing down the “easy” cases instead of trying to save time by doing everything as quickly as possible.
+Easy.
+Patch today: you need any or all of 1.0.2zg (Zulu-Golf), 1.1.1t (T-for-Tango) and 3.0.8.
+Don’t forget that, for many Linux distros, you will need to install an operating system update that applies to the shared libraries used by many different applications, yet you may also have applications that bring along their own versions of OpenSSL and need updating too.
+Some apps may even include two different versions of OpenSSL, both of which will need patching.
+Don’t delay, do it today!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Great explanation of memory bugs and their exploitation.
+[Other numbering glitches] plus CVE-2022-4303 [sic] should be CVE-2022-4304**. Please update CVE numbers to correctly address the vulnerabilities in the OpenSSL advisory. Thank you for an excellent write up – this was very helpful!!
+[Comment combined with others]
+Thanks so much for your comments. I’ve fixed the glitches you found (I think), am double-checking the whole list now. (I hope it’ll be easier to check given I have had a few hours’ break from the content!)
+Thanks really well written article with great explanations. Made something very complex at least understandable.
+Thanks. Glad you found it useful!
+Where are the patches or hotfixes for SFOS?
+I’m afraid I don’t have insider knowledge of which products are deemed “at risk” (sometimes, for example, it turns out that shared library bugs in products we use either [a] weren’t compiled into the build we ship, or [b] aren’t on a code path that is used by our product), and if so when updates will be coming out for them.
+Sorry about that… but you can keep an eye on our official security bulletins here:
+https://www.sophos.com/en-us/security-advisories
+Or you can track these bulletins programmatically via the RSS feed:
+https://www.sophos.com/en-us/security-advisories/feed
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

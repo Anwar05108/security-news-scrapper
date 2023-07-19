@@ -1,0 +1,55 @@
+Sophos Home protects every Mac and PC in your home 
+Google has just patched Chrome’s eighth zero-day hole of the year so far.
+Zero-days are bugs for which there were zero days you could have updated proactively…
+…because cybercriminals not only found the bug first, but also figured out how to exploit it for nefarious purposes before a patch was prepared and published.
+So, the quick version of this article is: go to Chrome’s Three-dot menu (⋮), choose Help > About Chrome, and check that you have version 107.0.5304.121 or later.  
+Two decades ago, zero-days often became widely known very quickly, typically for one (or both) of two reasons:
+These days, the zero-day game is rather different, because contemporary defences tend to make software vulnerabilities harder to exploit. 
+Today’s defensive layers include: additional protections built into operating systems themselves; safer software development tools; more secure programming languages and coding styles; and more powerful cyberthreat prevention tools. 
+In the early 2000s, for instance – the era of super-fast-spreading viruses such as Code Red and SQL Slammer – almost any stack buffer overflow, and many if not most heap buffer overflows, could be turned from theoretical vulnerabilities into practicable exploits in quick order.
+The Code Red worm 20 years on – what have we learned?
+
+
+In other words, finding exploits and “dropping” 0-days was sometimes almost as simple as finding the underlying bug in the first place.
+And with many users running with Administrator privileges all the time, both at work and at home, attackers rarely needed to find ways to chain exploits together to take over an infected computer completely.
+But in the 2020s, workable remote code execution exploits – bugs (or chains of bugs) that an attacker can reliably use to implant malware on your computer merely by luring you to view a single page on a booby-trapped website, for example – are generally much harder to find, and worth a lot more money in the cyberunderground as a result.
+Simply put, those who get hold of zero-day exploits these days tend not to brag about them any more.
+They also tend not to use them in attacks that would make the “how and why” of the intrusion obvious, or that would lead to working samples of the exploit code becoming readily available for analysis and research.
+As a result, zero-days often get noticed these days only after a threat response team is called into investigate an attack that’s already succeeded, but where common intrusion methods (e.g. phished passwords, missing patches, or forgotten servers) don’t seem to have been the cause.
+What is… an exploit?
+
+
+In this case, now officially designated CVE-2022-4135, the bug was reported by Google’s own Threat Analysis Group, but wasn’t found proactively, given that Google admits that it is “aware that an exploit […] exists in the wild.”
+The vulnerability has been given a High severity, and is described simply as: Heap buffer overflow in GPU.
+Buffer overflows generally mean that code from one part of a program writes outside the memory blocks officially allocated to it, and tramples on data that will later be relied upon (and will therefore implicitly be trusted) by some other part of the program.
+As you can imagine, there’s a lot that can go wrong if a buffer overflow can be triggered in a devious way that avoids an immediate program crash.
+The overflow could be used, for example, to poison a filename that some other part of the program is about to use, causing it to write data where it shouldn’t; or to alter the destination of a network connection; or even to change the location in memory from which the program will execute code next.
+Google doesn’t explicitly say how this bug could be (or has been) exploited, but it’s wise to assume that some sort of remote code execution, which is largely synonymous with “surreptitious implantation of malware”, is possible, given that the bug involves mismanagment of memory.
+Chrome and Chromium get updated to 107.0.5304.121 on Mac and Linux, and to 107.0.5304.121 or 107.0.5304.122 on Windows (no, we don’t know why there are two different versions), so be sure to check that you have version numbers equal to or more recent than those.
+To check your Chrome version, and force an update if you’re behind, go to the Three-dot menu (⋮) and choose Help > About Chrome.
+Microsoft Edge, as you probably know, is based on the Chromium code (the open-source core of Chrome), but hasn’t had an official update since the day before Google’s threat researchers logged this bug (and hasn’t had an update that explicitly lists any security fixes since 2022-11-10).
+So, we can’t tell you whether Edge is affected, or whether you should expect an update for this bug, but we recommend keeping an eye on Microsoft’s official release notes just in case.
+Update. As mentioned by a commenter below (thanks @damon), Edge has now been updated to 107.0.1418.62 (or 106.0.1370.86 if you are using the Extended Stable release). Microsoft officially notes that these versions “[contain] a fix for CVE-2022-4135, which has been reported by the Chromium team as having an exploit in the wild.” [2022-11-29T17:08:00Z] 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I don’t know what to think. I was just checking for security updates.
+Do you have the latest Chrome version? That’s the thing you are checking for…
+Seems better than previous one. Thx team.
+Yeah blud glad I’m on Firefox for last 20 years! it seems like every other day this inferior Chrome browser is catching something!
+Lol. You don’t see if there are new vulnerabilities discovered and abused. You only see, when the get fixed or get discovered and publicly disclosed by white-hat-hackers.
+So, seing no new Firefox patches could come from
+1) no vulnerabilities being fixed or
+2) no vulnerabilities existing or
+3) you are not paying attention to patches.
+ What do you think is more likely? 😉
+Microsoft has released the latest Microsoft Edge Stable Channel (Version 107.0.1418.62) and Microsoft Edge Extended Stable Channel (Version 106.0.1370.86). This update contains a fix for CVE-2022-4135.
+Thanks for the note!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

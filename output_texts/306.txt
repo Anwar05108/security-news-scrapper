@@ -1,0 +1,67 @@
+Sophos Home protects every Mac and PC in your home 
+Twitter has announced an intriguing change to its 2FA (two-factor authentication) system.
+The change will take effect in about a month’s time, and can be summarised very simply in the following short piece of doggerel:
+We said “about a month’s time” above because Twitter’s announcement is somewhat ambiguous with its dates-and-days calculations.
+The product announcement bulletin, dated 2023-02-15, says that users with text-message (SMS) based 2FA “have 30 days to disable this method and enroll in another”.
+If you include the day of the announcement in that 30-day period, this implies that SMS-based 2FA will be discontinued on Thursday 2023-03-16.
+If you assume that the 30-day window starts at the beginning of the next full day, you’d expect SMS 2FA to stop on Friday 2023-03-17.
+However, the bulletin says that “after 20 March 2023, we will no longer permit non-Twitter Blue subscribers to use text messages as a 2FA method. At that time, accounts with text message 2FA still enabled will have it disabled.”
+If that’s strictly correct, then SMS-based 2FA ends at the start of Tuesday 21 March 2022 (in an undisclosed timezone), though our advice is to take the shortest possible interpretation so you don’t get caught out.
+Simply put, Twitter has decided, as Reddit did a few years ago, that one-time security codes sent via SMS are no longer safe, because “unfortunately we have seen phone-number based 2FA be used – and abused – by bad actors.”
+The primary objection to SMS-based 2FA codes is that determined cybercriminals have learned how to trick, cajole or simply to bribe employees in mobile phone companies to give them replacement SIM cards programmed with someone else’s phone number.
+Legitimately replacing a lost, broken or stolen SIM card is obviously a desirable feature of the mobile phone network, otherwise you’d have to get a new phone number every time you changed SIM.
+But the apparent ease with which some crooks have learned the social engineering skills to “take over” other people’s numbers, usually with the very specific aim of getting at their 2FA login codes, has led to bad publicity for text messages as a source of 2FA secrets.
+This sort of criminality is known in the jargon as SIM-swapping, but it’s not strictly any sort of swap, given that a phone number can only be programmed into one SIM card at a time.
+So, when the mobile phone company “swaps” a SIM, it’s actually an outright replacement, because the old SIM goes dead and won’t work any more.
+Of course, if you’re replacing your own SIM because your phone got stolen, that’s a great security feature, because it restores your number to you, and ensures that the thief can’t make calls on your dime, or listen in to your messages and calls.
+But if the tables are turned, and the crooks are taking over your SIM card illegally, this “feature” turns into  a double liability, because the criminals start receiving your messages, including your login codes, and you can’t use your own phone to report the problem!
+Is this change really about security, or is it simply Twitter aiming to simplify its IT operations and save money by cutting down on the number of text messages it needs to send?
+We suspect that if the company really were serious about retiring SMS-based login authentication, it would impel all its users to switch to what it considers more secure forms of 2FA.
+Ironically, however, users who pay for the Twitter Blue service, a group that seems to include high-profile or popular users whose accounts we suspect are much more attractive targets for cybercriminals…
+…will be allowed to keep using the very 2FA process that’s not considered secure enough for everyone else.
+SIM-swapping attacks are difficult for criminals to pull off in bulk, because a SIM swap often involves sending a “mule” (a cybergang member or “affiliate” who is willing or desperate enough to risk showing up in person to conduct a cybercrime) into a mobile phone shop, perhaps with fake ID, to try to get hold of a specific number.
+In other words, SIM-swapping attacks often seem to be premeditated, planned and targeted, based on an account for which the criminals already know the username and password, and where they think that the value of the account they’re going to take over is worth the time, effort and risk of getting caught in the act.
+So, if you do decide to go for Twitter Blue, we suggest that you don’t carry on using SMS-based 2FA, even though you’ll be allowed to, because you’ll just be joining a smaller pool of tastier targets for SIM-swapping cybergangs to attack.
+Another important aspect of Twitter’s announcement is that although the company is no longer willing to send you 2FA codes via SMS for free, and cites security concerns as a reason, it won’t be deleting your phone number once it stops texting you.
+Even though Twitter will no longer need your number, and even though you may have originally provided it on the understanding that it would be used specificially for the purpose of improving login security, you’ll need to remember to go in and delete it yourself.
+By the way, if you’re comfortable with SMS-based 2FA, and are worried that app-based 2FA is sufficiently “different” that it will be hard to master, remember that app-based 2FA codes generally require a phone too, so your login workflow doesn’t change much at all.
+Instead of unlocking your phone, waiting for a code to arrive in a text message, and then typing that code into your browser…
+…you unlock your phone, open your authenticator app, read off the code from there, and type that into your browser instead. (The numbers typically change every 30 seconds so they can’t be re-used.)
+Sophos Authenticator with one account added. (Add as many as you want.)The countdown timer shows you how long the current code is still valid for.
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Let’s see if any data privacy agency will fine Twitter for GDPR violations by keeping the mobile number without need.
+Is the Intercept X app a genuinely free app or is it trial-ware? On the page linked to above the “action Button” says “Get Started Today: free trial”.
+Is it a replacement for “Sophos Security” and “Sophos Security Guard”?
+The app that runs on your mobile is free. 
+The “free trial” applies to the corporate server-side stuff that you use if you want to manage and control a fleet of mobile devices that happen to be running Sophos mobile security apps.
+Aaargh. 
+I just realised that the “get it on the App Store/Play Store” buttons on our product page don’t work! The app-specific links are in the article, just above the image, but here they are again for direct use:
+https://apps.apple.com/app/sophos-intercept-x-for-mobile/id1086924662
+https://play.google.com/store/apps/details?id=com.sophos.smsec
+(I can’t remember the various names our anti-malware/threat blocking app has had over the years on iOS and Android – we’ve renamed it several times – but “Sophos Intercept X for Mobile” is the current name to search for [Feb 2023] . IIRC the “Security Guard” component you allude to is an optional add-on module for Intercept X for Mobile that handles auto-restarts of the underlying product if something goes wrong. You can ignore it in this discussion.)
+We used to have a standalone Sophos Authenticator app – small, simple and single purpose; I liked it – but it was retired in mid-2022 and the functionality was merged into Intercept X for Mobile (which also has a password manager option BTW).
+HtH.
+Much as I like sophos’ products, I’ll big up Microsoft’s authenticator offering here, simply because they’re pushing towards passwordless web and the whole pick one of three options in your app to confirm login attempts, that can throw up much more effective red flags against social engineering than TOTP ever can, which protects the less savvy.
+The more people with that kind of app running, the more services will see it as a viable login option over others.
+The thing with Microsoft Authenticator is not that it is from Microsoft (I am a happy Visual Studio Code and GitHub user), but that it isn’t “just an authenticator app”. It’s more of an authentication relationship with a cloud provider, and it feels more like a marriage than a relationship. To quote from MS’s own web page entitled “How to use the app”…
+==========
+Important: 
+You need a personal Microsoft account to act as your recovery account.
+iOS users must also have an iCloud account.
+==========
+Simply put, this is solving a problem I don’t have (I am happy with my private, offline vault of personal passwords that are mine to choose and change, *together with some sort of app-based 2FA protection* for each account); is forcing me to agree to a recovery mechanism that I don’t need (via a Microsoft account); and demands that I open an account I don’t want (iCloud, because I use iOS).
+Perhaps I am in a tiny minority. I don’t use Windows – not because I don’t like it (Windows 11 actually looks and feels quite good at last – I never got on well with XP or 7) but because I have found something else I like more. I don’t use Office, simply because it solves problems I don’t have, and isn’t the best tool for the problems I do have (using Word for what I do would be like using it as a code editor – confusing overkill). The only Microsoft social network I am part of is GitHub.
+Maybe I am unusual- but I find the “roadblocks” of the passwordful web quite handy, and I am not looking to escape them. Those “enter your password” or “you must create an account to continue” prompts act, to me, as a handy Stop – Think – Connect moment. And they discourage me from “signing up” for websites I realise I don’t really want a long-term relationship with, just for some short-term gratification, by forcing me to read a list of T&Cs, which is a surprisingly good, if often dispiriting, way to peek into a company’s soul… 
+I feel your pain with the MS marry me or nothing platform. They keep moving away from individual products, to their suite of products. Which is not just all the eggs in one basket, but the entire farm. It’s happened before and it will happen again – one failed service affecting nearly all products (this weeks email issue). Also brings to mind the shared cert issue they had (last year?) with amazon to gain access to VMs, eh, It’s a big security fail point to me. If their products were logically separate it would get more trust from me.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,58 @@
+Sophos Home protects every Mac and PC in your home 
+PyTorch is one of the most popular and widely-used machine learning toolkits out there. 
+(We’re not going to be drawn on where it sits on the artifical intelligence leaderboard – as with many widely-used open source tools in a competitive field, the answer seems to depend on whom you ask, and which toolkit they happen to use themselves.)
+Originally developed and released as an open-source project by Facebook, now Meta, the software was handed over to the Linux Foundation in late 2022, which now runs it under the aegis of the PyTorch Foundation.
+Unfortunately, the project was compromised by means of a supply-chain attack during the holiday season at the end of 2022, between Christmas Day [2022-12-25] and the day before New Year’s Eve [2022-12-30].
+The attackers malevolently created a Python package called torchtriton on PyPI, the popular Python Package Index repository.
+The name torchtriton was chosen so it would match the name of a package in the PyTorch system itself, leading to a dangerous situation explained by the PyTorch team (our emphasis) as follows:
+[A] malicious dependency package (torchtriton) […] was uploaded to the Python Package Index (PyPI) code repository with the same package name as the one we ship on the PyTorch nightly package index. Since the PyPI index takes precedence, this malicious package was being installed instead of the version from our official repository. This design enables somebody to register a package by the same name as one that exists in a third party index, and pip will install their version by default.
+The program pip, by the way, used to be known as pyinstall, and is apparently a recursive joke that’s short for pip installs packages. Despite its original name, it’s not for installing Python itself – it’s the standard way for Python users to manage software libraries and applications that are written in Python, such as PyTorch and many other popular tools.
+Anyone unfortunate enough to install the pwned version of PyTorch during the danger period almost certainly ended up with data-stealing malware implanted on their computer.
+According to PyTorch’s own short but useful analysis of the malware, the attackers stole some, most or all of the following significant data from infected systems:
+At this point, we’ll mention the good news: only those who fetched the so-called “nightly”, or experimental, version of the software were at risk. (The name “nightly” comes from the fact that it’s the very latest build, typically created automatically at the end of each working day.)
+Most PyTorch users will probably stick to the so-called “stable” version, which was not affected by this attack.
+Also, from PyTorch’s report, it seems that the Triton malware executable file specifically targeted 64-bit Linux environments.
+We’re therefore assuming that this malicious program would only run on Windows computers if the Windows Subsystem for Linux (WSL) were installed.
+Don’t forget, though that the people most likely to install regular “nightlies” include developers of PyTorch itself or of applications that use it – perhaps including your own in-house developers, who might have private-key-based access to corporate build, test and production servers.
+Intriguingly, the Triton malware doesn’t exfiltrate its data (the militaristic jargon term that the cybersecurity industry likes to use instead of steal or copy illegally) using HTTP, HTTPS, SSH, or any other high-level protocol.
+Instead, it compresses, scrambles and text-encodes the data it wants to steal into a sequence of what look like “server names” that belong to a domain name controlled by the criminals.
+By making a sequence of DNS lookups containing carefully constructed data that could be series of legal server names but isn’t, the crooks can sneak out stolen data without relying on traditional protocols usually used for uploading files and other data.
+This is the same sort of trick that was used by Log4Shell hackers at the end of 2021, who leaked encryption keys by doing DNS lookups for “servers” with “names” that just happened to be the value of your secret AWS access key, plundered from an in-memory environment variable.
+So what looked like an innocent, if pointless, DNS lookup for a “server” such as S3CR3TPA55W0RD.DODGY.EXAMPLE would quietly leak your access key under the guise of a simple lookup that directed to the official DNS server listed for the DODGY.EXAMPLE domain.
+LIVE LOG4SHELL DEMO EXPLAINING DATA EXFILTRATION VIA DNS
+
+If you can’t read the text clearly here, try using Full Screen mode, or watch directly on YouTube.Click on the cog in the video player to speed up playback or to turn on subtitles.
+If the crooks own the domain DODGY.EXAMPLE, they get to tell the world which DNS server to connect to when doing those lookups.
+More importantly, even networks that strictly filter TCP-based network connections using HTTP, SSH and other high-level data sharing protocols…
+…sometimes don’t filter UDP-based network connections used for DNS lookups at all.
+The only downside for the crooks is that DNS requests have a rather limited size.
+Individual server names are limited to 64 alphanumeric characters each, and many networks limit individual DNS packets, including all enclosed requests, headers and metadata, to just 512 bytes each.
+We’re guessing that’s why the malware in this case started out by going after your private keys, then restricted itself to at most 1000 files, each smaller than 100,000 bytes.
+That way, the crooks get to thieve plenty of private data, notably including server access keys, without generating an unmanageably large number of DNS lookups.
+An unusually large number of DNS lookups might get noticed for routine operational reasons, even in the absence of any scrutiny applied specifically for cybersecurity purposes.
+Decompiling the compiled triton executable shows that it compresses, obfuscates and text-encodes the data it steals in order to convert it into a format that can be embedded directly into DNS lookups.
+Note that we said above that your stolen data merely gets obfuscated above, rather than encrypted, because the process is roughly as follows:
+Assuming that the crooks beind the malware own the domain h4ck.cfd (which was registered on 2022-12-21, presumably for use in this attack), then they also get to specify which DNS server to use to answer queries for this domain, and therefore to collect all the stolen data via DNS lookups alone.
+Of course, their obfuscation-only exfiltration scheme means, in theory, that the stolen data is also open to surveillance, collection and decoding by almost anyone on your network path, thus greatly increasing the risk of your private keys falling into the hands of multiple threat actors.
+PyTorch has already taken action to shut down this attack, so if you haven’t been hit yet, you almost certainly won’t get hit now, because the malicious torchtriton package on PyPI has been replaced with a deliberately “dud”, empty package of the same name.
+This means that any person, or any software, that tried to install torchtriton from PyPI after 2022-12-30T08:38:06Z, whether by accident or by design, would not receive the malware.
+PyTorch has published a handy list of IoCs, or indicators of compromise, that you can search for across your network.
+Remember, as we mentioned above, that even if almost all of your users stick to the “stable” version, which was not affected by this attack, you may have developers or enthusiasts who experiment with “nightlies”, even if they use the stable release as well.
+According to PyTorch:
+Fortunately, we’re guessing that the majority of PyTorch users won’t have been affected by this, either because they don’t use nightly builds, or weren’t working over the vacation period, or both.
+But if you are a PyTorch enthusiast who does tinker with nightly builds, and if you’ve been working over the holidays, then even if you can’t find any clear evidence that you were compromised…
+…you might nevertheless want to consider generating new SSH keypairs as a precaution, and updating the public keys that you’ve uploaded to the various servers that you access via SSH.
+If you suspect you were compromised, of course, then don’t put off those SSH key updates – if you haven’t done them already, do them right now!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Would it be possible to poison the crook’s data cache with useless data, SSH keys, and executables that expose/infect them if they’re dumb enough to run them? Basically, bury the real exfiltrated data behind a ton of crap they have to filter through. Maybe even scar them a bit with the most extreme porn known to man which is hidden behind a vanilla name.
+Filling honeypots with fake data and inviting the crooks to dine out on it is a common technique. It may help with disruption and for tracking-and-tracing, where lawfully allowed. Law enforcement teams following scammers and banks tracking card fraud (as well as copyright holders looking for pirates, and allegedly even social networks trying to figure out who leaked internal news to the media) are well-known examples. Just make sure you don’t feed back anything for which the what-it-is or the how-it-works is illegal, lest you fall foul of the law yourself.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

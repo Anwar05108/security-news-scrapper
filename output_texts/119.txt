@@ -1,0 +1,51 @@
+Sophos Home protects every Mac and PC in your home 
+On Thursday this week (16 June 2022 at 15:00 UK time), we’re holding a free webinar in which we’ll give you a live explanation and demonstration of the “Follina” vulnerability.
+Although this bug is fairly easy to deal with (a simple registry change rolled out via Group Policy will largely immunise your network from attack), it nevertheless tells a fascinating story.
+Follina, or CVE-2022-30190 if you prefer to keep things official, is an intriguing example of how cybercriminals figured out how to combine a “feature” that no one really wanted with a “feature” that no one really needed…
+…to create a sneaky attack trick that no one expected.
+In simple terms, FEATURE + FEATURE = BUG!?
+If you’re hoping for PowerPoint slides and bullet points, followed by a product pitch, then this talk isn’t for you.
+But if you like to watch technically-oriented demos that don’t require you to be a technical expert yourself, we think you’ll enjoy yourself.
+We’ll show you:
+We’ll also take a look at other “features” in Windows that could lead to similar problems, and what to do about those, too.
+We’ll keep the jargon to a minimum, so you don’t need to be a sysadmin or a SecOps coder to attend…
+…but if you are, you’ll still learn tons of tips and techniques for tracking down technological trouble.
+As one of our readers said, after looking in the Windows registry to see how many Follina-like problems might still be lurking in the shadows:
+Yuck, I just went into the registry to see what other ‘undocumented features’ are in HKEY_CLASSES_ROOT. What did I find? Job security.
+The demo will take approximately 30 minutes, followed by 10 minutes of official Q&A time, after which we’ll be staying online informally for anyone who has further questions on this or any related topics.
+Sign up now! (Email address required for registration.)
+
+Date:  Thursday 2022-06-16
+Time:  3pm UK time (10:00 EDT, 14:00 UTC, 15:00 BST, 16:00 CEST)
+Length:  30 mins + 10 mins Q&A + informal session after that
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Will this be recorded and posted later as well? I’m interested but can’t make it to the live webinar.
+Errr, I don’t know… I expect so. I’ll just check.
+Yes, if you miss it live you can watch it later, though the Q&A part will obvs. be closed :-)
+Do you know where the recording is located?
+I think that you just use the same link as for the live webinar and you can watch on demand.
+But it apparently takes a day or five before the recording appears online. (At the end of the actual webinar our webinar host suggested waiting one week, but I hope it will be up sooner…)
+HtH.
+Great offer and of interest BUT 3 in the morning? We do have computers
+ in the southern hemisphere so I support being able to watch in the daytime.
+Well, we could only pick one time in the day!  
+Hosting this was an initiative from our UK and Western Europe team so that meant we were always going to choose a time that was “during working hours” for the UK/EU. There’s no overlap with the antipodeal working day, but there is a good overlap with large parts of North America. So, 14:00 UTC is the time we picked.
+Having said that, if there’s interest in doing a repeat that will cover Asia Pacific and US West Coast, we could easily do that. Also, you will be able to watch later at a time to suit yourself.
+(On a point of order: the time zone problem is one of longitude, not latitude! For example, South Africa is in the Southern Hemisphere and they *can* attend this event because it’s 16:00 for them. And Hawaii is in the Northern Hemisphere yet it’s 4 in the morning for them. So we aren’t prejudiced by which side of the equator you are on :-)
+What is the purpose of “mpsigstub.exe” in the end of used command?
+Ha! You should have attended the webinar 😬 (Or you might like to watch it back later.) We uncovered the answer to that one via a series of command-line experiments with the MSDT app.
+Simply put, to get as far as the exploitable part of the code, the file that’s listed on the command line [a] has to exist and [b] has to be recognised as “troubleshootable” (I don’t know what makes an app suitable, but OI do know that some are, and others aren’t.) Unless both these conditions are met, the troubleshooter app will bail out early with an error.
+If you replace the “mpsigstib.exe” string with “notthere.exe” you get a “no such file” error before the exploit can trigger. If you use “notepad.exe” you get past the first error but then you get a “can’t troubleshoot that app” error. So you need to find an app that you are sure will be present and that you know will pass the suitability test.
+Any app will do – the app you list isn’t actually executed itself and isn’t the cause of the bug. (I was able to use WINWORD.EXE from the Progra~1 directory.)
+These crooks settled on “mpsigdtub.exe”. Whether they did that to sow confusion (because it’s security-related itself), or simply because it’s the first one they tried that worked…
+…we shall probably never know.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

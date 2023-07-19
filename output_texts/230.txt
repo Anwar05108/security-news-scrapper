@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Remember those Exchange zero-days that emerged in a blaze of publicity back in September 2022?
+Those flaws, and attacks based on them, were wittily but misleadingly dubbed ProxyNotShell because the vulnerabilities involved were reminiscent of the ProxyShell security flaw in Exchange that hit the news in August 2021.
+Fortunately, unlike ProxyShell, the new bugs weren’t directly exploitable by anyone with an internet connection and a misguided sense of cybersecurity adventure.
+This time, you needed an authenticated connection, typically meaning that you first had to acquire or correctly guess an existing user’s email password, and then to make a deliberate attempt to login where you knew you weren’t supposed to be, before you could perform any “research” to “help” the server’s sysadmins with their work:
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+As an aside, we suspect that many of the thousands of self-styled “cybersecurity researchers” who were happy to probe other people’s servers “for fun” when the Log4Shell and ProxyShell bugs were all the rage did so  knowing that they could fall back on the presumption of innocence if caught and criticised. But we suspect that they thought twice before getting caught actually pretending to be users they knew they weren’t, trying to access servers under cover of accounts they knew were supposed to be off-limits, and then falling back on the “we were only trying to help” excuse.
+So, although we hoped that Microsoft would come up with a quick, out-of-band fix, we didn’t expect one…
+…and we therefore assumed, probably in common with most Naked Security readers, that the patches would arrive calmly and unhurriedly as part of the October 2022 Patch Tuesday, still more than two weeks away.
+After all, rushing out cybersecurity fixes is a little bit like running with scissors or using the top step of a stepladder: there are ways to do it safely if you really must, but it’s better to avoid doing so altogether if you can.
+However, the patches didn’t appear on Patch Tuesday either, admittedly to our mild surprise, although we felt as good as certain that the fixes would turn up in the November 2022 Patch Tuesday at the latest:
+Patch Tuesday in brief – one 0-day fixed, but no patches for Exchange!
+
+Intriguingly, we were wrong again (strictly speaking, at least): the ProxyNotShell patches didn’t make it into November’s Patch Tuesday, but they did get patched on Patch Tuesday, arriving instead in a series of Exchange Security Updates (SUs) released on the same day:
+The November 2022 [Exchange] SUs are available for [Exchange 2013, 2016 and 2019].
+Because we are aware of active exploits of related vulnerabilities (limited targeted attacks), our recommendation is to install these updates immediately to be protected against these attacks.
+The November 2022 SUs contain fixes for the zero-day vulnerabilities reported publicly on September 29, 2022 (CVE-2022-41040 and CVE-2022-41082).
+These vulnerabilities affect Exchange Server. Exchange Online customers are already protected from the vulnerabilities addressed in these SUs and do not need to take any action other than updating any Exchange servers in their environment.
+We’re guessing that these fixes weren’t part of the regular Patch Tuesday mechanism because they aren’t what Microsoft refer to as CUs, short for cumulative updates.
+This means that you first need to ensure that your current Exchange installation is up-to-date enough to accept the new patches, and the preparatory process is slightly different depending on which Exchange version you have.
+Those old Exchange bugs weren’t the only zero-days patched on Patch Tuesday.
+The regular Windows Patch Tuesday updates deal with a further 62 security holes, four of which are bugs that unknown attackers found first, and are already exploiting for undisclosed purposes, or zero-days for short. 
+(Zero because there were zero days on which you could have applied the patches ahead of the crooks, no matter how fast you deploy updates.)
+We’ll summarise those four zero-day bugs quickly here; for more detailed coverage of all 62 vulnerabilities, along with statistics about the distribution of the bugs in general, please consult the SophosLabs report on our sister site Sophos News:
+Microsoft patches 62 vulnerabilities, including Kerberos, and Mark of the Web, and Exchange…sort of
+
+Zero-days fixed in this month’s Patch Tuesday fixes:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+appplied
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

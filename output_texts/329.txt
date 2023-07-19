@@ -1,0 +1,35 @@
+Sophos Home protects every Mac and PC in your home 
+Security holes in WordPress plugins that could allow other people to poke around your WordPress site are always bad news.
+Even if all you’re running is a basic setup that doesn’t have customer accounts and doesn’t collect or process any personal information such as names and email addresses…
+…it’s worrying enough just knowing that someone else might be messing with your content, promoting rogue links, or publishing fake news under your name.
+But security holes in plugins that you use to support online payments on your site are another level of worry altogether. 
+Unfortunately, popular e-payments platform WooCommerce has just notified users as follows:
+On 2023-03-22, a vulnerability was discovered within WooCommerce Payments that, if exploited, could permit unauthorized admin access to impacted stores. We immediately deactivated the impacted services and mitigated the issue for all websites hosted on WordPress.com, Pressable, and [WordPress VIP].
+Fortunately, it seems that the bug was found as part of an officially-sanctioned penetration test conducted by a Swiss security researcher, and WooCommerce seems confident that no one else had figured out the flaw before they found out about it themselves:
+As soon as the vulnerability was reported, we began an investigation to ascertain whether any data had been exposed or if the vulnerability had been exploited. We currently have no evidence of the vulnerability being used outside of our own security testing program. We shipped a fix and worked with the WordPress.org Plugins Team to auto-update sites running WooCommerce Payments 4.8.0 through 5.6.1 to patched versions. The update is currently being automatically rolled out to as many stores as possible.
+Interestingly, WooCommerce suggests that even if attackers had found and exploited this vulnerability, the only information about your logon passwords they’d have been able to steal would have been so-called salted password hashes, and so the company has written that “it’s unlikely that your password was compromised”.
+As a result, it’s offering the curious advice that you can get away without changing your admin password as long as [a] you’re using the standard WordPress password management system and not some alternative way of handling passwords that WooCommerce can’t vouch for, and [b] you’re not in the habit of using the same password on multiple services.
+Forgive us for asking, but you don’t share passwords between any sites, let alone sharing the admin account password to your e-commerce system, do you?
+However, the company does urge you to “chang[e] any private or secret data stored in your WordPress/WooCommerce database”, notably including data such as authentication tokens, session cookies, or API keys – the jargon names given to what are essentially temporary passwords that your browser (or other software) can add to future web requests to get immediate access.
+These “part-time passwords” are there to allow the server to infer that you went through a full-on logon process recently enough for you and your pre-authorised apps to be trusted, without forcing you to share your actual primary password with every app or brower tab that’s going to be making programmatic requests on your behalf.
+Because you generally need to copy-and-paste authentication tokens into other apps so that they can use them without requiring you to type them in every time, they’re typically stored in plaintext form, not in salted-and-hashed form like your primary password.
+Serious Security: How to store your users’ passwords safely
+
+
+Simply put, even though criminals with admin-level access to your account can’t retrieve the actual text of your primary password, they typically can (and will, if give a chance to do so), get hold of the plaintext of any authentication tokens you’ve created for your account.
+The “authentication token” process is a bit like having to show full photo ID in order to get past reception in an office building, after which you’re given an access card that will let you swipe back in and out as much you like, and to move around inside the building, albeit only for a limited time.
+If someone steals your photo ID, it won’t do them much good unless they look just like you, because the details will be carefully scrutinised when they present it.
+But if they get hold of your access card while you’re inside the building, they can sneak around under cover of being you, because the comparative difficulty of acquiring the access card in the first place means that it’s assumed to be be a reliable way of identifying you, at least temporarily.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I definitely think changing admin passwords is a good idea, regardless of WooCommerce’s recommendation.
+Currently, the default WordPress (and WooCommerce) hashing process for passwords seems to be “8 passes of MD5”. And that’s based on two websites updated March 2023.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

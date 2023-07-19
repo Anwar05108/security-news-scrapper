@@ -1,0 +1,139 @@
+Sophos Home protects every Mac and PC in your home 
+Over the last two weeks, we’ve seen a series of articles talking up what’s been described as a “master password crack” in the popular open-source password manager KeePass.
+The bug was considered important enough to get an official US government identifier (it’s known as CVE-2023-32784, if you want to hunt it down), and given that the master password to your password manager is pretty much the key to your whole digital castle, you can understand why the story provoked lots of excitement.
+The good news is that an attacker who wanted to exploit this bug would almost certainly need to have infected your computer with malware already, and would therefore be able to spy on your keystrokes and running programs anyway.
+In other words, the bug can be considered an easily-managed risk until the creator of KeePass comes out with an update, which should appear soon (at the beginning of June 2023, apparently).
+As the discloser of the bug takes care to point out:
+If you use full disk encryption with a strong password and your system is [free from malware], you should be fine. No one can steal your passwords remotely over the internet with this finding alone.
+Heavily summarised, the bug boils down to the difficulty of ensuring that all traces of confidential data are purged from memory once you’ve finished with them.
+We’ll ignore here the problems of how to avoid having secret data in memory at all, even briefly.
+In this article, we just want to remind programmers everywhere that code approved by a security-conscious reviewer with a comment such as “appears to clean up correctly after itself”…
+…might in fact not clean up fully at all, and the potential data leakage might not be obvious from a direct study of the code itself.
+Simply put, the CVE-2023-32784 vulnerability means that a KeePass master password might be recoverable from system data even after the KeyPass program has exited, because sufficient information about your password (albeit not actually the raw password itself, which we’ll focus on in a moment) might get left behind in sytem swap or sleep files, where allocated system memory may end up saved for later.
+On a Windows computer where BitLocker isn’t used to encrypt the hard disk when the system is turned off, this would give a crook who stole your laptop a fighting chance of booting up from a USB or CD drive, and recovering your master password even though the KeyPass program itself takes care never to save it permanently to disk.
+A long-term password leak in memory also means that the password could, in theory, be recovered from a memory dump of the KeyPass program, even if that dump was grabbed long after you’d typed the password in, and long after the KeePass itself had no more need to keep it around.
+Clearly, you should assume that malware already on your system could recover almost any typed-in password via a variety of real-time snooping techniques, as long as they were active at the time you did the typing. But you might reasonably expect that your time exposed to danger would be limited to the brief period of typing, not extended to many minutes, hours or days afterwards, or perhaps longer, including after you shut your computer down.
+We therefore thought we’d take a high-level look at how secret data can get left behind in memory in ways that aren’t directly obvious from the code.
+Don’t worry if you aren’t a programmer – we’ll keep it simple, and explain as we go.
+We’ll start by looking at memory use and cleanup in a simple C program that simulates entering and temporarily storing a password by doing the following:
+Greatly simplified, the C code might look something like this, with no error checking, using poor-quality pseudo-random numbers from the C runtime function rand(), and ignoring any buffer overflow checks (never do any of this in real code!):
+In fact, the code we finally used in our tests includes some additional bits and pieces shown below, so that we could dump the full contents of our temporary password buffer as we used it, to look for unwanted or left-over content. 
+Note that we deliberately dump the buffer after calling free(), which is technically a use-after-free bug, but we are doing it here as a sneaky way of seeing whether anything critical gets left behind after handing our buffer back, which could lead to a dangerous data leakage hole in real life.
+We’ve also inserted two Waiting for [Enter] prompts into the code to give ourselves a chance to create memory dumps at key points in the program, giving us raw data to search later, in order to see what was left behind as the program ran.
+To do memory dumps, we’ll be using the Microsoft Sysinternals tool procdump with the -ma option (dump all memory), which avoids the need to write our own code to use the Windows DbgHelp system and its rather complex MiniDumpXxxx() functions.
+To compile the C code, we used our own small-and-simple build of Fabrice Bellard’s free and open-source Tiny C Compiler, available for 64-bit Windows in source and binary form directly from our GitHub page.
+Copy-and-pastable text of all the source code pictured in the article appears at the bottom of the page.
+
+This is what happened when we compiled and ran the test program:
+In this run, we didn’t bother grabbing any process memory dumps, because we could see right away from the output that this code leaks data.
+Right after calling the Windows C runtime library function malloc(), we can see that the buffer we get back includes what looks like environment variable data left over from the program’s startup code, with the first 16 bytes apparently altered to look like some sort of left-over memory allocation header. 
+(Note how those 16 bytes look like two 8-byte memory addresses, 0xF55790 and 0xF50150, that are just after and just before our own memory buffer respectively.)
+When the password is supposed to be in memory, we can see the entire string clearly in the buffer, as we would expect.
+But after calling free(), note how the first 16 bytes of our buffer have been rewritten with what look like nearby memory addresses once again, presumably so the memory allocator can keep track of blocks in memory that it can re-use…
+… but the rest of the our “expunged” password text (the last 12 random characters EJJCPOMDJHAN) has been left behind.
+Not only do we need to manage our own memory allocations and de-allocations in C, we also need to ensure that we choose the right system functions for data buffers if we want to control them precisely.
+For example, by switching to this code instead, we get a bit more control over what’s in memory:
+
+By switching from malloc() and free() to use the lower-level Windows allocation functions VirtualAlloc() and VirtualFree() directly, we get better control.
+However, we pay a price in speed, because each call to VirtualAlloc() does  more work that a call to malloc(), which works by continually dividing and subdividing a block of pre-allocated low-level memory.
+Using VirtualAlloc() repeatedly for small blocks also uses up more memory overall, because each block dished out by VirtualAlloc() typically consumes a multiple of 4KB of memory (or 2MB, if you are using so-called large memory pages), so that our 128-byte buffer above is rounded up to 4096 bytes, wasting the 3968 bytes at the end of the 4KB memory block.
+But, as you can see, the memory we get back is automatically blanked out (set to zero), so we can’t see what was there before, and this time the program crashes when we try to do our use-after-free trick, because Windows detects that we’re trying to peek at memory we no longer own:
+Because the memory we freed up will need re-allocating with VirtualAlloc() before it can be used again, we can assume that it will be zeroed out before it’s recycled.
+However, if we wanted to make sure it was blanked out, we could call the special Windows function RtlSecureZeroMemory() just before freeing it, to guarantee that Windows will write zeros into our buffer first. 
+The related function RtlZeroMemory(), if you were wondering, does a similar thing, but without the guarantee of actually working, because compilers are allowed to remove it as theoretically redundant if they notice that the buffer is not used again afterwards.
+As you can see, we need to take considerable care to use the right Windows functions if we want to miminise the time that secrets stored in memory may lie around for later. 
+In this article, we aren’t going to look at how you prevent secrets getting saved out accidentally to your swap file by locking them into physical RAM. (Hint: VirtualLock() isn’t actually enough on its own.) If you would like to know more about low-level Windows memory security, let us know in the comments and we will look at it in a future article.
+One neat way to avoid having to allocate, manage and deallocate memory by ourselves is to use a programming language that takes care of malloc() and free(), or VirtualAlloc() and VirtualFree(), automatically.
+Scripting language such as Perl, Python, Lua, JavaScript and others get rid of the most common memory saftey bugs that plague C and C++ code, by tracking memory usage for you in the background.
+As we mentioned earlier, our badly-written sample C code above works fine now, but only because it’s still a super-simple program, with fixed-size data structures, where we can verify by inspection that we won’t overwrite our 128-byte buffer, and that there is only one execution path that starts with malloc() and ends with a corresponding free().
+But if we updated it to allow variable-length password generation, or added additional features into the generation process, then we (or whoever maintains the code next) could easily end up with buffer overflows, use-after-free bugs, or memory that never gets freed up and therefore leaves secret data hanging around long after it is no longer needed.
+In a language like Lua, we can let the Lua run-time environment, which does what’s known in the jargon as automatic garbage collection, deal with acquiring memory from the system, and returning it when it detects we’ve stopped using it.
+The C program we listed above becomes very much simpler when memory allocation and de-allocation are taken care of for us:
+
+We allocate memory to hold the string s simply by assigning the string 'unlikelytext' to it.
+We can later either hint to Lua explicitly that we are no longer interested in s by assigning it the value nil (all nils are essentially the same Lua object), or stop using s and wait for Lua to detect that it’s no longer needed.
+Either way, the memory used by s will eventually be recovered automatically.
+And to prevent buffer overflows or size mismanagement when appending to text strings (the Lua operator .., pronounced concat, essentially adds two strings together, like + in Python), every time we extend or shorten a string, Lua magically allocates space for a brand new string, rather than modifying or replacing the original one in its existing memory location.
+This approach is slower, and leads to memory usage peaks that are higher than you’d get in C due to the intermediate strings allocated during text manipulation, but it’s much safer in respect of buffer overflows.
+But this sort of automatic string management (known in the jargon as immutability, because strings never get mutated, or modified in place, once they’ve been created), does bring new cybersecurity headaches of its own.
+We ran the Lua program above on Windows, up to the second pause, just before the program exited:
+This time, we took a process memory dump, like this:
+Then we ran this simple script, which reads the dump file back in, finds everywhere in memory that that the known string unlikelytext appeared, and prints it out, together with its location in the dumpfile and the ASCII characters that immediately followed:
+
+Even if you’ve used script languages before, or worked in any programming ecosystem that features so-called managed strings, where the system keeps track of memory allocations and deallocations for you, and handles them as it sees fit… 
+…you might be surprised to see the output that this memory scan produces:
+Lo and behold, at the time we grabbed our memory dump, even though we’d finished with the string s (and told Lua that we didn’t need it any more by saying s = nil), all the strings that the code had created along the way were still present in RAM, not yet recovered or deleted.
+Indeed, if we sort the above output by the strings themselves, rather than following the order in which they appeared in RAM, you’ll be able to picture what happened during the loop where we concatenated one character at a time to our password string:
+All those temporary, intermediate strings are still there, so even if we had successfully wiped out the final value of s, we’d still be leaking everything except its last character.
+In fact, in this case, even when we deliberately forced our program to dispose of all unneeded data by calling the special Lua function collectgarbage() (most scripting languages have something similar), most of the data in those pesky temporary strings stuck around in RAM anyway, because we’d compiled Lua to do its automatic memory management using good old malloc() and free().
+In other words, even after Lua itself reclaimed its temporary memory blocks to use them again, we couldn’t control how or when those memory blocks would get re-used, and thus how long they would lie around inside the process with their left-over data waiting to be sniffed out, dumped, or otherwise leaked.
+But what about KeePass, which is where this article started?
+KeePass is written in C#, and uses the .NET runtime, so it avoids the problems of memory mismanagement that C programs bring with them…
+…but C# manages its own text strings, rather like Lua does, which raises the question:
+Even if the programmer avoided storing the entire master password on one place after he’d finished with it, could attackers with access to a memory dump nevertheless find enough left-over temporary data to guess at or recover the master password anyway, even if those attackers got access to your computer minutes, hours, or days after you’d typed the password in ?
+Simply put, are there detectable, ghostly remnants of your master password that survive in RAM, even after you’d expect them to have been expunged?
+Annoyingly, as Github user Vdohney discovered, the answer (for KeePass verions earlier than 2.54, at least) is, “Yes.”
+To be clear, we don’t think that your actual master password can be recovered as a single text string from a KeePass memory dump, because the author created a special function for master password entry that goes out of its way to avoid storing the full password where it could easily be spotted and sniffed out.
+We satisfied ourselves of this by setting our master password to SIXTEENPASSCHARS, typing it in, and then taking memory dumps immediately, shortly, and long afterwards.
+We searched the dumps with a simple Lua script that looked everwhere for that password text, both in 8-bit ASCII format, and in 16-bit UTF-16 (Windows widechar) format, like this:
+
+The results were encouraging:
+But Vdohney, the discoverer of CVE-2023-32784, noticed that as you type in your master password, KeePass gives you visual feedback by constructing and displaying a placeholder string consisting of Unicode “blob” characters, up to and including the length of your password:
+
+In widechar text strings on Windows (which consist of two bytes per character, not just one byte each as in ASCII), the “blob” character is encoded in RAM as the hex byte 0xCF followed by 0x25 (which just happens to be a percent sign in ASCII).
+So, even if KeePass is taking great care with the raw characters you type in when you enter the password itself, you might end up with left-over strings of “blob” characters, easily detectable in memory as repeated runs such as CF25CF25 or CF25CF25CF25…
+…and, if so, the longest run of blob characters you found would probably give away the length of your password, which would be a modest form of password information leakage, if nothing else.
+We used the following Lua script to look for signs of left-over password placeholder strings:
+
+The output was surprising (we have deleted successive lines with the same number of blobs, or with fewer blobs than the previous line, to save space):
+At close-together but ever-increasing memory addresses, we found a systematic list of 3 blobs, then 4 blobs, and so on up to 16 blobs (the length of our password), followed by many randomly scattered instances of single-blob strings.
+So, those placeholder “blob” strings do indeed seem to be leaking into memory and staying behind to leak the password length, long after the KeePass software has finished with your master password.
+We decided to dig further, just like Vdohney did.
+We changed our pattern matching code to detect chains of blob characters followed by any single ASCII character in 16-bit format (ASCII characters are represented in UTF-16 as their usual 8-bit ASCII code, followed by a zero byte).
+This time, to save space, we have suppressed the output for any match that exactly matches the previous one:
+
+Surprise, surprise:
+Look what we get out of .NET’s managed string memory region!
+A closely-bunched set of temporary “blob strings” that reveal the successive characters in our password, starting with the second character.
+Those leaky strings are followed by widely-distributed single-character matches that we assume arose by chance. (A KeePass dump file is about 250MB in size, so there is plenty of room for “blob” characters to appear as if by luck.)
+Even if we take those extra four matches into account, rather than discarding them as likely mismatches, we can guess that the master password is one of:
+Obviously, this simple technique doesn’t find the first character in the password, because the first “blob string” is only constructed after that first character has been typed in
+Note that this list is nice and short because we filtered out matches that didn’t end in ASCII characters.
+If you were looking for characters in a different range, such as Chinese or Korean characters, you might end up with more accidental hits, because there are a lot more possible characters to match on…
+…but we suspect you’ll get pretty close to your master password anyway, and the “blob strings” that relate to the password seem to be grouped together in RAM, presumably because they were allocated at about the same time by the same part of the .NET runtime.
+And there, in an admittedly long and discursive nutshell, is the fascinating story of CVE-2023-32784.
+CODE FROM THE ARTICLE: UNL1.C
+CODE FROM THE ARTICLE: UNL2.C
+CODE FROM THE ARTICLE: S1.LUA
+CODE FROM THE ARTICLE: FINDIT.LUA
+CODE FROM THE ARTICLE: SEARCHKNOWN.LUA
+CODE FROM THE ARTICLE: FINDBLOBS.LUA
+CODE FROM THE ARTICLE: SEARCHKP.LUA
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+That was a long (but very thorough) article. Good work, Duck.
+Thanks for your kind words. Glad you found it useful!
+“However, if we wanted to make sure it was blanked out, we could call the special Windows function RtlSecureZeroMemory() just before freeing it, to guarantee that Windows will write zeros into our buffer first.
+The related function RtlZeroMemory(), if you were wondering, does a similar thing, but without the guarantee of actually working, because compilers are allowed to remove it as theoretically redundant if they notice that the buffer is not used again afterwards.”
+This is actually a much more pervasive issue than you may know. The compiler optimizations allowing for “dead-store elimination” lead a lot of naive programmers to believe that using memset or something similar to zero a memory buffer is enough to sanitize it from memory. However, what’s worse is that the methods people have tried to use to ensure that the sanitization is not optimized away are quite hacky and not guaranteed to work either. It’s surprising to see Windows presumably prevailing on mitigating this matter, but in the Linux/BSD realm there’s literally so much dead-store elimination that one security researcher made a patch for gcc that would show every time a compiled piece software’s attempt to sanitize memory was optimized away, effectively making an easy zero-day finder.
+Check out his presentation here: https://youtu.be/0WzjAKABSDk
+My guess is that there is FAR more vulnerabilities like this out there just waiting for thorough examinations like the one in this article to reveal, but the motivation to do so is low since the need for local access to leverage it implies many greater attack vectors.
+I think that the problem with memset, RtlZeroMemory and friends is that they are typically compiled as “inline functions”, meaning that their code is repeated everywhere it is “called” (inlining memset() can actually end up creating shorter code than setting up a CALL to a subroutine, not merely faster code). 
+And that inline code can be optimised away, like any other inline code that turns out to be unnecessary – the memory writes are considered redundant if the modified data is never used again afterwards.
+As you say, there is a big difference between “unnecessary in pure dataflow terms” and “desirable for data certainty reasons”.
+Having watched that video (the speaker was very nervous but the content is clear and very useful), I don’t think that it’s only the “inlineness” of functions like memset() that affects “redundant write” detection. 
+As the video points out, even code that compilers don’t currently optimise out *might get removed in future* as the optimiser gets smarter, or is able to use more CPU power to make its own inferences about your code. (And the speaker explains that optimisations you might assume would be disallowed because they change too much may nevertheless be legal in strict language specification terms, and so compilers would be allowed to do them anyway and still be considered “standards compliant”.)
+Is there a password vault that’s safe anymore?
+This vulnerability isn’t a particularly strong reason to consider KeePass unsafe. 
+After all, if a laptop thief can plunder your swap file because you aren’t using full disk encryption, then you are in plenty of hot water already, and if a malware criminal can implant code to spy on your KeePass process and scrape its RAM at will, then you are in plenty of other serious data breach trouble, too.
+“Anymore” is a bit of a misnomer. Practically all major Password Managers have had a vulnerability at one point or another. From RoboForm in the 90’s to Bitwarden today, most big Password Managers have been hit. 1Password, Lastpass, Bitwarden, Dashlane, and Keepass have all had CVE’s. With how much Cybercrime is worth today, the biggest reason a Password Manager hasn’t gotten a vulnerability is simply market share and ROI. Once a security program gets big enough, there are industries built around breaking them open.
+That means it isn’t “if” a password manager becomes vulnerable, but “when”. When the time comes that a vulnerability breaks through, the important thing is how the Vendor deals with the issue, and prevents it in the future. If a Password manager is vulnerable because of a relatively minor oversight (like above) and they immediately respond to it (like above), then that’s no issue. It’s the reoccurring, negligent, and amateur mistakes that require concern. Every company can make a mistake, but a well ran company will be able to catch the major ones.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,93 @@
+Sophos Home protects every Mac and PC in your home 
+Here’s this week’s BWAIN, our jocular term for a Bug With An Impressive Name.
+BWAIN is  an accolade that we hand out when a new cybersecurity flaw not only turns out to be interesting and important, but also turns up with its own logo, domain name and website.
+This one is dubbed ÆPIC Leak, a pun on the words APIC and EPIC.
+The former is short for Advanced Programmable Interrupt Controller, and the latter is simply the word “epic”, as in giant, massive, extreme, mega, humongous.
+The letter Æ hasn’t been used in written English since Saxon times. Its name is æsc, pronounced ash (as in the tree), and it pretty much represents the sound of the A in in the modern word ASH. But we assume you’re supposed to pronounce the word ÆPIC here either as “APIC-slash-EPIC”, or as “ah!-eh?-PIC”.
+All of this raises five fascinating questions:
+Let’s rewind to 1981, when the IBM PC first appeared.
+The PC included a chip called the Intel 8259A Programmable Interrupt Controller, or PIC. (Later models, from the PC AT onwards, had two PICs, chained together, to support more interrupt events.)
+The purpose of the PIC was quite literally to interrupt the program running on the PC’s central processor (CPU) whenever something time-critical took place that needed attention right away.
+These hardware interrupts included events such as: the keyboard getting a keystroke; the serial port receiving a character; and a repeating hardware timer ticking over.
+Without a hardware interrupt system of this sort, the operating system would need to be littered with function calls to check for incoming keystrokes on a regular basis, which would be a waste of CPU power when no one was typing, but wouldn’t be responsive enough when they did.
+As you can imagine, the PIC was soon followed by an upgraded chip called the APIC, an advanced sort of PIC built into the CPU itself.
+These days, APICs provide much more than just feedback from the keyboard, serial port and system timer.
+APIC events are triggered by (and provide real-time data about) events such as overheating, and allow hardware interaction between the different cores in contemporary multicore processors.
+And today’s Intel chips, if we may simplifly greatly, can generally be configured to work in two different ways, known as xAPIC mode and x2APIC mode.
+Here, xAPIC is the “legacy” way of extracting data from the interrupt controller, and x2APIC is the more modern way.
+Simplifying yet further, xAPIC relies on what’s called MMIO, short for memory-mapped input/output, for reading data out of the APIC when it registers an event of interest.
+In MMIO mode, you can find out what triggered an APIC event by reading from a specific region of memory (RAM), which mirrors the input/output registers of the APIC chip itself. 
+This xAPIC data is mapped into a 4096-byte memory block somewhere in the physical RAM of the computer.
+This simplifies accessing the data, but it requires an annoying, complex (and, as we shall see, potentially dangerous) interaction between the APIC chip and system memory.
+In contrast, x2APIC requires you to read out the APIC data directly from the chip itself, using what are known as Model Specific Registers (MSRs).
+According to Intel, avoiding the MMIO part of the process “provides significantly increased processor addressability and some enhancements on interrupt delivery.”
+Notably, extracting the APIC data directly from on-chip registers means that the total amount of data supported, and the maximum number of CPU cores that can be managed at the same time, is not limited to the 4096 bytes available in MMIO mode.
+You’ve probably guessed already that the data that ends up in the MMIO memory area when you’re using xAPIC mode isn’t always as carefully managed as it should be…
+…and thus that some kind of “data leak” into that MMIO area is the heart of this problem.
+But given that you already need sysadmin-level powers to read the MMIO data in the first place, and therefore you could almost certainly get at any and all data in memory anyway…
+…why would having other people’s data show up by mistake in the APIC MMIO data area represent an epic leak?
+It might make some types of data-stealing or RAM-scraping attack slightly easier in practice, but surely it wouldn’t give you any more memory-snooping ability that you already had in theory?
+Unfortunately, that assumption isn’t true if any software on the system is using Intel’s SGX, short for Software Guard Extensions.
+LEARN MORE ABOUT SGX
+Plundervolt – stealing secrets by starving your computer of voltage
+
+
+SGX is supported by many recent Intel CPUs, and it provides a way for the operating system kernel to “seal” a chunk of code and data into a physical block of RAM so as to form what’s known as an enclave.
+This makes it behave, temporarily at least, much like the special security chips in mobile phones that are used to store secrets such as decryption keys.
+Once the enclave’s SGX “lock” is set, only program code running inside the sealed-off memory area can read and write the contents of that RAM.
+As a result, the internal details of any calculations that happen after the enclave is activated are invisible to any other code, thread, process or user on the system.
+Including the kernel itself.
+There’s a way to call the code that’s been sealed into the enclave, and a way for it to return the output of of the calculations it might perform, but there’s no way to recover, or to spy on, or to debug, the code and its associated data while it runs.
+The enclave effectively turns into a black box to which you can feed inputs, such as a data to be signed with a private key, and extract outputs, such as the digital signature generated, but from which you can’t winkle out the cryptographic keys used in the signing process.
+As you can imagine, if data that’s supposed to be sealed up inside an SGX enclave should ever accidentally get duplicated into the MMIO RAM that’s used to “mirror” the APIC data when you’re using xAPIC “memory-mapped” mode…
+…that would violate the security of SGX, which says that no data should ever emerge from an SGX enclave after it’s been created, unless it’s deliberately exported by code already running inside the enclave itself.
+The researchers behind the ÆPIC Leak paper discovered that by arranging to read out APIC data via a cunning and unusual sequence of memory accesses…
+…they could trick the processor into filling up the APIC MMIO space not only with data freshly received from the APIC itself, but also with data that just happened to have been used by the CPU recently for some other purpose.
+This behaviour is a side-effect of the fact that although the APIC MMIO memory page is 4096 bytes in size, the APIC chip in xAPIC mode doesn’t actually produce 4096 bytes’ worth of data, and the CPU doesnt’t always correctly neutralise the unused parts of the MMIO region by filling it with zeros first.
+Instead, old data left over in the CPU cache was written out along with the new data received from the APIC chip itself.
+As the researchers put it, the bug boils down to what’s known as an uninitialised memory read, where you accidentally re-use someone else’s leftover data in RAM because neither they nor you flushed it of its previous secrets first.
+For a full list of chips affected, see Intel’s own advisory. 
+As far as we can tell, if you have a 10th or 11th generation Intel processor, you’re probably affected. 
+But if you have a brand-new 12th generation CPU (the very latest at the time of writing), then it seems that only server-class chips are affected. 
+Ironically, in 12th-generation laptop chips, Intel has given up on SGX, so this bug doesn’t apply because it’s impossible to have any “sealed” SGX enclaves that could leak.
+Of course, even on a potentially vulnerable chip, if you’re not relying on any software that uses SGX, then the bug doesn’t apply either.
+And the bug, dubbed CVE-2022-21233, can only be exploited by an attacker who already has local, admin-level (root) access to your computer.
+Regular users can’t access the APIC MMIO data block, and therefore have no way of peeking at anything at all in there, let alone secret data that might have leaked out from an SGX enclave.
+Also, guest virtual machines (VMs) running under the control of a host operating system in a hypervisor such as HyperV, VMWare or VirtualBox almost certainly can’t use this trick to plunder secrets from other guests or the host itself.
+That’s because guest VMs generally don’t get access to the real APIC circuitry in the host processor; instead, each guest gets its own simulated APIC that’s unique to that VM.
+Don’t panic. 
+On a laptop or desktop computer, you may not be at risk at all, either because you have an older (or, lucky you, a brand new!) computer, or because you aren’t relying on SGX anyway.
+And even if you are risk, anyone who gets into your laptop as admin/root probably has enough power to cause you a world of trouble already.
+If you have vulnerable servers and you’re relying on SGX as part of your operational security, check Intel security advisory INTEL-SA-00657 for protection and mitigation information.
+According to the researchers who wrote this up, “Intel [has] released microcode and SGX Software Development Kit updates to fix the issue.”
+The Linux kernel team also seems to be working right now on a patch that will allow you to configure your system so that it will always use x2APIC (which, as you will remember from earlier, doesn’t transmit APIC data via shared memory), and will gracefully prevent the system being forced back into xAPIC mode after bootup.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Thanks Paul for this informative article. It makes me wonder if security keys, such as YubiKey, are also susceptible to this type of attacks if used on a compromised computer. It seems to me that they behave similar to an enclave,
+Security keys are indeed a type of enclave. So too are mobile phone SIMs and credit cards. (For example, a phone SIM has a unique encryption key written into it that is used to derive one-off session keys for each call. The key itself, however, is “write only” inasmuch as once the SIM is provisioned, the key can never – in theory – be read out again.)
+Although specialised “trusted computing module” (TPM) hardware like this could indeed be plagued by some kind of data leakage bug, the comparative simplicity and focused purpose of this kind of device means there should be a lot less to go wrong. 
+When it comes to a modern CPU with multiple cores, hyperthreading, every sort of performance tweak involving speculative execution, multilevel caching, integer instructions, floating point instructions, vector instructions, 16, 32 and 64 bit operating modes, dedicated encryption acceleration instructions, microinstruction reordering, and so on, with the chip itself made up of up to 100 billion transistors… you can see why bugs creep in and security behaviour doesn’t always go by the book.
+(The famous 6502 CPU as used in the Apple ][,  the BBC Micro and many other early desktop computers, apparently consisted of fewer than 5000 transistors.)
+When a security key is used on a laptop, it needs to use the laptop’s CPU to run its code and apply its private key on the data it receives from the laptop. Isn’t it possible that a compromised laptop leak this private key the same way it may expose the secret data of other enclaves? Since the laptop is compromised and a hacker has kernel access to the laptop, they can obtain the private key and use it to emulate the hardware key in a targeted attack and access any software/data that is secured by that key. I know it seems far-fetched, but isn’t it possible?
+The Yubikey I’ve got (it’s not the latest but it’s newish) can work in several different ways. 
+One of them is to generate a public-private keypair *inside the Yubikey itself*. The private key never touches your laptop and can’t be exported. You can extract the *public* key, to share with others, and you can pass data into the Yubikey to be processed with the private key, but you can’t access the private key. The key generation code and the encrypt/decrypt code is stored securely in, and executed by, the Yubikey, not the laptop.
+The letter Æ hadn’t been written in English since Saxon times … until Elon Musk had a child.
+Is that an English name? It seems “Ash” is how it’s pronounced, but perhaps it’s meant to be Elvish or something of that sort, rather than English?
+Assuming that California has “English letters only” rules for names, then it would presumably have been registered as “AE”, written as two ACSII characters, not as a single UTF-8 code point?
+Wow this was really an interesting read. Thanks.
+Phew – just confirmed that Intel’s line of EPIC server processors, used in high integrity environments, are not impacted. That name made me jump a bit.
+Isn’t EPIC a technology acronym specific to the early days of the now defunct-and-discontinued Intel Itanium processor? 
+If so, I don’t think the Itanium ever had anything like SGX. The Itanium chip was moribund by 2010, and the very last iteration of the chip was in 2017 (after 5 years of hiatus).
+Given that SGX was introduced as a new and forward looking feature for x64 chips in 2015, it seems unlikely that anything like it ever reached any Itanium chips.
+This particular leak is essentially irrelevant on a chip with no SGX support (or on a computer where SGX technology is not in use) because there aren’t any “enclaves” that are supposed to be sealed off from the kernel anyway. 
+The “semantic collision” between Intel’s use of the term EPIC in the late 1990s and the contemporary use of the word “epic” is unfortunate… but I wonder if the cryptographers who came up with this PR-friendly name even knew about or remembered Intel’s use of the abbreviation EPIC back in the last century :-) 
+(I lived right through the Itanium era and I don’t think I ever saw a computer fitted with one, let alone used one. I definitely never knowingly compiled any code that targeted the Itanium chip.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

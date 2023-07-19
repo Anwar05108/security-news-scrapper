@@ -1,0 +1,94 @@
+Sophos Home protects every Mac and PC in your home 
+Earlier this month, the NortonLifeLock online identity protection service, owned by Arizona-based technology company Gen Digital, sent a security warning to many of its customers.
+The warning letter can be viewed online, for example on the website of the Office of the Vermont Attorney General, where it appears under the title NortonLifeLock – Gen Digital Data Breach Notice to Consumers.
+The letter starts with a dread-sounding salutation that says:
+We are writing to notify you of an incident involving your personal information.
+It continues as follows:
+[Our intrusion detection systems] alerted us that an unauthorized party likely has knowledge of the email and password you have been using with your Norton account […] and your Norton Password Manager. We recommend you change your passwords with us and elsewhere immediately.
+As opening paragraphs go, this one is pretty straightforward, and contains uncomplicated if potentially time-consuming advice: someone other than you probably knows your Norton account password; they may have been able to peek into your password manager as well; please change all passwords as soon as you can.
+But what actually happened here, and was this a breach in the conventional sense?
+After all, LastPass, another well-known name in the password management game, recently announced not only that it had suffered a network intrusion, but also that customer data, including encrypted passwords, had been stolen.
+In LastPass’s case, fortunately, the stolen passwords weren’t of direct and immediate use to the attackers, because each user’s password vault was protected by a master password, which wasn’t stored by LastPass and therefore wasn’t stolen at the same time. 
+The crooks still need to crack those master passwords first, a task that might take weeks, years, decades or even longer, for every user, depending on how wisely those passwords had been chosen.
+Bad choices such as 123456 and iloveyou were probably be rumbled within the first few hours of cracking, but less predictable combinations such as DaDafD$&RaDogS or tVqFHAAPTjTUmOax will almost certainly hold out for far longer than it would take to change the passwords in your vault.
+But if LifeLock just suffered a breach, and the company is warning that someone else already knew some users’ account passwords, and perhaps also the master password for all their other passwords…
+…isn’t that much worse?
+Have those passwords already been cracked somehow?
+The good news is that this case seems to be quite a different sort of “breach”, probably caused by the risky practice of using the same password for several different online services in order to make logging in to your commonly-used sites a bit quicker and easier.
+Immediately after LifeLock’s early advice to go and change your passwords, the company suggests that:
+[B]eginning around 2022-12-01, an unauthorized third party had used a list of usernames and passwords obtained from another source, such as the dark web, to attempt to log into Norton customer accounts. Our own systems were not compromised. However, we strongly believe that an unauthorized third party knows and has utilized your username and password for your account.
+The problem with using the same password on multiple different accounts is obvious – if any one of your accounts gets compromised, then all your accounts are as good as compromised as well, because that one stolen password acts like a skeleton key to the other services involved.
+In fact, the process of testing whether one stolen password works across multiple accounts is so popular with cybercrooks (and is so easily automated) that it even has a special name: credential stuffing.
+If an online criminal guesses, buys on the dark web, steals, or phishes a password for any account that you use, even something as low-level as your local news site or your sports club, they will almost immediately try the same password on other likely accounts in your name. 
+Simply put, the attackers take your username, combine it with the password they already know, and stuff those credentials into the login pages of as many popular services as they can think of. 
+Many services these days like to use your email address as a username, which makes this process even more predictable for the Bad Guys.
+By the way, using a single, hard-to-guess password “stem” and adding modifications for different accounts doesn’t help much, either.
+That’s where you try to create fake “complexity” by starting with a common component that is complicated, such as Xo3LCZ6DD4+aY, and then appending uncomplicated modifiers such as -fb for Facebook, -tw for Twitter and -tt for Tik Tok.
+Passwords that vary by even a single character will end up with a totally different scrambled password hash, so that stolen databases of password hashes won’t tell you anything about how similar different password choices are…
+…but credential stuffing attacks are used when the attackers already know the plaintext of your password, so it’s vital to avoid turning each password into a handy hint for all the others.
+Common ways that unencrypted passwords fall into criminal hands include:
+Even though it looks as though LifeLock itself didn’t get breached, in the conventional sense of cybercriminals breaking into the company’s own networks and snooping on data from the inside, as it were…
+…we’ve seen some criticism of how this incident was handled.
+To be fair, cybersecurity vendors can’t always prevent their customers from “doing the wrong thing” (in Sophos products, for example, we do our best to warn you on-screen, brightly and boldly, if you choose configuration settings that are riskier than we recommend, but we can’t force you to accept our advice).
+Notably, an online service can’t easily stop you setting exactly the same password on other sites – not least because it would need to collude with those other sites in order to do so, or to conduct credential stuffing tests of its own, thus violating the sanctity of your password.
+Nevertheless, some critics have suggested that LifeLock could have spotted these bulk password-stuffing attacks more quickly than it did, perhaps by detecting the unusual pattern of attempted logins, presumably including many that failed because at least some compromised users weren’t re-using passwords, or because the database of stolen passwords was imprecise or out-of-date.
+Those critics note that 12 days elapsed between the bogus login attempts starting and the company spotting the anomaly (2022-12-01 to 2022-12-12), and a further 10 days between first noticing the problem and figuring out that the issue was almost certainly down to breached data acquired from some other source than the company’s own networks.
+Others have wondered why the company waited until the 2023 New Year (2022-12-12 to 2023-01-09) to send out its “breach” notification to affected users, if it was aware of bulk password stuffing attempts before Christmas 2022.
+We’re not going to try to guess whether the company could have reacted more quickly, but it’s worth remembering – in case this ever happens to you – that determining all the salient facts after you receive claims about “a breach” can be a mammoth undertaking.
+Annoyingly, and perhaps ironically, finding out that you have been directly breached by so-called active adversaries is often depressingly easy.
+Know your enemy! Learn how cybercrime adversaries get in…
+
+
+Anyone who has seen hundreds of computers simultaneously displaying a right-in-your-face ransomware blackmail note demanding thousands or millions of dollars in cryptocoins will regrettably attest to that.
+But figuring out what cybercrooks definitely did not do to your network, which is essentially proving a negative, is often a time-consuming exercise, at least if you want to do it scientifically, and with a sufficient level of accuracy to convince yourself, your customers and the regulators.
+As for victim-blaming, it’s nevertheless vital to note that, as far as we know, there is nothing that LifeLock, or any other services where passwords were re-used, can do now, on its own, to fix the underlying cause of this problem.
+In other words, if crooks get into your accounts on decently-secure services P, Q and R simply because they discovered you used the same password on not-so-secure site S, those more-secure sites can’t stop you taking the same sort of risk in future.
+So, our immediate tips are:
+We may yet end up in a digital world without any passwords at all – many online services are trying to move in that direction already, looking at switching exclusively to other ways of checking your online identity, such as using special hardware tokens or taking biometric measurements instead.
+But passwords have been with us for more than half a century already, so we suspect they will be with us for many years yet, for some or many, if no longer all, of our online accounts.
+While we’re still stuck with passwords, let’s make a determined effort to use them in a way that gives as little help to cybercriminals as possible.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Nice article, with good tips and a very factual approach 🙂
+I guess, people like to blame companies like NortonLifeLock because it is so easy to just blame everyone else and pretend to be better (feels good and impresses your friends) instead of actually doing something better. Much easier to say “Don’t use the cloud. Look, there was another breach. I knew it. Listen to me.” instead of telling people how to do it correctly.
+Thanks for your kind words. Much appreciated.
+The silver lining here, I suppose, is that it’s a fair guess that anyone who was using the same password on their Norton account and one or more other accounts didn’t feel the need to use any sort of password manager that might also have been compromised (why use a password manager if you only have one password already)…
+…and therefore it’s a reasonable hope that anyone who decided to start using the Norton password manager despite already being in the habit of sharing passwords between other accounts, including their Norton LifeLock account, *didn’t use that previously-shared password again for the password manager*, because they were in the process of improving their overall digital health.
+It’s a good idea to take every “cybersecurity close shave” that you experience, whether it was all your fault, partly your fault, or all someone else’s fault, as a reason to stop and think, “Is there something I could do differently, over and above any other mitigtions already applied by me or anyone else, that might help next time?
+Your enthusiasm for 2FA is misguided. In the era of big data, companies (e.g Microsoft authenticator) cannot be trusted with your phone number or any other personal data.
+Hmmm. Firstly, for most mainstream sites (WhatsApp and Signal are important exceptions, IIRC) you don’t have to provide a phone number if you don’t want to. In fact, many people avoid phone-number-based 2FA more because they distrust the security of their own SIM card (which can be swapped out at will by someone who works for your mobile phone company, thus potentially transferring your number to someone else’s phone) than because they distrust the cloud company that they’d hand their number to.
+Secondly, if you use a conventional authenticator app, almost any one will do – it isn’t tied to the vendor that runs the site. (For example, you can use the free Sophos mobile app to generate standard 2FA codes for most sites, including Microsoft, Google. WordPress, GitHub and many more. Or you can easily write your own script in Perl, Python, Lua or even C, because the TOTP algorithm is fairly simple.)
+Granted, app based authentication codes rely on the vendor and your app securely storing a shared secret that’s generated by the vendor at setup time (the so-called starting seed)… but if you decide not to trust the vendor with the starting seed, then you almost certainly won’t want to trust the vendor with the password that you need whether you use 2FA codes or not, and you definitely shouldn’t be trusting said vendor with any information or even usage logs.
+Here’s TOTP (6-digit codes that change every 30 seconds) coded in Lua. 
+A. Put the starting seed (as originally provided to you in base32 encoding) as the first argument on the command line. [04]
+B. Divide the current “Unix epoch time” in seconds by 30, ignoring the remainder, and save it in a memory buffer as a 64-bit (8-byte) big-endian unsigned integer [05].
+C. Hash that 8-byte buffer using one iteration of HMAC-SHA-1 with the raw, base32-decoded starting seed as the key. [06]
+D. Extract the last byte of the 160-bit HMAC-SHA-1 hash (byte 20 of 20), and then take its bottom four bits (the remainder when divided by 16) to get a number X between 0 and 15 inclusive. [07]
+E. Extract bytes X+1,X+2,X+3,X+4 from the hash, i.e. 32 bits that come anywhere from the first four bytes (1..4) to the last-four-but-one bytes (16..19). [08] 
+F. Convert to a 32-bit big-endian unsigned integer and zero out the most significant bit (this means it works cleanly whether it’s later treated as signed or unsigned). [08]
+G. Take the last 6 decimal digits of that number (calculate the remainder when divided by a million) and print it out with leading zeros to get the magic code. [10]
+Oh, don’t lose that base32-encoded starting seed, or let anyone else get hold of it, because it’s the key (literally and figuratively) to the entire sequence of TOTP codes for that account.
+Under the heading: “It continues as follows”:
+What does this word mean “alterted”?
+It means “alerted” (and that’s what it now says… I fixed it – I typed it in wrongly).
+Thanks.
+You’re welcome…At first, I thought you were trying to trick us and I began to wonder if this article was legitimate.
+Thanks for the fix!
+Not sure what I could have tricked you into 🙂
+The annoyance was that it could have been either of two mistakes (altered or alerted) *or* an admittedly rather pretentious attempt at coining a new and weird portmanteau word, in the fashion of Humpty Dumpty.
+Just an error…
+Okay, Paul
+I’ve become so mind-altered that just about any type of alerted email or comment makes the hairs on the back of my neck stick straight out.
+So many cautions these days that I’m just about ready to shut down my computer and never turn it on again. Oh, the good old days when I could turn on my PC and it worked without any harrowing messages or pop-ups with BIG YELLOW Triangles.
+Thanks so much for your conscientious work and warnings.
+Rhonda
+I see what you did there.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,220 @@
+Sophos Home protects every Mac and PC in your home 
+LEARNING FROM OTHERS
+The first search warrant for computer storage. GoDaddy breach. Twitter surprise. Coinbase kerfuffle. The hidden cost of success.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG. Crypto company code captured, Twitter’s pay-for-2FA play, and GoDaddy breached. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin
+And it is episode 123, Paul.
+We made it!
+DUCK. We did!
+Super, Doug!
+I liked your alliteration at the beginning…
+DOUG. Thank you for that. 
+And you’ve got a poem coming up later – we’ll wait with bated breath for that.
+DUCK. I love it when you call them poems, Doug, even though they really are just doggerel. 
+But let’s call it a poem…
+DOUG. Yes, let’s call it a poem.
+DUCK. All two lines of it… [LAUGHS]
+DOUG. Exactly, that’s all you need. 
+As long as it rhymes. 
+Let’s start with our Tech History segment.
+This week, on 19 February 1971, what is believed to be the first warrant in the US to search a computer storage device was issued. 
+Evidence of theft of trade secrets led to the search of computer punch cards, computer printout sheets, and computer memory bank and other data storage devices magnetically imprinted with the proprietary computer program. 
+The program in question, a remote plotting program, was valued at $15,000, and it was ultimately determined that a former employee who still had access to the system had dialled in and usurped the code, Paul.
+DUCK. I was amazed when I saw that, Doug, given that we’ve spoken recently on the podcast about intrusions and code thefts in many cases.
+What was it… LastPass? GoDaddy? Reddit? GitHub? 
+It really is a case of plus ça change, plus c’est la même chose, isn’t it? 
+They even recognised, way back then, that it would be prudent to do the search (at least of the office space) at night, when they knew that the systems would be running but the suspect probably wouldn’t be there. 
+And the warrant actually states that “experts have made us aware that computer storage can be wiped within minutes”.
+DOUG. Yes, it’s a fascinating case. 
+This guy that went and worked for a different company, still had access to the previous company, and dialled into the system, and then accidentally, it seems, printed out punch cards at his old company while he was printing out paper of the code at his new company. 
+And the folks at the old company were like, “What’s going on around here?”
+And then that’s what led to the warrant and ultimately the arrest.
+DUCK. And the other thing I noticed, reading through the warrant, that the cop was able to put in there…
+…is that he had found a witness at the old company who confirmed that this chap who’d moved to the new company had let slip, or bragged about, how he could still get in. 
+So it has all the hallmarks of a contemporary hack, Doug!
+[A] the intruder made a blunder which led to the attack being spotted, [B] didn’t cover his tracks well enough, and [C] he’d been bragging about his haxxor skills beforehand. [LAUGHS]
+As you say, that ultimately led to a conviction, didn’t it, for theft of trade secrets?
+Oh, and the other thing of course, that the victim company didn’t do is…
+…they forgot to close off access to former staff the day they left.
+Which is still a mistake that companies make today, sadly. 
+DOUG. Yes. 
+Aside from the punch cards, this could be a modern day story.
+DUCK. Yes!
+DOUG. Well, let’s bring things into the modern, and talk about GoDaddy. 
+It has been hit with malware, and some of the customer sites have been poisoned. 
+This happened back in December 2022. 
+They didn’t come out and say in December, “Hey, this is happening.”
+GoDaddy admits: Crooks hit us with malware, poisoned customer websites
+
+DUCK. Yes, it did seem a bit late, although you could say, “Better late than never.” 
+And not so much to go into bat for GoDaddy, but at least to explain some of the complexity of looking into this…
+… it seems that the malware that was implanted three months ago was designed to trigger intermittent changes to the behaviour of customers’ hosted web servers. 
+So it wasn’t as though the crooks came in, changed all the websites, made a whole load of changes that would show up in audit logs, got out, and then tried to profit. 
+It’s a little bit more like what we see in the case of malvertising, which is where you poison one of the ad networks that a website relies on, for some of the content that it sometimes produces. 
+That means every now and then someone gets hit up with malware when they visit the site. 
+But when researchers go back to have a look, it’s really hard for them to reproduce the behaviour. 
+[A] it doesn’t happen all the time, and [B] it can vary, depending on who you are, where you’re coming from, what browser you’re using…
+…or even, of course, if the crooks recognise that you’re probably a malware researcher.
+So I accept that it was tricky for GoDaddy, but as you say, it might have been nice if they had let people know back in December that there had been this “intermittent redirection” of their websites.
+DOUG. Yes, they say the “malware intermittently redirected random customer websites to malicious sites”, which is hard to track down if it’s random. 
+But this wasn’t some sort of really advanced attack. 
+They were redirecting customer sites to other sites where the crooks were making money off of it…
+DUCK. [CYNICAL] I don’t want to disagree with you, Doug, but according to GoDaddy, this may be part of a multi-year campaign by a “sophisticated threat actor”.
+DOUG. [MOCK ASTONISHED] Sophisticated? 
+DUCK. So the S-word got dropped in there all over again. 
+All I’m hoping is that, given that there’s not much we can advise people about now because we have no indicators of compromise, and we don’t even know whether, at this remove, GoDaddy has been able to come up with what people could go and look for to see if this happened to them… 
+…let’s hope that when their investigation, that they’ve told the SEC (Securities and Exchange Commission) they’re still conducting); let’s hope that when that finishes, that there’ll be a bit more information and that it won’t take another three months. 
+Given not only that the redirects happened three months ago, but also that it looks as though this may be down to essentially one cybergang that’s been messing around inside their network for as much as three years.
+DOUG. I believe I say this every week, but, “We will keep an eye on that.” 
+All right, more changes afoot at Twitter. 
+If you want to use two-factor authentication, you can use text messaging, you can use an authenticator app on your phone, or you can use a hardware token like a Yubikey. 
+Twitter has decided to charge for text-messaging 2FA, saying that it’s not secure. 
+But as we also know, it costs a lot to send text messages to phones all over the world in order to authenticate users logging in, Paul.
+Twitter tells users: Pay up if you want to keep using insecure 2FA
+
+DUCK. Yes, I was a little mixed up by this. 
+The report, reasonably enough, says, “We’ve decided, essentially, that text-message based, SMS-based 2FA just isn’t secure enough”…
+…because of what we’ve spoken about before: SIM swapping.
+That’s where crooks go into a mobile phone shop and persuade an employee at the shop to give them a new SIM, but with your number on it. 
+So SIM swapping is a real problem, and it’s what caused the US government, via NIST (the National Institute of Standards and Technology), to say, “We’re not going to support this for government-based logins anymore, simply because we don’t feel we’ve got enough control over the issuing of SIM cards.” 
+Twitter, bless their hearts (Reddit did it five years ago), said it’s not secure enough. 
+But if you buy a Twitter Blue badge, which you’d imagine implies that you’re a more serious user, or that you want to be recognised as a major player…
+…you can keep on using the insecure way of doing it. 
+Which sounds a little bit weird. 
+So I summarised it in the aforementioned poem, or doggerel,  as follows:
+DOUG. Bravo!
+DUCK. I don’t quite follow that. 
+Surely if it’s so insecure that it’s dangerous for the majority of us, even lesser users whose accounts are perhaps not so valuable to crooks…
+…surely the very people who should at least be discouraged from carrying on using SMS-based 2FA would be the Blue badge holders?
+But apparently not…
+DOUG. OK, we have some advice here, and it basically boils down to: Whether or not you pay for Twitter Blue, you should consider moving away from text-based 2FA. 
+Use a 2FA app instead.
+DUCK. I’m not as vociferously against SMS-based 2FA as most cybersecurity people seem to be. 
+I quite like its simplicity. 
+I like the fact that it does not require a shared secret that could be leaked by the other end. 
+But I am aware of the SIM-swapping risk. 
+And my opinion is, if Twitter genuinely thinks that its ecosystem is better off without SMS-based 2FA for the vast majority of people, then it should really be working to get *everybody* off 2FA…
+…especially including Twitter Blue subscribers, not treating them as an exception. 
+That’s my opinion. 
+So whether you’re going to pay for Twitter Blue or not, whether you already pay for it or not, I suggest moving anyway, if indeed the risk is as big as Twitter makes out to be.
+DOUG. And just because you’re using app-based 2FA instead of SMS-based 2FA, that does not mean that you’re protected against phishing attacks.
+DUCK. That’s correct. 
+It’s important to remember that the greatest defence you can get via 2FA against phishing attacks (where you go to a clone site and it says, “Now put in your username, your password, and your 2FA code”) is when you use a hardware token-based authenticator… like, as you said, a Yubikey, which you have to go and buy separately. 
+The idea there is that that authentication doesn’t just print out a code that you then dutifully type in on your laptop, where it might be sent to the crooks anyway. 
+So, if you’re not using the hardware key-based authentication, then whether you get that magic six-digit code via SMS, or whether you look it up on your phone screen from an app…
+…if all you’re going to do is type it into your laptop and potentially put it into a phishing site, then neither app-based nor SMS-based 2FA has any particular advantage over the other.
+DOUG. Alright, be safe out there, people. 
+And our last story of the day is Coinbase. 
+Another day, another cryptocurrency exchange breached.
+This time, by some good old fashioned social engineering, Paul?
+Coinbase breached by social engineers, employee data stolen
+
+DUCK. Yes. 
+Guess what came into the report, Doug? 
+I’ll give you a clue: “I spy, with my little eye, something beginning with S.”
+DOUG. [IRONIC] Oh my gosh!
+Was this another sophisticated attack?
+DUCK. Sure was… apparently, Douglas.
+DOUG. [MOCK SHOCKED] Oh, my!
+DUCK. As I think we’ve spoken about before on the podcast, and as you can see written up in Naked Security comments, “‘Sophisticated’ usually translates as ‘better than us’.” 
+Not better than everybody, just better than us. 
+Because, as we pointed out in the video for last week’s podcast, no one wants to be seen as the person who fell for an unsophisticated attack. 
+But as we also mentioned, and as you explained very clearly in last week’s podcast, sometimes the unsophisticated attacks work…
+…because they just seem so humdrum and normal that they don’t set off the alarm bells that something more diabolical might. 
+The nice thing that Coinbase did is they did provide what you might call some indicators of compromise, or what are known as TTPs (tools, techniques and procedures) that the crooks followed in this attack. 
+Just so you can learn from the bad things that happened to them, where the crooks got in and apparently had a look around and got some source code, but hopefully nothing further than that. 
+So firstly: SMS based phishing. 
+You get a text message and it has a link in the text message and, of course, if you click it on your mobile phone, then it’s easier for the crooks to disguise that you’re on a fake site because the address bar is not so clear, et cetera, et cetera.
+It seemed that that bit failed because they needed a two-factor authentication code that somehow the crooks weren’t able to get. 
+Now, we don’t know… 
+…did they forget to ask because they didn’t realise? 
+Did the employee who got phished ultimately realise, “This is suspicious. I’ll put in my password, but I’m not putting in the code.” 
+Or were they using hardware tokens, where the 2FA capture just didn’t work? 
+We don’t know… but that bit didn’t work.
+Now, unfortunately, that employee didn’t, it seems, call it in and tell the security team, “Hey, I’ve just had this weird thing happen. I reckon someone was trying to get into my account.”
+So, the crooks followed up with a phone call. 
+They called up this person (they had some contact details for them), and they got some information out of them that way. 
+The third telltale was they were desperately trying to get this person to install a remote access program on their say so. 
+DOUG. [GROAN]
+DUCK. And, apparently, the programs suggested were AnyDesk and ISL Online. 
+It sounds as though the reason they tried both of those is that the person must have baulked, and in the end didn’t install either of them.
+By the way, *don’t do that*… it’s a very, very bad idea. 
+A remote access tool basically bumps you out of your chair in front of your computer and screen, and plops the attacker right there, “from a distance.” 
+They move their mouse; it moves on your screen.
+They type at their keyboard; it’s the same as if you were typing at your keyboard while logged in. 
+And then the last telltale that they had in all of this is presumably someone trying to be terribly helpful: “Oh, well, I need to investigate something in your browser. Could you please install this browser plugin?” 
+Whoa! 
+Alarm bells should go off there! 
+In this case, the plugin they wanted is a perfectly legitimate plug in for Chrome, I believe, called “Edit This Cookie”. 
+And it’s meant to be a way that you can go in and look at website cookies, and website storage, and delete the ones that you don’t want. 
+So if you go, “Oh, I didn’t realise I was still logged into Facebook, Twitter, YouTube, whatever, I want to delete that cookie”, that will stop your browser automatically reconnecting. 
+So it’s a good way of keeping track of how websites are keeping track of you.
+But of course it’s designed so that you, the legitimate user of the browser, can basically spy on what websites are doing to try and spy on you. 
+But if a *crook* can get you to install that, when you don’t quite know what it’s all about, and they can then get you to open up that plugin, they can get a peek at your screen (and take a screenshot if they’ve got a remote access tool) of things like access tokens for websites. 
+Those cookies that are set because you logged in this morning, and the cookie will let you stay logged in for the whole day, or the whole week, sometimes even a whole month, so you don’t have to log in over and over again. 
+If the crook gets hold of one of those, then any username, password and two-factor authentication you have kind-of goes by the board. 
+And it sounds like Coinbase were doing some kind of XDR (extended detection response). 
+At least, they claimed that someone in their security team noticed that there was a login for a legitimate user that came via a VPN (in other words, disguising your source) that they would not normally expect.
+“That could be right, but it kind-of looks unusual. Let’s dig a bit further.” 
+And eventually they were actually able to get hold of the employee who’d fallen for the crooks *while they were being phished, while they were being socially engineered*.
+The Coinbase team convinced the user, “Hey, look, *we’re* the good guys, they’re the bad guys. Break off all contact, and if they try and call you back, *don’t listen to them anymore*.” 
+And it seems that that actually worked. 
+So a little bit of intervention goes an awful long way!
+DOUG. Alright, so some good news, a happy ending. 
+They made off with a little bit of employee data, but it could have been much, much worse, it sounds like?
+DUCK. I think you’re right, Doug. 
+It could have been very much worse. 
+For example, if they got loads of access tokens, they could have stolen more source code; they could have got hold of things like code-signing keys; they could have got access to things that were beyond just the development network, maybe even customer account data. 
+They didn’t, and that’s good.
+DOUG. Alright, well, let’s hear from one of our readers on this story. 
+Naked Security reader Richard writes:
+Regularly and actively looking for hints that someone is up to no good in your network doesn’t convince senior management that your job is needed, necessary, or important. 
+Waiting for traditional cybersecurity detections is tangible, measurable and justifiable.
+What say you, Paul?
+DUCK. It’s that age-old problem that if you take precautions that are good enough (or better than good enough, and they do really, really well)… 
+…it kind-of starts undermining the arguments that you used for applying those precautions in the first place.
+“Danger? What danger? Nobody’s fallen over this cliff for ten years. We never needed the fencing after all!” 
+I know it’s a big problem when people say, “Oh, X happened, then Y happened, so X must have caused Y.” 
+But it’s equally dangerous to say, “Hey, we did X because we thought it would prevent Y. Y stopped happening, so maybe we didn’t need X after all – maybe that’s all a red herring.”
+DOUG. I mean, I think that XDR and MDR… those are becoming more popular. 
+The old “ounce of prevention is worth a pound of cure”… that might be catching on, and making its way upstairs to the higher levels of the corporation. 
+So we will hopefully keep fighting that good fight!
+DUCK. I think you’re right, Doug. 
+And I think you could argue also that there may be regulatory pressures, as well, that make companies less willing to go, “You know what? Why don’t we just wait and see? And if we get a tiny little breach that we don’t have to tell anyone about, maybe we’ll get away with it.” 
+I think people are realising, “It’s much better to be ahead of the game, and not to get into trouble with the regulator if something goes wrong, than to take unnecessary risks for our own and our customers’ business.” 
+That’s what I hope, anyway!
+DOUG. Indeed. 
+And thank you very much, Richard, for sending that in. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity.
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug  Aamoth, reminding you until next time to… 
+BOTH. Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“The first search warrant for computer storage”
+I don’t think so 🙂  There was a guy that ran an insurance scheme in 60s and the agents got the warrant to secure everything during the search 🙂   A witness says they immediately went for the storage devices 😉   The scheme wasn’t against customers.  He filed false life insurance policies with the head office  (or middleman) and then (after a short number of  “payments”) would file a death claim.  He worked as an agent.  He did minor things to get commissions, and then that grew and grew; until people noticed a lot of policies but no deaths.  So he had to start, killing people (dummy people) off.  And that eventually led to suspicions and the warrant.
+🙂
+Hmmm. Would need to read the court documents to see how the cases compare. 
+In the case we looked at, the warrant was very specifically crafted to go for computer data. They asked for the right to do “search and seizure” at the suspect‘s office and home, in his car (a 1966 Porsche, it said… we guessed a 911, which was a fairly new thing at the time), and on his person…
+…but it was explicitly computer-based evidence they were after, based on the probable cause of unauthorised remote access via dialup modem. 
+The warrant therefore expressly (and exclusively, IIRC) lists various types of “computer storage” as the source of the evidence they wanted the magistrate to approve.
+So it may not be the first criminal case where “computer evidence” showed up (it would be astonishing if it were) but it may yet be the first warrant that explicitly specified that storage devices were what they were after.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

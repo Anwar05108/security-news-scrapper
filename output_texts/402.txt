@@ -1,0 +1,114 @@
+Sophos Home protects every Mac and PC in your home 
+Firefox’s latest monthly update just came out, bumping the primary version of the popular alternative browser to 115.0.
+OK, it’s technically a once-every-four-weeks update, so that there will sometimes be two major updates in a single calendar month, just as you sometimes get two full moons in a month, but this month there’s only one.
+(At the end of next month, August 2023, there will co-incidentally be both a blue moon, which is the term used for the second full moon in a single month, and what we’ll refer to by analogy as a Blue Firefox, with Firefox 116 arriving on 01 August 2023 and Firefox 117 following up four weeks later on 29 August 2023.)
+Mozilla’s own headline news for version 115 is that:
+In January 2023, Microsoft ended support for Windows 7 and Windows 8. As a consequence, this is the last version of Firefox that users on those operating systems will receive. […]
+Similarly, this is the last major version of Firefox that will support Apple macOS 10.12, 10.13, and 10.14.
+From  next month, if you’re stuck with computers that can only run older, unsupported versions of Windows and macOS, you’ll automatically be switched over to the Firefox ESR version.
+ESR is short for Extended Support Release, a special Firefox flavour that  gets security updates but not feature updates.
+Unfortunately, every so often the ESR absorbs all the feature updates that have been deferred since the last time the ESR “caught up”, after which it spends a year or so quietly getting just security updates once again.
+In other words, ESR versions last for just over a year before they are “re-based” on a recent major version, complete with all the new features from the interim period added in, and all the now-expunged features taken out.
+By the end of 2023, for example, the ESR release will be at 115.6, which means that it will be this month’s version feature-wise, along with all the security patches that have come out since now.
+But September 2024 will see the last ESR version release based on major version 115, namely ESR 115.15…
+…after which the oldest supported ESR release will be based on the code of next month’s major version 116, which won’t run on your older Windows and Mac devices any more.
+In short, Windows 7, Windows 8 and macOS-before-Catalina (10.15) won’t get Firefox updates at all after September 2024, because even the ESR version will no longer support those platforms.
+(If you can’t update your computer by then, we strongly suggest switching to an alternative operating system that is supported on your hardware, such as Linux, so you can not only get system upgrades but also run an up-to-date browser.)
+Fortunately, none of this month’s security patches are listed as zero-days, meaning that all the fixes included are for bugs that were either responsibly disclosed by outside researchers, or discovered by Mozilla’s own security and development teams. 
+There are four CVE-numbered bug fixes rated High, namely:
+There are numerous other Moderate and Low severity bugs, of which three stand out as interesting, at least in our opinion:
+Open the Help > About Firefox window (or Firefox > About Firefox on macOS) to see what version you currently have, and to get the latest version if you’re out of date.
+Note that if you’re months out of date, you may not get the latest version in one go, so go back into the About Firefox dialog again to check that there aren’t any additional update “jumps” you need to complete.
+If Firefox is supplied by your Linux or BSD distro, check back with the distro itself for the latest version.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+There will always be support else where fore W7.
+Plenty of people running XP with out problems, If it means dumping Firefox so be it.
+And those people who support you are going to provide you with security patches every month, are they?
+The deeper issue is not just what running XP might let other people do to you directly, but what running XP might let them do to everyone else, using you as a springboard.
+Always try to be part of the cybersecurity solution, not part of the problem… why not switch to an operating system that does still support your hardware, and is still officially getting updates? (Especially when the main choices, Linux and the BSDs, are available free of charge.)
+Perfect response Ducklin, thank you.
+– Not just about what you want, but how you could be used to be exploited and in turn harm others.
+– Value in holding onto outdated Operating Systems vs adapting to the marketplace
+Why are people still running Windows 7? Or XP for that matter?
+If the reason is newer operating system are bad, why not use Windows 2000? Heck, NT4 was so awesome it received 6 service packs – run that instead of Windows 11.
+Come to think of it this whole 64bit nonsense will never catch on, nor will 32bit.
+Go back to Windows 1.0 on the original IBM PC.
+A small but vocal minority won’t move from Windows 7 for a variety of reasons. There are some understandable ones, such as efficiency (it’s smaller and thus boots faster) and greenliness (why be forced to replace an old-but-adequate computer when it’s still working fine). And there are some curious ones, such as resistance to  change (Microsoft stole my start button! The new UI looks horrible! The fonts have changed! Etc.)
+Another reason would be computer-controlled lab instruments (a spectrometer or electron microscope for example) whose software runs under XP or 7 and the manufacturer will not update the software to run on Windows 10 or 11. The cost of lab instruments can easily be over $100,000. Researchers aren’t about to throw away such costly perfectly functioning instruments. If the budget does not allow purchasing a new instrument, risk mitigation can be used to limit security liabilities of the old OS. Our university has many of these lab instruments running Windows XP and 7. They are slowly getting replaced as funds become available. But there are network restrictions and network isolation strategies among other enforced rules to keep them out of harm’s way. Admittedly this situation (computer-controlled lab instruments) does not exist in consumer (home) environments.
+In cases like that, admittedly, you are stuck. 
+Bit of a pity that vendors who sell high-tech, precision-engineered, super-specialised, mega-expensive equipment of this sort that they know you will need to keep for years are often so casual about the quality, security and longevity of their software… but, as you say, these devices can be protected by cocooning them in network limitations (and presumably the computers that control them can be locked down pretty rigorously because they don’t need all the apps and “freedoms” that a regular user’s laptop would).
+Not related to Firefox but wondered if there will be a mention on CVE-2023-27997 related to FG products and the perceived volt typhoon activity  on this weeks show? Interested to get your take on:
+– whether firewall vendors should offer an opt in service where they push patches automatically when developed.
+– what’s the risk balance case for either auto pushing patches potentially creating a DoS for customers if it has inherent flaws in the patch,  against having a critical vulnerability that could be exploited such as an RCE that leads to ransomware.
+I’m not the right person to ask about a competitor’s recent zero day. (And we’d already recorded this week’s show anyway – and I just finished editing it – before I saw this comment :-)
+The Sophos firewall will let you choose to get “hot fixes” (jargon for “no reboot needed” or “limited downtime with automatic reactivation”) pushed out without waiting. 
+Many software products in general (think browsers) go in for fully automatic updates now and many users now accept them as better than batching patches up for a convenient time that never comes…
+Having said that, on this week’s show we do discuss patching and how to get your cybernimbleness right, along with monitoring how well your patches went, to make sure you don’t drift into a false sense of security.
+So listen anyway – plenty of food for thought there, but with a general angle not specifically to do with firewalls or 0-days.
+Thanks for your reply!
+I remember Windows 7 fondly. It feels like it was when Microsoft finally got everything right. I used to be able to sit down, hit ctrl+alt+del, type in my password, and be logged in before my screen had even warmed up.
+Now with Windows 10/11 it goes like:
+. ctrl+alt+del
+. wait
+. ctrl+alt+del again maybe
+. wait for the password prompt to finally appear
+. type in my password
+And the whole Windows 10 experience is like that. Always waiting for it to be ready for input, and never being able to type ahead.
+For security reasons I’d never run an old OS like Windows 7 again, and that makes me just a little bit sad.
+So you had invested in powerful hardware with Win7 and slow one with Win10?
+I’m not sure if you’ve written an article on this before, but if not, would you mind writing an article about how companies get CVE numbers? (Or maybe it’s a simple/automated process that doesn’t take long and only needs a short explanation rather than an entire article?)
+Seeing all the CVE numbers listed in this article, I’m curious how a company generally goes from “A bug was found in our software” to “Here’s the CVE number for this bug that was found in our software, along with the patch to fix it.”
+IIRC, the organisation that runs the CVE program (MITRE, which AFAIK is a private company that receives US government money) has issued about 300 companies the right to issue CVE numbers directly, mainly for their own products. Sophos, for example, is one of these so-called CNAs, short for “CVE Numbering Authority”.
+(This is a government initiative and it’s in the field of IT so there are lots of acronyms and initialisms :-)
+In other words, if you find a vuln in one of our products and report it to our bug bounty service, we’re allowed to issue a CVE number directly by ourselves, which saves time getting a unique identifier into circulation that everyone can use to refer to the issue.
+Mozilla is a CNA so most of the numbers in their list this month were probably self-issued (you will notice that most of them follow a sequence, from 37201 to 37212, suggesting they were drawn from a preallocated pool of numbers). 
+If you find a vuln in a product or open source project that doesn’t have its own CNA, then you just deal directly with MITRE, and they pick a number for the bug, if it’s deemed a CVE-worthy bug in the first place. 
+Not all bugs get CVEs. There has to be some of of cybersecurity danger involved. For example, “when I send a 666-page from this app to my printer, the app hits a buffer overflow and crashes” would almost certainly be worth a CVE (could be remotely exploitable). But “this app usually works fine but fails to print when I connect my model XYZ printer” wouldn’t (missing feature, but not a security issue).
+HtH.
+That is actually *very* helpful info. Thanks, Duck. 🙂
+Looks like Anon is downvoting everyone who disagrees with him.
+We get that sort of thing every so often on this site. Someone goes on a splurge of downvoting (when comments saying “Typo: bannana” and my reply “Fixed, thanks” get downvoted, you know someone got out of bed on the wrong side) for a while. 
+It used to bug me but I learned to save that sort of sensitivity up so I could worry whether some car driver who got out of bed on the wrong side was going to run me over on my way home in selfish impatience instead… 
+…and although that’s not a problem that’s easy to manage, with careful attention you can improve your chances a good bit. 
+In contrast, downvoters seem to be incorrigible (and the rule says not to feel the trolls anyway, but to ignore them).
+I recently made a video where I tried Windows 11 on the 17 year old AM2 platform. Once it reaches a quad core Phenom, 16GB RAM and a cheap SSD it ran beautifully. I don’t get why people are still running old operating systems. 
+Even ancient 32bit only CPUs are still supported by the latest release of Debian.
+To be fair, a lot of old-but-not-that-old computers can’t run Windows 11 because Microsoft now insists on UEFI plus a TPM chip. (And not all computers, notably laptops, can be upgraded to the specs you reached, and therefore need replacing.)
+For a privacy-minded user, how much time it takes to configure everything properly and turn off telemetry/forced updates/ads in Windows 10?
+Afterwards, how much time is spent on finding unofficial patches to block the remaining telemetry for which there’s no ‘Off’ setting available?
+How many 127.0.0.1 lines in the hosts file do you need to turn off telemetry completely?
+Configuring Windows 10 properly, with all GPOs, registry tweaks & unofficial patches is a daunting task.
+Easier to keep the old operating system.
+If Microsoft is really serious about moving to Windows 10:
+Then make a new Windows 10 version that has all the telemetry off by default, with proper GPO & registry tweaks built-in, as well as disabling auto-updates & all background Windows Internet connections.
+Something better than Windows 10 LTSC, it still needs too many tweaks.
+This is a real problem – the act of deliberately picking the worst ever default settings for a program, OS, or whatever else.
+If you purposefully choose the worst and most unwanted default settings for your program, in the end people will feel overloaded by the amount of settings that have to be changed.
+If I want you to upgrade your car but I offer you a MicroCar one that requires Internet to turn on, that binds your car key to a Microsoft account, that shows you the newest TikTok trends while you’re driving & that needs 10.000 setting tweaks to be normal…
+Then it doesn’t matter whether it will blow up on the road.
+You just keep the old one and hope for the best.
+Same thing with Windows…
+Sounds as though your beef is with Microsoft, because you don’t trust them any more. 
+Time to switch to a  system that doesn’t have telemetry, and yet (unlike your worn out car where you have to hope for the best) will pass its annual safety test due to being officially supported.
+Why not try one of the BSDs or a Linux distro?
+Microsoft isn’t the ultimate worst offender, there’s also Mozilla, Google, Apple, Huawei and so on.
+As for Linux, I don’t want it. It appears more difficult to tame than Windows 10.
+Mozilla too does this with Firefox: they picked the worst and the most inappropriate values for their default settings.
+You would also need more than 50 about:config tweaks to make it normal, additionally to blocking some mozilla.org domains.
+Anyway just remember that ‘default settings’ needs not be ‘worst ever settings’.
+Default settings = the perfect average value that doesn’t have to be changed.
+Worst ever settings = have to systematically be changed for better ones.
+People generally avoid things they feel overwhelmed with.
+If configuring the latest software is too daunting, then they don’t update.
+Instead of shunning them, it serves better to build automated patchers for Windows, perhaps with a pre-configured lockprefs file for Firefox & a script for Edge GPOs.
+Try OpenBSD if you think Linux is worse than Windows 10. And consider GrapheneOS for your phone… though remember that you‘re still stuck with the vendor’s baseband firmware. 
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,221 @@
+Sophos Home protects every Mac and PC in your home 
+WE’RE SCRAPING YOUR FACES FOR YOUR OWN GOOD! (ALLEGEDLY)
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Cryptology, cops hacking back, Apple updates and… card counting! 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today?
+DUCK.  I’m very well, thank you, Douglas. 
+And I’m very excitedly looking forward to the card-counting bit, not least because it’s not just about counting, it’s also about card shuffling.
+DOUG.  All right, very good, looking forward to that! 
+And in our Tech History segment, we’ll speak about something that was not random – it was very calculated. 
+This week, on 25 October 2001, Windows XP was released to retail. 
+It was built upon the Windows NT operating system, and XP replaced both Windows 2000 and Windows Millennium Edition as “XP Professional Edition” and “XP Home Edition” respectively. 
+XP Home was the first consumer version of Windows to not be based on MS-DOS or the Windows 95 kernel. 
+And, on a personal note, I loved it. 
+I may just be remembering simpler times… I don’t know if it was actually as good as I remember it, but I remember it being better than what we had before.
+DUCK.  I agree with that. 
+I think there are some rose-tinted spectacles you may be wearing there, Doug…
+DOUG.  Umm-hmmm.
+DUCK.  …but I would have to agree that it was an improvement.
+DOUG.  Let us talk a bit about comeuppance, specifically, comeuppance for unwanted facial recognition in France:
+Clearview AI image-scraping face recognition service hit with €20m fine in France
+
+DUCK.  Indeed!
+Regular listeners will know that we have spoken about a company called Clearview AI many times, because I think it’s fair to say that this company is controversial. 
+The French regulator very helpfully publishes its rulings, or has published at least its Clearview rulings, in both French and in English. 
+So, basically, here’s how they describe it:
+Clearview AI collects photographs from many websites, including social media. It collects all the photos that are directly accessible on those networks. Thus, the company has collected over 20 billion images worldwide.
+Thanks to this collection, the company markets access to its image database in the form of a search engine in which a person can be found using a photograph. The company offers this service to law enforcement authorities.
+And the French regulator’s objection, which was echoed last year by at least the UK and the Australian regulator as well, is: “We consider this unlawful in our country. You can’t go scraping people’s images for this commercial purpose without their consent. And you’re also not complying with GDPR rules, data destruction rules, making it easy for them to contact you and say, ‘I want to opt out’.” 
+So, firstly, it should be opt in if you want to run this.
+And having collected the stuff, you should not be hanging on to it even after they want to make sure that their data is removed. 
+And the issue in France, Doug, is that last December the regulator said, “Sorry, you can’t do this. Stop scraping data, and get rid of what you’ve got on everybody in France. Thank you very much.” 
+Apparently, according to the regulator, Clearview AI just didn’t seem to want to comply. 
+DOUG.  Uh-oh!
+DUCK.  So now the French have come back and said, “You don’t seem to want to listen. You don’t seem to understand that this is the law. Now, the same thing applies, but you also have to pay €20 million. Thanks for coming.” 
+DOUG.  We’ve got some comments brewing on the article… we’d love to hear what you think; you can comment anonymously.
+Specifically, the questions we put forth are: “Is Clearview AI really providing a beneficial and socially acceptable service to law enforcement? Or is it casually trampling on our privacy by collecting biometric data unlawfully and commercialising it for investigative tracking purposes without consent?” 
+All right, let us stick to this theme of comeuppance, and talk about a bit of comeuppance for the DEADBOLT criminals. 
+This is an interesting story, involving law enforcement and hacking back!
+When cops hack back: Dutch police fleece DEADBOLT criminals (legally!)
+
+DUCK.  Hats off to the cops for doing this, even though, as we’ll explain, it was sort-of a one-off thing. 
+Regular listeners will remember DEADBOLT – it’s come up a couple of times before. 
+DEADBOLT is the ransomware gang who basically find your Network Attached Storage [NAS] server if you’re a home user or small business…
+…and if it isn’t patched against a vulnerability they know how to exploit, they’ll come in, and they just scramble your NAS box. 
+They figured that’s where all your backups are, that’s where all your big files are, that’s where all your important stuff is. 
+“Let’s not worry about having to write malware for Windows and malware for Mac, and worrying what version you’ve got. We’ll just go straight in, scramble your files, and then say, ‘Pay us $600’.” 
+That’s the current going rate: 0.03 bitcoins, if you don’t mind. 
+So they’re taking that consumer-oriented approach of trying to hit lots of people and asking for a somewhat affordable amount each time. 
+And I guess if everything you’ve got is backed up on there, then you might feel, “You know what? $600 is a lot of money, but I can just about afford it. I’ll pay up.”
+To simplify matters (and we’ve grudgingly said, this is a clever part, if you like, of this particular ransomware)… basically, what you do is you tell the crooks you’re interested by sending them a message via the Bitcoin blockchain. 
+Basically, you pay them the money to a specified, unique-to-you Bitcoin address. 
+When they get the payment message, they send back a payment of $0 that includes a comment that is the decryption key. 
+So that’s the *only* interaction they need with you.
+They don’t need to use email, and they don’t have to run any dark web servers. 
+However, the Dutch cops figured the crooks had made a protocol-related blunder!
+As soon as your transaction hit the Bitcoin ecosystem, looking for someone to mine it, their script would send the decryption key. 
+And it turns out that although you cannot double-spend bitcoins (otherwise the system would fall apart), you can put in two transactions at the same time, one with a high transaction fee and one with a very low or a zero transaction fee. 
+And guess which one the bitcoin miners and ultimately the bitcoin blockchain will accept? 
+And that’s what the cops did…
+DOUG.  [LAUGHS] Very clever, I like it!
+DUCK.  They’d stick in a payment with a zero transaction fee, which could take days to get processed. 
+And then, as soon as they got the decryption key back from the crooks (they had, I think, 155 users that they sort of clubbed together)… as soon as they got the decryption key back, they did a double-spend transaction. 
+“I want to spend the same Bitcoin again, but this time we’re going to pay it back to ourselves. And now we’ll offer a sensible transaction fee.” 
+So that transaction was the one that ultimately actually got confirmed and locked into the blockchain…
+…and the other one just got ignored and thrown away… [LAUGHS] as always, shouldn’t laugh!
+DOUG.  [LAUGHS]
+DUCK.  So, basically, the crooks paid out too soon. 
+And I guess it’s not *treachery* if you’re law enforcement, and you’re doing it in a legally warranted way… it’s basically a *trap*. 
+And the crooks walked into it. 
+As I mentioned at the beginning, this can only work once because, of course, the crooks figured, “Oh, dear, we shouldn’t do it that way. Let’s change the protocol. Let’s wait for the transaction to be confirmed onto the blockchain first, and then once we know that nobody can come along with a transaction that will trump it later, only then will we send out the decryption key.”
+DUCK.  But the crooks did get flat-footed to the tune of 155 decryption keys from victims in 13 different countries who called on the Dutch police for help. 
+So, chapeau [French cycling slang for a “hat doff”], as they say!
+DOUG.  That’s great… that’s two positive stories in a row. 
+And let’s keep the positive vibes rolling with this next story. 
+It’s about women in cryptology. 
+They have been honoured by the US Postal Service, which is celebrating World War 2 code breakers. 
+Tell us all about this – this is a very interesting story, Paul:
+Women in Cryptology – USPS celebrates WW2 codebreakers
+
+DUCK.  Yes, it was one of those nice things to write about on Naked Security: Women in cryptology – United States Postal Service celebrates World War 2 codebreakers. 
+Now, we’ve covered Bletchley Park code breaking, which is the UK’s cryptographic efforts during the Second World War, mainly to try and crack Nazi ciphers such as the well known Enigma machine. 
+However, as you can imagine, the US faced a huge problem from the Pacific theatre of war, trying to deal with Japanese ciphers, and in particular, one cipher known as PURPLE.
+Unlike the Nazi’s Enigma, this was not a commercial device that could be bought. 
+It was actually a homegrown machine that came out of the military, based on telephone switching relays, which, if you think about it, are kind of like “base ten” switches. 
+So, in the same way that Bletchley Park in the UK secretly employed more than 10,000 people… I didn’t realise this, but it turned out that there were well over 10,000 women recruited into cryptology, into cryptographic cracking, in the US to try and deal with Japanese ciphers during the war. 
+By all accounts, they were extremely successful. 
+There was a cryptographic breakthrough made in the early 1940s by one of the US cryptologists called Genevieve Grotjan, and apparently this led to spectacular successes in reading Japanese secrets. 
+And I’ll just quote from the US Postal Service, from their stamp series:
+They deciphered Japanese fleet communications, helped prevent German U-boats from sinking vital cargo ships, and worked to break the encryption systems that revealed Japanese shipping routes and diplomatic messages. 
+You can imagine that gives you very, very, usable intelligence indeed… that you have to assume helped to shorten the war. 
+Fortunately, even though the Japanese had been warned (apparently by the Nazis) that their cipher was either breakable or had already been broken, they refused to believe it, and they carried on using PURPLE throughout the war. 
+And the women cryptologists of the time definitely made hay secretly while the sun shone. 
+Unfortunately, just as happened in the UK with all the wartime heroes (again, most of them women) at Bletchley Park…
+…after the war, they were sworn to secrecy. 
+So it was many decades until they got any recognition at all, let alone what you might call the hero’s welcome that they essentially deserved when peace broke out in 1945.
+DOUG.  Wow, that is a cool story. 
+And unfortunate that it took that long to get the recognition, but great that they finally got it. 
+And I urge anyone who is listening to this to head over to the site to read that. 
+It’s called: Women in cryptology – USPS celebrates World War 2 codebreakers.
+Very good piece!
+DUCK.  By the way, Doug, on the stamp series that you can buy (the commemorative series, where you get the stamps on a full sheet)… around the stamps, the USPS has actually put a little cryptographic puzzle, which we’ve repeated in the article. 
+It is not as difficult as Enigma or PURPLE, so you can actually do it fairly easily with pen and paper, but it’s a good bit of commemorative fun. 
+So come on over and have a try if you like. 
+We’ve also put a link to an article that we wrote a couple of years ago (What 2000 years of cryptography can teach us) in which you will find hints that will help you solve the USPS cryptographic puzzle. 
+Good bit of fun to go with your commemoration!
+DOUG.  All right, so let’s stick with randomness and cryptography a little bit, and ask a question that maybe some have wondered before. 
+How random are those automatic card shufflers you might see at a casino?
+Serious Security: How randomly (or not) can you shuffle cards?
+
+DUCK.  Yes, another fascinating story that I picked up thanks to cryptography guru Bruce Schneier, who wrote about it on his own blog, and he entitled his article On the randomness of automatic card shufflers. 
+The paper we’re talking about goes back, I think, to 2013, and the work that was done, I think, goes back to the early 2000s. 
+But what fascinated me about the story, and made me want to share it, is that it has incredible teachable moments for people who are currently involved in programming, whether or not in the field of cryptography. 
+And, even more importantly, in testing and quality assurance. 
+Because, unlike the Japanese, who refused to believe that their PURPLE cipher might not be working properly, this is a story about a company that made automatic card shuffling machines but figured, “Are they really good enough?” 
+Or could someone actually figure out how they work, and get an advantage from the fact that they aren’t random enough? 
+And so they went out of their way to hire a trio of mathematicians from California, one of whom is also an accomplished magician…
+…and they said, “We built this machine. We think it’s random enough, with one shuffle of the cards.”
+Their own engineers had gone out of their way to devise tests that they thought would show whether the machine was random enough for card shuffling purposes, but they wanted a second opinion, and so they actually went out and got one. 
+And these mathematicians looked at how the machine worked, and were able to come up, believe it or not, with what’s known as a closed formula. 
+They analysed it completely: how the thing would behave, and therefore what statistical inferences they could make about how the cards would come out. 
+They discovered that although the shuffled cards would pass a significant battery of good randomness tests, there were still sufficiently many unbroken sequences in the cards after they’d been shuffled that allowed them to predict the next card twice as well as chance. 
+And they were able to show the reasoning by which they were able to come up with their mental algorithm for guessing the next card twice as well as they should…
+…so not only did they do it reliably and repeatably, they actually had the mathematics to show formulaically why that was the case. 
+And the story is perhaps most famous for the earthy but entirely appropriate response from the president of the company that hired them.
+He is supposed to have said:
+We are not pleased with your conclusions, but we believe them, and that is what we hired you for. 
+In other words, he’s saying, “I didn’t pay to be made happy. I paid to find out the facts and to act upon them.”
+If only more people did that when it came to devising tests for their software!
+Because it’s easy to create a set of tests that your product will pass and where if it fails, you know something has definitely gone wrong. 
+But it’s surprisingly difficult to come up with a set of tests that it is *worth your product passing*. 
+And that is what this company did, by hiring in the mathematicians to look into how the card shuffling machine worked. 
+Quite a lot of life lessons in there, Doug!
+DOUG.  It’s a fun story and very interesting. 
+Now, every week we generally talk about some sort of Apple update, but not this week. 
+No, no! 
+This week we’ve got for you… an Apple *megaupdate*:
+Apple megaupdate: Ventura out, iOS and iPad kernel zero-day – act now!
+
+DUCK.  Unfortunately, if you have an iPhone or an iPad, the update covers a zero-day currently being actively exploited, which, as always, smells of jailbreak/complete spyware takeover. 
+And as always, and perhaps understandably, Apple is very cagey about exactly what the zero-day is, what it’s being used for, and, just as interestingly, who is using it. 
+So if you’ve got an iPhone or an iPad, this is *definitely* one for you. 
+And confusingly, Doug… 
+I’d better explain this, because it actually wasn’t obvious at first… and thanks to some reader help, thanks Stefaan from Belgium, who has been sending me screenshots and explaining exactly what happened to him when he updated his iPad! 
+The update for iPhones and iPads said, “Hey, you’ve got iOS 16.1, and iPadOS 16”. (Because iPad OS version 16 was delayed.)
+And that’s what the security bulletin says. 
+When you install the update, the basic About screen just says “iPadOS 16”. 
+But if you zoom into the main version screen, then both versions actually come out as “iOS/iPadOS 16.1”. 
+So that’s the *upgrade* to version 16, plus this vital zero-day fix. 
+That’s the hard and confusing part… the rest is just that there are lots of fixes for other platforms as well.
+Except that, because Ventura came out – macOS 13, with 112 CVE-numbered patches, though for most people, they won’t have had the beta, so this will be *upgrade* and *update* at the same time…
+Because macOS 13 came out, that leaves macOS 10 Catalina three versions behind. 
+And it does indeed look as though Apple is only now supporting previous and pre-previous. 
+So there *are* updates for Big Sur and Monterey, that’s macOS 11 and macOS 12, but Catalina is notoriously absent, Doug.
+And as annoyingly as always, what we cannot tell you…
+Does that mean it simply was immune to all these fixes? 
+Does that mean it actually needs at least some of the fixes, but they just haven’t come out yet? 
+Or does that mean it’s fallen off the edge of the world and you will never get an update again, whether it needs one or not?
+We don’t know.
+DOUG.  I feel winded, and I didn’t even do any of the heavy lifting in that story, so thank you for that… that’s a lot.
+DUCK.  And you don’t even have an iPhone.
+DOUG.  Exactly! 
+I have got an iPad…
+DUCK.  Oh, do you?
+DOUG.  …so I’ve got to go and make sure I get it up to date. 
+And that leads us into our reader question of the day, on the Apple story. 
+Anonymous Commenter asks:
+Will the 15.7 update for iPads resolve this, or do I have to update to 16? I am waiting until the minor nuisance bugs in 16 are resolved before updating.
+DUCK.  That’s the second level of confusion, if you like, caused by this. 
+Now, my understanding is, when iPadOS 15.7 came out, that was exactly the same time as iOS 15.7. 
+And it was, what, just over a month ago, I think? 
+So that’s an old-time security update. 
+And what we now don’t know is…
+Is there an iOS/iPadOS 15.7.1 still in the wings that hasn’t come out yet, fixing security holes that do exist in the previous version of operating systems for those platforms? 
+Or is your update path for security updates for iOS and iPadOS now to go down the version 16 route? 
+I just don’t know, and I don’t know how you tell. 
+So it’s looking as though (and I’m sorry if I sound confused, Doug, because I am!)… 
+…it’s looking as though the *update* and the *upgrade* path for users of iOS and iPadOS 15.7 is to shift to version flavour 16. 
+And at this current time, that means 16.1. 
+That would be my recommendation, because then at least you know that you have the latest and greatest build, with the latest and greatest security fixes. 
+So that’s the long answer.
+The short answer is, Doug, “Don’t know.”
+DOUG.  Clear as mud.
+DUCK.  Yes.
+Well, perhaps not that clear… [LAUGHTER] 
+If you leave mud long enough, eventually the bits settle to the bottom and there’s clear water on the top. 
+So maybe that’s what you have to do: wait and see, or just bite the bullet and go for 16.1. 
+They do make it easy, don’t they? [LAUGHS]
+DOUG.  All right, we will keep an eye on that, because that could change a little bit between now and next time. 
+Thank you very much for sending that comment in, Anonymous Commenter. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, and you can hit us up on social @NakedSecurity. 
+That’s our show for today, thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to… 
+BOTH.  Stay secure!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+People and governments need to understand that the government serves the people and not the other way around. Too often though, civil servants see themselves as “officials”, in fact the tern “government official” has become the norm and “civil servant” is obsolete. Indiscriminate surveillance is out of the question. If for instance, in the course of protecting the public from harm, a government representative (police, agent etc) has the need to spy on an individual or organization, it should have to be approved by a court, for that instance only. Maybe also for fraud such as tax evasion, money laundering, child trafficking and so on (some politicians come to mind), Unfortunately however, these days the criminal has more rights than the honest man.
+Facial recognition without consent should be banned in autocratic dictatorships but not in free democracies. OK, that’s tongue-in-cheek. But in a free country, law-abiding citizens have little to fear from officialdom, but we have much to fear from criminals. We should not place obstacles in the way of law enforcement and identification of criminals, including tax fraudsters.
+Why should law enforcement have free rein over personal data? After all, if I am indeed a law-abiding citizen then His Majesty’s Government (and all the private companies and overseas outsourcers who are contracted to act as if they are public servants) has nothing to fear from me. And if indeed I have nothing to hide then there is no point in HMG looking for it because there is nothing to be found anyway.
+By your argument we should be buying into the demands made by HMG’s left hand (e.g. many recent cabinet ministers) for broken, backdoored encryption to keep crooks at bay…
+…ironically even as HMG’s right hand (e.g. the ICO) says that we should embrace and employ strong encryption to keep crooks at bay.
+I’m not convinced that facial recognition would greatly (or even at all) improve the identification and prosecution of tax dodgers, especially if they are just random names and pseudo-identities from abroad, or “borrowed” local names and addresses, that were provided to Companies House.
+Hi Paul, sorry if this is the wrong place to ask, feel free to delete afterwards, but how can I contact you directly? [CYBERSECURITY STUFF REDACTED]
+Just email tips@sophos.com to reach Naked Security… 
+just ban all kinds of consent-less facial recognition. online, we can use Tor, VPN, ad blocks to protect our privacy. but offline? should I wear a paper bag everywhere I  go? 10 face surgeries for the price of 1? Clearview AI, Pimeyes etc are changing our behaviour. Society won’t be the same when everyone could be identified by anyone. I don’t like where this is going.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

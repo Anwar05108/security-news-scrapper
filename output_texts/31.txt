@@ -1,0 +1,267 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. 
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG. WordPress plugins, cryptocrime, and Microsoft web safety. 
+All that more on the Naked Security Podcast.
+[MUSICAL MODEM]
+Welcome to the podcast, everybody.
+I am Doug; he is Paul. 
+And, Paul, we have an exciting lineup of stories we’ll get to today. 
+But first, we like to begin the show with a Fun Fact.
+For those of you that play chess… anyone who’s played chess knows that the queen is the most powerful piece on the board. 
+It wasn’t always that way, though.
+No: initially, the queen could only move one space diagonally; she was then upgraded to two. 
+However, in the late 1400s, Spain’s Queen Isabella led an improbable come-from-behind victory at the Siege of Baza. 
+And, from that point forth, the queen became the strongest piece in chess. 
+How do you like *that*?
+DUCK. Boy, so if ever there’s a Pawn Uprising… presumably, pawns will be able to move in circles, perhaps…
+DOUG. [LAUGHS]
+DUCK. …or retreat if they need to?
+DOUG. Well, that would be something! 
+We’ll talk a little bit about chess later in the show… and not to foreshadow too much, this does have a link to our This Week in Tech History segment.
+DUCK. Does it involve Alan Turing?
+DOUG. It involves his influences a bit, but no.
+DUCK. OK.
+Onwards and upwards, Doug…
+DOUG. The reverse of upwards: a downward feeling in the Elementor WordPress plugin. 
+This is a popular website creation toolkit that many people use to drag-and-drop their WordPress sites into the perfect harmonious design…
+…and something bad happened. 
+A lesson in data validation, which we’ve talked about – it seems many, many times before. 
+But Paul, what happened here?
+DUCK. Well, it’s not the Elementor tools themselves that had the bug; it’s a plugin that essentially hooks up your standard WordPress installation with the Elementor toolkit. 
+It’s called, imaginatively, Essential Addons for Elementor. 
+Like you said, the idea is that this is a whole load of templates and pre-built stuff that makes it easy for you to drag-and-drop funky things such as, “Hey, I want a timeline.” 
+So, instead of writing loads of JavaScript, you just say , “Make a timeline out of my posts,” and when you visit that page, it will magically do all the work for you. 
+Also: image Galleries; good looking forms for e-commerce sites… so you can understand why this is quite popular for people who want a good-looking site, but don’t want to spend seven weeks doing JavaScript hacking. 
+And this Essential Addons for Elementor plugin?
+Unfortunately, it had an input validation problem whereby you could provide input in a URL that it trusted, even though it shouldn’t.
+It built a file name out of some data that you’d sent, and it didn’t check that you hadn’t put the traditional funny characters in that file name: ../../../../ and so on…
+…which takes you up-up-up-up, and then across, and then down-down-down-down, thus potentially allowing you to make an innocent-looking web request to somebody’s site and retrieve a file that has nothing to do with the website itself.
+For example: the username database (the /etc/passwd file on Linux), or somebody else’s files inside the WordPress setup. 
+So, you might have another user, or a second customer, with files in a directory name you could guess, and maybe you could just hop over to their part of the site and retrieve their data, or data about their customers. 
+And because this was part of a normal connection by a user, rather than someone actually logged in, it meant that essentially anybody could do it.
+DOUG. This is tough, because these WordPress plugins – there are many of them…
+DUCK. Thousands. Tens of thousands.
+DOUG. …and they’re generally trusted. 
+If you’ve never worked with WordPress, before you install one of these plugins, there’s a little page with reviews and the number of downloads. 
+So, something like this that has a large number of downloads, and four or five stars – you can see the comments on it, too: you generally trust these when you’re installing them. 
+And it’d be very hard to know to look for something like this when you’re installing one of these plugins. 
+This may have taken a lot of people by surprise.
+DUCK. I think that’s the problem, isn’t it? 
+That the user reviews aren’t penetration tests…
+DOUG. [LAUGHS] Yes.
+DUCK. or code reviews, or security oversight. 
+They’re just people saying, “Look, I tried this: it worked really well; it set up a beautiful website; I haven’t had any problems with it.” 
+And what they mean is, “Well, nobody’s found a security hole yet. Or if they have, they haven’t used it against my site. Or they have used it against my site, but I haven’t even noticed yet.”
+DOUG. Very good – if you’re using the Essential Addons for Elementor plugin, make sure you’re running 5.0.6.
+And for web developers, we’ve been saying this again and again… what should they do, Paul?
+DUCK. [CLERICAL VOICE]. Validate Thine Inputs. 
+DOUG. Please!
+DUCK. Now, the irony here was that when this bug was reported to the creators of the plugin, they quickly produced a patch.
+But that didn’t quite close off all the ways that you could sneak funny characters into your web request and cause this “wandering around the file system” escape. 
+And then they did another patch, and *that* didn’t close it properly. 
+So, I think the bug was found in 5.0.3; and then they quickly had 5.0.4; and then 5.0.5; and subsequently 5.0.6. 
+We saw that with Log4Shell, didn’t we? 
+DOUG. We did.
+Log4Shell: The Movie… a short, safe visual tour for work and home
+
+
+DUCK. The quick-fix did a great job, but it didn’t do a complete job. 
+By the way, Doug, if this sounds like, “Oh, well, all you can do is go and sneakily read files that aren’t supposed to be accessible”, remember, particularly in PHP-type installations like WordPress (but not only PHP – this could be the case with IIS if you have Active Server Pages done with, say, Visual Basic Script)…
+…sometimes, when you read a file on the other end, if the file has a particular extension, like .php, or .aspx, or whatever it is for the web server being used, what that tells the server is, “Don’t read in this file and return the content of the file.”
+What it’s saying is, “Read this file, *run it as a local program*, take the output the program creates and send *that* back to the user.” 
+So, the problem is that when you have a file escape like this, that lets you read files you’re not really supposed to, it can also often lead to remote code execution.
+Because if you can guess the names of other scripts (they may be ones that only an admin is supposed to trigger), and you can reach out and trigger those from an unauthenticated web connection…
+…you may be able to get the server to spill data, or even let you run commands that are supposed to be off-limits to you. 
+You could actually get information about the whole server; about the whole WordPress installation; or even run commands that change content, put malware on there, etc. etc.
+DOUG. All right, that is: Elementor WordPress plugin has a gaping security hole – update now on nakedsecurity.sophos.com. 
+Elementor WordPress plugin has a gaping security hole – update now
+
+
+And now we will deftly slip to this “Wormhole crypto trading” story. 
+This is a lot of money changing hands here, and it’s an odd story!
+DUCK. These things are always odd stories, aren’t they?
+DOUG. I did start reading this article and I was like, “Wow, $340,000,000! That’s got to be some sort or record…”
+And then I was like, “No, Poly Networks was almost twice that. It’s no big deal. Just gone.”
+Hacker grabs $600m in cryptocash from blockchain company Poly Networks
+
+
+DUCK. And I find myself going back to my own articles, even the day after I’ve written them, and thinking, “Oh dear, I’ve made a terrible blunder. Silly me. I’ve accidentally written an old story as if it were new.”
+DOUG. [LAUGHS]
+And then you think, “No, hang on, this is completely different. The same badness happened.” 
+I don’t know whether braggadocio or bravado is the right word… this company, on its website, if you go to their main page, has this big text, “THE BEST OF BLOCKHAINS”.
+Which led me to think of Charles Dickens, Doug.
+DOUG. [LAUGHS]
+DUCK. I couldn’t think of anything but A Tale of Two Cities.
+[PRETENDS TO READ FROM THE NOVEL] 
+It was the best of blockchains, it was the worst of blockchains, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to heaven, we were all going direct to the other place – in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only.
+[DEJECTED] $340,000,000… due to some smart contract coding issue that apparently hadn’t been foreseen. 
+And once again, like the Poly Networks hack, they sent a zero-value Ether transaction, where the transaction existed only to have a message in it:
+[QUOTING AGAIN]
+We noticed that you were able to exploit the Solana VAA verification and mint tokens. We’d like to offer you a whitehat agreement.
+I seem to remember that Uber got into an awful lot of trouble for doing that retrospectively…
+DOUG. Indeed.
+DUCK. …but maybe it’s different if you make the offer publicly?
+And we will present you with a bug bounty of $10 million for exploit details.
+Oh, and returning the money you have stolen.
+DOUG. Yes! Wow!
+DUCK. Apparently it didn’t work this time, Doug. 
+As far as I know, they haven’t heard anything.
+DOUG. We have some tips at the end of the article. 
+This is a great one that you’ve said before, but you expanded upon at this time: “If you’re getting into cryptocurrency, never invest more than you can afford to lose.”
+And by “afford to lose”, you don’t mean, “I put $100 into this crypto; hopefully I make $110 and it doesn’t go down to $90.” 
+You mean it could get stolen, and it could be *zero*.
+DUCK. Here, I think the expectation is, “I’m putting in $1,000; if it goes down to half, that would really hurt, but it wouldn’t leave me bereft. And I might get some advance warning. So I’ll just keep my eye on it.”
+And then you go to the kitchen to make yourself a cup of coffee, and you come back…
+DOUG. [LAUGHS]
+DUCK. …and *poof*! 
+They’ve spun the wheel; black came up; your red bet’s gone – whatever you put in. 
+If you know that if it comes out at zero, it’ll hurt like crazy *but it won’t derail your life*, then you’re OK. 
+When it comes to cryptocurrency, how did Charles Dickens put it? 
+“It was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness,” Doug.
+It’s hard to know how well it’s going to pan out for you.
+DOUG. And another piece of advice you have here, which is great with all these cryptotrading companies popping up: “Make sure to look for ones that will allow you to hold your crypto in your own offline cold wallet.”
+DUCK. Yes, when you’re putting crypto tokens somewhere where they can be live-traded, you have to trust that other person with the wherewithal to trade your currency for you *by accident or by design*. 
+That’s the idea of a hot wallet. 
+So, maybe, if you are going to test the waters, test them a little less aggressively at first, where you can actually make the investment and keep the result securely at home…
+(Don’t lose the encryption key! Obviously, that’s going to be a problem – that will be like setting fire to banknotes.)
+…but it does mean that you’re not just putting the tokens where you’re relying on somebody else not making a programming blunder.
+DOUG. All right, we will keep an eye on that.
+Something tells me the story may not be finished, but that is: Wormhole crypto trading company turns over $340,000,000 to criminals.
+Wormhole cryptotrading company turns over $340,000,000 to criminals
+
+
+And it’s time for This week in Tech History. 
+We talked a bit about chess earlier in the show, and this week, in February 1996, IBM’s Deep Blue supercomputer became the first machine to beat a human chess champion.
+Garry Kasparov lost two games of a six-game match against Deep Blue. 
+It would take a rematch, in May 1997, for Deep Blue to win the match outright, three-and-a-half games to two-and-a-half games. (I’m guessing a half-game is a draw.)
+And I have a bonus Fun Fact for everyone, Paul: researchers at Carnegie Mellon said, in 1957, that it would only take ten years for a computer to be able to beat the reigning world chess champion of the time. 
+It actually took 40 years – they did not realise how hard it would be to program computerised chess. 
+I did also read, ironically – it may have been the match that he lost outright or one of the games that he lost – that there was a bug in the code, and the computer made this weird move that Kasparov didn’t understand. 
+It was an incomprehensible, weird move. 
+And he thought, “Oh, this is some sort of brilliant thing I haven’t thought of.” 
+And so he panicked a little bit, and that’s what cost him. 
+DUCK. Really? [LAUGHS]
+DOUG. That came because of a computer bug doing something that a human wouldn’t have done. 
+So, not all bugs are bad! I guess it’s more of a feature…
+DUCK. It still doesn’t answer the question, “Can machines think? !
+DOUG. [LAUGHS]
+DUCK. That’s why I was thinking of Alan Turing earlier.
+DOUG. Yes. 
+Apparently, I read, researchers that are working on computerised chess say it still hasn’t been cracked; it still hasn’t been solved. 
+There are still so many permutations. 
+But one thing that people are trying to solve at Microsoft is web safety. 
+We’ve got a two-pack of web safety stories, so let’s start with the App Installer one.
+DUCK. They’re both rather interesting! 
+One of them deals with a recent cybersecurity incident.
+In fact, SophosLabs… I think we were among the first people to investigate this, for the reason that a whole load of people at Sophos, myself included, received the email in this particular cybercriminal attack. 
+And Naked Security readers may remember – this was an article from last November which we entitled Customer complaint email scam preys on your fear of getting into trouble at work.
+And I think we talked about this on the podcast, didn’t we?
+DOUG. Yes.
+“Customer complaint” email scam preys on your fear of getting into trouble at work
+
+
+DUCK. Where it was the “Sophos Main Manager Assistant” – I remember you thought that was a bit of a joke, because there was no such job title…
+BOTH. [LAUGHTER]
+DUCK. But it was, “Hey, there’s a customer complaint against you. Why didn’t you tell us? We’ve got a crisis meeting! You should have told me! You’d better read this… you’d better see what the customer is saying about you.”
+And there’s a link, and it goes to a PDF file. 
+Except the PDF file… well, you need to install a program – it’s an “Adobe PDF component”.
+But it’s very different to other traditional executable downloader phishing scams. 
+It didn’t just go, “Oh, you need this new codec: download this executable and run it”, because everyone knows that’s a terrible idea.
+It actually used a system that is available to use on your own web server, but that is probably more closely associated in people’s minds with how it works when you go to somewhere more trusted – or at least vetted – like the Microsoft Store.
+Instead of an https:// link, you get a link that’s ms-appinstaller://
+And if you click one of those on Windows, it doesn’t just download the file, it launches and processes it in the App Installer utility, which gives you a more believable experience than just, “Hey, download this program and run it.” 
+Firstly, the app has to be digitally signed.
+Except that it’s just the App Bundle that’s digitally signed, and the name that shows up for the program – in the case we examined, it just said “Publisher: Adobe Inc” – comes up with “Trusted app”, with a little green checkmark. 
+But if you clicked on “Trusted App”, the company name that came up was an accounting firm in the UK. 
+Seems a bit weird!
+However, it *was* a real company, as far as we could tell; it was a real digital signature. 
+Somehow the crooks had got this, and just by signing the App Bundle, they could basically deviate someone – who might otherwise be quite suspicious about downloading an installer – into a process that looks much more legitimate.
+Perhaps more legimate-looking than anything they’ve ever seen before if they’d never use the Microsoft Store.
+The other idea of an App Bundles is that it’s like an “ueber-ZIP” file
+It actually contains more than you need, so it’ll have versions for different flavors of Windows; different chipsets: if you’ve got ARM versus Intel, it’ll get the right one for you. 
+So it feels like the operating system is in charge of the process: this isn’t just “download this file, stick it on your desktop and then double-click it.” 
+Microsoft admitted that this was considered a vulnerability: it got a CVE number, and they gave out some mitigations about how you could control this, such as locking people down so the process only worked if you went to the Microsoft Store. 
+Well, finally they’ve decided, given the kind of abuse that this has attracted from crooks, given the fact that they can make things look much more trustworthy than they really are… they’re actually going to block ms-appinstaller:// URLs by default from random websites. 
+So, it’s a feature that Microsoft really liked, that they claim was popular with vendors –  I can see why: you build the package, and then when the download happens, it’s more likely to work properly for the user.
+Basically, if you have been using this App Bundle process for a prepackaged app rather than just an old school installer, you may need to change your ways. 
+Because Microsoft has basically deliberately broken a feature in its own operating system… for the greater good of all. 
+How about that, Doug?
+DOUG. It seems consumer friendly, although I’m sure it’ll cause a little consternation against software developers that are using App Bundles to distribute their software.
+DUCK. Yes, Microsoft has said that it wants to keep the principle and the protocol, but find a better way of doing it. 
+Like we said last week, when you have things that make cybersecurity easier, sometimes you end up making it *too* easy. 
+And if that were OK, we’d all have two-character passwords, Doug.
+DOUG. [LAUGHING] People would still forget their passwords! 
+OK, that’s:  Microsoft blocks web installation of its own App Installer files.
+Microsoft blocks web installation of its own App Installer files
+
+
+Then, another exciting story of things being turned off by default…
+DUCK. Yes!
+Having written that story about App Installer (I think I wrote that yesterday), when I woke up this morning, I thought, “Oh, well, I wonder what I’ll be writing about today. Microsoft changed the world yesterday.” 
+And I had a look, and, “My golly, it’s like a bus! You wait for years, and then two come along at once!”…
+DOUG. [LAUGHS]
+DUCK. …which is the way of traffic.
+Maybe these two things are related: somebody [at Microsoft] decided to approve both of these changes at once.
+But this is, in my opinion, a much longer-overdue default change. 
+And it is that – if you get an Office document via the internet, e.g, you receive it as an email attachment, or download it from the web, and then open it…
+Instead of getting that warning, the yellow warning, that says, “There are macros in here; it could be bad. Click here for bad things to happen”, and everyone clicks there, and the crooks have little arrows saying, “Yes, you should click this button! It’s really important! This will improve your security”…
+Instead of having that by default, but an option that admins can set that says, “No, don’t allow it at all”…
+…they’re flipping that round.
+At least, they’re flipping it round by default in *some* versions of Ofice over the next twelve months, on *some* operating systems, for *some* of the apps in the Office stable.
+So this is still very much an incomplete fix – but I’m not going to knock it.  
+Basically, unless you go out of your way to allow your users to do this on a corporate network, and unless you go fiddling around as a user at home, then if you get a document from the internet and you open it up just to see what’s in it, you won’t get that “Enable Content” button.
+You will get a red pop up… a pink pop up that says: “Security risk. Microsoft has blocked macros from running because the source of the file is untrusted. End of.” 
+A lot of people in the cybersecurity industry have been wanting something like this in Office since about 1995-and-a-half… it was towards the end of 1995, when Word macro viruses came out.
+Then we had the combined Office suite in 1997, where there was the Visual Basic for Applications macro language, where the same code worked on multiple operating systems and in multiple document types, so you could use very similar, identical code in Excel, and in PowerPoint, and in document files. 
+Ever since then, there’s been this call, “Why don’t you just make this optional? Why don’t you let someone have a version of Office where they just say, ‘You know what? I know macros are lovely. I know they’re super-powerful. I know I paid for them, *but I want to install without them*.”
+I’d like to have the supercharger disconnected, please. If I really need it, I’ll go in and get the mechanic to fit it again, if I’m willing to burn 40% more fuel in return for bigger wheelspins.
+BOTH. [LAUGHTER]
+DOUG. So, a step in the right direction?
+DUCK. Absolutely.
+Well, *if* you’re using Office 2022.
+That’s going to roll out over the coming twelve months, I believe, so this feature will only start in April 2022, and only the early adopters will get it in their versions of Office at first…
+…but I think it’s the cultural change that is big.
+DOUG. All right, that is called: At last! Office macros from the internet to be blocked by default. 
+If you’d like to read more, it is on nakedsecurity.sophos.com.
+At last! Office macros from the internet to be blocked by default
+
+
+And, as the sun slowly sets on our episode this week, it’s time for the Oh! No!
+Reddit user WeldinMike27 writes:
+“Years ago, my wife worked at a local TV station, helping people with the changeover from VHF to UHF signals. 
+Some TVs required flicking a switch on the back, or just doing something behind it. 
+One gentleman called up, very agitated, claiming that the changeover had caused a ‘split’ in the picture. 
+Literally, one side of the screen was a different definition than the other side. 
+My wife and the local tech support were pulling their hair out, trying to figure out what might have happened – obviously, nothing like this had happened before. 
+It took ages and some very heated discussions until the gentleman finally realised that his TV was coated in dust. 
+And while playing around at the back, he’d rubbed half the layer of dust off one side of the screen.”
+DUCK. [LAUGHS] Oh, dear!
+DOUG. If you remember those old tube TVs, they were just like dust magnets!
+DUCK. Because it’s all electrons flying around, isn’t it? 
+So it’s going to get charged up.
+UHF… that’s going back a way, Doug!
+DOUG. Those were the days. 
+Well, they weren’t, but they were days. [LAUGHS]
+If you have an Oh! No! you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles; or hit us up on social @NakedSecurity. 
+That is our show for today – thanks very much for listening!
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH. …stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

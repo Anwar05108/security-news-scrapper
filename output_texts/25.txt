@@ -1,0 +1,58 @@
+Sophos Home protects every Mac and PC in your home 
+If you run a WordPress site and you use the Elementor website creation toolkit, you could be at risk of a security hole that combines data leakage and remote code execution.
+That’s if you use a plugin called Essential Addons for Elementor, which is a popular tool for adding visual features such as timelines, image galleries, ecommerce forms and price lists.
+An independent threat researcher called Wai Yan Myo Thet recently discovered what’s known as a file inclusion vulnerability in the product.
+This security hole made it possible for attackers to trick the plugin into accessing and including a server-side file…
+…using a filename supplied in the incoming web request.
+Simply put, a malicious visitor could trick an unpatched server into serving up a file it’s not supposed to, such as the server’s own username database, or coerce the server into running a script it shouldn’t, thus creating a remote code execution (RCE) hole.
+As you proably know, web server RCE bugs are typically abused to implant malware that allows the attackers to do something to your immediate, and often costly, detriment.
+Typical examples of how cybercriminals exploit RCE bugs include: 
+Web server file inclusions, often referred to in the jargon as server-side includes, are used in dynamic website content software such as WordPress so that you don’t need to store pre-generated HTML for every page on your website.
+For example, if your website includes a page laid out like this…
+
+…then only the text highlighted in blue above – the primary content your reader is supposed to see – is unique to the page:
+
+If you have a completely static, pre-rendered website and want to change the style settings, or to alter the wording of the header and footer, you’ll need to edit or regenerate every web page on the site, even those that might end up never getting visited.
+But with a website builder that allows server-side includes, you might be able to rewrite your page something like this:
+
+The idea is that the server will read in the specified #include files at run-time and add them into the HTML page that actually gets served up, thus generating the web page automatically when needed, using the latest versions of the styles, header and footer files.
+Often, you will want to customise some aspect of the files you include, such as adapting the style to suit your users, for example based on a cookie that their browser supplies when they visit.
+Your server-side include system might therefore allow you to “tweak” the names of the files included, for example like this:
+
+If you’re wondering why we chose the “magic characters” ${...} in our invented server-side scripting system above, it’s a nod to the infamous Log4Shell vulnerability, where those very characters were used with untrusted, user-supplied data to trick the Log4j Java programming system into running unwanted commands.
+You can see the obvious problem here, namely that if the special text string ${cookie:usr_theme} blindy extracts the text in the usr_theme cookie supplied by the user, and uses it to build a filename, then there’s nothing to stop a malicious user from asking for a theme called, say, ../../../../etc/passwd.
+This would trick the server into #including the file content/theme/../../­../../etc/passwd, which wouldn’t read in a file from the content/theme/ directory, but would navigate up to the root directory, and then descend back down into the system’s /etc/ directory to in the contents of the passwd file instead.
+Even if the resulting HTML file wouldn’t display properly because of the unexpected content in the  section of the file served up, the visitor would still end up with a copy of your passwd file, and thus a list of all accounts and usernames on your server.
+Worse still, many web servers and content management systems treat some filenames specially when they’re included.
+Microsoft IIS, for example, considers files with the extension .aspx special; many Linux-based web services do something similar if the file ends in .php.
+Instead of including the raw contents of the file, the system will run the file as a program (written, for example, in Visual Basic on Windows servers and in PHP on Linux servers), and include the output from the program instead.
+This makes content such as customised pages and one-off search results easy to generate on demand, because the code needed to generate the content is embedded in a logical place in the directory tree that represents the structure of the website.
+Of course, this also means that an uncontrolled #include directive, like the theme-based one we envisioned above to steal the password file, could be used for remote code execution as well as data leakage.
+For example, imagine that we replaced the malicious “theme cookie” above with text such as ../../scripts/listusers.php, because we knew or could guess that the server in use contained a PHP utility script of that name to list all the website logins.
+We’d then be able to trick the server into runnning that script, even if it was never intended for running from inside web pages, and wasn’t supposed ot be accessible to outsiders at all.
+Even worse, we might find that we could use the ../.. (“move upwards in the directory tree”) trick to execute a script file called, say, ../../uploads/pending/img000067.php.
+Usually, there wouldn’t be such a file and the #include would therefore obviously fail, but if we knew (or suspected) that the server had an uploads/pending/ directory where user-contributed objects such as comments, images, videos and so on were stored temporarily until a moderator decided whether to approve them…
+…and if we could upload a “pending” file using a name we could subsequently predict, then we’d not only have a remote code execution hole, we’d have a totally arbitrary remote code execution hole.
+We we could first upload a rogue script, so that the file appeared temporarily in the uploads/pending/ directory, and immediately afterwards trick the server into executing it by setting a special cookie to trigger the attack.
+Unfortunately, the Essential Addons for Elementor plugin included a bug of this sort, based on PHP code that constructed a filename for server-side inclusion like this:
+This is totally unacceptable code, because constructs the variable $filetoinclude, and then includes it, without doing any checks for dangerous characters such as ../ sequences in the untrusted variables $sentbyuser['name'] and $sentbyuser['file_name'].
+The creators of the plugin were informed of the hole by original bug-finder Wai Yan Myo Thet; unfortunately, their first attempt to safety-check and sanitise the filename was insufficient to keep determined attackers out.
+Following further prodding from WordPress security company Patchstack, the plugin was updated twice more in quick succession to stave off attacks caused by malicious incoming user data.
+According to Patchstack, the buggy code is only used if certain gallery-related web widgets are enabled, so that not all unpatched Essential Addons for Elementor sites are vulnerable. Nevertheless, we recommend patching promptly anyway, rather than leaving an easy-to-exploit RCE hole that could come to life at any time based on a server configuration change that would otherwise be uncontroversial.
+Don’t just check programmatic input when you know for sure that it came from an untrusted source such as an HTTP request. 
+Even if you think you can trust the upstream process or user who provided your input, check it anyway, in case that trusted process itself contains a bug, or relied in some way on tainted content that started further up in the data supply chain.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Umm… PHP is supported in Windows on both Apache and IIS servers.
+I know. I didn’t say PHP wasn’t supported on Windows… though I have tweaked the wording slightly to make it clearer that .asxp/Visual Basic is merely an example of what you might find on Windows, and .php/PHP on Linux). The point is that on both platforms, in many (if not most) web content engines, it’s the extension of the file that tells the server what to do with the file before replying to the request.
+There are loads of other popular other server-side content generation languages and frameworks, such as Java/Struts, Python/Zope, Perl/Mason, Lua/Kong, Ruby/Rails, Haskell/Reflex, even Forth/1991 [*], but you can’t please everyone with a list like this, so add your own in the comments below if you think I have been unfair or unfunky.
+[*] A real thing. See https://1-9-9-1.com or https://github.com/urlysses/1991 (SFW, but visit at own risk :-) for details.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,60 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Listen on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found.Or simply drop the URL of our RSS feed into your podcatcher.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“If you have a spare laptop” you can use Sophos Firewall Home Edition
+But: “What you need: Intel compatible computer with dual network interfaces.”
+Does a WiFi network count as the second (to ethernet) interface, and how advisable is it to try to supply the whole load to your router off an old laptop’s WiFi interface.
+I presume home users connect
+Wall Socket  Old Modem/Router  “Sophos Appliance” Laptop  Main Router  all PC’s, Phones, Smart TV’s etc.
+Alternatively are “USB plug-in” Ethernet Cards up to the load?
+Just how old can the laptop be and still manage the required throughput? 64bit Windows 7 machine, 32bit Netbook?
+Thanks
+A USB network adapter should be fine. Unfortunately you can’t use Wi-Fi as one of the two. (I suspect that with some light hacking you could set up two interfaces on one ethernet adapter, but I have not tried it myself.) 
+You can use a VM in which to experiment with the firewall firmware image if you like – I’ve successfully used VirtualBox on my Linux laptop for a virtual XG Firewall Home Edition setup.
+I gave it a go but in trying to download, it insisted on a company email address (strange for a “Home” edition – unless being blatant about using the “Home” edition to create leads).  Being retired, I don’t have a company email address!
+We do need to email you a licence key. I don’t think there is any legal definition of a “company address”, so you can put in what you like… it does have to work, obvs., because of the licence key. I assume you may get a “lead email” as a follow up (I don’t think I ever have), which seems a reasonable quid pro quo, to which you can reply (or not) as you see fit :-)
+Hi! I really like the podcast, thanks for making it.
+For the last few episodes, gPodder has been downloading the files without any file extension. I’m using the URL http://feeds.podtrac.com/sXqBmsxMrHix and the links to the mp3 files are put like <link>https://soundcloud.com/sophossecurity/s3-ep80-ransomware-news-phishing-woes-nas-bugs-and-a-giant-hole-in-java</link>. I have to rename them by hand or gtkpod will complain that it doesn’t know what to do with this file.
+Is this something you can fix on your end? I’m not having this problem with other podcasts that are hosted on soundcloud.
+Hmmm. Nothing has changed lately in the RSS feed, as far as I can see. (In fact, I think the structure has been the same for several years now.) 
+As far as I can see, the RSS data includes two standard URLs for each episode, one in the “link” element, which is where you click with a browser to get to the web page about that episode, and one in the “enclosure” element, which specifies where to get the MP3 file of the actual audio.
+Like this…
+<link>https://soundcloud.com/sophossecurity/s3-ep80-ransomware-news-phishing-woes-nas-bugs-and-a-giant-hole-in-java</link>
+…and…
+<enclosure type=”audio/mpeg” url=”https://dts.podtrac.com/redirect.mp3/feeds.soundcloud.com/stream/1258257922-sophossecurity-s3-ep80-ransomware-news-phishing-woes-nas-bugs-and-a-giant-
+hole-in-java.mp3″ length=”49914716″ />
+My RSS-driven podcast player (I use VLC ON lINUX) does, and always has, consumed and used these URLs correctly, so I can click-to-listen and right-click-to-download the raw MP3 file, with the extension “.mp3” already supplied. I test every week’s upload as follows:
+* Open RSS feed and listen in VLC.
+* Download via VLC.
+* Click link and listen in browser on Soundcloud.
+* Listen via Apple Podcasts.
+* Download via Apple Podcasts.
+* Listen in browser via openspotify.com.
+* Check for episode in Google Podcasts.
+I am therefore reluctant to change anything at this end, given that it seems to be working (and passing my weekly tests) just as it has for several years. The “link” element isn’t supposed to take you to the MP3 file directly, and as far as I know it never has. The MP3 itself comes from Souncloud’s ccontent delivery network via “feeds.soundcloud.com”, as far as I know.
+I have never used gPodder. Has something changed there? Any other gPodder users out there with any ideas?
+HtH.
+Thanks for the detailed response, Paul, and for looking into it for me. If it’s working everywhere else then maybe something broke on my end. It looks like my gPodder hasn’t been updated since December, but maybe some python library it depends on changed how it parses things or who knows.  I’ll try running it in debug mode or something if I have some time
+This dire hack worked for me in Bash on Linux (plays the latest episode)…
+Substituting ‘cvlc’ for ‘ffplay -i’ works too, but I wanted something with no VLC in it, even though in this case I am not using VLC code to “parse” (ahem) the RSS data.
+Crazy high average ransom payment for Japan. Although I think the median payment is much more relevant and interesting than the average. Could you share the median number as well?
+I found myself wondering that myself…
+…and then discovered I had the numbers available, so I can provide an answer for both of us :-)
+By my calculation the global *median* average comes out at $78,000.
+My first thought was, “Oooh, that’s only 10% of the mean average”, as though I had good tidings to report, until I remembered that we are still talking about EIGHTY THOUSAND UNITED STATES DOLLARS and every cent of it goes to the crooks. 
+(I have to admit that before I saw the raw data I had somehow hoped or expected the median average would lower than that, say in the 20k to 40k range. Don’t know why I guessed that – it was just a hunch, but it was wrong!)
+And that mean average figure of $800,000 is still a legitimate and sobering statistic to remind us just how heavily some victims get stung – the median alone tends to gloss over the fact that quite a few victims paid truly huge amounts, and every cent of that went to the crooks as well [SAD_EMOJI] [IRATE_EMOJI].
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

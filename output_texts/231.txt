@@ -1,0 +1,32 @@
+Sophos Home protects every Mac and PC in your home 
+No sooner had we stopped to catch our breath after reviewing the latest 62 patches (or 64, depending on how you count) dropped by Microsoft on Patch Tuesday…
+…than Apple’s latest security bulletins landed in our inbox.
+This time there were just two reported fixes: for mobile devices running the latest iOS or iPadOS, and for Macs running the latest macOS incarnation, version 13, better known as Ventura.
+To summarise what are already super-short security reports:
+The two security bulletins list exactly the same two flaws, found by Google’s Project Zero team, in a library called libxml2, and officially designated CVE-2022-40303 and CVE-2022-40304.
+Both bugs were written up with notes that “a remote user may be able to cause unexpected app termination or arbitrary code execution”.
+Neither bug is reported with Apple’s typical zero-day wording along the lines that the company “is aware of a report that this issue may have been actively exploited”, so there’s no suggestion that these bugs are zero-days, at least inside Apple’s ecosystem.
+But with just two bugs fixed, just two weeks after Apple’s last tranche of patches, perhaps Apple thought these holes were ripe for exploitation and thus pushed out what is essentially a one-bug patch, given that these holes showed up in the same software component?
+Also, given that parsing XML data is a function performed widely both in the operating system itself and in numerous apps; given that XML data often arrives from untrusted external sources such as websites; and given the bugs are officially designated as ripe for remote code execution, typically used for implanting malware or spyware remotely… 
+…perhaps Apple felt that these bugs were too broadly dangerous to leave unpatched for long?
+More dramatically, perhaps Apple concluded that the way Google found these bugs was sufficiently obvious that someone else might easily stumble upon them, perhaps without even really meaning to, and begin using them for bad?
+Or perhaps the bugs were uncovered by Google because someone from outside the company suggested where to start looking, thus implying that the vulnerabilities were already known to potential attackers even though they hadn’t yet figured out how to exploit them?
+(Technically, a not-yet-exploited vulnerability that you discover due to bug-hunting hints plucked from the cybersecurity grapevine isn’t actually a zero-day if no one has figured out how to abuse the hole yet.)
+Whatever Apple’s reason for rushing out this mini-update so quickly after its last patches, why wait?
+We already forced an update on our iPhone; the download was small and the update went through quickly and apparently smoothly.
+Use Settings > General> Software Update on iPhones and iPads, and Apple menu > About this Mac > Software Update… on Macs.
+If Apple follows up these patches with related updates to any of its other products, we’ll let you know.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+To be fair this bug affects any software which ships libxml2, not just MacOS.  All Linux distros are affected, and so (most likely) WSL on Windows, and any container based on a Linux distro (which is pretty much all of them!).  Debian have also already published a fix.   Other distros are generally tracking the bug and presumably are putting the patch through QA.
+The fact that Apple did an update just for these two bugs (and only for the very latest macOS and iOS/iPadOS versions), combined with Apple’s official “wall of commentary silence” when it comes to announcing updates, does make you wonder…
+…why do these bugs represent an apparently serious risk to IOS 16 and macOS 13, and not elsewhere?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+Google pushed out a bunch of security fixes for the Chrome and Chromium browser code earlier this week…
+…only to receive a vulnerability report from researchers at cybersecurity company Avast on the very same day.
+Google’s response was to push out another update as soon as it could: a one-bug fix dealing with CVE-2022-3723, described with Google’s customary we-can-neither-confirm-nor-deny legalism saying:
+Google is aware of reports that an exploit for CVE-2022-3723 exists in the wild.
+(Apple also regularly uses a similarly disengaged flavour of OMG-everybody-there’s-an-0-day notification, using words to the effect that it “is aware of a report that [an] issue may have been actively exploited”.)
+This Chrome update means that you’re now looking for a version number of 107.0.5304.87 or later. 
+Confusingly, that’s the version number to expect on Mac or Linux, while Windows users may get 107.0.5304.87 or 107.0.5304.88, and, no, we don’t know why there are two different numbers there.
+For what it’s worth, the cause of this security hole was described as “type confusion in V8”, which is jargon for “there was an exploitable bug in the JavaScript engine that could be triggered by untrusted code and untrusted data that came in apparently innocently from outside”.
+Loosely speaking, that means it’s almost certain that merely visiting and viewing a booby-trapped website – something that’s not supposed to lead you into harm’s way on its own – could be enough to launch rogue code and implant malware on your device, without any popups or other download warnings.
+That’s what’s known in cybercrime slang as a drive-by install.
+We’re guessing, given that a cybersecurity company reported this vulnerability, and given the almost immediate publication of a one-bug update, that the flaw was uncovered in the course of an active investigation into an intrusion on a customer’s computer or network.
+After an unexpected or unusual break-in, where obvious entry paths simply don’t show up in the logs, threat hunters typically turn to the gritty details of the detection-and-response logs at their disposal, attempting to piece together the system-level specifics of what happened.
+Given that browser remote code execution (RCE) exploits often involve running untrusted code that came from an untrusted source in an unexpected way, and launched a new thread of execution that wouldn’t normally show up in the logs…
+…access to sufficiently detailed forensic “threat response” data may not only reveal how the criminals got in, but also exactly where and how in the system they were able to bypass the security protections that would normally be in place.
+Simply put, working backwards in an environment in which you can replay an attack over and over, and watch how it unfolds, will often reveal the location, if not the exact working, of an exploitable vulnerability.
+And, as you can imagine, safely removing a needle from a haystack is much, much easier if you have a map of all pointy metal objects in the haystack to start with.
+In short, what we mean is that when Google says “it is aware of reports” of an attack launched by exploiting Chrome in real life, we’re ready to assume that you can translate this into “the bug is real, and it really can be exploited, but because we didn’t actually investigate the hacked system in real life ourselves, we’re still on safe ground if we don’t come straight out and say, ‘Hey, everyone, it’s an 0-day’.”
+The good news about bug disoveries of this sort is that they probably unfolded this way because the attackers wanted to keep both the vulnerability and the tricks needed to exploit it secret, knowing that bragging about the technique or using it too widely would hasten its discovery and thus shorten its value in targeted attacks.
+Today’s browser RCE exploits can be fiendishly complex to discover and expensive to acquire, considering how much effort organisations like Mozilla, Microsoft, Apple and Google put into hardening their browsers against unwanted code execution tricks.
+In other words, Google’s fast patching time, and the fact that most users will receive the update quickly and automatically (or at least semi-automatically), means that the rest of us can now not only catch up with the crooks, but get back ahead of them.
+Even though Chrome will probably update itself, we always recommend checking anyway.
+As mentioned above, you’re looking for 107.0.5304.87 (Mac and Linux), or one  of 107.0.5304.87 and 107.0.5304.88 (Windows).
+Use More > Help > About Google Chrome > Update Google Chrome.
+The open-source Chromium flavour of the browser, at least on Linux, is also currently at version 107.0.5304.87.
+(If you use Chromium on Linux or one of the BSDs, you may need to check back with your distro maker to get the latest version.)
+We’re not sure whether the Android version of Chrome is affected, and if so what version number to look out for.
+You can watch for any forthcoming update announcements for Android on Google’s Chrome Releases blog.
+We’re assuming that Chrome-based browsers on iOS and iPadOS aren’t affected, because all Apple App Store browsers are compelled to use Apple’s WebKit browsing subsystem, which doesn’t use Google’s V8 JavaScript engine.
+Interestingly, at the time of writing [2022-10-29T14:00:00Z], Microsoft’s release notes for Edge described an update dated 2022-10-27 (two days after this bug was reported by the researchers), but didn’t list CVE-2022-3723 as one of the security fixes in that build, which was numbered 107.0.1418.24.
+We’re therefore assuming that looking for any Edge version greater than this will indicate that Microsoft has published an update against this hole.
+You can keep your eye on Edge patches via Microsoft’s Edge Security Updates page.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

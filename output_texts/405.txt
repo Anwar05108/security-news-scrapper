@@ -1,0 +1,65 @@
+Sophos Home protects every Mac and PC in your home 
+Update. We now have the answer to the question above (for the time being, at least). After reporting that update (b) was on the way, Apple has now published its promised patch-for-the-patch, though it had the version suffix (c) in the end. At the time of writing [2023-07-12T21:55:00Z], Apple’s HT201222 security portal page hadn’t been updated, but we have already successfully fetched and installed both macOS 13.4.1 (c) and iOS 16.5.1 (c), which each took under two minutes and required one swift reboot.
+Betteridge’s Law of Headlines insists that any headline posed as a question can instantly be answered with a simple “No.”
+Apparently, the theory behind this witticism (it’s not actually a Law, nor yet a rule, nor even in fact anything more than a suggestion) is that if the author knew what they were talking about, and had real evidence to support their case, they’d have written the headline as an undiluted fact.
+Well, we’re not journalists here on Naked Security, so fortunately we’re not bound by this law.
+The ruthless answer to our own question in the headline above is, “No one knows except Apple, and Apple isn’t saying.”
+A better but admittedly middle-of-the-road answer is, “Wait and see.”
+This story started late yesterday, at the tail end of 2023-06-10 UK time, when we excitedly [do you mean ‘excitably?’ – Ed.] wrote an advisory about Apple’s second-ever Rapid Security Response (RSR):
+Urgent! Apple fixes critical zero-day hole in iPhones, iPads and Macs
+
+
+These RSRs are, as we explained previously, Apple’s effort to deliver single-issue emergency fixes as promptly as well-managed open source project generally do, where zero-day patches often come out within a day or two of a problem being found, with updates-to-the-updates following promptly if further investigations reveal further issues needing to be fixed.
+One reason open source projects can take this sort of approach is that they usually provide a download page with the full source code of every officially-released version ever, so that if you rush to adopt the latest fixes in hours, rather than in days or weeks, and they don’t work out, there’s no barrier to rolling back to the previous version until the fix-for-the-fix is ready.
+Apple’s offical upgrade pathway, however, at least for its mobile devices, has always been to supply full, system-level patches that can never be rolled back, because Apple doesn’t like the idea of users deliberately downgrading their own systems in order to exploit old bugs for the purpose of jailbreaking their own devices or installing alternative operating systems.
+As a result, even when Apple produced emergency one-bug or two-bug fixes for zero-day holes that were already being actively exploited, the company needed to come up with (and you needed to put your faith in) what was essentially a one-way upgrade, even though all you really needed was a minmalistic update to one component of the system to patch a clear and present danger.
+Enter the RSR process, allowing rapid patches that you can install in a hurry, that don’t require you to take your phone offline for 15 to 45 minutes of repeated reboots, and that you can later remove (and reinstall, and remove, and so on) if you decide that the cure was worse than the disease.
+Bugs patched temporarily via an RSR will be patched permanently in the next full version upgrade…
+…so that RSRs don’t need or get a whole new version number of their own.
+Instead, they get a sequence letter appended, so that the first Rapid Security Response for iOS 16.5.1 (which came out yesterday) is displayed in Settings > General > About as 16.5.1 (a).
+(We don’t know what happens if the sequence ever goes past (z), but we’d be willing to take a small wager on the answer being (aa), or perhaps (za) if alphabetic sortability is considered important.)
+Anyway, just a few short hours after advising everyone to get iOS and iPadOS 16.5.1 (a), because it fixes a zero-day exploit in Apple’s WebKit code and could therefore almost certainly be abused for malware nastinesses such as implanting spyware or grabbing private data from your phone…
+…commenters (special thanks to John Michael Leslie, who posted on our Facebook page) started reporting that the update was no longer showing up when they used Settings > General > Software Update to try to update their devices.
+Apple’s own security portal still lists [2023-07-11T15:00:00Z] the most recent udpates as macOS 13.4.1 (a) and iOS/iPadOS 16.5.1 (a), dated 2023-07-10, with no notes about whether they’ve officially been suspended or not.
+But reports via the MacRumors site suggest that the updates have been withdrawn for the time being.
+One suggested reason is that Apple’s Safari browser now identifies itself in web requests with a User-Agent string that includes the appendage (a) in its veraion number.
+Here’s what we saw when we pointed our updated Safari browser on iOS at a listening TCP socket (formatted with line breaks to improve legibility):
+According to some MacRumors commentators, that Version/ string, consisting as it does of the usual numbers and dots along with some weird and unexpected text in round brackets, is confusing some websites.
+(Ironically, the sites we’ve seen blamed in this apparently version-string-misparsing-blame-game all seem to be services that are much more commonly accessed by dedicated apps than via a browser, but the theory seems to be that they apparently choke on that 16.5.2 (a) version identifier if you decide to visit them with an updated version of Safari.)
+Strictly speaking, only Apple knows what’s going on here, and it’s not saying. (At least, not officially via its security portal (HT201222) or its About Rapid Security Responses page (HT201224.)
+We suggest, if you already have the update, that you don’t remove it unless it genuinely interferes with your ability to use your phone with the websites or apps you need for work, or unless your own IT department explicitly tells you to roll back to the “non-(a)” flavour of macOS, iOS or iPadOS.
+After all, this update was deemed suitable for a rapid response because the exploit it fixes is an in-the-wild, browser-based remote code execution (RCE) hole.
+If you do need or wish to remove the RSR, you can do this:
+Note that we installed the RSR right away on macOS Ventura 13.4.1 and iOS 16.5.1, and haven’t had any problems browsing to our usual web haunts via Safari or Edge. (Remember that all browsers use WebKit on Apple mobile devices!)
+Therefore we don’t intend to remove the update, and we’re not willing to do so experimentally, because we have no idea whether we’ll be able to reinstall it again afterwards. 
+Commenters have suggested that the patch simply doesn’t get reported when they try from an unpatched device, but we haven’t tried re-patching a previously-patched device to see if that gives you a magic ticket to fetch the update again.
+Simply put:
+We’ll patch our usual advice from yesterday by saying: Do not delay; do it as soon as Apple and your device will let you.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Would have been nice to get a mention for pointing this out to you on FB…
+I added a namecheck and a link above. Thanks.
+Great Job Apple as usual…
+The underlying job (and idea) isn’t bad… fix things faster than usual. 
+And if the problem really is down to websites choking on a User-Agent string, then is that something Apple should code for or the website should code for? (Remember the trouble when Chrome and Firefox went from version 99 to version 100 and some sites decided that 100 denotes version 00, and was thus years and years out of date… a sort of Millennium Bug in reverse.)
+If there is a problem here, IMO, it is the official “cone of silence in respect of cybersecurity” approach that Apple insists on using.
+Anyway… my day has been unaffected by this alleged “bug-in-the-bug-fix” issue (so far, anyway!) with every website I’ve used rendering as I expected. But I would like an official note on where we all stand…
+Apparently Apple has now officially said… “(b) update coming soon.” 
+Thanks to reader John for reporting this:
+https://support.apple.com/HT213827
+Given the overall speed of everything, I’m hoping that means before midnight UK time today… [later edit – it didn’t].
+Why doe websites need to inspect your browser so damn much? It’s too snoopy and relies on old ways of doing things.
+The Mozilla-hosted MDN content (a great source info on HTTP, HTML, CSS, JavaScript and more) advises you to avoid the User-Agent string altogether. Concocting different content for every browser is a step that’s hard to return from and just makes everything more complicated…
+I am downloading 16.5.1 (c) after asking my iPhone for updates.  July 12, 2023.
+Do we know what happened to (b)?
+To (b) or not to (b), that is the question.
+We don’t yet know the answer…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

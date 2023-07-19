@@ -1,0 +1,105 @@
+Sophos Home protects every Mac and PC in your home 
+Over the years, we’ve written and spoken on Naked Security many times about the thorny problem of DNS hijacking.
+DNS, as you probably know, is short for domain name system, and you’ll often hear it described as the internet’s “telephone directory” or “gazetteer”. 
+If you’re not familiar with the word gazeteer, it refers to the index at the back of an atlas where you look up, say, Monrovia, Liberia in a convenient alphabetic list, and it says something like 184 - C4. This tells you to turn straight to page 184, and to follow the grid lines down from the letter C at the top of the map, and across from the number 4 on the left. Where the lines meet, you’ll find Monrovia.
+For most users, most DNS lookups go out containing a server name, asking for a reply to come back that includes what’s known as its A-record or its AAAA-record.
+(A-records are used for 32-bit IPv4 internet numbers, such as 203.0.113.42; AAAA-records are the equivalent answers for a 128-bit IPv6 addresses, such as 2001:db8:15a:d0c::42 – in this article, we’ll just use A-records and IPv4 numbers, but the same security issues apply to the lookup process in both cases.)
+Here’s an example, where we’re looking up the imaginary domain name naksec.test via a DNS server that was specially created to track and teach you about DNS traffic.
+We’ve used the old-school Linux tool dig, short for domain internet groper, to generate a simple DNS request (dig defaults to looking up A-records) for the server we want:
+Here’s how our DNS server dealt with the request, showing a hex dump of the incoming request, and the successful reply that went back:
+Note that, for performance reasons, most DNS requests use UDP, the user datagram protocol, which works on a send-and-hope basis: you fire off a UDP packet at the server you want to talk to, and then wait to see if a reply comes back.
+This makes UDP much simpler and faster than its big cousin TCP, the transmission control protocol, which, as its name suggests, automatically takes care of lots of details that UDP doesn’t. 
+Notably, TCP deals with detecting data gets lost and asking for it again; ensuring that any chunks of data arrive in the right order; and providing a single network connection that, once set up, can be used for sending and receiving at the same time.
+UDP doesn’t have the concept of a “connection”, so that requests and replies essentially travel independently: 
+From the level of the operating system or the network, those two UDP packets above are independent, standalone transmissions – they aren’t tied together as part of the same digital connection. 
+It’s up to the server to remember which client to send each reply to; and it’s up to the client to figure out which replies relate to which requests it originally sent out.
+At this point, especially looking at the diminutive size of the DNS request and reply above, you’re probably wondering, “How can the client be sure that it’s matched the right reply, and not one that’s been garbled in transit, or directed incorrectly, either by accident or design?”
+Unfortunately, many, if not most, DNS requests (especially those from server to server, when the first server you ask doesn’t know the answer and needs to find one that does in order to formulate its reply) aren’t encrypted, or otherwise labelled with any sort of cryptographic authentication code.
+In fact, by default, DNS requests include a single “identification tag”, which is referred to in the DNS data-format documentation simply as ID.
+Amazingly, despite having received numerous updates and suggested improvements over the years, the official internet RFC (request for comments) document that acts as the DNS specification is still RFC 1035 (we’re currently into RFCs in the mid-9000s), dating all the way back to November 1987, just over 35 years ago!
+Back then, both bandwidth and processing power were in short supply: typical CPU speeds were about 10MHz; desktop computers had about 1MByte of RAM; internet access speeds, for organisations who could get online at all, were often 56kbits/sec or 64 kbits/sec, shared between everyone; and 1200bits/sec was the affordable choice for personal connectivity via the dialup modems of the day.
+That’s why DNS request and reply headers were – and still are – squashed into a measly 12 bytes, of which the ID tag takes up the first two, as RFC 1035’s cute ASCII art makes clear:
+You can see the ID in action in the hex dumps shown above, where both the request and the reply packets start with the same two characters bN, which correspond to the 16-bit identifier 62 4e in hex.
+Very loosely speaking, those 16 bits are as much as the official DNS protocol provides by way of “authentication” or “error detection”.
+As you can imagine, given the end-to-end simplicity of regular DNS traffic, anyone with a so-called middlebox or scanning proxy who can intercept, examine and modify your network traffic can trivially meddle with your DNS traffic.
+This includes sending back replies that deliberately give you inaccurate information, such as your IT team redirecting you away from servers that it knows to be littered with malware.
+It may also include your ISP complying with legislation in your country that requires some servers to be reported as non-existent, even if they are alive and running fine, because they’re on a blocklist of illegal content such as child abuse material.
+But, at first glance, this ultra-weak sort of DNS ID tagging also seems to make it trivial even for attackers who have no visibility of your network traffic at all to fire fake DNS replies at your users or your servers…
+…with a dangerously high chance of success.
+After all, if attackers know that someone on your network regularly likes to visit naksec.test, that server might seem like a juicy place to implant fake news, dodgy updates, or rogue JavaScript code.
+And if the attackers aren’t able to hack into the naksec.test server itself, what if they were to regularly and frequently fire UDP packets at your DNS server, using a made-up ID tag, that claimed to answer the question, “What is the A-record for naksec.test“?
+That way, they might be able to hijack the DNS request, provide a fake reply, and therefore misdirect your next visit to the website – essentially hijacking the site itself without ever needing to attack the naksec.test server at all.
+They’d need to get a bit lucky, of course, though they could try over and over again to boost their overall chances, given that they only need to succeed once, whereas you need to get a truthful DNS reply every time.
+To succeed, they’d need to send their rogue DNS reply:
+Fortunately, decent DNS servers tody atake an extra step to make hijacking difficult by default.
+At least, that’s what they’ve been doing since about 2008, when the late Dan Kaminsky pointed out that lots of DNS servers back then were not only configured to listen for incoming requests on a fixed UDP port (almost always port 53, officially assigned to DNS)…
+…but also to receive inbound replies on a fixed port, too, often also port 53, if only to create a pleasing symmetry in traffic.
+The reason for using a fixed port in both directions was probably originally for programming simplicity. By always listening for replies on the same UDP port number, you don’t need to keep track of which ports should be opened up for which replies. This means that the request handler and the reply generator components of your DNS software can operate independently. The request listener doesn’t need to tell the reply sender, “This particular reply needs to go back on a special port, not the usual one.”
+These days, almost all UDP-based DNS servers listen on port 53, as always, but they keep track of the so-called “source port” used by the DNS requester, which it expects to be chosen randomly. 
+UDP source ports, which are a bit like an “extension number” in an old-school office telephone exchange, are intended to be used to help you, and the network, differentiate requests from one other. 
+Internet protocol ports (TCP uses them, too) can run from 1 to 65535, though most outbound connections only use source ports 1024-65535, because port numbers 1023 and below are typically resereved for processes with system privileges.
+The idea is that the sender of any DNS lookup should not only insert a truly random 16-bit ID at the start of each request, but also choose a truly random UDP source port number at which it will listen for the associated reply. 
+This adds an extra level of guesswork that the crooks have to add to their “hijack luck” list above, namely that they have to send a fake reply that ticks all of these boxes:
+In fact, there’s yet another trick that DNS requesters can do, without changing the underlying DNS protocol, and thus (for the most part) without breaking anything.
+This trick, astonishingly, was first proposed back in 2008, in a paper gloriously entitled Increased DNS Forgery Resistance Through 0x20-Bit Encoding: SecURItY viA LeET QueRies.
+The idea is weirdly simple, and relies on two details in the DNS protocol:
+Now, there’s nothing in the protocol that says you MUST use the same sPeLLing in the part of the reply where you repeat the original query, because DNS doesn’t care about case.
+But although RFC 1035 requires you to do case-insensitive comparisons, it strongly suggests that you don’t actually change the case of any text names that you receive in requests or retrieve from your own databases for use in replies.
+In other words, if you receive a request for nAKsEC.tEST, and your database has it stored as NAKSEC.TEST, then those two names are nevertheless considered identical and will match.
+But when you formulate your answer, RFC 1035 suggests that you don’t change the character case of the data you put into your reply, even though you might think it would look neater, and even though it would still match at the other end, thanks to the case-insensitive comparison demanded by DNS.
+So, if you randomly mix up the case of the letters in a DNS request before you send it, most DNS servers will faithfully reflect that weird mashup of letters, even if their own database stores the name of the server differently, as you see here:
+Our DNS server stores the name naksec.test all in upper case, and so the answer section of the reply includes the name in the form NAKSEC.TEST, along with its IPv4 number (the A-record) of 203.0.113.42.
+But in the “here’s the query data returned to you for cross-checking” part of the reply that our DNS server sends back, the character-case mashup originally used in the DNS lookup is preserved:
+Bingo!
+There’s some more “identication tagging” that a DNS lookup can add!
+Along with 15-or-so bits’ worth of randomly-chosen source port, and 16 bits of randomly-chosen ID number data, the requester gets to choose upper-versus-lower case for each alphabetic character in the domain name.
+And naksec.test contains 10 letters, each of which could be written in upper or lower case, for a further 10 bits’ worth of random “tagging”.
+With this extra detail to guess, the attackers would need to get lucky with their timing, the UDP port number, the ID tag value, and the caPiTaLiSATion of the domain name, in order to inject a fake “hijack reply” that the requesting server would accept.
+By the way, the name 0x20-encoding above is a bit of a joke: 0x20 in headecimal is 00100000 in binary, and the solitary bit in that byte is what differentiates upper-case and lower-case letters in the ASCII encoding system.
+The letters A to I, for example, come out as 0x41 to 0x49, while a to i come out as 0x61 to 0x69.
+In other words, if you add 0x41+0x20 to get 0x61, you turn A into a; if you subtract 0x69-0x20 to get 0x49, you turn i into I.
+You might, by now, be wondering, “Why now, if the idea appeared 15 years ago, and would it actually do any good anyway?” 
+Our sudden interest, as it happens, comes from a recent public email from Google techies, admitting that their 2022 experimentations with this old-school sECuriTY tRick have been deployed in real life:
+As we previously announced, Google Public DNS is in the process of enabling case randomization of DNS query names sent to authoritative nameservers. We have successfully deployed it in some regions in North America, Europe and Asia protecting the majority (90%) of DNS queries in those regions not covered by DNS over TLS.
+Intriguingly, Google sugests that the main problems it has had with this simple and apparently uncontroversial tweak is that while most DNS servers are either consistently case-insensitive (so this trick can be used with them) or consistently not (so they are blocklisted), as you might expect…
+…a few maintream servers occasionally drop into “case-sensivtive” mode for short periods, which sounds like the sort of inconsistency you’d hope that major service providers would avoid.
+The answer to the question, “Is it worth it?” isn’t yet clear.
+If you’ve got a nice long service name, like nakedsecurity.sophos.com (22 alphabetic characters), then there’s plenty of extra signalling power, because 222 different capitalisations means 4 million combinations for the crooks to try, multiplied by the 65536 different ID numbers, multiplied by the approximately 32000 to 64000 different source ports to guess…
+…but if you’ve paid a small fortune for a supershort domain name, such as Twitter’s t.co, your attackers only have a job that 2x2x2=8 times harder than before.
+Nevertheless, I think we can say, “Chapeau” to Google for trying this out.
+As cybersecurity observers like to say, attacks only ever get faster, so anything that can take an existing protocol and add extra cracking time to it, almost “for free”, is a useful way of fighting back.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+That’s one messed up atlas … “Monrovia, Liberia in a convenient alphabetic list, and it says something like 184 – C4. This tells you to turn straight to page 184, and to follow the grid lines down from the letter E at the top of the map, and across from the number 4 on the left. Where the lines meet, you’ll find Monrovia.”
+Well, that depends on the scale of the map… Monrovia is largish, about 200 square kilometres, home to more than a million people. 
+Could have several grid lines crossing inside the greater metro area (he said, hopefully).
+Fixed, thanks.
+Typo in the gazeteer example. Text gives coordinate as C4, instruction gives E4.
+Fixed, thanks. TBH, I made up a grid reference, which was p3, E4. Then I figured, why not look it up in my own atlas and see where it is there, and use that for a lark? In the end, I didn’t synch the changes properly. There’s a cybersecurity lesson in there somewhere…
+According to the article typos improve security. Maybe, that is the lesson?
+I was careful to insert the word “might” into the headline… just saying 🙂
+Maybe I need more coffee (or more sleep, or both), but I think you accidentally combined/re-worded something here: “directed incorrectly by mistake, either by accident or design” (Maybe just take out the “by mistake” part?)
+Interesting article, though.
+Y’know…you’d *think* that most major ISPs would try to prevent their DNS servers from randomly dropping into case-insensitive mode for a bit, but—as anyone who works with computers on a regular basis can attest—sometimes they just do whatever they want to do.
+Fixed, thanks.
+As for the “sometimes switching to a different case-sensitivity mode”, I assume that’s down to some sort of caching issue, or backup/overload servers kicking in temporarily – some sort of business continuity plan, perhaps? 
+If so, it’s vaguely worrying that something as critical as DNS relies on continuity plans that provide continuity in the time domain, but not in the functional domain… like an old-school telephone call that never actually cut off entirely, thus technically being “free of outages”, but where snippets of someone else’s conversation occasionally bled through into your earpiece due to a crossed line. (I am talking about the days when the phrase “crossed line” was a literal term, not a metaphorical one. Crossed lines were always rather worrying, given that you had to assume that the parties on the line with which you’d short-circuited very likely spent their previous 15 seconds listening to you…)
+Late to the party, but I would guess this not being continuity, but simply different people bringing new hardware online to increase throughput, using almost identical setups that no one thought to document something as “irrelevant” as case sensitivity.
+There’s the cybersecurity lesson, document how you set up the little irrelevant features, because when they become relevant years later, you’ll break something with inconsistent setups.
+Paul: Speaking of typos, I have one for you here:
+“almost almways port 53, officially assigned to DNS”
+Great article, interesting way to get an extra security check for free.
+Fixed, thanks.
+Typos in a spelling themed article are confusing 🙂
+Search for “foir” and “truthyul” for two more.
+Seems to have worked – you read it carefully, hahahahaha.
+Thanks, fixed.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

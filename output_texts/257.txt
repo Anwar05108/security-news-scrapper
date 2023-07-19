@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re a regular Naked Security reader, you can probably guess where on the planet we’re headed in this virtual journey….
+…we’re off once more to the Department of Software and Information Systems Engineering at Ben-Gurion University of the Negev in Israel.
+Researchers in the department’s Cyber-Security Research Center regularly investigate security issues related to so-called airgapped networks.
+As the name suggests, an airgapped network is deliberately disconnected not only from the internet but also from any other networks, even those in the same facility.
+To create a safe high-security data processing area (or, more precisely, any higher-security-than-its-neighbours area where data can’t easily get out), no physical wires are connected from the airgapped network to any other network.
+Additionally, all wireless communications hardware is typically disabled (and ideally removed physically if possible, or permanently disconnected by cutting wires or circuit board traces if not).
+The idea is to create an environment where even if attackers or disaffected insiders managed to inject malicious code such as spyware into the system, they wouldn’t find it easy, or even possible, to get their stolen data back out again.
+Unfortunately, creating a usable airgapped network with no outward “data loopholes” is harder than it sounds, and the Ben-Gurion University rearchers have described numerous viable tricks, along with how you can mitigate them, in the past.
+We’ve written, admittedly with a mixture of fascination and delight, about their work on many occasions before, including wacky tricks such as GAIROSCOPE (turning a mobile phone’s compass chip into a crude microphone), LANTENNA (using hardwired network cables as radio antennas) and the FANSMITTER (varying CPU fan speed by changing system load to create an audio “data channel”).
+LANtenna hack spies on your data from across the room! (Sort of)
+
+
+This time, the researchers have given their new trick the unfortunate and perhaps needlessly confusing name COVID-bit, where COV is explicitly listed as standing for “covert”, and we’re left to guess that ID-bit stands for something like “information disclosure, bit-by-bit”. 
+This data exfiltration scheme uses a computer’s own power supply as a source of unauthorised yet detectable and decodable radio transmissions.
+The researchers claim covert data transmission rates up to 1000 bits/sec (which was a perfectly useful and useable dialup modem speed 40 years ago).
+They also claim that the leaked data can be received by an unmodified and innocent-looking mobile phone – even one with all its own wireless hardware turned off – up to 2 metres away.
+This means that accomplices outside a secure lab might be able to use this trick to receive stolen data unsuspiciously, assuming that the walls of the lab aren’t sufficiently well shielded against radio leakage.
+So, here’s how COVID-bit works.
+Modern CPUs typically vary their operating voltage and frequency in order to adapt to changing load, thus reducing power consumption and helping to prevent overheating.
+Indeed, some laptops control CPU temperature without needing fans, by deliberately slowing down the processor if it starts getting too hot, adjusting both frequency and voltage to cut down on waste heat at the cost of lower performance. (If you have ever wondered why your new Linux kernels seem to build faster in winter, this might be why.)
+They can do this thanks to a neat electronic device known as an SMPS, short for switched-mode power supply.
+SMPSes don’t use transformers and variable resistances to vary their output voltage, like old-fashioned, bulky, inefficient, buzzy power adapters did in the olden days.
+Instead, they take a steady input voltage and convert it into a neat DC square wave by using a fast-switching transistor to turn the voltage completely on and completely off, anywhere from hundreds of thousands to millions of times a second.
+Fairly simple electrical components then turn this chopped-up DC signal into a a steady voltage that is proportional to the ratio between how long the “on” stages and the “off” stages are in the cleanly switched square wave.
+Loosely speaking, imagine a 12V DC input that’s turned fully on for 1/500,000th of a second and then fully off for 1/250,000ths of a second, over and over again, so it’s at 12V for 1/3 of the time and at 0V for 2/3 of it. Then imagine this electrical square wave getting “smoothed out” by an inductor, a diode and a capacitor into a continuous DC output at 1/3 of the peak input level, thus producing an almost-perfectly steady output of 4V.
+As you can imagine, this switching and smoothing involves rapid changes of current and voltage inside the SMPS, which in turn creates modest electromagnetic fields (simply put, radio waves) that leak out via the metal conductors in the device itself, such as circuit board conductor traces and copper wiring.
+And where there’s electromagnetic leakage, you can be sure that Ben-Gurion University researchers will be looking for ways to use it as a possible secret signalling mechanism.
+But how can you use the radio noise of an SMPS switching millions of times a second to convey anything other than noise?
+The trick, according to a report written by researcher Mordechai Guri, is to vary the load on the CPU suddenly and dramatically, but at a much lower frequency, by deliberately changing the code running on each CPU core between 5000 and 8000 times a second.
+By creating a systematic pattern of changes in processor load at these comparatively low frequencies…
+…Guri was able to trick the SMPS into switching its high-frequency switching rates in such a way that it generated low-frequency radio patterns that could reliably be detected and decoded.
+Better yet, given that his deliberately generated electromagnetic “pseudo-noise” showed up between 0Hz and 60kHz, it turned out to be well-aligned with the sampling abilities of the average laptop or mobile phone audio chip, used for digitising voice and playing back music.
+(The phrase audio chip above is not a typo, even though we’re talking about radio waves, as you will soon see.)
+The human ear, as it happens, can hear frequencies up to about 20kHz, and you need to produce output or record input at at least twice that rate in order to detect sound oscillations reliably and thus to reproduce high frequencies as viable sound waves rather that just spikes or DC-style “straight lines”. 
+CD sampling rates (compact discs, if you remember them) were set at 44,100Hz for this reason, and DAT (digital audio tape) followed soon afterwards, based on a similar-but-slightly-different rate of 48,000Hz. 
+As a result, almost all digital audio devices in use today, including those in headsets, mobile phones and podcasting mics, support a recording rate of 48,000Hz. (Some fancy mics go higher, doubling, redoubling and even octupling that rate right up to 384kHz, but 48kHz is a rate at which you can assume that almost any contemporary digital audio device, even the cheapest one you can find, will be able to record.)
+Traditional microphones convert physical sound pressure into electrical signals, so most people don’t associate the audio jack on their laptop or mobile phone with electromagnetic radiation.
+But you can convert your mobile phone’s audio circuitry into a low-quality, low-frequency, low-power radio receiver or transmitter…
+…simply by creating a “microphone” (or a pair of “headphones”) consisting of a wire loop, plugging it into the audio jack, and letting it act as a radio antenna.
+If you record the faint electrical “audio” signal that gets generated in the wire loop by the electromagnetic radiation it’s exposed to, you have a 48,000Hz digital reconstruction of the radio waves picked up while your “antennaphone” was plugged in.
+So, using some clever frequency encoding techniques to construct radio “noise” that wasn’t just random noise after all, Guri was able to create a covert, one-way data channel with data rates running from 100 bits/sec to 1000 bits/sec, depending on the type of device on which the CPU load-tweaking code was running.
+Desktop PCs, Guri found, could be tricked into producing the best quality “secret radio waves”, giving 500 bits/sec with no errors or 1000 bits/sec with a 1% error rate.
+A Raspberry Pi 3 could “transmit” at 200 bits/sec with no errors, while a Dell laptop used in the test managed 100 bits/sec.
+We’re assuming that the more tightly packed the circuitry and components are inside a device, the greater the interference with the covert radio signals generated by the SMPS circuity.
+Guri also suggests that the power management controls typically used on laptop-class computers, aimed primarily at prolonging battery life, reduce the extent to which rapid alterations in CPU processing load affect the switching of the SMPS, thus reducing the data-carrying capacity of the covert signal.
+Nevertheless, 100 bits/sec is enough to steal a 256-bit AES key in under 3 seconds, a 4096-bit RSA key in about a minute, or 1 MByte of arbitrary data  in under a day.
+If you run a secure area and you’re worried about covert exfiltration channels of this sort:
+Of course, if you don’t have a secure area to worry about…
+…then you can just enjoy this story, while remembering that it reinforces the principle that attacks only ever get better, and thus that security really is a journey, not a destination.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Time to put all of our secure devices inside a Faraday Cage.
+As mentioned in the article… it’s possible but for any sizeable work area it can be quite expensive…
+…plus you need to sort out the power supply to the whole secure area, too, so electromagnetic waste can’t escape that way. No windows (which are literally transparent to EMR in the visible spectrum), can’t have anything that might vibrate enough to conduct sound, and so on. 
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

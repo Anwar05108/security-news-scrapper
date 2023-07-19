@@ -1,0 +1,84 @@
+Sophos Home protects every Mac and PC in your home 
+Update. Progress Software has now tested and published a patch for the “irresponsibly disclosed” vulnerability (CVE-2023-35708) described below. Turn off web access to MOVEit Transfer until you’ve applied this latest patch. [2023-06-17-19:00:00Z]
+Yet more MOVEit mayhem!
+“Disable HTTP and HTTPS traffic to MOVEit Transfer,” said Progress Software, and the timeframe for doing so was “immediately”, no ifs, no buts.
+Progress Software is the maker of file-sharing software MOVEit Transfer, and the hosted MOVEit Cloud alternative that’s based on it, and this is its third warning in three weeks about hackable vulnerabilities in its product.
+At the end of May 2023, cyberextortion criminals associated with the Clop ransomware gang were found to be using a zero-day exploit to break into servers running the MOVEit product’s web front-end.
+By sending deliberately malformed SQL database commands to a MOVEit Transfer server via its web portal, the criminals could access database tables without needing a password, and implant malware that allowed them to return to compromised servers later on, even if they’d been patched in the meantime.
+The attackers have apparently been stealing trophy company data, such as employee payroll details, and demanding blackmail payments in return for “deleting” the stolen data.
+We explained, back at the start of June 2023, how to patch against this bug (CVE-2023-34362), and what you could look for in case the crooks had already paid you a visit:
+MOVEit zero-day exploit used by data breach gangs: The how, the why, and what to do…
+
+
+That warning was followed, last week, by an update from Progress Software.
+While investigating the zero-day hole that they’d just patched, Progress developers uncovered similar programming flaws elsewhere in the code (CVE-2023-35036).
+The company therefore published a further patch, urging customers to apply this new update proactively, assuming that the crooks (whose zero-day had just been rendered useless by the first patch) would also keenly be looking for other ways to break back in:
+More MOVEit mitigations: new patches published for further protection
+
+
+Unsurprisingly, bugs of a feather often flock together, as we explained in this week’s Naked Security podcast:
+[On 2023-06-09, Progress put] another patch out to deal with similar bugs that, as far as they know, the crooks haven’t found yet (but if they look hard enough, they might).
+And, as weird as that sounds, when you find that a particular part of your software has a bug of a particular sort, you shouldn’t be surprised if, when you dig deeper…
+…you find that the programmer (or the programming team who worked on it at the time that the bug you already know about got introduced) committed similar errors around the same time.
+S3 Ep139: Are password rules like running through rain?
+
+
+Well, lightning struck the same place for the third time in quick succession.
+The third time, it seems as though someone performed what’s known in the jargon as a “full disclosure” (where bugs are revealed to the world at the same time as to the vendor, thus giving the vendor no breathing room to publish a patch proactively), or “dropping an 0-day”.
+Progress reported:
+Today [2023-06-15], a third-party publicly posted a new [SQL injection] vulnerability. We have taken HTTPS traffic down for MOVEit Cloud in light of the newly published vulnerability and are asking all MOVEit Transfer customers to immediately take down their HTTP and HTTPS traffic to safeguard their environments while the patch is finalized. We are currently testing the patch and we will update customers shortly.
+Simply put, there was a brief zero-day period during which the new vulnerability (CVE-2023-35708) was circulating, but a patch wasn’t yet tested and ready for release.
+As Progress has mentioned before, this group of so-called command injection bugs (where you send in what ought to be harmless data that later gets invoked as a server command) can only be triggered via MOVEit’s web-based portal, using HTTP or HTTPS requests.
+Fortunately, that meant you didn’t need to shut down your entire MOVEit system to mitigate the bugs before patching them, only web-based access.
+Quoting from Progress Software’s advice document dated 2023-06-15:
+
+Disable all HTTP and HTTPs traffic to your MOVEit Transfer environment. More specifically: 
+
+Progress Software’s patch has now been tested and published, so once you’ve applied the new update you can, in theory, turn web access back on…
+…though we’d sympathise if you decided to keep it turned of for a while longer, just to be sure, to be sure.
+THREAT HUNTING TIPS FOR SOPHOS CUSTOMERS
+Update 2: Information on MOVEit Vulnerabilities CVE-2023-34362, CVE-2023-35036, and CVE-2023-35708
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Seems like rough going for MOVEit lately, but I applaud them for their quick, proactive, and apparently-honest work. They could (theoretically) have tried to keep this all quiet, but instead they’ve been pretty upfront about the problem and what needs to be done about it.
+At the very least, it makes them look more trustworthy in my eyes.
+Yes, they’ve not swept anything under any carpets. 
+When you think that Microsoft just patched a “ask-and-enter” bug in SharePoint whereby anyone on your network could basically “borrow” any other user’s access right to company files (no username, password or 2FA code needed) you have to think that there was a bit of bad luck for Progress in this case. 
+And some poor behaviour on the part of the “researcher” who decided to kick them while they were down by not doing responsible disclosure in this latest case.
+Especially weird when it’s obvious from Progress’s words after the second patch that the company would have given them full credit and recognition in a few days anyway. Apparently notoriety was more what they wanted…
+This business of dropping 0-days in return for fleeting fame and Twitter views – I’ve never understood it and never will.
+typo error “reurn” Paul.
+Fixed, thanks. I also added an update to report that Progress’s new patch is tested and available. See top and bottom of article for details…
+The obligatory reference: https://xkcd.com/327/
+Infuriatingly, the State of Oregon DMV apparently used MOVEit to transfer millions of citizens’ ID information without, oh, encrypting it first or anything intelligent like that, so now everyone has to go freeze their credit reporting with The Big Three and so on.
+As far as I’m concerned, MOVEit can fall into a black hole for good.
+The first question that comes to my mind on reading your post is whether uploading unencrypted personal identifiable information (PII) through any internet sharing service is to blame on the service-provider (MOVEit) or on the user (DMV Oregon) doing the upload?
+Second question is whether there is any service-provider that is and _never_ will be going to be compromised, which system should have been used instead, as a replacement for the currently compromised provider (MOVEit) so it can fall into a black hole?
+Third question is a more direct one.
+Would you rather have a company jump into action the moment they are aware of, publicly acknowledge the, and immediately work on fixing; the breach in question?
+Or would you rather have a company ignore and hide a breach until it can no longer be hidden nor ignored, lie about the situation, push the blame onto the customers and try to postpone fixing their software?
+As far as I’m concerned, MOVEit is doing a very good job albeit the rather unfortunate circumstances.
+Company failures are far from good, but as long as they try to fix those failures quickly, it tells me that there are people working there and that they care about their work.
+Everyone makes mistakes, for we cannot learn without them, but only those that work together on fixing their mistakes can be considered wise and be (most likely) better persons/companies.
+Just to add onto this, MoveIT by default has features and provisions in place to allow users to encrypt their data in transit and in rest. Any unencrypted MoveIT data is mostly the customer’s fault, with the only reasonable complaint being that MoveIT could change its system to encrypt by default, rather than having optional encryption processes.
+There’s also the problem that if the MOVEit bug lets crooks implant a server-side webshell as a side-effect of a rogue file transfer, then those crooks will probably end up with an internal beachhead for further access into your network.
+And if an attacker can get authenticated access to an encrypted database, then the encryption probably gets stripped off automatically whenever a rogue query result is returned…
+Blaming MOVEit for the Oregon DMV’s stupidity is like blaming Budweiser for your DWI arrest.  Try putting the blame where it belongs.
+“an 0-day”? wouldn’t you pronounce this “an zero day”? So then it should be “a 0-day” (a zero day). That is unless you read this as “an Oh day.”
+Maybe I’m just nitpicking?
+Traditionally, you pronounce “zero-day” as it is written, and “0-day” ad “oh-day”, as though it were written with the letter O-for-Oscar.
+Whether this is meant to be a play on words or just to follow the common British and Commonwealth usage of saying “oh” for the digit zero, I’m not sure.
+The UK and many formerly British countries have phone numbers that start with zero, commonly pronounced “oh” because the digit zero was originally reserved to be “O for Operator” (in the days before self-dialled long distance calls).
+If you ask me Sophos’s phone number I will, out of habit, say “Oh-one-two-three-five, double-five double-nine double-three”. (01235 is the Abingdon-on-Thames dialling code and 559933 is our number within that area.)
+Thus it’s “an 0-day” based on how it is most commonly spoken aloud… 
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

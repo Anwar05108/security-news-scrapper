@@ -1,0 +1,316 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG AAMOTH. JavaScript, NetUSB, Log4Shell, FTC… 
+All that and more: it’s the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody.
+I am Paul; he is Doug…
+PAUL DUCKLIN. [LAUGHING] I think you made a genuine mistake there, didn’t you? 
+DOUG. I did. 
+DUCK. It wasn’t actually a joke.
+DOUG. *I’m* Doug… I’m on autopilot, as always, for the first minute of the show.
+DUCK. Well, we’re going to be talking about plenty of software bugs… it’s easy to make that kind of mistake.
+DOUG. We do have a lot to talk about, so we’re going to get into it. 
+We’ve got something of a lightning round today; a lot of stories to cover. 
+And as you know, we like to start the show with a Fun Fact: if you’re superstitious about Friday the Thirteenth, you’re not alone unless you live in Greece, Spain, or Italy.
+Greece and Spain consider Tuesday the Thirteenth to be the unluckiest day; Italians are wary of Friday the Seventeeth; and Paul, as you know, we will tie this back in the This Week In Tech History segment later in the show.
+DUCK. Triskaidekaphobia!
+DOUG. I’ve seen that written a few places, and I’m glad you said it out loud because it’s almost impossible to read if you haven’t heard it before…
+DUCK. Τρισκαίδεκα… it’s just the Ancient Greek word for thirteen, with the word for fear. 
+So actually, that’s fear of thirteen, rather than necessarily just Friday the Thirteenth, but they kind of go together.
+DOUG. A day when spooky and odd things happen. 
+And speaking of spooky and odd, this “JavaScript developer’s” story is wild!
+DUCK. I don’t know whether it’s spooky, but yes, it is odd. Perhaps a little bit sad.
+DOUG. So what happened here?
+DUCK. Well, it was what you might call a supply chain attack, where people suck code written in JavaScript into their projects – from NPM, or GitHub, or wherever they get it, from an open source module that’s consumed by loads of different projects, issued under the MIT Open Source licence. 
+So you’re free to use it, provided you don’t claim it’s yours – you can even use it in commercial code.
+And the developer of two such projects, faker.js and colors.js, suddenly decided he’d had enough.
+He’d given some indication, a couple of years ago, that he was a bit tired of doing all this work and not getting paid…
+…like the the famous XKCD cartoon, Doug.
+DOUG. [LAUGHS]
+DUCK. “Everything’s propped up by this thin little pillar of program, maintained tirelessly by some random person in Nebraska since 2003” – *that* XKCD cartoon.
+DOUG. Yes.
+DUCK. This guy obviously decided, “Well, I’ve had enough.”
+So, for faker.js, he just basically pulled the plug on the whole thing – he removed all the source code.
+He created, if you like, a final version of the project that has no source code in it; it has the comment “Endgame”; and it just says in the README, “What happened to Aaron Schwartz?”
+He was the famous hacktivist who very sadly committed suicide after being arrested for taking a whole load of files – academic papers that he felt should not be behind a firewall, but the law felt otherwise.
+So that’s what he did with this faker.js
+And although it’s a weird name for program, it actually was very useful thing to have because it creates fake data for you. 
+You spoke about that in a recent podcast, didn’t you, Doug? 
+About the importance of not using real data so that you don’t get into privacy trouble.
+Well, he pulled the plug on that one, so if you updated to the latest version, it’s all gone. 
+You don’t have to update – you’re legally allowed to keep using the older one – but clearly, he’s decided it’s time to get out of Dodge City.
+But with colors.js… sadly, he took a less understandable approach, in that he issued a new version that included an infinite loop, basically causing it to print weird-looking garbage when you ran it, instead of just letting you add colors to your console output. 
+You know how people like colors to highlight words like ERROR, WARNING, whatever. 
+But if you accepted this update automatically, as part of what you might call your supply chain, then suddenly your program would suffer a Denial of Service because it would get into this loop that ran from a starting value of 666…
+DOUG. [LAUGHS]
+DUCK. …up to, but not including, the JavaScript value Infinity.
+This loop prints out “testing, testing, testing, testing, testing” with a whole load of garbage added. 
+You could say that wasn’t a very nice thing to do, but you didn’t have to accept the new version, and the code was in there for you to see: it wasn’t hidden in any way. 
+It’s open source you could go and review it. 
+Anyway, some people got hit and had to revert to the old version, and this started a whole chain of comments on his GitHub account.
+I believe he’s been locked out of his GitHub account, perhaps understandably, but there are hundreds of comments on there. 
+Some people going, “Yeah, I’m with you, bro’; I get where you’re coming from”, and other people saying, “You know what? Probably a step too far.”
+DOUG. Think about how many commercial software packages rely on things like this…
+DUCK. You almost said Log4j there, Doug. 
+DOUG. [LAUGHS] Let’s talk about that a little later.
+DUCK. Well, I wonder if the timing of this was perhaps not precipitated by the the fuss over Log4j> 
+Maybe that’s what provoked this chap? 
+Because my understanding is he did try to commercialise the faker.js toolkit, which is very useful; quite a substantial body of code that could create realistic data of all sorts. 
+He did try and commercialise it, and create online services that people who wanted to could pay him, but it seems that that did not work out for him, and so it wasn’t really sustainable. 
+So he pulled the plug on that one.
+But unfortunately, he poisoned the well on the other project, and that’s where we stand.
+DOUG. I suppose this resurfaces the question of the the idea of a Software Bill of Materials, or an ingredients list, if you will, for consumers or people that are going to buy your software…
+…so they can see how many open source components it has, or where everything’s coming from.
+DUCK. Yes, maybe that’s the silver lining in this. 
+Log4j didn’t solve the underlying problem: that feature was added to Log4j, what, in 2013? 
+And nobody noticed it until now, and then when they did, “Oh golly, how dare you?” 
+Well, you took the code into your software years and years ago without noticing it had this problem, and you didn’t pay for it; maybe it’s a little over the top to suggest that it was anyone’s fault but your own, because you got caught out.
+So maybe the silver lining is that, although you could say it was a bit of an infantile thing to do, maybe it will help us all accept, like you say, a Software Bill of Materials – “listed ingredients”. 
+Maybe that is a good idea.
+DOUG. All right, lots of good discussion there. 
+That story is called JavaScript developer destroys own projects in supply chain “lesson” at nakedsecurity.sophos.com 
+So you can head over there to read and opine. 
+And now we’re going to talk about NetUSB.
+I remember the thrill of plugging my printer directly into my home router via USB, how many years ago and saying, “Wow, we’ve made it! The technology has finally reached its apex!”
+DUCK. NetUSB is a product that you can license from a company in Taiwan called Kcodes. 
+They claim in their marketing material that over 20% of worldwide networking devices have embedded Kcodes code in them now, so it sounds like they’ve been quite successful.
+And NetUSB is, if you like, a generic USB virtualiser.
+So it’s not just that you can plug in a centralised hard drive or NAS, or a printer, like you did. 
+NetUSB can handle other things like TV tuners, audio devices, all sorts of stuff, centrally. 
+So there’s a sort of virtual USB cable that runs over your network, between your computer and (unfortunately) a special kernel driver on your router…
+…a driver that turned out to have a bug in it that could, in theory, have allowed almost anybody to take over your router. 
+Oh dear.
+DOUG. Oh dear, indeed.
+DUCK. So, that bug was found by a researcher called Max van Amerongen at Sentinel One. 
+Apparently, he was looking at entering the Pwn2Own IoT hacking competition for 2021. 
+He saw that Netgear had a device on the list, so he thought, “Oh, I’ve looked to those devices before; let me take a look.”
+He found that there was a kernel driver that was listening on TCP port 20005… that number seems to be arbitrary, so that’s not a reliable indicator that you have this problem, but it might be a starting point if you know how to do port scanning. 
+And Max figured, “Hey, kernel driver listing on all network interfaces – localhost, LAN and WAN? If there’s a vulnerability in there, it might be remotely exploitable. That’s where I’m going to start focusing.” 
+And so he dug into the code there. 
+As you’d imagine, something like NetUSB – it’s going to have a lot of different functions it supports. 
+If you think of HTTP, well, that’s got dozens of commands: GET, POST, HEAD, OPTION… but something like NetUSB, with dozens of different types of device, with dozens of different features, probably supports hundreds of different commands.
+And he found that the command 0x805F – I think that’s just arbitrary, 32863…
+That command, when it processed the data that was to be sent for it, had a nasty little bug, Douglas,involving the number 17.
+Basically, the bug goes like this. 
+When you want to run this command – the command is something to do with a message; I don’t know what the command does, because it’s actually the pre-processing that causes the problem, not the command itself…
+…the first thing that the kernel driver does is say, “OK, I’m going to need some data from you. Tell me how much data you’re going to send,” and it accepts a four-byte value. (You can see where this is going…)
+Then it allocates that much memory. 
+Now, that sounds bad because it doesn’t do a length check. 
+What if the person says, “Oh, I want to allocate three gig of RAM?” [LAUGHTER]
+Well, you imagine, on the average home router, it’s just not going to work, and it will fail gracefully. 
+The problem is, if you say, “I want 4GB minus one byte,” in other words FFFFFFFF in hexadecimal. 
+Then, instead of trying to allocate that many bytes, which clearly won’t work because a 32-bit router will not have 4GB of RAM at its disposal to hand to you…
+… what the code would do, it would say, “Well, I’m going to allocate as much memory as you want in case you need that much, even if you don’t use it. And I need 17 extra bytes for my own temporary use.”
+So, it would allocate a very, very large positive, unsigned integer *plus 17 bytes* of memory.
+This would wrap around, millennium bug or car odometer style. 
+And so an attacker could say, “I want you to allocate me 4GB-1 bytes of RAM, and that will mean that I can send you messages any size up to that amount in future.” 
+But the kernel would then allocate a buffer of only 16 bytes, because of the integer overflow.
+Then the kernel would say, “Right, send me your data,” and you send it as much as you want…
+Of course, if you then send it more than 16 bytes, which is accidentally all it allocated, you’ve got a buffer overflow inside the kernel!
+Thanks for coming; game over.
+DOUG. OK, sounds like we need to wait for a firmware update!
+DUCK. Well, the good news is this was responsibly disclosed. 
+The reason that it was only written about this year, even though the work was done back in the middle of 2021, is that this was responsibly disclosed to the company that makes the NetUSB product, and then to all the vendors that might be licensing their products.
+So, they were all aware that there was this bug and that they needed to fix it. 
+So it was responsibly disclosed, and patches are available. 
+The only problem is: how do you find whether you are vulnerable? 
+As I mentioned earlier, you could try using a program like Nmap or something, a port scanner, and seeing if you’ve got port 20005 open on your router, which would be a good hint that you might have this thing, because that’s how the researcher found it in the first place. 
+But, of course, that’s just a symptom: whether you have that port open or closed doesn’t mean that you do or don’t have the bug. 
+So, if you have a router that supports this NetUSB feature, which lets you plug in not just printers but almost any USB device centrally, then go to your router vendor’s website and check whether there’s an update.
+DOUG. OK, and we’ve got some other advice that can help us mitigate such malfeasance in the future.
+DUCK. Yes, the other advice we put in the article was not to users of home routers that might be at risk, where really all we can say is, “Patch early, patch often; check to see whether there is a patch available.” 
+We put in some advice for programmers: three quick things.
+Firstly, don’t listen on all network interfaces by default, unless you really need to.
+Secondly, always check the results of integer arithmetic, especially when it relates to memory allocation.
+And the third tip is to check for integer underflow, as well as for integer overflow.
+If you imagine running an old-school car odometer backwards, the number before 000000 is 999999, not -1, because car odometers can’t do negative numbers.
+Don’t think, “There are bound to be 17 bytes spare,” because there might not be…
+…you owe it to your users to check.
+DOUG. OK. 
+The article is: Home routers with NetUSB support could have critical kernel hole, on nakedsecurity.sophos.com
+Now it is time for This Week In Tech History! 
+We talked about Friday the Thiteenth earlier in the show….
+DUCK. I’ve got an inkling where this is going, and I think that it is going to relate to computer viruses, Doug. [LAUGHTER]
+That’s my suspicion…
+DOUG. How *did* you know? [LAUGHTER]
+This week, on Friday, 13 January 1989, a Friday the Thirteenth virus infected computers across Britain. 
+This was not the first Friday the Thirteenth virus, and it may or may not have been a variant of the so-called Jerusalem virus before it, which was a time-bomb virus that was set to go off starting on Friday the Thirteenth of May 1988, which was the most recent Friday the Thirteenth before January 1989. 
+Both viruses slowed down machines, but left COMMAND.COM alone. 
+And Paul, you have some great colour about all of this stuff because you lived through it. “You were there, man.”
+DUCK. How history repeats itself! 
+A lot of lessons from those days we can take up these days, but the one about COMMAND.COM is quite interesting.
+From memory, one of the very earliest file infecting viruses in the DOS world – I think it may have been the Lehigh virus from the US – it was very obvious, because when it infected the COMMAND.COM file, there only a few variants of COMMAND.COM, and some people had memorized the size of that file.
+So, word quickly got around, “Hey, this virus business is trivial to deal with. All you have to do is watch the size of COMMAND.COM, and if it changes, you’ve got a virus!” 
+And the inference people were invited to make was therefore: if it *doesn’t* change, you *haven’t* got a virus. 
+So, what did the virus writers start doing almost immediately?
+DOUG. [LAUGHS]
+DUCK. They infected every file *except* for COMMAND.COM, because that was the one everyone was focusing on. 
+But it does show that this was a different era… when you could name a virus after an entire *city*, on the assumption that there were so few viruses that what’s they chance they’d ever be another one from the same place?
+DOUG. Yes, times change, and not always for the better.
+Speaking of times changing, it seems that Honda is either having its own little Y2K moment, or it inadvertently built something that works like a time machine.
+DUCK. Love your work there, Doug – that’s a very good segue.
+DOUG. Thank you!
+DUCK.I knew what was coming next, and I didn’t predict that. 
+Yes, the Honda time machine. 
+It’s definitely Back to the Past, isn’t it? Not Back to the Future.
+Apparently, owners of Honda cars of a certain age – not brand new ones, and not brand old ones, either; the cars have to be apparently somewhere around a decade old…
+…on New Year’s Day 2022, when people would start their cars, after a the while the clock would set itself back to somewhere around midnight on 01 January 2002. 
+And I shouldn’t say this, because it’s a cruel thing to do, but I am going to say that if you can’t remember 2002…
+DOUG. Oh, no, no, noooooooooooo….
+DUCK. Am I allowed to do it?
+DOUG. No!
+DUCK. Let’s just say there was a song on the charts with lyrics that go, “La la la, la la la la-la, la la la la-la la la-la”, by the diminutive Aussie pop star Kylie Minogue – that’s how far back we’ve gone. 
+And no one quite knew why.
+The best guess so far seems to be that it relates to what’s known as GPS rollover, in the same way the Millennium bug was caused by people going, “You know what? We’re just going to infer 19 and will use two digits for the year.”
+Well, of course, GPS was invented in the 1970s, and bandwidth from these faraway satellites is very, very limited. 
+And they figured, well, what we’ll do is we’ll run on intervals of 1024 weeks instead of years. 
+So, there’s a “week number”, and there are only 10 bits available for the week number. 
+So every 1024 weeks, old-school GPS devices go back to what you might call Day Zero. 
+I call them “kiloweekaries”,” and those kilowwekaries go from 1980 to 1999; 1999 to 2019; and 2019 to 2039.
+Now, there was an infamous kiloweekary reset on 06 April 2019, where people with old GPS receivers were wondering, “Will they jump back to 1999?”
+Some did, some didn’t. 
+But of course, like the Millennium Bug, you don’t have to get hit by this *only at the exact rollover period*.
+As you remember, with the Millennium bug, what a lot of software did was to assume anything before 50 actually referred to the next millennium.
+Therefore 50 means 1950, but 49 means 2049 – so you still have a Millennium bug, but you shift it along a bit.
+DOUG. Let the future generations will deal with it!
+DUCK. Absolutely. 
+Of course, you can do that with GPS rollover, and that’s what a lot of software does.
+How do you know what starting date to use? Well, the obvious way to do it is to use the time, or the date, or the year in which you compile the software that’s currently running on the GPS device – because that can never go backwards.
+And so you can do a comparison that says, “I don’t expect this software to come into play before, say, 2003. So, if ever I see a year that’s before 2003, I’ll just assume I’m out of range.” 
+And what you’re doing is you’re tacking some days, weeks, months, years from the beginning of a GPS 1024-week period – roughly 20 years; 19 years, seven and a half months….
+…you’re basically taking some days and you shifting them to the end of the current kiloweekary period.
+And the suggestion is that that may have been what caught Honda out here.
+The reason I’m guessing that’s the case is that a reader of The Register, which is a popular IT publication in the UK, commented there that he had a Honda CR-V that was affected by this, and every time he starts his car, the time jumps back to 01 January 2002, as though the clock just doesn’t know what to do. 
+So, it’s choosing the start of the year as a default. (But then, of course, because the clock’s fed by GPS, you can’t set it manually.)
+In this case, it looks as though it knows what the correct time is, but it doesn’t know what year it is, so it figures, “I’ll just I’ll start at midnight, more or less, plus or minus whatever time zone I think you’re in.”
+Apparently, this guy found that his GPS thought it was May 2002, almost exactly 1024 weeks ago, which is what made him think this smells like GPS rollover.
+DOUG. Interesting.
+DUCK. And that’s the best guess that I could come up with as to how this happened: that it’s caused by something like the Millennium bug, but related to a limitation which was built into GPS, understandably, in the 1970s, because every bit counts when you have to get it reliably through space. 
+So, who knows what happened, Doug?
+But it is an indication to any programmer that, when you’re writing code today, and you think, “What’s the chance that the code that I’m cranking out today will still be in use in 2042?”…
+…the answer is *probably* not, but very *possibly* could be.
+DOUG. You never know! 
+DUCK. And therefore, the decisions you make today really could affect people that far ahead.
+DOUG. “Please think of the children,” you know what I mean? 
+DUCK. Exactly!
+As the millennium bug proved; as bugs like this prove: 20 years is both a very long time, but also quite a short time, when it comes to the longevity of computer software.
+DOUG. Absolutely. 
+All right, that’s a fascinating story – we’ve got et some good comments going on, so come and read all about it: Honda cars in flashback to 2002 – “Can’t get you out of my head”.
+And now I’ve got that earworm….
+DUCK. You said it! I don’t think I actually used those words. 
+I just said, [SINGS, FADING OUT GRADUALLY] “La la la, la la la la-la/La la la, la la…”
+DOUG. We don’t like to disappoint here, but unfortunately we have no Apple bug…
+DUCK. [ANXIOUS] I earmwormed myself!
+DOUG. You’ve earwormed yourself?
+We have no Apple bug story this week, but we do have we can’t offer a Log4Shell story. 
+So maybe that’s our new Apple-bubble story – we’ve got a couple of those.
+DUCK. I’m hoping that Log4j will jolt that song out of my head because I have genuinely earwormed myself, Doug, and I can’t really complain, can I?
+DOUG. No, sir!
+DUCK. Aaaaargh.
+All right, so it’s not quite Log4j all over again, but it’s an important reminder. 
+As you know from last week’s podcast, we spoke about how the US public sector decreed, “The Night Before Christmas: thou shalt get this done by then. Don’t leave it. Do it today. It’s not going to go away of its own accord.”
+Well, come the New Year; come the Federal Trade Commission – the FTC is basically the US consumer rights organisation, and it has come out with quite a quite a punchy, boxy little reminder to businesses that operate in US jurisdictions.
+Even if you’re the victim of a cybercrime, then if you could have prevented it by patching, and it was reasonable to expect that you would have done so, you may also be liable yourself. 
+They were quite punchy in what they said, and the warning includes these words, Doug: “The FTC intends to use its full legal authority to pursue companies that fail to take reasonable steps to protect consumer data from exposure as a result of Log4j or similar known vulnerabilities in the future.”
+DOUG. Whoa!
+DUCK. It’s not just Naked Security saying, “Patch early, patch often”!
+It’s the FTC reminding you that sympathy only goes so far, and that you can be both a victim and a committer of cybercrime on account of the same reason – i.e. not having patched.
+It lets the crooks in, and we’ll feel sorry for you for that. 
+But if it lets crooks in where where you might reasonably have been expected to have kept them out, by taking the precautions that frankly everyone else was, then maybe you’ll have to carry the can for some of that.
+DOUG. OK, so when they say “Log4j or similar known vulnerabilities in the future”, not too far after that, we we had a similar vulnerability with this H2 bug.
+DUCK. Yes, surprisingly similar to Log4Shell. 
+And, in fact, found by researchers who were looking through Java code for similar sorts of programming that led to the Log4Shell vulnerability in the first place. 
+This bug, CVE-2021-42392, was discovered by a supply chain management company called JFrog.
+They decided, “Hey, let’s go look through all the Java code that might contain similar use of this JNDI thing” – this Java Naming and Directory Interface that turned out to be abusable in the Log4j bug. 
+And if you remember JNDI, that’s the thing where you actually say, “Hey, I want you to look this data up. Oh, I haven’t got the data, but I’ll send you a URL for some data; in fact, I’ll send you a URL for a program: run the program and see what that tells you.” 
+JFrog, I guess, were wondering how many other programs have parts of their code where this JNDI name lookup functionality could be used and perhaps overused.
+Unfortunately, they very quickly found one in a popular Java SQL database engine called H2. 
+Now, I have to be honest, Doug, I hadn’t heard of H2 before.
+DOUG. No, me neither.
+DUCK. I’ve heard of MySQL, PostgreSQL, SQLite, all the No-SQL database stuff. 
+But I’d never heard of H2 for the same reason I’d never really heard of Log4j: its whole claim to fame was it was something that was compact enough that – unlike, say, MySQL or Microsoft SQL, where you you run up a server and connect to it – hey, you can just suck it into your application, have H2 as part of your application. 
+DOUG. Oh, cool!
+DUCK. It’s another one of those things where applications that you might have installed – they could have pulled this in, just like Java apps could have pulled in Log4j. 
+The bad news is that the bug works in almost exactly the same way as the Log4Shell vulnerability: you get this JNDI thing, and instead of just doing a local lookup, you say, “Hey, do you know what? For the lookup, here is a URL; go and get this Java class file and run it.”
+So it’s the same sequence of events that leads to the exploitability. 
+That’s the bad news. 
+The good news is that, as far as I can tell, the only realistic way that an attacker would be able to exploit this is if they could get in and modify the configuration file for this H2 component on one of the computers in your network. 
+In other words, it’s more of an elevation of privilege or a lateral movement trick than it is remote code execution.
+Becausem although you could use it for remote code execution if the hole were open, you’d have to get local access in order to open up the whole for remote access, if you know what I mean. 
+DOUG. Yes.
+DUCK. In other words, you have to break into the network to be able to break into the network. 
+But it is nevertheless something you want to patch, because it is a feature that was there by mistake, just like the Log4Shell problem.
+So, it is still a bug with patching; it’s just not quite the remote code execution potential catastrophe that we saw with Log4Shell.
+DOUG. OK, we’ve got some advice. 
+If you know you’re you’ve got an app that’s running the H2 database engine, you can upgrade to version 2.0.206; or if you’re not sure, you can search for instances of the H2 code on your network.
+DUCK. Yes, that’s a little bit like the Log4j problem, isn’t it? 
+When people stopped to think about it, they realised they actually didn’t know how many apps they had that were in Java to start with; and then they didn’t know how many of those had included Log4j. 
+When they went looking, they found, “Golly, there’s a lot more Java apps than we thought, and a lot of them just happened to have Log4j.”
+Same with this H2: it could be in an app act without you even realising it.
+DOUG. There’s that Bill of Materials again – we need that Bill of Materials!
+DUCK. Exactly!
+So, like you did with Log4j, where you were looking for log4j DASH whatever…
+…here you can look for files called h2 DASH STAR DOT jar – that’s Java Archive.
+When those files appear, if you’ve got any, they’ll probably come up with something like h2 DASH two DOT zero DOT some number or other DOT jar.
+And like you said, Doug, what you’re looking for is 2.0.206 or later.
+DOUG. OK, hop to it, everybody! 
+That is called Log4Shell-like security hole found in popular Java SQL database engine H2, on nakedsecurity.sophos.com.
+DUCK. And don’t take it from us that you have to hop to it. Take it from the FTC!
+DOUG. Yes, seriously! [LAUGHS]
+DUCK. I don’t want to say they’re threatening people, but they are saying, “It matters.”
+DOUG. They are “strongly urging”. 
+And you can read more about that one on nakedsecurity.sophos.com: FTC threatens legal action over unpatched Log4j and other vulns. 
+And as we round out the show, it’s time for the Oh! No! of the week. 
+Reddit user LordDragon24Aug965, writes…
+DUCK. That’s the whole name?
+DOUG. That’s the whole name, yes.
+DUCK. Do it again, I didn’t catch it all…
+DOUG. LordDragon24Aug1965…
+DUCK. [SARCASTIC] That wouldn’t be his birthday, would it?
+DOUG. It might be, because he starts by saying, “Back in the olden days…” [LAUGHTER]
+I was the only phone support tech for one of the ubiquitous PC clone houses that used to advertise in the computer magazines. 
+We had sold 200 computers to a software company, and the first one went directly to a VP of the company to test out while we built the rest of the order. 
+The sales rep came to me in a full panic, telling me that the machine, which I had tested before it left the shop, wouldn’t turn on. 
+I called the VP who said there were no lights on the machine at all. 
+I asked them to look at the back and see if the power supply fan – the only fan in those days – was spinning.
+He told me to hang on – he had to turn the light on.
+Wouldn’t you know it? 
+He had plugged it into a switched outlet. 
+And Paul, I’m interested to know if this even makes sense to you….
+It ends by saying, “The sales rep bought me lunch for saving his commission.” 
+Do you even have a concept of the “switched outlet” in your neck of the woods?
+DUCK. In fact, I think that in every jurisdiction I’ve ever lived in my life…
+…I have not encountered the phenomenon of an *unswitched* outlet.
+DOUG. Oh, that’s right, yes!
+DUCK. For safety reasons, why not have a switch, so you can turn it off? 
+It’s particularly relevant in the UK where we use ring mains – if one outlet is live, they’re all live. 
+So we have outlets that are, as I understand it, switched by law. 
+The weird thing that we have – in two of the countries I’ve lived in have the regulation – I don’t think you have it in the US – that you’re not allowed light switches inside the bathroom.
+DOUG. Interesting.
+DUCK. You either have to have a regular light switch outside the bathroom, or – most commonly in the UK – you have a pull switch where the switch is in the ceiling, and it’s operated by a string that does not conduct electricity. 
+But you’re not allowed a switch – or an outlet – in a bathroom. 
+DOUG. Interesting!
+Well, I’ve learned so much today, so thank you for enlightening me on this and all the other things we talked about. 
+And if you have an Oh! No! you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any of our articles; or you can hit us up on social@NakedSecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth reminding you, until next time, to… 
+BOTH. Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

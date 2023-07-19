@@ -1,0 +1,222 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Uber hacked, more on the LastPass breach, and Firefox 105. 
+All that, and more, on the Naked Security Podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody, I am Doug Aamoth. 
+With me, as always, is Paul Ducklin…
+[DRAMATIC VOICE] …the host of Security SOS Week, a star-studded lineup of interviews with security experts running from 26-29 September 2022.
+DUCK.  I like the sound of that, Doug. [LAUGHS]
+DOUG.  Yes!
+DUCK.  Please join us next week, folks. 
+Interested in cybersecurity? Join us for Security SOS Week 2022!
+
+
+It’s the last week of September.
+We chose that because it’s the week leading up to Cybersecurity Awareness Month – that’s not a coincidence. 
+So, 26, 27, 28, and 29 September 2022. 
+Each day there’s a 30-minute interview with one of four different experts at Sophos. 
+We’ve got Fraser Howard, malware expert extraordinaire. 
+We’ve got Greg Rosenberg, who will explain the challenges of detecting that someone is in your network to start with, so you can head them off before it goes wrong. 
+There’s Peter Mackenzie from our Incident Response Team, who will tell you some fascinating, scary, but very educational stories about attackers that he’s been sent into bat against.
+And we wrap it all up with Craig Jones, who will tell you how to set up a SecOps team of your own. 
+Craig is the Senior Director of Security Operations *at Sophos itself*, Doug, so he does cybersecurity in a cybersecurity company. 
+He’s a lovely chap, and well worth listening to. 
+The URL is: https://sophos.com/sosweek
+DOUG.  Can’t wait… I will be there! 
+Please join me, everyone – it will be a rollicking good time. 
+And speaking of a rollicking good time, it’s time for our This Week in Tech History segment.
+Something that’s near and dear to my heart – this week, on 23 September 2008, the world’s first Android phone was released. 
+It was called the T-Mobile G1, and it featured a 3.2-inch flip-out screen that revealed a full hardware keyboard. 
+It also had a trackball and no standard headphone jack. 
+Early reviews were mixed, but hopeful. 
+Thanks to Android’s relatively open nature, G1 went on to sell a million handsets in six months, and at one point accounted for two-thirds of devices on T-Mobile’s 3G network. 
+I had one of those devices… it was one of my favorite phones of all time.
+DUCK.  Aaaaah, trackballs on phones, eh? 
+Remember the BlackBerries? 
+It was the thing, wasn’t it… that trackball was really great.
+DOUG.  It was good for scrolling.
+DUCK.  Then they went, “Out with moving parts,” and it was an infrared sensor or something.
+DOUG.  Yes.
+DUCK.  How times change, Doug.
+DOUG.  Yes… I miss it.
+DUCK.  Like you, I liked those slide-out keyboards that the early phones had. 
+There’s something reassuring about actually hearing the click-click-click. 
+I think what I really liked about it is that when you popped out the keyboard, it didn’t obscure half the screen.
+DOUG.  Exactly!
+DUCK.  It wasn’t like half the email you’re reading disappeared when you wanted to reply.
+Which I guess we’ve just got used to now… that’s the way of the world, I suppose.
+DOUG.  That was a long time ago – simpler times. 
+Let’s talk about the Firefox 105 release. 
+What is new from a security standpoint here, Paul?
+DUCK.  Fortunately, nothing that appears to be in the wild and nothing that rates a critical level of vulnerability. 
+But there are a few intriguing vulnerabilities. 
+One in which an individual web page that’s split into a bunch of separate IFRAMES could have security permission leakage between those components. 
+So, you might have a less-privileged frame from a subdomain on your site, for example, that isn’t supposed to be able to access the webcam (because this bug is about device permissions), yet it looks as though you might actually be able to do so. 
+And another similar sounding bug, where a subdomain of your website – a blog or a microsite or something like that – could actually mess with cookies in the parent site. 
+Oh, and a good old “stack buffer overflow when initialising graphics”… just a reminder that memory bugs are still a problem! 
+And of course, there’s the usual “memory safety bugs fixed in Firefox 105”, and in the Extended Support Release, which is 102.3. 
+Remember that in the Extended Support Release, the two numbers add together:  102+3 = 105.
+So, the Extended Support Release is everything from the main version number, plus three updates worth of security fixes, but with the feature fixes held back.
+So get it while it’s fresh.
+DOUG.  Please do!
+Let’s move on to the story of the century, breathlessly reported: “Uber has been hacked.”
+Looking a little closer at it… yes, it’s bad, it’s embarrassing, but it could have been much, much worse.
+UBER HAS BEEN HACKED, boasts hacker – how to stop it happening to you
+
+
+DUCK.  Yes, Uber has come out with a follow up report, and it seems that they’re suggesting that a hacking group like LAPSUS$ was responsible. 
+We’ve spoken about LAPSUS$ on the podcast before. 
+It’s a sort of a “let’s do it for the lulz” kind of thing, where it doesn’t look as though they’re actually after selling the data, although they might give it away for free or certainly embarrass the company with it. 
+As I say, the embarrassment comes from the apparent extent of the breach, fortunately, rather than its depth. 
+It seems like the attackers wanted to wander around through the network as quickly as possible, grabbing screenshots, saying, “Hey, look, here’s me in all sorts of things”…
+…including Slack workspaces; Uber’s threat protection software (in old language, the anti-virus); an AWS console; company travel and expenses. 
+There was a screenshot that I saw published that showed who’d put in the biggest T&E [travel and expenses] claims in recent times. [LAUGHTER] 
+We laugh, but there are employee names in there, so that’s a bad look because it’s implying that the person could have got at employee data.
+A vSphere virtual server console; Google workspaces; and the place where it seems the hacker actually put in the “UBER HAS BEEN HACKED” in capital letters that made the headlines (it even made the Naked Security headline).
+Apparently that was posted to… (oh, dear, Doug [LAUGHS] – it’s not funny, yet it is) 
+…to Uber’s own bug bounty service, which is a very embarrassing look.
+DOUG.  It feels like someone got a hold of an Uber polo shirt and put it on, and sweet-talked their way past the reception desk saying, “Oh, my badge isn’t working,” or something, got into the headquarters and then just started taking pictures of stuff.
+Then they wrote on the bulletin board in the employee break room that they’ve been hacked. 
+It feels like this person could have been an Initial Access Broker [jargon term for hacker who steals passwords and sells them on] if they really wanted to.
+They could have done so many additional bad things while they were in there. 
+But they just took pictures, and it was an embarrassment to Uber.
+DUCK.  Yes. 
+I think the key detail that we could add to your analogy of “getting through the main security checkpoint” is that, on the way in, it also seems that they were able to reach into the super-secure secret cabinet where the access-all-areas passes are kept, and purloin one.
+DOUG.  Yes. [LAUGHS]
+DUCK.  In other words, they found a password in a PowerShell script, on an openly visible network share…
+…so they only needed low level access, and that allowed them to get into what was essentially the password manager for Uber’s networks.
+DOUG.  Yes. 
+So it’s not that this wasn’t unavoidable. 
+If we get to the advice in your article here, we have several things that Uber could have done differently. 
+Starting with: “Password managers and two-factor authentication are not a panacea.” 
+Just because you have those… that’s a security gate, but it’s not the end-all and be-all to keeping someone out.
+DUCK.  Absolutely. 
+We’ll be talking about the LastPass breach in a minute, where it seems that the attackers didn’t actually need to bother with the 2FA side of things. 
+They just waited until the user that they were shadowing had gone through that exercise themselves, and then “borrowed their pass”. 
+So, indeed, 2FA doesn’t mean, “Oh, now I don’t have to worry about outsiders getting in.” 
+It does make that initial access a bit harder, and may make the social engineering more complicated and more likely to stand out. 
+But as you say, it’s an additional security gate.
+DOUG.  And the next one, on the same note, is: “Once you’re in, you can’t just let people wander around.” 
+Security belongs everywhere in the network, not just at the edge.
+DUCK.  Do I hear you saying the words Zero Trust, Douglas?
+DOUG.  [LAUGHS] I was going to…
+DUCK.  I know that sounds like a bit of a sales schpiel, and (surprise, surprise) Sophos has a Zero Trust Network Access product. 
+But we have that product because I think it’s something that’s demanded by the way that modern networks operate, so that you only get the access you actually need for the task in hand. 
+And, if you think about it, that doesn’t just benefit the company that’s dividing up its network. 
+It’s also good for users, because it means they can’t make unfortunate blunders even though they think they’re trying to do the right thing.
+DOUG.  And we also talk about:  “Regular cybersecurity measurement and testing”.
+If you’re not able to do that in-house, consider hiring it out, because you need eyes on this around the clock.
+DUCK.  Yes. 
+Two cliches, if I may, Doug?
+DOUG.  You may. [LAUGHS]
+DUCK.  Cybersecurity is a journey, not a destination.
+You continually have to revisit to make sure [A] that you did correctly what you intended, and [B] that what you planned to do yesterday is still a valid and useful defence today. 
+And the idea of having somebody to help you review what’s happening, particularly when you think something bad has just happened, is it means that you don’t end up with security incidents being major distractions to your regular IT and Security Operations team.
+Distractions could actually be deliberately seeded by the crooks to act as a distraction for the attack that they’ve got planned for later…
+DOUG.  And then finally, we round ited out with a couple of tips for your staff: “Set up a cyber security hotline for your staff to report incidents”, and trust them to help you out by reporting such incidents.
+DUCK.  Yes. 
+A lot of people have decided that people are the biggest problem. 
+I think that’s the wrong way to look at it. 
+People are, in fact, one of the best ways that you can notice things that you didn’t expect.
+It’s always the things that you didn’t expect that will catch you out, because if you had expected them, you would probably have prevented them in the first place!
+Take the goal of turning everyone in your organisation into eyes and ears for your own security team.
+DOUG.  Very good! 
+And we’ve got more Uber coverage.
+Paul, you and Chester Wisniewski did a great minisode, S3 Ep100.5.
+Pure thunder, if I may. 
+It’s called: Uber breach – An expert speaks. 
+You can hear Paul and Chet talking about this particular breach in a little bit more depth:
+S3 Ep100.5: Uber breach – an expert speaks [Audio + Text]
+
+
+DUCK.  I think the most important thing that came out of that minisode of the podcast is what you alluded to earlier, “What if this had been an Initial Access Broker?” 
+In other words, if they went in specifically to get the passwords and got out quietly. 
+This kind of broad-but-shallow attack is actually surprisingly common, and in many cases, as you suggested, the problem is that you don’t realise it’s happened.
+These crooks go out of their way to keep as quiet as possible, and the idea is they take all those access passwords, access tokens, information they’ve got…
+…and sell it on the darkweb for other crooks who want to do very specific things in specific parts of your network.
+DOUG.  All right, we will stay on the breach train, but we’re just going to switch cars on the train. 
+We’re going to walk across and be careful not to fall out onto the platform… but we’re going to get into the LastPass car. 
+They’ve got a post mortem out. 
+They still don’t know how the criminals got in, but at least they admitted it. 
+And it seems like it wasn’t necessarily for the lulz… thus similar but different to the Uber breach.
+LastPass source code breach – incident response report released
+
+
+DUCK.  Indeed, it seems that this one, you might say, was deeper but narrower. 
+I think the report is a good example of how to provide information that’s actually useful after an attack. 
+As you say, they seem to have come out with information that makes it clear what they think happened. 
+They admitted to the “known unknowns”. 
+For example, they said, “It looks as though the crooks implanted malware that was able to masquerade as a developer who had already logged in with their password and 2FA code.” 
+They figured that out, but they don’t know how that implant happened in the first place, and they were decent enough to say they didn’t know. 
+And I think that’s quite good, rather than just going, “Oh, well, we’ve definitely fixed all the problems and this won’t happen again.” 
+If I were a LastPass user, it would make me more inclined to believe the other things that I have to rely on them to state…
+…namely that the development network where their code was stolen is separate from their other networks, so that the attackers were not able to reach out and get things like customer data or password hashes.
+And I’m also inclined to accept LastPass’s explanation (because they’re able to justify it) that even if the crooks *had* been able to jump from the developer network to the cloud storage parts of the network, and even if they had been able to run off with password hashes, it would have been very difficult for them to do anything with it. 
+Because LastPass simply doesn’t know your master password. 
+And they have a little diagram that explains why they believe that to be the case. 
+So, I think, if I were a Last Pass user, that I would be inclined to believe them.
+DOUG.  I *am* a Last Pass user, and I found this to be more reassuring than not. 
+I wasn’t too worried about this before, and now I’m slightly less worried, and certainly not worried enough to dump it wholesale, change all my passwords, and that kind of stuff. 
+So I thought it was pretty good.
+DUCK.  Indeed, one of the concerns that people came out with when we first reported on this breach is, “Well, the crooks got into the source code control system. If they were able to download all this intellectual property, what if they were able to upload some sneaky and unauthorised changes at the same time?”
+Maybe they ran off with the code so they could sell the intellectual property, so industrial espionage was their primary vehicle…
+…but what if there was a supply chain attack as well? 
+And LastPass did attempt to answer that question by saying, “We’ve reviewed source code changes and as far as we can see, the attackers were not able to, or did not, make any.” 
+Also, they explain how even if the crooks had made changes, there are checks and balances that prevent those changes just flowing automatically into the software that you might download, or that their own cloud services might use. 
+In other words, they have a physical separation between the developer network and the production network, and a full-and-proper code review and testing process is required each time for something essentially to jump across that gap. 
+I found that reassuring. 
+They’ve taken precautions that make it less likely that a supply chain attack in the development network could reach customers.
+And they appear to have gone out of their way to verify that no such changes were made anyway.
+DOUG.  Alright, there’s more on that on nakedsecurity.sophos.com, including a link to the LastPass briefing itself. 
+Let us now turn to one of our listeners!
+Naked Security Podcast listener Jonas writes in… 
+…and this is an oldie-but-a-goodie.
+I wouldn’t have believed this myself – I’ve heard this story before in different contexts, and I actually witnessed this as I was working as a computer technician back in the early 2000s. 
+This is a real problem, and it happens. 
+Jonas writes:
+“In in the early 1990s, our computer classroom had a lot of Apple Macintosh Classics with the 3.5-inch floppy drives. 
+In those days, when you needed to install things, you did so with a bunch of disks – Insert disk 1; Insert disk 2; and so on. 
+Well, one of my classmates took the installation instructions too literally.
+She started with the first diskette, and after a while the installation process instructed her to ‘Please insert disk 2’, and she did.”
+Just let that sit there for a little bit…
+DUCK.  [LAUGHS A BIT TOO LOUDLY] We shouldn’t laugh, eh? 
+The instructions could have been clearer!
+DOUG.  Jonas continues:
+“When retelling the story, she said, ‘The second disk was a bit harder to get in, but I managed to force it in. But it still kept asking for the second disk.’
+So she didn’t understand why it still needed disk 2 when she had already inserted disk 1 *and* disk 2… and it was quite hard to get the two disks out. 
+And even then, the floppy drive never worked again on that Mac anyway. 
+It needed to be replaced, but the whole class learned you needed to remove the previous disk before inserting the next one.”
+DUCK.  Well, there you have it!
+DOUG.  I always remember my days as a technician at CompUSA. 
+We had a counter. 
+People would lug their desktop computers in, put the desktop up on the counter, and tell us what was wrong.
+I saw a customer come in and immediately saw a diskette wedged in the 3.5-inch floppy drive, and I thought. “Oh my God. I’ve heard this story. I’ve read about it on the internet and I’m finally experiencing it in real life.” 
+It didn’t get all the way in, but they managed to halfway jam a second diskette into the floppy drive, and they couldn’t get it out. 
+So we had to open the case of the computer, disconnect and unscrew the floppy drive, pull the floppy drive out of the front of the computer, and then it took a couple of us to dislodge that diskette. 
+And, of course, the disk drive had to be replaced…
+Thank you very much, Jonas, for sending that in.
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity.
+That’s our show for today. 
+Thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

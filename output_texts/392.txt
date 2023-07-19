@@ -1,0 +1,35 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at Korean anti-malware business AhnLab are warning about an old-school attack that they say they’re seeing a lot of these days, where cybercriminals guess their way into Linux shell servers and use them as jumping-off points for further attacks, often against innocent third parties.
+The payloads unleashed by this crew of otherwise unsophisticated crooks could not only cost you money through unexpected electricity bills, but also tarnish your reputation by leaving investigative fingers from downstream victims pointing at you and your network…
+…in the same way that, if your car is stolen and then used in committing a offence, you can expect a visit from the cops to invite you to explain your apparent connection with the crime.
+(Some jurisdictions actually have road laws making it illegal to leave parked cars unlocked, as a way of discouraging drivers from making things too easy for TWOCers, joyriders and other car-centric criminals.)
+These attackers are using the not-very-secret and not-at-all-complicated trick of finding Linux shell servers that are accepting SSH (Secure Shell) connections over the internet, and then simply guessing at common username/password combinations in the hope that at least one user has a poorly-secured account.
+Well-secured SSH servers won’t allow users to login with passwords alone, of course, typically by insisting on some sort of alternative or additional logon security based on cryptographic keypairs or 2FA codes.
+But servers set up in a hurry, or launched in preconfigured “ready-to-use” containers, or activated as part of a bigger, more complex setup script for a back-end tool that itself requires SSH, may start up SSH services that work insecurely by default, under the sweeping assumption that you will remember to tighten things up when you move from testing mode to live-on-the-internet mode.
+Indeed, Ahn’s researchers noted that even simply password dictionary lists still seem to deliver usable results for these attackers, listing dangerously predictable examples that include:
+The combination nologin/nologin is a reminder (like any account with the password changeme) that the best intentions often end in forgotten actions or incorrect outcomes.
+After all, an account called nologin is meant to be self-documenting, drawing attention to the fact that it’s not available for interactive logins…
+…but that’s no use (and may even lead to a false sense of security) if it is secure in name only.
+The attackers monitored in these cases seem to favour one or more of three different after-effects, namely:
+How bots and zombies work, and why you should care
+
+
+As mentioned above, attackers who are able to implant new files of their own choice via compromised SSH logins often also tweak your existing SSH configuration to create a brand new “secure” login that they can use as a backdoor in future.
+By modifying the so-called authorized public keys in the .ssh directory of an existing (or newly-added) account, criminals can secretly invite themsevles back in later.
+Ironically, public-key-based SSH login is generally considered much more secure than old-school password-based login.
+In key-based logins, the server stores your public key (which is safe to share), and then challenges you to sign a one-time random challenge with the corresponding private key every time you want to login.
+No passwords are ever exchanged between the client and the server, so there’s nothing in memory (or sent across on the network) that could leak any password information that would be useful next time.
+Of course, this means that the server needs to be cautious about the public keys it accepts as online identifiers, because sneakily implanting a rogue public key is a sneaky way of granting yourself access in future.
+
+Note. Sophos products detect the malware mentioned above, and listed as IoCs (indicators of compromise) by the AhnLab researchers, as Linux/Tsunami-A, Mal/PerlBot-A, and Linux/Miner-EQ, if you want to check your logs.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

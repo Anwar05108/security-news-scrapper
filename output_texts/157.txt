@@ -1,0 +1,215 @@
+Sophos Home protects every Mac and PC in your home 
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  A critical Samba bug, yet another crypto theft, and Happy SysAdmin Day. 
+All that and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth. 
+With me, as always, is Paul Ducklin… Paul, how do you do today?
+DUCK.  Excellent, thank you, Douglas.
+DOUG.  We like to start the show with some tech history. 
+And this week, Paul, we’re going way back to 1858!
+This week in 1858, the first transatlantic telegraph cable was completed. 
+It was spearheaded by American merchant Cyrus Westfield, and the cable ran from Trinity Bay, Newfoundland, to Valencia, Ireland, some 2000 miles across, and more than 2 miles deep. 
+This would be the fifth attempt, and unfortunately, the cable only worked for about a month. 
+But it did function long enough for then President James Buchanan and Queen Victoria to exchange pleasantries.
+DUCK.  Yes, I believe that it was, how can I put it… faint. [LAUGHTER]
+1858!
+What hath God wrought?, Doug! [WORDS SENT IN FIRST EVER TELEGRAPH MESSAGE]
+DOUG.  [LAUGHS] Speaking of things that have been wrought, there is a critical Samba bug that has since been patched. 
+I’m not an expert by any means, but this bug would let anyone become a Domain Admin… that sounds bad.
+Critical Samba bug could let anyone become Domain Admin – patch now!
+
+
+DUCK.  Well, it sounds bad, Doug, mainly for the reason that it *is* rather bad!
+DOUG.  There you go! 
+DUCK.  Samba… just to be clear, before we start, let’s go through the versions you want.
+If you’re on the 4.16 flavour, you need 4.16.4 or later; if you’re on 4.15, you need 4.15.9 or later; and if you’re on 4.14, you need 4.14.14 or later. 
+Those bug fixes, in total, patched six different bugs that were considered serious enough to get CVE numbers – official designators. 
+The one that stood out is CVE-2022-32744. 
+And the title of the bug says it all: Samba Active Directory users can forge password change requests for any user.
+DOUG.  Yes, that sounds bad.
+DUCK.  So, as the full bug report in the security advisory, the change log says, in rather orotund fashion:
+“A user could change the password of the administrator account and gain total control over the domain. Full loss of confidentiality and integrity would be possible, as well as of availability by denying users access to their accounts.”
+And as our listeners probably know, the so-called “holy trinity” (air quotes) of computer security is: availability, confidentiality and integrity.
+You’re supposed to have them all, not just one of them. 
+So, integrity means nobody else can get in and mess with your stuff without you noticing. 
+Availability says you can always get at your stuff – they can’t prevent you getting at it when you want to. 
+And confidentiality means they can’t look at it unless they’re supposed to be permitted. 
+Any one of those, or any two of those, isn’t much use on its own. 
+So this really was a trifecta, Doug!
+And annoyingly, it’s in the very part of Samba that you might use not just if you’re trying to connect a Unix computer to a Windows domain, but if you’re trying to set up an Active Directory domain for Windows computers to use on a bunch of Linux or Unix computers.
+DOUG.  That’s ticking all the boxes in all the wrong ways! 
+But there is a patch out – and we always say, “Patch early, patch often.”
+Is there some sort of workaround that people can use if they can’t patch right away for some reason, or is this a just-do-it type of thing?
+DUCK.  Well, my understanding is that this bug is in the password authentication service called kpasswd. 
+Essentially what that service does is it looks for a password change request, and verifies that it’s signed or authorised by some kind of trusted party. 
+And unfortunately, following a certain series of error conditions, that trusted party could include yourself. 
+So it’s kind of like a Print Your Own Passport bug, if you like. 
+You have to produce a passport… it can be a real one that was issued by your own government, or it can be one that you knocked up at home on your inkjet printer, and both of them woulds pass muster. [LAUGHTER]
+The trick is, if you don’t actually rely on this password authentication service in your use of Samba, you can prevent that kpasswd service from running. 
+Of course, if you’re actually relying on the whole Samba system to provide your Active Directory authentication and your password changes, the workaround would break your own system. 
+So the best defence, of course, is indeed the patch that *removes* the bug rather than simply *avoiding* it.
+DOUG.  Very good. 
+You can read more about that on the site: nakedscurity.sophos.com.
+And we move right along to the most wonderful time of the year!
+We just celebrated SysAdmin Day, Paul, and I won’t telegraph the punchline here… but you had quite a write up.
+How to celebrate SysAdmin Day!
+
+
+DUCK.  Well, once a year, it’s not too much to ask that we should go round to the IT department and smile at everybody who has put in all this hidden background work…
+… to keep [GETTING FASTER AND FASTER] our computers, and our servers, and our cloud services, and our laptops, and our phones, and our network switches [DOUG LAUGHS], and our DSL connections, and our Wi-Fi kit in good working order. 
+Available! Confidential! Full of integrity, all year round! 
+If you didn’t do it on the last Friday of July, which is SysAdmin Appreciation Day, then why not go and do it today? 
+And even if you did do it, there’s nothing that says you can’t appreciate your SysAdmins every day of the year. 
+You don’t have to do it only in July, Doug.
+DOUG.  Good point!
+DUCK.  So here is what to do, Doug.
+I’m going to call this a “poem” or “verse”… I think technically it’s doggerel [LAUGHTER], but I’m going to pretend that it has all the joy and warmth of a Shakespearean sonnet. 
+It *isn’t* a sonnet, but it’ll have to do. 
+DOUG.  Perfect. 
+DUCK.  Here you go, Doug.
+DOUG.  [CLAPPING] Really good! One of your best!
+DUCK.  So much of what SysAdmins do is invisible, and so much of it is surprisingly difficult to do well and reliably…
+…and to do without fixing one thing and breaking another. 
+That smile is the least they deserve, Doug.
+DOUG.  The very least!
+DUCK.  So, to all SysAdmins all over the world, I hope you enjoyed last Friday. 
+And if you didn’t get enough smiles, then take one now.
+DOUG.  Happy SysAdmin Day, everybody, and read that poem, which is great…it’s on the site. 
+All right, moving on to something not so great: a memory mismanagement bug in GnuTLS.
+GnuTLS patches memory mismanagement bug – update now!
+
+
+DUCK.  Yes, I thought this was worth writing up on Naked Security, because when people think of open-source cryptography, they tend to think of OpenSSL.
+Because (A) that’s the one that everybody’s heard of, and (B) it’s the one that’s probably had the most publicity in recent years over bugs, because of Heartbleed. 
+Even if you weren’t there at the time (it was eight years ago), you’ve probably heard of Heartbleed, which was a sort of data leakage and memory leakage bug in OpenSSL. 
+It had been in the code for ages and nobody noticed. 
+And then somebody did notice, and they gave it the fancy name, and they gave the bug a logo, and they gave the bug a website, and they made this massive PR thing out of it.
+Anatomy of a data leakage bug – the OpenSSL “heartbleed” buffer overflow
+
+
+DOUG.  [LAUGHS] That’s how you know it’s real…
+DUCK.  OK, they were doing it because they wanted to draw attention to the fact that they discovered it, and they were very proud of that fact. 
+And the flipside was that people went out and fixed this bug that they might otherwise not have done… because, well, it’s just a bug. 
+It doesn’t seem terribly dramatic – it’s not remote code execution. so they can’t just steam in and instantly take over all of my websites, etc. etc.
+But it did make OpenSSL into a household name, not necessarily for all the right reasons. 
+However, there are many open source cryptographic libraries out there, not just OpenSSL, and at least two of them are surprisingly widely used, even if you’ve never heard of them. 
+There’s NSS, short for Network Security Service, which is Mozilla’s own cryptographic library. 
+You can download and use that independently of any specific Mozilla projects, but you will find it, notably, in Firefox and Thunderbird, doing all the encryption in there – they don’t use OpenSSL.
+And there’s GnuTLS, which is an open-source library under the GNU project, which essentially, if you like, is a competitor or an alternative to OpenSSL, and that is used (even if you don’t realise it) by a surprising number of open-source projects and products…
+…including by code, whatever platform you’re on, that you’ve probably got on your system.
+So that includes anything to do with, say: FFmpeg; Mencoder; GnuPGP (the GNU key management tool); QEMU, Rdesktop; Samba, which we just spoke about in the previous bug; Wget, which a lot of people use for web downloading; Wireshark’s network sniffing tools; Zlib.
+There are loads and loads of tools out there that need a cryptographic library, and have decided either to use GnuTLS *instead* of OpenSSL, or perhaps even *as well as*, depending on supply-chain issues of which subpackages they’ve pulled in. 
+You may have a project where some parts of it use GnuTLS for their cryptography, and some parts of it use OpenSSL, and it’s hard to choose one over the other. 
+So you end up, for better or for worse, with both of them. 
+And unfortunately, GnuTLS (the version you want is 3.7.7 or later) had a type of bug which is known as a double-free… believe it or not in the very part of the code that does TLS certificate validation. 
+So, in the sort of irony we’ve seen in cryptographic libraries before, code that uses TLS for encrypted transmissions but doesn’t bother verifying the other end… code that goes, “Certificate validation, who needs it?” 
+That’s generally regarded as an extremely bad idea, rather shabby from a security point of view… but any code that does that won’t be vulnerable to this bug, because it doesn’t call the buggy code. 
+So, sadly, code that’s trying to do the *right* thing could be tricked by a rogue certificate. 
+And just to explain simply, a double-free is the kind of bug where you ask the operating system or the system, “Hey, give me some memory. I need some memory temporarily. In this case, I’ve got all this certificate data, I want to store it temporarily, validate it, and then when I’m done, I’ll hand the memory back so it can be used by another part of the program.” 
+If you’re a C programmer, you’ll be familiar with the functions malloc(), short for “memory allocate”, and free(), which is “hand it back”. 
+And we know that there’s a type of bug called use-after-free, which is where you hand the data back, but then carry on using that memory block anyway, forgetting that you gave it up. 
+But a double-free is a little different – it’s where you hand the memory back, and you dutifully avoid using it again, but then at a later stage, you go, “Hang on, I’m sure I didn’t hand that memory back yet. I’d better hand it back just in case.”
+And so you tell the operating system, “OK, free this memory up again.”
+So it looks as though it’s a legitimate request to free up the data *that some other part of the program might actually be relying upon*. 
+And as you can imagine, bad things can happen, because that means you may get two parts of the program that are unknowingly relying on the same chunk of memory at the same time. 
+The good news is that I don’t believe that a working exploit was found for this bug, and therefore, if you patch, you’ll get ahead of the crooks rather than simply be catching up with them. 
+But, of course, the bad news is, when bug fixes like this do come out, there’s usually a slew of people who go looking at them, trying to analyse what went wrong, in the hope of rapidly understanding what they can do to exploit the bug against all those people who have been slow to patch. 
+In other words: Don’t delay. Do it today.
+DOUG.  All right, the latest version of GnuTLS is 3.7.7… please update. 
+You can read more about that on the site.
+DUCK.  Oh, and Doug, apparently the bug was introduced in GnuTLS 3.6.0.
+DOUG.  OK.
+DUCK.  So, in theory, if you’ve got an earlier version than that, you’re not vulnerable to this bug…
+…but please don’t use that as an excuse to go, “I don’t need to update yet.” 
+You might as well jump forward over all the other updates that have come out, for all the other security issues, between 3.6.0 and 3.7.6. 
+So the fact that you don’t fall into the category of this bug – don’t use that as an excuse for doing nothing. 
+Use it as the impetus to get yourself to the present day… that’s my advice.
+DOUG.  OK!
+And our final story of the week: we’re talking about another crypto heist. 
+This time, only $200 million, though, Paul.
+This is chump change compared to some of the other ones we’ve talked about.
+Cryptocoin “token swapper” Nomad loses $200 million in coding blunder
+
+
+DUCK.  I almost don’t want to say this, Doug, but one of the reasons I wrote this up is that I looked at it and I found myself thinking, “Oh, only 200 million? That’s quite a small ti… WHAT AM I THINKING!?” [LAUGHTER]
+$200 million, basically… well, not “down the toilet”, rather “out of the bank vault”. 
+This service Nomad is from a company that goes by the name of Illusory Systems Incorporated. 
+And I think you’ll agree that, certainly from a security point of view, the word “illusory” is perhaps the right kind of metaphor. 
+It’s a service that essentially allows you to do what’s in the jargon known as bridging. 
+You’re basically actively trading one cryptocurrency for another. 
+So you put some cryptocurrency of your own into some giant bucket along with loads of other people… and then we can do all these fancy, “decentralised finance” automated smart contracts. 
+We can trade Bitcoin for Ether or Ether for Monero, or whatever. 
+Unfortunately, during a recent code update, it seems that they fell into the same sort of hole that perhaps the Samba guys did with the bug we talked about in Samba. 
+There’s basically a Print Your Own Passport, or an Authorise Your Own Transaction bug that they introduced.
+There’s a point in the code where a cryptographic hash, a 256-bit cryptographic hash, is supposed to be validated… something that nobody but an authorised approver could possibly come up with. 
+Except that if you just happened to use the value zero, then you would pass muster. 
+You could basically take anybody else’s existing transaction, rewrite the recipient’s name with yours (“Hey, pay *my* cryptocurrency wallet”), and just replay the transaction.
+And the system will go, “OK.”
+You just have to get the data in the right format, that’s my understanding. 
+And the easiest way of creating a transaction that would pass muster is simply to take someone else’s pre-completed, existing transaction, replay it, but cross out their name, or their account number, and put in your own. 
+So, as cryptocurrency analyst @samczsun said on Twitter, “Attackers abused this to copy and paste transactions and quickly drained the bridge in a frenzied free-for-all.” 
+In other words, people just went crazy withdrawing money from the ATM that would accept anybody’s bank card, provided you put in a PIN of zero. 
+And not just until the ATM was drained… the ATM was basically directly connected to the side of the bank vault, and the money was simply pouring out.
+DOUG.  Arrrrgh!
+DUCK.  As you say, apparently they lost somewhere up to $200 million in just a short time. 
+Oh, dear.
+DOUG.  Well, we have some advice, and it’s pretty straightforward…
+DUCK.  The only advice you can really give is, “Don’t be in too much of a hurry to join in this decentralised finance revolution.” 
+As we may have said before, make sure that if you *do* get into this “trade online; lend us cryptocurrency and we’ll pay you interest; put your stuff in a hot wallet so you can act within seconds; get into the whole smart contract scene; buy my nonfungible tokens [NFTs]” – all of that stuff… 
+…if you decide that marketplace *is* for you, please make sure you go in with your eyes wide open, not with your eyes wide shut! 
+And the simple reason is that in cases like this, it’s not just like the crooks might be able to drain *some* of the bank’s ATMs. 
+In this case, firstly, it sounds like they’ve drained almost everything, and secondly, unlike with conventional banks, there just aren’t the regulatory protections that you would enjoy if a real life bank went bust. 
+In the case of decentralised finance, the whole idea of it being decentralised, and being new, and cool, and something that you want to rush into…
+…is that it *doesn’t* have these annoying regulatory protections.
+You could, and possibly might – because we’ve spoken about this more often than I’m comfortable doing, really – you might lose *everything*. 
+And the flip side of that is, if you have lost stuff in some decentralised finance or “Web 3.0 brand new super-trading website” implosion like this, then be very careful of people coming along saying, “Hey, don’t worry. Despite the lack of regulation, there are expert companies that can get your money back. All you need to do is contact company X, individual Y, or social media account Z”. 
+Because, whenever there’s a disaster of this sort, the secondary scammers come running pretty jolly quickly, offering to “find a way” to get your money back. 
+There are plenty of scammers hovering around, so be very wary. 
+If you have lost money, don’t go out of your way to throw good money after bad (or bad money after good, whichever way around it is).
+DOUG.  OK, you can read more about that: Cryptocoin “token swapper” Nomad loses $200 million in coding blunder. 
+And if we hear from one of our readers on this story, an anonymous commenter writes, and I agree… I don’t understand how this works:
+“What’s amazing is that an online startup had that much to lose in the first place. $200,000, you can imagine. But $200 million seems unbelievable.”
+And I think we kind of answered that question, but where is all this money is coming from, to just grab $200 million?
+DUCK.  I can’t answer that, Doug.
+DOUG.  No.
+DUCK.  Is it that the world is more credulous than it used to be? 
+Is it that there’s an awful lot of ill-gotten gains sloshing around in the cryptocurrency community? 
+So there are people who didn’t actually put their own money into this, but they ended up with a whole load of cryptocurrency by foul means rather than fair. (We know that ransomware payments generally come as cryptocurrencies, don’t they?) 
+So that it’s like funny-money… the person who’s losing the “money” maybe didn’t put in cash up front? 
+Is it just an almost religious zeal on the part of people going, “No, no, *this* is the way to do it. We need to break the stranglehold way that the old-school, fuddy-duddy, highly regulated financial organisations do things. We’ve got to break free of The Man”? 
+I don’t know, maybe $200 million just isn’t a lot of money anymore, Doug?
+DOUG.  [LAUGHS] Well, of course!
+DUCK.  I suspect that there are just people going in with their eyes wide shut. 
+They’re going, “I *am* prepared to take this risk because it’s just so cool.” 
+And the problem is that if you’re going to lose $200, or $2000, and you can afford to lose it, that’s one thing. 
+But if you’ve gone in for $2000 and you think, “You know what. Maybe I should go in for $20,000?”  And then you think, “You know what. Maybe I should go in for $200,000? Maybe I should go all in?” 
+Then, I think you need to be very careful indeed! 
+Precisely for the reasons that the regulatory protections you might feel that you have, like you do have when something bad happens on your credit card and you just phone up and dispute it and they go. “OK”, and they cross that $52.23 off the bill…
+…that’s not going to happen in this case.
+And it’s unlikely to be $52, it’s probably going to be a lot more than that. 
+So take care out there, folks!
+DOUG.  Take care, indeed. 
+All right, thank you for the comment. 
+And if you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com; you can comment on any one of our articles; you can hit us up on social: @NakedSecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

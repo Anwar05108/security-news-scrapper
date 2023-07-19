@@ -1,0 +1,77 @@
+Sophos Home protects every Mac and PC in your home 
+Microsoft’s May 2023 Patch Tuesday updates comprise just the sort of mixture you probably expected.
+If you go by numbers, there are 38 vulnerabilities, of which seven are considered critical: six in Windows itself, and one in SharePoint.
+Apparently, three of the 38 holes are zero-days, because they’re already publicly known, and at least one of them has already been actively exploited by cybercriminals.
+May’s Patch Tuesday haul touches a six-pack of product families
+
+
+Unfortunately, those criminals seem to include the notorious Black Lotus ransomware gang, so it’s good to see a patch delivered for this in-the-wild security hole, dubbed CVE-2023-24932: Secure Boot Security Feature Bypass Vulnerability.
+However, although you’ll get the patch if you perform a full Patch Tuesday download and let the update complete…
+…it won’t automatically be applied.
+To activate the necessary security fixes, you’ll need to read and absorb a 500-word post entitled Guidance related to Secure Boot Manager changes associated with CVE-2023-24932.
+Then, you’ll need to work through an instructional reference that runs to nearly 3000 words.
+That one is called KB5025885: How to manage the Windows Boot Manager revocations for Secure Boot changes associated with CVE-2023-24932.
+If you’ve followed our recent coverage of the MSI data breach, you’ll know that it involves cryptographic keys relevant to firmware security that were allegedly stolen from motherboard giant MSI by a different gang of cyberextortionists going by the street name Money Message.
+You’ll also know that commenters on the articles we’ve written about the MSI incident have asked, “Why don’t MSI immediately revoke the stolen keys, stop using them, and then push out new firmware signed with new keys?”
+As we’ve explained in the context of that story, disowning compromised firmware keys to block possible rogue firmware code can very easily provoke a bad case of what’s known as “the law of unintended consequences”.
+Low-level motherboard security keys leaked in MSI breach, claim researchers
+
+
+For example, you might decide that the first and most important step is to tell me not to trust anything that’s signed by key XYZ any more, because that’s the one that’s been compromised.
+After all, revoking the stolen key is the fastest and surest way to make it useless to the crooks, and if you’re quick enough, you might even get the lock changed before they have a chance to try the key at all. 
+But you can see where this is going.
+If my computer revokes the stolen key in preparation for receiving a fresh key and updated firmware, but my computer reboots (accidentally or otherwise) at the wrong moment…
+…then the firmware I’ve already got will no longer be trusted, and I won’t be able to boot – not off hard disk, not off USB, not off the network, probably not at all, because I won’t get as far as the point in the firmware code where I could load anything from an external device.
+In Microsoft’s CVE-2023-24932 case, the problem isn’t quite as severe as that, because the full patch doesn’t invalidate the existing firmware on the motherboard itself.
+The full patch involves updating Microsoft’s bootup code in your hard disk’s startup partition, and then telling your motherboard not to trust the old, insecure bootup code any more.
+In theory, if something goes wrong, you should still be able to recover from an operating system boot failure simply by starting up from a recovery disk you prepared earlier.
+Except that none of your existing recovery disks will be trusted by your computer at that point, assuming that they include boot-time components that have now been revoked and thus won’t be accepted by your computer.
+Again, you can still probably recover your data, if not your entire operating system installation, by using a computer that has been fully patched to create a fully-up-to-date recovery image with the new bootup code on it, assuming you have a spare computer handy to do that.
+Or you could download a Microsoft installation image that’s already been updated, assuming that you have some way to fetch the download, and assuming that Microsoft has a fresh image available that matches your hardware and operating system. 
+(As an experiment, we just fetched [2023-05-09:23:55:00Z] the latest Windows 11 Enterprise Evaluation 64-bit ISO image, which can be used for recovery as well as installation, but it hadn’t been updated recently.)
+And even if you or your IT department do have the time and the spare equipment to create recovery images retrospectively, it’s still going to be a time-consuming hassle that you could all do without, especially if you’re working from home and dozens of other people in your company have been stymied at the same time and need to be sent new recovery media.
+So, Microsoft has built the raw materials you need for this patch into the files you’ll get when you download your May 2023 Patch Tuesday update, but has quite deliberately decided against activating all the steps needed to apply the patch automatically.
+Instead, Microsoft urges you need to follow a three-step manual process like this:
+As you can see, if you perform steps 1 and 3 together straight away, but leave step 2 until later, and something goes wrong…
+…none of your existing recovery images will work any more because they’ll contain bootup code that’s already been disowned and banned by your already-fully-updated computer.
+If you like analogies, saving step 3 until last of all helps to prevent you from locking your keys inside the car.
+Reformatting your local hard disk won’t help if you do lock yourself out, because step 3 transfers the cryptographic hashes of the revoked bootup code from temporary storage on your hard disk into a “never trust again” list that’s locked into secure storage on the motherboard itself. 
+In Microsoft’s understandably more dramatic and repetitive official words:
+CAUTION
+Once the mitigation for this issue is enabled on a device, meaning the revocations have been applied, it cannot be reverted if you continue to use Secure Boot on that device. Even reformatting of the disk will not remove the revocations if they have already been applied.
+You have been warned!
+Microsoft has provided a three-stage schedule for this particular update:
+By the way, if your computer doesn’t have Secure Boot turned on, then you can simply wait for the three-stage process above to be completed automatically.
+After all, without Secure Boot, anyone with access to your computer could hack the bootup code anyway, given that there is no active cryptographic protection to lock down the startup process.
+DO I HAVE SECURE BOOT TURNED ON?
+You can find out if your computer has Secure Boot turned on by running the command MSINFO32:
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This is a bit silly for home users, as it’s where an attacker has access to your computer they might be able to boot something other than Windows… like has been possible for most of computer history… e.g. dual-booting Windows/Linux…
+From MS:
+Q. How can an attacker successfully exploit this vulnerability?
+A. To exploit the vulnerability, an attacker who has physical access or Administrative rights to a target device could install an affected boot policy.
+Q.What kind of security feature could be bypassed by successfully exploiting this vulnerability?
+A. An attacker who successfully exploited this vulnerability could bypass Secure Boot.
+Q. According to the CVSS metric, privileges required is high (PR:H). What does that mean for this vulnerability?
+A. Successful exploitation of this vulnerability requires an attacker to compromise admin credentials on the device.
+Linux bootups still go through Secure Boot… 
+The vulnerability can, it seems, be exploited over the network, presumably by an Admin-level attacker using the boot manager tools to install a rogue boot-time module that will not be detected and stopped when you next reboot. So physical access is not required to exploit this.
+If you are a home user and you do have Secure Boot enabled, but you aren’t worried about this vulnerability, then you can simply go with the flow, because you’ll get the patch but your bootloader won’t get the extra lockdown applied for a while yet.
+I assume that Microsoft is trying to go slowly-slowly-softly-softly on this one to discourage people from simply turning Secure Boot off because they think there might be a catastrophe looming…
+Typo *Safter automatic*
+Seems like a good idea to turn secure boot off after downloading all files. Disconnect from the network if you are paranoid. Apply the patches.
+I’ll wait for the automatic process 🤩
+Why would turning off Secure Boot make a difference if all you do is step 1?
+(Fixed the typo, thanks!)
+I have an old board with Legacy BIOS so that Secure Boot State is unsupported.   I take it that the BIOS is always open to attack, so the patches are inapplicable.   In effect I have an old car for which the keys are a nicety – a screw driver can be used by anyone to access & start it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

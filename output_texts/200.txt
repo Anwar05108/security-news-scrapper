@@ -1,0 +1,218 @@
+Sophos Home protects every Mac and PC in your home 
+SCAMMERS IN THE SLAMMER (AND OTHER STORIES)
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Microsoft’s double zero-day, prison for scammers, and bogus phone calls. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. I am Doug Aamoth. 
+He is Paul Ducklin…
+DUCK.  It’s a great pleasure, Douglas.
+DOUG.  I have some Tech History for you and it goes way back, way, way, way back, and it has to do with calculators. 
+This week, on 7 October 1954, IBM demonstrated the first-of-its-kind all-transistor calculator. 
+The IBM Electronic Calculating Punch, as it was called, swapped its 1250 vacuum tubes for 2000 transistors, which halved its volume and used just 5% as much power.
+DUCK.  Wow!
+I hadn’t heard of that “604”, so I went and looked it up, and I couldn’t find a picture. 
+Apparently, that was just the experimental model, and it was a few months later thqt they brought out the one you could buy, which was called the 608, and they’d upped it to 3000 transistors. 
+But remember, Doug, this is not transistors as in integrated circuits [ICs] because there were no ICs yet. 
+Where you would have had a valve, a thermionic valve (or a “toob” [vacuum tube], as you guys would call it), there’d be a transistor wired in instead. 
+So although it was much smaller, it was still discrete components.
+When I think “calculator”, I think “pocket calculator”…
+DOUG.  Oh, no, no, no!
+DUCK.  “No”, as you say…
+…it’s the size of a very large refrigerator! 
+And then you need a very large refrigerator next to it, in the photo that I saw, that I think is for input. 
+And then there was some other control circuitry which looked like a very large chest freezer, next to the two very large refrigerators. 
+I didn’t realise this, but apparently Thomas Watson [CEO of IBM] at that time made this decree for all of IBM: “No new products are allowed to use valves, vacuum tubes. We’re absolutely embracing, endorsing and only using transistors.” 
+And so that was where everything went thereafter. 
+So, although this was in the vanguard of the transistor revolution, apparently it was soon superseded… it was only on the market for about 18 months.
+DOUG.  Well, let’s stay on the subject of very large things, and update our listeners about this Microsoft Exchange double zero-day. 
+We’ve covered it on a minisode; we’ve covered it on the site… but anything new we should know about?
+S3 Ep102.5: “ProxyNotShell” Exchange bugs – an expert speaks [Audio + Text]
+
+
+DUCK.  Not really, Douglas. 
+It does seem not to have taken over the cybercurity world or security operations [SecOps] like ProxyShell and Log4Shell did:
+Log4Shell: The Movie… a short, safe visual tour for work and home
+
+
+I’m guessing there are two reasons for that. 
+First is that the actual details of the vulnerability are still secret. 
+They’re known to the Vietnamese company that discovered it, to the ZeroDay Initiative [ZDI] where it was responsibly disclosed, and to Microsoft. 
+And everyone seems to be keeping it under their hat. 
+So, as far as I know, there aren’t 250 proof-of-concept “try this now!” GitHub repositories where you can do it for yourself. 
+Secondly, it does require authenticated access. 
+And my gut feeling is that all of the wannabe “cybersecurity researchers” (giant air quotes inserted here) who jumped on the bandwagon of running attacks across the internet with Proxyshell or Log4Shell, claiming that they were doing the world of service: “Hey, if your web service is vulnerable, I’ll find out, and I’ll tell you”… 
+…I suspect that a lot of those people will think twice about trying to pull off the same attack where they have to actually guess passwords. 
+That feels like it’s the other side of a rather important line in the sand, doesn’t it?
+DOUG.  Uh-huh.
+DUCK.  If you’ve got an open web server that’s designed to accept requests, that’s very different from sending a request to a server that you know you are not supposed to be accessing, and trying to provide a password that you know you’re not supposed to know, if that makes sense. 
+DOUG.  Yes.
+DUCK.  So the good news is it doesn’t seem to be getting widely exploited…
+…but there still isn’t a patch out. 
+And I think, as soon as a patch does appear, you need to get it quickly. 
+Don’t delay, because I imagine that there will be a bit of a feeding frenzy trying to reverse-engineer the patches to find out how you actually exploit this thing reliably.
+Because, as far as we know, it does work pretty well – if you’ve got a password, then you can use the first exploit to open the door to the second exploit, which lets you run PowerShell on an Exchange server. 
+And that can never end well. 
+I did take a look at Microsoft’s Guideline document this very morning (we’re recording on the Wednesday of the week), but I did not see any information about a patch or when one will be available. 
+Next Tuesday is Patch Tuesday, so maybe we’re going to be made to wait until then?
+DOUG.  OK, we’ll keep an eye on that, and please update and patch when you see it… it’s important. 
+I’m going to circle back to our calculator and give you a little equation. 
+It goes like this:  2 years of scamming + $10 million scammed = 25 years in prison:
+Romance scammer and BEC fraudster sent to prison for 25 years
+
+
+DUCK.  This is a criminal – we can now call him that because he’s not only been convicted, but sentenced – with a dramatic sounding name: Elvis Eghosa Ogiekpolor.
+And he ran what you might call an artisan cybergang in Atlanta, Georgia in the United States a couple of years ago. 
+In just under two years, they feasted, if you like, on unfortunate companies who were the victims of what’s known as Business Email Compromise [BEC], and unfortunate individuals whom they lured into romance scams… and made $10 million.
+Elvis (I’ll just call him that)… in this case, he had got a team together who created a whole web of fraudulently opened US bank accounts where he could deposit and then launder the money. 
+And he was not only convicted, he’s just been sentenced. 
+The judge obviously decided that the nature of this crime, and the nature of the victimisation, was sufficiently serious that he got 25 years in a federal prison.
+DOUG.  Let’s dig into Business Email Compromise. 
+I think it’s fascinating – you’re either impersonating someone’s email address, or you’ve gotten a hold of their actual email address. 
+And with that, once you can get someone on the hook, you can do a whole bunch of things. 
+You list them out in the article here – I’ll go through them real quick. 
+You can learn when large payments are due…
+DUCK.  Indeed. 
+Obviously, if you’re mailing from outside, and you’re just spoofing the email headers to pretend that the email is coming from the CFO, then you have to guess what the CFO knows. 
+But if you can log into the CFO’s email account every morning early on, before they do, then you can have a peek around all the big stuff that’s going on and you can make notes. 
+And so, when you come to impersonate them, not only are you sending an email that actually comes from their account, you’re doing so with an amazing amount of insider knowledge.
+DOUG.  And then, of course, when you get an email where you ask some unknowing employee to wire a bunch of money to this vendor and they say, “Is this for real?”…
+…if you’ve gotten access to the actual email system, you can reply back. “Of course it’s real. Look at the email address – it’s me, the CFO.”
+DUCK.  And of course, even more, you can say, “By the way, this is an acquisition, this is a deal that will steal a march on our competitors. So it’s company confidential. Make sure you don’t tell anybody else in the company.”
+DOUG.  Yes – double whammy!
+You can say, “It’s me, it’s real, but this is a big deal, it’s a secret, don’t tell anyone else. No IT! Don’t report this as a suspicious message.” 
+You can then go into the Sent folder and delete the fake emails that you’ve sent on behalf of the CFO, so no one can see that you’ve been in there rummaging around. 
+And if you’re a “good” BEC scammer, you will go and dig around in the real employee’s former emails, and match the style of that user by copying and pasting common phrases that person has used.
+DUCK.  Absolutely, Doug.
+I think we’ve spoken before, when we’ve talked about phishing emails… about readers who’ve reported, “Yes, I got at one like this, but I rumbled it immediately because the person used a greeting in their email that is just so out of character.” 
+Or there were some emojis in the sign-off, like a smiley face [LAUGHTER], which I know this person just would never do. 
+Of course, if you just copy-and-paste the standard intro and outro from previous emails, then you avoid that kind of problem. 
+And the other thing, Doug, is that if you send the email from the real account, it gets the person’s real, genuine email signature, doesn’t it? 
+Which is added by the company server, and just makes it look like exactly what you’re expecting.
+DOUG.  And then I love this dismount…
+…as a top notch criminal, not only are you going to rip the company off, you’re also going to go after *customers* of the company saying, “Hey, can you pay this invoice now, and send it to this new bank account?” 
+You can defraud not just the company, but the companies that the company works with.
+DUCK.  Absolutely.
+DOUG.  And lest you think that Elvis was just defrauding companies… he was also romance scamming as well.
+DUCK.  The Department of Justice reports that some of the businesses they scammed were taken for hundreds of thousands of dollars at a time. 
+And the flip side of their fraud was going after individuals in what’s called romance scams. 
+Apparently there were 13 people who came forward as witnesses in the case, and two of the examples that the DOJ (the Department of Justice) mentioned went for, I think, $32,000 and $70,000 respectively.
+DOUG.  OK, so we’ve got some advice how to protect your business from Business Email Compromise, and how to protect yourself from romance scams. 
+Let’s start with Business Email Compromise. 
+I like this first point because it’s easy and it’s very low hanging fruit: Create a central email account for staff to report suspicious emails.
+DUCK.  Yes, if you have security@example.com, then presumably you’ll look after that email account really carefully, and you could argue that it’s much less likely that a Business Email Compromise person would be able to compromise the SecOps account compared to compromising account of any other random employee in the company. 
+And presumably also, if you’ve got at least a few people who can keep their eye on what’s going on there, you’ve got a much better chance of getting useful and well-intentioned responses out of that email address than just asking the individual concerned. 
+Even if the CFO’s email hasn’t been compromised… if you’ve got a phishing email, and then you ask the CFO, “Hey, is this legit or not?”,  you’re putting the CFO in a very difficult position. 
+You’re saying, “Can you act as though you’re an IT expert, a cybersecurity researcher, or a security operations person?” 
+Much better to centralise that,  so there’s an easy way for people to report something that looks a little bit off. 
+It also means that if what you would do normally is just to go, “Well, that’s obviously phishing. I’ll just delete it”…
+…by sending it in, even though *you* think it’s obvious, you allow the SecOps team or the IT team to warn the rest of the company.
+DOUG.  All right. 
+And the next piece of advice: If in doubt, check with the sender of the email directly. 
+And, not to spoil the punchline, probably maybe not via email by some other means…
+DUCK.  Whatever the mechanism used to send you a message that you don’t trust, don’t message them back via the same system!
+If the account hasn’t been hacked, you’ll get a reply saying, “No, don’t worry, all is well.” 
+And if the account *has* been hacked, you’ll get back a message saying, “Oh, no, don’t worry, all’s well!” [LAUGHS]
+DOUG.  All right. 
+And then last, but certainly not least: Require secondary authorisation for changes in account payment details. 
+DUCK.  If you have a second set of eyes on the problem – secondary authorisation – that [A] makes it harder for a crooked insider to get away with the scam if they’re helping out, and [B] mean that no one person, who’s obviously trying to be helpful to customers, has to bear the entire responsibility and pressure for deciding, “Is this legit or not?” 
+Two eyes are often better than one. 
+Or maybe I mean four eyes are often better than two…
+DOUG.  Yes. [LAUGHS].
+Let’s turn our attention to romance scams. 
+The first piece of advice is: Slow down when dating talk turns from friendship, love or romance to money.
+DUCK.  Yes. 
+It’s October, isn’t it, Doug? 
+So it’s Cybersecurity Awareness Month once again… #cybermonth, if you want to keep track of what people are doing and saying.
+There’s that great little motto (is that the right word?) that we have said many times on the podcast, because I know you and I like it, Doug. 
+This comes from the US Public Service…
+BOTH.  Stop. (Period.) 
+Think. (Period.)
+Connect. (Period.) 
+DUCK.  Don’t be in too much of a hurry! 
+It really is a question of “transact in haste, repent at leisure” when it comes to online matters.
+DOUG.  And another piece of advice that’s going to be tough for some people… but look inside yourself and try to follow it: Listen openly to your friends and family if they try to warn you.
+DUCK.  Yes. 
+I have been at cybersecurity events that have dealt with the issue of romance scamming in the past, when I was working at Sophos Australia. 
+It was wrenching to hear tales from people in the police service whose job is to try and intervene in scams at this point…
+…and just to see how glum some of these cops were when they’d come back from visiting.
+In some cases, whole families had been lured into scams. 
+These are more of the “financial investment” type, obviously, than the romance sort, but *everybody* was onside with the scammer, so when law enforcement went there, the family had “all the answers” that had been carefully provided by the crook. 
+And in romance scams, they will think nothing of courting your romantic interest *and* driving a wedge between you and your family, so you stop listening to their advice. 
+So, just be careful that you don’t end up estranged from your family as well as from your bank account.
+DOUG.  All right.
+And then there’s a final piece of advice: There’s a great video embedded inside the article.
+The article is called Romance Scammer and BEC Fraudster sent to prison for 25 years: 
+Romance scammer and BEC fraudster sent to prison for 25 years
+
+
+So watch that video – it’s got a lot of great tips in it. 
+And let’s stay on the subject of scams, and talk about scammers and rogue callers. 
+Is it even possible to stop scam calls? 
+That’s the big question of the day right now:
+Scammers and rogue callers – can anything ever stop them?
+
+
+DUCK.  Well, there are scam calls and there’s nuisance calls. 
+Sometimes, the nuisance calls seem to come very close to scam calls. 
+These are people who represent legitimate businesses, [ANNOYED] but they just won’t stop calling you, [GETTING MORE AGITATED] no matter that you tell them “I’m on the Do Not Call list [ANGRY] so DO NOT CALL AGAIN.” 
+So I wrote an article on Naked Security saying to people… if you can bring yourself to do it (I’m not suggesting you should do this every time, it’s a real hassle), it turns out that if you *do* complain, sometimes it does have a result. 
+And what minded me to write this up is that four companies selling “environmental” products were busted by the Information Commissioner’s Office [ICO, UK Data Privacy regulator] the and fined between tens and hundreds of thousands of pounds for making calls to people who had put themselves on what is rather strangely called the Telephone Preference Service in the UK…
+…it’s as though they’re admitting that some people actually want to opt into these garbage calls. [LAUGHTER]
+DOUG.  “Prefer”?! [LAUGHS]
+DUCK.  I do like the way it is in the US. 
+The place you go to register and complain is: donotcall DOT gov.
+DOUG.  Yes! “Do Not Call!”
+DUCK.  Sadly, when it comes to telephony, we still do live in an opt-out world… they’re allowed to call you until you say they can’t. 
+But my experience has been that, although it does not solve the problem, putting yourself on the Do Not Call register is almost certain not to *increase* the number of calls you get. 
+It has made a difference to me, both when I was living in Australia and now I’m living in the UK…
+…and reporting calls from time to time at least gives the regulator in your country a fighting chance of taking some sort of action at some time in the future. 
+Because if nobody says anything, then it is as though nothing had happened.
+DOUG.  That dovetails nicely into our reader comment on this article. 
+Naked Security reader Phil comments:
+Voicemail has changed everything for me. 
+If the caller is unwilling to leave a message and most aren’t, then I have no reason to return the call. 
+What’s more, in order to report a scam phone call, I’d have to waste the time necessary to answer the phone from an unidentified caller and interact with someone solely for the purpose of reporting them. 
+Even if I do answer the call, I’ll be talking to a robot anyway… no thanks!
+So, is that the answer: just never pick up the phone calls, and never deal with these scammers? 
+Or is there a better way, Paul?
+DUCK.  What I’ve found is, if I think that the number is a scammy number…
+Some of the scammers or nuisance callers will use a different number every time – it will always look local, so it’s hard to tell, although I’ve been plagued by one recently where it’s been the same number over and over, so I can just block that. 
+…typically what I do is I just answer the phone, and I don’t say anything. 
+They’re calling me; if it’s that important, they’ll say, “Hello? Hello? Is that…?”, and use my name. 
+I find that a lot of these nuisance callers and scammers are using automated systems that, when they hear you answering the call, only then will they try and connect you to an operator at their side. 
+They don’t have their telephone operators actually placing the calls. 
+They call you, and while you’re identifying yourself, they quickly find somebody in the queue who can pretend to have made the call. 
+And I find that is a dead good giveaway, because if nothing happens, if nobody even goes, “Hello? Hello? Anybody there?”,  then you know you’re dealing with an automated system. 
+However, there’s an annoying problem, though I think this is specific to the United Kingdom.
+The bureaucracy for reporting what is called a “silent call”, like a heavy-breathing stalker type where no words are spoken…
+…the mechanism for reporting that is completely different from the mechanism for reporting a call where someone says, “Hey, I’m John and I want to sell you this product you don’t need and isn’t any good”, which is really annoying. 
+Silent call reports go through the telephone regulator, and it’s treated as if it were a more serious criminal offence, I presume for historical reasons.
+You have to identify yourself – you can’t report those anonymously. 
+So I find that annoying, and I do hope that they change that! 
+Where it’s just a robotic system that’s called you, and it doesn’t know you’re on the line yet so it hasn’t assigned anyone to talk to you… 
+…if you could report those more easily and anonymously, to be honest, I would be much more inclined to do it.
+DOUG.  All right. 
+We have some links in the article for reporting rogue calls in a selection of countries. 
+And thank you, Phil, for sending in that comment. 
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @nakedsecurity. 
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure.
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

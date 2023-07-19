@@ -1,0 +1,38 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve written before, back in 2022, about a code execution hole in the widely-used JavaScript sandbox system vm2.
+Now we’re writing to let you know about a similar-but-different hole in the same sandbox toolkit, and urging you to update vm2 if you use (or are responsible for building) any products that depend on this package.
+As you’ve probably guessed, VM is short for virtual machine, a name often used to describe what you might call a “software computer” that helps you to run applications in a restricted way, under more careful control than would be possible if you gave those applications direct access to the underlying operating system and hardware.
+And the word sandbox is another way of referring to a stripped-down and regulated runtime environment that an application thinks is the real deal, but which cocoons the app to restrict its ability to perform dangerous actions, whether through incompetence or malice.
+For example, an app might expect to be able to find and open the system-wide user database file /etc/passwd, and might report an error and refuse to go further if it can’t.
+In some cases, you might be happy with that, but you might decide (for safety as much as for security) to run the app in a sandbox where it can open a file that answers to the name /etc/passwd, but that is actually a stripped-down or mocked-up copy of the real file.
+Likewise, you might want to corral all the network requests made by the app so that it thinks it has unfettered access to the internet, and behaves programmatically as though it does…
+.. while in fact it is communicating through what amounts a network simulator that keeps the app inside a well-regulated walled garden, with content and behaviour you can control as you wish. 
+In short, and in keeping with the metaphor, you’re forcing the app to play in a sandbox of its own, which can help to protect you from possible harm caused by bugs, by malware code, or by ill-considered programming choices in the app itself – all without needing to modify or even recompile the app.
+Your web browser is a good example of a sandbox, which is how it keeps control over JavaScript programs that it downloads and runs from remote websites.
+JavaScript in your browser is implicitly untrusted, so there are lots of JavaScript operations that it isn’t allowed to perform, or from which it will receive deliberately trimmed-down or incomplete answers, such as:
+The vm2 package is meant to provide a similar sort of restrictive environment for JavaScript that runs outside your browser, but that may nevertheless come from untrusted or semi-trusted sources, and therefore needs to be kept on a tight leash.
+A huge amount of back-end server logic in cloud-based services is coded these days not in Java, but in JavaScript, typically using the node.js JavaScript ecosystem.
+So vm2, which it itself written in JavaScript, aims to provide the same sort of sandboxing protection for full-blown server-based apps as your browser provides for JavaScript in web pages.
+To be clear: the two languages Java and JavaScript are related only in the shared letters in their respective names. They have little more in common than cars and carpets, or carpets and pets.
+Unfortunately, this new CVE-2023-29017 bug in vm2 meant that a JavaScript function in the sandbox that was supposed to help you tidy up after errors when running background tasks…
+…could be tricked into running code of your choice if you deliberately provoked an error in order to triggger the buggy function.
+Simply put, “a threat actor can bypass the sandbox protections to gain remote code execution rights on the host running the sandbox.”
+Worse still, a South Korean Ph.D. student has published two proof-of-concept (PoC) JavaScript fragments on GitHub that show how the exploit works; the code is annotated with the comment, “Expected result: We can escape vm2 and execute arbitrary shellcode.”
+The sample exploit snippets show how to run any command you like in a system shell, as you could with the C function system(), the Python function os.system(), or Lua’s os.execute().
+The vm2 developers patched this bug super-quickly, and promptly published a GitHub advisory…
+…so take the hint, and update as soon as you can if you have any apps that rely on vm2.
+The bug was patched in vm2 version 3.9.15, which came out at 2023-04-06T18:46:00Z.
+Note: this patch was quickly followed by another update to 3.9.16 to patch a second sandbox escape subsequently reported by the same researcher, and announced in a follow-up security advisory published at 2023-04-11T11:41:00Z. [This article was updated at 2023-04-12T08:28:00Z.]
+So, make sure you have vm2 version 3.9.16 or later.
+If you use any server-side node.js JavaScript applications that you don’t manage and build yourself, and you aren’t sure whether they use vm2 or not, contact your vendor for advice.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

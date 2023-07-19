@@ -1,0 +1,192 @@
+Sophos Home protects every Mac and PC in your home 
+DON’T GET INTO THE HABIT OF A BAD HABIT
+Magnetic core memory. Patch Tuesday and SketchUp shenanigans. More MOVEit mitigations. Mt. Gox back in the news. Gozi malware criminal imprisoned at last. Are password rules like running through rain?
+No audio player below? Listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Patch Tuesday, cybercrime comeuppance, and fun with passwords. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do today?
+DUCK.  Doug, I shouldn’t say this… but because I know what’s coming in This Week in Tech History, because you gave me a preview, I’m very excited!
+DOUG.  Alright, well, let’s get right to it!
+This week, on 15 June, way back in 1949, Jay Forrester, who was a Professor at the Massachusetts Institute of Technology, or MIT, wrote down…
+DUCK.  [MOCK DRAMA] Don’t say that like you’re from Boston and you’re all smug about it, Doug? [LAUGHTER]
+DOUG.  Hey, it’s a beautiful campus; I’ve been there many times.
+DUCK.  It is a kind of famous engineering school as well, isn’t it? [LAUGHS]
+DOUG.  It sure is!
+Jay Forrester wrote down a proposal for “core memory” in his notebook, and would later install magnetic core memory on MIT’s Whirlwind computer. 
+This invention made computers more reliable and faster. 
+Core memory remained the popular choice for computer storage until the development of semiconductors in the 1970s.
+DUCK.  It’s a fantastically simple idea once you know how it works. 
+Tiny little ferrite magnetic cores, like you’d get at the centre of a transformer… like super-miniature washers. 
+They were magnetised, either clockwise or anticlockwise, to mean zero or one. 
+It literally was magnetic storage. 
+And it had the funky feature, Douglas, that because ferrite essentially forms a permanent magnet…
+…you can remagnetise it, but when you turn off the power, it stays magnetised.
+So it was non-volatile! 
+If you had a power failure, you could basically restart the computer and carry on where you left off.
+Amazing!
+DOUG.  Outstanding, yes… that’s really cool.
+DUCK.  Apparently, MIT’s original plan was to charge a royalty of US$0.02 per bit on the idea. 
+Can you imagine how expensive that would make, say, a 64 gigabyte iPhone memory? 
+It would be in the billions of dollars! [LAUGHS]
+DOUG.  Unreal. 
+Well, some interesting history, but let’s bring it up to the modern day.
+ Not too long ago… Microsoft Patch Tuesday. 
+ No zero-days, but still plenty of fixes, Paul:
+Patch Tuesday fixes 4 critical RCE bugs, and a bunch of Office holes
+
+DUCK.  Well, no zero-days this month if you ignore that Edge remote code execution hole that we talked about last week. 
+DOUG.  Hmmmmmm.
+DUCK.  Technically, that’s not part of Patch Tuesday… 
+…but there were 26 remote code execution [RCE] bugs in total, and 17 elevation-of-privilege [EoP] bugs. 
+That’s where crooks are already in, but they can’t do much yet, so they then use the EoP bug to get superpowers on your network, and do much more dastardly things.
+Four of those remote code execution bugs were dubbed “Critical” by Microsoft, meaning that if you’re one of those people who still likes to do your patches in a specific order, those are the ones we suggest you start with. 
+The good news about the four critical patches is that three of them relate to the same Windows component. 
+As far as I can make out, it was a bunch of related bugs, presumably found during some kind of code review of that component. 
+Which relates to the Windows Messaging Service, if you happen to use that in your network.
+DOUG.  And we’ve been all collectively thanked for our patience with the SketchUp debacle, which I didn’t know existed until now.
+DUCK.  Like you, Doug, I have never used this program called SketchUp, which I believe is a third-party 3D graphics program. 
+Who knew that it would be really great to be able to drop SketchUp 3D images into your Word, Excel, PowerPoint documents? 
+As you can imagine, with a brand new file format to parse, to interpret, to process, to render inside Office… 
+…Microsoft introduced a bug that was fixed as CVE-2023-33146. 
+But the hidden story-behind-the-story, if you like, is that on 01 June 2023, Microsoft announced that:
+The ability to insert SketchUp graphics has been temporarily disabled in Word, Excel, PowerPoint and Outlook for Windows and Mac. 
+We appreciate your patience as we work to ensure the security and functionality of this feature.
+I am glad that Microsoft appreciates my patience, but I do perhaps wish that Microsoft itself had been a bit more patient before introducing this feature into Office in the first place.
+I wish they had put it in there *after* it was secure, rather than putting it in to see whether it was secure and finding out, as you say (surprise! surprise!), that it wasn’t.
+DOUG.  Great. 
+Let’s stick on the subject of patience. 
+I said that we would “keep an eye on this”, and I hoped that we wouldn’t need to keep an eye on this. 
+But we’ve got to alliterate a bit, as you did in the headline.
+More MOVEit mitigations: new patches published for further protection, Paul.
+More MOVEit mitigations: new patches published for further protection
+
+DUCK.  It’s that good old MOVEit problem again: the SQL injection bug. 
+That means that if you’re using the MOVEit Transfer program, and you haven’t patched it, then crooks who can access the web-based front end can trick your server into doing bad things…
+…up to and including embedding a webshell that will let them wander in later and do whatever they want. 
+As you know, there was a CVE issued, and Progress Software, the makers of MOVEit, put out a patch to deal with the known exploit in the wild.
+They now have another patch out to deal with similar bugs that, as far as they know, the crooks haven’t found yet (but if they looked hard enough, they might). 
+And, as weird as that sounds, when you find that a particular part of your software has a bug of a particular sort, you shouldn’t be surprised if, when you dig deeper…
+…you find that the programmer (or the programming team who worked on it at the time that the bug you already know about got introduced) committed similar errors around the same time. 
+So well done in this case, I would say, to Progress Software for trying to deal with this proactively.
+Progress Software just said, “All Move It customers must apply the new patch released on 09 June 2023.
+DOUG.  OK, I guess we’ll… keep an eye on that! 
+Paul, help me out here. 
+I’m in the year 2023, reading in a Naked Security headline something about “Mt. Gox.” 
+What is happening to me?
+History revisited: US DOJ unseals Mt. Gox cybercrime charges
+
+DUCK.  Mt. Gox!
+“Magic The Gathering Online Exchange”, Doug, as it was…
+DOUG.  [LAUGHS] Of course!
+DUCK.  …where you could trade Magic The Gathering cards.
+That domain got sold, and those with long memories will know that it turned into the most popular, and by far the biggest, Bitcoin exchange on the planet. 
+It was run by a French expatriate, Mark Karpelès, out of Japan. 
+It was all going swimmingly, apparently, until it imploded in a puff of cryptocurrency dust in 2014, when they realised that, loosely speaking, all their Bitcoins had disappeared.
+DOUG.  [LAUGHS] I shouldn’t laugh!
+DUCK.  647,000 of them, or something. 
+And even back then, they were already worth about $800 a pop, so that was half-a-billion US dollars’ worth of “puff”. 
+Intriguingly, at the time, a lot of fingers pointed at the Mt. Gox team itself, saying, “Oh, this must be an inside job.” 
+And in fact, on New Year’s Day, I think it was, in 2015, a Japanese newspaper called Yomiuri Shimbun actually published an article saying, “We’ve looked into this, and 1% of the losses can be explained by the excuse they’ve come up with; for the rest, we’re going on the record saying that it was an inside job.” 
+Now, that article that they published, which caused a lot of drama because it’s quite a dramatic accusation, now gives a 404 error [HTTP page not found] when you visit it today. 
+DOUG.  Very interesting!
+DUCK.  So I don’t think they stand by it anymore. 
+And, indeed, the Department of Justice [DOJ] in the United States has finally, at last, all these years later, actually charged two Russian nationals with basically stealing all the Bitcoins. 
+So it does sound like Mark Karpelès has got at least a partial exoneration, courtesy of the US Department of Justice, because they have very definitely put these two Russian chaps in the frame for this crime all those years ago.
+DOUG.  It’s a fascinating read. 
+So check it out on Naked Security. 
+All you have to do is search for, you guessed it, “Mt. Gox”. 
+Let’s stay on the subject of cybercrime, as one of the main offenders behind the Gozi banking malware has landed in jail after ten long years, Paul:
+Gozi banking malware “IT chief” finally jailed after more than 10 years
+
+DUCK.  Yes… it was a little bit like waiting for the bus. 
+Two astonishing “wow, this happened ten years ago, but we’ll get him in the end” stories arrived at once. [LAUGHTER] 
+And this one, I thought, was important to write up again, just to say, “This is the Department of Justice; they didn’t forget about him.” 
+Actually. He was arrested in Colombia. 
+I believe he paid a visit, and he was in Bogotá Airport, and I guess the border officials thought, “Oh, that name’s on a watch list”! 
+And so apparently the Colombian officials thought, “Let’s contact the US Diplomatic Service.” 
+They said, “Hey, we’re holding a chap here by the name of (I won’t mention his name – t’s in the article).. you used to be interested in him, relating to very serious multimillion-dollar malware crimes. Are you still interested, by any chance?” 
+And, what a surprise, Doug, the US was very interested indeed. 
+So, he got extradited, faced court, pleaded guilty, and he has now been sentenced. 
+He’ll only get three years in prison, which may seem like a light sentence, and he has to hand back more than $3,000,000. 
+I don’t know what happens if he doesn’t, but I guess it’s just a reminder that by running and hiding from malware related criminality…
+…well, if there are charges against you and the US are looking for you, they don’t just go, “Ah, it’s ten years, we might as well leave it.”
+And this guy’s criminality was running what are known as in the jargon as “bulletproof hosts”, Doug.
+That’s basically where you’re kind-of an ISP, but unlike a regular ISP, you go out of your way to be a moving target to law enforcement, to blocklists, and to takedown notices from regular ISPs. 
+So, you provide services, but you keep them, if you like, shifting around and on the move on the internet, so that crooks pay you a fee, and they know that the domains that you’re hosting for them will just carry on working, even if law enforcement are after you.
+DOUG.  All right, great news again.
+Paul, you have, as we round out our stories for the day, grappled with a very difficult, nuanced, yet important question about passwords. 
+Namely, should we be changing them constantly on a rotation, maybe once a month? 
+Or lock in really complex ones to start with, and then leave well enough alone?
+Thoughts on scheduled password changes (don’t call them rotations!)
+
+DUCK.  Although it sounds like a sort-of old story, and indeed it’s one that we have visited many times before, the reason I wrote it up is that a reader contacted me to ask about this very thing.
+He said, “I don’t want to go into bat for 2FA; I don’t want to go into bat for password managers. Those are separate issues. I just want to know how to settle, if you like, the turf war between two factions inside my company, where some people are saying we need to do passwords properly, and others are just saying, ‘That boat sailed, it’s too hard, we’ll just force people to change them and that will be good enough’.” 
+So I thought it was actually worth writing about it. 
+Judging by the number of comments on Naked Security, and on social media, lots of IT teams are still wrestling with this. 
+If you just force people to change their passwords every 30 days or 60 days, does it really matter if they choose one that’s eminently crackable if their hash gets stolen? 
+As long as they don’t choose password or secret or one of the Top Ten Cats’ Names in the world, maybe it’s OK if we force them to change it to another not-very-good password before the crooks would be able to crack it?
+Maybe that’s just good enough?
+But I have three reasons why you can’t fix a bad habit by just following another bad habit.
+DOUG.  The first one out of the gate: Changing passwords regularly isn’t an alternative to choosing and using strong ones, Paul.
+DUCK.  No!
+You might choose to do both (and I’ll give you two reasons in a minute why I think forcing people to change them regularly has another set of problems). 
+But the simple observation is that changing a bad password regularly doesn’t make it a better password. 
+If you want a better password, choose a better password to start with!
+DOUG.  And you say: Forcing people to change their passwords routinely may lull them into bad habits.
+DUCK.  Judging by the comments, this is exactly the problem that lots of IT teams have. 
+If you tell people, “Hey, you’ve got to change your password every 30 days, and you better pick a good one,” all they’ll do is…
+…they’ll pick a good one. 
+They’ll spend a week committing it to memory for the rest of their life.
+And then every month they’ll add -01, -02, and so on. 
+So if the crooks do crack or compromise one of the passwords, and they see a pattern like that, they can pretty much work out what your password is today if they know your password from six months ago. 
+So that’s where forcing change when it’s not necessary can lead people to take cybersecurity shortcuts that you don’t want them to do.
+DOUG.  And this is an interesting one. 
+We’ve spoken about this before, but it’s something that some people may not have thought of: Scheduling password changes may delay emergency responses. 
+What do you mean by that?
+DUCK.  The point is that if you have a formalised, fixed schedule for password changes so that everyone knows that when the last day of this month comes round, they’re going to be forced to change their password anyway… 
+…and then they think, “You know what? It’s the 12th of the month, and I went to a website I’m not sure about that could have been a phishing site. Well, I’m going to change my password in two weeks anyway, so I won’t go and change it now.” 
+So, by changing your passwords *regularly*, you may end up in the habit where sometimes, when it’s really, really important, you don’t change your password *frequently* enough. 
+If and when you think there is a good reason to change your password, DO IT NOW!
+DOUG.  I love it!
+Alright, let’s hear from one of our readers on the password piece. 
+Naked Security reader Philip writes, in part:
+Changing your passwords often so as not to get compromised is like thinking that if you run fast enough, you can dodge all the raindrops. 
+OK, you’ll dodge the raindrops falling behind you, but there’ll be just as many where you’re going. 
+And, forced to regularly change their passwords, a very large number of people will simply append a number they can increment as required.
+Like you said, Paul! 
+DUCK.  Your friend and mine, Chester [Wisniewski] said, a few years ago when we were talking about password myths, “All they need to do [LAUGHS], to work out what the number is at the end, is to go to your LinkedIn page. ‘Started at this company in August 2017’… count the number of months since then.” 
+That’s the number you need at the end.
+Sophos Techknow – Busting Password Myths
+
+DOUG.  Exactly! [LAUGHTER]
+DUCK.  And the problem comes that when you try and schedule, or algorithmise… is that a word? 
+(It probably shouldn’t be, but I’ll use it anyway.) 
+When you try and take the idea of randomness, and entropy, and unpredictability, and corral it into some super-strict algorithm, like the algorithm that describes how the characters and numbers are laid out on vehicle tags, for example… 
+…then you end up with *less* randomness, not *more*, and you need to be aware of that. 
+So, forcing people to do anything that causes them to fall into a pattern is, as Chester said at the time, simply getting them into the habit of a bad habit. 
+And I love that way of putting it.
+DOUG.  Alright, thank you very much for sending that in, Philip. 
+And if you have an interesting story, comment, or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, comment on any one of our articles, or hit us up on social: @nakedsecurity. 
+That’s our show for today. 
+Thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to… 
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

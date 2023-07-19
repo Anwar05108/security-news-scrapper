@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+For the last day or two, our news feed has been buzzing with warnings about WhatsApp.
+We saw many reports linking to two tweets that claimed the existence of two zero-day security holes in WhatsApp, giving their bug IDs as CVE-2022-36934 and CVE-2022-27492.
+One article, apparently based on those tweets, breathlessly insisted not only that these were zero-day bugs, but also that they’d been discovered internally and fixed by the WhatsApp team itself.
+By definition, however, a zero-day refers to a bug that attackers discovered and figured out how to exploit before a patch was available, so that there were zero days on which even the most proactive sysadmin with the most progressive attitude to patching could have been ahead of the game.
+In other words, the whole idea of stating that a bug is a zero-day (often written with just a digit, as 0-day) is to persuade people that the patch is at least as important as ever, and perhaps more important than that, because installing the patch is more of a question of catching up with the crooks that of keeping in front of them.
+If developers uncover a bug themselves and patch it of their own accord in their next update, it’s not a zero-day, because the Good Guys got there first.
+Likewise, if security researchers follow the principle of responsible disclosure, where they reveal the details of a new bug to a vendor but agree not to publish those details for an agreed period of time to give the vendor time to create a patch, it’s not a zero-day.
+Setting a responsible disclosure deadline for publishing a writeup of the bug serves two purposes, namely that the researcher ultimately gets to to take credit for the work, while the vendor is prevented from sweeping the issue under the carpet, knowing that it will be outed anyway in the end.
+So, what’s the truth?
+Is WhatsApp currently under active attack by cyercriminals? Is this a clear and current danger?
+How worried should WhatsApp users be?
+As far as we can tell, the reports circulating at the moment are based on information directly from WhatsApp’s own 2022 security advisory page, which says [2022-09-27T16:17:00Z]:
+Both the bugs are listed as potentially leading to remote code execution, or RCE for short, meaning that booby-trapped data could force the app to crash, and that a skilled attacker might be able to rig up the circumstances of the crash to trigger unauthorised behaviour along the way.
+Typically, when an RCE is involved, that “unauthorised behaviour” means running malicious program code, or malware, to subvert and take some form of remote control over your device.
+From the descriptions, we assume that the first bug required a connected call before it could be triggered, while the second bug sounds as though it could be triggered at other times, for example while reading a message or viewing a file already downloaded to your device.
+Mobile apps are usually regulated much more strictly by the operating system than apps on laptops or servers, where local files are generally accessible to, and commonly shared between, multiple programs.
+This, in turn, means that the compromise of a single mobile app generally poses less of a risk than a similar malware attack on your laptop.
+On your laptop, for example, your podcast player can probably peek at your documents by default, even if none of them are audio files, and your photo program can probably rootle around in your spreadsheet folder (and vice versa).
+On your mobile device, however, there’s typically a much stricter separation between apps, so that, by default at least, your podcast player can’t see documents, your spreadsheet program can’t browse your photos, and your photo app can’t see audio files or docments.
+However, even access to a single “sandboxed” app and its data can be all that an attacker wants or needs, especially if that app is the one you use for communicating securely with your colleagues, friends and family, like WhatsApp.
+WhatsApp malware that could read your past messages, or even just your list of contacts, and nothing else, could provide a treasure trove of data for online criminals, especially if their goal is to learn more about you and your business in order to sell that inside information on to other crooks on the dark web.
+A software bug that opens up cybersecurity holes is known as a vulnerability, and any attack that makes practical use of a specific vulnerablity is known as an exploit. 
+And any known vulnerability in WhatsApp that might be exploitable for snooping purposes is well worth patching as soon as possible, even if no one ever figures out a working exploit for stealing data or implanting malware.
+(Not all vulnerabilities end up being exploitable for RCE – some bugs turn out to be sufficiently capricious that even if they can reliably be triggered to provoke a crash, or denial of service, they can’t be tamed well enough to take over the crashed app completely.)
+The good news here is that the bugs listed here were apparently patched close to a month ago, even though the latest reports we’ve seen imply that these flaws represent a clear and current danger to WhatsApp users.
+As the WhatsApp advisory page points out, these two so-called “zero-day” holes are patched in all flavours of the app, for both Android and iOS, with version numbers 2.22.16.12 or later.
+According to Apple’s App Store, the current version of WhatsApp for iOS (both Messenger and Business flavours) is already 2.22.19.78, with at five intervening updates released since the first fix that patched the abovementioned bugs, which already dates back a month.
+On Google Play, WhatsApp is already up to 2.22.19.76 (version don’t always align exactly between different operating systems, but are often close).
+In other words, if you have set your device to autoupdate, then you ought to have been patched against these WhatsApp threats for about a month already.
+To check the apps you have installed, when they last updated, and their version details, ppen the App Store app on iOS, or Play Store on Android.
+Tap on your account icon to access the list of apps your installed on your device, including details of when they last updated and the current version number you’ve got.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Slow news day?
+Well, there was nothing slow about the rate that WhatsApp “security scare warnings” showed up in my news feed.
+Thanks Paul.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

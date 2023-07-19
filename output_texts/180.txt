@@ -1,0 +1,210 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+With Doug Aamoth and Paul Ducklin.
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Zero-days, more zero-days, TikTok, and a sad day for the security community. 
+All that and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the Naked Security podcast, everybody. 
+I am Doug Aamoth. 
+With me, as always, is Paul Ducklin. 
+Paul, how are you doing today?
+DUCK.  I’m doing very, very well, thank you, Douglas!
+DOUG.  Well, let’s start off the show with our Tech History segment. 
+I’m pleased to tell you: this week on 09 September 1947, a real-life moth was found inside Harvard University’s Mark II computer. 
+And although using the term “bug” to denote engineering glitches is thought to have been in use for years and years beforehand, it is believed that this incident led to the now ubiquitous “debug”. 
+Why? 
+Because once the moth was removed from the Mark II, it was taped inside the engineering logbook and labelled “The first case of an actual bug being found.” 
+I love that story!
+DUCK.  So do I! 
+I think the first evidence that I’ve seen of that term was none other than Thomas Edison – I think he used the term “bugs”. 
+But of course, being 1947, this was the very early days of digital computing, and not all computers ran on valves or tubes yet, because tubes were still very expensive, and ran very hot, and required a lot of electricity. 
+So, this computer, even though it could do trigonometry and stuff, was actually based on relays – electromechanical switches, not pure electronic switches. 
+Quite amazing that even in the late 1940s, relay-based computers were still a thing… although they weren’t going to be a thing for very long.
+DOUG.  Well, Paul, let’s say on the topic of messy things and bugs.
+A messy thing that is bugging people is the question of this TikTok thing.
+There are breaches, and there are breaches… is this actually a breach?
+DUCK.  As you say, Douglas, this has become a messy thing… 
+Because it was a huge story over the weekend, wasn’t it? 
+“TikTok breach – What was it really?”  
+At first blush, it sounds like, “Wow, 2 billion data records, 1 billion users compromised,  hackers have got in”, and whatnot. 
+Now, several people who deal with data breaches regularly, notably including Troy Hunt of Have I Been Pwned, have taken sample snapshots of the data that’s supposed to have been “stolen” and gone looking for it. 
+And the consensus seems to support exactly what TikTok has said, namely that this data is public anyway. 
+So what it seems to be is a collection of data, say a giant list of videos… that I guess TikTok probably wouldn’t want you just to be able to download for yourself, because they’d want you to go through the platform ,and use their links, and see their advertising so that they could monetise the stuff. 
+But none of the data, none of the stuff in the lists seems to have been confidential or private to the users affected. 
+When Troy Hunt went looking and picked some random video, for example, that video would show up under that user’s name as public.
+And the data about the video in the “breach” didn’t also say, “Oh, and by the way, here’s the customer’s TikTok ID; here’s their password hash; here’s their home address; here’s a list of private videos that they haven’t published yet”, and so on.
+DOUG.  OK, so if I’m a TikTok user, is there a cautionary tale here? 
+Do I need to do anything? 
+How does this affect me as a user?
+DUCK.  That’s just the thing. Doug – I guess a lot of articles written about this have been desperate to find some kind of conclusion. 
+What can you do? 
+So, the burning question that people have been asking is, “Well, should I change my password? Should I turn on two-factor authentication?”… all of the usual stuff that you hear.
+It looks, in this case, as though there’s no specific need to change your password. 
+There’s no suggestion that password hashes were stolen and could now be getting cracked by a zillion off-duty bitcoin miners [LAUGHS] or anything like that.
+There’s no suggestion that user accounts may be easier to target as a result of this. 
+On the other hand, if you feel like changing your password… you might as well. 
+The general recommendation these days is routinely and regularly and frequently changing your password *on a schedule* (like, “Once a month change your password just in case”) is a bad idea because [ROBOTIC VOICE] it – just – gets – you – into – a – repetitious – habit that doesn’t really improve things.
+Because we know what people do, they just go: -01, -02, 03 at the end of the password. 
+So, I don’t think you have to change your password, though if you decide that you’re going to do so, good on you.
+My own opinion is that in this case, whether or not you had two-factor authentication turned on would have made no difference whatsoever. 
+On the other hand, if this is an incident that finally persuades you that 2FA has a place in your life somewhere…
+…then perhaps, Douglas, that is a silver lining!
+DOUG.  Great. 
+So we’ll keep an eye on that. 
+But it sounds like not a whole lot that regular users could have done about this…
+DUCK.  Except there is maybe one thing that we can learn, or at least remind ourselves from it.
+DOUG.  I think I know what’s coming. [LAUGHS]
+Does it rhyme?
+DUCK.  It might do, Douglas. [LAUGHS]
+Darn, I’m so transparent. [LAUGHING]
+Be aware/Before you share.
+Once something is public, it *really is public*, and it’s as simple as that.
+DOUG.  OK, very good. 
+Be aware before you share. 
+Moving right along, the security community lost a pioneer in Peter Eckersley, who passed away at 43. 
+He was the co-creator of Let’s Encrypt. 
+So, tell us a bit about Let’s Encrypt and Eckersley’s legacy, if you would.
+Peter Eckersley, co-creator of Let’s Encrypt, dies at just 43
+
+
+DUCK.  Well, he did a whole load of stuff in his unfortunately short life, Doug.
+We don’t often write obituaries on Naked Security, but this is one of the ones that we felt we had to.
+Because, as you say, Peter Eckersley, amongst all the other things he did, was one of the co-founders of Let’s Encrypt, the project that set out to make it cheap (i.e. free!), but, most, importantly reliable and easy to get HTTPS certificates for your website. 
+And because we use Let’s Encrypt certificates on the Naked Security and the Sophos News blog sites, I felt we owe him at least a mention for that good work. 
+Because anyone who’s ever run a website will know that, if you go back a few years, getting an HTTPS certificate, a TLS certificate, that lets you put the padlock in your visitors’ web browsers not only cost money, which home users, hobbyists, charities, small businesses, sports clubs couldn’t easily afford… it was a *real hassle*. 
+There was this whole procedure you had to go through;  it was very full of jargon and technical stuff; and every year you had to do it again, because obviously they expire… it’s like a safety check on a car.
+You’ve got to go through the exercise, and prove that you’re still the person who’s able to modify the domain that you’re claiming to be in control of, and so on. 
+And Let’s Encrypt not only was able to do that for free, they were able to make it so that the process could be automated… and on a quarterly basis, so that also means certificates can expire fasterin case something goes wrong. 
+They were able to build up trust quickly enough that the major browsers were soon saying, “You know what, we’re going to trust Let’s Encrypt to vouch for other people’s web certificates – what’s called a root CA, or certificate authority.
+Then, your browser trusts Let’s Encrypt by default. 
+And really, it’s all of those things coming together which to me was the majesty of the project. 
+It wasn’t just that it was free; it wasn’t just that it was easy; it wasn’t just that the browser makers (who are notoriously hard to persuade to trust you in the first place) decided, “Yes, we trust them.” 
+It was all of those things put together that made a big difference, and helped get HTTPS almost everywhere on the internet. 
+It’s just a way to add that little bit of extra safety to the browsing we do…
+…not so much for the encryption, as we keep reminding people, but for the fact that [A] you’ve got a fighting chance that you really have connected to a site that’s being manipulated by the person who’s supposed to be manipulating it, and that [B] when the content comes back, or when you send a request to it, it can’t be tampered with easily along the way. 
+Until Let’s Encrypt, with any HTTP-only website, pretty much anyone on the network path could spy on what you were looking at. 
+Worse, they could modify it – either what you were sending,  or what you’re getting back – and you *simply could not tell* that you were downloading malware instead of the real deal, or that you were reading fake news instead of the real story.
+DOUG.  All right, I think it’s fitting to wrap up with a great comment from one of our readers, Samantha, who seems to have known Mr Eckersley. 
+She says:
+“If there’s one thing I always remember about my interactions with Pete, it was his dedication to science and the scientific method. Asking questions is the very essence of being a scientist. I’ll always cherish Pete and his questions. To me, Pete was a man who valued communication and the free and open exchange of ideas among inquisitive individuals.” 
+Well said, Samantha – thank you.
+DUCK.  Yes! 
+And instead of saying RIP [abbreviation for Rest In Peace], I think I’ll say CIP:  Code in Peace.
+DOUG.  Very good! 
+All right, well, we talked last week about a slew of Chrome patches, and then one more popped up. 
+And this one was an important one…
+Chrome and Edge fix zero-day security hole – update now!
+
+
+DUCK.  It was indeed, Doug. 
+And because it applied to the Chromium core, it also applied to Microsoft Edge. 
+So, just last week, we were talking about those… what was it, 24 security holes. 
+One was critical, eight or nine were high. 
+There are all sorts of memory mismanagement bugs in there, but none of them were zero-days.
+And so we were talking about that, saying, “Look, this is a small deal from a zero-day point of view, but it’s a big deal from a security patch point of view. Get ahead: don’t delay, do it today.” 
+(Sorry – I rhymed again, Doug.) 
+This time, it’s another update that came out just a couple of days later, both for Chrome and for Edge. 
+This time, there’s only one security hole fixed. 
+We don’t quite know whether it’s an elevation of privilege or a remote code execution, but it sounds serious, and it is a zero-day with a known exploit already in the wild. 
+I guess the great news is that both Google and Microsoft, and other browser makers, were able to apply this patch and get it out really, really quickly. 
+We’re not talking about months or weeks… just a couple of days for a known zero-day that obviously was found after the last update had come out, which was only last week.
+So that’s the good news. 
+The bad news is, of course, this is an 0-day – the crooks are on it; they’re using it already. 
+Google has been a little bit coy about “how and why”… that suggests that there’s some investigation going on in the background that they might not want to jeopardise. 
+So, once again, this is a “Patch early, patch often” situation – you can’t just leave this one. 
+If you patched last week, then you do need to do it again. 
+The good news is that Chrome, Edge, and most of the browsers these days should update themselves. 
+But, as always, it pays to check, because what if you’re relying on auto-updating and, just this once, it didn’t work? 
+Wouldn’t that be 30 seconds of your time well spent to verify that you do indeed have the latest version?
+We have all the relevant version numbers and the advice [on Naked Security] on where to click for Chrome and Edge to make sure that you absolutely do have the latest version of those browsers.
+DOUG.  And breaking news for anyone keeping score…
+I just checked my version of Microsoft Edge, and it’s the correct, up-to-date version, so it updated itself. 
+OK, last, but certainly not least, we have a rare but urgent Apple update for iOS 12, which we all thought was done and dusted.
+URGENT! Apple slips out zero-day update for older iPhones and iPads
+
+
+DUCK.  Yes, as I wrote in the first five words of the article on Naked Security, “Well, we didn’t expect this!” 
+I allowed myself an exclamation point, Doug, [LAUGHTER] because I was surprised…
+Regular listeners to the podcast will know that my beloved, if old-but-formerly-pristine iPhone 6 Plus suffered a bicycle crash. 
+The bicycle survived; I grew all the skin back that I needed [LAUGHTER]… but my iPhone screen is still in a hundred thousand million billion trillion pieces. (All the bits that are going to come out into my finger, I think have already done so.) 
+So I figured…iOS 12, it’s been a year since I had the last update, so obviously it’s completely off Apple’s radar. 
+It’s not going to get any other security fixes. 
+I figured, “Well, the screen can’t get smashed again, so it’s a great emergency phone to take when I’m on the road”… if I’m going somewhere, if I need to make a call or look at the map. (I’m not going to do email or any work related stuff on it.) 
+And, lo and behold, it got an update, Doug! 
+Suddenly, almost a year to the day after the previous one… I think 23 September 2021 was the last update I had.
+Suddenly, Apple has put out this update. 
+It relates to the previous patches that we spoke about, where they did the emergency update for contemporary iPhones and iPads, and all versions of macOS.
+There, they were patching a WebKit bug and a kernel bug: both zero days; both being used in the wild. 
+(Does that smell of spyware to you? It did to me!)
+The WebKit bug means that you could visit a website or open a document, and it’ll take over the app. 
+Then, the kernel bug means you put your knitting needle right into the operating system, and basically punch a hole in Apple’s well-vaunted security system. 
+But there wasn’t an update for iOS 12, and, as we said last time, who knew whether that was because iOS 12 just happened to be invulnerable, or that Apple genuinely wasn’t going to do anything about it because it fell off the edge of the planet a year ago? 
+Well, it looks like it didn’t quite fall off the edge of the planet, or it’s been teetering on the brink… and it *was* vulnerable. 
+Good news… the kernel bug that we spoke about last time, the thing that would let somebody essentially take over the whole iPhone or iPad, does not apply to iOS 12.
+But that WebKit bug – which remember, affects *any* browser, not just Safari, and any app that does any kind of web related rendering, even if it’s only in its About screen…
+…that bug *did* exist in iOS 12, and obviously Apple felt strongly about it. 
+So, there you are: if you’ve got an older iPhone, and it’s still on iOS 12 because you can’t update it to iOS 15, then you do need to go and get this.
+Because this is the WebKit bug we spoke about last time – it has been used in the wild.
+Apple patches double zero-day in browser and kernel – update now!
+
+And the fact that Apple has gone to these lengths to support what seemed to be a beyond-end-of-life operating system version suggests, or at least invites you to infer, that this has been discovered to have been used in nefarious ways for all sorts of naughty stuff. 
+So, maybe only a couple of people got targeted… but even if that’s the case, don’t let yourself be the third person!
+DOUG.  And to borrow one of your rhyming phrases:
+Don’t delay/Do it today. 
+[LAUGHS] How about that?
+DUCK.  Doug, I knew you were going to say that.
+DOUG.  I’m catching on! 
+And as the sun begins to slowly set on our show for today, we would like to hear from one of our readers on the Apple zero-day story. 
+Reader Bryan comments:
+“Apple’s Settings icon has always resembled a bicycle sprocket in my mind. As an avid biker, an Apple device user, I expect you like that?”
+That’s directed at you, Paul. 
+Do you like that? 
+Do you think it looks like a bike sprocket?
+DUCK.  I don’t mind it, because it’s very recognisable, say if I want to go to Settings > General > Software update.
+(Hint, hint: that’s how you check for updates on iOS.)
+The icon is very distinctive, and it’s easy to hit so I know where I’m going.
+But, no, I have never associated it with cycling because if that were front chainrings on a geared bicycle, they’re just all wrong. 
+They’re not connected properly.
+There’s no way to put power into them. 
+There are two sprockets, but they have teeth of different sizes. 
+If you think about how gears work on the jumpy-gear type bicycle gears (derailleurs, as they’re known), you only have one chain, and the chain has specific spacing, or pitch as it’s called. 
+So all the cogs or sprockets (technically, they’re not cogs, because cogs drive cogs, and chains drive sprockets)… all the sprockets have to have teeth of the same size or pitch, otherwise the chain won’t fit! 
+And those teeth are very spiky. Doug.
+Somebody in the comments said they thought it reminded them of something to do with clockwork, like an escapement or some kind of gearing inside a clock. 
+But I’m pretty sure that clockmakers would go, “No, we wouldn’t shape the teeth like that,” because they use very distinctive shapes to increase the reliability and precision.
+So I’m quite happy with that Apple icon, But, no, it does not remind me of bicycling.
+The Android icon, ironically…
+…and I thought of you when I thought of this, Doug [LAUGHTER], and I thought, “Oh, golly, I’ll never hear the end of this. If I mention it”…
+..that does look like a rear cog on a bicycle (and I know it’s not a cog, it’s a sprocket, because cogs drive cogs, and chains drive sprockets, but for some reason you call them cogs when they’re small at the back of a bicycle).
+But it only has six teeth. 
+The smallest rear bicycle cog I can find mention of is nine teeth – that’s very tiny, a very tight curve, and only in special usages. 
+BMX guys like them because the smaller the cog, the less likely it is to hit the ground when you’re doing tricks. 
+So… that has very little to do with cybersecurity, but it’s fascinating insight into what I believe is known these days not as “the user interface”, but “the user experience”.
+DOUG.  All right, thank you very much, Bryan, for commenting.
+If you have an interesting story, comment or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @Naked Security.
+That’s our show for today – thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time to…
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Relay computers: In the 1950s, Popular Mechanics or Popular Electronics had an article showing how to build one.  I read the article and thought; why in the world would anybody want a thing that just produces on/off (or zero/one).  🙂   One of my less fine predictions 🙂  ( I was younger then)
+You might like this:
+https://relaysbc.sourceforge.net/
+
+Uses semiconductors for memory and peripheral logic (to save having thousands of relays), and to make programs easy to enter, but uses 83 electromechanical relays for the CPU, running at a user-selectable speed of 0Hz to 12Hz. Uses long instructions (32 bits each, with 16 bits of bit-mapped opcode data plus two 8-bit operands) and has no built-in stack operators in order to keep the relay count low. Fascinating!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

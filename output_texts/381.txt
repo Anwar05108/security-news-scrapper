@@ -1,0 +1,44 @@
+Sophos Home protects every Mac and PC in your home 
+Firefox’s latest major update is out, following Mozilla’s usual every-fourth-Tuesday release cycle.
+The list of security fixes this month (like full moons, there are sometimes two Firefox releases in a calendar month, but most months only have one) is splendidly short, and there aren’t any critical bugs or zero-days in the list.
+But there’s a fascinating bug that acts as a reminder that it’s hard to write responsive, user-friendly browser code that’s also strong against deliberate trickery.
+That bug, designated CVE-2023-34414, is rated High, and is described with the somewhat mysterious words: Clickjacking certificate exceptions through rendering lag.
+Let’s deconstruct the jargon in this bug report.
+Clickjacking, very simply put, is where an attacker lures you to a part of the screen that looks safe (or even desirable) to click on, and tricks you into clicking your mouse or tapping your finger on the spot marked X…
+…only to have your click sent to a component in the web page that you definitely wouldn’t have clicked on if only you’d known where your click was really going.
+For example, a rogue online ad-seller might try mashing up clickable ads with unrelated images that look like harmless [OK] buttons, but that actually allow the click to activate the ad, thus co-opting you into ad fraud.
+Another popular abuse of clickjacking, back when it was a big thing in the early 2010s, was to hover an invisible social media “Like” button over some entirely unrelated content (which could even be a fake [Cancel] button that well-informed users would be keen to click).
+In this way, you could end up getting tricked into endorsing even outrageous content under the misapprehension that you were rejecting or refusing it instead.
+Fortunately, browser makers quickly started detecting and avoiding this sort of clickjacking treachery, making it less and less useful to cybercriminals.
+The technical name user interface redress attack appeared in the jargon for a while. But the ambiguity of the word “redress”, which can mean both RE-dress in the sense of dress again by draping in new clothing, and re-DRESS in the sense of set right a wrong, made this fancy-sounding expression hard to understand. The word clickjacking was not only much shorter, but also much clearer and cooler to use, so that’s the word that stuck.
+Certificate exceptions relate to those warnings that your browser shows you when you visit a website that might not be what it seems, such as a server called example.com that identifies itself as unknown.invalid; a server with a web certificate that hasn’t been renewed for ages; or a certificate that hasn’t been vouched for by a known certificate authority.
+For example, like this:
+
+And rendering lag is the delay between the moment that your browser receives instructions to present new content, and the point at which it has done the necessary HTML, CSS, graphics and JavaScript processing to have the content ready for display.
+According to Mozilla, the CVE-2023-34414 bug could be triggered by an attacker who got the balance (or perhaps we mean the imbalance) just right (or wrong) in the following sequence:
+We’ve all done this sort of thing by mistake in other contexts: moving the mouse cursor to the button we wanted to press, for example, such as confirming that we wanted to answer an important incoming voice call right this moment…
+…then looking away when we shouldn’t have, and accidentally clicking on the very location where some other urgent dialog had popped up that we hadn’t noticed, such as approving an immediate and lengthy reboot to apply updates instead.
+In the CVE-2023-34414 case, an attacker could orchestrate the timing of the subterfuge so that you could be tricked even if you didn’t let your attention wander, and even if you carefully didn’t click without looking:
+If a malicious page elicited user clicks in precise locations immediately before navigating to a site with a certificate error, and made the renderer extremely busy at the same time, it could create a gap between when the error page was loaded and when the display actually refreshed.
+With the right timing the elicited clicks could land in that gap and activate the button that overrides the certificate error for that site.
+Mozilla says it has redressed this bug (in the latter sense of redress we gave above!) by controlling the timing more carefully, thus ensuring the correct activation delay that Firefox “uses to protect prompts and permission dialogs from attacks that exploit human response time delays.”
+In other words, clicks from a previous, innocent-looking page no longer get delayed or left over for long enough to activate an all-important security dialog that needs genuine attention before accepting your input.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It would be useful if an attribute is added to “input” and “button” HTML tags to disable type-ahead and click-ahead, respectively.
+As shown in the screenshot, it requires two separate clicks to bypass the security dialog, first on Advanced… then on Accept the Risk and Continue.
+Getting a user to click in two specific locations in correct order before the screen renders is technically possible, but not very plausible.
+I had to click to open the subwindow that presented the [Accept the risk] button…
+…but there may be a way to get to that “allow me to do this” activation without a click followed by a click. At least, Mozilla implies that the clickjack is indeed plausible, from which I infer that they’ve actually controved a way to do it (in order to have a formal way of testing that theie update fixes the problem).
+At any rate, Mozilla’s conclusion is that is was possible before, but isn’t possible now.
+For my info… is there another workflow (I think that’s the right word) in Firefox that leads to a “do you want to allow a dubious certificate” button?
+Not another workflow per se but if you visit a site that can’t do TLS and you are in HTTPS Only mode, it only takes one click to dismiss the warning and “continue to HTTP site”
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

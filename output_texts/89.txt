@@ -1,0 +1,39 @@
+Sophos Home protects every Mac and PC in your home 
+Firefox has followed Chromium to the century mark, reaching a score of 100* with its latest scheduled almost-monthly release.
+For readers without the sporting good fortune of living in a cricket-playing country, an individual score of 100 in a single innings, known as a century or a ton, is considered a noteworthy achivement.
+Adding an asterisk after the score means “not out”, in other words that the batter is still going strong (or completed their innings without getting out at all), making the feat even more noteworthy. 
+We know you’re wondering, and if you aren’t you should be, so we’ll mention that from 1959 to 1994, the highest ever score worldwide in first-class cricket was 499, with no asterisk, by the late, great Pakistani batter Hanif Mohammed. Desperate to reach 500 before he ran out of batting time, he took a weary risk for that magical 500th run but fell one short. That total wasn’t eclipsed until 1994, when West Indian batter Brian Lara got to 501*, a record that has stood ever since. Indeed, the only first-class score of 400 or more since Lara’s 501* was Lara’s own 400* in 2004, playing in an international match against England in Antigua. At its current release rate of once every four weeks, Firefox has just over 23 years to go to equal Lara’s quadruple century, and almost 30 years to reach 502*.
+Earlier this year, we wrote about the potential confusion that Chrome (now at 101) and Firefox (100 today) might cause for some users…
+…not through any fault on the part of Google or Mozilla, the respective curators of the Chromium and Firefox codebases, but because at least a few web servers seemed unable to recognise three-digit version numbers correctly.
+Today’s ever-funkier and ever-keener-to-track-you websites love to look at your HTTP headers to try to figure out which browser you’re using, and what version you’re on, for example by dissecting the User-Agent header to decide what sort of content to send back.
+After updating, our Firefox User-Agent string now looks like this:
+Back in February 2022, a few mainstream sites didn’t seem to realise that 100 was greater than 99, presumably because they were hard-coded to use only the first (or last) two characters of the version number, millennium bug style, thus turning the text 100 either into the number 10, or into the number zero.
+Did we learn nothing from Y2K? Why are some coders still stuck on two digit numbers?
+
+
+Fortunately, we have’t had any visible trouble with Edge, which is based on Chromium and flipped over from 99 to 100 at the start of April (keeping just ahead of Firefox with 101 out at the start of May), and in the few hours that we’ve been on Firefox 100.0, we’ve had no problems either.
+We’re assuming either that the last few poorly-coded websites fixed their server-side code in the interim, or that the “special case” lists of problem sites created in recent months by Google and Firefox have suppressed any problems, for example by allowing both browsers to pretend as needed still to be version 99.
+The good news is that none of the security bugs patched in Firefox 100 (or its equivalent long-term version 91.9 ESR, which has the feature set of Firefox 91 plus a further 9 versions worth of vulnerability updates to bring it onto a cybersecurity par with 100) is considered “Critical”, and there aren’t any zero-day holes on the list.
+Nevertheless, the patches deal with an intriguing range of security issues, reminding us all just how much we rely on our browsers to do the right thing when it comes to cybersecurity.
+CVE-numbered vulnerabilities dealt with in this update include:
+Use Help > About Firefox to force a manual check for updates.
+Remember that even if you have automatic updates turned on, it’s worth checking that you’ve correctly received the update, instead of simply assuming it worked.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+While you may just get crickets for some of your batty asides, I appreciate you running such content.  Thanks Duck!
+Sticky wicket? That’s all I ken aboot the silly Sassenach game o’ Cricket. Personally I got tired of the constant development cycle a long time ago. Part of that is an innate resistance to change and part is every time you turn on your machine there is another update or upgrade. And those frequently break things.
+Thanks for the heads up and the wee history lesson.
+Interestingly, Scotland has qualified for 3 ICC Cricket World Cup competitions of the 6 since it became eligible to take part, and for 8 of the 18 FIFA Football World Cups since becoming elegible. (These out of 13 cricket and 21 football World Cups in total.)
+In modern global terms, then, the game of cricket is as much yours as it is anyone else’s, and cricket is essentially as Scots as football.
+As for continuous integration, I think you can embrace it and yet not be controlled (or distracted/mesmerised) by it if you are careful – you don’t have to ship a new version every 2.25 days, but knowing you can build the current code and pass routine tests every 2.25 hours does stop you digging yourself into easily avoidable development holes that you later struggle to climb out of.
+Being able to build a brand new version right now *if you absolutely must* is, IMO, a better alternative to the “we’ll do it next month/quarter/year when we get a Round Tuit”. 
+Having said that, I agree that shipping updates just because they are there – change for change’s sake – does seem to add a needless sense of “living on shifting sands”.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

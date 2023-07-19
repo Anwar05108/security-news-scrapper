@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+The latest raft of non-emergency Apple security updates are out, patching a total of 87 different CVE-rated software bugs across all Apple products and plaforms.
+There are 10 security bulletins for this bunch of updates, as follows:
+The current and two previous versions of macOS (Monterey, Big Sur and Catalina) all get updates, but only the latest versions of Apple’s mobile device operating systems (iOS, iPadOS, watchOS and tvOS) are supported in this round of fixes.
+Note that if you’re using macOS Catalina, you won’t see a new three-number operating system version after the update; you’ll just get Security Update 2022-003 instead.
+With 87 noteworthy bugs in the mix, there are plenty of security issues to choose from, including several that are listed with a warning that the bug might “lead to arbitrary code execution”, or even that it might be exploitable “to execute arbitrary code with kernel privileges”.
+Three remote code execution bugs are listed in WebKit, the HTML rendering code that underlies all of Apple’s own web browsing code, including Safari, and that underlies all web browsing on App Store programs.
+For App Store software, WebKit is not merely a de facto choice for Apple’s code but a de iure browser requirement for everyone, even Microsoft, Google and Mozilla: if you use your own HTML rendering engine instead of WebKit, your app will be rejected.
+Those WebKit bugs are covered by four bug numbers (CVE-2022-22610, CVE-2022-22624, CVE-2022-22628 and CVE-2022-22629), found and responsibly disclosed by three different researchers from three different external companies.
+They’re all described as flaws where “processing maliciously crafted web content may lead to code execution”, which means that simply looking at a web page, without clicking any links, using any menus, or approving any download actions, might be enough to implant malware on your computer or your phone.
+There’s a similar and equally alarming set of bugs (including CVE-2022-22633, CVE-2022-22634, CVE-2022-22635 and CVE-2022-22636) in the document, audio and video viewing components on iPhones and iPads.
+Those security holes could variously allow malware implantation (including with kernel privileges) or elevation of privilege, simply by presenting you with maliciously crafted PDFs or booby-trapped videos to look at.
+Remember that a non-kernel code execution bug on a device such as an iPhone typically restricts the attacker to fossicking around in the data of the app that triggered the bug.
+So, app-level compromise is often dangerous enough in its own right, but not as dramatically dangerous as a root-level or kernel-level compromise that lets one app snoop on all the others.
+But if a moderately dangerous remote code execution bug, or RCE, is combined with an EoP, short for elevation-of-privilege exploit, then the attacker’s remotely triggered malware code may be able not only to get in, but also to move around on your device.
+A two-pronged attack that takes and RCE-plus-EoP approach can therefore often evade the “each-app-is-cloistered-in-its-own-little-world” sandbox protection usually imposed by the operating system.
+There were also numerous information leakage bugs found and fixed.
+Some of these aren’t truly dangerous on their own, but are nevertheless a reminder that apps (including, as we’ve often reported before, the Lock Screen app!) may nevertheless not live up to the security promises you expect they’ll keep.
+Examples include
+Note that there’s also an update for iTunes on Windows (for Windows 10 and later).
+This update closes a number of remote code execution bugs, including not only the abovementioned WebKit holes, but also various related image-handling bugs that could allow a booby-trapped file to take over your computer even if all you did was look at it.
+Here’s how to check for and get the updates if you don’t have them already:
+Don’t delay. Do it today!
+The version numbers (or the designations of the installed security updates) that you should look for after you’ve updated are listed at the top of the article.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+One comment on iTunes — if you’ve installed iTunes through the Microsoft Store, you won’t have a “Check for Updates” option under “Help”.  You’ll need to go to the MS Store and check for updates there.  (At least that’s how it is in the U.S. on the two Windows 10 boxes I have iTunes installed from the Store.  The third box that was installed longer ago from Apple’s site does still have the check for update option.  All three are at the latest 12.12.3.5 version.)
+Thanks, good info! I will add the bit about Microsoft Store to the article for clarity.
+Checked updates on my iphone, 15.4 list lots of new apps and features to get you to give up more PII, and not a single mention of anything security/patch related. As I don’t want any of the apps they want to install, this is one apple patch I will skip, maybe they don’t want us cattle to know there are issues to fix?
+We listed the Security Advisory link for iOS 15.4 above (it’s the very first link in the article on the first line, in fact :-):
+https://support.apple.com/en-us/HT213182
+There are 36 security fixes (some with more than one CVE) on the list, which is a matter of public record. A good starting point to remember for the future is Apple’s Security Update “portal page”, which is the official list of lists of security update information:
+https://support.apple.com/en-us/HT201222
+HtH.
+Yes, you posted them, they put them on their website. I am faulting Apple for intentionally not mentioning there are security updates in the patch on the one place people will see – their phone. Sloppy on Apple.
+You Duck, do better than Apple at informing people of their own security patches.
+I haven’t had an update for a while because I still have my iPhone 6+ that doesn’t do iOS 15…
+…but IIRC there *is* a “click here for more info” link if you go to Settings > General > Software update. (Or am I thinking of Mac updates?)
+At any rate, if you accept updates automatically then the list is kind of irrelevant; if you do them when aware by visiting the update dialog manually… I’m sure there’s a link to the relevant HTxxxxxxx page there, isn’t there?
+Oh, and thanks for your kind words! We aim for clarity, even (especially?) if the vendor doesn’t…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

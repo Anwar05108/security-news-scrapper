@@ -1,0 +1,228 @@
+Sophos Home protects every Mac and PC in your home 
+PWNING THE WINDOWS KERNEL
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG.  Wireless spyware, credit card skimming, and patches galore. 
+All that, and more, on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug Aamoth; he is Paul Ducklin. 
+Paul, how do you do?
+DUCK.  I’m very well, Doug.
+Cold, but well.
+DOUG.  It’s freezing here too, and everyone is sick… but that’s December for you. 
+Speaking of December, we like to begin the show with our This Week in Tech History segment. 
+We have an exciting entry this week – on 16 December 2003, the CAN-SPAM Act was signed into law by then US President George W. Bush. 
+A backronym for controlling the assault of non-solicited pornography and marketing, CAN-SPAM was seen as relatively toothless for reasons such as not requiring consent from recipients to receive marketing email, and not allowing individuals to sue spammers. 
+It was believed that, by 2004, less than 1% of spam was actually complying with the Act.
+DUCK.  Yes, it’s easy to say this with hindsight…
+…but as some of us joked at the time, we reckoned they called it CAN-SPAM because that’s *exactly* what you could do. [LAUGHTER]
+DOUG.  “You CAN spam!”
+DUCK.  I guess the idea was, “Let’s start with a very softly-softly approach.” 
+[WRY TONE] So it was the start, admittedly, not of that much.
+DOUG.  [LAUGHS] We’ll get there eventually.
+Speaking of bad and worse… 
+…Microsoft Patch Tuesday – nothing to see here, unless you count a signed malicious kernel driver?!
+Signed driver malware moves up the software trust chain
+
+DUCK.  Well, several actually – the Sophos Rapid Response team found these artifacts in engagements that they did.
+Not just Sophos – at least two other cybersecurity research groups are listed by Microsoft as having stumbled across these things lately: kernel drivers that were effectively given a digital seal of approval by Microsoft. 
+Microsoft now has an advisory out that’s blaming rogue partners. 
+Whether they actually created a company that pretended to make hardware, especially to join the driver programme with the intention of sneaking dodgy kernel drivers through?
+Or whether they bribed a company that was already part of the programme to play ball with them? 
+Or whether they hacked into a company that didn’t even realise that it was being used as a vehicle for saying to Microsoft, “Hey, we need to produce this kernel driver – will you certify it?”…
+The problem with certified kernel drivers, of course, is because they have to be signed by Microsoft, and because driver signing is compulsory on Windows, it means that if you can get your kernel driver signed, you don’t need hacks or vulnerabilities or exploits to be able to load one as part of a cyberattack. 
+You can just install the driver and the system will go, “Oh well, it’s signed. It is therefore permissible to load it.” 
+And of course, you can do a lot more damage when you’re inside the kernel than you can when you’re “merely” Administrator. 
+Notably, you get insider access to process management. 
+As an admin, you can run a program that says, “I want to kill XYZ program,” which might be, say, an anti-virus or a threat-hunting tool. 
+And that program can resist being shut down, because, assuming it too is admin-level, neither process can absolutely claim primacy over the other.
+But if you’re inside the operating system, it’s the operating system that deals with starting and finishing processes, so you get much more power for killing off things like security software… 
+…and apparently that’s exactly what these crooks were doing.
+In “history repeating itself”, I remember, years and years ago, when we would investigate software that crooks used to terminate security programs, they’d typically have lists of between 100 and 200 processes that they were interested in killing off: operating system processes, anti-virus programs from 20 different vendors, all that sort of stuff. 
+And this time, I think there were 186 programs that their driver was there to kill. 
+So a bit of an embarrassment for Microsoft.
+Fortunately, they have now kicked those rogue coders out of their developer programme, and they have blocklisted at least all the known dodgy drivers.
+DOUG.  So that’s not all that was revealed on Patch Tuesday. 
+There were also some zero-days, some RCE bugs, and other things of that nature:
+Patch Tuesday: 0-days, RCE bugs, and a curious tale of signed malware
+
+DUCK.  Yes. 
+Fortunately the zero-day bugs fixed this month weren’t what are known as RCEs, or remote code execution holes. 
+So they didn’t give a direct route for outside attackers just to jump into your network and run anything they wanted. 
+But there was a kernel driver bug in DirectX that would allow someone who wass already on your computer basically to promote themselves to have kernel-level powers. 
+So that’s a little bit like bringing your own signed driver – you *know* you can load it. 
+In this case, you exploit a bug in a driver that is trusted and that lets you do stuff inside the kernel. 
+Obviously, that’s the kind of thing that makes a cyberattack that’s already bad news into something very, very much worse. 
+So you definitely want to patch against that. 
+Intriguingly, it seems that that only applies to the very latest build, i.e. 2022H2 (second half of the year is what H2 stands for) of Windows 11. 
+You definitely want to make sure you’ve got that. 
+And there was an intriguing bug in Windows SmartScreen, which is basically the Windows filtering tool that when you try and download something that could be or is dangerous, gives you a warning.
+So, obviously, if the crooks have found, “Oh, no! We’ve got this malware attack, and it was working really well, but now Smart Screen is blocking it, what are we going to do?”…
+…either they can run away and build a whole new attack, or they can find a vulnerability that lets them sidestep Smart Screen so the warning doesn’t pop up. 
+And that’s exactly what happened in CVE-2022-44698, Douglas. 
+So, those are the zero-days. 
+As you said, there are some remote code execution bugs in the mix, but none of those are known to be in the wild. 
+If you patch against those, you get ahead of the crooks, rather than merely catching up.
+DOUG.  OK, let’s stay on the subject of patches… 
+…and I love the first part of this headline. 
+It just says, “Apple patches everything”:
+Apple patches everything, finally reveals mystery of iOS 16.1.2
+
+DUCK.  Yes, I couldn’t think of a way of listing all the operating systems in 70 characters or less. [LAUGHTER]
+So I thought, “Well, this is literally everything.” 
+And the problem is that last time we wrote about an Apple update, it was only iOS (iPhones), and only iOS 16.1.2:
+Apple pushes out iOS security update that’s more tight-lipped than ever
+
+So, if you had iOS 15, what were you to do? 
+Were you at risk? 
+Were you going to get the update later? 
+This time, the news about the last update finally came out in the wash. 
+It appears, Doug, that the reason that we got that iOS 16.1.2 update is that there was an in-the-wild exploit, now known as CVE-2022-42856, and that was a bug in WebKit, the web rendering engine inside Apple’s operating systems.
+And, apparently, that bug could be triggered simply by luring you to view some booby-trapped content – what’s known in the trade as a driveby install, where you just glance at a page and, “Oh, dear”, in the background, malware gets installed. 
+Now, apparently, the exploit that was found only worked on iOS. 
+That’s presumably why Apple didn’t rush out updates for all the other platforms, although macOS (all three supported versions), tvOS, iPadOS… they all actually contained that bug.
+The only system that didn’t, apparently, was watchOS. 
+So, that bug was in pretty much all of Apple’s software, but apparently it was only exploitable, as far as they knew, via an in-the-wild exploit, on iOS. 
+But now, weirdly, they’re saying, “Only on iOSes before 15.1,” which makes you wonder, “Why didn’t they put out an update for iOS 15, in that case?” 
+We just don’t know! 
+Maybe they were hoping that if they put out iOS 16.1.2, some people on iOS 15 would update anyway, and that would fix the problem for them? 
+Or maybe they weren’t yet sure that iOS 16 was not vulnerable, and it was quicker and easier to put out the update (which they have a well-defined process for), than to do enough testing to determine that the bug couldn’t be exploited on iOS 16 easily. 
+We shall probably never know, Doug, but it’s quite a fascinating backstory in all of this! 
+But, indeed, as you said, there’s an update for everybody with a product with an Apple logo on it. 
+So: Do not delay/Do it today.
+DOUG.  Let us move to our friends at Ben-Gurion University… they are back at it again. 
+They’ve developed some wireless spyware – a nifty little wireless spyware trick:
+COVID-bit: the wireless spyware trick with an unfortunate name
+
+DUCK.  Yes… I’m not sure about the name; I don’t know what they were thinking there. 
+They’ve called it COVID-bit.
+DOUG.  A little weird.
+DUCK.  I think we’ve all been bitten by COVID in some way or another…
+DOUG.  Maybe that’s it?
+DUCK.  The COV is meant to stand for covert, and they don’t say what ID-bit stands for. 
+I guessed that it might be “information disclosure bit by bit”, but it is nevertheless a fascinating story. 
+We love writing about the research that this Department does because, although for most of us it’s a little bit hypothetical…
+…they’re looking at how to violate network airgaps, which is where you run a secure network that you deliberately keep separate from everything else. 
+So, for most of us, that’s not a huge issue, at least at home. 
+But what they’re looking at is that *even if you seal off one network from another physically*, and these days go in and rip out all the wireless cards, the Bluetooth cards, the Near Field Communications cards, or cut wires and break circuit traces on the circuit board to stop any wireless connectivity working… 
+…is there still a way that either an attacker who gets one-time access to the secure area, or a corrupt insider, could leak data in a largely untraceable way? 
+And unfortunately, it turns out that sealing off one network of computer equipment entirely from another is much harder than you think.
+Regular readers will know that we’ve written about loads of stuff that these guys have come up with before. 
+They’ve had GAIROSCOPE, which is where you actually repurpose a mobile phone’s compass chip as a low-fidelity microphone.
+DOUG.  [LAUGHS] I remember that one:
+Breaching airgap security: using your phone’s gyroscope as a microphone
+
+DUCK.  Because those chips can sense vibrations just well enough. 
+They’ve had LANTENNA, which is where you put signals on a wired network that’s inside the secure area, and the network cables actually act as miniature radio stations.
+They leak just enough electromagnetic radiation that you may be able to pick it up outside the secure area, so they’re using a wired network as a wireless transmitter.
+And they had a thing that they jokingly called the FANSMITTER, which is where you go, “Well, can we do audio signalling? Obviously, if we just play tunes through the speaker, like [dialling noises] beep-beep-beep-beep-beep, it’ll be pretty obvious.”
+But what if we vary the CPU load, so that the fan speeds up and slows down – could we use the change in fan speed almost like a sort of semaphore signal?
+Can your computer fan be used to spy on you?
+
+And in this latest attack, they figured, “How else can we turn something inside almost every computer in the world, something that seems innocent enough… how can we turn it into a very, very low-power radio station?” 
+And in this case, they were able to do it using the power supply. 
+They were able to do it in a Raspberry Pi, in a Dell laptop, and in a variety of desktop PCs.
+They’re using the computer’s own power supply, which basically does very, very high-frequency DC switching in order to chop up a DC voltage, usually to reduce it, hundreds of thousands or millions of times a second. 
+They found a way to get that to leak electromagnetic radiation – radio waves that they could pick up up to 2 metres away on a mobile phone…
+…even if that mobile phone had all its wireless stuff turned off, or even removed from the device. 
+The trick they came up with is: you switch the speed at which it’s switching, and you detect the changes in the switching frequency. 
+Imagine, if you want a lower voltage (if you want to, say, chop 12V down to 4V), the square wave will be on for one-third of the time, and off for two-thirds of the time. 
+If you want 2V, then you’ve got to change the ratio accordingly. 
+And it turns out the modern CPUs vary both their frequency and their voltage in order to manage power and overheating.
+So, by changing the CPU load on one or more of the cores in the CPU – by just ramping up tasks and ramping down tasks at a comparatively low frequency, between 5000 and 8000 times a second – they were able to get the switched-mode power supply to *switch its switching modes* at those low frequencies.
+And that generated very low-frequency radio emanations from circuit traces or any copper wire in the power supply. 
+And they were able to detect those emanations using a radio antenna that was no more sophisticated than a simple wire loop! 
+So, what do you do with a wire loop? 
+Well, you pretend, Doug, that it’s a microphone cable or a headphone cable.
+You connect it to a 3.5mm audio jack, and you plug it into your mobile phone like it’s a set of headphones…
+DOUG.  Wow.
+DUCK.  You record the audio signal that’s generated from the wire loop – because the audio signal is basically a digital representation of the very low-frequency radio signal that you’ve picked up. 
+They were able to extract data from it at a rate anywhere between 100 bits per second when they were using the laptop, 200 bits per second with the Raspberry Pi, and anywhere up to 1000 bits per second, with a very low error rate, from the desktop computers.
+You can get things like AES keys, RSA keys, even small data files out at that sort of speed. 
+I thought that was a fascinating story. 
+If you run a secure area, you definitely want to keep up with this stuff, because as the old saying goes, “Attacks only get better, or smarter.”
+DOUG.  And lower tech. [LAUGHTER]
+Everything is digital, except we’ve got this analogue leakage that’s being used to steal AES keys. 
+It’s fascinating!
+DUCK.  Just a reminder that you need to think about what’s on the other side of the secure wall, because “out of sight is very definitely not necessarily out of mind.”
+DOUG.  Well, that dovetails nicely into our final story – something that is out of sight, but not out of mind:
+Credit card skimming – the long and winding road of supply chain failure
+
+If you’ve ever built a web page, you know that you can drop analytics code – a little line of JavaScript – in there for Google Analytics, or companies like it, to see how your stats are doing. 
+There was a free analytics company called Cockpit in the early 2010s, and so people were putting this Cockpit code – this little line of JavaScript – in their web pages. 
+But Cockpit shut down in 2014, and let the domain name lapse. 
+And then, in 2021, cybercriminals thought, “Some e-commerce sites are still letting this code run; they’re still calling this JavaScript. Why don’t we just buy up the domain name and then we can inject whatever we want into these sites that still haven’t removed that line of JavaScript?”
+DUCK.  Yes.
+What could possibly go right, Doug?
+DOUG.  [LAUGHS] Exactly! 
+DUCK.  Seven years! 
+They would have had an entry in all their test logs saying, Could not source the file cockpit.js (or whatever it was) from site cockpit.jp, I think it was. 
+So, as you say, when the crooks lit the domain up again, and started putting files up there to see what would happen…
+…they noticed that loads of e-commerce sites were just blindly and happily consuming and executing the crooks’ JavaScript code inside their customers’ web browsers.
+DOUG.  [LUAGHING] “Hey, my site is not throwing an error anymore, it’s working.”
+DUCK.  [INCREDULOUS] “They must have fixed it”… for some special understanding of the word “fixed”, Doug.
+Of course, if you can inject arbitrary JavaScript into somebody’s web page, then you can pretty much make that web page do anything you want. 
+And if, in particular, you are targeting e-commerce sites, you can set what is essentially spyware code to look for particular pages that have particular web forms with particular named fields on them…
+…like passport number, credit card number, CVV, whatever it is. 
+And you can just basically suck out all the unencrypted confidential data, the personal data, that the user is putting in. 
+It hasn’t gone into the HTTPS encryption process yet, so you suck it out of the browser, you HTTPS-encrypt it *yourself*, and send it out to a database run by crooks. 
+And, of course, the other thing you can do is that you can actively alter web pages when they arrive. 
+So you can lure someone to a website – one that is the *right* website; it’s a website they’ve gone to before, that they know they can trust (or they think they can trust). 
+If there’s a web form on that site that, say, usually asks them for name and account reference number, well, you just stick in a couple of extra fields, and given that the person already trusts the site…
+… if you say name, ID, and [add in] birthdate?
+It’s very likely that they’re just going to put in their birthdate because they figure, “I suppose it’s part of their identity check.”
+DOUG.  This is avoidable. 
+You could start by reviewing your web-based supply chain links.
+DUCK.  Yes. 
+Maybe once every seven years would be a start? [LAUGHTER]
+If you’re not looking, then you really are part of the problem, not part of the solution.
+DOUG.  You could also, oh, I don’t know… check your logs?
+DUCK.  Yes. 
+Again, once every seven years might be start? 
+Let me just say what we’ve said before on the podcast, Doug…
+…if you’re going to collect logs that you never look at, *just don’t bother collecting them at all*. 
+Stop kidding yourself, and don’t collect the data.
+Because, actually, the best thing that can happen to data if you’re collecting it and not looking at it, is that the wrong people won’t get at it by mistake.
+DOUG.  Then, of course, perform test transactions regularly.
+DUCK.  Should I say, “Once every seven years would be a start”? [LAUGHTER]
+DOUG.  Of course, yes… [WRY] that might be regular enough, I suppose.
+DUCK.  If you’re an e-commerce company and you expect your users to visit your website, get used to a particular look and feel, and trust it…
+…then you owe it to them to be testing that the look and feel is correct.
+Regularly and frequently. 
+Easy as that.
+DOUG.  OK, very good. 
+And as the show begins to wind down, let us hear from one of our readers on this story. 
+Larry comments:
+Review your web based supply chain links? 
+Wish Epic Software had done this before shipping the Meta tracking bug to all their customers. 
+I am convinced that there is a new generation of developers who think development is about finding code fragments anywhere on the internet and uncritically pasting them into their work product.
+DUCK.  If only we didn’t develop code like that…
+…where you go, “I know, I’ll use this library; I’ll just download it from this fantastic GitHub page I found.
+Oh, it needs a whole load of other stuff!?
+Oh, look, it can satisfy the requirements automatically… well, let’s just do that then!”
+Unfortunately, you have to *own your supply chain*, and that means understanding everything that goes into it. 
+If you’re thinking along the Software Bill of Materials [SBoM], roadway, where you think, “Yes, I’ll list everything I use”, it’s not just enough to list the first level of things that you use. 
+You also need to know, and be able to document, and know you can trust, all the things that those things depend on, and so on and so on:
+*That’s* how you have to chase down your supply chain!
+DOUG.  Well said!
+Alright, thank you very much, Larry, for sending in that comment. 
+If you have an interesting story, comment, or question you’d like to submit, we’d love to read it on the podcast. 
+You can email tips@sophos.com, you can comment on any one of our articles, or you can hit us up on social: @NakedSecurity. 
+That’s our show for today; thanks very much for listening. 
+For Paul Ducklin, I’m Doug Aamoth, reminding you, until next time, to… 
+BOTH.  Stay secure!
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

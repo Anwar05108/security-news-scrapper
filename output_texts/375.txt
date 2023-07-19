@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at web coding security company SALT just published a fascinating description of how they found an authentication bug dubbed CVE-2023-28131 in a popular online app-buildin toolkit known as Expo.
+The good news is that Expo responded really quickly to SALT’s bug report, coming up with a fix within just a few hours of SALT’s responsible disclosure.
+Fortunately, the fix didn’t rely on customers downloading anything, because the patch was implemented inside Expo’s cloud service, and didn’t require patches to any pre-installed apps or client-side code.
+Expo’s advisory not only explained what happened and how the company fixed it, but also offered programming advice to its customers on how to avoid this sort of possible vulnerability with other online services.
+SALT then waited three months before publishing its report, rather than rushing it out for publicity purposes as soon as it could, thus giving Expo users a chance to digest and act upon Expo’s response.
+The buggy authentication process is explained in detail in SALT’s report, but we’ll present a greatly simplified description here of what went wrong in Expo’s OAUTH service.
+OAUTH, short for Open Authorization Framework, is a process that allows you to access private data in an online service (such as editing your online profile, adding a new blog article, or approving a web service to make social media posts for you), without ever setting up a password with, or logging directly into, that service itself.
+When you see web services that offer you a Login with Google or Facebook option, for example, they’re almost always using OAUTH in the background, so that you don’t need to create a new username and a new password with yet another website, or give your phone number out to yet another online service.
+Strictly speaking, you authenticate indirectly, only ever putting your Google or Facebook credentials into one of those sites.
+Some users don’t like this, because they don’t want to authenticate to Google or Facebook just to prove their identity to other, unrelated sites. Others like it because they assume that sites such as Facebook and Google have more experience in handling the login process, storing password hashes securely, and doing 2FA, than a boutique website that has tried to knit its own cryptographic security processes.
+Greatly simplified, an OAUTH-style login, via your Facebook account to a site called example.com, goes something like this:
+Note that only Facebook sees your Facebook password and 2FA code, if needed, so the Facebook service acts as an authentication broker between you and example.com.
+Behind the scenes, there’s a final validation, like this:
+The bug that the SALT researchers found in the Expo code can be triggered by maliciously subverting Expo’s handling of what you might call the “authentication brokerage” process.
+The key points are as follows:
+Unfortunately, the SALT researchers found that they could subvert the login process by using JavaScript code to trigger access to the initial Expo login URL, but then killing off the verification popup before you had time to read it or approve it yourself.
+At this point, however, Expo’s service had already set a cookie named ru (short for returnURL) to tell it where to call back with your magic access token at the end.
+This meant that a cybercriminal could trick Expo’s code into “remembering” a returnURL such as https://roguesite.example, without you ever seeing the dialog to warn you that an attack was under way, let alone approving it by mistake.
+Then the researchers used a second chunk of JavaScript code to simulate Expo’s redirect to Facebook’s verification process, which would automatically succeed if (like many people) you were already logged into Facebook itself.
+Facebooks’s verification, in turn, would redirect the Expo login process back into Expo’s own JavaScript code… 
+…which would trustingly but erroneously grab the never-actually-verified returnURL for its callback from that magic ru cookie that it set at the start, without your approval or knowledge.
+As you can see from the description above, the vulnerability was caused by Expo’s code failing inappropriately.
+Authentication code should generally fail closed, in the jargon, meaning that the process should not succeed unless some sort of active approval has been signalled.
+We’re guessing that Expo didn’t intend the system to fail open, given that SALT’s report shows that its popup approval dialog looked like this:
+The default answer, as you would expect, was set to [No], but this would only cause the system to fail closed if you religiously used Expo’s own client-side code to control the verification process.
+By supplying their own JavaScript to run the sequence of verification requests, the researchers were able to treat the approval dialog as if it had said:
+The solution, among other changes, was for Expo’s initial login code to set that magic ru cookie only after you’d explicitly approved the so-called returnURL, so that Expo’s later JavaScript login code would fail closed if the verification popup was skipped, instead of blindly trusting a URL that you had never seen or approved.
+In many ways, this bug is similar to the Belkin Wemo Smart Plug bug that we wrote about two weeks ago, even though the root cause in Belkin’s case was a buffer overflow, not a rogue web callback.
+Belkin’s code allocated a 68-byte memory buffer in its server-side code, but relied on checking in its client-side code that you didn’t try to send more than 68 bytes, thus leaving the server at the mercy of attackers who decided to talk to the server using their own client-side code that bypassed the verification process.
+Belkin Wemo Smart Plug V2 – the buffer overflow that won’t be patched
+
+
+Don’t forget that by logging out of web services whenever you can, and by clearing all your browser cookies and stored web data frequently, you also reduce the amount of tracking information that sites can collect about you as you browse.
+After all, if you aren’t logged in, and you don’t have any tracking cookies left over from before, sites no longer know exactly who you are, or what you did last time you visited.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Set your browser to delete cookies on close.
+And web storage/website data if that’s a separate option…
+(On phone browsers you might not have a “delete automatically” option  – in Safari on iOS, for example, it’s the manual option Settings > Safari > Clear History and Website Data – so learn how to do it by hand and make a note to do it every couple of days…)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

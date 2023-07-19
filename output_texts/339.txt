@@ -1,0 +1,57 @@
+Sophos Home protects every Mac and PC in your home 
+Cybersecurity researcher Sam Sabetan yesterday went public with insecurity revelations against IoT vendor Nexx, which sells a range of “smart” devices including door openers, home alarms and remotely switchable power plugs.
+According to Sabetan, he reported the bugs to Nexx back in January 2023, but to no avail.
+So he decided to sound the alarm openly, now it’s April 2023.
+The warning was considered serious enough by the powers-that-be that even the resoundingly if repetitiously named US Cybersecurity and Infrastructure Security Agency, or CISA, published a formal advisory about the flaws.
+Sabetan deliberately didn’t publish precise details of the bugs, or provide any proof-of-concept code that would allow just anyone to start hacking away on Nexx devices without already knowing what they were doing.
+But from a brief, privacy-redacted video provided by Sabetan to prove his point, and the CVE-numbered bug details listed by CISA, it’s easy enough to figure out how the flaws probably came to get programmed into Nexx’s devices.
+More precisely, perhaps, it’s easy to see what didn’t get programmed into Nexx’s system, thus leaving the door wide open for attackers.
+Five CVE numbers have been assigned to the bugs (CVE-2023-1748 to CVE-2023-1752 inclusive), which cover a number of cybersecurity omissions, apparently including the following three interconnected security blunders:
+Sabetan used the hardwired access credentials from Nexx’s firmware to monitor the network traffic in Nexx’s cloud system while operating his own garage door:
+Today I'm unveiling my research on @GetNexx 's smart ecosystem: I could open any customer's garage doors. Despite warnings, they ignored the issue. 1/4 https://t.co/9V5uuT3LLE
+— Sam Sabetan (@samsabetan) April 4, 2023
+
+That’s reasonable enough, even though the access credentials buried in the firmware weren’t officially published, given that his intention seems to have been to determine how well-secured (and how privacy-conscious) the data exchanges were between the app on his phone and Nexx, and between Nexx and his garage door.
+That’s how he soon discovered that: 
+Note that an attacker wouldn’t need to know where you live to abuse these insecurities, though if they could tie your email address to your physical address, they could arrange to be present at the moment they opened your garage door, or they could wait to turn your alarm off until they were right in your driveway, and thus use the opportunity to burgle your property.
+Attackers could open your garage door without knowing or caring where you lived, and thus expose you to opportunistic thieves in your area… just “for the lulz”, as it were.
+No one likes to be confronted with accusations that their programming code wasn’t up to cybersecurity scratch, or that their back-end server code contained dangerous bugs…
+…but when the evidence comes from someone who is telling you for your own good, and who is willing to give you some clear time to fix the problems before going public, why turn down the opportunity?
+After all, the crooks spend the same sort of effort on finding bugs like this, and then tell no one except themselves or other crooks.
+By ignoring legitimate researchers and customers who willingly try to warn you about problems, you’re just playing into the hands of cybercriminals who find bugs and don’t breathe a word about them.
+As the old joke puts it, “The ‘S’ in IoT stands for security”, and that’s a regrettable and entirely avoidable situation that we urgently need to change.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+They’re way more unacceptable in 2013?  This is a 10 year old document?
+Hahaha. Technically there is nothing wrong with that as written: what made for rubbish security in 1993 was double-rubbish by 2013… but I did indeed mean 2023, where they are yet more unaccetpable still.
+I suddenly started questionning whether I had dreamed up my existence between 2013 and 2023 when I read the sentence
+“Hardcoded passwords or access codes were unacceptable back in 1993, and they’re way more unacceptable in 2013.”
+It was a typo, though it was true before I fixed it (just Even More True in 2023!)
+Wow, sounds as if the company found a time travel trick and jumped directly from pre-1993 to today.
+Thanks for the 0-factor authentication 🤘🏻
+I’d rather have my devices dumb and secure instead of ‘smart’ and insecure.
+Well, there’s smart meaning “clever or quick-witted”, and there’s smart meaning “feel a stinging pain”.
+I’m referring to the third definition of smart: “woefully insecure”
+Like so much else en vogue these days, it’s an inversion of reality.
+Just turn off the breaker to the garage door not the end of the world
+There are a lot of people who dont know what a breaker is or where it is and for those there will be new modern breakers connected via wifi or blutooth to your hand held device via “the cloud”. Anyone remember those IR switches that opened your garage door when you turned into your driveway or your dog walked across the magic beam? If you don’t remember them watch Jacques Tati’s 1958 “Mon Oncle” from a movie streaming service that broadcasts award winning films. Security is only as good as you make it without relying on other services.
+Unplugged my garage door opener last year when electricity more than doubled one day (thanks JB) as well as the house AC and other things. Zero IOT devices on in my home, funny for a tech to say…
+I’m starting to think life is better without electricity. Less stress that’s for sure.
+Compared to anything involving refrigeration or heating (when done electrically this generally needs a current-hungry resistor that simply heats up, or a powerful compressor), the energy consumed by opening and closing your garage door is almost certainly a statistical insignificance.
+Unless the need to open the door manually acts as an incentive to drive less.
+Not the end of the world, no. Oh what’s that, my garage doors opened in the night and burglars entered my house?
+If you’re a bad-guy, you don’t really need to fuss about with software, remotes and dip-switches and all the techy guff
+Un-wind a wire coat-hanger, and thread the hook-end of the hanger thru the top-middle or top-side of the roller door.
+What you’re ‘feeling’ for is the emergency release – this will unlatch the door from the motor mechanism, and allow you to simply lift the door, to reveal the treasures within – which is why I always recommend a double-key dead-bolt from garage into the house.
+PS: and lock your car whilst in the garage…
+Though this hack, unlike the coat hanger door release, can be done remotely…
+Pretty stupid of the company to apparently just ignore the reports. Could cost them millions in damages and fines.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

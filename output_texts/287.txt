@@ -1,0 +1,51 @@
+Sophos Home protects every Mac and PC in your home 
+GoTo is a well-known brand that owns a range of products, including technologies for teleconferencing and webinars, remote access, and password management.
+If you’ve ever used GoTo Webinar (online meetings and seminars), GoToMyPC (connect and control someone else’s computer for management and support), or LastPass (a password manangement service), you’ve used a product from the GoTo stable.
+You’ve probably not forgotten the big cybersecurity story over the 2022 Christmas holiday season, when LastPass admitted that it had suffered a breach that was much more serious than it had first thought.
+The company first reported, back in August 2022, that crooks had stolen proprietary source code, following a  break-in into the LastPass development network, but not customer data.
+But the data grabbed in that source code robbery turned out to include enough information for attackers to follow up with a break-in at a LastPass cloud storage service, where customer data was indeed stolen, ironically including encrypted password vaults.
+Now, unfortunately, it’s parent company GoTo’s turn to admit to a breach of its own – and this one also involves a development network break-in.
+On 2022-11-30, GoTo informed customers that it had suffered “a security incident”, summarising the situation as follows:
+ Based on the investigation to date, we have detected unusual activity within our development environment and third-party cloud storage service. The third-party cloud storage service is currently shared by both GoTo and its affiliate, LastPass.
+This story, so briefly told at the time, sounds curiously similar to the one that unfolded from August 2022 to December 2022 at LastPass: development network breached; customer storage breached;  investigation ongoing.
+Nevertheless, we have to assume, given that the statement explicitly notes that the cloud service was shared between LastPass and GoTo, while implying that the development network mentioned here wasn’t, that this breach didn’t start months earlier in LastPass’s development system.
+The suggestion seems to be that, in the GoTo breach, the development network and cloud service intrusions happened at the same time, as though this was a single break-in that yielded two targets right away, unlike the LastPass scenario, where the cloud breach was a later consequence of the first.
+Two months later, GoTo has come back with an update, and the news isn’t great:
+[A] threat actor exfiltrated encrypted backups from a third-party cloud storage service related to the following products: Central, Pro, join.me, Hamachi, and RemotelyAnywhere. We also have evidence that a threat actor exfiltrated an encryption key for a portion of the encrypted backups. The affected information, which varies by product, may include account usernames, salted and hashed passwords, a portion of Multi-Factor Authentication (MFA) settings, as well as some product settings and licensing information.
+The company also noted that although MFA settings for some Rescue and GoToMyPC customers were stolen, their encrypted databases were not.
+Two things are confusingly unclear here: firstly, why were MFA settings stored encrypted for one set of customers, but not for others; and secondly, what do the words “MFA settings” encompass anyway?
+Several possible important “MFA settings” come to mind, including one or more of:
+Clearly, leaked telephone numbers that are directly linked to the 2FA process represent handy targets for crooks who already know your username and password, but can’t get past your 2FA protection.
+If the crooks are certain of the number to which your 2FA codes are being sent, they may be inclined to try for a SIM swap, where they trick, cajole or bribe a mobile phone company staffer into issuing them a “replacement” SIM card that has your number assigned to it.
+If that happens, not only will they receive the very next 2FA code for your account on their phone, but your phone will go dead (because a number can only be assigned to one SIM at a time), so you are likely to miss any alerts or telltales that might otherwise have clued you in to the attack.
+SIM swapper sent to prison for 2FA cryptocurrency heist of over $20m
+
+
+Starting seeds for app-based 2FA code generators are even more useful for attackers, because it’s the seed alone that determines the number sequence that appears on your phone.
+Those magic six-digit numbers (they can be longer, but six is usual) are computed by hashing the current Unix-epoch time, rounded down to the start of the most recent 30-second window, using the seed value, typically a randomly-chosen 160-bit (20-byte) number, as a cryptographic key.
+Anyone with a mobile phone or a GPS receiver can reliably determine the current time within a few milliseconds, let alone to the closest 30 seconds, so the starting seed is the only thing standing between a crook and your own personal code stream.
+Similarly, stored recovery codes (most services only let you keep a few valid ones at a time, typically five or ten, but one may well be enough) are also almost certainly going to get an attacker past your 2FA defences.
+Of course, we can’t be sure that any of this data was included in those missing “MFA settings” that the crooks stole, but we do wish that GoTo had been more forthcoming about what was involved in that part of the breach.
+Another detail that we recommend you to include if ever you’re caught out in a data breach of this sort is exactly how any salted-and-hashed passwords were actually created.
+This will help your customers judge how quickly they need to get through all the now-unavoidable password changes they need to make, because the strength of the hash-and-salt process (more precisely, we hope, the of salt-hash-and-stretch process) determines how quickly the attackers might be able to work out your passwords from the stolen data.
+Serious Security: How to store your users’ passwords safely
+
+
+Technically, hashed passwords aren’t generally cracked by any sort of cryptographic trickery that “reverses” the hash. A decently-chosen hashing algorithm can’t be run backwards to reveal anything about its input. In practice, attackers simply try out a hugely long list of possible passwords, aiming to try very likely ones up front (e.g. pa55word), to pick moderately likely ones next (e.g. strAT0spher1C), and to leave the least likely as long as possible (e.g. 44y3VL7C5%TJCF-KGJP3qLL5). When choosing a password hashing system, don’t invent your own. Look at well-known algorithms such as PBKDF2, bcrypt, scrypt and Argon2. Follow the algorithm’s own guidelines for salting and stretching parameters that provide good resilience against password-list attacks. Consult the Serious Security article above for expert advice.
+GoTo has admitted that the crooks have had at least some users’ account names, password hashes and an unknown set of “MFA settings” since at least the end of November 2022, close to two months ago.
+There’s also the possibility, despite our assumption above that this was an entirely new breach, that this attack might turn out to have a common antecedent going back to the original LastPass intrusion in August 2022, so that the attackers might have been in the network for even longer than two months before this recent breach notification was published.
+So, we suggest:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Considering that they share the same third-party cloud storage service as LastPass, I honestly wouldn’t be surprised if (and tend to assume that) the same attacker(s) who compromised the LastPass portion of the cloud storage service also managed to get into GoTo’s portion while they were in there, and from that point they managed to work their way backwards into GoTo’s Dev network (perhaps using hard-coded credentials that someone mistakenly left in a script).
+I could be entirely wrong, but it seems like the most likely avenue to me, since they share a third-party cloud storage service.
+I think it would be nice to know who this “third-party cloud storage service” is, and whether they’re taking any new precautions themselves now that they know that technically, they were breached as well, albeit through the stupidity mistake of their customers.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

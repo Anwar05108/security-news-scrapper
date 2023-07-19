@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+Last time we reported on a Chrome zero-day flaw was back in February 2022.
+Back then, Google noted that the Chrome browser – and, by implication, all other browsers based on the Chromium-project code and its underlying Blink rendering engine – had been patched against a range of memory mismanagement bugs that were potentially exploitable for remote code execution (RCE).
+In the browser world, RCE vulnerabilities, if successfully abused, often mean that merely viewing a web page containing booby-trapped content could leave you with uninvited, unapproved program code implanted onto your computer – an active malware infection, to put it bluntly.
+(Note that we used the word could above, not will, given that browser exploits are often fickle flaws that are unreliable even when used deliberately in anger, perhaps leaving you with a crashed browser but an otherwise unharmed computer.)
+Anyway, back in February 2022, none of the bugs listed by Goole  got a truly dangerous rating of “Critical” (they maxxed out at the level “High”), but one of them, dubbed CVE-2022-0609, was nevertheless accompanied by the admittedly rather vague words: “Google is aware of reports that an exploit for CVE-2022-0609 exists in the wild.”
+Google announces zero-day in Chrome browser – update now!
+
+
+Saying that someone’s told you that a working exploit exists is not the same as admitting that you’ve actually seen the exploit yourself, of course, and that, in turn, means that you can only assume that the patch you’ve just created really does prevent any alleged “in-the-wild” attacks.
+Indeed, in the case of CVE-2022-0609, Google’s Threat Analysis Group needed until late in March 2022 to follow up with a detailed report.
+In that report, Google’s researchers claimed they’d tracked the first use of this exploit right back to the start of January 2022, and suggested that it had been abused by two different North Korean hacking groups.
+Well, March 2022 has brought us another Chrome exploit listed with the dreaded words, “Google is aware of reports that an exploit for CVE-2022-1096 exists in the wild.”
+In fact, CVE-2022-1096 is the only security fix listed in the 2022-03-25 Chrome update advisory, which announces the release of Chrome version 99.0.4844.84.
+Unfortunately, as you’ll see if you read Google’s report on the CVE-2022-0609 zero-day mentioned above, details such as who’s using a known exploit, where they’re using it, what they’re using it for, and how reliably the exploit works in real life, can be hard to figure out, especially if the attackers guard the exploit carefully.
+Indeed, if you’ve ever experienced what’s known in the jargon as malvertising (booby-trapped web content that’s delivered semi-randomly via a hacked ad network, causing intermittent and unpredictable malware warnings to pop up, perhaps even on  mainstream sites), you’ll know just how elusive web threats can be:
+Equifax website hit by malvertising – will the pain never end?
+
+
+Even if your chosen anti-virus software detects and blocks an attack against your browser, so you know to report it, there’s no guarantee that the threat researchers who investigate will be able to coax the same misbehaviour that you did out of the compromised servers.
+And even if you are able to find left-over remnants of the attack, such as temporary JavaScript code left behind in a cache file on disk, it won’t be much use if it depended on a random run-time decryption key that was only ever stored in memory…
+…especially if the exploit succeeded only because your browser crashed and took the memory-based decryption key with it.
+Until Google is able to acquire, and decides to share, specific details about this CVE-2022-1096 zero-day attack, there aren’t any definitive indicators of compromise (IoCs) that you can rely upon to see whether it’s been used against you.
+Your best bet, as always, is: Patch Early, Patch Often.
+If you’re a Chrome (or Chromium) user, you can type the the special URL chrome://version into the address bar to show you the precise details of the version you’re currently running. 
+(Google’s security advisory notes that the update applies to Windows, Mac and Linux; there’s no mention of what version number to look for on Android, or even if Chrome on Android is affected.)
+If Chrome hasn’t already fetched the latest version for you automatically, go to DotDotDot (the More menu) in the top right, then use Help and About to access the update dialog: you want 99.0.4844.84 or later.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I’m wondering if anyone else has experienced this problem — since updating Chrome to Version 99.0.4844.84 a few hours ago, I’m no longer able to attach a file to an email. The open file dialog box opens but lists no files, and hangs at that point.  Rebooting, and ensuring all updates in, and rebooting again doesn’t change this behavior.
+Time to move to Edge!
+It is the Chromium code underneath, just to be clear :-) But it’s a non-Google browser in other respects…
+I know that…..
+all I am saying is Edge has been more stable than Chrome in recently months.
+Some folks I know have already moving from Chrome to Edge – i know it will be a while before Edge can catch up on Chrome.
+Given many other browsers use the Chrome engine, is there any other reason to look at something else. Apart from privacy would Brave be a better option – it would still have all the bugs/zero days as Chrome wouldn’t it?
+Firefox is Mozilla’s browser code on Mozilla’s rendering engine with Mozilla’s JavaScript. Works well for me (I am on Linux). 
+I use Edge as my secondary browser; that got an update over the weekend but I am not 100% sure if it fixes this bug. I assume it does, given it came after the Chrome update, but I haven’t investigated yet – I’ve updated but not needed Edge today.
+Which distro had the EDGE update? When I applied normal updates on Mint 20 (2 days ago) an error message said the EDGE update was not available) Thank you for all the great information.
+No idea. I use Edge on Slackware but I download it directly from Microsoft, using this repository:
+https://packages.microsoft.com/yumrepos/edge/
+(Just extract the directory tree /opt/microsoft/msedge from the CONTENTS.cpio file inside the RPM archive.)
+As at 2022-04-01T13:30Z, the current stable version in that repo is 99.0.1150.55, dated 2022-03-26, which is after the Google Chrome advisory, so it may (or may not!) contain the patch.
+My Google Chrome just updated to 100.0.4896.60 today! After relaunched, it has a welcome page “Welcome to the 100th release of Chrome”
+With a new TOTALLY FLAT icon!
+#ICYMI: https://nakedsecurity.sophos.com/2022/02/25/did-we-learn-nothing-from-y2k-why-are-some-coders-still-stuck-on-two-digit-numbers/
+(Any problems of this sort that you may encounter due to V100 are, to be clear, down to the site you’re visiting, not to Chrome!)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

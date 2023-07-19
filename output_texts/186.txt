@@ -1,0 +1,143 @@
+Sophos Home protects every Mac and PC in your home 
+CYBERSECURITY: “THEY DIDN’T BUT YOU CAN!”
+
+With Paul Ducklin and Chester Wisniewski
+Intro and outro music by Edith Mudge.
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DUCK.  Hello, everybody. 
+Welcome to this special mini-episode of the Naked Security podcast. 
+My name is Paul Ducklin, and I’m joined today by my friend and colleague Chester Wisniewski.
+Chester, I thought we should say something about what has turned into the big story of the week… it’ll probably be the big story of the month!
+I’ll just read you the headline I used on Naked Security:
+“UBER HAS BEEN HACKED, boasts hacker – how to stop it happening to you.” 
+UBER HAS BEEN HACKED, boasts hacker – how to stop it happening to you
+
+
+So! 
+Tell us all about it….
+CHET.  Well, I can confirm that the cars are still driving. 
+I’m coming to you from Vancouver, I’m downtown, I’m looking out the window, and there’s actually an Uber sitting outside the window…
+DUCK.  It hasn’t been there all day?
+CHET.  No, it hasn’t. [LAUGHS]
+If you press the button to hail a car inside the app, rest assured: at the moment, it appears that you will actually have someone come and give you a ride. 
+But it’s not necessarily so assured, if you’re an employee at Uber, that you’re going to be doing much of anything for the next few days, considering the impact on their systems.
+We don’t know a lot of details, actually, Duck, of exactly what happened. 
+But, at a very high level, the consensus appears to be that there was some social engineering of an Uber employee that allowed someone to get a foothold inside of Uber’s network. 
+And they were able to move laterally, as we say, or pivot, once they got inside in order to find some administrative credentials that ultimately led them to have the keys to the Uber kingdom.
+DUCK.  So this doesn’t look like a traditional data stealing, or nation state, or ransomware attack, does it?
+CHET.  No.
+That’s not to say someone else may not also have been in their network using similar techniques – you never really know. 
+In fact, when our Rapid Response team responds to incidents, we often find that there’s been more than one threat actor inside a network, because they exploited similar methods of access.
+DUCK.  Yes… we even had a story of two ransomware crooks, basically unknown to each other, who got in at the same time. 
+So, some of the files were encrypted with ransomware-A-then-ransomware-B, and some with ransomware-B-followed-by-ransomware-A. 
+That was an unholy mess…
+CHET.  Well, that’s old news, Duck. [LAUGHS] 
+We’ve since published another one where *three* different ransomwares were on the same network.
+DUCK.  Oh, dear! [BIG LAUGH] I keep laughing at this, but that’s wrong. [LAUGHS]
+CHET.  It’s not uncommon for multiple threat actors to be in, because, as you say, if one person is able to discover a flaw in your approach to defending your network, there’s nothing to suggest that other people may not have discovered the same flaw. 
+But in this case, I think you’re right, in that it seems to be “for the lulz”, if you will. 
+I mean, the person who did it was mostly collecting trophies as they bounced through the network – in the form of screenshots of all these different tools and utilities and programs that were in use around Uber – and posting them publicly, I guess for the street cred.
+DUCK.  Now, in an attack done by somebody who *didn’t* want bragging rights, that attacker could have been an IAB, an initial access broker, couldn’t they? 
+In which case, they wouldn’t have made a big noise about it. 
+They would have collected all the passwords and then got out and said, “Who would like to buy them?”
+CHET.  Yes, that’s super-super dangerous! 
+As bad as it seems to be Uber right now, in particular someone on Uber’s PR or internal security teams, it’s actually the best possible outcome…
+…which is just that the outcome of this is going to be embarrassment, probably some fines for losing sensitive employee information, that kind of thing. 
+But the truth of the matter is for almost everyone else that this type of an attack victimises, the end result ends up being ransomware or multiple ransomwares, combined with cryptominers and other kinds of data theft.
+That is far, far more costly to the organisation than simply being embarrassed.
+DUCK.  So this idea of crooks getting in and being able to wander around at will and pick and choose where they go…
+…is sadly not unusual.
+CHET.  It really emphasises the importance of actively looking for problems, as opposed to waiting for alerts. 
+Clearly, this person was able to breach Uber security without triggering any alerts initially, which allowed them the time to wander around.
+That’s why threat hunting, as the terminology goes, is so critical these days. 
+Because the closer to minute-zero or day-zero that you can detect the suspicious activity of people poking around in file shares and suddenly logging into a whole bunch of systems serially in a row – those types of activities, or lots of RDP connections flying around the network from accounts that are not normally associated with that activity…
+…those types of suspicious things can help you limit the amount of damage that person can cause, by limiting the amount of time they have to unravel any other security mistakes you may have made that allowed them to gain access to those administrative credentials. 
+This is a thing that a lot of teams are really struggling with: how to see these legitimate tools being abused? 
+That’s a real challenge here.
+Because, in this example, it sounds like an Uber employee was tricked into inviting someone in, in a disguise that looked like them in the end.
+You’ve now got a legitimate employee’s account, one that accidentally invited a criminal into their computer, running around doing things that employee is probably not normally associated with. 
+So that really has to be part of your monitoring and threat hunting: knowing what normal really is so, that you can detect “anomalous normal”. 
+Because they didn’t bring malicious tools with them – they’re using tools that are already there. 
+We know they looked at PowerShell scripts, that kind of thing – the stuff you probably already have. 
+What’s unusual is this person interacting with that PowerShell, or this person interacting with that RDP. 
+And those are things that are much harder to watch out for than simply waiting for an alert to pop up in your dashboard.
+DUCK.  So, Chester, what is your advice for companies that don’t want to find themselves in Uber’s position? 
+Although this attack has understandably got a massive amount of publicity, because of the screenshots that are circulating, because it seems to be, “Wow, the crooks got absolutely everywhere”…
+…in fact, it’s not a unique story as far as data breaches go.
+CHET.  You asked about the advice, what would I tell an organisation? 
+And I have to think back to a good friend of mine who was a CISO of a major university in the United States about ten years ago.
+I asked him what his security strategy was and he said: “It’s very simple. Assumption of breach.” 
+I assume I’m breached, and that people are in my network that I don’t want in my network. 
+So I have to build everything with the assumption that somebody’s already in here who shouldn’t be, and ask, “Do I have the protection in place even though the call is coming from inside the house?” 
+Today we have a buzzword for that: Zero Trust, which most of us are sick of saying already. [LAUGHS]
+But that is the approach: assumption of breach; zero trust. 
+You should not have the freedom to simply roam around because you put on a disguise that appears to be an employee of the organisation.
+DUCK.  And that’s really the key of Zero Trust, isn’t it? 
+It doesn’t mean, “Uou must never trust anybody to do anything.” 
+It’s kind of a metaphor for saying, “Assume nothing”, and, “Don’t authorise people to do more than they need to do for the task in hand.”
+CHET.  Precisely.
+On the assumption that your attackers don’t get as much joy from outing the fact that you were hacked as happened in this case…
+…you probably want to make sure you have a good way for staff members to report anomalies when something doesn’t seem right, to make sure that they can give a heads-up to your security team. 
+Because talking about data breach dwell times from our Active Adversary Playbook, the criminals most often are on your network for at least ten days:
+The Active Adversary Playbook 2022
+
+
+So you’ve got a solid week-to-ten-days, typically, where if you just have some eagle eyes that are spotting things, you’ve got a real good chance at shutting it down before the worst happens.
+DUCK.  Indeed, because if you think about how a typical phishing attack works, it’s very rare that the crooks will succeed on the first attempt.
+And if they don’t succeed on the first attempt, they don’t just pack up their bags and wander off. 
+They try the next person, and the next person, and the next person.
+If they’re only going to succeed when they try the attack on the 50th person, then If any of the previous 49 spotted it and said something, you could have intervened and fixed the problem. 
+CHET.  Absolutely – that’s critical!
+And you talked about tricking people into giving away 2FA tokens. 
+That’s an important point here – there was multi-factor authentication at Uber, but the person seems to have been convinced to bypass it. 
+And we don’t know what that methodology was, but most multi-factor method, unfortunately, do have the ability to be bypassed. 
+All of us are familiar with the time-based tokens, where you get the six digits on the screen and you’re asked to put those six digits into the app to authenticate. 
+Of course, there’s nothing stopping you from giving the six digits to the wrong person so that they can authenticate. 
+So, two factor authentication is not an all-purpose medicine that cures all disease. 
+It is simply a speed bump that is another step along the path to becoming more secure.
+DUCK.  A well-determined crook who’s got the time and the patience to keep on trying may eventually get in. 
+And like you say, your goal is to minimise the time they have to maximize the return on the fact that they got in the first place…
+CHET.  And that monitoring needs to happen all the time. 
+Companies like Uber are large enough to have their own 24/7 security operations centre to monitor things, though we’re not quite sure what happened here, and how long this person was in, and why they weren’t stopped
+But most organizations are not necessarily in a position to be able to do that in-house. 
+It’s super-handy to have external resources available that can monitor – *continuously* monitor – for this malicious behaviour, shortening even further the amount of time that the malicious activity is happening. 
+For folks that maybe have regular IT responsibilities and other work to do, it can be quite hard to see these legitimate tools being used, and spot one particular pattern of them being used as a malicious thing…
+DUCK.  The buzzword that you’re talking about there is what we know as MDR, short for Managed Detection and Response, where you get a bunch of experts either to do it for you or to help you. 
+And I think there are still quite a lot of people out there who imagine, “If I’m seen to do that, doesn’t it look like I’ve abrogated my responsibility? Isn’t it an admission that I absolutely don’t know what I’m doing?” 
+And it isn’t, is it? 
+In fact, you could argue it’s actually doing things in a more controlled way, because you’re choosing people to help you look after your network *who do that and only that* for a living. 
+And that means that your regular IT team, and even your own security team… in the event of an emergency, they can actually carry on doing all the other things that need doing anyway, even if you’re under attack.
+CHET.  Absolutely. 
+I guess the last thought I have is this…
+Don’t perceive a brand like Uber being hacked as meaning that it’s impossible for you to defend yourself. 
+Big company names are almost big trophy hunting for people like the person involved in this particular hack. 
+And just because a big company maybe didn’t have the security they should doesn’t mean you can’t! 
+There was a lot of defeatist chatter amongst a lot of organisations I talked to after some previous big hacks, like Target, and Sony, and some of these hacks that we had in the news ten years ago. 
+And people were like, “Aaargh… if with all the resources of Target they can’t defend themselves, what hope is there for me?” 
+And I don’t really think that’s true at all. 
+In most of these cases, they were targeted because they were very large organizations, and there was a very small hole in their approach that somebody was able to get in through. 
+That doesn’t mean that you don’t have a chance at defending yourself. 
+This was social engineering, followed by some questionable practices of storing passwords in PowerShell files. 
+These are things that you can very easily watch for, and educate your employees on, to ensure that you’re not making the same mistakes.
+Just because Uber can’t do it doesn’t mean you can’t!
+DUCK.  Indeed – I think that’s very well put, Chester.
+Do you mind if I end with one of my traditional cliches? 
+(The thing about cliches is that they generally become cliches by being true and useful.) 
+After incidents like this: “Those who cannot remember history are condemned to repeat it – don’t be that person!”
+Chester, thank you so much for taking time out of your busy schedule, because I know you actually have an online talk to do tonight. 
+So, thank you so much for that. 
+And let us finish in our customary way by saying, “Until next time, stay secure.”
+[MUSICAL MODEM]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

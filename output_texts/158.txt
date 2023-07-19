@@ -1,0 +1,65 @@
+Sophos Home protects every Mac and PC in your home 
+The word “protocol” crops up all over the place in IT, usually describing the details of how to exchange data between requester and replier.
+Thus we have HTTP, short for hypertext transfer protocol, which explains how to communicate with a webserver; SMTP, or simple mail transfer protocol, which governs sending and receiving email; and BGP, the border gateway protocol, by means of which ISPs tell each other which internet destinations they can help deliver data to, and how quickly.
+But there is also an important protocol that helps humans in IT, including researchers, responders, sysadmins, managers and users, to be circumspect in how they handle information about cybersecurity threats.
+That protocol is known as TLP, short for the Traffic Light Protocol, devised as a really simple way of labelling cybersecurity information  so that the recipient can easily figure out how sensitive it is, and how widely it can be shared without making a bad thing worse.
+Interestingly, not everyone subscribes to the idea that the dissemination of cybersecurity information should ever be restricted, even voluntarily.
+Enthusiasts of so-called full disclosure insist that publishing as much information as possible, as widely as possible, as quickly as possible, is actually the best way to deal with vulnerabilities, exploits, cyberattacks, and the like.
+Full-disclosure advocates will freely admit that this sometimes plays into the hands of cybercriminals, by clearly identifying the information they need (and giving away knowledge they might not previously have had) to initiate attacks right away, before anyone is ready.
+Full disclosure can also disrupt cyberdefences by forcing sysadmins everywhere to stop whatever they are doing and divert their attention immediately to something that could otherwise safely have been scheduled for attention a bit later on, if only it hadn’t been shouted from the rooftops.
+Nevertheless, supporters of full disclosure will tell you that nothing could be simpler, easier or fairer than just telling everybody at the same time. 
+After all, if you tell some people but not others, so that they can start preparing potential defences in comparative secrecy and therefore perhaps get ahead of the cybercriminals, you might actually make things worse for the world at large.
+If even one of the people in the inner circle turns out to be a rogue, or inadvertently gives away the secret simply by the nature of how they respond, or by the plans they suddenly decide to put into action, then the crooks may very well reverse engineer the secret information for themselves anyway…
+…and then everyone else who isn’t part of the inner circle will be thrown to the wolves.
+Anyway, who decides which individuals or organisations get admitted into the inner circle (or the “Old Boy’s Club”, if you want to be pejorative about it)?
+Additionally, the full disclosure doctrine ensures that companies can’t get away with sweeping issues under the carpet and doing nothing about them.
+In the words of the infamous (and problematic, but that’s an argument for another day) 1992 hacker film Sneakers: “No more secrets, Marty.”
+Full disclosure, howver, isn’t how cybersecurity response is usually done these days.
+Indeed, some types of cyberthreat-related data simply can’t be shared ethically or legally, if doing so might harm someone’s privacy, or put the recipients themselves in violation of data protection or data possession regulations.
+Instead, the cybersecurity industry has largely settled on a sort-of middle ground for reporting cybersecurity information, known informally as responsible disclosure.
+This process is based around the idea that the safest and fairest way to get cybersecurity problems fixed without blurting them out to the whole world right away is to give the people who created the problems “first dibs” on fixing them.
+For example, if you find a hole in a remote access product that could lead to a security bypass, or if you find a bug in a server that could lead to remote code execution, you report it privately to the vendor of the product (or the team who look after it, if it’s open source).
+You then agree with them a period of secrecy, typically lasting anywhere from a few days to a few months, during which they can sort it out secretly, if they like, and disclose the gory details only after their fixes are ready.
+But if the agreed period expires without a result, you switch to full disclosure mode and reveal the details to everyone anyway, thus ensuring that the problem can’t simply be swept under the carpet and ignored indefinitely.
+Of course, responsible disclosure doesn’t mean that the organisation that received the initial report is compelled to keep the information to itself
+The initial recipients of a private report may decide that they want or need to share the news anyway, perhaps in a limited fashion.
+For example, if you have a critical patch that will require several parts of your organisation to co-operate, you’ll have little choice but to share the information internally.
+And if you have a patch coming out that you know will fix a recently-discovered security hole, but only if your customers make some configuration changes before they roll it out, you might want to give them an early warning so they can get ready.
+At the same time, you might want to ask them nicely not to tell the rest of the world all about the issue just yet.
+Or you might be investigating an ongoing cyberattack, and you might want to reveal different amounts of detail to different audiences as the investigation unfolds.
+You might have general advice that can safely and usefully be shared right now with the whole world.
+You may have specific data (such as IP blocklists or other indicators of compromise) that you want to share with just one company, because the information unavoidably reveals them as a victim.
+And you may want to reveal everything you know, as soon as you know it, to individual law enforcement investigators whom you trust to go after the criminals involved.
+How to label these different levels of cybersecurity information unambiguously?
+Law enforcement, security services, militaries and official international bodies typically have their own jargon, known as protective marking, for this sort of thing, with labels that we all know from spy movies, such as SECRET, TOP SECRET, FOR YOUR EYES ONLY, NO FOREIGN NATIONALS, and so on.
+But different labels mean different things in different parts of the world, so this sort of protective marking doesn’t translate well for public use in many different languages, regions and cybersecurity cultures.
+(Sometimes these labels can be linguistically challenging. Should a confidential document produced by the United Nations, for instance, be labelled UN - CLASSIFIED? Or would that be misinterpreted as UNCLASSIFIED and get shared widely?)
+What about a labelling system that uses simple words and an obvious global metaphor?
+That’s where the Traffic Light Protocol comes in.
+The metaphor, as you will have guessed, is the humble traffic signal, which uses the same colours, with much the same meanings, in almost every country in the world.
+RED means stop, and nothing but stop; AMBER means stop unless doing so would itself be dangerous; and GREEN means that you’re allowed to go, assuming it’s safe to do so.
+Modern traffic signals, which use LEDs to produce specific light frequencies, instead of filters to remove unwanted colour bands from incandescent lamps, are so bright and precisely targeted that some jurisdictions no longer bother to test prospective drivers for so-called colour blindness, because the three frequency bands emitted are so narrow as to be almost impossible to mix up, and their meanings are so well-established.
+Even if you live in a country where traffic lights have additional “in-between” signals, such as green+amber together, red+amber together, or one colour flashing continuously on its own, pretty much everyone in the world understands traffic light metaphors based on just those three main colours.
+Indeed, even if you’re used to calling the middle light YELLOW instead of AMBER, as some countries do, it’s obvious what AMBER refers to, if only because it’s the one in the middle that isn’t RED or GREEN.
+The Traffic Light Protocol was first introduced in 1999, and by following the principle of Keep It Simple and Straightforward (KISS), has become a useful labelling system for cyubersecurity reports.
+Ultimately, the TLP required four levels, not three, so the colour WHITE was added to mean “you can share this with anyone”, and the designators were defined very speficially as the text strings TLP:RED (all capitals, no spaces), TLP:AMBER, TLP:GREEN and TLP:WHITE.
+By keeping spaces out of the labels and forcing them into upper case, they stand out clearly in email subject lines, are easy to use when sorting and searching, and won’t get split between lines by mistake.
+Well, after more than 20 years of service, the TLP has undergone a minor update, so that from August 2022, we have Traffic Light Protocol 2.0.
+Firstly, the colour WHITE has been replaced with CLEAR.  
+White not only has racial and ethnic overtones that common decency invites us to avoid, but also confusingly represents all the other colours mixed together, as though it might mean go-and-stop-at-the-same-time.
+So CLEAR is not only a word that fits more comfortably in society today, but also one that suits its intended purpose more (ahem) clearly.
+And a fifth marker has been added, namely TLP:AMBER+STRICT.
+The levels are interpreted as follows:
+Just to be clear (sorry!), we don’t put TLP:CLEAR on every Naked Security article we publish, given that this website is publicly accessible already, but we invite you to assume it.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Having worked (pre-Brexit) on a European project, I can report other complications.  The term RESERVADO means RESTRICTED in Portugal but SECRET in Spain (see e.g. the table in the Wikipedia article on “classified information”).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ
