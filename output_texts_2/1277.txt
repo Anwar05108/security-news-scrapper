@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+Remember when people used to upload their SSH keys onto Github and similar code sharing sites by mistake?
+Two years ago, we wrote about the fact that incautious software developers had uploaded hundreds of thousands of private access control keys, entirely unintentionally, along with source code files that they did intend to make public.
+Typically, this sort of blunder happens because Linux and Unix computers don’t display directories or filenames that start with a dot character (period, full stop, ASCII 46, hexadecimal 0x2E) by default.
+It’s easy to forget that these “hidden” files and directories exist at all, given that you rarely notice they’re there.
+Thousands of API and cryptographic keys leaking on GitHub every day
+
+
+One of the super-important “hidden” directories for Unix users is .ssh, which is usually invisible.
+So a plain directory listing might look like this:
+Blindly packaging  all these files into an archive for uploading to your favourite public repository seems pretty harmless, given that all the files in the lua account are supposed to be public.
+But if you insist that the file listing utility shows you all files (add the option -a for all to the ls command), including hidden files starting with a dot, you might have a directory tree that looks like this instead:
+As you can see, the full directory tree includes a hidden .ssh directory that includes a file called id_rsa, which is a private key file typically containing the login credentials for one or more online servers that you connect to regularly:
+Of course, if your packaging tool archives and upload all files, not merely the “unhidden” ones, you would inadvertently have included your own private SSH login keys along with your public source code.
+Ironically, the id_rsa file might even contain your access key for the very source code repository in which the keyfile is now publicly and searchably sitting.
+Faced with this dilemma, many upload sites now go out of their way to find, warn and remove files of this sort, which simply shouldn’t be made public.
+But a typical Unix or Linux computer will have hundreds or thousands of hidden files in any busy user’s directory tree, and while only a few of these are as critical as your SSH keys, there many be hundreds, or even thousands, of hidden files that reveal vital secret information about you, your accounts, or your online activities.
+Uploading any one of these files by mistake could be harmful to your cyberhealth.
+Dozens of popular utilities, for example, retain hidden “history” files that record the last N searches, or the last M documents, or the last P commands you ran, just in case you want to go back quickly to a recent command or document later on.
+Often, these history files go back days, week, or even longer – and your command shell history in particular is apt to unwanted copies of your password, “remembered” accidentally when you got out of synch with the password prompt and put in your password at the command prompt by mistake.
+Well, reporters over at UK IT news site El Reg, officially The Register, today wrote up a warning that they received from a reader who had just noticed that thousands of copies of Firefox browser cookie files, called cookies.sqlite, could be found on GitHub.
+Many Firefox users will never have seen this file, especially on Linux computers, because it’s stashed by default under a directory called .mozilla/firefox, where it’s unlikely to show up during routine browsing of your local files, thanks to the dot at the start of the application-specific directory name .mozilla.
+We repeated the experiment, and we immediately found more than 4400 instances of files with that name, with the most recent being just a few hours old. 
+
+We didn’t dig too deeply into the files that showed up, even though they’re now a matter of public record, because we suspect that none of the users who had uploaded them intended to do so.
+But we were able to open up and scroll briefly through the samples we looked at (.sqlite files are self-contained databases for the popular SQLite toolkit, widely used by a range of applications – it’s very popular on iOS and Android for its compact code size), and they had clear evidence of recent browsing behaviour and site logins.
+Of course, cookies.sqlite is just one sensitive file from one popular application, but it’s a bad choice of a private file to upload, because it typically contains personalised informtation about your private browsing habits.
+Most importantly, your cookie database may include authentication tokens that let you back into your favourite websites without logging in again next time you visit.
+If you are in the habit of telling websites to “remember me for X days” so you don’t need to put in your username, password and 2FA code every morning, it’s a fair guess that the secret string of jumbled text characters that lets you back in next time is stored as a web cookie. Therefore crook who finds your cookie file may be able to copy your personal “login bypass” code and masquerade as you inside your account.
+Be aware before you share!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Even with file extensions or files/folders being prefixed with a ‘.’ being hidden by default, there’s still some blame on the part of the users. Any good client should show you a list of files that are going to be uploaded, which the user should check before doing so. (In Git parlance, committed / pushed – which is a two step process and gives you twice the opportunity to check.) The user should check and ensure what’s going out is what is expected. Mistakes happen, and no-one will fault a mistake. But laziness or carelessness in not reviewing is not an excuse.
+To further use Git as an example (since the article is about GitHub), there are probably dozens of .gitignore files specifically intended to block out sensitive data like this from being uploaded as a further means of protection.
+As you said in the article – be aware before you share – check what is it is you’re sharing.
+Indeed. It’s your job as a publisher of public stuff to check that you are uploading [1] what you are supposed to [2] what you are allowed to (so a file might not be a secret, yet still might be inappropriate to upload, e.g. because you aren’t licensed to do so) [3] what you intend to.
+The same applies for downloading, of course… but how many developers truly check the contents of all the dependencies of all the modules they suck down autoagically with modern software management systems such as NPM, Packagist, PyPi, Gems, Luarocks and many more….
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

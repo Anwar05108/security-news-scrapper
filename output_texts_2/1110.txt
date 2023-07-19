@@ -1,0 +1,59 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at cybersecurity company GRIMM recently published an interesting trio of bugs they found in the Linux kernel…
+…in code that had been sitting there inconspicuously for some 15 years. 
+Fortunately, it seemed that no one else had looked at the code for all that time, at least not diligently enough to spot the bugs, so they’re now patched and the three CVEs they found are now fixed:
+The bugs were found in the kernel code that implements iSCSI, a component that implements the venerable SCSI data interface over the network, so you can talk to SCSI devices such as tape and disk drives that aren’t connected directly to your own computer.
+Of course, if you don’t use SCSI or iSCSI anywhere in your network any more, you’re probably shrugging right now and thinking, “No worries for me, I don’t have any of the iSCSI kernel drivers loaded because I’m simply not using them.”
+After all, buggy kernel code can’t be exploited if it’s just sitting around on disk – it has to get loaded into memory and actively used before it can cause any trouble.
+Except, of course, that most (or at least many) Linux systems not only come with hundreds or even thousands of kernel modules in the /lib/modules directory tree, ready to use in case they are ever needed, but also come configured to allow suitably authorised apps to trigger the automatic loading of modules on demand.
+Note. As far as we’re aware, these bugs were patched in the following officially-maintained Linux kernels, all dated 2021-03-07: 5.11.4, 5.10.21, 5.4.103, 4.19.179, 4.1.4.224, 4.9.260, 4.4.260. If you have a vendor-modified kernel or an unofficial series kernel not on this list, consult your distro maker. To check your kernel version, run uname -r at a command prompt.
+For example, my own Linux system comes with nearly 4500 just-in-case-you-ever-need-them kernel modules:
+I guess I might need the Blowfish cipher module some day, but because I don’t have any software that I expect to use it, I could probably do without the blowfish-x86_64.ko driver.
+And although I really wouldn’t mind owning one of Tascam’s rather cool Ux2y sound cards (e.g. US122, US224, US428), I don’t really have the need or space for one, so I doubt I’ll ever need the snd-usb-usx2y.ko driver, either.
+Yet there they are, and by accident or design, any of those drivers could end up loaded automatically, depending on the software I happen to use, even if I’m not running as a root user at the time.
+The potential risk posed by unloved, unused and mostly overlooked drivers is what made GRIMM look twice at the abovementioned bugs.
+The researchers were able to find software that an unprivileged attacker could run in order to activate the buggy driver code they’d found, and they were able to produce working exploits that could variously:
+As uncertain and as limited in scope as the last exploit sounds, it looks as though the data that an unprivileged user might be able to peek at could include fragments of data being transferred during genuine iSCSI device accesses.
+If so, this means, in theory, that a crook with an unprivileged account on a server where iSCSI was in use might be able to run an innocent-looking program to sit in the background, sniffing out a random selection of privileged data from memory.
+Even a fragmented and unstructured stream of confidential data snatched intermittently out of a privileged process (remember the infamous Heartbleed bug?) could allow dangerous secrets to escape.
+Don’t forget how easy it is for computer software to recognise and “scrape up” data patterns as they fly past in RAM, such as credit card numbers and email addresses.
+Above, we mentioned that the first bug in this set was due to “use of sprintf()“. 
+That’s a C function that’s short for formatted print into string, and it’s a way of printing out a text message into a block of memory so you can use it later.
+For example, this code…
+…would leave the memory block buf containing the 12 characters “Answer is 42“, followed by a zero byte terminator (ASCII NUL), followed by 51 untouched bytes at the end of the 64-byte buffer.
+However, sprintf() is always dangerous and should never be used, because it doesn’t check if there’s enough space in the final memory block for the printed data to fit.
+Above, if the string stored in the variable str is longer than 54 bytes, including the zero byte at the end, then it won’t fit into buf along with the extra text “Answer is “. 
+Even worse, if the text data str doesn’t have a zero byte at the end, which is how C denotes when to stop copying a string, you might accidentally copy thousands or even millions of bytes that follow str in memory until you just happen to hit a zero byte, by which time you would almost certainly have crashed the kernel.
+Modern code shouldn’t use C functions that can perform memory copies of unlimited length – use snprintf(), which means format and print at most N bytes into string, and its friends instead.
+The second bug above arose from using memory addresses as unique identifiers.
+That sounds like a good idea: if you need to denote a data object in your kernel code with an ID number that won’t clash with any other object in your code, you can just use the numbers 1, 2, 3 and so on, adding one every time, and solve the problem.
+But if you want a unique identifier that won’t clash with any other numbered object in the kernel, you might think, “Why not use the memory address where my object is stored, because it’s obviously unique, given that two objects can’t be at the same place in kernel RAM at the same time?” (Not unless there’s a already a crisis with memory usage.)
+The problem is that if your object ID is ever visible outside the kernel, for example so that untrusted programs in so-called userland can refer to it, you’ve just given away information about the internal layout of kernel memory, and that’s not supposed to happen.
+Modern kernels use what’s called KASLR, short for kernel address space layout randomisation, specifically to stop unprivileged users from figuring out the exact internal layout of the kernel. 
+If you’ve ever done any lock-picking (it’s a popular and surprisingly relaxing hobby amongst hackers and cybersecurity researchers – you can even buy transparent locks for educational fun), you’ll know it’s a lot easier if you already know how the lock’s mechanism is laid out internally.
+Similarly, knowing exactly what’s been loaded where inside the kernel almost always makes other bugs such as buffer overflows much easier to exploit.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“use strlcpy(), not strcpy()” please no 🙂 Use strscpy() in the kernel:
+https://www.kernel.org/doc/html/latest/process/deprecated.html#strlcpy
+“strlcat(), not strcat()” please just use scnprintf() if you must be working on strings like that. 😛
+Point taken. [Note. The original article mentioned strlcpy() by name.]
+The Linux kernel team’s primary objection to strlcpy() is that the code (Linux-style and BSD-style implementations are almost identical) starts by calling the standard function strlen() on the string buffer you are copying /from/, in order to work out if it will fit into the destination buffer you want to copy /into/. 
+This means that if you try to copy a 1,000,000 byte string into a 100-byte buffer, the code first loops through all 1,000,000 bytes of the source string in order to work out that it is longer than 100 bytes, then it copies the needed 100 bytes. This means the code may [a] run needlessly slowly (bad anywhere, but very bad in the kernel) and [b] do an out-of-bounds read on the source buffer if it isn’t correctly terminated with a zero byte.
+In contrast, strscpy() basically copies one byte at time, counting as it goes and stopping either when a zero byte has been copied or the size limit is reached. In other words, it just keeps track of the source string’s length as it goes along. It doesn’t need to know whether the source string is 1 byte too long to fit or 1,000,000 bytes too long – it only needs to know when to stop.
+Replying to both of us…
+I edited the article [2021-03-18T12:45Z] so it doesn’t list any preferred functions by name, given that received wisdom varies from operating system to operating system (and given that tastes and advice change over time). I am now simply advising that programmers keep track of the officially documented “safe C string functions” for their environment of choice. 
+So the article no longer mentions strlcpy() explicitly at all :-)
+As a standard user, not a programmer, should I be concerned or worried? (I have Ubuntu 18..04.5 LTS)
+The good news is that these vulnerabilities are more of an illustration on the longevity of silly bugs than a clear and present danger. These flaws won’t allow a crook to break in in the first place, and on the average desktop Linux system loaded with the sort of software most Linux distros provide, there are probably plenty of other elevation of privilege bugs lying around for a determined intruder to find and exploit if they do get in.
+As for whether your Ubuntu-supplied kernel is up to date anyway… I just don’t know and I couldn’t easily find out how to find a list of which releases have which kernels in their current update.
+You can do uname-r to find out the kernel version you have but how you map the Ubuntu numbers (which seem to have an extra -NN on the end) onto mainstream versions I don’t know. If you are really worried you could try adding an entry to the /etc/modules.d directory that specifies a “blacklist” command for all the modules in the iSCSI stack, assuming you don’t need them elsewhere.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

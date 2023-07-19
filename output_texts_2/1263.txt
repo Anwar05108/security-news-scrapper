@@ -1,0 +1,95 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve been using Edge on Linux for quite some time, first in Dev Build  form, then in its Beta flavour…
+…but when we went to check Microsoft’s repository tonight, we were surprised to see a build package that had arrived just an hour earlier with the name microsoft-edge-stable-95.0.1020.38-1.x86_64.rpm.
+So, the Eagle, or whatever you want to call it, has finally landed!
+
+As you probably know, Edge no longer has Microsoft’s in-house HTML and JavaScript engines at its core, but is based, like many other contemporary browsers, on the Google-derived open source Chromium project.
+Chromium also also powers browsers such as Brave, Opera, Vivaldi and, of course, Google’s own Chrome, which is Google’s closed-source product built on Chromium.
+That leaves just three other mainstream browser engines these days, one of which we’d all love to put behind us forever, but it just keeps hanging around semi-invisibly in the background.
+Alongside all the Chromium browsers out there, we’ve also got: Apple’s Safari, based on a core known as WebKit; Mozilla’s Firefox; and Microsoft’s Internet Explorer core, often referred to as MSHTML after the program file mshtml.dll that is the heart of its executable code (and still the source of the sort of vulnerabilities we all hoped we’d left behind).
+Windows zero-day MSHTML attack – how not to get booby trapped!
+
+
+By the way, even if you’re using a non-Safari browser such as Firefox or Chrome on your iPhone or iPad, you’re nevertheless running the WebKit engine, with the browser itself essentially being a “skin” on top of Apple’s core code.
+That’s one of Apple’s rules: any app that handles web content must use WebKit, or else it will be excluded from the App Store – and (unless you use a trick involving Enterprise Provisioning, normally reserved for companies to install proprietary corporate apps), that’s the only way to distribute your software.
+Romance scams with a cryptocurrency twist – new research from SophosLabs
+
+
+We’re happy to see Edge for Linux finally make Stable and Official status, because we find it handy to have two distinct browsers on any operating system platform we use.
+If nothing else, running two different browsers that share no code or configuration data means that you can use one for logged-in sessions and the other to see what the same websites look like when you aren’t logged in. 
+That’s especially handy if you’re a content creator, because it makes it easy to check exactly what your readers are seeing out there in the real world – which often looks completely different to the “idealised” view of things you get while you’re logged in.
+Many Linux users probably already use Chrome (or Chromium if they prefer to stay away from closed-source browsers), but those products aren’t available for all distros…
+…and if you don’t have any Google accounts, or you’re not a Google fan, then the Google-centricity of Chrome might be something you neither need nor really want.
+We use the rolling-release version of Slackware Linux, or Slackware GNU/Linux if you absolutely insist, a distro that Chrome doesn’t support at all.
+However, simply extracting the /opt/microsoft/edge directory tree from the the Yum repository shown above works a treat. (Yum and RPM files are usually associated with RedHat’s commercially oriented Linux distros, but the distro contents worked agnostically on our laptop.)
+
+Things to like about Edge for Linux. It’s fast; it looks good; it may work for you where Chrome builds won’t; and it’s really easy to configure it to delete all its cookies, web data, authentication tokens and other historical baggage automatically every time you exit the browser.
+(We can’t figure out how to clear browsing data automatically on Chrome, and therefore prefer Firefox and Edge, where it’s easy to do this without plugins or scripted hacks.)
+What’s not to like. You need to take care to review all the default settings before first use, because there are some privacy settings that security conscious users will want to change.
+In fact, taking a trip round Edge’s privacy options on Linux – there are lots of them – is worth doing, so that you can learn to do it on Windows as well.
+In particular, we recommend visiting the following sub-options under Settings:
+Five years ago, we’d have laughed if you’d suggested that by 2021 our Top Two “workflow” apps on Linux would not only be from Microsoft but also be open source, or based on open source code…
+…but they are.
+We wrote this article in the Visual Studio Code editor for Linux, and uploaded it into WordPress using the landed-two-hours-ago-in-Stable-form Microsoft Edge for Linux.
+Didn’t see that coming.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Duck wrote: “That’s especially handy if you’re a content creator, because it makes it easy to check exactly what your readers are seeing out there in the real world – which often looks completely different to the “idealised” view of things you get while you’re logged in.”
+As a content creator (five websites ranging from raw HTML to WordPress), I assert that you are making this too hard. In Chrome, for example, you simply edit the site in a Chrome browser tab and hit Ctrl-Shift-N to open an anonymous tab for viewing. Change something in the Editor? Just switch tabs and hit F5 to view it.
+Duck wrote: “(We can’t figure out how to clear browsing data automatically on Chrome, and therefore prefer Firefox and Edge, where it’s easy to do this without plugins or scripted hacks.)”
+Not sure where you looked. Try this:
+Click the More icon (three dots at upper right–> Settings.
+Scroll down and click Privacy and security > Cookies and other site data.
+Toggle the setting Clear cookies and site data when you close all windows.
+Hmmm. I have Chromium, not Chrome, but it does have that option to “Clear cookies and site data with windows”. I guess that means “when you exit the browser”…
+I still prefer the FF and Edge dialogs (see article) which explictly confirm how much browser data gets junked when you quit, including browsing history, donwload list, passwords and autofills, and so on.
+And I’m a fan of having two independent browsers for checking sites i two different logged-in states. (Typically, logged in via FF, with Edge started and stopped each time for site testing.) I supposed that using an anonymous/incognito/private window is OK, but there’s something about having two different apps each doing their own thing…
+I use 3, Edge, FF, and Opera. Mostly each for different purposes/site types; streaming media, browsing and social media. Also run them in Sandboxie for accessing some things I don’t trust yet. Multiple browsers is a good thing since there are so many changes so often to them, at lest one will always work.
+Great! Now I can install it to immediately uninstall!
+Paul on Podcast “tell us how much you hate Microsoft”
+or
+How much you hate the Edge for installing stuff that you have to promptly uninstal?
+Errr, that’s rather a misquote… I read out a comment made by someone else as a joke about deliberately installing Edge just so they could immediately have the joy of uninstalling it, and then commented on the comment by saying, “Tell us how much you hate Microsoft.” 
+Well, there’s always Links. Or, if even that is too modern for your tastes,  there is still Lynx. (Which is surely the oldest browser still being supported. Released in 1992, now at version 2.9.0dev.10, published in October 2021.)
+Hello Paul, is the source code actually available? The last time I looked on Github it was all just binaries and information but no actual code. Ironic that Microsoft owns Github too… From a privacy point of view I would like to see what they welded on top of Chromium. I would like to believe that they are “open” but I would imagine every key press and every website all ends up back at Redmond, which is why I suspect that not all the code is available for inspection. I’ve no doubt it runs well, but I just don’t trust Microsoft.
+I suspect that singling out Microsoft amongst the major browser makers for “being interested in your activity as you browse” is a bit unfair :-)
+Are you seriously suggesting that Microsoft logs *every keystroke* of *every user*, even when they have set all the data sharing options to their mibiumum levels? I find that unlikely. That sounds like a very serious allegation… is there any evidence to back it up?
+“As you use features and services in Microsoft Edge, diagnostic data about how you use those features is sent to Microsoft. Microsoft Edge saves your browsing history—information about websites you visit—on your device. Depending on your settings, this browsing history is sent to Microsoft, which helps us find and fix problems and improve our products and services for all users.”
+I looked through that and my reading of the text (though it could admittedly be clearer IMO) is that the level of browsing history detail you mention above is not shared unless “optional diagnostic data” option is turned on. (“Privacy, search, and services” page.)
+And as intrusive as sharing browser history might be, it’s not the same as sending every keystroke to Redmond, which is the specific claim about which I would like to know more.
+Well I guess we’ll never know unless the source code is available for inspection…
+As the official release of Edge for Linux is too new to assess and because we can’t look at the source code the only thing you can do is look back at their track history with Windows:
+2015 – Here is Microsoft denying that it spies on you:
+https://nakedsecurity.sophos.com/2015/09/30/windows-10-is-not-spying-on-you-microsoft-says/
+2016 – Here is the French privacy watchdog declaring “Windows 10 is gobbling up too much data and snooping on users”:
+https://nakedsecurity.sophos.com/2016/07/21/microsoft-given-3-months-to-fix-windows-10-security-and-privacy/
+2017 – Here is Microsoft offering a privacy dashboard to tackle data concerns:
+https://nakedsecurity.sophos.com/2017/01/12/windows-10s-privacy-dashboard-aims-to-tackle-data-concerns/
+2019 – Here is the Dutch regulator claiming “Microsoft may still be violating privacy rules”:
+https://nakedsecurity.sophos.com/2019/08/29/microsoft-may-still-be-violating-privacy-rules-says-dutch-regulator/
+2020 – Here is Microsoft adding “new security and privacy features”:
+https://nakedsecurity.sophos.com/2020/05/29/windows-10-adds-new-security-and-privacy-features-in-may-update/
+Chromium is predominantly BSD licenced – there is no requirement for Microsoft to release the Edge source code for inspection, and as such I wouldn’t use it. I do not trust Microsoft.
+I think we figured that already that you don’t like or trust Microsoft. 
+My original question, though, very specifically related to your claim that Edge conveys every keystroke you type in the browser to Redmond. That is an important fact if it is true, which is why I asked if you had any evidence to support it. (I am assuming you mean that this behaviour always happens, and cannot be turned off. So I am not including keystrokes collected due to the “search as you type” setting, which doesn’t track in inside pages anyway, as far as I am aware.)
+I’m not trying to tell you to trust Microsoft. It’s just that if your claim about keylogging is true, I would like to see the evidence, because it would be well worth writing about! I wasn’t asking for a list of articles where I or my colleagues have previously written about Microsoft… it’s the keylogging I am interested in.
+You would think that security software companies could develop code and blacklists to prevent particular (common) programs from “sending home” data that should not be sent home?
+I really only want my browser to communicate with the domain I enter in the location bar. Regrettably I have to extend that to include domains referenced in the webpage I am looking at (although uMatrix does give me some control).
+In addition I may want my application to check update status – although that could be an OS feature.
+So a uMatrix for applications?
+I set my FW twice to block most of goog and MS. Wasn’t great as they have so many pages relying on them for content delivery and access control. It was, a sad event.
+If all you have done is to block Google and Microsoft tracking related domains then (sadly) you haven’t even scratched the surface these days. For ages, I’ve been meaning to write a small and simple-to-script DNS server that I can use for malware analysis. (Dnsmasq is great but I wanted scriptability.) Over a recent rainy weekend, I finally got a Round Tuit…
+…and then I thought, “Hey, let me try to work out the 20 most useful domains to put on my own short-list version of a list like pihole, adblock and friends.” I figured it would be a good learning exercise to watch the domain names in a sidebar as I did some informal web browsing, and it wold be a nice way to test my code under a bit of load.
+I shouldn’t have been shocked, but I was surprised at how little time it took for me to identify 20 or 30 apparently harmless domains that seem to have landed up all over the internet, lots of them related to services delivering “security related improvements” or “legal compliance” processes that are admittedly hard for companies to solve on their own, such as producing the right sort of cookie warnings, or ensuring that you present the right sort privacy information in each jurisdiction, and so on.
+Whenever I see a web domain that regularly shows up as third-party content (HTML, images, including 1-pixel images, JavaScript and so on) that supposedly performs a function to help the owner of the website “comply with laws and best practices”, I check that provider’s website for the language they speak… 
+…and it’s astonishing how often what you are *buying* is supposed to do things like “improve legal compliance” and “boost user security” but what they are *selling* introduces such phrases as “building your brand” and “knowing your customer”. (I may be exaggerating slightly for effect but I don’t think by much :-)
+Anyway, I now have another rainy-weekend project, namely to build a faster lookup engine for my scriptable server, because my “I am determined to solve this with a one-page blocklist” has become “its time to experiment with massive blocklists and fast fuzzy matching”. So there’s a great learning exercise in there, and therefore I am not complaining about the coding to be done. But the context in which I found I needed it – and my web browsing habits are comparatively modest, if I say so myself – was not what I expected.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,26 @@
+Sophos Home protects every Mac and PC in your home 
+The US National Security Agency (NSA) and its Australian counterpart the Australian Signals Directorate (ASD) have published a set of guidelines to help companies avoid a common kind of attack: web shell exploits.
+A web shell is a malicious program, often written in a scripting language like PHP or Java Server Pages, that gives an attacker remote access to a system and lets them execute functions on a victim’s web server. Attackers hack web-facing applications so that they can install and execute these files on the server, enabling them to steal data, launch attacks on visitors to the site, or use the web server as an ingress point to burrow further into the victim’s infrastructure.
+Attackers often disguise web shells as innocuous-looking files that could pass for a component of the web application, enabling them to ‘live off the land’ by executing malicious commands unobtrusively and lurk undetected for a long time unless an admin is paying attention. The NSA warned:
+Web shell malware has been a threat for years and continues to evade detection from most security tools. Malicious cyber actors are increasingly leveraging this type of malware to get consistent access to compromised networks while using communications that blend in well with legitimate traffic. This means attackers might send system commands over HTTPS or route commands to other systems, including to your internal networks, which may appear as normal network traffic.
+The guidelines list several CVEs that are common attack vectors for the installation of web shells, targeting products from Microsoft (SharePoint and Exchange), Atlassian, Progress, Zoho, and Adobe (ColdFusion).
+The document addresses several layers of defence. The first involves detecting malicious web shells. It suggests several techniques, one of which is to compare current web application files with those that are known to be legitimate. To do this, you’d take a copy of the freshly installed web app, with the necessary updates applied, and then periodically use file comparison tools (WinDiff for Windows or LinuxDiff for Linux systems) to compare it against current versions. The NSA also provides a PowerShell script for this.
+It also advises people to watch for uncommon activity such as running network enumeration commands that have no place in most legitimate web apps. Other things to watch for include large responses to a web app which could indicate data exfiltration, access times outside peak hours, or access times from unusual regions. These signals will often generate false positives, though, it warns.
+The second layer of defence focuses on preventing malicious web shells and the damage they can do to your systems.
+The document suggests protecting the web servers themselves from unauthorised access by blocking or restricting access to appropriate ports and services. Other guidance focuses on preventing attackers using an installed shell to to wreak havoc in your network. These include using least-privilege principles when assigning permissions to web apps and/or monitoring the integrity of web-accessible directories and files, either blocking or alerting admins to changes.
+Another recommendation involves segregating networks so that internet-facing web servers can’t access sensitive parts of your network. This might be tricky if your web app needs access to customer records from production systems, but could at least prevent attackers from penetrating deeper into your network.
+Finally, the paper looks at response and recovery after an attack. After detecting a web shell, use packet capture (PCAP) to find out what it was doing inside your network, it says.
+The paper, along with a related NSA GitHub repository, also includes tools and intrusion prevention system (ISP) rules to help implement some of these anti-web shell techniques. The Open Web Application Security Project (OWASP) also publishes a set of core intrusion prevention system (ISP) rules that people should apply, the paper adds.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

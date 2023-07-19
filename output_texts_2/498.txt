@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Hands up who’s used the increasingly popular online collaboration platform Trello?
+Trello is great for organising to-do lists and for coordinating team tasks.
+But it has its downsides too. While the default for Trello boards is set to ‘private’, many users set them to ‘public’ which means that anyone can see what’s posted there.
+Not only that, search engines such as Google index public Trello boards, making it simple for anyone to uncover the boards’ contents using a specialised type of search called a ‘dork’.
+And it’s surprising how much sensitive data there is.
+Our global cybersecurity operations director at Sophos, Craig Jones, has been keeping an eye on this for a couple of years, first tweeting about it in 2018.
+One of the worst Trello boards I came across, a HR onboarding Trello board, it's been reported and removed now. It had so much PII I nearly ran out of blue... #passwords #infosec pic.twitter.com/ZK3fpeKNpH
+When news broke last week about office space company Regus exposing the performance ratings of hundreds of its staff via a public Trello board, Craig thought he’d take another look at what’s out there.
+An enthusiastic Trello user himself, Craig quickly found a trove of highly sensitive data sprayed out by sizeable numbers of public Trello boards. 
+He found a board from a housing company detailing the fixes needed in each accommodation, including broken door locks:
+
+Craig also discovered a staff board for what appears to be some sort of facilities company that listed names, emails, dates of birth, ID numbers, bank account information, and more:
+
+And then there’s an HR board that details a specific job offer to someone, including their salary, bonus and contractual obligations:
+
+There’s more.
+He found a board relating to an Australian pub which included details of customer fraud, bucketloads of gmail and social media passwords, and API keys, passwords and credentials belonging to a global IT household name.
+Craig has contacted the companies where he can, to inform them their data is publicly accessible. Many have taken down the boards already.
+One would assume, in most cases, this is not deliberate. The design of Trello has changed over the years so it might be related in part to a past issue. It’s also possible that some are made public by one individual for a legitimate reason, the security implications of which are lost on other users of the same board.
+Some boards are set up, made public, and eventually forgotten (although not by Google). It’s the latest version of the whole shadow IT problem where people use tools they don’t fully understand how to use securely.
+Sure, users need to bear some responsibility over keeping their data private. But Craig also believes search engines aren’t helping here.
+For me, any benefit in indexing Trello boards is far outweighed by the risk of making it possible to access inadvertently exposed data. While we should all take responsibility for keeping our Trello boards private, I’d love to see Google and others stop the indexing of them in the first place.
+If you are a Trello user, go and check the status of your boards and set anything with sensitive data in it to “private”. 
+If you know of any exposed data – perhaps data relating to you or a company you’ve worked at – there are two routes to getting it taken down.
+One is to contact the admin who set up the board. In many cases, that won’t be possible, so a second option is to contact Trello, asking for the board to be made private.
+But even after doing that, content remains cached on search engines for a period of time which is why it’s also necessary to ask Google to remove the content from search, or send a cache flushing request (which will cause Google to re-index it, hopefully receiving a 404 from Trello).
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It’s worth noting that Trello doesn’t need Google to do anything. Trello could stop the indexing of public boards with a robots.txt entry and a bit of button pressing in the Google Search Console.
+But even if Google stopped indexing Trello boards it should still be possible to find public ones from within Trello itself using a free account and some keywords (I plan to test this!).
+I was about to mention the same thing, Mark.  But perhaps it’s also worth noting that just because search engines like Google might abide by robots.txt, all kinds of other scraping and spidering would still be possible.  While robots.txt is a useful mechanism, it is security-through-obscurity.  It doesn’t fix the real problem of someone setting the board to public in the first place.  So this issue might warrant a rethink from Trello regarding the user experience, with clear education within their site when such a setting is changed.
+In all openness, I’ve never used Trello, so I don’t know what the experience is like today.  My suggestion is intended to be conceptual, not critical.
+I think indexing by search engines is the principle problem.
+I created a test Trello board and it’s URL includes what looks like an eight character code that uses upper and lower case   characters from the English alphabet. The scheme for URL paths looks like trello.com/b/%code%/%board name%. Assuming there are only eight characters in the code, there are 53 trillion possible codes.
+I suspect that code makes it next to impossible to find and scrape a useful number of boards. If you wrote an HTTP scraper that made ten HTTP requests per second (and Trello didn’t block you). it would take 61 million years to explore all the possible codes for a single board name.
+So, I really do think it just comes down to robots.txt.
+I mean if you don’t set your board to private you are asking for it. Good advice though.
+I wonder if there’s user confusion about sharing boards with your colleagues, versus making them public. Could people be thinking that to add other users to a board you have to set it to public?
+I am sure there will be a lot of that going on. Also, I’ve noticed that when they’re presented with a new system a lot of people will just given themselves maximum permissions as a matter of reflex. People get very frustrated by computing things that “get in the way” and they’ve learned that giving themselves admin everywhere and setting everything to the least restricted settings minimises the amount of stuff that gets in their way.
+I think the title of the article is a bit on the click-bait side. From the title I thought there had been some sort of breach of Trello’s systems, and private information had leaked, when in fact it was yet another story about ingnorant users forgetting to mark their stuff as private, and all the interesting things you can find by browsing incorrectly public stuff.
+A data breach is when sensitive data is exposed to public view. The fact it gets there by accident should be beside the point.
+Absolute joke of an article title. Trello have done nothing wrong side from lettering simple people use their service. “The default for boards is private”. Exactly! If people charge that to public, then that’s their problem.
+What sort of a joke blog is this? Farcical
+If I inadvertently posted sensitive data to a system anyone on the Internet could read, I’d be delighted if someone told me about it.
+If you have made it Public, you have to understand what Public means. This is Not Trello’s mistake.
+If users don’t understand what Public means then Trello has a user interface design problem and it has to work harder to explain the term, choose a better term, or use something like robots.txt to protect users from the consequences of their misunderstanding.
+Trello Exposed ! what’s with this stupid title ? If you set your board to public , you know what it means. No need to be an expert. The trello company can’t be blamed for people who set choose these settings. Some people wants the boards public because they use it a a documentation for people, or to inform people on their work.
+Clearly, some Trello users don’t understand that setting a board to ‘public’ means it will turn up on Google.  If they did, they wouldn’t post as much sensitive data to them.
+The issue seems bigger to me on the user side.
+Search engines don’t derivebl urls.  They link to information that is linked somewhere else.  So where else are these being linked that a search engine would index them.  Until that is fixed, Google is just exposing what is otherwise being made public.
+trello.de – de-TLD of trello could be another potential security issue for German customers – fishing credentials
+For those wondering, that domain isn’t owned by Atlassian (the vendor that owns Trello), doesn’t look like Trello, warns you that it is not trello.com, and consists only of a login page (no way to sign up).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

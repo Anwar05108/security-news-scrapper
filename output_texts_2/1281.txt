@@ -1,0 +1,38 @@
+Sophos Home protects every Mac and PC in your home 
+Thanks to Naked Security reader Bryan for his help with this article.
+The US Securities and Exchange Commission (SEC) has just published a “Security Incident” submitted last week by Web services behemoth GoDaddy.
+GoDaddy says that on 17 November 2021 it realised that there were cybercriminals in its network, kicked them out, and then set about trying to figure out when the crooks got in, and what they’d managed to do while they were inside.
+According to GoDaddy, the crooks – or the unauthorised third party, as the report refers to them:
+Additionally, GoDaddy stated that default WordPress admin passwords, created when each account was opened, were accessed, too, though we’re hoping that few, if any, active users of the system had left this password unchanged after setting up their WordPress presence.
+(Default starting passwords generally need to be sent to you somehow in cleartext, often via email, specifically so you can login for the first time to set up a proper password that you chose yourself.)
+GoDaddy’s wording states that “sFTP […] passwords were exposed”, which makes it sound as though those passwords had been stored in plaintext form.
+We’re assuming, if the passwords had been salted-hashed-and-stretched, as you might expect, that GoDaddy would have reported the breach by saying so, given that properly-hashed passwords, once stolen, still need to be cracked by the attackers, and with well-chosen passwords and a decent hashing process, that process can take weeks, months or years.
+Indeed, researchers at WordFence, a company that focuses on WordPress security, say that they were able to read out their own sFTP password via the official MWP user interface, something that shouldn’t have been possible if the passwords were stored in a “non-reversible” hashed form.
+GoDaddy has now reset all affected passwords, and says it’s in the process of replacing all potentially stolen web certificates with freshly generated ones.
+GoDaddy is also in the process of contacting as many of the 1,200,000 affected users at it can. (Customers who can’t be contacted due to incorrect or outdated details may not actually receive GoDaddy’s alerts, but there’s not a lot GoDaddy can do about that.)
+This is a useful response, and GoDaddy hasn’t dithered over getting it out, given that the breach was first spotted just five days ago.
+(The company also issued an uncomplicated and unqualified apology, as well as saying that “we will learn from this incident and are already taking steps to strengthen our provisioning system with additional layers of protection”, which is a refreshing change from companies that start off by telling you how strong their protection was even before the incident.)
+However, with ten weeks in hand before getting spotted, the criminals in this attack could have used the compromised sFTP passwords and web certificates to pull off further cybercrimes against MWP users.
+In particular, crooks who know your sFTP password could, in theory, not only download the files that make up your site, thus stealing your core content, but also upload unauthorised additions to the site.
+Those unauthorised website additions could include:
+Also, crooks with a copy of your SSL/TLS private key could set up a fake site elsewhere, such as an investment scam or a phishing server, that not only claimed to be your site, but also actively “proved” that it was yours by using your very own web certificate.
+By the way, we’re hoping, if GoDaddy was indeed storing sFTP passwords in plaintext, that it will stop doing so at once, and contact all its MWP customers to explain what it is now doing instead.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+My GD account rep says if I’ve not received an email by now (I’ve not), then my account was unaffected by the breach.
+Fingers and toes are currently crossed, hoping she’s correct–and they’re not merely slow with the bad-news notification.
+It boggles the mind that large vendors are still getting caught with this.  Hasn’t it been 20 years or so that it’s fairly common knowledge within I.T. circles that plaintext passwds is a no no?
+Well one week later–and I’ve still not received a “sorry, you were breached” notification.
+I assume that means you were not one of the 1.2 million… what isn’t clear is how many users of MWP there are altogether, and therefore what the probability is that any individual user was affected.
+(with apologies to Prince)
+Tonight we’re storing passwords
+Like it’s 1999
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Barely noticed by web users, the life expectancy of SSL/TLS leaf certificates has lowered dramatically over the last decade.
+Used as the foundation of HTTPS authentication, just over a decade ago domain registrars were selling SSL/TLS certificates that were valid for between 8 and 10 years.
+In 2011, a new body called the Certification Authority Browser Forum (CA/Browser Forum), which included all the big browser makers, decided this was too long and imposed a limit of five years.
+Then, in 2015 the time limit was dropped to three years, followed by a further drop in 2018 to only two years.
+How low could this go?
+This week, we learned that the latest answer is one year, or 398 days including the renewal grace period, a change that will apply from 1 September 2020.
+What makes this new limit noteworthy, however, is that it was reportedly announced at a CA/Browser Forum meeting by a single member, Apple, in relation to one browser, Safari.
+Although not yet officially confirmed, it’s a bold move that presumably prefigures similar announcements by other big browser makers, especially Google, which has assiduously promoted the idea of a one-year limit in recent CA/Browser Forum ballots.
+That browser makers were voted down might explain why Apple has decided to enforce the change unilaterally, apparently against the wishes of the Certificate Authorities (CAs) which issue certificates as a business.
+The browser makers are adamant that reducing validity is good for security because it reduces the time period in which compromised or bogus certificates can be exploited.
+In theory, it also makes it less likely that in future, certificates using retired encryption (certificates based on SHA-1 being a prime example) will be able to soldier on when everyone knows they are vulnerable.
+In the real world, it’s a lot more complicated. CAs fear their customers will struggle to cope with the practical difficulties of renewing certificates – and changing the private keys used to authenticate them – more often.
+Renewals can be done using automated tools, but it seems that many organisations still manage the process manually. Considering that some will have thousands of certificates to look after, doubling the frequency of renewals may well create problems that the CAs will need to take care of.
+What, in practical terms, does all this mean for certificate admins and browser users?
+For current certificates, not much. These will still be valid until their stated expiry date, even if that’s after 1 September 2020. After that, assuming CAs don’t stop selling the old two-year certificates, Safari users (plus users of other browsers adopting the same policy) visiting a site on which one was issued will see off-putting ‘website not secure’ warning messages.
+That isn’t going to happen, of course, because the CAs know perfectly well that browser makers, the web’s gatekeepers, hold all the cards.
+More likely, they’ll start offering automation of their own, multi-year plans, and discounts for organisations that sign up for longer time periods. A solution will be found that lightens the burden and stops alarming messages appearing for otherwise genuine certificates.
+The question is where things go from here. If certificates are a security risk, why not move to even shorter renewal time periods that reduce the window of opportunity?
+With increasing automation and adjusted business models that reduce the financial burden, it’s possible that even one year might one day sound like a long time for a certificate to remain valid. Watch that padlock.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+If this reduced to 90 days, then go for free SSL Cert at Let’s Encrypt which expires at 90 days for free
+I always wondered that if Let’s Encrypt shown that if 90 day certificates are great and automation can renew and install certificates well enough.  That how short can certificate life could be?  15 days?  It is automated, it would renew when you sleep and traffic is down on your server.  You would renew with a new private key to enhance your security.
+The problem is the eco-system. For example if you’re using a WAF and / or wildcard SSL and / or SSL interception, then you can’t use automated cert renewal. The vendors currently simply don’t support it. Last feedback I had from several firewall vendors was that it wasn’t a priority for them.
+“Considering that some will have thousands of certificates to look after, halving the frequency with which this occasionally complex process (renewing Extended Validation for instance) needs to be done is bound to create problems the CAs might have to mop up after.”
+John, I presume you mean DOUBLING the frequency, not HALVING it.  The period would be halved, doubling the frequency.
+Fixed, thanks!
+Wishful thinking on my part…
+I feel like this is going backwards. The industry should be forcing CAs to do more to properly validate domains/orgs not pushing for less human oversight and more automated certificates. I’ve thought about blocking sites that use LetsEncrypt as that’s what every malicious actor uses to make it looks like their sites are legit. I was a fan of the service when it started as I care about privacy but at this point I think it does more to facilitate cyber crime than it does to protect end user privacy.
+A surprising number (wish I had proper stats but I just have “I have seen loads of this in my own investigations”) of phishing and malware sites get HTTPS without needing Let’s Encrypt. Either they get a temporary hosted server account with TLS for everyone on that hosting platform, or they hack someone else’s website and hide under that domain name and TLS certificate.
+The other side of that coin is that loads of sites I’ve seen that are legitimate but would not otherwise have had the time/money/will/expertise to bother encrypting their traffic are now doing so, which keeps all the crooks between me and that site out of my business.
+Swings and roundabouts, I guess.
+Very solid points. My only add would be that any website that can’t afford ~$100/year for a certificate or the (minimal) expertise needed to install it maybe shouldn’t be running a website. I consider those skills and that price to be a pretty low barrier.
+Interesting,  just got a warning that microsoft’s download site is insecure because “msproduct.download.microsoft.com”  security certificate expired 2 days ago …   I can’t seem to be able to attach the screenshot on this forum.
+‎Valid To:  Saturday, ‎13 ‎June ‎2020 7:43:14 AM
+CN = Microsoft IT TLS CA 5
+OU = Microsoft IT
+O = Microsoft Corporation
+L = Redmond
+S = Washington
+C = US
+Oops! I tried that same URL just now [2020-06-14T16:30Z} and got the same problem. (I’m not quite sure who/where/how to report this to MS, so I ended up simply emailing a chum of mine who works there… I suppose this could be a transient problem, perhaps just one part of the content delivery network, or even one server, that has an old certificate that shows up only occasionally.) That certificate had a 2-year validity, FWIW.
+Just went back to that URL [2020-06-15T08:30Z] and the certificate was current and valid – issued a few hours ago, with a 1-year validity.
+Missed opportunity for the entire world to tell Apple to stick it where the sun doesn’t shine. When no one’s site works in Safari, see how well that works out for Apple – and how fast they’ll do an about-face.
+Considering that at least Firefox and Chrome/Chromium will do the very same thing later in 2020, seems like this will play out the other way about…
+The problem I have with it is this:
+We have a lot of services that use https for encryption that never talk to browsers.   These are generally computer programs talking to each other.  Often they are talking to other computers from other organizations so an internal cert isn’t going to work.  Having to change certs on 1200 computer systems each year is a pain.  And if they are not done at roughly the same time, one ends up in a situation where several certs may expire each week meaning a dedicated headcount just for keeping track of certs.
+There has to be a path made for certificates that are not used by browsers signed by an organization mutually trusted by various enterprises for purposes of machine inter-communications.  In this case we really don’t care if a browser trusts the certificate or not because browsers aren’t connecting to these services.
+What about Let’s Encrypt with autorenrenewal?
+It sounds as though this is a specialised ecosystem of orgs that work together using specialised software components that talk TLS to each other… what about your own key infrastructure, based on your own certificate authority?
+That is possible but getting some of the largest companies in the world to trust our own internal CA is likely to prove fruitless.  It would have to be a CA that everyone trusts and changing certificates is a CHORE, often requiring 90 days notice as they load the certificates in their environment and compare the server and chain cert to the one they have stored.  So it is a huge undertaking to change certificates every year with some of these firms.  As for our own internal systems, yes, and internal CA is an option.  With our customers, though, not so much of one.
+The whole thing seems a bit broken to me. If the revocation system worked then 2 years wouldn’t be a problem. Are we saying that having an illegitimate certificate around for up to 1 year is ok but 2 years isn’t? I thought revoking the certificate would fix the issue. Fixed much quicker than 1 or 2 years! Surely the damage is done immediately. The main reason lets encrypt choose 90 days is a balance of keeping the revocation lists for 90 days and overhead of renewing certificates. The main advantage for having a shorter time is to have smaller revocation lists (CRL). Google CRLSets/OCSP Stapling to see how Chrome handles it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,59 @@
+Sophos Home protects every Mac and PC in your home 
+Apple recently announced a tracking device that it calls the AirTag, a new competitor in the “smart label” product category.
+The AirTag is a round button about the size of a key fob that you can attach to a suitcase, laptop or, indeed, to your keys, to help you find said item if you misplace it.
+If you remember those whistle-and-they-bleep-back-at-you keyrings that were all the rage for a while in the 1990s, well, this is the 21st century version of one of those.
+Unlike their last-millennium sonic counterparts, however, modern tracking tags come with loads more functionality, and therefore present a correspondingly greater privacy risk.
+Armed with wireless connectivity in the form of Bluetooth and NFC, modern tags don’t just respond neutrally with a beep-beep-beep when you send them an audio signal and they’re within range.
+Products like the AirTag also announce themselves with regular Bluetooth beaconing transmissions, just like your phone does when it’s in discoverable mode.
+To stop your tags being used as a permanent tracking tool for anyone who’s stalking you, the Bluetooth identifier swaps itself around every few minutes, like the Bluetooth beacons used in the Apple-and-Google privacy-preserving “exposure notification” interface that was introduced for coronavirus infection tracking.
+If someone else swipes an NFC-enabled phone near an AirTag, it presents them with a supposedly anonymous URL pointing to the Apple server found.apple.com, where they can report the misplaced item. 
+(We don’t have an AirTag to practise with, but apparently you can choose to reveal personal information such a phone number via the tracking URL, but we assume that nothing about your identity is revealed by default, so that lost items can be reported anonymously.)
+As you probably expected to hear, AirTags are meant to be resilient against hacking, or jailbreaking as it is commonly called on Apple devices.
+Notably, the firmware (the miniature operating system and software programmed into the device) is supposed to be locked down so it can’t be peeked at in the first place, let alone modified to run alternative code.
+In particular, the hardware used in the AirTag, an nRF52832 microcontroller, can be set during bootup into a special mode that prevents any of the real-time chip-control features, such as debugging, being used.
+In the nRF52xxx series of chips, an additional anti-hacking feature known as APPROTECT, short for Access Port Protection, can also be activated at startup to prevent the contents of the firmware from being read out.
+Last year, however, an intrepid cybersecurity researcher known only as LimitedResults figured out (and wrote up a fascinating description of) a way to stop the chip turning off its built-in debugger by injecting a carefully-chosen burst of electrical interference into the power supply during startup.
+Too little interference, and nothing would happen; too much electrical tampering, or the right amount of tampering at the wrong time, and the chip would simply fail to boot at all.
+But with just the right sort of microsecond-sized power glitch supplied at just the right time, LimitedResults was effectively able to “blank out” the chip commands that were supposed to suppress debugging, while leaving everything else unaffected so that the system nevertheless continued running.
+LimitedResults was then able to connect a debugger to the debug port (which ought to have been unresponsive) and dump a copy of the firmware that was supposed to be shielded from prying eyes.
+Additionally, because the two-way debug port was now active, the unlocked device could be controlled as well as snooped upon.
+According to reports, another researcher who goes by @ghidraninja on Twitter (Ghidra is a well-known reverse engineering toolkit from the US National Security Agency) has now used this power glitch trick to “jailbreak” an AirTag.
+Apparently, @ghidraninja was able to dump the AirTag’s copy-protected firmware, modify it slightly, and write it back undetected by the device.
+The hack, so far, is a proof of concept (PoC) rather than a dangerous attack: @ghidraninja modified the server name found.apple.com inside the firmware so that a “lost” AirTag would misdirect an inquisitive iPhone not to Apple’s legitimate site….
+…but to a YouTube video, you guessed it, of Rick Astley performing Never Gonna Give You Up:
+Be careful when scanning untrusted AirTags or this might happen to you😆 pic.twitter.com/LkG5GkvR48
+— stacksmashing (@ghidraninja) May 9, 2021
+
+Right now, we don’t think there’s much to worry about, unless you’re in the cybersecurity team (or the PR crew) at Apple and you are trying to figure out how to harden the next generation of AirTags against this trick.
+Crooks who wanted to abuse a tracking tag to stalk you or to keep your property under surveillance could, after all, simply use a booby-trapped tracking tag of their own devising and hide it somewhere you would probably not notice it.
+If they wanted it to resemble an AirTag so that they could “hide” it in plain sight, they could simply enclose it in a look-alike package.
+Of course, there’s still the risk of someone using a booby-trapped AirTag as a lure to trick Good Samaritan iPhone users into visting a fake URL and giving themselves away…
+…so, as the video says, “Be careful when scanning untrusted AirTags.”
+Our recommendation, if you find someone else’s stuff and want to help to reunite it with its real owner, is simply to hand it in old-school style, for example at a police station or an official lost property office.
+And, as cynical as it sounds, be wary of people you don’t know who are apparently filled with gratitude for an unsolicited “favour” they claim you did for them.
+Listen to our special-episode podcast with Rachel Tobac, a renowned social engineering expert, and give yourself the confidence and understanding not to get sucked into saying, doing or accepting online “gifts” that might be anything but:
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Enjoyed the interesting article by Paul Ducklin regarding Apple Airtag vulnerabilities.
+My own solution to this as a guaranteed way to completely avoid any possible problems with the Apple Airtag-such as described in Mr Ducklin’s article-just don’t buy any.
+Of course. the “attack” in this particular case wasn’t against the sort of people who might *buy* them but against the kindly sort of people who might *find* one and decide to “do the right thing” and call it in :-)
+I saw a video of the speaker being removed in a matter of seconds to eliminate the “beep” it supposed to make if it’s following someone. Apple also says they track each sale so they know who has them, incase someone uses them for criminal intent. But they are already available on Ebay, So no owner tracking, no beep if being spied on, and (apparently, and Paul please correct me) it prevents being detected by BT once it’s been synced with one. So scanning your property will not reveal it.
+I can see these being used by crimz to track cars/people for a fraction of the cost of a phone taped under a car. Not liking this tech, but like taxes, once its here, it’s here to stay.
+You spelt last wrong at one point as “Lsat”
+Fixed, thanks!
+There is also no period at the end of the same line….
+ There is now, thanks! (There’s a full stop too, for those who prefer it that way -)
+I am guessing “Lsat year” is meant to be last year?
+Yes :-)
+I think that everybody needs to stop reacting to people’s spelling mistakes and start reading the comments on the topic at hand. I mean really.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

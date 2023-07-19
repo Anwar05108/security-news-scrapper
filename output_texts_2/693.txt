@@ -1,0 +1,60 @@
+Sophos Home protects every Mac and PC in your home 
+Cybercriminals are exploiting two unpatched zero-day flaws affecting all supported versions of Windows, Microsoft has warned.
+The Remote Code Execution (RCE) vulnerabilities affect Adobe Type Manager (ATM) Library, the part of Windows that manages PostScript Type 1 fonts.
+For now, there are no CVE identifiers and the only confirmed details are in Microsoft’s warning:
+Microsoft is aware of limited targeted attacks that could leverage un-patched vulnerabilities in the Adobe Type Manager Library and is providing the following guidance to help reduce customer risk until the security update is released.
+Attackers could exploit the flaw by persuading users to open a malicious document. Importantly, however, the same danger would arise even if users viewed that document using the Windows File Explorer file manager preview features.
+The latter is significant because, for now, there’s no software fix, which could be as far away as the next Patch Tuesday update, scheduled for 14 April 2020:
+Microsoft is aware of this vulnerability and working on a fix. Updates that address security vulnerabilities in Microsoft software are typically released on Update Tuesday, the second Tuesday of each month.
+Until then, the only countermeasure is to use one of the recommended workarounds, which involves disabling Explorer’s preview and details pane.
+This can be achieved as follows:
+Disabling the WebClient service should also block the most likely attack route, Microsoft said:
+Renaming atmfd.dll was another mitigation for versions of Windows before Windows 10 1709, with instructions on how to do this for different older versions covered in the advisory.
+This workaround might affect OpenType fonts which although not part of Windows are used by some third-party applications.
+The affected versions of Windows include 32-bit and 64-bit versions of Windows 10 (1607, 1709, 1803, 1809, 1903, 1909), Windows 8.1, Windows 7, and Windows Servers 2008, 2012, 2016 and 2019, including Server Core installations.
+Importantly, Windows 7 users whose installations lack an Extended Security Updates (ESU) agreement won’t receive patches for these flaws (Windows 7 reached end of life on 14 January 2020).
+The short answer is because this vulnerability has nothing to do with Adobe – despite its name, ATM has long been part of Windows itself, and is maintained by Microsoft under a license agreement that presumably requires it to name-check Adobe.
+This is the third time in a matter of weeks Microsoft has faced having to patch a Windows zero day after running into some timing problems over patching.
+February’s Patch Tuesday saw a fix for an Internet Explorer flaw (CVE-2020-0674), a zero-day which had been exploited in “limited attacks” dating back to January.
+And earlier this month, Microsoft scrambled to patch the ‘SMBGhost’ vulnerability (CVE-2020-0796), news of which leaked accidentally into the public domain.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Somehow I don’t think your instructions for disabling Webclient:
+Disabling the WebClient service should also block the most likely attack route, Microsoft said:
+    Click Start, click Run (or press the Windows Key and R on the keyboard), type Services.msc and then click OK.
+    Right-click WebClient service and select Properties.
+    Change the Startup type to Automatic. If the service is not running, click Start.
+    Click OK and exit the management application.
+… are correct.
+You’re correct, thanks. I’ve fixed the instructions.
+Why does setting the service startup type to Automatic disable this WebClient service??
+Fixed, thanks!
+This article currently contains instructions on how to ENABLE WebClient instead of DISABLE. Following these instructions could cause a user to open them up to the attack.
+Fixed, thanks!
+Think you have copied the instructions for re-enabling the service – Should be set to “Disabled” NOT “Automatic”
+Fixed, thanks!
+I think users should be able to “opt out” of anything related to Adobe.
+The idea that it is a “must have” is becoming ludicrous.
+I’m not all that computer savvy.  So could you elaborate on the workaround?  For example, firstly, how do I access ‘Windows Explorer’?  I have an icon on the taskbar that opens File Explorer – is that it?
+Also, what does “Clear both the Details pane and Preview pane menu options” mean?  Delete something?
+I’m sorry, I just don’t understand the lingo.and would appreciate more of an explanation.
+You’ve got the right program! Windows Explorer is variously and confusingly known as “Windows Explorer” (in the task manager it has that name), “File Explorer” (in the Windows 10 app search box that’s how it appears, to differentiate it from Internet Explorer) and simply “Explorer” (on disk it has the filename EXPLORER.EXE).
+The instructions we originally quoted above were Microsoft’s own, but I agree they are confusing, so I have taken the liberty of tweaking them. 
+What you are doing with “Details” and “Preview” is making sure they are *not highlighted*, i.e. that they are not turned on. That’s because those options work by creating thumbnails of the files listed on screen and therefore may require fonts to be loaded, thus potentially triggering this bug).
+After clicking [View] a small options bar will open up and you will see two items labelled “Preview pane” and “Details pane”. On my Windows 10 system they are second from the left and one above the other. As far as I can see this pair of options has three possible combinations: Preview highlighted, Details highlighted, or neither highlighted. (You can’t have both at the same time.)
+If either of them is turned on, click on it once to turn it off. Amusingly, the View window will then vanish and you will need to click [View] again to verify that your change worked.
+HtH.
+Thank you Mr. Ducklin for clarifying the instructions.  I was able to follow them and complete the workaround.
+Glad it worked. Took me a while to figure it out, not least because every time I “cleared the option” (as Microsoft puts it) the View window vanishes, as though you would never want to verify that the change had actually worked and as though you would never want to change two settings in one visit.
+Is this vulnerability still unpatched?  I like the previews and it would be nice to have them back, but safely.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

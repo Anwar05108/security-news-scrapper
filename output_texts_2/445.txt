@@ -1,0 +1,32 @@
+Sophos Home protects every Mac and PC in your home 
+Criminals have been caught trying to sneak a malicious package on to the popular Node.js platform npm (Node Package Manager).
+The problem package, 1337qq-js, was uploaded to npm on 31 December, after which it was downloaded at least 32 times according to figures from npm-stat.
+According to a security advisory announcing its removal, the package’s suspicious behaviour was first noticed by Microsoft’s Vulnerability Research team, which reported it to npm on 13 January 2020:
+The package exfiltrates sensitive information through install scripts. It targets UNIX systems.
+The data it steals includes:
+Any of these could lead to trouble, especially the theft of environment variables which can include API tokens and, in some cases, hardcoded passwords.
+Anyone unlucky enough to have downloaded this will need to rotate those as a matter of urgency in addition to de-installing 1337qq-js itself.
+The offending versions of the package are versions 1.0.11 to 1.0.9 inclusive.
+The advice is to check for dependencies by generating a report using the npm audit command from the command line. This alerts admins to packages known to be malevolent as well as any other security issues that need addressing. In a perfect world, an audit will return this:
+No known vulnerabilities found (x packages audited].
+Malicious npm packages, particularly ones installing backdoors, have become a recurring theme in the last year or two.
+A good example was last June’s targeting of the Agama cryptocurrency wallet. The thinking behind this attack was simple – upload what appears to be a useful package, wait until the specific target starts using it in their ‘build chain’, and then update the package with a malicious payload.
+This kind of ruse puts a lot of pressure on npm’s security testers to spot malevolence before any damage is done. In this case, the attack was foiled.
+There have been at least four other incidents with malicious packages trying to sneak backdoor attacks on npm users since 2017.
+Instances of attackers targeting libraries and packages to target cryptocurrency apps by the backdoor are also on the increase.
+Today’s applications are assembled from different pieces of software in a format that resembles a supply chain. Clearly, as with physical supply chains, this brings with it new risks.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The real question is: Are these nation-state attacks? The USA and China especially wants back-doors in stuff.
+What better way to control scary alternative currency than to quietly backdoor the apps that use it on a large scale?
+It makes you wonder what actually slips through the cracks and isn’t caught.
+Researchers might want to go over open-source and closed source encryption based apps with a fine-toothed comb.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

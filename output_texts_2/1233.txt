@@ -1,0 +1,44 @@
+Sophos Home protects every Mac and PC in your home 
+VMware’s latest security update includes patches for 19 different CVE-numbered vulnerabilities affecting the company’s vCenter Server and Cloud Foundation products.
+All of the bugs can be considered serious – they wouldn’t be enumerated in an official security advisory if they weren’t – but VMware has identified one of them, dubbed CVE-2021-22005, as more critical than the rest.
+Indeed, VMware’s official FAQ for Security Advisory VMSA-2021-0020 urges that:
+The ramifications of this vulnerability are serious and it is a matter of time – likely minutes after the disclosure – before working exploits are publicly available.
+In particular, the company explains:
+The most urgent [patch] addresses CVE-2021-22005, a file upload vulnerability that can be used to execute commands and software on the vCenter Server Appliance. This vulnerability can be used by anyone who can reach vCenter Server over the network to gain access, regardless of the configuration settings of vCenter Server.
+VMware unabashedly says that “this needs your immediate attention,”, and we think it’s a good thing to see a software vendor talking about cybersecurity response in plain English instead of mincing its words.
+Generally speaking, file upload vulnerabilities happen when an untrusted user is allowed to upload files of their own choosing…
+…but those untrusted files end up saved in a location where the server will subsequently treat them as trusted files instead, perhaps executing them as scripts or programs, or using them to reconfigure security settings on the server.
+A classic example of this sort of hack is what’s known as a webshell, as abused in the infamous HAFNIUM attack against Microsoft Exchange servers in early 2021:
+Serious Security: Webshells explained in the aftermath of HAFNIUM attacks
+
+
+In that attack, cybercriminals uploaded innocent-looking text files that were actually server-side scripts.
+Usually, when you visit a web server URL that directly corresponds to a file on that server, you simply get the contents of that file sent back to you.
+But if server-side scripting is enabled, and the file is a script, then the server runs the script locally, and uses the output of the script as the web content to send back, thus turning the uploaded file into a vehicle for carrying out a remote code execution attack.
+Obviously, being able to upload files that shouldn’t be there is dangerous enough on its own, but when untrusted files can be uploaded by unauthenticated users, and the server will then execute those files, it’s as though you just granted administrator access to anyone who wants it, with no password required.
+As VMware goes out of its way to explain: patch early, patch often!
+If you can’t or won’t patch just yet, VMware has provided a temporary workaround that turns off the vulnerable code on affected VMware vCenter systems. 
+To do this, you need to modify the configuration file /etc/​vmware-analytics/​ph-web.xml, and comment out parts of it, in order to stop various vulnerable server plugins from running.
+Then you need to restart the vmware-analytics service.
+VMware has published various Python scripts that will make these changes for you, as well as giving full instructions for editing the file by hand.
+Even though a reliable workaround is available, we nevertheless echo VMware’s own advice to patch now, and to use the workaround only as a last resort.
+The VMSA-2021-0020 security update includes 18 other security fixes, such as privilege escalations and security bypass bugs.
+Privilege escalation usually means that a user at a low access level can sneakily boost themselves to gain administrator powers, and security bypass bugs typically allow data that ought to be secret to be winkled out of the system by unauthorised users.
+Why not patch right away, and be 19 steps ahead?
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What is VMWare?
+It’s like VirtualBox, QEMU, Parallels and so on – software that allows you to turn one physical computer into several “software computers” or virtual machines, each one of which thinks it’s a real computer in its own right. So you can run Linux on a Windows computer, Windows on a Linux server, or three different Windows versions side by side on the same underlying hardware.
+VM in VMware stands for Virtual Machine, and ware stands, well, for software.
+(Or are you making a joke, because I originally had “VMWare”, as you wrote it, in the headline, but the company itself uses lower case for the “ware” part of the name. I *think* I fixed all of those typos.)
+Our Sys Admin said it was one of the easiest and fastest VMware patches to install.
+Just sharing for those that are hesitant to patch very early.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

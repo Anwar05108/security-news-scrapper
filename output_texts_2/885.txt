@@ -1,0 +1,61 @@
+Sophos Home protects every Mac and PC in your home 
+Community-focused cybersecurity website abuse.ch has warned of a malware spreading campaign that is using “Black Lives Matter” to draw victims in.
+Sneakily, the crooks have broadened the reach of their attack by keeping their emails short and objective – the crooks very deliberately haven’t taken a social or political position, but have instead invited recipients to comment anonymously on the issue.
+Samples seen by SophosLabs have their subject, body text, attachment description and filename chosen randomly each time from a list of similar text strings, like this:
+Here’s an example email, with randomised content, showing the general apearance:
+ 
+These crooks aren’t piling on any pressure; they aren’t playing on emotions such as guilt or fear; and they aren’t even requiring you to get involved under your own name.
+If you get one of these, don’t open the attachment – it’s a trap!
+We opened it so you don’t have to, and we must grudgingly admit that the trick the crooks have used here is easy to fall for.
+Remember that Word documents can contain what are commonly known as macros – embedded program code written in the Visual Basic for Applications programming language, or VBA for short.
+The problem with macros is that the term sounds safe and innocent – the word harks back to the days of really simple keystroke recorders that you could use to automate simple tasks in word processors or spreadsheets.
+But VBA today is as powerful and as dangerous as C, C++, Delphi, Perl, Python or any other programming language that’s associated with full-blown, standalone applications that you install and run locally.
+VBA needs an Office application running (usually Word, Excel or PowerPoint) to make it work, but once you agree to let VBA code run from inside an Office file, it has full access to your computer just as if the VBA program were running outside Office.
+In other words, VBA inside a Word file isn’t like JavaScript in your browser – there’s no sandbox or walled garden to restrict the damage it can do.
+VBA programs can do any and all of these things:
+That’s why Microsoft sets up Office with macros turned off by default, so that you can’t accidentally run embedded VBA malware simply by opening an infected Office file – because rogue macros can do a lot of harm.
+Indeed, even though we regularly see VBA macros used inside companies as a way to automate office workflow via internal, trusted documents…
+..every emailed document we’ve ever received with macros in it was harbouring malware.
+The crooks behind this attack have used low-pressure tactics inside the document, too, giving you a surprisingly believable reason to let the embedded macros run.
+When we opened the sample reported by abuse.ch, we saw this:
+
+New updates are available for Office. They will be downloaded in the background and will not interrupt your work.
+That sounds like the sort of advice you should heed, rather than ignore, and the crooks are even polite enough to remind you that:
+If your internet connection is limited, be cautious – you can be charged for downloading of this data.
+But that’s not all you need to be cautious of – the real danger comes in the innocent-sounding instructions at the end:
+Please press “Enable Editing” and then “Enable Content” in the popup window.
+As you can see, the yellow popup tries to discourage you from doing what the crooks say, warning you that macros are disabled for security reasons.
+Nevertheless, the button to activate the malicious macros in this file is labelled [Enable Content], which we’ve always thought makes it sound more innocent than it really is, as if what you are seeing now were merely a preview.
+So our advice is that when you see the words Enable Content, translate them mentally into: Clicking this will extract and run an embedded program that is almost certainly malware.
+That will help to remind you just how risky and reckless it is to [Enable Content] just because a document asked you nicely.
+The first thing you see if you do run the macros in this malware document is a Windows-like error message, complete with one of those eight-digit codes that looks familiar:
+
+That error is fake (as you will see if you search for it online), and it acts as what’s called a decoy – a plausible reason to explain why the promised update didn’t work out.
+In fact, it’s just one simple line of VBA code in the malicious macro – the MsgBox command pops up the bogus error message, after which the macro code goes to work unscrambling and running an embedded program, known as shellcode, that is disguised using a weird sort of alphabetic hexadecimal notation:
+
+(In the long string of encoded binary data you see, the letters a to p are used to represent the hexadecimal digits 0 to f and the minus signs mean nothing.)
+The malicious document is what’s known as a downloader that, when we allowed it to run, fetched and installed a well-known strain of zombie malware called Trickbot.
+Trickbot started life as a banking Trojan, which is malware that, amongst other things, tries to get unauthorised access to your financial accounts.
+But as the “bot” part the name tells you, Trickbot’s underlying purpose is to act as a robot agent that can carry out a wide range of commands issued by the crooks, including a general purpose command that tells the bot to download and install some other strain of malware too, often ransomware.
+So the problem with bot or zombies is that the question, “What do they do?” cannot reliably be answered in advance, because they are meant to be flexible enough for the crooks to reprogram their behaviour at will.
+And the problem with document-based downloaders is that “What do they fetch?” cannot reliably be answered in advance, either, because the file that’s served up for download can be changed by the crooks at will.
+PS. Sophos Home is 100% free for Windows and Mac.
+Sophos detection names for these threats are as follows: Troj/DocDl-ZGE for the document that does the downloading, and Troj/Trikbot-GB or Troj/Trikbot-GC for the downloaded Trickbot files.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I guess yall don’t use spell check.
+Are you going to tell us what the mistakes are so we can fix them? I’ve found some typos already, but for all I know you may have spotted something completely different.
+(PS. The term “y’all” is conventionally written with an apostrophe to reflect that letters have been left out.)
+“cbyersecurity”
+Ha! Fixed, thanks. Obvs. I did not find that one… second word of the jolly article, too, heigh ho.
+“trusted documwents…”
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

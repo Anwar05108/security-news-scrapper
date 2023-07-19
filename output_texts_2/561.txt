@@ -1,0 +1,95 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re a regular Naked Security reader, you’ll know that we’ve been fans of HTTPS for years.
+In fact, it’s nearly nine years since we published an open letter to Facebook urging the social networking giant to adopt HTTPS everywhere.
+HTTPS is short for HTTP-with-Security, and it means that your browser, which uses HTTP (hypertext transport prototol) for fetching web pages,  doesn’t simply hook up directly to a web server to exchange data.
+Instead, the HTTP information that flows between your browser and the server is wrapped inside a data stream that is encrypted using TLS, which stands for Transport Layer Security.
+In other words, your browser first sets up a secure connection to-and-from the server, and only then starts sending requests and receiving replies inside this secure data tunnel.
+As a result, anyone in a position to snoop on your connection – another user in the coffee shop, for example, or the Wi-Fi router in the coffee shop, or the ISP that the coffee shop is connected to, or indeed almost anyone in the network path between you and the other end – just sees shredded cabbage instead of the information you’re sending and receiving.
+But why HTTPS everywhere?
+Nine years ago, Facebook was already using HTTPS at the point where you logged in, thus keeping your username and password unsnoopable, and so were many other online services.
+The theory was that it would be too slow to encrypt everything, because HTTPS adds a layer of encryption and decryption at each end, and therefore just encrypting the “important” stuff would be good enough.
+We disagreed.
+Even if you didn’t have an account on the service you were visiting, and therefore never needed to login, eavesdroppers could track what you looked at, and when.
+As a result, they’d end up knowing an awful lot about you – just the sort of stuff, in fact, that makes phishing attacks more convincing and identity theft easier.
+Even worse, without any encryption, eavesdroppers can not only see what you’re looking at, but also tamper with some or all of your traffic, both outbound and inbound.
+If you were downloading a new app, for example, they could sneakily modify the download in transit, and thereby infect you with malware.
+Anyway, all those years ago, we were pleasantly surprised to find that many of the giant cloud companies of the day – including Facebook, and others such as Google – seemed to agree with our disagreement.
+The big players ended up switching all their web traffic from HTTP to HTTPS, even when you were uploading content that you intended to publish for the whole world to see anyway.
+Fast forward to 2020, and you’ll hardly see any HTTP websites left at all.
+Search engines now rate unencrypted sites lower than encrypted equivalents, and browsers do their best to warn you away from sites that won’t talk HTTP.
+Even the modest costs associated with acquiring the cryptographic certificates needed to convert your webserver from HTTP to HTTPS have dwindled to nothing.
+These days, many hosting providers will set up encryption at no extra charge, and services such as Let’s Encrypt will issue web certificates for free for web servers you’ve set up yourself.
+HTTP is no longer a good look, even for simple websites that don’t have user accounts, logins, passwords or any important secrets to keep.
+Of course, HTTPS only applies to the network traffic – it doesn’t provide any sort of warranty for the truth, accuracy or correctness of what you ultimately see or download. An HTTPS server with malware on it, or with phishing pages, won’t be prevented from committing cybercrimes by the presence of HTTPS. Nevertheless, we urge you to avoid websites that don’t do HTTPS, if only to reduce the number of danger-points between the server and you. In an HTTP world, any and all downloads could be poisoned after they leave an otherwise safe site, a risk that HTTPS helps to minimise.
+Sadly, what’s good for the goose is good for the gander.
+As you can probably imagine, the crooks are following where Google and Facebook led, by adopting HTTPS for their cybercriminality, too.
+In fact, SophosLabs set out to measure just how much the crooks are adopting it, and over the past six months have kept track of the extent to which malware uses HTTPS.
+Well, the results are out, and it makes for interesting – and useful! – reading.
+In the paper, we didn’t look at how many download sites or phishing pages are now using HTTPS, but instead at how widely malware itself is using HTTPS encryption.
+Ironically, perhaps, as fewer and fewer legitimate sites are left behind to talk plain old HTTP (usually done on TCP port 80), the more and more suspicious that traffic starts to look.
+Indeed, the time might not be far off where blocking plain HTTP entirely at your firewall will be a reliable and unexceptionable way of improving cybersecurity.
+The good news is that by comparing malware traffic via port 80 (usually allowed through firewalls and almost entirely used for HTTP connections) and port 443 (the TCP port that’s commonly used for HTTPS traffic), SophosLabs found that the crooks are still behind the curve when it comes to HTTPS adoption…
+…but the bad news is they’re already using HTTPS for nearly one-fourth of their malware-related traffic.
+Malware often uses standard-looking web connections for many reasons, including:
+
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+If the crooks are using HTTPS, then Certificate Authority (CA) that issued the certificate “should” (if they are doing their due diligence) know who the certificate holder is, and where they reside. Why doesn’t law enforcement ask the courts to tell the CA to identify the crooks via their certificates?
+Could be a stolen certificate. Could be self-signed. Could be purchased using someone else’s credit card. Could simply be using HTTPS to talk to a legitimate public “upload server”, where the certificate belongs to the server and is legitimate – i.e. the crooks are only acting as a TLS client, so they don’t need to have or present a certificate of their own. 
+Tracking back from a certificate ID through the CA to an actual person and recovering a genuine address where you could pop round and arrest them…
+…well, never say never because crooks do make mistakes, but it would be the exception that proved the rule, IMNSHO.
+Also, some people use a free DNS service that doesn’t require personal information to set up. These are great for hosting small things like videogames and teamspeak servers.
+How is that relevant? Suppose you get a nice .com name for your household and start serving malware. Sure, you are accessed by the nice DNS name, but when the TLS connection is attempted and you don’t have a real certificate the game is over. Regardless of DNS, your server does HTTP, not HTTPS.
+With services like Let’s Encrypt you can get a web certificate for free pretty easily… there are loads of free tools that will acquire your first certificate and then run a scheduled task 30 days before the current certificate expires to renew it (the Ket’s Encrypt certs only last three months each).
+Well, of course you can get a certificate from Let’s Encrypt. I have two of them. I even taught one of my hosting companies how to do it.
+But the poster I was responding to appeared to be saying that a certificate wasn’t necessary as long as he had registered a domain name and established a nameserver. It didn’t seem relevant to an article on TLS.
+I was responding to the idea you can easily discover who the holder is. Getting a free, legitimate domain and certificate unique to your system without giving out personal information is not hard, and common practice for some groups
+I always thought that was a device of hosting companies to extract more money from the holder. I have six registered domain names with my name openly listed. I don’t receive an undue amount of spam.
+I mean… Your needs are probably different. While my DNS service would probably charge if I wanted multiple domains, having a single domain that I manage manually is free.
+And as a teen, I didn’t want to share my real identity with my online peers, or my online identity with my irl peers. Teen years are messy. Using a disconnected alias helps to ensure that I have better control over the long term impact. Today it just lets me be more open without worrying as much about looking professional.
+Having my real name listed as the keeper of a domain my online alias uses would break the seperation of identities, so the ability to host anonomously is a great asset.
+Were I to host something professional, I would probably link that to my irl name. But if I host a minetest server to hang out with my online friends, I appreciate the extra privacy.
+Why do you think criminals don’t use HTTPS? Is it just ignorance? Don’t they know they will be detected rather easily? Also, is there a way to detect HTTPS traffic over the network? I don’t know how many variations of certification exchanges there are. It would be interesting to monitor HTTPS sessions and their associated domains/IP addresses. I would think this correlated with other data can help find malware where the traffic doesn’t follow patterns associated with “normal” HTTPS traffic.
+Remember that this report looks at TLS as used in a specific part of the cybercrime ecosystem – the part where you already have malware and it needs to call home or download more malware. The report didn’t look at the parts where the crooks are trying to phish you or persuade you to download malware in the first place. (In those cases the crooks often do use TLS and they end up getting it “for free” if they sneak their malware onto someone else’s site that already talks HTTPS. Indeed, the crooks can’t *not* use HTTPS if the hacked site enforces it!)
+As for detecting, managing and scanning HTTPS traffic – yes, you can do it and you can get the better of a whole lot of malware (as well as non-malicious but risky behaviours) by doing so. The Sophos XG Firewall, for example, can control HTTPS traffic – so you might decide to to prevent connections with some certificates (e.g. self-signed ones), to allow encrypted traffic to trusted financial sites to pass through untouched, but decrypt and inspect other HTTPS traffic for suspicious or malicious content.
+Do you have a post discussing TLS more thoroughly?  TLS 1.3 ?
+Perhaps mentioning that even if we get all green checks from this test:
+https://www.cloudflare.com/ssl/encrypted-sni/
+that it still doesn’t mean we’re safe if the site we contacted has the malware.  It only means that snoopers couldn’t see what site we were going to.  You might also point us to any post you have that discusses using a VPN service – that while the other end might not see where we are, but the VPN can certainly tell where we are which would be a concern if it’s based in one of the “14 Eyes” countries.
+I’ve also noticed I can get all green checks on that test in Firefox, but not in Chrome since Chrome does not yet support encrypted SNI.
+I’m putting TLS 1.3 on my list of “topics for our Serious Security” series!
+As for VPNs, you might like this:
+https://nakedsecurity.sophos.com/2015/06/26/serious-security-understanding-the-p-in-vpn/
+On the topic of TLS and the “chain of trust” (but the article predates TLS 1.3), we do have:
+https://nakedsecurity.sophos.com/2013/12/09/serious-security-google-finds-fake-but-trusted-ssl-certificates-for-its-domains-made-in-france/</a
+Interesting article.
+We do use HTTPS inspection, where practical, on our web filtering but it’s worth noting that it can and will cause issues and you’ll end up creating more and more exception rules as more and more HTTPS sites are configured to break when you try to decrypt/inspect e.g. website clients such as Citrix and Dropbox, portal login pages and financial institutions.  In some cases this is because the decrypt/inspect/re-encrypt process requires the web filter system to re-encrypt with it’s own certificate which is picked up as invalid by some client software.
+I’m not saying don’t inspect.  Of course inspect.  However I suspect that web filtering solutions may have to evolve to meet this change.
+Isn’t that called MITM (Man-in-the-Middle)? Aren’t you emulating an eavesdropping situation? Not a good approach.
+It *is* eavesdropping. Some companies won’t or can’t do it – you might have ethical or regulatory unwillingness to do it, preferring that all TLS sessions remain encrypted and “unsnooped” at all times.
+Not peeking inside TLS doesn’t leave you powerless against malware, of course – it is neither a necessary nor a sufficient process for blocking malware in a company – but, just like email scanning (which comes with similar, if not bigger, ethical issues if done sloppily) *it really helps!*
+Products like the Sophos XG Firewall try to address these issues by letting you use its “peek inside TLS” tools sympathetically, for example by exempting certain types of site (such as financial providers), doing only limited validation of others, and malware-scanning only those that are most likely to pose a risk, either because they’ve been hacked or are operated by crooks. 
+Also, quite a lot of known-bad sites, such as phishing pages hosted on legitimate, encrypted servers that have been hacked, can be blocked at the DNS level without even letting the HTTPS connection get started.
+In short: you don’t *have* to snoop on TLS to keep malware out, so never feel compelled to. But if you do, it can helps a lot. Just make sure your users are aware, and manage their expectations so they feel you are there to help them, not to be a Biggish Brother…
+About 4-5 years ago, Lenovo inadvertently shipped with a browser add-on that snooped TLS for marketing purposes. It was bashed widely, including in this newsletter/feed. Now it’s okay to do MITM? I suppose the end justifies the means.
+Hmmmm. I don’t think you can compare company web filtering – assuming it is explained to staff, and the reach of the system is properly documented – with the marketing system you mention:
+https://nakedsecurity.sophos.com/2015/02/20/the-lenovo-superfish-controversy-what-you-need-to-know/
+‘Superfish’, as it was known, [a] snuck a new CA certificate onto your computer, [b] peeked in your data for marketing purposes, and [c] was implemented in such a way that crooks could abuse it. (It had its own private key buried in the code!)
+We have offered TLS interception and scanning for years in our web appliances, starting long before we criticised ‘Superfish’. 
+Firstly, our TLS inspector is not pre-installed or pre-activated anywhere. Secondly, *you* get to generate and distribute the required new CA certificate, which documents itself pretty clearly in the name as relating to our security software. The private key is yours, and yours alone. Thirdly, the reasons for which we look inside otherwise-encrypted web data are clear, are pretty obviously related to cybersecurity, are under your control, and don’t relate to marketing. Fourthly, we provide a range of settings in our products so that you don’t have to peek inside everything, only traffic where you feel the benefits of decrypting outweigh the risks. For example, you can exempt certain types of site (e.g. financial institutions where people may be doing online banking), or use TLS inspection only for the purpose of preventing outdated cryptographic algorithms being used, and so on.
+Proofreading fixes:
+“Search engines now rate unencrypted sites lower than encrypted equivalents, and browsers do their best to warn you away from sites that won’t talk HTTP.” <– HTTPS?
+"In the this paper, we didn’t" <– In this paper?
+I ended up going with “in the paper” :-)
+Thanks for noticing!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,128 @@
+Sophos Home protects every Mac and PC in your home 
+As if one Windows Nightmare dogging all our printers were not enough…
+…here’s another bug, disclosed by Microsoft on 2021-07-20, that could expose critical secrets from the Windows registry.
+Denoted CVE-2021-36934, this one has variously been nicknamed HiveNightmare and SeriousSAM.
+The moniker HiveNightmare comes from the fact that Windows stores its registry data in a small number of proprietary database files, known in Microsoft jargon as hives or hive files.
+These hive files include a trio called SAM, SECURITY and SYSTEM, which between them include secret data including passwords and security tokens that regular users aren’t supposed to be able to access.
+They’re kept in a special, and supposedly secure, folder under the Windows directory called C:\Windows\System32\config, as you see here:
+The moniker SeriousSAM comes from the filename SAM, which is short for Security Account Manager, a name that sounds as serious as the file’s content’s are.
+If you have ever used password cracking or hacking tools (or found evidence of them on your network after detecting an active attack), you’ll know that the SAM database is where many cybercriminals start digging in order to try to get hold of administrator credentials to move around your network.
+Fortunately, you need to have Administrator access already in order to get at the SAM data in memory, and you can’t get at the SAM registry hive on disk while Windows is running even if you are an Administrator, because the SAM file shown above is locked for the exclusive use of the operating system.
+So far, so good.
+We wrote a tiny C program that you can use to get an “accessibility indicator” for any file on the system – it simply tries to open the filename or filenames you put on the command line, and reports the Windows error code if the file couldn’t be opened up for read access. 
+(The code below is in the public domain so you can do what you like with it, but you use it at your own risk.)
+You don’t even need the Windows header files to compile it;  you just need to tell your compiler or linker that it needs kernel32.dll and msvcrt.dll:
+From an elevated command prompt (one that is running with Administrator privilege), we get the following result:
+Error 0x20 stands for ERROR_SHARING_VIOLATION, described officially by Microsoft as “The process cannot access the file because it is being used by another process.”
+So far, still good.
+Let’s try again from a non-elevated command prompt, where we’re running as a regular user:
+Ooooer! That can’t be right!
+We should have received Error 0x05, short for the self-explanatory ERROR_ACCESS_DENIED, right away.
+Seeing Error 0x20 means that the program was allowed to have a go at opening the file, and failed at that point, instead of being blocked from even trying to access the file in the first place.
+And if we look at the ACL (access control list) for the SAM hive file, for instance, using the ICACLS utility, we see that this behaviour is down to a security blunder:
+In other words, the SAM registry data (and the SECURITY and SYSTEM hive files, too) are protected at runtime against access by regular users because the files are in use elsewhere, not because the files are off-limits to regular users from the outset.
+We need to fix that vulnerability, and Microsoft’s official workaround is to restrict the access control lists (ACLs) on everything in and below the CONFIG directory.
+You need to be Administrator, and to make the following security change:
+Now, the ACL for the SAM file that we checked above looks much healthier:
+Also, if we try to open the live SAM registry hive file again from a non-Administrator command prompt, we no longer get Error 0x20.
+We now get the more security-conscious Error 0x05, telling us ACCESS_DENIED:
+But that alone is not enough.
+If you have any system restore points (also known as Volume Shadow Copies) on your computer, those restore points include copies of your original SAM, SECURITY and SYSTEM registry hive file with the old and insecure access control settings.
+In other words, any unprivileged user could just read out data such as your Windows access control secrets or password hashes from the shadow copies instead.
+By the way, you may have one or more shadow copies on your computer even if you didn’t go to the System Protection menu yourself and click the [Create] button to generate one.
+(A restore point is like an online snapshot or temporary backup that you can use to “rewind” your hard disk’s contents and recover an older version of your system if something breaks, for example after an update that didn’t work out.)
+Restore points may have been made by IT at various times; also, system upgrades and even some security software may create restore points automatically for their own use.
+You can check for the presence of shadow copies on your computer using the Volume Shadow Copy Service administrative command-line tool, vssadmin.
+We’ve got one shadow copy (we created it on purpose for this article), as you can see here:
+What this output tells us is that copies of the registry hive files, at the moment we created the restore point/shadow copy, can be found in this shadow directory:
+You simply take the root directory name of the shadow copy volume and add the original Windows filename to it, minus the drive letter, of course.
+(In case you were wondering, the weird-looking prefix \\?\ above tells Windows to treat this as a “wide” filename, by using two bytes for each character, even though it’s written as a regular ASCII text string with one byte per character. This allows filenames up to 32KB long instead of the usual ASCII filename limit of 260 characters.)
+So, let’s try the chkit program on the shadow copies of the registry hive files, instead of on the live copies that gave us SHARING_VIOLATION and then ACCESS_DENIED errors above.
+Using a non-Administrator command prompt, we get:
+Simply put, we were able to get access to the SAM file (and likewise to other registry hive backups in the shadow copy directory) even though [a] the system was running and [b] we didn’t have Administrator powers.
+Microsoft’s official workaround is fairly easy:
+Of course, as Microsoft wryly notes, “Deleting shadow copies could impact restore operations, including the ability to restore data with third-party backup applications.”
+That’s one reason why ransomware crooks almost always delete all your restore points just before they trash your network, to make recovery slower and harder.
+In case you’re wondering, the quick way to zap all your restore points is to use the following command as an Administrator:
+In theory, we suspect that you could write a script or program to locate any insecure registry hive backups inside any of your shadow copy directories, and then set the ACLs on those individual files, thus leaving the rest of the restore point intact.
+But we’ve not tried doing that, and we’re not sure if a restore point would still work properly if you modified its contents “unofficially” in this way, so we’re not going to recommend it.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Thank you Mr. Ducklin for your invaluable warnings.
+I am always curious whether theses flaws need to be addressed by home users of W10 etc, and what is the vector for getting infected?
+Thanks again.
+You might as well address this one on your home computer if you can… this isn’t so much a vector for getting infected (where crooks could implant malware in the first place), but it’s a nasty trick by which a crook who has already got a foothold on your computer by some other means (e.g. phishing, browser bug, rogue attachment) might grant themselves the keys to the whole castle and therefore make a bad attack much worse, or extend their criminal reach from your laptop to other users or devices on your network.
+A castle doesn’t have to be large and extensive to be valuable and important!
+Thank you!
+I think Microsoft cannot produce a clean product. I do have a question. If I understand correctly and I probably don’t is Hive backing up all files on my computer or just registry files? I am a home user, Windows 10 V 20H2.
+The reason I ask, I have had to copy my files then download new files a couple of years ago when Microsoft Support (non-support) downloaded Windows 10 and Office 365 to my existing computer. Problems from day 1 and they haven’t gone away yet and it’s been two years.
+I’m just wondering if this program could be beneficial for me in terms of a way to back up my files again. The external hard drive gave out and I didn’t know for how long, I don’t know? Having numerous problems updating and installing Windows updates. I dread calling MS Support, I really don’t want to. Anyway, that is my question, and remember I am not an IT person who uses the computereze language so this may be an out in left field question.
+System restore points aren’t offline backups like the ones you might make to an external drive. They backup large parts of your system onto the local drive so you can “unroll” or “rewind” to known-good points, for example after a failed update.
+The problem with relying on restore points as a general backup method is that you can’t unplug them and keep them safe in the cupboard in case you need to restore your data to a completely different computer (e.g. if your usual one gets lost, damaged or stolen), and the files are sitting there along with all your other files where criminals who want to do you harm can delete them deliberately. Ransomware criminals, notably, wipe out your restore points before scrambling your files, thus making recovery that bit harder.
+If you are serious about protectinng your most critical data, I recommend not relying on “online/on-computer” backups. There’s a 3-2-1 rule that says to aim for 3 copies of your data at any time (the live one and two backup copies), using 2 different technologies (e.g. cloud and removable drive) so that if one turns out to have a bug or problem the other is unlikely to share it, and keep 1 of them offline and ideally offsite (if you have backup software that lets you encrypt your backups then you could just consider leaving a USB disk at a friend’s house, and keeping a drive for them in return).
+I am not an expert in non-business-grade Windows backup utilities – it’s best to find a trustworthy friend and ask them to share their experiences – so I can’t really advise. Mac users may pay a bit more for Apple’s laptop products, but they all come with FileVault (can encrypt both local and removable drives) and Time Machine (easy-to-use backup utility) built in. On Windows, the non-Enterprise versions don’t have the same features as the Enterprise ones…
+Important to note that trying to delete VSS shadow copies may be blocked by anti-ransomware security software.  It’s good, expected behavior.  That’s why Microsoft does not list the command in their notice…YMMV if it’s allowed, and how to execute.
+    It’s probably something worth significant debate before scripting and deploying.  It would cause chaos on file servers that expose shadow copies to users for self-service restore.
+   Test, pilot, communicate.  Anyone monitoring that pane of glass will surely spit their [insert beverage here] when 1,000 detections of ransomware are triggered by a hastily-scripted remediation.
+Technically, they wouldn’t be “ransomware detections”, so you’d hope that anyone who had set up an alarm to trigger on shadow copy deletes would know to expect that alarm when actually doing one. 
+As we said in the article, there is almost certainly a better way of dealing with a few incorrect shadow copy file ACLs than deleting the whole shadow copy… but we don’t know exactly how those ACLs are recorded in the shadow copies, or how they are regenerated when a shadow copy is restored, so fiddling directly with individual items in the shadow copy directory tree could be the start of real trouble if you later restore and rely upon that data.
+Presumably, Microsoft will come up with an automatic “permission fixer” tool when this bug is formally addressed…
+Hi Paul,
+An interesting article, with an easy to use instructions. Thank you. Are there any known exploits of this?
+Cheers Ian
+Microsoft’s bulletin (linked to above) currently [2021-07-22T09:30Z] says “Exploitation – No”, which I think is shorthand for “Seen in the wild in use by actual cybercrooks? Not so far.”
+However, this is trivial to exploit, and there is at least one “proof-of-concept” exploit tool floating around that will search for and extract hidden registry hives for you automatically if it can.
+Any news if MS are planning to address this in a future windows update?
+The fact that it has a CVE and has already been documented as a security flaw suggests that the answer is “Yes”. 
+Fixing the root cause (wrong permissions of some files under %windir% is easy); I assume that it should be equally easy for Microsoft to retrospectively “fix” the file metadata in local shadow copies without breaking anything.
+(Directly messing with the shadow copy files yourself is *possible* but you run the risk of creating corrupted shadow copies that won’t restore properly… imagine the harm that could be done if you ended up with a shadow copy that would restore everything to a previous state *except* the SAM file, leaving you with old data but new security hashes etc. You could end up with some really subtle and hard-to-track down reliability problems!)
+Hi Paul,
+I don’t have time to write a script, but we have 75 or so Domain Machines to sanitise, and the same number again of off domain laptops…
+Do you know of any tools that could automate the work of sanitsing all these machines?
+Failing that, is access to these files something that Sophos will detect and protect against?
+Thanks!
+It’s tricky for third party software to “detect and protect” against this at all, let alone reliably, because it’s not like (say) a buffer overflow where a program is being forced to do something that is never supposed to happen. (There’s also the risk that actively trying to block, say, non-admins from reading out files from shadow copies could introduce subtle and troublesome problems of its own. Blocking dangerous programs from running, or completely denying access to booby-trapped documents, is all very well… but potentially getting in the way of otherwise innocent behaviour could cause more trouble than it solves :-)
+If you are willing to sacrifice all your shadow copies then you could just use a tool like PSEXEC (from Microsoft Sysinternals) to automate running the relevant commands across your network, but how to do that with literally no scripting I don’t know.
+Any readers out there who can help with a way to automate this using a standard Microsoft tool?
+Thanks Paul,
+OK, how about if I stick 
+    @echo off
+    icacls %windir%\system32\config\*.* /inheritance:e
+    vssadmin delete shadows /all /quiet
+in a batch file on a public share, and then create a GPO for the workstations OU to push out scheduled task, set to run once, to run the batch file above, using highest privileges?
+That should work, wouldn’t you think?
+Thanks.
+The main thing about doing that is: are you sure you are happy with it/is it a safe thing to do given your existing backup and security procedures/will anyone else in the company will have a conniption about losing all their restore points from every computer?
+Ransomware crooks almost always delete your shadow copies to *reduce* security before activating the finale of their attack… so there is certain irony in deleting your own shadow copies to *increase* security in case of at attack. Just make sure that [a] it is safe for your network [b] aligns with your current security precautions and [c] you won’t needlessly create anxiety amongst your users.
+I get the feeling that Windows is just not the most secure OS,
+Maybe it’s just getting a lot of exuberantly negative publicity right now? Apple just patched dozens of bugs in its latest update; Linux just dealt with a similar sort of “EoP” bug… hard to say whether any one of them really deserves the title “first (or last) amongst equals”…
+That’s what I appreciate about you, you are so even keeled and keep it in perspective
+Are you really comparing the case where the rights are not correctly set on very sensitive files vs the case where you have to create a tree of millions of folders and use advanced out-of-bound memory writing techniques ?
+All OS have vulnerabilities. But there are some differences in the security principles and the care given on security baselines.
+To be clear, when I said “a similar sort of EoP bug” I didn’t mean to imply that the mechanics of exploiting the bug were similar. I should, perhaps, have written, “Similarly, Linux patched an exploitable EoP bug recently”, or simply “Linux, too, had a an EoP bug recently.” 
+What I meant by “similar bug” is that “even a non-technical user, equipped with exploit code prepared by someone else, could unlawfully get root access.” Although the recent Linux EoP required more complex programming to exploit in the first place, it is certainly “a similar bug” in terms of the risk it creates on a vulnerable system.
+What you seem to be arguing is that, because the Linux bug requires much funkier coding to exploit reliably, it’s evidence that Linux has stronger “security principles” and that Linux takes more care over “security baselines”.
+I don’t think these bugs support those claims at all. On their own, both bugs show a certain carelessness that both development teams will be annoyed about: Windows that the bodged ACLs on operating system files went unnoticed in QA for so long; and Linux that buggy 64-bits-into-32-won’t-fit code inside the kernel went unnoticed in code review for so long (seven years, IIRC).
+The Linux kernel team *may* have higher security principles than Microsoft, as you seem to think, and the sloppiest kernel programmers in the Linux team *may* hold themselves to better security baselines (whatever that means) than their counterparts at Microsoft, but you can’t make that inference based on either of these bugs. 
+What these bugs both show is that even software development teams with plenty of smart, competent and cautious coders who genuinely care about security can make blunders you might never expect. To borrow a jargon word from the military: SNAFU.
+“… if we try to open the live SAM registry hive file again from a non-Administrator command *promtp*, …”
+ A non-Administrator command *prompt*, surely? 🙂
+Fixed, thanks!
+Rather than use a script to do the first part of the remediation (correcting the permissions), I believe the best way to do this is using the native File System options in Group Policy. Doing it that way is much more elegant than scheduling a script, IMO… plus it would *re-apply* automatically if the permissions are undone for some reason.
+Speaking of – my own lab testing using *every* (GUI, non-Core) version of Windows Workstation and Windows Server since Windows 2000 seems to reveal that this HiveNightmare / SeriousSAM issue is *only* an issue for Windows 10 R1809 and newer. It does not appear to affect older versions of Windows Workstation (all the way back to Windows 2000), nor does it appear to affect any version of Windows Server, even Server 2019, which shares the same code base as Windows 10 R1809.
+Paul Ducklin – configuring a GPO to do this can work (I have built one and tested it), but it has to be done carefully and correctly so as to not screw up permissions. I have some specifics (including screenshots) that I’d like to share with you – but I can’t post screenshots here, so perhaps I can email you with them? Please let me know. I think it could be really good information for the Naked Security readership.
+You can email us on tips@sophos.com…
+Whoops, one other thing I forgot to mention (I wish I could just edit my previous comment!)… I also did some small-scale testing on Windows 10 *upgrades* as they relate to this vulnerability. I came to find that the quick “enablement package” method of upgrading (i.e. R1903 –> R1909, or R2004 –> R20H2 –> R21H1) did not re-introduce the vulnerability… BUT the “full” upgrade process, using setup.exe from the Windows media (as is required to upgrade from an older release to R2004, for example) *does* bring back the vulnerability, requiring it to be remediated *again*. This is why I think a GPO to at least keep the permissions corrected is a better idea than a script, even though it does not resolve the removal of the Volume Shadow Copies / Snapshots / Restore Points side of the equation.
+System restore points aren’t offline backups like the ones might make to an external drive. They backup large parts of your system onto the local drive so you can “unroll” or “rewind” to known-good points, for example after a failed update.
+Indeed. As we wrote above:
+A restore point is like an online snapshot or temporary backup that you can use to “rewind” your hard disk’s contents and recover an older version of your system if something breaks, for example after an update that didn’t work out.
+I  found that the quick method “enablement package” about upgrading (i.e. R1903 –> R1909, or R2004 –> R20H2 –> R21H1) did not re-introduce the vulnerability… BUT the “full” upgrade process, using setup.exe from the Windows media (as is required to upgrade from an older release to R2004) *does* bring back the vulnerability, requiring it to be remediated *again*.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

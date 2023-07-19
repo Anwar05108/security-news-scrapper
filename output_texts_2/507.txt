@@ -1,0 +1,60 @@
+Sophos Home protects every Mac and PC in your home 
+Apple engineers think they’ve come up with a simple way to make SMS two-factor authentication (2FA) one-time codes less susceptible to phishing attacks: agree a common text format so their use can be automated without the need for risky user interaction.
+The concept proposed by the company’s Safari WebKit team is that apps such as mobile browsers will automatically process SMS text codes as they are received, submitting them to the correct website.
+This dodges today’s hazard that phishing websites can first fool people into entering their password and username, before asking them to submit the correct 2FA code sent to their phone to the same bogus site.
+But for the idea to be feasible, three problems must be overcome.
+The first of these is that today’s codes are sent in a range of text formats that makes extracting the correct 2FA data and website domain difficult.
+For example, PayPal’s 2FA codes look something like this:
+Your security code is 123456. You code expires in 5 minutes. Please don’t reply.
+Or gaming platform Steam:
+Your Steam verification code is AB1C2.
+Or Facebook:
+Use 123456 to login to Facebook.
+And so on, with each system sending slightly different equivalents that even heuristic analysis technology struggles to interpret without making errors. The messages also rarely embed the domains to which the codes relate.
+Apple’s suggestion is a lightweight text format designed to be “about as simple as it gets,” which would look like this:
+747723 is your XYZ.com authentication code.
+@XYZ.com #747723
+The first line being used to identify the message to the recipient, the second being the part that apps would process, including the correct URL.
+Users receiving one of the new 2FA texts wouldn’t have to do anything. The data would be automatically extracted by the app doing the authentication.
+Now for the second problem – to become universal, this is something all the big names would need to sign up for.  So far only Google seems interested while Mozilla and Microsoft have yet to make their positions clear.
+But even if they jump aboard there’s a third problem lurking, namely the growing feeling that SMS text verification is an inherently insecure idea companies need to stop using, period.
+Bolting on improved security would be to ignore deeper worries such as SIM swap fraud where criminals receive security codes after hijacking the mobile user’s account.
+A lot will depend on Google, which in recent times has promoted what it sees as more secure alternatives to receiving SMS codes such as authentication apps, the WebAuthn standard or hardware tokens.
+More recently, however, it’s taken a more pragmatic approach and suggested improving SMS communication using initiatives such as Verified SMS for Messages designed to authenticate organisations sending SMS messages including, in theory, their 2FA codes.
+This looks like an acceptance that imperfect security channels such as SMS aren’t going away and that the world will continue to use them for a while yet. Better, then, to get on with improving their security while they last.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+SMS as a MFA is better than nothing, but that’s all. It’s been weak for year since SIM swap fraud brings the whole mobile phone industry into scope. This working on it form the wrong side. Swapping SIMS needs to be harder if they are going to continue to use.
+IMHO SMS is a dead end for security, SIM swapping is made easy by legislation to encourage people to shop around for deals. Better just to walk away and use an authenticator app or a biometric.
+Very disspointing to see banks in the UK like Nationwide ditching a true MFA (Admittedly clunky with a card reader) and moving backwards to SMS verification. Done I’m sure to save the Building Society money on devices but brought in under the guise of ‘security’ and convienience for customers.
+My understanding is the Nationwide is keeping the card reader system but supplementing it with SMS-based authentication for those that want to use it.
+When I receive a 2FA SMS, in the text-notification dropdown Google already gives me a quick-button-option that says “Press to copy ‘123456’”. Obviously they have pretty good message parsing already, so I wonder if they can go ahead and implement this next step already.
+Hi Matt, as I mentioned in my other comment, they already have an API on Android that allows developers to do this, without even asking for SMS permissions.
+No mention of Android’s SMS autofill? Android has allowed apps to send a verification SMS and pull out the code without even asking for SMS privileges for a while now:
+https://developers.google.com/identity/sms-retriever/overview
+Correct but solving the issue at the API level is both relatively complex (every developer has to integrate it) and only works for Android devices. Apple’s argument is that standardising the message format would be simpler.
+Standard tech blog fare…
+“Apple, being the amazing forward thinking innovators they are, have come up with an idea which Android quietly implemented 3 years ago. Aren’t Apple amazing?”
+Using the SS7 network and being susceptible to SIM swap should halt this effort.  Let’s get to a better MFA that is focused on user experience.  The world is moving to passwordless MFA.  Let’s focus our energy of fixing the root cause.
+Good idea overall to reduce phishing/social engineering user to enter sms OTP into fake siste, but one downside I can think of is it potentially become a DDOS tool for crooks to DDOS a company using such auto fill SMS. Imaging, crooks blast 100k spoofed sms to random number, and the browsers in these phone will pick up the SMS OTP and send it to authenticationg site automatically, causing DDOS to the site? Possible?
+doesn’t really help if i’m logging in to an app/website on my desktop/laptop and want the 2fa code. it just means the mobile app tries to login and prob kills the 2fa code before i type it in the desktop app ¯\_(ツ)_/¯
+So Apple is effectively planning to reduce the 2FA to a single factor. 
+Let’s assume that the second factor is there for the user to check that the Site and the Action is the one he was willing to approve. When this goes live, Apple makes his/her device automatically assume on behalf of the user that the Authentication to the Site (and/or the actual Action to be approved e.g. money transfer) is indeed the intent of the user – and that nothing would go wrong.
+Intent shouldn’t matter. It’s just a way of auto-filling the OTP to the correct domain. As for money transfers, they’d need to be made *after* authenticating to a banking platform.
+Good grief, so many people missing the point. Security Code Autofill has been on macOS and iOS since at least 2018. (Ref: https://twitter.com/rmondello/status/1185596493232607239). This is about making the text pattern in the messages consistent and easy to parse with a real simple regex to speed up processing for ALL platforms (Android included!)
+Kudos to Apple. Shame on haterz.
+Yes. The simple explanation of all of this is, well, the word “simple” (see headline :-) 
+We discuss this angle in this week’s podcast, too — there is an elegance and an ease-of-explanation in just using “AT-SIGN website NUMBER-SIGN number”:
+https://nakedsecurity.sophos.com/2020/02/13/s2-ep26-robbin-hood-ransomware-twitter-parodies-and-sms-2fa-what-naked-security-podcast/
+In a world of JSON APIs, XML schemas and protocol documentation that runs to 1000s of pages (Bluetooth, anyone? PDF files?), there’s something rather comforting and tidy about:
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

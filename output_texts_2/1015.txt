@@ -1,0 +1,105 @@
+Sophos Home protects every Mac and PC in your home 
+As we’ve warned before, phishing via SMS, or smishing for short, is still popular with cybercriminals.
+Sure, old-fashioned text messages have fallen out of favour for personal communications, superseded round the world by instant messaging apps such as WhatsApp, WeChat, Instagram, Telegram and Signal.
+But for brief, one-off business communications such as “Your home delivery will arrive at 11:30 today” or “Your one-time login code is 217828”, SMS is still a popular and useful messaging system.
+That’s because pretty much every mobile phone in the world can receive text messages, regardless of its age, feature set or ability to access the internet.
+Even if you’ve got no credit to send messages or make calls, no third-party apps installed, and no Wi-Fi connectivity, SMSes sent to you will still show up.
+Such as this one, fraudulently claiming to be from UK mobile phone provider O2:
+
+As it happened, the UK reader who kindly sent in this sample (use tips@sophos.com if you have anything you’d like to share, by the way) wasn’t an O2 subscriber, so the message was obviously phoney in any case.
+But O2 is one of the UK’s “big four” providers, with a market share of around 25%, giving the crooks in this case a 1-in-4 hit rate on purely random grounds.
+Additionally, the first few digits of a UK mobile number are determined by the network that first issued it.
+So, for any user who hasn’t switched networks, or who dumped their old number when switching to a new SIM card, their current network provider can be deduced correctly anyway.
+Assuming that the crooks have guessed your mobile provider correctly, it’s understandable to take a message like this one seriously.
+Even if you know your account is paid up, it’s reasonable to assume that the error lies at the other end and needs checking out. (How often have you received a bill from a utility company that insists you owe money, tells you to pay up at once, yet also advises you to ignore the demand if you recently made a payment, because the legacy accounting system sometimes takes a while to catch up with internet reality?)
+So it’s tempting to check anyway, just in case.
+Of course, you should spot that this message is fraudulent because even though the left-hand end of the website name in the clickable link looks realistic (o2.uk), it’s the right-hand end of any domain name that determines the owner.
+In this case, the domain is [REDACTED].com – we’ve suppressed the actual name used here, but it was a string of unlikely characters that as good as told you that “this has nothing to do with O2 and is merely a random dot-com domain name that happened to be available”.
+Once you have the right to use, say, example.com, you also have the right to use all the subdomains that end in example.com, all the way from aa.example.com to zz.zz.​zz.​[up to 254 characters in total].​example.com.
+We strongly recommend that you pay close attention to links not only before you click them, especially if they arrived in an email, but also after you get to the final destination, which could be several hops – known as web redirects – from where you thought you would end up.
+But in this case, there’s a better way to handle the situation than looking at the domain name – because if the crooks had tried harder they could have acquired a more believable, less phishy-looking name to use in their scam.
+That better way is to avoid login links altogether.
+After all, even though o2.uk.pnkduiwv.com looks obviously bogus, where do you draw the line between clearly fraudulent and possibly correct?
+Many large companies have numerous variations of their mainstream domain name as landing pages for different parts of the business, in the way that Microsoft has the obvious microsoft.com, but also uses domains such as live.com, outlook.com and even microsoftedgeinsider.com, which is the official starting point for experimental builds of the Edge browser.
+So, although o2.uk.pnkduiwv.com just doesn’t look legitimate, what about a domain such as o2-accounts-global.com, or a URL such as mobile-billing-and-payment.co.uk/o2?
+Those would both be fake, but much less obviously so.
+Both those domains were available when we checked. For under £4 we could have acquired them for a year, in both their dot-com and dot-co-dot-uk forms. Furthermore, the domain name company we used to get pricing has a default registration option that “send[s] our details to the domain registry, rather than yours, giving you anonymity and privacy.”
+The obvious solution in cases like this, where you want to check if there really is a problem with your mobile phone account balance – or your credit card statement, or, your latest home delivery, or your streaming video subscription, or whatever it might be…
+…is to go directly to the account provider’s login page yourself, following a trusted link that you figured out for yourself earlier.
+For O2, the genuine link right now seems to be https://accounts.o2.uk/signin, but don’t take our word for it, or anyone else’s word, for that matter.
+If you know you are going to be paying O2 regularly, or any other online provider, get hold of the right web address directly from the company, or via the paperwork you received when you opened the account, and store it somewhere safe.
+A password manager works well here: if you tell it exactly which login pages to use for which accounts and passwords, you’ll avoid being phished by fake URLs because your password manager simply won’t be able to help you on fake sites.
+Browser bookmarks are another option; so is a simple text file saved on your laptop; or even a written list that you keep at home in your desk drawer for emergencies.
+In this case, the scam site that asks you to sign in will look and feel familiar to any O2 customer:
+
+It’s surprisingly close to the real deal – not pixel-perfect, but nearly so:
+
+Amusingly, the crooks made one ironic mistake in cloning the text of the real sign-in page, mis-spelling the word “out” as “oot” (see the second-last line in each image), which we suspect will make our Canadian readers smile, eh?
+You might expect that hovering over the [Sign in] button in the login forms above would pop up the URL to which your data is about to be sent, in the same way that hovering over a regular web link generally shows you where you will end up next.
+But as we’ve lamented before, no mainstream browser does this, and the only way we know that helps you find out where your data is about to go is to use your browser’s developer tools and manually search the raw HTML for the relevant <form> tag.
+In Chrome/Chromium and Edge, you can use 3 dots menu > More tools > Developer tools > Sources; in Firefox, we used Hamburger icon > Web Developer > Page Source to reveal the following HTML source code in the bogus page shown above:
+
+If the <form> tag has an attribute (i.e. text of the form key=value) stating action=, that’s where the data will ultimately end up.
+In the example above, the absence of an http[s]://domain.example/ prefix means that the data will go to the same website as listed in the address bar, which you should check carefully. (If there is no action= at all, then the data will be uploaded using exactly the same URL you are already on.)
+In comparison, the legitimate O2 sign-in page has a <form> tag like this:
+
+Here, an explicit URL is clearly visible, including the all-important https:// prefix that tells you the upload will be encrypted to inhibit snooping on your password.
+By the way, many browsers let you type Ctrl-U in a web page to pop up the HTML in source form, but many rogue sites (and some legitimate ones) use JavaScript in their web pages to detect when you hit that combination in order to deceive you or to make it harder to view the raw content.
+One scam site we examined recently, for instance, used this simple JavaScript to inhibit numerous keyboard shortcuts:
+Trying to view the source of a scam web form directly from the page with Ctrl-U therefore produced a popup like this:
+
+Use the Developer menus instead, as noted above, and – as far as we are aware – you will reliably get to the source code of the web page, because the browser’s user interface itself can’t be reprogrammed from JavaScript inside a web page you just visited.
+LEARN MORE ABOUT SMISHING AND HOW TO STAY SAFE
+
+(Watch directly on YouTube if the video won’t play here.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+For this article, the link in your email is as below. Before clicking, my process was that I looked at the //sophos and the listmanage.com then I concluded that the link was legit. Please educate me, is my process Ok?
+https://sophos.us2.list-manage.com/track/click?u=..&id=ced..&e=..
+You did the right thing and did your own research – an excellent example of applying the “Stop. Think. Connect” principle, if I may say so!
+I sort-of wish that link just went to a sophos.com domain and that we operated the mailing list ourselves… but as we are a cybersecurity company and not a mailing list provider, we decided to outsource the mailing list to Mailchimp, which is a fairly well-known company in that space. (If you visit the URL “list-manage.com” you will see a message from Mailchimp; if you do a “whois list-manage.com” you will get at least some confirmation that the domain is operated by Mailchimp, and owned by The Rocket Science Group LLC, which is easily confirmed as the owner of the Mailchimp brand.)
+So, yes, that link is legit, and yes, you were right to check it carefully and to ask here for us to confirm it. As far as I know we have had no trouble with Mailchimp and if you unsubscribe they will promptly and reliably remove you from the list on our behalf.
+HtH.
+“… the UK reader who kindly sent in this sample … wasn’t an O2 subscriber, so the message was obviously phoney in any case.”
+O2 … phoney … I see what you did there.
+It’s very kind of you to say so , but I didn’t actually “do” anything there… I just like the word “phoney” and decided to use it instead of “bogus”. It is indeed a pun, but I didn’t actually plan it that way.
+But I am willing to pretend it was deliberate now you have, ahem, called me on it :-)
+WHY? EVER? CLICK?  IN?  THE? FIRST? PLACE?  Why on earth tell readers to double-check before clicking? Take your cell phone and call your service provider directly: they will tell you if you’re in arrear.
+DO NOT EVER CLICK! Antivirus companies are making billions hoping everyone will keep clicking away. Holy Fork!
+Errr, I think that we *are* telling people not to click in the first place. 
+Here are three places in the article where we clearly make that very point: “Avoid login links altogether,” followed up by “Go directly to the account provider’s login page yourself, following a trusted link that you figured out for yourself earlier”, followed up by “Find your way to [account] login page[s] yourself. If you never click email login links, you always sidestep crooks who send them to you!”
+That doesn’t support your claim that we are deliberately “making billions hoping everyone will keep clicking”. 
+As for “just call up every time and never use the web,” well, good luck with that…
+Viewing the source of the form isn’t quite as foolproof as you seem to suggest.
+* The button used to submit the form could have the “formaction” attribute set, which would override the form’s action;
+* The page could use Javascript to alter the form’s action when you submit;
+* The page could use Javascript to submit the form via AJAX to a completely different URL instead;
+* The page could use Javascript to send what you type in real time to a completely different URL, whilst still submitting the form to the original URL;
+…
+The plethora of ways to handle a form submission is probably why no browser displays the target URL when you hover over the “submit” button.
+Good points. The issue of having your keystrokes logged and exfiltrated anyway is a particularly pertinent one – as you say, the crooks could use an exact fascimile of the real HTML, complete with a real form upload to the real site, and yet still capture what you typed in while on the page.
+I have been planning a “Serious Security” article on the issue of real-time JavaScript keylogging for a while now… how it works, and why companies like Google use the technique themselves, thus making it a sort of necessary evil that we can’t block as suspicious for the greater good of all. I think I will move that article higher up my virtual ToDo list now!
+What? A typo..!? The “crooks” couldn’t just copy paste?? I find this kinda funny…
+Also, why they failed to copy the real website in a pixel-perfect way is beyond me, I mean it’s easy, really…
+I couldn’t figure out how that “oot” got in there, either. It seems a curious sort of error to arrive by mistake. I can only guess that it was one of those editing blunders where you accidentally hit a character key before a cursor key or other movement command, make an unwanted modification and then swish away from it and leave it unnoticed and uncorrected. 
+Either that or the crooks were trying to be funny, which I kind of doubt. The sort of “humour” we usually see from cybercriminals is more along the lines of claiming to “apologise” after wiping out all your data and telling you to pay $235,678 in blackmail money, or else.
+Geordie Spell-check?
+Note also you can forward a suspicious text to 7726 (free, all UK operators) for further investigation.
+7 7 2 6 spells S P A M, easy to remember :-)
+I teach my users to first  ignore / delete immediately and check the site directly if need be.  Any legit organization will happily send multiple reminders if you owe.   Second, wait until you get to a laptop/desktop where mousing and examining is easier.  Third, if you must, put phone into airplane mode and then long press and hold on the link / item in question to safely see what’s underneath.
+~ J
+As security experts keep reminding us, why not use a password manager. Apart from the convenience of using strong passwords without having to remember them, you will never have to worry about any attack using URL lookalikes, including homoglyph attacks that are the most difficult to spot with “naked eye”.
+No matter how clever they are designed, fake URLs can never fool a password manager.
+There is a second error. Compare the “Personal” link at the top of the page. There’s has a random “o” character.
+Actually, that’s a zero, as though someone thought that it would be worth disguising the word by using some sort of 1337 spelling. 
+Intriguingly, the “o” in the word Password is actually the Greek letter omicron (see the HTML screenshot further down), though quite how that would disguise anything given that the page contains the word “password” a few times, the field in the web form is called “password”, and the page starts with SIGN IN in huge letters…
+Curiouser and curiouser.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

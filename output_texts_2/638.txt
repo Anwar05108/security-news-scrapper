@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+Microsoft has finally clarified how users can fix a Windows security measure that has been causing hardware problems: turn it off. The advice, issued last week, should bring relief to many users of Memory Integrity, a feature designed to protect Windows computers from badly behaved drivers.
+Memory Integrity is a feature inside a broader set of protections called Core Isolation. It uses hardware virtualisation to protect sensitive processes from infection. These features are a subset of virtualisation-based security features that Microsoft has offered to enterprise users since Windows 10 shipped. It rolled out Core Isolation and Memory Integrity to all Windows editions in 2018.
+Memory Integrity (also called hypervisor-protected code Integrity or HVCI), uses Microsoft’s Hyper-V hypervisor to virtualise the hardware running some Windows kernel-model processes, protecting them against the injection of malicious code.
+One use case for Memory Integrity is to protect Windows from user-mode drivers and applications that misbehave, perhaps due to an exploited security flaw. Hardware drivers are pieces of software developed by the hardware vendors that enable devices to work with Windows. Even legitimate drivers can have bugs. An attacker could use those bugs to gain privileged access to the system. Memory Integrity walls off sensitive kernel processes from that software.
+When Microsoft first shipped this feature as an upgrade, you had to enable it. In fresh installations of Windows, it was turned on by default.
+This virtualisation-powered technology is great at protecting your system, but it isn’t without its drawbacks. Users have complained that they’re not compatible with different brands and builds of PCs, and that they don’t work with peripherals, including Microsoft’s own webcams.
+Microsoft said early on that Memory Integrity might cause compatibility problems, and even silently switches it off when it gets in the way of boot-critical drivers. However, in some cases, users must take action themselves.
+In a 5 March 2020 support bulletin, Microsoft addresses a specific error that Memory Integrity can trigger. If your computer tells you “A driver can’t load on this device”, then check this out.
+The bulletin says:
+You are receiving this message because the Memory integrity setting in Windows Security is preventing a driver from loading on your device.
+And it advises you to get it sorted, quickly:
+If you choose to continue using your device without addressing the driver problem, you might discover that the functionality the driver supports does not work any longer, which could have consequences ranging from negligible to severe.
+But how? Here’s where the advice isn’t especially stellar. It tells you to look for an updated driver from the vendor, which will hopefully fix the problem. If not, then your best technical support option is to, um, turn Memory Integrity off.
+The bulletin comes with clear instructions on how to do that:
+Being able to turn off Memory Integrity isn’t a new feature. Microsoft is just reminding you that it’s there. You should always keep all your drivers up to date to avoid any potential performance or security problems. This is a last resort to deal with any vendors that haven’t made their devices compatible with the security feature yet.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Hmmm…   Methinks it’s about time to confer with “The Duck”.
+Paul, the first of possibly back-to-back queries is this:  Perchance is that virtualization software needed to access Windows 10 Sandbox? If so, this is fast becoming a sticky wicket indeed.    🙁
+AFAIK, Windows sandboxing includes a number of protective layers, which implies that you can still sandbox processes (or voluntarily add sandoxing to your own apps) without having this extra layer of kernel protection.
+My advice is: only turn Memory Integrity off if you really have to (and if the driver it’s incompatible with turns out not to have been updated for ages, maybe try firing off an email to the vendor to asky why – but please ask nicely :-)
+How is that advice ‘not stellar’?  It sucks that there’s a problem that may need it to be turned off, but their advice in response to the problem is clear and should be perfectly effective.
+Though it wasn’t causing any problems and performance didn’t seem affected, since I don’t have a “recent” CPU I decided to disable it after I found this:
+“Because it makes use of Mode Based Execution Control, HVCI works better with Intel Kaby Lake or AMD Zen 2 CPUs and newer. Processors without MBEC will rely on an emulation of this feature, called Restricted User Mode, which has a bigger impact on performance.” (https://docs.microsoft.com/en-us/windows/security/threat-protection/device-guard/enable-virtualization-based-protection-of-code-integrity)
+There’s currently an issue with Windows Defender Antivirus Network Inspection Service Failing to Start that appears to be related to the Memory Integrity feature.
+Since Windows 10 2004 update the WdNisDrv.sys Defender driver is failing to load.
+\SystemRoot\system32\drivers\wd\WdNisDrv.sys failed to load
+The WdNisSvc service depends on the WdNisDrv service which failed to start because of the following error:
+The supplied user buffer is not valid for the requested operation.
+There’s discussion about it in the Microsoft Answers forum here that’s worth taking a look at:
+https://answers.microsoft.com/en-us/windows/forum/all/windows-defender-antivirus-network-inspection/e3ed244b-6fd1-4a46-9828-1c0ba973dacc
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

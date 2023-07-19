@@ -1,0 +1,36 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers have found a way to impersonate mobile devices on 4G and 5G mobile networks, and are calling on operators and standards bodies to fix the flaw that caused it.
+Research into the vulnerability, conducted by academics at Ruhr Universität Bochum and New York University Abu Dhabi, is called Impersonation Attacks in 4G Networks (IMP4GT), although deployment requirements for 5G networks mean that it could work on those newer systems too.
+The attack targets LTE networks, exploiting a vulnerability in the way that they authenticate and communicate with mobile devices. The researchers claim that they can impersonate a mobile device, enabling them to register for services in someone else’s name. Not only could an attacker use this to get free services such as data passes in someone else’s name, but they could also impersonate someone else when carrying out illegal activities on the network, they point out:
+The results of our work imply that providers can no longer rely on mutual authentication for billing, access control, and legal prosecution.
+It wouldn’t necessarily let you into someone’s Gmail, because you might still have strong password protection or, more sensibly, be using MFA. Neither would it let you access someone’s SMS-based 2FA messages, David Rupprecht, one of the report’s authors, told us:
+Under the assumption the authentication app is correctly implemented, e.g. uses TLS for the transmission, the attacker can not access that information. Text messages are part of the control plane and are therefore not attackable.
+LTE networks use a mechanism called integrity protection, which mutually authenticates a device with the nearby cellular base station using digital keys. The problem is that this integrity protection only applies to control data, which is the data used to set up telephone communications. It doesn’t always apply to the user data, which is the actual content sent between the phone and the base station.
+Rupprecht and his colleagues have already proven that they can use this weakness to change data sent between the phone and the base station, redirecting communication to another destination by DNS spoofing. This all happens at layer two of the network stack (the data link layer, which transports data across the physical radio link).
+The IMP4GT attack takes this vulnerability a step further by using it to manipulate data at layer three of the LTE network. This is the network layer, handling things like user authentication, tracking devices around the network, and IP traffic.
+Rather than just redirecting IP packets, the new attack accesses their payload and also injects arbitrary new packets, giving the researchers control over the mobile session. They do this by mounting a man-in-the-middle attack, impersonating the base station when dealing with the mobile device, and impersonating the mobile device when talking to the base station.
+The vulnerability not only affects existing 4G networks but also has implications for the 5G systems that carriers are rolling out. Companies are implementing these systems in two phases, the researchers explain. The first uses dual connectivity, where the phone uses 4G for the control plane and the 5G network for user data. The user channel doesn’t use integrity protection in this case.
+The second phase of the rollout, known as the standalone phase, sees 5G networks used for both control and user data. However, this implementation only mandates user data integrity protection on user channel connections up to 64kbit/sec, which is tiny by 5G standards. Integrity protection on user channels with higher speeds than that is optional. The researchers called for mandatory full-rate integrity protection.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Unfortunately the attacks discussed in this paper are not only far from theoretical, they are impractical because the technical setup discussed in the paper is unrealistic and does not yield any useful nor applicable dividends. For example the authors claim that the handset was placed in a Faraday enclosure and in “airplane mode” to prevent RF leakage and interference. That statement alone (handset in Faraday enclosure and in airplane mode) is an indication of lack in understanding the use of a Faraday enclosure and more importantly performing the aforementioned attacks. I would invite subject matter experts from telco product vendors (i.e., Nokia, Ericsson, Samsung) to reflect their professional opinion. In addition would encourage the authors to disclose more details about the setup and network traces capturing their claimed attacks so it is possible to be replicated by other labs.
+Thanks for the info.
+Why is the website called Naked Security (sophos)
+There are thousands of other words the website could have used.   The word selection does hint to ‘other’ reasons those specific words are used.
+My suggestion:  change it.
+“Laying bare the truth about cybersecurity.” 
+We aim to write in plain English without the jargon that so many technology websites get caught up in. 
+The word naked is widely used as a metaphor in that way – I’ve seen family-friendly content on TV by a Naked Chef, and a perfectly reputable podcast by Naked Scientists, and even a religious website called Naked Truth.
+I’ve never met anyone who was actually confused by our name, or who actually thought we were a sex site…
+…in the same way that I have never imagined that the Telegraph newspaper is actually transmitted in morse code, da da da dit dot da da dit da, or that when I dial my phone there are any rotating parts.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

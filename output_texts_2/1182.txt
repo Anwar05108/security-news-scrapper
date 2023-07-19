@@ -1,0 +1,170 @@
+Sophos Home protects every Mac and PC in your home 
+For details about the emergency patch released by Microsoft on 2021-07-06,please see:  PrintNightmare official patch is out – update now!
+There’s a critical Windows bug out there that’s not only known by three different names, but also listed variously as having three different severities.
+The first name you will see is the official MITRE identifier CVE-2021-1675, fixed in the Microsoft June 2020 Patch Tuesday update that was issued on 08 June 2021.
+You’ll also hear and see the flaw referred to as the Print Spooler bug, based on the headline on Microsoft’s security update guide that describes the flaw as a Windows Print Spooler Vulnerability.
+The bug was initially documented by Microsoft as opening up an EoP (elevation of privilege) hole in pretty much every supported Windows version, all the way from Windows 7 SP1 to Server 2019.
+ARM64 versions of Windows, Server Core builds (minimalist installs of Windows Server products) and even Windows RT 8.1 made the list of affected platforms.
+But on 21 June 2021, Microsoft upgraded the CVE-2021-1675 security update page to admit that the bug could be used for RCE (remote code execution) as well, making it a more serious vulnerability than an EoP-only hole.
+As you probably know, EoP means that someone who has already compromised your computer, but is stuck with the sort of access that you would have yourself when logged on as a regular user, can promote themselves to a more privileged account without needing to know the password for that account.
+That’s bad enough, but RCE refers to a bug by which cybercriminals can break into your computer in the first place, without needing any password for any account on your computer.
+If an RCE bug also permits EoP, then that’s even worse, because it essentially combines breaking in and taking over into a single, high-drama security hole.
+Of course, the upgrade in the severity of CVE-2021-1675 from EoP to RCE didn’t matter – or so everyone thought – as long as you’d already applied the Patch Tuesday update.
+After all, closing a security hole protects you whether that hole is an EoP, an RCE, or both.
+Apparently, what happened next was an unfortunate publication mistake.
+Researchers from the cybersecurity company Sangfor, who were preparing to present a paper on Print Spooler bugs at a forthcoming Black Hat conference in August 2021, seem to have decided that it would be safe to disclose their proof-of-concept work earlier than intended.
+After all, what harm in discussing and demonstrating the Print Spooler RCE-and-EoP bug openly, given that it was now publicly documented and had been patched two weeks earlier?
+You can probably guess where this is going.
+It seems that the newly-disclosed Print Spooler bug discovered by the Sangfor researchers wasn’t actually the same security hole that was fixed on Patch Tuesday.
+In short, the Sangfor crew inadvertently documented an as-yet-undisclosed RCE bug, thus unintentionally unleashing a zero-day exploit.
+The researchers apparently took down the offending information once the mistake was figured out…
+…but by then it was too late, because the exploit code had already been downloaded and republished elsewhere.
+Pandora’s jar had already been opened, and it was too late to close it up again.
+The new-and-unpatched bug is now widely being described by the nickname PrintNightmare.
+It’s a Windows Print Spooler Remote Code Execution Vulnerability, just like CVE-2021-1675, but it’s not prevented by the latest Patch Tuesday update.
+Indeed, several independent researchers have published screenshots on Twitter showing the new exploit succeeding on a Windows server that already has Microsoft’s June 2021 patches installed.
+There’s no official patch yet [2021-06-30T21:00Z].
+We’re assuming that a fix will be released by Microsoft as soon as possible – perhaps even before next month’s Patch Tuesday updates are scheduled to arrive (12 July 2021), if a reliable patch can be created in time.
+Watch out for a patch and deploy it as soon as you can once it’s out.
+Update. [2021-07-07T14:30Z] Microsoft released an emergency patch on 2021-07-06,described here:
+If you haven’t taken any other precautions, it looks as though disabling the Print Spooler on vulnerable computers is a satisfactory workaround.
+If you have servers where you absolutely have to leave the Print Spooler running, we suggest that you limit network access to those servers as strictly as you can, even if it means that some of your users experience temporary inconvenience.
+If you have servers where the Print Spooler is running but is not in fact necessary, turn it off and leave it off even after the patch comes out for this bug, on the principle of not exposing a larger attack surface than you need to.
+PS. While you’re about it, please make sure that you have correctly installed the CVE-2021-1675 fix that came out on the June 2021 Patch Tuesday. There’s not much point in chasing after this new RCE bug if you are still exposed to the old RCE one!
+CHECKING THE PRINT SPOOLER ON YOUR OWN COMPUTER
+To see if the Spooler service is running on your computer, you can use the Windows SC (Service Control) command from a command prompt window, e.g.
+You can prevent the spooler starting by itself, even after a reboot, with:
+Note that you mustn’t put a space between the word start and the = character, but you do need a space between the = sign and the word disabled. You need to start your command prompt window (CMD.EXE) as Administrator to reconfigure services.
+Reboot and you should see this:
+To re-enable the spooler after applying the patch, you can use these commands:
+If you are interested in knowing where the Service Control Manager stores the configuration data for your Windows services, you can use the REGEDIT program (don’t change anything unless you are sure what you are doing).
+You will find the Spooler service data in the registry key HKEY_LOCAL_MACHINE\SYSTEM\​CurrentControlSet\​Services\Spooler:
+
+The registry value Start determines how and when the service will start up:
+LISTEN NOW: UNDERSTANDING VULNERABILITIES
+Learn more about vulnerabilities, how they work, and how to defend against them.Recorded in 2013, this podcast is still an excellent and jargon-free explainer of this vital topic.
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Hi Nakedsecurity, would be greate to great to get a hunting rule for XDR/EDR (DataLake, Online) for your LiveDiscover product. For other vendors the hunting rule is already available.
+Kind Regards, Dave
+Ah, yes. We generally don’t put product-specific stuff into Naked Security articles (or else we have to keep updating the content every time our support and community people publish something new or updated :-)
+But here’s a link that’s a good place to start for Sophos XDR: 
+https://community.sophos.com/intercept-x-endpoint/i/device/find-machines-with-running-print-spooler-service
+HtH.
+Very informative write-up, I will use this to Brief my IT Team. Defining EoP and RCE makes this article a great resource even for newcomers in IT.
+I’m sure I can find it (or google knows), but if it isn’t a long drawn out process, how about adding *how* to disable the print spooler for people that don’t know how to do this?  Just a thought.
+Done.
+It is at the end of the article and was pretty helpful.
+Thanks for your kind words… but I must point out that it is at the end of the article because Tim asked for it.
+So, just to be clear: Tim didn’t fail to spot it, he caused it to appear :-)
+(Thanks, Tim!)
+Would be helpful if there was a link to guidance on how to actually disable the print spooler service. 
+Regards,
+Done.
+This made my day. But then again, it always does when I get to laugh at Windows vulnerabilities (before remembering I have to support them!). Now to go research what the print spooler actually does and why it gets used and when. There’s a vague idea in my brain somewhere but…
+#Stop the spooler immediately then disable it
+sc stop spooler
+sc config spooler start=disabled
+#Disable the default Windows firewall rules that provide access to the Spooler RPC endpoints.
+Get-NetFirewallRule |?{$_.displayname -like ‘*Spooler*’} |Disable-NetFirewallRule
+In the article, I recommend setting the ‘start=’ status to ‘disabled’ and then rebooting. (Not too big a deal if it’s your own computer and you are sitting in front of it.)
+After rebooting, run ‘sc query Spooler’ again.
+You can indeed use the ‘sc stop Spooler’ command first to avoid a reboot, but if you don’t mind doing a reboot, I’d recommend my way because it [a] avoids any hassles with the service not stopping properly or getting into a lengthy and uncertain ‘stop pending’ state and [b] it means you get positive confirmation that the service won’t, and didn’t, restart on reboot.
+HtH.
+disable it first then stop it
+just an added thought, instead of rebooting the machine to confirm the disabled service is configured you can use net stop spooler (to stop the service) and then net start spooler (you should be prompted that the service cant start).
+Yes, you can, but as I mentioned above, the reason I am suggesting a reboot (at least on home networks) is that:
+* It’s not too big a deal if it’s your own computer and you know it’s about to reboot. (Won’t happen unexpectedly!)
+* Rebooting means the service will definitely get stopped. (No problems with slow service shutdown or other issues.)
+* Checking again with sc query immediately after rebooting gives you confidence it won’t come back to life automatically.
+Your way is quick, but it doesn’t test whether the service really will stay off after your next reboot. My way kind of kills three birds with 1.25 stones, if you get my drift.
+More important than how to disable the service, is how to print with the service disabled.
+I’d love to try that myself but [a] I am using a VM and [b] I chucked out my printer around the time I got rid of my last DVDs :-)
+On a home laptop, does stopping the Spooler prevent even local printing? 
+If you need to be able to turn Spooler on and off you could set it to “demand” mode, which will allow you to start and stop it by hand.  If you don’t need to allow printing from other computers you could try the firewall rule modifications suggested above to cut your Spooler off from the rest of the LAN, which would stop an attack being initiated from another device on your network. (An exploit could be launched from a non-Windows computer, probably even from a router.)
+Disabling the spooler prevents all printing (it presents a print dialogue showing no printers at all and asks you to install one).  For home devices this isn’t a problem, but it will be an issue in our environment. We’ll just be trying to mitigate against critical systems and hope for the best until a patch is released.
+Looks like the fix is already out. I just checked updates and there was a “Microsoft – Printer” update.
+Checking now [2021-07-01T18:30Z]… Hmmm. Nothing listed on Microsoft’s Security Update Guide page. 
+I don’t think they would entitle this one a “Printer” update, would they? “Printer” updates usually relate to the actual *printer* (as in the physical device) part of printing, not the printer spooler (as in the software that channels output between apps and the printers themselves).
+Ah, maybe just a coincidence, then.
+what happened to “responsible disclosure”?
+maybe read the story first?
+I suspect that Ian was being ironic. I thought it was a perfectly reasonable question myself (and a rhetorical one, which is why I didn’t answer it at the time).
+Responsible disclosure doesn’t just mean “telling the vendor first”, it also means not making assumptions that “it’s probably not irreponsible to disclose this; we should be good to publish because it’s probably the same as that other bug we just heard about.” 
+All they needed to do was to install the patch and see if it blocked their proof-of-concept code before releasing it, thus testing that they weren’t leaking an 0-day exploit by mistake.
+It’s also interesting that they didn’t responsibly disclose the RCE part of the bug that they had discovered as soon as Microsoft published the EoP report about CVE-2021-1675. 
+After all, if they thought that their bug was the same as CVE-2021-1675, surely they could have warned Microsoft right back on 2021-06-08 that there was more to it than just EoP? 
+From their proof-of-concept code, Microsoft would then have realised right away that the Patch Tuesday update was incomplete. 
+Given how long this fix took after what we now know as CVE-2021-34527 was found to be an 0-day, the researchers would have been able to release their proof-of-concept code on about the same date as they did anyway; they would have locked in the credit for discovering it sooner than they did; the patch would have been available earlier; and no print servers in the wild would have knowingly been at risk.
+I suspect that’s what Ian meant, but he said it much more succinctly that I did :-)
+Just tried the command
+sc query spooler
+No output. I’m sure I have a print spooler, it’s listed in Task Manager on the Services Tab as running.
+Using PowerShell as Administrator, Window 10 Pro 20H2.
+Has anyone else tried that command?
+From a Powershell prompt, try ‘get-service Spooler’.
+As mentioned in the article, the commands shown are for running in a traditional command prompt window (i.e. by launching CMD.EXE).
+Thanks. So used to opening a PowerShell command prompt that I didn’t read the details 😉
+sc query spooler
+does indeed work i the traditional cmd.exe prompt, and
+get-service Spooler
+works in PowerShell
+(1) SC commands do not work in Powershell. In that environment, the SC command is for Set-Content.
+(2) When using SC in a CMD.exe window, you can remotely check the status of a Windows machine named SERVERNAME  by doing sc \\SERVERNAME query spooler
+For those of you who wish to check they have the patch in place, below is the link to Microsoft’s article on the CVE-2021-1675 vulnerability:
+https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-1675
+Check at the bottom for you Windows version and then compare the KB article number with your update history. In my case the article number is 5003637, as I’m running Windows 10 Version 20H2.
+Below is the link for the CVE-2021-34527 vulnerability:
+https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34527
+I don’t have any experience of how readily Microsoft keep this up to date.
+What if I login with an admin account, start cmd.exe, enter the disable command e actly as listed and the response is
+[SC] OpenService FAILED 5:
+Access is denied.
+?
+Am I already pwned?
+Thank you
+You must explicitly start CMD.EXE as an Administrator (you will get a UAC warning) to get Admin privileges in the command prompt window. (The fact that you are in the Administrators group doesn’t mean that everything you do automatically runs as Admin, merely that you can “get admin” if you need it.) 
+Right click on the CMD icon and choose “Run as administrator”. You should see the words “Administrator: Command Prompt” in the title bar. Without requesting and receiving Admin powers you can’t change the settings of any services.
+PS to my previous comment/question 
+I was able to successfully go into task manager then services then found print spooler then properties then disable and set to do not start.
+Weird
+I assume (unless you have turned UAC off – please don’t!) that you would have received a UAC “do you want to allow X to make changes” popup screen at some point to authorise the action.
+At a command prompt, it’s a bit different: basically, the command prompt terminal app itself either has Admin powers (and all the programs you run in it inherit that power) or it doesn’t (and no programs you run get it).
+so I followed you instruction and stopped the spooler, this effectively killed all my printers. The are all marked unavailable.  I had to restart the spooler for them to function.  It also caused errors on many of my programs, that utilize the spooler fro printing and I could not start a number of them, i.e. Quickbooks.
+At this point I have stopped doing any WIN10 updates and all my company machines have been instructed to not install them..reason being, after an update it would take me from 3-6 hours to reset all of the machines removing the bloatware that microsoft insisted on placing on your machines.  Much of this bloatware subsequently caused issues with other programs needed for our everyday business. We have started a slow move to Linux, but are finding some windows programs do not run well in the environment.
+As explained in an earlier comment, if you need to be able to start-and-stop the Spooler for printing, you can out the word “demand” in the commend where I suggested using “disable”. Then you can turn the Spooler on and off as needed with ‘sc start Spooler’ and ‘sc stop Spooler’.
+If you genuinely need to print frequently on numerous and different printers, then you may have little choice but to leave the Spooler runnning. If you don’t need to access the printers from other computers, and can rely on printing locally, you could try using the suggestion from an earlier commenter to remove Microsoft’s built-in firewall rules that allow for remote printing.
+If you haven’t been doing Windows 10 updates at all on any of your company computers for some time, then I guess that the risk of being attacked due to this bug is only one of many risks you face, and even when Microsoft fixes this one, you aren’t going to get the fix anyway.
+All I can do at this point is to urge you to get up-to-date with the latest security fixes. I do it as promptly as I can on my Windows test computers and I haven’t noticed vast amounts of bloatware turning up every month…
+My definition of bloatware are any programs added to your system other then basic operating system programs. example Microsoft maps, edge, paint3d, etc. all of which take up memory and resources of our machine.  that plus resetting services to what microsoft thinks need them to be and not what you as the operator desire for you machine.  I had one update that completely killed my antivirus and firewall programs, which is Sophos.
+Additional option – set the startup mode for the spooler to disabled in GPO and link to non-print servers (and computers requiring no printing). This is typically faster when you manage things at scale.
+If home users disable the print spooler on their computer(s) now using the cmd “C:\Users\duck>sc config Spooler start= disabled”, how do they re-enable the print spooler after the MS patch arrives and is applied to their computer(s)? Thanks.
+Replace the word disabled in the command above with auto to renable the Spooler, and then reboot (or start the Spooler by hand with sc start Spooler).
+HtH.
+My daily driver is a Win7-32.  I took your advice and disabled the spooler service.  After a reboot, my applications could not provide a list of available printers.  (The only thing on the list was print-to-PDF, provided by Nitro Reader 3.)  The control panel showed only a couple of printers, showed no drivers, and no manufacturer or some other stats for them.  Very scary.  Malware and registry scans were clean.  Setting the spooler service to auto, then rebooting, fixed the problem.  I’m surprised my search didn’t find others with the same problem.
+The fix is now out for Server 2019, Win10 2004 and up. They will be rolling out additional OS versions “soon.”
+https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34527
+I know – I added not one but two sidebars (reversed-out grey boxes) to the article a few hours ago already, linking to information about the emergency fix :-) 
+Check the very start of the article and the “what to do?” section at the end…
+Here’s the link to our information and advice about the fix itself:
+https://nakedsecurity.sophos.com/2021/07/07/printnightmare-official-patch-is-out-update-now/
+This is why I’m happier with my Linux more than Windows 🙂
+I did what you suggested, Spooler stopped (4 in Hkey Local) but when I tried…..sc config Spooler start= disabled
+I got {SC} OpenService FAILED 5
+Access is denied
+How come?
+You probably didn’t use the “Run as Administrator” option when you opened your command window (CMD.EXE). Error 5 means that you don’t have the necessary privileges (thus “access denied”).
+Look in the title bar of the Command Prompt window, where you will see thre word “Administrator” if the command prompt has Admin superpowers. If not, it will run your commands as a regular user, and regular users can’t alter the setup of services.
+Tongue in cheek:  Turning off the print spooler service makes all my printers disappear.  I can enjoy equally safe protection from every in the wild hack and exploit by turning off my Internet service and all wireless services and unplugging the phone cord from the modem and never using the USB ports or any removable drives.   I could also avoid falls and injuries by never getting out of bed.  Still waiting for a USEFUL solution that allows printing.  Meanwhile, I’ll just hope that my Webroot SecureAnywhere software keeps anything nasty from doing any damage.  I also have UEFI and Secure Boot and UAC enabled and everything is updated and all available patches are applied.  My PC has no TPM, so can’t do that.  Besides, someone will likely figure a way to engineer TPM hacks & workarounds.  As the old saying goes, “Locks only keep out honest people.”
+That’s silly. You almost certainly don’t need a printer that is “always on”, and you ought to be unmounting and disconnecting your removable drives when not in use so they are offline and unhackable as much as possible. (That’s why they are removable.)
+I know it’s a hassle but you can’t tell me that “living without a printer” is like “living without your internet connection turned on”.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

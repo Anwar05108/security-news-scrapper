@@ -1,0 +1,47 @@
+Sophos Home protects every Mac and PC in your home 
+It’s already nearly two months since Apple’s last security update to iOS 14, which was back on 2021-05-24 when iOS 14.6 appeared.
+So we weren’t surprised to see that another patch is out, officially listed [2021-07-19] as covering iOS (now on 14.7), tvOS (now also 14.7) and watchOS (now on 7.6).
+Annoyingly, there’s no mention of iPadOS, which has typically been listed on the same line as its related iOS update in recent Apple security reports.
+Until iOS 13 and iPadOS 13, released as separate products for phones and tablets respectively in September 2019, both types of device ran iOS and therefore inevitably received their updates at the same time. Older, officially supported iPhones and iPads that can’t run version 14 both still run iOS 12 (there is no longer an official build of iOS 13), which is a common product for both phones and tablets. However, iOS 12 updates have typically been appearing out of step with iOS/iPadOS 14 updates recently, so if you have an iOS 12 device, there isn’t an update for you at the moment.
+Another annoyance, as we write this, is that Apple still hasn’t given official details of what’s been fixed.
+Usually, releases that bump the version number up by 0.1 rather than by 0.0.1 (e.g. 14.6 to 14.7 rather than 13.5 to 13.5.1) include all the security holes that Apple has been working on since the last major update came out.
+This means there are often several dozen patches, typically with several of them rated as critical importance because they could allow attackers to compromise your phone via a rogue web page or other booby-trapped content.
+Sometimes, as we’ve described a few times recently on Naked Security, one or more of the updates consitutes a zero-day, meaning that Apple found out that it needed to patch the hole after it started being exploited in the wild.
+This time, the updates are listed on Apple’s main security update page, but tagged with the disappointing note: Details available soon [2021-07-20T13:00Z]
+In particular, this means we can’t yet tell you whether the iOS 14.7 update fixes the recently publicised “crashtastic Wi-Fi” flaw.
+That bug, disclosed in something akin to a comedy of errors by its finder, means that accidentally attempting to connect to a weird network name with a percent sign (%) in it could leave your iDevice blocked from connecting to any network at all, even your own trusted Wi-Fi at home.
+Don’t get tricked by this crashtastic iPhone Wi-Fi hack!
+
+
+Amusingly, at least with hindsight, the bug’s original reporter apparently investigated thoroughly and deeply enough that he locked himself out of his own network completely – even using the Reset Network Settings system option didn’t fix the problem – and had to turn to Twitter for help.
+Ultimately, it seems that with some mildly complex scripting shenanigans and a local backup of the phone to his computer’s hard disk, he was able to convince the phone that it should stop trying to connect to any of the poisoned network names that were tripping it up…
+ …so he was able to recover his device without doing a full firmware wipe-and-restore. 
+Interestingly, cybersecurity researchers at a company called ZecOps recently claimed that they had researched this “crashtastic Wi-Fi” bug to the point that they felt certain that the bug could be exploited for remote code execution (RCE).
+They therefore decided to pitch a new moniker for it, namely Wi-Fi-Demon, arguing that it may pose a bigger threat that merely being a so-called denial of service (DoS) attack.
+Their claim is that by using the special text %@ in a network name rather than just %s, a local attacker could “build a partial sandbox escape to help achieve jailbreaking”, or even to infiltrate unauthorised software remotely.
+Given that this iOS 14.7 update is officially listed as fixing security holes, we’re going to recommend that you check you have it anyway, even before Apple releases an official list of patched flaws.
+Use Settings > General > Software Update to check that you have the latest version, and to jump the queue in installing it if you don’t have it yet.
+We’ll let you know in due course if this update does, indeed, patch the “crashtastic Wi-Fi” bug (or WiFi-Demon, if you prefer).
+By the way, whether it does or it doesn’t fix the wireless problem, we recommend that you regularly revisit and thin out the list of known Wi-Fi networks on your phone anyway.
+If you can, consider using Settings > General > Reset > Reset Network Settings on a regular basis to empty out your known networks list, given that iPhones will connect to known networks automatically.
+That includes networks on train and bus services you only use occasionally, or at airports or in hotels you haven’t visited lately.
+You might be surprised how many known networks your phone or laptop has in its list, even ones that you last connected to months or years ago and that might be under new ownership or have adopted new terms and conditions of use since you last used them.
+Note. Apple released iPadOS 14.7 and updates for the current and two previous macOS versions on 2021-07-21. The security page that we linked to above now allows you to view a list of vulnerabilities that were fixed in this update. We assume that the list of bug fixes was originally suppressed to avoid turning the iOS 14.7 update notification into an iPad OS “exploit cheat sheet”, while not making the iOS update wait an extra two days for the iPadOS update to be cleared for release. The “crashtastic Wi-Fi” bug, now dubbed CVE-2021-30800, is indeed patched in both iOS and iPadOS by this update. [2021-07-22T15:50Z]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Excellent as always, Paul! Please keep up the Good Work!
+Thanks for your kind words. Glad you find the articles useful!
+misspellings:
+ofen
+recenly
+Fixed, thanks. 
+Although I pronounce “often” without so much as a glottal stop to denote the T that appears in the word, I am as scrupulous about sounding the T in “recent” and its derivatives (another word in which I take great care to sound the T) as I am about sounding the TT in “bottle”.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

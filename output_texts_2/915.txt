@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+The latest security patches from NVIDIA, the maker of high-end graphics cards, are out.
+Both Windows and Linux are affected.
+NVIDIA hasn’t yet given out any real details about the bugs, but 12 different CVE-tagged flaws have been fixed, numbered sequentially from CVE-2020-5962 to CVE-2020-5973.
+As far as we can tell, none of the bugs can be triggered remotely, so they don’t count as RCEs, or remote code execution holes, by means of which crooks could directly hack into your laptop or server over the internet.
+However, as is very common with security bugs in kernel-land, they could let crooks carry out what’s known as information disclosure or elevation of privilege attacks.
+Given that the kernel contains information about the entire system, including details such as which processes are allowed to access what memory locations, being able to fiddle around inside the kernel is usually a privilege reserved for top-level sysadmins only.
+Kernel bugs that allow regular users to peek into the kernel’s protected memory areas are therefore dangerous because they can often be exploited by criminals to grant themselves permanent administrator powers without needing to know any administrator passwords.
+These days, of course, graphics cards, known as GPUs (short for graphics processing units), aren’t just the province of high-end gamers and graphic designers.
+Unlike a central processing unit or CPU, which is designed to be a general-purpose workhorse capable of running a modern operating system securely, GPUs are focused on the sort of mathematical calculations commonly needed in computer graphics.
+A typical CPU these days might have 4 or 8 “cores”, which you can think of as processors-within-a-processor, each capable of running a completely different program at the same time. 
+CPUs are packaged in a multicore format rather than as 4 or 8 separate chips to improve speed, size, performance and power consumption. Electrical signals arrive more quickly, take less power and generate less heat when they move around inside a single chip.
+In contrast, a high-end GPU might have 2000 to 5000 cores, but they aren’t each able to run completely different instructions at the same time.
+GPUs typically follow a computing model abbreviated SIMD, which is short for single instruction, multiple data.
+That makes sense for image processing, where you very often want to perform the same mathematical transformation on a whole buffer full of pixels at the same time
+For example, instead of writing explicit loops to modify a 64×64 pixel graphics sprite, as in this pseudocode…
+…you can do the whole thing in one go, more like this…
+…and let the GPU take care of adjusting as many pixels as it can at tha same time, given that it’s optimised to perform the same calculation on thousands of memory locations in parallel.
+But this sort of parallel processing power isn’t useful only for graphics and high-frame-rate gaming.
+Many algorithms, from fields as diverse as machine learning, financial modelling, molecular simulation and cryptocurrency mining, can take advantage of the special-purpose computing power of GPUs.
+As a result, even servers that will never in their working lives have screens plugged in or run graphics software may be fitted out with a whole row of GPU cards.
+For example, a $20,000 password cracker fitted out with 25 GPUs across five server cases could try out nearly half a trillion Windows password hashes (4 x 1011 MD4s) a second – and that was more than seven years ago:
+One server case in Jeremi Gosney’s 2012 GPU-based password cracker.
+In other words, these patches aren't just for hard-core gamers but will be needed by many administrators of high-performance computational servers too.
+In fact, servers fitted with GPUs probably need two sets of patches, covering both the NVIDIA GPU drivers that control the actual hardware in the physical system, and the NVIDIA vGPU software (“v” stands for “virtual”), which shares out physical GPUs between guest operating systems running under virtualisation software from vendors including Citrix, Red Hat and VMWare.
+Virtualisation splits up a physical host computer into a number of pseudo-computers known as guest virtual machines (VMs) that each run independently, as though they had dedicated hardware of their own.
+NVIDIA’s virtual GPU drivers help to share out the physical GPUs in the host computer between VMs that need them, allowing GPU-intense tasks such as machine learning and molecular modelling to be split up between virtual machines, just like conventional programs such as web servers.
+Patches have been announced for NVIDIA Geoforce, Quadra, NVS and Tesla GPUs on both Windows and Linux.
+Most of the updates are available right now, except for the Tesla R450 drivers, which are delayed until next week (2020-06-29).
+There are also updates for NVIDIA Virtual GPU guest drivers for Windows and Linux, as well as for the NVIDIA Virtual GPU Management software.
+Once again, most of the vGPU updates are available now except for users with the very latest release (version 10), who will need to set a calendar entry for two weeks’ time (2020-07-06).
+If you’re not sure what software version you have, or even if you computer has NVIDIA hardware at all, NVIDIA has a support article that tells you how to find out.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I just ran Software Updater and there they are!
+Would be nice if NVIDIA didn’t use a domain like “custhelp.com” to announce security updates.
+Hmmm. You’re not wrong – but that’s the way of the modern world, a bit like having an Outlook email address, a Salesforce CRM database, a Google document or a WordPress blog (like this one). IIRC, custhelp.com is part of Oracle’s “cloud support” service, so it can be considered mainstream and unexceptionable. If it makes customer-facing support info easier to search and faster to find then that’s a good thing – and is presumably why NVIDIA, which is a chip company after all, chose to outsource the hosting of its support databases.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

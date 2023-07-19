@@ -1,0 +1,69 @@
+Sophos Home protects every Mac and PC in your home 
+Intel is adding two new exploit detection systems into its forthcoming processors.
+The new technology has been at least four years in the making, according the chip giant’s recently updated specification document, which contains a “version 1.0” release date of June 2016.
+Intel’s PR machine has been making waves about the system, known as CET for short, or Control-flow Enforcement Technology in full, for a while…
+…and now it’s officially out for you to take a look at. (Warning: the specification document runs to 358 pages.)
+As far as we can see, the first wave of Intel processors that will include these new protections are the not-quite-out-yet CPUs known by the nickname “Tiger Lake”, so if you’re a programmer you can’t actually start tinkering with the CET features just yet.
+Nevertheless, CET reminds us all that computer security is a cat-and-mouse game, where one round of security improvements provokes a change in behaviour by cybercrminals, which in turn leads to a new wave of defences, and so on.
+Loosely speaking – very loosely, given that we’re summarising a 358-page document – CET aims to make remote code execution exploits harder than they are now by keeping a tighter rein on how programs behave.
+More precisely, CET aims to keep an eye out for how programs misbehave, so that it’s easier to detect when a program has crashed, and therefore to stop crooks coming up with sneaky ways of crashing-yet-keeping-control-over buggy programs.
+Errors in using memory are one of the leading causes of software bugs that lead to security holes, known in the trade as vulnerabilities.
+For example, if I ask the operating system for 64 bytes worth of temporary storage, for example to generate and store a cryptographic key, but then accidentally save 128 bytes of random data into it, I’ll trample all over whatever comes next in memory.
+A memory block that’s allocated for your own use is known colloquially as a buffer, so writing outside your own buffer and into someone else’s is known as a buffer overflow.
+Another way that data commonly gets trampled is known as use after free, where I accidentally save data into a block of memory that I already told the operating system I didn’t need any more, and that therefore might already have been handed out to be used somewhere else.
+Even if I carefully write my limit of 64 bytes and avoid a buffer overflow error, I’m still writing where I shouldn’t.
+So even though a use-after-free bug isn’t technically referred to as an overflow, you can think of it that way because I am writing 64 bytes to a buffer where I am currently supposed to write no bytes at all.
+Memory safety bugs, as they’re called in general, are an obvious cybersecurity risk because they mean that an attacker might be able to craftily alter data that some other part of the program assumes it can trust and therefore later relies upon.
+The danger posed by a memory error of this sort depends, of course, on what got trampled.
+If the memory bytes that were overwritten contained an error message that only ever gets printed under highly unusual circumstances, then the bug might not be noticed for years, and even if it shows up, the only bad side effects might be to cause an error to go unreported (or be reported incomprehensibly).
+But if the memory that got trampled contains any data that the software later relies upon to control the flow of execution in the program, then an attacker can very possibly find a way to abuse that bug to implant malware.
+There are two main ways that memory overwrite bugs can be exploited to divert execution.
+One relies on modifing what’s known as the stack, a block of memory that the CPU uses (amongst other things) to keep track of subroutine calls in software.
+When you call a program subroutine, for example getch(), which reads in the next input character, usually from the keyboard, the processor keeps track of where you CALLed it from so that the subroutine can simply run a RETurn instruction to get back where it was before, to the next instruction after the CALL.
+So, if you can mess with the stack, you can often mess with the next RET instruction so the program doesn’t go back where it came from but instead heads off into unauthorised territory of your choice.
+Another sort of bug involves modifying the memory location used by a JMP or CALL instruction to tell it where to go next – instead of diverting a program when it returns from a subroutine, you divert it when it tries to call or jump to one.
+Various protections already exist agains this type of trick, notably DEP and ASLR.
+DEP stands for Data Execution Prevention and it assumes that when attackers modify a RETurn address, or a CALL or JMP destination, they’ll need to divert execution to a chunk of code – known as shellcode – that they supplied themselves, typically as part of the data they sent to the errant program in the first place.
+But modern CPUs can flag data buffers as “not for execution”, which prevents shellcode supplied as data from running even if attackers manage to RET, JMP or CALL to it.
+Crooks responded to DEP by using two-stage shellcodes where the first part relies on stringing together code fragments already loaded into memory, for example as part of the running program or one of the DLL files it uses.
+These “already executable” fragments, known in the jargon as gadgets, don’t need to do a lot – typically, they’ll just tell the operating system to switch the buffer where the rest of the shellcode resides from “no execution allowed” to “this data is allowed to run as code”.
+Then, simply jumping to the second part of the shellcode completes the takeover.
+(Note that the gadgets were never intended to be used in this way – the crooks typically comb through system DLLs and hunt for byte sequences that just happen to decompile to useful code snippets such as ADD THIS or COMPARE THAT, even if the gadgets are themselves part of other instruction sequences.)
+Of course, to misdirect a running program so it transfers control to an “already executable” gadget, the attacker needs to know what memory addresses those gadget bytes are loaded at.
+Fifteen years or so ago, that was trivial because every version of Windows loaded its standard set of system DLLs at the same memory addresses every time, so if the crooks could figure out an exploit that knew where to weave around in memory on their test computer…
+…it would work on your computer, too, assuming you had the same version of Windows.
+ASLR, short for address space layout randomisation, made that much harder, because Windows, and all other mainstream operating systems, now load programs at different locations every time you reboot.
+The crooks can easily guess which Windows version you have, but they can’t easily guess which gadgets are at what memory addresses on your computer.
+One problem with ASLR is that if attackers can somehow figure out the memory addresses that are being used on your computer right now, even though they were randomly chosen, they can modify their attack automatically simply by adjusting all gadget addresses in their exploit to suit.
+Unfortunately, information about system memory allocation sometimes leaks out due to other, innocent sounding bugs known as information disclosure flaws.
+For example, some programs write log files that are intended to be helpful if ever you need support, accidentally including useful but supposed-to-be-secret data such as System version data found at address 0x7DEE.... or KERNEL DLL loaded at 0x7EE3.....
+In other words, the memory layout information that crooks aren’t supposed to be able to figure out for program X might already have been blurted out by program Y.
+Intel’s new hardware solution aims to go beyond ASLR and takes two forms, called the shadow stack and indirect branch tracking (IBT).
+The implementation is complex but the concepts are simple:
+In case you’re wondering how IBT will work in a backwards compatible way, Intel carefully chose an instruction bytecode for ENDBRANCH that executes as a NOP, short for “no operation” (i.e. an instruction that does nothing except use up a tiny amount of time and memory) on older CPUs.
+So software recompiled for CET-capable processors in the next year or so will still work correctly on older computers.
+No.
+As Intel’s own press release points out, “No product or component can be absolutely secure. Your costs and results may vary.”
+Having said that, we suspect that CET will, in general, make things harder for the crooks, so we look forward to it being more widely available.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I predict that a vulnerability will be found and exploited within the new technology itself.
+Agreed Steve. I don’t believe it will be long for threat actors begin to leverage this by bypassing some or all of its  defensive capabilities.
+I’m unsure how Intel will patch this mechanism. Patching the operating system side of the protection will be routine but the built-in hardware aspect of it, I assume microcode updates or updated firmware/BIOS containing the updated microcode may be made available.
+Thanks.
+Bypassing it is not the same as exploiting it. I’m sure that bypass tricks will emerge, just as they have for ASLR – yet for all that cybersecurity naysayers tell us ASLR is “worthless” because you should assume any half-decent crook will find a second exploit to bypass it to enable their first exploit, I contend that ASLR has made exploits harder to get working reliably, and have generally required the crooks to take more steps towards a working exploit, which in turn tends to expose them to new detection tricks.
+For several years I expect that CET “bypasses” will be trivial because most computers won’t have support for CET at all, and there will probably be plenty of software that doesn’t get updated to include IBT instrumentation, or that uses coding tricks that rely on messing with the stack themselves in a way that isn’t split-stack compliant.
+I totally agree with your points.
+I wasn’t saying that CET is worthless. I agree too that a lot of systems and software won’t have CET for sometime and its uptake will take time.
+My point was however that this new mitigation made available by Intel will be a trophy for threat actors to seek to bypass and exploit it. I believe this will happen quite quickly. However just like ASLR it will still add value and I will seek to use it where possible.
+Thanks.
+The simplicity of both approaches is reassuring.  Simple is powerful and complication leads to problems.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

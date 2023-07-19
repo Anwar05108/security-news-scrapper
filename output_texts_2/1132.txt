@@ -1,0 +1,86 @@
+Sophos Home protects every Mac and PC in your home 
+Remember HAFNIUM?
+Of course you do – it was the name behind a foursome of Exchange bugs that got patched in an emergency update early in March 2021.
+Even though there was just a week to go until March 2021’s Patch Tuesday, Microsoft decided to issue what have become known as the “Hafnium fixes” in a so-called out-of-band update.
+The fixes closed four security holes that could be chained together to produce an attack that has now been dubbed ProxyLogon.
+Using the ProxyLogin trick, a cybercriminal outside your network could sneakily install malware onto your server without needing to go through any sort of authentication process or password check first.
+“Out of band” is a metaphor borrowed from radio and network signalling, where it refers to a separate communication channel reserved for special data or commands in order to improve reliability. Usually, out-of-band data and commands are used to avoid to the dual risks that [a] the commands or urgent data might get missed if mingled with regular transmission, and [b] innocent data in regular transmission might dangerously be misrecognised as a command that was never actually issued. When referring to software updates, “out of band” simply means a patch or fix that unexpectedly arrives outside any pre-announced update schedule. Usually, that means it’s both urgent and important because it fixes a zero-day hole: a bug that attackers are already exploiting.
+As we explained in a recent Serious Security article on Naked Security, a crook who can upload a file into a Windows server directory where web data is stored doesn’t merely get a chance to pollute your web server with fake content, as bad as that would be on its own.
+By uploading a web file that doesn’t just contain HTML but also includes what’s called a server-side script…
+…crooks can create a booby-trap on your server that will execute that server-side script whenever they later visit the URL of the file they uploaded.
+Using the ProxyLogon attack, crooks can turn the trick of uploading an arbitrary file into a remote code execution exploit, so they can come back whenever they want and run code they uploaded earlier.
+Even worse, the crooks don’t need to upload a single, specific command to run later, as harmful as that would be on its own.
+By uploading what’s known as a webshell – a remotely executable command script that is programmed to run arbitrary additional commands provided at runtime – the crooks can come back whenever they want to execute whatever they want. (Read the boldfaced part of that sentence out aloud!)
+Webshells provide attackers with same sort of general-purpose power as a local Command Prompt or a PowerShell window, but without requiring them to work their way past any firewall rules or logon prompts.
+Serious Security: Webshells explained in the aftermath of HAFNIUM attacks
+
+
+Hafnium, as it happens, doesn’t refer to the attack described above, but merely to a specific gang of attackers who were using the ProxyLogon trick before Microsoft became aware of the bugs, and whose activities provoked the emergency patches.
+Unfortunately, once news of the Hafnium attackers came out, interest in the exploits they had been using surged.
+Ready-to-use attack code was soon made public, so that anyone could exploit the ProxyLogon hole, and a spate of “me-too” cyberattacks followed.
+The original Hafnium gang seems to have been interested in stealing data, presumably for industrial espionage, but some of the follow-up attackers had different ideas, such as the BlackKingdom gang, who used ProxyLogon to spread their ransomware.
+Watch directly on YouTube if the video won’t play here.Click the on-screen Settings cog to speed up playback or show subtitles.
+
+Despite several weeks of urgent warnings, not least from Naked Security (where we’ve preached about patching in articles, via podcast and on video), there are still plenty of unpatched servers out there just waiting to get pwned.
+And the ProxyLogon hole gets attackers directly onto your Exchange server, which is a target that almost certainly contains what crooks think of as “trophy data”, so that’s not a good thing.
+So, the FBI decided to act, and to turn attack into defence.
+The Feds went to court for a warrant that authorised them to “exploit” the webshells visible on unpatched servers…
+…and the remote code execution command they issued to those webshells was: DELETE THYSELF:
+Many infected system owners successfully removed the webshells from thousands of computers. Others appeared unable to do so, and hundreds of such webshells persisted unmitigated. This operation removed one early hacking group’s remaining webshells which could have been used to maintain and escalate persistent, unauthorized access to U.S. networks. The FBI conducted the removal by issuing a command through the webshell to the server, which was designed to cause the server to delete only the webshell (identified by its unique file path).
+As the DOJ pointed out in its press release, the Hafnium gang’s webshell installations used a different filename and path on every server they attacked.
+The DOJ rather politely suggested that this “may have been more challenging for individual server owners to detect and eliminate than other webshells.”
+HAFNIUM: Advice about the new nation-state attack
+
+
+If you’re infected, don’t wait for someone else to run the webshell for you, because it’s probably not going to be the FBI telling your server to disinfect itself.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This is setting a very interesting precedent.
+While there may be objections from the privacy advocacy crowd, this is pretty cool.
+Kinda like a dude walking dark streets and shutting windows that have been neglectfully left open.
+I’m not the biggest fan of Exchange, but it’d be pretty great to find this in the web logs †
+
+0 †† - 2021-04-14_T13:05:01 GET "/path/junk/shell.exe?rm+-f+c:/iis/path/junk/shell.exe" ††† 200
+0 †† - 2021-04-14_T13:05:12 GET "/path/junk/shell.exe" 404
+0 †† - 2021-04-14_T13:05:16 GET "you're%20welcome" 404
+
+† yes… the irony of someone inspecting their logs, yet they leave RCE shells on their public server
+†† FBI reserved IP address
+††† so I used a *NIX command in my example.  sue me.
+We need a completely new internet (fully encrypted), with newly-designed (both hardware and software) servers.  Traffic on this new system must be restricted to fully vetted entities, including on-line vendors and the like, and especially banks and other financial institutions.  I  don’t know about spoofing of addresses on the internet, as with phone numbers, but a mechanism is required to prevent this.  Sorry, but at the moment, I can’t think how to handle individuals.  
+Extremely expensive, but think of the current situation. 
+Anyone have other ideas?
+MOAR KAT VIDEOS! (As fatuous as that answer sounds, I reckon my odds are about $1.10 while yours are way out at about $1001 :-)
+Wow FACISM much…how about anyone hacking anything gets death Penalty…
+Great presentation/video, thank you.
+Thanks, glad you found it useful!
+“… special data or commands in order to avoid to improve reliability.”
+A little sleepy today, Duck?
+Thanks, fixed!
+As an American, I don’t want legalized governmental hacking, based on their ‘perception’ of risk. This ruling seems link ‘cart blanch’ approach governments always tend to take.  What they claim they did and the reality of what they did is rarely synonymous and is always of greater scope.  What else did they do in these ‘private’ servers?  Only their word for what they did.
+ IMHO… (8′)
+To be fair, the servers they disinfected were already open for true “carte blanche” access by *anyone*. At least the Feds were operating under some sort of scrutiny, with some sort of transparency, and with a commitment to try to contact the servers they cleaned up. It’s not as though they infiltrated a server that was otherwise secure and then kept quiet about it.
+In many jurisdictions, cops on night patrol who find an unattended property that looks as though it’s been broken into will investigate to see if a crime has been committed, search for evidence of a crime in progress, check for injured occupants, and if they find it’s all clear will typically try to secure the premises and contact the owner or occupier.
+This strikes me as a similar sort of situation, with the added concern that a hacked-and-backdoored server poses a problem for everyone else online (because it can be used as a jumping-off point for further attacks), not merely for its owner.
+I completely understand.  But what is ‘open to everyone’ if they had to ‘hack’ into it? They are exploiting a bug in the code going inside, modifying code.  Yes, an officer shuts the door,  they do not go browsing around inside the home and moving (or removing) the furniture around to secure it.  Not only retired from IT but also the local PD, so I completely understand your position.  What are you willing to give up personally for ‘every bodies’ elses security?  This is always a double edged sword.
+My position is that it’s far too easily abused.  If I don’t patch my system like the police think I should, they can go do it anyway? What crime(s) did the owners of these machines commit to allow the police (here the FBI) to intervene anyway?   If it’s not criminal, the FBI should not be involved, if it is criminal, they need a warrant.  With the FBIs resources they should be notifying the owners, requesting them to fix it, saving the taxpayer a bundle.
+Simple fact they have hacked and modified various systems on their own authority, without permission of the owner. In most jurisdictions that is a crime.
+FBI transparent… LOL
+Well at least that’s my HO…  Thanks for the reply…  Take care…  (8′)
+Just to be precise, the Feds did not actually exploit a bug that was not supposed to be there. 
+They used a backdoor webshell left behind by crooks who had been there before (crooks who probably did exploit unpatched bugs), and the only code they “modified” was the webshell itself, which they deleted. 
+So there was no “browsing around” inside the house and no “moving the furniture” – this was more like going in through an already-loided door to re-engage the locking mechanism and then closing the behind themselves on the way out.
+I’m living proof of that.
+A couple months ago, police rang my doorbell at about 12:30 am (since I was up playing games this was far less jarring than had I been asleep) to alert us we’d left our garage door open † and that the area has been seeing an uptick in thefts.  It only took a few minutes of their time, but they devoted at least two squad cars and three officers to this.  I expect that was in case the house had already experienced a break-in and might still have thieves inside.
+I believe my verbatim response was “Oh sh*t, really? Thank you so much!”  As I quickly checked my garage for signs of missing stuff, I thanked them again, wished them a safe night.  
+Everyone needs someone watching their back now and then.  I was lucky.  There would’ve been a bigger OhSh*t in the morning had they not stopped.
+† wasn’t me, but that matters little–since my car was still one of those in the garage
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

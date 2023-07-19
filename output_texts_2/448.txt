@@ -1,0 +1,95 @@
+Sophos Home protects every Mac and PC in your home 
+On Monday this week, the big cybersecurity news was speculative.
+Was there a big, bad security bug in Microsoft Windows waiting to be announced the next day?
+On Tuesday, the big news was the announcement that everyone had been guessing about.
+Yes, there was a big bad bug, and it was in the Windows CryptoAPI.
+It wasn’t a wormable remote code execution hole, so it wasn’t quite a WannaCry virus waiting to break out…
+…but it was the first Patch Tuesday bug ever credited to the NSA.
+That’s the US National Security Agency, ironically the very same the organisation that originally came up with the ETERNALBLUE exploit that ended up in the WannaCry virus after somehow escaping from the NSA’s control.
+This time, the NSA gave the bug to Microsoft to patch the hole proactively, and here we are!
+The vulnerability, denoted CVE-2020-0601, is a way by which crooks can mint themselves cryptographic certificates with other people’s names on them.
+The simplest way of thinking about this bug is that it’s like a magic machine that lets you crank out fake IDs that not only look good when you show them to a cop, but also stand up to scrutiny even when the cop runs them through the ID scanner that checks back with headquarters.
+Back on Tuesday, when the vulnerability was officially announced, we said:
+We don’t yet know how hard it is to produce rogue certificates that will pass muster, and Microsoft understandably isn’t offering any instructions on how to do it. 
+All we know is that Microsoft has said it can be done, and that’s why the patch for CVE-2020-0601 has been issued.
+So you should assume that someone will find out how to do it pretty soon, and will probably tell the world how to do it, too.
+We don’t know whether to be happy or sad that we were correct.
+The first proof-of-concept “fake ID generators” are out – we’ve already seen a Python program of 53 lines, and a Ruby script of just 21 – and they really are sitting there for anyone to use for free.
+What we didn’t predict, though we probably should have, is exactly what the first widely-publicised “live attack” would do to prove its point.
+(We say “live attack” – but, just to be clear, the researcher who did the work and tweeted about it didn’t actually attack anyone else’s server, or tell anyone else how to do so, so we don’t mean that in a negative or critical sense.)
+Rickroll!
+UK cybersecurity researcher Saleem Rashid filmed himself browsing with Edge to a rickroll page that not only claims to be Microsoft’s github.com but also shows up with a nice little checkmark saying “valid certificate”:
+CVE-2020-0601 pic.twitter.com/8tJsJqvnHj
+In a later photo in the same Twitter thread, he shows Chrome visiting the rickroll on a a webpage that identifies itself as nsa.gov, with a popup saying “Connection is secure” and “Certificate (Valid)”:
+thanks to @CiPHPerCoder's hint 🙂the biggest constraints are Chrome's tight certificate policies and that the root CA must be cached, which you can trigger by visiting a legitimate site that uses the certificate pic.twitter.com/GgftwVvpY8
+Rickrolling, in case you’ve never heard of it, is a sort-of humorous tradition beloved amongst techies and internet witticists where you unexpectedly take someone to a video of Rick Astley singing his 1987 hit Never gonna give you up.
+Why Rick Astley, and why that song, we simply cannot tell you, but the rickrolling craze started in 2007.
+Perhaps its most infamous appearance in the cybersecurity scene was in 2009, when an Australian youngster set loose the world’s first-ever Apple iPhone virus…
+…which let you know you’d become a victim by changing your phone’s wallpaper to a photo of the aforementioned Rick Astley.
+Rashid’s tweet is great fun, but with a serious side, because it shows how the CryptoAPI bug could, indeed, be used to lull you into a dangerously false sense of security:
+Never gonna git your hub
+Never gonna let you down
+Never gonna hack your site and fake-cert you.
+
+An important thing to remember about this bug is that exploiting it isn’t just about what you might see if you browsed to a site with a fake certificate, or how you might be deceived by a program you downloaded in good faith.
+The reason you might be deceived by this bug is because the program you were using at that moment was deceived by it, because it used the buggy part of the Windows CryptoAPI. 
+(You will also hear this vulnerability called “the crypt32 bug” because programs that make use of the CryptoAPI generally do so via a file called crypt32.dll.)
+In other words, a rogue certificate doesn’t need to be visible to be deceptive – and, ironically, the obvious example of software that does digitial certificate validation behind the scenes for safety’s sake…
+…is auto-updating code that’s there to fetch security fixes for you automatically in the background so you don’t have to keep your eye on the process yourself.
+As we pointed out in this week’s Naked Security Live video:
+If you patch this hole, then it instantly become useless [against you] to the crooks.
+So getting this month’s patches – 2020-01 Cumulative Update for Windows 10 if you’re patching a laptop rather than a server – is your primary defence, which also, as it happens, fixes some 49 other holes.
+By the way, those other 49 holes closed in this month’s Patch Tuesday include several remote code execution vulnerabilities in Microsoft’s remote access tools.
+Those vulnerabilities haven’t had the media attention that CVE-2020-0601 has received, yet could let attackers log right into your network or your computer without needing a password.
+And if crooks can log straight into your network, they reduce the Windows CryptoAPI Spoofing Vulnerability to a minor worry, because they no longer need to trick anyone into running malware with bogus certificates – they can just launch the malware for themselves.
+So, if the CryptoAPI bug gets you to embrace our advice to “patch early, patch often”…
+…then perhaps we can write it up as a silver lining, not a dark cloud on the horizon.
+LEARN MORE ABOUT THE VULNERABILITY AND HOW TO PATCH
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Laughing Out Loud. Quite literally. Thanks! Done my patching. Done my communicating to me teams, and they are patching. It is clearly a crazy crazy time we live in. And just keeps getting crazier.
+CVE-2020-0601
+601 Vulnerabilities in 2020! 🤦‍♂️
+Twice you’ve discussed this now. Twice you’ve only mentioned win10.
+Is win7 immune to this then?
+Or was the fix included in Tuesday’s “final” update for win7?
+Given how many must still be using win7 I’m surprised at this omission.
+As I said last time someone asked: “I have assumed (inferred? formed the opinion that? believed?) that the bug only arrived in the Windows 10 era codebase. [T]he CVE-2010-0601 patch list doesn’t mention any earlier version, e.g. Windows 8.1 or 2012. I assume that means there isn’t a patch because it doesn’t apply.”
+The latest Patch Tuesday did cover Windows 7, albeit for the last time, and Windows 8.1. Those aren’t listed as affected by (or, more precisely, they aren’t listed as needing patches for) this particular vulnerability. Given the publicity surrounding this one – and the fact that Microsoft knew that the NSA was going to do its own big press briefing about it – I can only assume that if Windows 7 were vulnerable it would have been patched, because… well, why not? 
+As far as I know, Windows Server 2012 R2 is still in extended support for several more years and that didn’t get listed with a fix for this flaw, while its successor Windows Server 2016 did get listed…
+Thanks .. silly me didn’t check back on the first post to see whether my question had already been answered there. 
+Appreciate your patience!
+No worries…
+…though if you still have Windows 7, you have problems way over and above a mere Certificate Spoofing Vulnerability :-)
+As a colleague just pointed out, Microsoft itself says on its Security Response blog:
+“This month we addressed the vulnerability CVE-2020-0601 in the usermode cryptographic library, CRYPT32.DLL, that affects Windows 10 systems, including server versions (Windows Server 2016 and Windows Server 2019).”
+The vulnerability affects Windows 10 and not earlier – that seems pretty clear to me. If Windows 7 were affected it would have been listed. (You wouldn’t really expect them to list all the platforms that *aren’t* affected, in the same way that a roadway reserved for bicycles shows a blue sign with a bike on it rather than a red-ringed sign showing the 99 other types of vehicle that are not permitted.)
+See https://msrc-blog.microsoft.com/2020/01/14/january-2020-security-updates-cve-2020-0601/
+“If you still have Windows 7, you have problems way over and above a mere Certificate Spoofing Vulnerability 🙂 ”
+Many of my clients (including myself) still run Windows 7, and some clients – including a national company in the UK – still run XP.   I’ve never -ever- had any problems or issues relating to viruses or hacking with any of these machines!! and I dont expect to.  As long as anti virus is up-to-date, and clients are alerted to watch out for phishing emails etc, I dont foresee any problems for my XP and W7 users.   On the other hand plenty of my clients running W8 and W10 have run into all sorts of messy issues over the years, mainly relating to updates wrecking or hanging their systems.
+I would really like to understand how you think running systems that don’t support ECC and other modern cryptography, won’t be patched for future security vulns, and that can’t run moderns AV/EDR can possibly be secure? I would guess that whatever “national company” you are referring to is already compromised and just doesn’t know it yet.
+I would agree that Win8 is a disaster that should never be run anywhere and that Win10 has certainly had is stability issues but Win10 is far more secure than Win7 and orders of magnitude more secure than WinXP.
+Have you read about “CVE-2019-1162 | Windows ALPC Elevation of Privilege Vulnerability”? If you are telling clients that they are ok to keep running WinXP as long as they have up-to-date legacy AV then you are doing them a huge disservice.
+“I would guess that whatever “national company” you are referring to is already compromised and just doesn’t know it yet.”
+Actually, I always assume that whenever any company tries to tell they’ve never been compromised that they’re just too dumb to know it.
+LOL, naive
+“If you are telling clients that they are ok to keep running WinXP as long as they have up-to-date legacy AV then you are doing them a huge disservice”.
+Its their choice..and like many others, they are forced into doing so because of expensive/dedicated software applications that only run on XP – and wont run in XP mode or compatibility mode on W7.
+“I would guess that whatever “national company” you are referring to is already compromised and just doesn’t know it yet”.
+Relax.  They haven’t had a single security or banking issue in the past 5 years.  Their XP machines run solid, day in, day out (in fact several of them run 24 hours a days).   There’s no viruses or malware ever detected, and there’s very little spam emails, and they have had zero issues with ransomware attacks etc.
+This is what I find time and time again, both in my own experience and reading the forums;  ..that older systems such as W7 will generally run free of viruses etc providing a few precautions are taken to keep anti virus and anti malware updated, and to avoiding dubious links in spam emails and risky websites, etc.
+Title implies NSA and GitHub employees were duped with a ‘rickroll’. Title should read: “NSA and Github sites spoofed with ‘rickroll’ in harmless proof of concept using Windows CryptoAPI bug”
+The person or entity getting ‘rickrolled’ is the one that sees the video when they were expecting something else.
+To be fair, I think the article tells the full story perfectly clearly.
+Given just 70 characters for the headline, your proposed text won’t fit – and, anyway, headlines are allowed to be a bit funky and intriguing.
+So I get your point, but my own opinion is that the headline is fine as it is – it’s a touch of fun that isn’t seriously going to mislead anyone. Also it is a handy reminder that, thanks to this bug, brand hijacking is made much easier…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

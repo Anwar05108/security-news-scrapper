@@ -1,0 +1,109 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve written several times before about home delivery scams, where cybercriminals take advantage of our ever-increasing (and, in coronavirus times, often unavoidable) use of online ordering combined with to-the-doorstep delivery.
+Over the past year or so, we’ve noticed what we must grudgingly admit is a gradual improvement in believability on the part of the scammers, with the criminals apparently improving their visual material, their spelling, their grammar and what you might call the general tenor of their fake websites.
+The smarter crooks seem to have learned to cut out anything that might smell of drama or urgency, which tends to put potential victims on their guard, and to follow the KISS principle: keep it simple and straightforward.
+Ironically, the more precisely that the criminals plagiarise legitimate content, and the fewer modifications they make to the workflow involved, the less effort they have to put in themselves to design and create the material they need for their fake websites…
+…and the better those fake websites look and feel.
+It’s almost as though the less work they put in of their own, the better and more believable their fraudulent schemes become.
+Here’s an example sent in yesterday by a Naked Security reader [who has asked to remain anonymous], in the hope it might serve as a helpful “real world threat story” that you can use to educate and advise your own friends and family.
+We hope that you’d spot this one quickly, as our community-spirited reader did, because of three tell-tale signs that the crooks can’t easily avoid:
+Nevertheless, we’ll let the scam sequence speak for itself below, and we think you’ll agree that this one has far fewer mistakes and obvious telltale signs than many of the delivery scams we’ve described before.
+DPD, for readers in North America, is a widely-known courier company in Europe and the UK, with a name and logo that is regularly seen on the streets. Note that the crooks regularly rotate the courier brands that they rip off, including matching region-specific brands such as Canada Post and Royal Mail to the country they’re targeting in each specific scamming campaign. Remember that when scammers send their phishing messages via SMS (a technique that is often referred to as smishing), they automatically know from the phone number prefix which country you’re in. Phone numbers generally provide a much better guide to your location and local language than email addresses, which often end with suffixes such as outlook.com or gmail.com no matter where you live.
+The smishing (phishing-via-SMS) lure arrives on your phone, and looks innocent and self-explanatory enough.
+The URL ought to be a warning, because it doesn’t look as though it has any connection with the courier company concerned, but it is at least a believable-looking .COM domain with a realistic-looking HTTPS address:
+
+The landing page of the scam is believable enough, too, if you’re already inclined to trust the server name in the address bar.
+There are none of the grammar or spelling mistakes that often give away less careful scammers:
+
+The crooks have even copied a genuine-looking list of tracking details that opens up if you click the Where has my parcel been dropdown:
+
+Here’s where the criminals need to introduce an unusual step in the re-delivery process in order to justify asking you for payment-related data later on.
+Note that although you shouldn’t need to pay for re-delivery in cases like this, courier companies are sometimes required to ask you to pay additional fees such as import duties or taxes, so “pay before we deliver” is not unheard of.
+(For what it’s worth, whenever we’ve received notes from delivery companies that additional fees need to be paid before they are allowed to release the item, there’s always been an obvious way for us to find our own way to the company’s payment portal, or to pay and collect at the depot in person.)
+But the convenience of simply paying online, and the modest amount requested, could persuade you to let your guard down:
+
+Once you’ve decided to attempt re-delivery, the scammers want you to confirm your location.
+This is another warning sign, given that they should already know your address and phone number to have attempted delivery once and then messaged you about the delivery failure, but it’s easy to assume that this is a precaution to avoid a repeated mis-delivery:
+
+These criminals handily offer “payment” by debit or credit card, PayPal or a PrePay account.
+We went for the payment card option:
+
+Then comes the sting for your full card details, including CVV (the secret three-digit code on the back used in online transactions):
+
+Next, the crooks make yet another play for personal information, neatly simulating the Visa Secure dialog window (also known as Mastercard Identity Check, ClickSafe and other names) that most merchants in the UK use these days to allow your bank to do additional security validation.
+Note that the crooks check for a genuine-looking credit card number in the webform you just filled in on the fake pay page, so they can use the first few digits (known as the BIN, short for bank identification number) to pop up a realistic-looking financial provider’s name in the window:
+
+Scammers of this sort often struggle to find a good way to finish off a fake payment card transaction, given that they aren’t actually after the £1 or £3 they’re claiming to “charge” you.
+The crooks don’t want to risk triggering a fraud warning right away by actually trying to complete the low value transaction themselves at the same time as you’re handing over the data.
+Sometimes they produce a fake error message, which helps explain why no £1 or £3 charge ever goes through on your account, but leaves you with an unresolved “home delivery” issue that draws attention to the scam.
+We’ve also seen cybercriminals redirect you, at the end of the scam, to a genuine page on the website of the company they’re pretending to be, in order to allay suspicion. (In cases like this, they typically wipe out your browsing history so you can’t easily go back and check what happened so far.)
+The crooks in this scam, however, have taken the soft-and-gentle approach of simply pretending everything worked out fine, giving them a full day to evade suspicion until you wonder what happened to the delivery and take steps to find out.
+They even advise you that the “payment” won’t be deducted from your account until delivery is complete, as an excuse to explain why no £1 or £3 transfer will appear on your account:
+
+And, of course, when it comes to personal data of any sort: if in doubt, don’t give it out.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Sophos UTM/XG home’s web protection proxy does a great job at blocking these websites.
+Having a vpn setup on mobile devices to connect back to the Sophos UTM protects mobile phones even when not connected to home WiFi.
+Thanks for the kind words!
+The free Sophos Home Firewall is what a marketing colleague of mine used to describe as “the light we hide under a bushel” :-) You do need a spare computer or VM on which to set it up (sorry, it can’t be a Raspberry Pi – needs to be an Intel or AMD CPU – but any recent laptop would do nicely, and comes with a built-in UPS), and ideally you need two network cards (could use a USB dongle for te WAN port on a laptop), so it’s not featured in the list of free tools on every Naked Security page, because it is, after all, a fully-featured server in its own right…
+…but it’s a great rainy Saturday afternoon project, and you get everything for free for home use, including web filtering, email filtering if you want to reclaim your household email from the popular webmail giants, VPN, exploit detection, IPS, and so on. (You will still need your old-school home modem or router+modem if you have an ADSL or VDSL style connection, in order to mke the connection back to your ISP. The Home Firewall is the business firewall made available for free so it assumes your WAN connection is a regular IP-over-ethernet cable.)
+For those who would like to take a look:
+https://www.sophos.com/en-us/products/free-tools/sophos-xg-firewall-home-edition.aspx
+To give you an idea of what would happen if you browsed via the Home Firewall: the dodgy domain in the article would be blocked as: productivityCategory = "PHISHING_AND_FRAUD", riskLevel = "HIGH", securityCategory "ILLEGAL_PHISHING".
+Link above to your firewall product does not work for me.
+Hmmm. Works fine for me on mobile and from my laptop (Firefox with strict privacy protection on). What do you see when you click it? 
+You can get to our free tools section by hand, if you like. Visit sophos DOT com. Click the hamburger (three-bar icon) in the top right corner. A banner menu should pop up. Click “Free Security Tools” in the bottom left hand corner. Fourth one down is the Sophos Firewall Home Edition.
+Or try this alternative link:
+https://secure2.sophos.com/en-us/products/free-tools.aspx
+KISS seems to have morphed from “Keep it simple, stupid”! when I came across it in the 70’s
+I morphed it myself, for the same reason that I have used the word “blocklist” instead of “blacklist” for, oooh, must be about 15 years now – not only because a lot of people don’t like the old word, given that [a] it sounds racist and [b] is commonly used to describe anticompetitive behaviour, so why offend anyone when you can so easily avoid it – but also because the replacement word would be a far, far better choice even if no one minded the old one.
+I have never liked the word “stupid” in the acronym KISS, because (when it came to programming and user interface design) it always sounded as though the person saying it was accusing their *users* of being too stupid to use the productunless it was stripped down, when in fact they were reminding everyone that programmers can sometimes make easy things needlessly hard :-) 
+But I have always liked the jargon term KISS, because, well, why not?
+So I have switched over to saying “straighforward” instead. It’s not about anyone being mentally incompetent… it’s about applying Occam’s Razor to improve things so you can do more with less, rather than doing things because they sound exciting and look shiny but in fact are neither.
+Sadly, in this case it’s the crooks adopting KISS and boosting the power and belivabiity of their scams… thus this article as a warning!
+Paul, Your term “blocklist” contains “block” which as we all know is is a synonym for  “stupid” these past 80 years or so ever since Lucy has been calling Charlie Brown a “blockhead”. So what you have is a stupidlist. Sometimes we can’t win no matter how hard we try.
+I’m not convinced that any English speaker would confuse the meaning of block in “blockhead” with the word block in in the word “blocklist” (or, for that matter, in “roadblock” and “blocked drain”).
+I’ve had a few of those, since they come to my hotmail account I report them to Microsoft as phishing. What they do about it is unknown.  I just got another scam regarding TV licence see below :
+(I don’t have a TV and I’m not living in the UK at present) :
+Your tv subscription has come to an end, today 7/14/2021 is the last day available to renew your licence, it will only take a moment of your time and you will avoid future reconnection fees that may apply. Bellow you will find your customer details, please note if you have changed your phone number or other details to update them.
+Great news, this month we have a 10% discount on all subscriptions.
+Yes! Renew My Subscription and get a 10% discount!
+Your TV Licence details:
+Licence number:	975806373
+Licence expiry date:	7/14/2021
+Email on licence:	xxxxxxxx@hotmail.com
+To find out more about what your licence covers, what to do if you no longer need a licence and how to claim concessions for those who are 75 or over or blind, please go to our website
+Sincerely,
+Tv-licensing co uk
+7/14/2021
+I shouldn’t laugh. But I did chuckle at the idea of a TV licence being associated with a “reconnection fee”. (For our transatlantic friends who are understandably perplexed at “licensing” a TV, the licence is not a permit to *watch* BBC TV, it’s actually a licence to have possess equipment capable of watching any TV programming at all, even if you never actually watch anything at all. 
+I also had a small laugh at the word “bellow”, which was probably meant to be “BELLOW!” (They want to MAKE SURE YOU HEAR IT.)
+“The licence is not a permit to *watch* BBC TV, it’s actually a licence to have possess equipment capable of watching any TV programming at all, even if you never actually watch anything at all.”
+Actually you are wrong on this, a TV licence is required for using a TV to watch / record live signals regardless of which network it is and to use BBC IPLAYER.
+You do not need a TV if live tv is not watched / recorded and you only watch on demand from anyone other than BBC. Netflix, Prime, ITV, Channel 4 on demand. no licence required.
+You do not need a TV licence merely to own a TV, just to watch / record live TV.
+OK, I checked and it seems you are right: if you don’t actually watch live/streamed or recorded content then you can legally own a TV without licensing it. 
+However, for a quiet life in the face of the UK licence enforcement regimen, it seems you are expected to complete a No Licence Needed claim, and to agree to an inspection to determine that you are telling the truth and to approve your “claim”. (How snoopily the inspectors comb through your hardware to figure out whether you ever have sneakily watched a TV show in the past whilst unlicensed, or how they decide whether to suspect that you do not genuinely intend to use your TV only for gaming or other non-TV activities, I have no idea, and the process by which they decide on inspections “is confidential. It is not for release into the public domain, since any disclosure would in itself undermine the deterrent effect of TV Licensing’s enforcement strategy.”)
+So you can, technically, own a TV without a licence. But the fact that you have to claim exemption and have then your claim approved following a secretive process… well, you might as well just say, “have TV, get licence.”
+Word of advice. Don’t return goods and underpay the postage. I did and had the double-hassle of disentangling the top-up request (legit) from the 2/3 phishes I get each week,  Carrier was Hermes in this case and glad to say all is well. As least I knew I’d made the mistake but…
+Hi,
+I use the Sophos Intercept X protection app on my Android devices. Would the Link Checker feature of the block the fake URL/website that is in the Smished SMS message if it was filtered through link checker?
+And if not, would the dodgy site be flagged by the subsequent web filtering feature of the app. (Which is a great app BTW, especially  as its free to use with no ads!)
+I tried it out on my test phone with Sophos Intercept X activated and it blocked the offending site before I got near any of the web forms.
+It’s unfortunate that the link to this article in Naked Security points to a site (list-manage.com) which is not known to belong to Sophos: https://sophos.us2.list-manage.com/…
+Some people will see this and will not trust it, as without clicking on the link you don’t know that it gets redirected to Sophos.
+Do you mean the links in our email newsletter? For better or worse, we use an external company for our newsletter, namely MailChimp. They’re pretty well known, and the site list-manage.com is verifiably theirs.
+What I suggest, if you don’t like clicking on mailing-list links (I rarely do it myself, TBH), is simply to use the newsletter as a visual guide to see what new stories have come out in the last few days… then visit Naked Security directly from your own bookmark if anything in the newsletter looks interesting to you. The latest stories will always be collected on our home page, so it’s *almost* as convenient as clicking right in the newsletter itself.
+TBH, we used to run our own mailing list but it’s surprisingly time-consuming for a small team like Naked Security to take care of all the operational details such as prompt unsubscribe, and all the performance issues such as timely delivery to 100s of countries. (It’s not *hard*, but it can take up loads of time that we now spend directly on Naked Security content instead. Thus the use of a third party.)
+In short, those list-manage links aren’t the only way to get at our site, so you don’t *have* to trust the MailChimp URL redirector to access the site. We’ll always be directly available at nakedsecurity.sophos.com for those who prefer to start closer to home :-)
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

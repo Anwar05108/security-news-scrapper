@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+Apple has confirmed that it’s automatically scanning images backed up to iCloud to ferret out child abuse images.
+As the Telegraph reports, Apple chief privacy officer Jane Horvath, speaking at the Consumer Electronics Show in Las Vegas this week, said that this is the way that it’s helping to fight child exploitation, as opposed to breaking encryption.
+[Compromising encryption is] not the way we’re solving these issues… We are utilizing some technologies to help screen for child sexual abuse material.
+Horvath’s comments make sense in the context of the  back-and-forth over breaking end-to-end encryption. Last month, during a Senate Judiciary Committee hearing that was attended by Apple and Facebook representatives who testified about the worth of encryption that hasn’t been weakened, Sen. Lindsey Graham asserted his belief that unbroken encryption provides a “safe haven” for child abusers:
+You’re going to find a way to do this or we’re going to do this for you.
+We’re not going to live in a world where a bunch of child abusers have a safe haven to practice their craft. Period. End of discussion.
+Though some say that Apple’s strenuous Privacy-R-Us marketing campaign is hypocritical, it’s certainly earned a lot of punches on its frequent-court-appearance card when it comes to fighting off demands to break its encryption.
+How, then, does its allegiance to privacy jibe with the automatic scanning of users’ iCloud content?
+Horvath didn’t elaborate on the specific technology Apple is using, but whether the company is using its own tools or one such as Microsoft’s PhotoDNA, it’s certainly not alone in using automatic scanning to find illegal images. Here are the essentials of how these technologies work and why they only threaten the privacy of people who traffic in illegal images:
+A hash is created by feeding a photo into a hashing function. What comes out the other end is a digital fingerprint that looks like a short jumble of letters and numbers. You can’t turn the hash back into the photo, but the same photo, or identical copies of it, will always create the same hash.
+So, a hash of a picture turns out no more revealing than this:
+48008908c31b9c8f8ba6bf2a4a283f29c15309b1
+Since 2008, the National Center for Missing & Exploited Children (NCMEC) has made available a list of hash values for known child sexual abuse images, provided by ISPs, that enables companies to check large volumes of files for matches without those companies themselves having to keep copies of offending images.
+Hashing is efficient, though it only identifies exact matches. If an image is changed in any way at all, it will generate a different hash, which is why Microsoft donated its PhotoDNA technology to the effort. Some companies, including Facebook, are likely using their own sophisticated image-recognition technology, but it’s instructive to look at how PhotoDNA identifies images that are similar rather than identical: namely, PhotoDNA creates a unique signature for an image by converting it to black and white, resizing it, and breaking it into a grid. In each grid cell, the technology finds a histogram of intensity gradients or edges from which it derives its so-called DNA. Images with similar DNA can then be matched.
+Given that the amount of data in the DNA is small, large data sets can be scanned quickly, enabling companies including Microsoft, Google, Verizon, Twitter, Facebook and Yahoo to find needles in haystacks and sniff out illegal child abuse imagery.
+Henry Farid, one of the people who helped develop PhotoDNA, wrote an article for Wired that tackled the question of how hashing can work on content that’s been encrypted by Apple or Facebook.
+Again, we don’t know if Apple’s using PhotoDNA, per se, or its own, homegrown hashing, but here’s his take on either one’s efficacy when used within end-to-end encryption:
+Recent advances in encryption and hashing mean that technologies like PhotoDNA can operate within a service with end-to-end encryption. Certain types of encryption algorithms, known as partially or fully homomorphic, can perform image hashing on encrypted data. This means that images in encrypted messages can be checked against known harmful material without Facebook or anyone else being able to decrypt the image. This analysis provides no information about an image’s contents, preserving privacy, unless it is a known image of child sexual abuse.
+An Apple spokesman pointed the Telegraph to a disclaimer on the company’s website – Our Commitment to Child Safety, saying that…
+Apple is dedicated to protecting children throughout our ecosystem wherever our products are used, and we continue to support innovation in this space.
+As part of this commitment, Apple uses image matching technology to help find and report child exploitation. Much like spam filters in email, our systems use electronic signatures to find suspected child exploitation.
+Accounts with child exploitation content violate our terms and conditions of service, and any accounts we find with this material will be disabled.
+At CES, Horvath merely confirmed what others had picked up on months ago: that it had been conducting photo scanning for months, at least. In October, Mac Observer noted that it had come across a change to Apple’s privacy policy that dates back at least as far as a 9 May 2019 update. In that update, Apple inserted language specifying that it’s scanning for child abuse imagery:
+We may …use your personal information for account and network security purposes, including in order to protect our services for the benefit of all our users, and pre-screening or scanning uploaded content for potentially illegal content, including child sexual exploitation material.
+In sum, scanning for child abuse materials isn’t new, all the tech giants are doing it, and Apple’s not reading actual messages or looking directly at photo content. It’s just keeping an eye out for a string of telltale characters, as gray as numbers and letters but as telling as the scent of blood to a hound.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Thank you 🙇 
+To bad they don’t scan buckets (one drive, google docs) the same way for malware. It would snuff out a lot of phishing.
+Google Drive does check for malware, and you’ll get a “Sorry, this file is infected with a virus” error if you try to download a malicious file from Google Drive. (although, in one case, it was completely blocked with “We’re sorry. You can’t access this item because it is in violation of our Terms of Service.”)
+There is a lot of false information in this post.  A lot more is being scanned, and by many more methods.   Just think about NG Antivirus and how it scans unknown files in the cloud.  Doesn’t that mean your antivirus is sending possibly private files to the cloud to be scanned?  Even if the files are stored in an encrypted volume, your AV has hooks into the file system APIs which allows access to the unencrypted files.   Our privacy is being breached in ways we can not yet begin to understand.
+Yes, our anti-virus has an “upload samples” option, but [a] we are conservative about the file types we collect [b] we are parsimonious about what we collect and [c] the option is off by default. To deliver effective live protection you don’t need to upload complete files – uploading a whole file every time to scan it remotely would just be too slow. We only collect files when we think the data might help us improve protection for everyone else. Those who opt in are making an informed decision to do a bit to “help the next guy”, but our protection doesn’t rely on you sending files to us.
+It’s not “a privacy breach you cannot begin to understand” if the vendor or service operator explains what gets uploaded and lets you make your own mind up whether to upload it anyway… so YMMV.
+If the automatic system digs something, real photos are going to be seen by real people to confirm system suspicions.
+Bye Bye Apple.
+Good, child porn has no place anywhere. We need scanning everywhere.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,107 @@
+Sophos Home protects every Mac and PC in your home 
+Nvidia, the graphics chip company that wants to buy ARM, made a unusual announcement last week.
+The company is about to launch its latest GeForce GPU (graphics processing unit) chip, the RTX 3060, and wants its users know that the chip is “tailored to meet the needs of gamers and those who create digital experiences.”
+Nvidia says:
+ Our GeForce RTX GPUs introduce cutting-edge technologies — such as RTX real-time ray-tracing, DLSS AI-accelerated image upscaling technology, Reflex super-fast response rendering for the best system latency, and many more.
+Ray-tracing is an algorithm used in generating synthetic images that are almost unbelievably realistic, correctly modelling complex optical interactions such as reflection, transparency and refraction, but this sort of realism comes at huge computational cost.
+You can therefore see why gamers and digital artists might be very keen to get their hands on the latest special-purpose hardware that can speed up the creation of images rendered in this way.
+The dilemma that modern GPUs face, however, is that they’re also pretty good at performing cryptographic calculations, like computing hashes such as as SHA-2 and SHA-3 at high speed.
+This sort of algorithm is used at the heart of many cryptocurrency mining calculations.
+You can therefore see why cryptocurrency fans might be very keen to get their hands on the latest special-purpose hardware that can speed up the calculations needed to earn cryptocoins.
+This tension between graphics-cards-used-for-graphics and graphics-cards-used-for-cryptomining has regularly led to new product releases from GPU makers selling out almost immediately, followed by the inevitable price gouging by buyers who were able to get hold of retail stock and then to flip their cards for a quick online profit.
+Selling plenty of product may be a great outcome for GPU vendors, but the artifical price inflation caused by stock shortages is a less welcome look for any mainstream company.
+The company’s true customers – the end users who were after the product in the first place – end up feeling outmanoeuvred by and aggrieved at the company itself, not the buyers who flipped for quick money.
+For its new product, Nvidia has therefore openly stated in advance that its software drivers for the RTX 3060 are deliberately biased against cryptomining:
+With the launch of GeForce RTX 3060 on Feb. 25, we’re taking an important step to help ensure GeForce GPUs end up in the hands of gamers. […] RTX 3060 software drivers are designed to detect specific attributes of the Ethereum cryptocurrency mining algorithm, and limit the hash rate, or cryptocurrency mining efficiency, by around 50 percent.
+Simply put, Nvidia will try to detect the code you’re running, and purposefully – but not secretly, given its public announcement – take out what amounts to “denial of service” (DoS) actions against software it thinks is trying to do Ethereum calculations on the GPU.
+If you want to do cryptomining, says Nvidia, you need to buy a different product:
+To address the specific needs of Ethereum mining, we’re announcing the NVIDIA CMP [Cryptocurrency Mining Processor] product line for professional mining. CMP products, which don’t do graphics, are [… ]optimized for the best mining performance and efficiency. They don’t meet the specifications required of a GeForce GPU and thus don’t impact the availability of GeForce GPUs to gamers.
+If you’re a cryptocoin enthusiast, you might be wondering why Nvidia is focused here on Ethereum (and its associated cryptocurrency Ether, or ETH) instead of the current media darling of cryptocurrencies, Bitcoin (BTC).
+After all, BTC calculations can be accelerated enormously with GPUs, just like ETH calculations.
+However, Bitcoin mining can be accelerated even more dramatically by using special-purpose chips built for the sole purpose of mining, so many BTC mining consortiums splash out on custom mining hardware instead of buying in general-purpose GPUs.
+That’s because BTC depends almost entirely on computing SHA-256 cryptographic hashes over and over again, starting with a randomly chosen value each time.
+Ethereum calculations, however, currently use a weird mix of several different hashes, some cryptographic and others simply basic bit-stirring hashes, based on inputs drawn pseudo-randomly from a enormous pseudo-randomly generated pool of data known as the dataset.
+This dataset needs recomputing every few days, takes up gigabytes of memory, and needs to be directly accessible in RAM throughout all your mining calculations.
+That’s because the ETH algorithm, currently known as Ethash but often referred to by its original and much cooler name of Dagger-Hashimoto, was specifically designed to make it difficult to compute quickly on special-purpose hardware.
+Any dedicated Ethereum mining hardware would not only need to include customised and accelerated hash calculating chips that could outperform your GPU, but also need to be based on a better performing motherboard with better memory management hardware and faster RAM than your gaming rig.
+Reports we’ve seen suggest that Nvidia’s anti-crypto drivers work by detecting memory usage that looks like a Dagger-Hashimoto computation, which needs to follow unusual but unavoidable memory access patterns, and cutting the speed of ETH hashing in half.
+Sadly, this isn’t likely to discourage cryptojackers – the name given to cybercriminals who implant malware that uses your computer to mine cryptocoins for them without permission.
+Even though these new Nvidia drivers will halve the earning rate of the cybercriminals, the crooks aren’t paying for the electricity (you are!), so any unlawfully mined cryptcoins are still essentially “free money” for them.
+We’re also wondering just how long it will take for unofficial patches to appear for Nvidia’s drivers in order to bypass the “Dagger-detector” slowdown code.
+Hacking the Nvidia drivers would break their digital signatures, but on your own Windows computer you can load modified and unsigned drivers easily enough.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This is a bad sign of things to come.
+If they are willing to dictate that you (the legitimate owner of a GPU) can’t mine Etherium with the hardware, who’s to say it won’t stop there?
+NVidia cards are also really popular for machine learning work.  Maybe they’ll decide to release a line of neural network accelerators and then update their video drivers to block use of a GPU for that as well.
+It’s just another example of big tech deciding that they will have the final say of what software you are allowed to run on the hardware you bought from them, and it should bother everybody.
+Did you READ the article?  Nvidia will be offering a SEPARATE product DESIGNED to do cryptomining.  Buy the product that they make for the purpose they make it for.  This is what they’re doing to keep the cryptominers  from sucking up all the supply of the GAMING graphics cards the GAMERS want to buy.
+Gamers are miners too – this screws anyone who wanted to mine while not using the machine to game
+I suspect that Nvidia’s reasoning is that all gamers game a lot of the time, some gamers use their GPUs for mining some of the time (I can’t imagine this gives a very good return on investment at domestic electricity prices), while the vast majority of miners never game at all (they are too busy mining).
+Now, if we assume that the average miner buys up a lot more GPUs than the average gamer, you can see why the company might want to create a product that many gamers – those who prefer to game than to mine – not only will want to buy but also will probably find in stock.
+Yes, Nvidia is telling customers who are both gamers and Ethereum miners, “This product is not for you,” and I guess if that hurts sales then their gamble will have failed. Comments here so far, however, seem to suggest that quite a lot of keen gamers will be happy to forego the mining in return for gaming cards that are easier and cheaper to get hold of…
+.
+It does give a good return even in California pricing. Nvidia isn’t doing this “for gamers”, they’re doing it to block secondary market that they don’t make money from
+I don’t agree, there is lot of gamers who don’t mine. Good on NVidia!
+If Nvidia keeps doing this not caring for the gamers, they’re going down and go to other who cares more.
+Eh…they did it to keep GPU prices down and availability up for gamers.  They said it specificallly.
+There already is a massive silicon shortage and there is only so much capacity on the fabs to manufacture chips, so the ones that are created specifically for mining are chips that are NOT going to gaming cards, which means less availability for gamers, not more.  We’re now ~6 months past the release of the RTX 30XX cards and it’s still near impossible to find one at MSRP.
+No, what they did is ensure that these mining-specific cards are going in the trash when they are no longer useful for the miners since they can’t be re-sold on the 2nd hand market, which is what happens now when miners use Gaming cards.  Patient gamers can wait a bit and score a really good deal on a used card, and any miners who know their stuff typically undervolt their cards to lower heat generation and power usage, so those cards typically are still very good.   
+Trust me, Nvidia is not that altruistic, they don’t give a shit about gamers, they only care about their stock price and now all they’ve done is destroy the 2nd hand GPU market, forcing gamers to buy new cards instead of getting used ones.  They saw what happened when crypto crashed a few years back and miners dumped their cards to the 2nd hand market and everyone bought high end GTX 10XX series cards cheap instead of buying the shiny new RTX 20XX series cards that were priced stupidly high.
+They are caring FOR the gamers by blocking the cryptominers from sucking up all the gaming cards and offering cryptominers DIFFERENT cards for their uses.  This would be GOOD for gamers who actually want their gaming cards for gaming.
+You posted this 8 hours ago and end with; “but on your own Windows computer you can load modified and unsigned drivers easily enough.”
+3 days ago Nvidia confirmed its not ‘just’ a block in the driver.. Where’s there’s a will there’s a way but it’s not as simple as you elude to..
+https://www.pcgamer.com/nvidia-ethereum-mining-limiter-cannot-be-hacked/
+I saw the text “cannot-be-hacked” in your comment, and it immediately made me think of the cybersecurity advice that you should “never say never” 🙂
+I am not suggesting it will be *easy* to come up with driver patches, merely implying that if someone does so, the patched driver is likely to be usable by anyone without needing to build code themselves and get it signed (or sign it with a developer key).
+Same sort of situation as with iPhone jailbreaks. Those are extraordinarily hard to come up with, yet some jailbreaks, once perfected, can be deployed at will even by people who aren’t technical at all.
+Anyway, for all we know, the cryptomining community, and perhaps the machine learning scene, may warm (if you will pardon the pun) to these new CMPs that Nvidia is talking about. If Nvidia is to be believed, the CMPs will needed fewer components, because they won’t need any circuitry specific to graphics and graphical displays, and therefore they will be more compact and cooler to run.
+Of course, if Ethereum’s move away from proof of work (“do lots of pointless competitive calculations while approving transactions to make the blockchain secure”) to proof of stake (“put up cryptocurrency of your own and be prepared to get fined if you make a mistake or cheat, in order to keep the blockchain honest”) should succeed, then the use of Dagger-Hashimoto will subside anyway, and Ethereum miners won’t be the ones that Nvidia need to guard against.
+However, even if what is known as Ethereum 2.0 works out entirely smoothly, the shift from competitive miners who mine when they want to, to staked-up validators who are paid to provide high availability and accuracy, seems unlikely to be less than two or three years away…
+Nvidia thinks that we are stupid and trying to troll us with this announcement.
+Nvidia said: “They don’t meet the specifications required of a GeForce GPU and thus don’t impact the availability of GeForce GPUs to gamers.” EXCEPT THAT THEY ARE BOTH SILICON PRODUCTS
+How could these products be different than RTX 3000 gaming card!!!. Each silicon has a potential to be a gaming card or anything else. We are suffering from WW shortages in silicon products that even car manufacturing effected and Nvidia is trying to troll us saying that by releasing CMP mining cards which are made from “silicon” that the world suffer from shortages in it instead of making more RTX 3000 stock is not going to effect GPU availability. HOW THE F*** COULD THAT NOT EFFECT GPU AVAILABILITY.
+This announcement could be in no way beneficial for either gamers or miners. This announcement only helps Nvidia to earn more from the situations of shortages and high demands.
+The new lineup is going to replace a huge amount of gaming cards availability by the time Nvidia get enough stock. they want to make sure that miners won’t be able to sell their used mining cards to gamers so that gamers still suffer being unable to buy a card unless there are a brand new stock GPUs which goes to Nvidia being the only one who earn from selling not miners who will be forced to throw away their CMP mining cards.
+Errr, you seem to feel very strongly about this… but as to your suggestion that CMP cards and RTX gaming cards must be the same “because they’re silicon”, isn’t that a bit like saying all laptops and servers must be the same because they have CPUs and RAM?
+For one, CMP cards don’t need to be able to generate display output, which cuts out a bunch of components to start with.
+So, a company using software to cripple the safe usability of the hardware?  Apple did the same thing with iOS and batteries on their iPhones. That did not end well.
+How is such a move, like Apple, not a violation of anti-trust laws?
+I understand the sentiment of Nvidia, trying to solve a real issue with accessibility of their products…but it makes no sense.  The cards are still being sold, Nvidia is making a profit and truly, most gamers I know don’t just use their cards for gaming, they mine coins too when they are not gaming.
+I don’t think you absorbed the message in the article.  It clearly stated that NVidia will supply TWO forms of graphics card.  One with all the fruit to be a great graphics card, along with software to reject mining and another one with none of the graphics connectors on it which is targeted at the miners.
+It’s not difficult!
+I don’t know a single gamer who mines when they’re not gaming or that mines AT ALL. I’ve met a crypto miner once in my life and I’ve played games and been in online communities since elementary school and I’m almost 30 now. In fact, many of my friends I game with are very heavily invested into crypto… and they don’t mine either…. so I think you’re lying your ass off or you have a very insular group of crypto friends who also game.
+I game and mine when I’m not gaming. However I’m not making a business out of it.
+Seems like the one(s) the most frustrated by this move are those who have been purchasing gamers CPU’s and using them to illegally mine cypto from others machines at a fast rate.
+Personally, I don’t think they went far enough. With an ever increasing amount of illegal activity online, by those who wish to avoid having to get an actual honest job, I feel chip companies should be working with intelligence agencies cyber security units and develop a “silent” ID for their products so that it is easier to track down those committing online crimes against others.
+We house DNA and finger prints of people, track firearms serial numbers and even keep records on vehicles to make them easier to track down. Yet, except for an IP & MAC address which are easily spoofed, there has yet been any development to track down cyber criminals by the chip manufacturers themselves.
+Not sure that I understand how purchasing  a gaming GPU to use yourself means you are illegally mining cryptocoins *from others’ machines*. 
+The sort of illegal cryptomining I was talking about in the article is where the crooks put malware on your computer and run code on your GPU (or CPU) without permission. Those crooks aren’t purchasing anything.
+I don’t see how this differ from Nvidia selling quadros or geforce. They force you into a price and usage segment. Fair enough I’d say.
+They might be reusing chips that fail to make into a gpu for whatever defect they have so they don’t waste much of that silicon. Good for them. If that solves the gpu shortage gods for us
+What about Folding-at-Home (searching for cures for diseases) ???
+We can only guess that the algorithms used by Folding@home will not trigger the Dagger-Hashimoto detection code, will therefore not be considered to be a “prohibited” sort of cryptomining, and will therefore not be slowed down.
+Yes it looks like F@H won’t be affected. Incidentally most of the people running folding setups are using older ex-mining cards for the same reason (ie non availability of more recent ones) even to the extent of repairing broken units and buying upgraded fans etc.
+One thing Nvidia could do to really help here would be releasing a diagnostics tool that identifies what broke, as many perfectly repairable cards are needlessly trashed due to lack of information.
+Thanks for confirming Paul. I have two Nvidia Titan RTX which I use for Folding@Home and I really would not wish for them to be affected by future driver updates. I do occasionally use them for playing games.
+Folding@Home is carried out for the benefit of others rather than personal profit and I would really hope is not affected by this. However, if I need to purchase separate hardware for Folding@Home, I will.
+According to Nvidia, these changes are not retrospective, so existing cards and drivers won’t change their behaviour anyway, even if the behaviour of the Folding@Home algorithms were misidentified as “Ethereum-like” by the cryptomining detector. I doubt that many community-minded individuals are buying up graphics cards exclusively for F@h in the sort of volumes that ROI-minded cryptominers are.
+“This is a bad sign of things to come.
+If they are willing to dictate that you (the legitimate owner of a GPU) can’t mine Etherium with the hardware, who’s to say it won’t stop there?”
+Um…sellers have every right to be able to focus on a specific market with a specific product.  NVidea made their name in graphics for gaming, not in bitcoin harvesting (or elerium or whatever the difference is).  As is, their core market that made the company has seen incredibly skyrocketing prices because of people buying gaming hardware for something else.  NVidia has every right to go “um…we would like to make sure our core customer base is satisfied and taken care.”  Especially since there is no evidence that digital-currency isa ctually going to be persistent as we have already seen incredible fluctuations there.
+So, considering that right now almost every service you use from facebook, twitter, google, youtube, apple…they ALL have delineations on how you can use their products to the extent of banning you if you violate their terms, what Nvidia is doing isn’t even unique, it’s well treaded territory now that society has ALREADY said “yea this is ok” to.
+Oh it’s just a giant Ponzi scheme anyway… And bubbles burst.
+When you say “it”, are you referring to the business of gaming, of mining, of making graphics cards, or of coding behaviour-detection functionality into software drivers?
+Miners, go home
+Finally, this is a great news. thank you NVIDIA for being responsible .
+Dual boot. Windows for gaming. Linux with open source drivers for mining.
+Greedcorp, screwing over the used market segment and making their end users thank them for it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

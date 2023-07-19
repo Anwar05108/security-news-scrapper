@@ -1,0 +1,29 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at VPN advisory company vpnMentor have found yet another online data exposure caused by a misconfigured cloud database. This time, the culprit was the French plastic surgery technology company NextMotion.
+Established in 2015, NextMotion sells digital photography and video devices for dermatology clinics, concentrating on images including those that document the effects of treatment. Its proprietary software includes facial analysis and augmented reality tools, and also documents treatment plants, digital consent forms, treatment reports, quotes, and invoices. It reports selling its services to over 170 clinics in 35 countries. It has received investments of €1.58m, a million of which it raised last year in a single round.
+The images are the contentious part here. According to a team led by vpnMentor researchers Noam Rotem and Ran Locar, NextMotion’s compromised database contained sensitive images of thousands of plastic surgery patients, uploaded via its devices and software.
+There were almost 900,000 images in an Amazon Web Services S3 bucket, showing patients’ faces along with the parts of their bodies that had been treated. These images were often highly sensitive, showing patients’ genitalia and other body parts.
+The French company was quick to clarify what hadn’t been exposed. In a press release on its site, it said:
+These media are stored in a specific database separated from the patients’ personal data database (names, birth dates, notes, etc) – only the media database was exposed, not the patients’ database.
+Although any separate databases holding patient data might have remained unexposed, there was still sensitive data on the S3 bucket in question. These included not just video files showing 360-degree body and face scans, but also patient profile photos, outlines for proposed treatments, and also invoices for treatments. Redacted document images included in vpnMentor’s report include patient names and unique IDs. The researchers said:
+The exposed paperwork and invoices also contained Personally Identifiable Information (PII) data of patients. This type of data can be used to target people in a wide range of scams, fraud, and online attacks.
+On its site, NextMotion makes a point of telling users that it stores its data on cloud infrastructure that is compliant with “the latest health data storage regulations in your country (GDPR, HIPAA, ISO, etc)”. This highlights a common misunderstanding of cloud security, though.
+While it’s true that cloud service providers are responsible for securing the underlying cloud infrastructure (security of the cloud), the customer is responsible for securing what they run on it (security in the cloud). This is called the shared responsibility model.
+The database storing this information was named after NextMotion, which made it easy for the researchers to find out and contact the company. They did so on 27 January 2020, following up with a message to Amazon Web Services on 30 January 2020. The database was taken down on 5 February 2020.
+Insecure storage of medical images is a widespread problem, according to a report by ProPublica. Last September, investigators revealed that X-rays, MRIs and CT scans for around five million Americans had been publicly accessible online.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+he database storing this information was named after NextMotion, which made it easy for the researchers to find out and contact the company. They did so on 27 January 2019, following up with a message to Amazon Web Services on 30 January. The database was taken down on 5 February.
+Is reporting running a year late – or are these dates out by a year?
+Should be ‘2020’ – now fixed. Thanks for spotting this!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

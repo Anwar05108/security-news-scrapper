@@ -1,0 +1,77 @@
+Sophos Home protects every Mac and PC in your home 
+Lots of things that we rely on, and that are generally regarded as bringing value, convenience and benefit to our lives…
+…can be used for harm as well as good.
+Even the proverbial double-edged sword, which theoretically gave ancient warriors twice as much fighting power by having twice as much attack surface, turned out to be, well, a double-edged sword.
+With no “safe edge” at the rear, a double-edged sword that was mishandled, or driven back by an assailant’s counter-attack, became a direct threat to the person wielding it instead of to their opponent.
+Sadly, there are lots of metaphorically double-edged swords amidst modern technology.
+And no IT technology feels quite as double-edged as encryption, the process of scrambling data securely in such a way that only the intended recipient can ever unscramble it later on.
+Almost everything about encryption makes it feel as though it is both immeasurably useful and dispiritingly dangerous at the same time.
+Consider some of these dilemmas:
+This last dilemma is one that has been creeping up on us steadily over the last few years on the web.
+TLS (transport layer security), the protocol used to encrypt the majority of today’s web and email traffic, is what puts the padlock in your browser’s address bar.
+By doing so, TLS makes it very much harder for crooks to do three things:
+Ten years ago, even the biggest and most popular online services in the world, such as Facebook, Gmail and Hotmail (now Outlook.com) didn’t use TLS all the time – it was thought to be too complicated, too slow, and not always necessary.
+Sure, social media sites or online stores would encrypt the important stuff, such as when you actually logged in, or paid for something, or edited your private profile.
+But the rest of the time, they’d often just use unencrypted web pages, figuring that you didn’t really needed protection against snooping, tampering and spoofing when you were “just looking”.
+Well, that sort of simplification won’t wash any more, because we give away more than enough to put us in harm’s way just during regular browsing.
+These days, therefore, we expect our web browsing to be protected by TLS all the time.
+And most of the time these days, it is.
+Guess what?
+The crooks have fallen in love with TLS as well. 
+By using TLS to conceal their malware machinations inside an encrypted layer, cybercriminals can make it harder for us to figure out what they’re up to.
+That’s because one stream of encrypted data looks much the same as any other.
+Given a file that contains properly-encrypted data, you have no way of telling whether the original input was the complete text of the Holy Bible, or the compiled code of the world’s most dangerous ransomware.
+After they’re encrypted, you simply can’t tell them apart – indeed, a well-designed encryption algorithm should convert any input plaintext into an output ciphertext that is indistinguishable from the sort of data you get by repeatedly rolling a die.
+Paradoxically, then, as more and more of the internet gets encrypted, thus keeping us more secure…
+…it also gets harder and harder to keep track of anomalous, unwanted and dangerous content.
+At this point, you’re probably wondering just exactly what the crooks are getting up to these days with TLS, and how much they’re using it.
+And the excellent news is that Sean Gallagher of SophosLabs has just completed an extensive survey, based on data gathered from all around the world via our own software, to answer exactly those questions.
+In his paper, published today, entitled Nearly half of malware now use TLS to conceal communications, he takes you through the tricks used by today’s cybercriminals to help them hide in plain sight, simply by making their bad traffic look much the same as our good traffic.
+
+From just under a quarter of malware-related traffic using TLS a year ago to just under half today, this is definitely an issue you should be aware of.
+As Sean writes:
+
+The most concerning trend we’ve noted is the use of commercial cloud and web services as part of malware deployment, command and control. Malware authors’ abuse of legitimate communication platforms gives them the beneﬁt of encrypted communications provided by Google Docs, Discord, Telegram, Pastebin and others—and, in some cases, they also beneﬁt from the “safe” reputation of those platforms.
+We also see the use of off-the-shelf offensive security tools and other ready-made tools and application programming interfaces that make using TLS-based communications more accessible continuing to grow.
+
+Learn how these attacks work, and how SophosLabs is able to keep on top of them even though they’re encrypted.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Burn all computers.
+But then, 60 years ago I was saying Burn all TVs, even though (especially since?) my job was fixing them.   You know how that turned out – remember Newton N. Minow, FCC chairman, who testified before a Senate subcommittee on May 23, 1961?  Calling TV a vast wasteland (see https://time.com/4315217/newton-minow-vast-wasteland-1961-speech/).  None of that did any good, and  I guess my current sentiment won’t, either.
+I have a coding / encryption question:
+If I’m reading the code correctly, the scramble function runs three consecutive iterations, thereby using three discrete encryption key and salt (is that what “iv” is for?) pairs.  If so, won’t the three results differ even if they encrypted the same text each time?
+Yes. (The IV is the initialisation vector – in CRT or Counter encryption mode you need a random initial block-size worth of data to “kickstart” the encryption process.)
+The point I was trying to make is simply that none of the differences in the plaintext are reflected in the ciphertext. So any patterns or recognisable characteristics in the inputs are entirely lost in the output. Apologies if that wasn’t clear.
+I could have chosen the same key every time, I guess (though the strict usage rule is that the IV *must* vary every time – you must never re-use the same IV with the same key, because it’s there as a “number used once”, quite literally), I guess…
+Yeah, I should’ve clarified that I grasp the nonce concept and how recycling in this case would be undesirable at best.  I also got the main point before inexplicably feeling the urge to nitpick.
+Sorry; didn’t intend to undermine the lesson as much as fully wrap my head around it.
+:,)
+No worries, I realised after publishing that the random keys chosen every time might be mildly confusing to the point, but I decided not to change it because “a new symmetric key every time” is exactly how TLS works. (You can’t use modern public-key cryptosystems for bulk encryption – you use them for key *agreement* and for digital signatures, but rely on a one-off AES – or whatever – key for scrambling the packet data itself.)
+So do you recommend ssl inspection or does that bring with it even more issues?
+Yes we do, and yes it may :-)
+The good news is that you don’t have to inspect everything (for example Sophos Firewalls let you exempt sites based on what is already known about them, so you can avoid inspecting bank transactions, where the risk of malware infection is very low, while taking a deeper look at poor-reputation sites that could be serving up anything, including malware, possibly without even realising).
+Having a good defence-in-depth strategy means that you don’t *need* to look inside TLS connections to stay on top of the crooks, so if you are in an environment where it is prohibited, frowned upon or technically impossible,, you are not doomed.
+However, if you *can* do TLS inspection, and you *may* do it, and you do it with the sort of sensitivity that your users would reasonably expect, it’s an excellent part of that defence in depth.
+(And yes, we did just release new versions of the Sophos Firewall appliances that include souped-up TLS inspection hardware to help you avoid one common criticism of doing it, namely that it can eat up a lot of CPU horespower. Please see:
+ https://news.sophos.com/en-us/2021/04/21/introducing-sophos-firewall-and-the-new-xgs-series-hardware/ 
+if you are interested.)
+If we draw the analogy to guns:
+Bad actors are not the problem. Crypto is the problem. We either need to post more “Crypto free zone” signs (maybe run a process 24×7 named “CryptoFreeZone.exe”?) or simply ban all crypto because it’s existence is just too much temptation for bad actors.
+On second thought, who are we to classify someone as a bad actor? That would be offensive, discriminatory and just plain mean.
+(For those who don’t follow liberal gun legislation proposals, let me inform you the above is satire; Banning crypto will likewise not solve any problems)
+That’s not a good analogy, because the way we use guns and the way we use cryptography aren’t analogous. On the modern web, we need and use strong cryptography pretty much all the time – without it, things like ecommerce simppy wouldn’t work out. In other words *everyone* needs it, and indeed in many countries, such as the UK, the data protection regulator pretty much expects you to use it in protecting privacy. So banning enrcyption would have a troublesome effect on everyone.
+On the other hand, in many countries, few people ever actually need, and few are ever authorised, to have and use a personal firearm. For example, handguns are now basically illegal in the UK, and yet banning them some 20 years ago had almost no negative effect on anyone, except briefly for people who owned guns and had to sell them, or sports shooters who had to find some other hobby.
+So, it turns out that you *can* ban handguns in the modern era without causing the wheels of civil society to fall off, but you almost certainly *can’t* ban cryptography without creating all sorts of privacy and business related problems. 
+Therefore it doesn’t really work if you make analogies between gun control and regulating cryptography, no matter what your sociopolitical position might be on issues like the US Second Amendment and whether gun ownership should be a right (like choosing a religion) or a privilege (like getting a driving licence).
+You may have missed my note stating that banning cryptography or guns are both satirical solutions that do not solve any problems–except make a bad actor’s goals easier.
+No, I didn’t miss that. (Though if satire needs to be flagged with a note to say “this is satire” then it may not actually be.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

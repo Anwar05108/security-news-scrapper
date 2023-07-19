@@ -1,0 +1,42 @@
+Sophos Home protects every Mac and PC in your home 
+Last week was a big one for non-profit digital certificate project Let’s Encrypt – it issued its billionth certificate. It’s a symbolic milestone that shows how important this free certificate service has become to web users.
+Publicly announced in November 2014, Let’s Encrypt offers TLS certificates for free. These certificates are integral to the encryption used by HTTPS websites.
+HTTPS is HTTP that uses the Transport Layer Security (TLS) protocol for privacy and authentication. Your browser uses it to be confident that you’re not visiting an evil website that’s impersonating your real destination using a DNS spoofing attack. It also encrypts the information passing between your browser and the web server so that someone who can snoop on your traffic still can’t tell what you’re doing.
+Netscape created HTTPS in 1994, but in 2014 a minority of websites used it. That’s because it could be technically difficult to implement, it was time consuming and it cost money. There was too much friction. That’s what Let’s Encrypt set out to change.
+The project is a non-profit effort from the Internet Security Research Group (ISRG), an organisation sponsored by a mixture of privacy advocates and those who benefit from making the online ecosystem healthier. The Electronic Frontier Foundation (EFF) is a sponsor, along with Cisco, Facebook, Google, the Internet Society (which houses the Internet Engineering Task Force or IETF), Mozilla, and French cloud service provider OVH.
+The project issues free certificates, keeping them valid for 90 days before forcing people to renew. It isn’t just the free nature of these certificates that has helped them flood the internet. The other key to the puzzle is automation. Let’s Encrypt created a protocol called Automated Certificate Management Environment (ACME). This is a challenge-response system that automates enrolment with the certificate authority and validation of the domain.
+Version two of ACME became a proposed internet standard in May 2019 (did we mention that the IETF’s parent organization is a sponsor?) giving it more credence still. There are various ACME clients, and some have been baked directly into default Linux server distributions, enabling Apache and nginx web servers to run automatic scripts to handle the whole process.
+Let’s Encrypt’s approach isn’t perfect. For one thing, it only offers domain validation that checks a person is in control of a domain, rather than extended validation certificates that go the extra mile to validate the legal name of the owner. This has led to some problems, such as Let’s Encrypt’s automatic validation of PayPal phishing sites.
+This isn’t a mistake – it’s simply that the organization’s goal is to encrypt as many websites as possible rather than investigate their content, which it prefers to leave to others like Google. Eagle-eyed readers of today’s other stories will spot that the certificate issued on the Stripe phishing scam domain was also from Let’s Encrypt.
+Thanks to this flood of free certificates, the web is a lot more encrypted than it was a few years ago. In June 2017, 58% of webpage loads were delivered over HTTPS, the project stated, adding that the number has grown to 81% today. That’s due in large part to free and automated certificate provisioning, but also to a firmer hand by web browser developers. Mozilla now shames any web pages that don’t use HTTPS, while Google removes the ‘secure’ label for HTTP-only sites and gives them a lower search ranking than HTTPS ones.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I thought that the whole idea of having a certificate authority issuing certificates was to provide a rigorous process for ensuring that someone is who they say they are and then giving them a certificate to show to everyone else that proves that the job was done. If they aren’t doing their due diligence then aren’t their certificates worthless?
+These are so-called “domain validation” certificates. 
+The certificate requester is supposed to prove that they have control over the domain name used – for example by adding a randomly-chosen string of text somewhere on the web site itself or in the DNS record pointing at the website. 
+The certificate doesn’t tie back to an organisation, and doesn’t contain a company name (so you can use them for hobby sites that have no organisation associated with them).
+Whether this makes them worthless is a matter of opinion – after all, if a company website with an expensive “extended validation” certificate gets hacked then the certificate will give a false sense of security to the fake content anyway.
+Domain certificates do [a] make it easy for everyone to have padlock-protected webpages (easy in terms of both procedure and price) [b] at least prevent routine eavesdropping on everything you browse to [c] also provide resistance against routine tampering with legitimate downloads.
+yeah these certs will be used to secure malicious/criminal sites but at least some of them will be used to make the internet a safer place so overall it’s a good thing
+I tend to agree with the first person, and I don’t think a real certificate authority is actually responsible for making sure a web application is secure. Secure or not, their responsibility is to ensure WHO’s good or bad web site we’re using. Automated solutions can’t offer that- unless some kind of human vetting process happens- doesn’t really give you an assurance that you know WHICH website you’re talking to.
+HTTPS in general as a protocol is not without problems; still 100 times better than allowing http. But if literally anyone can get a signed https certificate, it tends to “dilute” the value of endpoint authentication. 
+The sheer number of certificates (1 billion – that’s one for every 8 people on earth) tells me that something is “up” with most of them.
+Interesting. I used a facebook ad which seemed to go to a legit site to buy something. Everything checked out on the surface, but later when my goods arrived, a domain check showed it was very new site and based on lack of whois data etc, looked to be fraudulent. I checked the certificate and …. drum roll please… none other than “Let’s encrypt”.  
+As I say above, if you trust let’s encrypt certificates and think of your browser’s padlock as a way of proving identity, you can throw that away. And the lack of people standing up for what to me is an obvious dilution of quality by throwing away human checks, is going to make this difficult to resolve. I’m tempted to remove let’s encrypt from my system trust stores, but unfortunately too many legitimate cloud-scale systems are using it now.  The net/net of let’s encrypt is a massive wave of untrustable web sites. Here is your example for the day: [REDACTED]
+We could VERY EASILY mitigate the problem by:
+just removing let’s Encrypt’s root certification ENTIRELY , everywhere out from any browsers root register.
+Because then, People who actually “want to trust” them, would have to manually import the certificate from their site. Period. So hereby: Encouraging browser vendors to simply kick them out. No prevalidation by built-in roots
+This would be the very best approach, to also and maybe forcing let’s Encrypt to mitigate all their
+certification problems, including what is rendering them “blindfolded”.  Giving someone “trust” while you are not actually seeing the person resp. not checking who she or he or it is, can be – and actually IS – highly dangerous.  Automated processing should only be granted to entities being checked, verified for being a true one, not a fake one. For people being able to prove their integrity by giving a proof of responsibility,
+and yes, a verifiyable contact, something proven, legit, not solely a “letterbox address somewhere” with no office but literally only sitting on “some pole somewhere in the countryside”. This is not something “reliable”, so it can not be given trust to.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

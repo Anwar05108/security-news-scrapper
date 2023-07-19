@@ -1,0 +1,124 @@
+Sophos Home protects every Mac and PC in your home 
+In March, researchers Talal Haj Bakry and Tommy Mysk revealed that Android and iOS apps – including the mind-bogglingly popular, China-owned, video-sharing/often in privacy hot water TikTok – could silently, automatically read anything you copy into your mobile device’s clipboard. 
+Sexy selfies? Passwords copied from your password manager? Bank account information? Bitcoin addresses? Yes, yes, scary yes, yes. Anything you’ve copied recently, they’ll paste it into themselves. Such data is typically used for advertising and tracking purposes. 
+The covert content copying is possible not only for a device’s local data, but also on nearby devices, as long as the devices share the same Apple ID and are within about 10 feet of each other. That’s enabled by  Apple’s universal clipboard: a clipboard that enables content to be copied on one device and then pasted into an app running on a separate device.
+It’s “very, very dangerous,” Mysk told Ars Technica on Friday, after the discovery had bubbled to the surface yet again. The findings hit the headlines anew as Apple released the developer beta of iOS 14 – a release that flags this behavior. 
+Mysk said that the ability for apps to read content of off nearby devices means that an app on an iPhone could possibly read sensitive data on the clipboards of other connected iOS devices, be they cryptocurrency addresses, passwords, or email messages, even if the iOS apps are running on a separate device.
+The iOS 14 developer beta release – which you can download and install now to get an eyeful of this behavior – comes with a feature that’s custom-tailored to spotlight this kind of thing: namely, a banner warning that pops up every time an app reads clipboard contents. 
+While there are good reasons for some apps to access your clipboard, the apps that Mysk and Bakry found have no clear reason to do so. Here’s Mysk:
+These apps are reading clipboards, and there’s no reason to do this. An app that doesn’t have a text field to enter text has no reason to read clipboard text.
+How many apps snoop on clipboards, and how often? A whole lot, and quite frequently, as was discovered by many of the people who began testing the beta release. A video, posted on 23 June, had been viewed by over 118,000 people as of Tuesday, 30th June and demonstrates apps getting flagged by iOS 14 as they read content. 
+There are some big names on the list of apps that are doing this. The developers of 10% Happier: Meditation, Hotel Tonight and TikTok have been quick to promise that they’ll knock it off, but according to Ars, as of Monday evening, the developers behind the rest of these apps hadn’t commented yet:
+News
+– ABC News
+– Al Jazeera English
+– CBC News
+– CBS News
+– CNBC
+– Fox News
+– News Break
+– New York Times
+– NPR
+– ntv Nachricten
+– Reuters
+– Russia Today
+– Stern Nachrichten
+– The Economist
+– The Huffington Post
+– The Wall Street Journal
+– Vice News
+Games
+– 8 Ball Pool
+– AMAZE!!!
+– Bejeweled
+– Block Puzzle
+– Classic Bejeweled
+– Classic Bejeweled HD
+– FlipTheGun
+– Fruit Ninja
+– Golfmasters
+– Letter Soup
+– Love Nikki
+– My Emma
+– Plants vs Zombies Heroes
+– Pooking – Billiards City
+– PUBG Mobile
+– Tomb of the Mask
+– Tomb of the Mask: Color
+– Total Party Killer
+– Watermarbling
+Social
+– TikTok
+– ToTalk
+– Truecaller
+– Viber
+– Weibo
+– Zoosk
+Other
+– 10% Happier: Meditation
+– 5-0 Radio Police Scanner
+– Accuweather
+– AliExpress Shopping App
+– Bed Bath & Beyond
+– Dazn
+– Hotels.com
+– Hotel Tonight
+– Overstock
+– Pigment – Adult Coloring Book to Color
+– Sky Ticket
+– The Weather Network
+… and, Mysk said, TikTok has failed to stop, in spite of having promised that it would. 
+TikTok, the video-sharing social media phenomenon that young people love and their parents love to haul into court over child privacy law violations, has shelled out a changing story about this to media outlets, including Forbes. 
+First, TikTok owner Bytedance said the problem wasn’t its fault. Rather, it blamed an outdated Google Ads software development kit (SDK) that was due to be replaced.  
+But as the clipboard warning in iOS 14 has made clear, ByteDance didn’t stop the invasive practice back in April, as it had promised. Now, the iOS 14 warning has caught the company “red-handed,” Zak Doffman writes, “still doing something they shouldn’t.” 
+Here’s  TikTok’s most recent story: the issue is now “triggered by a feature designed to identify repetitive, spammy behavior,” and it’s “already submitted an updated version of the app to the App Store removing the anti-spam feature to eliminate any potential confusion.” 
+All these apps copying clipboard content have been doing so surreptitiously. They’ve been tough to spot. The issue underscores what an important update the new warning in iOS 14 is, and Apple plans to credit the researchers for being the impetus for the new notification. 
+Having said that, we’re not out of the woods yet. Now that Apple’s flagging the behavior, Apple users will benefit from the TikTok update as soon as it ships, but until then, please do keep in mind that the app is reading your clipboard data. To stay on the safe side, you can flush your clipboard by copying an innocuous piece of data. 
+Android is another issue entirely. Mysk told Ars that the scenario is worse on Android than it is on iOS, given that Android APIs are far more lenient. For example, Android allowed apps running in the background to read the clipboard up until Version 10, as opposed to iOS apps, which can do so only when they’re active, as in, running in the foreground. 
+Be careful of what you copy on your mobile device. Unfortunately, as the researchers said, we don’t really know what these apps are doing with our content. 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Very tactful way of calling out spyware.
+Makes me wonder if, and if so how many crimes have been committed with data harvested from these apps.
+Would anyone even correlate a data (bitcoin/banking) theft incident with NPR, Russia Today, TikTok, Bejeweled or any of these other high branded apps?
+More likely the last place they would suspect, and also likely no way (?) to back track to see what app took what data. Can a mobile DLP or firewall app capture such events? or just the new OS and the researchers tools?
+Kudos to Talal Haj Bakry, Tommy Mysk and Apple for working to make the world a little better.
+I can see a GDPR class action coming…
++Firefox
++Firefox what?
+Firefox Focus – an important distinction. Not the regular one, afaik.
+Lisa wrote, “ Android allowed apps running in the background to read the clipboard up until Version 10, as opposed to iOS apps, which can do so only when they’re active, as in, running in the foreground.”  Just so I’m clear, if I have Accuweather (or any of the other offending apps mentioned in the article) open on my iPhone running iOS 13.5, but then open another app and copy something to the clipboard without first closing Accuweather, the Accuweather app WON’T capture the data I copied to the clipboard?
+AFAIK, an app that’s in the background on iOS can’t read anything out of the clipboard until it’s brought to the foreground.
+But if sensitive information were copied to the clipboard it would remain there until flushed, correct?  So if sensitive data were copied to the clipboard and pasted elsewhere, and later Accuweather was brought to the foreground Accuseather would grab that no-longer-needed sensitive information?
+KeePassXC on my Mac flushes the clipboard after a preset amount of time elapses after data is copied.  Maybe it’s time to make that behavior automatic for all programs that handle sensitive data – or maybe that should be part of the operating system.  Although, my preferred solution would be prison terms for the CEOs of these companies.
+I think this should be the case. Build it into MacOs, iOS, Android, ETC. Allow the user to choose the time period or maybe even allow for the clipboard to be purged after the first paste!
+What the heck do I do? I need simple simple instructions
+This is pure evil. It really is. Among the long, long list of critically sensitive bits of data that end up on your clipboard are, of course, passwords to everything including bank accounts, cryptocoin wallets, cryptocoin blockchain addresses, credentials for business critical services (especially in the age of cloud-everything) that would spell the end of a business if compromised, and more. This should literally be a crime.
+Lisa wrote, “ Android allowed apps running in the background to read the clipboard up until Version 10, as opposed to iOS apps, which can do so only when they’re active, as in, running in the foreground.” <- I have 10 and I use Viber and also a password manager that I copy/paste from.
+If I'm copying from the password manager – then *it* is in the foreground, is it not?  And If I paste into a website, then firefox/chrome are in the foreground?  So is this a relatively non-story for Android 10 in practice or am I missing something?
+If I swipe to 'kill' viber (and by extension the other apps listed if you happen to use them) prior to copy n pasting, are we safe?
+Is there any chance that viber desktop is doing the same?
+After clicking through to the linked article, there’s a key statement that seems to be missing in naked security:  “We found that many apps quietly read any text found in the pasteboard every time the app is opened.”
+I get the impression from the article here that the apps are spying all the time, not ‘when the app is opened’ <- key differentiator being "opened" not just "open".
+There's also no mention of Android – so is the Android bit at the end of the NS article speculation, or based in fact?
+I feel it is important when reporting these kind of things, that we avoid instilling undue panic.  Having read the linked articles, I've gone from being on the verge of uninstalling Viber from my Android,  to being unclear if Android is even affected at all.  And for iOS from again thinking uninstall to actually understanding the bit in the NS article where it says "to stay on the safe side, you can flush your clipboard by copying an innocuous piece of data" <- without the "when the app is opened" the advice makes little sense;  I mean it sounds like the app would first steal my password from clipboard and then steal the innocuous data
+I wish I could give you more informed advice, but the researchers couldn’t nail down how this works on Android. At any rate, this is what Ars reported: “The clipboard reading Haj Bakry and Mysk reported raises concerns that likely extend to those using Android and possibly other operating systems. Mysk said that clipboard reading in Android apps is ‘even worse’ than iOS because the OS APIs are so much more lenient. Until version 10, for instance, Android allowed apps running in the background to read the clipboard. iOS apps, by contrast, can read or query clipboards only when active (that is, running in the foreground).”
+In fact I’ve just observed this behaviour in an app from Sky Sports that copied clipboard data not only when it was opened for the first time but also every time it received foreground focus. Thus the burden is multiplied to ensure there’s nonsense on the clipboard.
+What about MS Teams??? It does the same thing!
+“Cut” is a combination of “Copy” and “Delete”.  I’ve always wondered why there is not an equivalent combined command for pasting.  Something like “Move”, which would both paste the copy and then erase the clipboard.
+I’d use that feature. In fact, I’d set it as the default – “single use” clipboard copies, great for things like passwords.
+The app “Shop” is doing the same thing.
+All who use it will know that the Chrome browser for iOS reads the clipboard every time you tap in its search field. It tells you so by offering to search on the contents. What else it may do with the information is for you to guess.
+Many websites use JavaScript to do that on both desktop and mobile – as you say, it’s how incremental searching works because each keystroke is uploaded as you type. But that is a bit different from trying to read what other apps have in the clipboard while you aren’t the current app.
+I don’t know my own password😔🖤💔
+You can add GuruShots to the list…
+I’m sure all apps are spying on us in some way. Do we really need “cookies” ? No,but they exist. That is a form of spyware, whether they admit it or not. Microsoft Windows, the default OS for desktops is spying on us.  In reality, the only way to stop this spying, as they call it, is to stop using all apps.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

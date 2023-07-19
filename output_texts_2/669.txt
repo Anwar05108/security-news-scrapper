@@ -1,0 +1,68 @@
+Sophos Home protects every Mac and PC in your home 
+Late last week, researchers at network intelligence company DomainTools warned about an Android malware sample that caught our attention.
+We downloaded a copy of the malware for ourselves and took a look at what the crooks were up to – here’s what we found.
+Like many other cyberthreats doing the rounds these days, the criminals have used the coronavirus pandemic as a lure, offering an intriguing if rather creepy app called COVID 19 TRACKER.
+Catchy icon of the malware app
+The website promoting the app offers to “Track Real-Time Coronavirus Outbreak in your Street, City and State”, and says it will “Get Real-Time Statistics about Coronavirus outbreaks around you in over 100 countries.”
+To be precise, if you’re keeping your eye out for giveaway mistakes, it actually says outbreak aroud you, an error both of grammar and spelling that you can see below.
+Sure, mainstream websites make spelling mistakes, too, but every clue helps, so keep your eyes open for errors that might be a telltale sign of crooks in a hurry.
+As we’ve seen before in coronavirus-themed cybercrime, the criminals have added the logos of various legitimate and useful sources of information:
+This time, they’re claiming their app is “certified by” the US Department of Education, the World Health Organization (WHO), and the US Centers for Disease Control and Prevention (CDC). 
+(No, that’s not a typo above: the CDC runs its operations and research from numerous major locations, so its name is a plural.)
+If you’re wondering why the feature to track coronavirus infections in more than 100 countries has what looks like a winner’s gold cup above it with the number “1” on it, it’s because the crooks have plundered various legitimate apps and brands to leech logos, layout ideas, icons and more to use in their code.
+The marketing material that the crooks have crudely ripped off comes from the pages of an unrelated Google Play app that really does have a 4.4-star rating:
+As you can see from the screenshot above, the “tracker app” doesn’t come from Google Play, because it wouldn’t get in.
+Instead, you have to go off-market by downloading it directly from the crooks’ website by clicking their own [DOWNLOAD APK] button.
+When you run the app for the first time, it asks for various permissions that might make you suspicious, but that don’t seem too outrageous, given that it’s supposed to keep you alerted about coronavirus cases as you move around.
+In particular, the app wants to run in the background, to have lockscreen access, and to use Android’s accessibility features, as you see here:
+Although the malware claims to need lockscreen access to give you an “instant alert when a coronavirus patient is near you”, that’s bogus for two reasons.
+Firstly, even if the app is using the latest coronavirus stats, downloaded in real time, it has no way of determining the infectious status of any individual passing by, so it is false (and, indeed, creepy) to claim this as a “feature” at all.
+Secondly, you don’t need “lockscreen access” to send notifcations to the lockscreen – that’s controlled by the user, who can choose from their phone’s settings what sort of notifications to show when the phone is locked.
+In fact, the malware wants what’s called device admin rights, as you can see in the screenshot below.
+This is a feature that Google describes in its own documenation as allowing “device administration features at the system level, [to] allow you to create security-aware apps that are useful in enterprise settings.”
+Similarly, if this app were genuine, it wouldn’t need Accessiblity permissions, as it claims.
+Those features are intended for use by software such as screen readers (which obviously need to access the screen content of other apps), and they’re tolerated on Google Play for security apps that can justify looking out for data such as web links in order to look for malicious sites.
+The app claims that it needs Accessibility permissions by mentioning “active stats monitoring”, but a legitimate program would get its data by downloading and processing it itself, not by “sneaking a peek” and stealing it from other apps.
+The real reasons why this malware wants to run in the background, monitor the other apps you are running, and intervene as a device administrator…
+…are probably rather obvious, given the headline of this article.
+Amongst other things, it tracks which app you have in the foreground and takes over control as soon as you try to use your phone for most of its normal features, including making calls, getting and sending messages, and accessing the Settings page.
+And the Settings page is probably exactly where you will want to go as soon as a the malware kicks in, which is does within about a second of launching most apps:
+As you can see, this one is a combination of sextortion and ransomware – you’re locked out of your device because of the persistent pop-over screen, but with a threat to leak personal videos and photos to your family as an added incentive to pay up. 
+Once you’re infected, you can’t access Settings (where you can, in fact, kill off and uninstall the malware), in an attack reminiscent of Reveton, one of the earliest mobile phone “screen locker” ransomware variants that was widespread back in 2012.
+Ironically, the malware is careful not to block your browser, even though you could use it to go online and look for advice on how to clean up.
+That’s because the malware itself relies on the browser to load its own “here is how it works” page, hosted on the free data-sharing site Pastebin:
+Fortunately, at least in our experiments with this sample, the malware was fairly easy to remove by hand.
+Our files were left intact, with the malware relying on its rapid pop-over screen as its way of keeping you locked out of your device, and as far as we can tell, the threat to reveal your personal data to friends and family if you don’t pay is entirely empty.
+In other words, if you can remove the app so it no longer interferes with your phone usage, then you’re essentially home free.
+A quick fix is offered by the fact that the crooks were lazy, and hardcoded the unlock code into their app:
+When we typed in the 10-digit code 4865083501 where you see enter decryption code in the blackmail page shown above, the malware stopped blocking our access to other apps.
+Note, however, that the unlock code doesn’t actually stop the malware and uninstall it! 
+(The crooks handily left logging code in their app, so we could use the Android development tool adb logcat to watch the app continuing to abuse its Accessibility permissions to track apps as we used them, even after we’d entered the unlock code.)
+But after entering the unlock code, we were able to access the Settings page, remove the  malware’s device admin rights and uninstall it.
+We used Settings > Apps and notifications > See all N apps to reach the App info page, where we located the Coronavirus Tracker app:
+We tapped on the malware entry to open up its own App info page, where we used the system’s Uninstall button to get to the Deactivate & uninstall option, by which the system will demote the app from its device admin role (which prevents regular uninstallation) and then remove it:
+We also tried rebooting our phone in Safe Mode, where most background apps don’t run, to see if we could remove the malware without relying on the unlock code – even though we know the right code for this sample, it might be different in other variants of the malware.
+Also, there is something unappealing about trying to remove the malware while it’s still active and keeping track of what you’re up to on the device.
+On our phone, Safe Mode is activated by holding the power button until the reboot menu appears, then holding down the power off icon for a second or two until the Safe Mode menu appears.
+After a reboot, the text Safe mode appeared at bottom left of the screen; the malware didn’t launch; and we could use the same procedure as we did above to locate, deactivate and uninstall the malware. 
+Not all mobile malware is this easy to get rid of, and most ransomware these days no longer just locks your device but also scrambles your files so that they need decrypting, too.
+And many crooks have learned not to take shortcuts with their passwords, so it’s unusual to find an unlock key right there in the malware code.
+So, your best bet is not to let your Android get infected in the first place.
+Oh, in case it makes you feel better, the total amount that the crooks have received into the Bitcoin address shown in the Pastebin page above…
+…is zero.
+Sophos products detect and block this malware as Andr/SLocker-CX.The website where we downloaded the malware (see screenshots above) has been taken down.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Yes, makes me feel quite a lot better, thanks for that tidbit at the end.  The idea of someone working really hard to avoid real work is likely as old as the concept of employment itself.  These days, seems we hear more tales of “success.”
+I relish the idea of someone spending hours (days?) building an app–their labor of love in its own odd way–aspiring to prey on the fears of others, solely to bilk money from them…likely spending cash for ads in the process…and ultimately not “earning” a dime.  I’ve toiled on projects I cared about, and watched them fail–envisioning that disappointment in this case is a big plate of catharsis with a side of neener neener.
+Good article as usual–with a little luck the dirtbag behind the app won’t find it and introduce a couple improvements.
+Story has a happy ending for now.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

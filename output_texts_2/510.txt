@@ -1,0 +1,31 @@
+Sophos Home protects every Mac and PC in your home 
+Interested in using hardware security keys to log into online services more securely? Well, now you can make your own from scratch, thanks to an open-source project that Google announced last week.
+Google has released an open-source implementation called OpenSK. It’s a piece of firmware that you can install on a USB dongle of your own, turning it into a usable FIDO or U2F key.
+FIDO is a standard for secure online access via a browser that goes beyond passwords. There are three modern flavours of it: Universal Second Factor (U2F), Universal Authentication Factor (UAF), and FIDO2.
+UAF handles biometric authentication, while U2F lets people authenticate themselves using hardware keys that you can plug into a USB port or tap on a reader. That works as an extra layer on top of your regular password.
+FIDO2 does away with passwords altogether while using a hardware key by using an authentication protocol called WebAuthn. This uses the digital token on your security key to log straight into a compatible online service.
+To date, Yubikey and Google have both been popular providers of FIDO-compatible keys, but they’ve done so using their own proprietary hardware and software. Google hopes that by releasing an open-source version of FIDO firmware, it will accelerate broader adoption of the standard.
+Google has designed the OpenSK firmware to work on a Nordic dongle, which is a small uncased board with a USB connector on it. It handles all the communication channels supported by FIDO2, including not just USB but wireless ones like Bluetooth Low Energy (BLE), and near-field communications (NFC). That means you could use a Nordic chip flashed with OpenSK as a wireless security key if you like.
+As an open-source project, there are some caveats that make this more of a research project than an official alternative to manufactured security keys for board hackers. For one thing, Google has only tested the firmware with two Nordic boards: the nRF52840-DK and the nRF52840-dongle. There’s no reason you couldn’t try it on other boards, but there’s little certainty that it’ll work. Also, while Google tested the firmware against CTAP 2.0, which is a protocol that’s part of FIDO2 that enables digital keys to work with a browser, the FIDO Alliance hasn’t certified OpenSK, which means it can’t call the project FIDO Certified.
+Finally, there’s the cryptography. Google hasn’t yet hooked up the cryptography code embedded in the hardware with its firmware. Instead, it wrote the cryptography algorithms itself in Rust. It says:
+Those implementations are research-quality code and haven’t been reviewed. They don’t provide constant-time guarantees and are not designed to be resistant against side-channel attacks.
+Rust is a language known for security measures like memory safety. The firmware also includes an operating system called TockOS, which is sandboxed so that things happening in the firmware don’t affect the underlying kernel.
+Strictly speaking, this is more for hardware hackers to experiment with than for producing certifiably secure hardware security keys, which is why Google was careful to use the term ‘developer key’ when it blogged about OpenSK. Still, we’re sure that won’t stop people from doing it anyway. Google has even provided 3D printer plans for a Nordic case, for those so inclined.
+This isn’t the only open-source FIDO toolkit available. CrowdSupply successfully crowdfunded Somu, a tiny open-source security key that supported FIDO2. There’s also another key called Solo. Both of these are designed for consumer use, while Solo Hacker is for hackers and makers to tinker with.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Wondering how asset management is implemented in OpenSK. How are the keys stored? Nordic chip don’t have a secure element which would prevent physical attacks on the dongle, isn’t it?
+The nordic chip does have a secure element, but according to the article, Google isn’t using it yet.
+I looked up FIDO for Aetna and they seem to have implemented some sort of biometric signature.  Dependent on hand jerkiness?   Something about bypassing Retina or fingerprints.  Am I right about this?  It seems to be a horrible idea.  My “biometric” signature would vary radically with mood, coffee (I “experimentally” found out that over 4-5 cups and I can’t sign my name), and things like nervousness.
+An old foggy who is a little unsteady sometimes.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

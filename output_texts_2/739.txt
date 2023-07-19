@@ -1,0 +1,68 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at German pentesting company Enable Security just published an intriguing blog post about a security problem they found in the popular online collaboration tool Slack.
+The short version is that they uncovered a way to poke around inside the private parts of Slack’s network, so they disclosed it, Slack fixed it and paid them a $3,500 bounty…
+…and then, as sometimes happens when the rest-of-life gets in the way, it was another two years before they got the green light to publish their findings.
+In some ways, the bug bounty progress report makes more fascinating reading than the blog post itself, because it shows how the responsible disclosure process allows for affable and open technical discourse between the bug finders and the bug fixers, without giving needless hints to crooks along the way.
+But we’ll focus on the blog post here because it includes some really simple but very effective advice that anyone running real-time collaboration services (a hot topic right now!) can take on board.
+Whether you’re interested in live text chat, audio or video, this report could help you improve your own security, and that of your users.
+One problem that so-called end-to-end or peer-to-peer software has on most internet-connected networks is that very few computers these days have network identifiers – what are known as IP numbers – assigned uniquely to them.
+Here’s why.
+The modern internet numbering system known as IPv6 (there is no IPv5 numbering system because the suffix -5 had already been used for other things) gives each device on the internet a 128-bit number.
+Even using just 64 bits’ worth of that so-called address space, you can “count” all the way from zero to 264-1, which is enough to number more nearly 20 million million million devices uniquely.
+But the older IPv4 system is still used by the vast majority of devices out there, and it has just 32 bits, which gives you an absolute maximum device count of just over 4000 million (4 billion).
+As large as that sounds, there are already billions of mobile phones around the world, plus billions more laptops, routers, cloud servers, smart kettles, street signs, lampposts…
+…so you can see why 32-bit network numbers are a real problem these days, and have been for years.
+(In practice, there aren’t even 232 values available because about half-a-billion IPv4 numbers are set aside for purposes other than identifying individual devices.)
+Most networks these days make do with one IP number that’s shared between all the computers on the local network (LAN), which make do with so-called “private IP numbers” that are reserved for internal use only.
+These private IP numbers don’t get past the router, so they don’t need registration or any central authority to control them, but they don’t identify your computer globally in any useful or usable way.
+If you’ve ever wondered why your computer may show up with an IP number such as 192.168.1.12 at home, and something very similar, such as 192.168.1.13 at the coffee shop you (used to) frequent, it’s because those numbers are “private only”, and as long as they’re allocated on separate LANs they won’t get in each others’ way.
+As an aside, if you’ve ever had the misfortune to have all the computers on your network blocklisted at the same time because just one of them did something naughty, such as sending spam…
+…that’s because all traffic out of your network has the very same IP number once it joins the public internet, so your individual computers can’t be blocked independently – they stand or fall together.
+Your router therefore acts as a sort of “traffic proxy” that figures out which incoming network packets are replies to what outgoing network requests, and redirects them accordingly.
+That’s called NAT, short for Network Address Translation, and it’s a decent enough solution if all you want to do is establish connections from your private network to servers on the public internet, as you did when you browsed to this web server to start reading this article.
+Generally speaking, however, a NATting router can only deal reliably with incoming traffic after a computer on the LAN has initiated an outbound connection – otherwise it has no idea which network flows (as they are called) belong to which device.
+For peer-to-peer chats, whether they’re one-to-one calls or group calls, you have a problem – each participant can dial out to the call by connecting outwards to any or all of the others, but no one can accept the call because incoming network traffic relies on an already-open connection to a public server first.
+Stalemate!
+One solution to this problem is known as TURN, which is a rather forced acronym meaning Traversal Using Relays around NAT. (Relays Using NAT Traversal would be clearer to write in full, but wouldn’t be a good acronym.)
+The idea is that a server on the public internet acts as an “answering machine” that accepts calls from other computers, even if they are behind NAT routers, and applies suitable identification and authentication as needed.
+For any call that users are trying to connect to, the TURN server ends up on the receiving end of outbound connections from everyone on the call, so it can act as a “relay” or “broker” that shuffles one caller’s outbound data into the right recipient’s inbound data channel and vice versa, thus simulating an end-to-end connection between two or more computers that would otherwise be kept apart by their NAT routers.
+This isn’t an ideal solution, especially if the TURN server is in New York and the callers are both in San Diego, say, because the packets are crossing a continent only to come straight back again, and it also means that everyone’s call latency gets affected by the load on the TURN server.
+But by making TURN into a lightweight data packet “shuffling” service, it’s nevertheless proved to be a very useful system that works for all sorts of traffic, not just for audio, or video, or whatever.
+Because TURN servers can broker traffic between arbitrary services on arbitrary computers, you don’t need to add TURN code to every type of server you run, meaning that you can dedicate TURN servers entirely to their job of “packet brokering”.
+This means you can therefore configure and tune TURN your servers for optimum throughput, without worrying if those tweaks would reduce performance for other service types on your network such as web, database and streaming servers.
+But this general-purpose nature of TURN means that you need some way for a TURN server to allow the original caller to specify where they want to go to reach the other end of their TURN call.
+And the primary functions of TURN is to “broker” traffic past NAT routers, which means that TURN needs to be able to make sense of IP traffic that a router itself would ignore because the destination computers have internal-only IP numbers that make no sense on the public internet.
+You can probably guess where this is going.
+There are almost certainly several network ports open on your laptop right now, many of them listening on localhost, which is a special series of IP numbers from 127.0.0.0 to 127.255.255.255 that are reserved for your computer to access itself only from itself.
+Localhost addresses (127.0.0.1 is usually used) are so special that many operating systems don’t even send local network packets through the networking subsystem.
+To improve the speed, security and reliability of local-to-local connections they often just shuffle the data directly in memory between the sending program and the receiver.
+Likewise, your router probably has an administration web server running on an IP number such as 192.168.1.254 or 192.168.0.1 to keep it safely cut off from the outside world but accessible to computers inside your network.
+But if you have a TURN server, it is already inside your network, so if you accidentally permit an incoming caller to specify an internal-only IP number as its target, you may end up “brokering” packets between an outsider and some internal service that would otherwise be invisible to outsiders.
+Peeking into internal Slack resources via Slack’s TURN servers in this way is what our intrepid researchers were able to do, two years ago.
+By placing fake calls with “recipients” that were inside Slack’s own network, using a mixture of localhost and private IP numbers, they were able to boldly go where no caller was supposed to.
+They made an informative video (it’s slow going but surprisingly easy to follow) of what happened:
+
+If you are a Slack user, there is nothing to do.
+Slack already did it for you, which is why this report is public only now.
+But if you run your own TURN servers, the researchers suggest checking that you have configured your server to ignore connection brokering requests to any internal-only IP numbers.
+This protects you from access control mistakes down the line, because there is no “down the line.”
+For the server described in their paper (called coturn), the configuration they recommend is as follows:
+If you’re a networking person you will probably recognise those ranges anyway – they cover multicast, LAN-only IP numbers, localhost-only IP numbers, autoconfiguration IP numbers, reserved-for-documentation IP numbers and more.
+Remember: the earlier you block bad traffic, the less harm it can possibly do!
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I’m a bit confused.
+If you have “configured your server to ignore connection brokering requests to any internal-only IP numbers” doesn’t this stop the whole TURN process from working?  
+Isn’t the whole point of a TURN server to broker requests to internal IP addresses?
+Not to *your* internal network endpoints, which is what those IP numbers mean in the context of the server. (It’s a bit like a website having a link to a URL on your LAN in the hope that it tricks you and your browser into visiting your router’s admin interface. If you’re logged in at the time, that could be a reconfiguration command.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

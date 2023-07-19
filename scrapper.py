@@ -25,9 +25,9 @@ def save_text_to_file(text, filename):
 
 if __name__ == "__main__":
     # Assuming you have a text file named "urls.txt" containing one URL per line
-    input_file = "urls.txt"
-    output_folder = "output_texts"
-    i = 0
+    input_file = "urls-2.txt"
+    output_folder = "output_texts_2"
+    i = 408
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)

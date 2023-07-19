@@ -1,0 +1,109 @@
+Sophos Home protects every Mac and PC in your home 
+Python is dead. Long live Python!
+Python 2 has been one of the world’s most popular programming languages since 2000, but its death – strictly speaking, at the stroke of midnight on New Year’s Day 2020 – has been widely announced on technology news sites around the world.
+But Python isn’t dead, because Python 3 has been around since the late 2000s.
+So there will be  no “interregnum” period during which Python doesn’t exist – just as in a hereditary monarchy, succession is considered technically instantaneous, ensuring an unbroken line.
+If you’re programmer or a sysadmin (and, in truth, a sysadmin is just a special sort of programmer who is expected to use their skills to code people out of the holes that others have coded them into), then you have almost certainly used Python at some point.
+And if you’ve never programmed in Python yourself, you’ve almost certainly used software written in Python, or relied on online services that were supported by software written in the Python language.
+So, given that Python 2 has been replaced by Python 3 without any interruption, and given that nothing bad happened when Python 1 switched over to Python 2 around the turn of the millennium, why is the “death” of Python 2 such a big deal now?
+Well, the problem – or the perceived problem – is that the changeover is not quite as straightforward this time as it was before.
+When Python 2 came along, it was a natural progresion from Python 1, and software written in Python 1 was, essentially, already valid Python 2.
+So you could just replace your Python 1 software development system with a Python 2 installation and carry on as usual.
+However, when Python 3 was introduced, it included what software developers call breaking changes – differences that were incompatible to the point that you couldn’t just take a Python 2 program, run it under Python 3, and expect it to perform correctly.
+Python 3 was devised, at least in part, to be different from Python 2 in carefully planned and incompatible ways.
+The idea was not only to add new features to Python 3 but also to remove some of the pitfalls and imperfections that Python 2 was forced to inherit from Python 1 in order to stay compatible with it.
+As the Python website says:
+Python 3.0 (a.k.a. “Python 3000” or “Py3k”) is a new version of the language that is incompatible with the 2.x line of releases. The language is mostly the same, but many details, especially how built-in objects like dictionaries and strings work, have changed considerably, and a lot of deprecated features have finally been removed. Also, the standard library has been reorganized in a few prominent places.
+That’s usually the whole idea of breaking changes in programming – you do them not because you want to break the software in the future, and thereby to make things worse, but to break with some of the mistakes you made in the past, and thereby to make things better in the long run.
+That’s why Python 2 and Python 3 have coexisted for so many years – to give programmers plenty of time to port their code to Python 3, ready for the end of the Python 2 era.
+In an ideal world, the Python ecosystem – remember, Python is a free and open-source project, not a commercial venture – would simply carry on supporting Python 2 for ever…
+…but that would eat up an enormous amount of time, most of it given voluntarily by Python fans around the world.
+Plus, the Python community devised Python 3 to be better than Python 2, and to remove some of its risky, confusing and unnecessary parts.
+Indeed, all that time-consuming work “backporting” new fixes to the old codebase would ironically make it easier for die-hard Python 2 fans to keep on living in the past.
+Python 2 software will still work, so there’s no immediate problem – the “death” of Python 2 is a conceptual issue, not a literal one.
+In other words, if you still have large Python 2 projects that you haven’t yet ported to Python 3, you’re not in imminent danger of your software stopping working.
+But the entire Python 2 environment will no longer be getting security fixes, making it a bit of a fool’s errand to carry on using it. 
+As the Python Foundation’s news blog explains:
+Users are urged to migrate to Python 3 to benefit from its many improvements, as well as to avoid potential security vulnerabilities in Python 2.x after April 2020. This move will free limited resources for the CPython core developer community for other important work.
+So, we recommend:
+As an interesting aside, even though 01 January 2020 is the official “death of Python 2” date, you’ll have noticed the mention of “April 2020” in the Python Foundation’s comments above.
+Indeed, it seems that CPython (the primary Python implementation, itself written in C) will actually see its last major version in April 2020, after which “all [CPython] development will cease for Python 2.”
+So perhaps Python 2 isn’t quite dead after all…
+…perhaps it’s just resting; maybe pining for the fjords?
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Thanks for posting this Duck.  As a sysadmin I should’ve been aware of this but wasn’t.
+Off the top of my head I can only think of Denyhosts using Python, which I see updated in October to keep pace with this.  
+Of course after OpenSSH stopped supporting TCP wrappers, I’d expect DenyHosts lost some implementations to Fail2Ban.  My legacy DH instances trigger external scripts instead of relying on hosts.deny, so I dodged that prior bullet–only to eventually find myself in the path of this one.
+:,)
+Awsome
+I got laughed at by python folks for using PHP. Who’s laughing now? Me. I’m laughing
+PHP isn’t immune to breaking changes between major versions, either. 
+As explained above, it’s hard to improve a language if you can never eradicate any poor decisions from the past.
+For example, if moving from PHP 5.6 to PHP 7:
+https://www.php.net/manual/en/migration70.incompatible.php
+I had a PHP application live for ~13 years before seeing retirement, requiring only one global search and replace for “mysql_” → “mysqli_” that once.  “Breaking changes between versions” are often things developers shouldn’t have been utilizing anyway going away for good reasons.  That’s less of an issue than not regression, that’s easy, but subtle persistence: https://www.php.net/parse_str — finally deprecated as of 7.2, and there are some who promoted register_globals use to its death, and beyond the grave, writing work-alike implementations of a terrible idea.
+But I have 12x as many Python applications deployed in the same timescale as one PHP application if I wish to achieve this level of quality.  (I’m talking: maybe eight hours of downtime… in 2013… during its lifetime.)
+Click bait title. The transition from python 2 to python 3 has been ongoing for quite some time now.
+It’s almost as though you didn’t read the article :-)
+The transition to Python 3 was announced in 2014 (https://www.python.org/doc/sunset-python-2/). There’s been plenty of “It’s time to go” articles, blog posts, and conference discussions since then. 
+If you haven’t upgraded by now, you’re in the Windows XP camp, and you’ve no-one to blame but yourselves. Get moving.
+I *almost* mentioned XP in the article but figured that it might come across as a *bit* too acerbic :-)
+But it’s a useful analogy – we all had plennnnnnnnty of warning!
+“X is dead, long live X” dur hur look at me being an original writer! Dur hur look at me, look at me!
+Infuriating.
+Otherwise, good article.
+Well, thanks for the comment. More or less.
+Sarcasm is dead!  Long live sarcasm!
+When will OS vendors stop shipping python 2?
+I guess once this happens, most of the community will be naturally moving out of python2 🙂
+That’s a good question…
+…I guess one problem is that lots of server-side Python code runs on Linux, and the modern trend is for distros to ship with comparaively few “standard packages”, and to rely on users, sysadmins and apps just fetching the bits and pieces they need as they need them (sometimes automatically). That, and the fact that you can fairly easily roll up a Python app into a standalone bundle that includes everything it needs to launch, including its own copy of the Python interpreter and the needed libraries. (That way your app runs even if there is no Python installed on the destination computer at all.)
+Python 2 still comes with MacOs Catalina, so even though it displays a warning that it will be removed from future versions of MacOs, it seems likely Apple will continue to support it until EOL of Catalina.  This implies they’ll be patching it if needed.  We’ll have to wait and see.
+We’ve had plenty of time to move our code over, they’ve also had plenty of time to fix all the bugs e.g. https://stackoverflow.com/questions/53254622/zipfile-header-language-encoding-bit-set-differently-between-python2-and-python3
+Some of my code won’t be moving just yet.
+I agree, except for the tricky bit where you refer to fixing “all the bugs”… as Windows XP users frequently find, some bugs that get discovered by researchers poking sticks at modern versions of Windows turn out to work on older versions of Windows, too.
+Point taken, let me change that from ‘all the bugs’ to “I just want to be able to unpack a zip archive and re-pack it so it has the same checksum afterwards” which you can’t do in Python 3, but can in Python 2 :D.
+If you want to unpack and archive and repack it exactly…
+…then the best way is NOT to repack it. Unpack and examine it. If you accept it in that form, why repack it? Use the original file. 
+(If you are using the unpack-and-repack approach as a cheap-and-cheerful way of validating the archive, I suggest a more rigorous approach instead.)
+Why repack?  Here’s one reason:  Take a zip file known to include many duplicate files, unpack it to remove the duplicates send over the network as a stream of data + metadata describing said duplicates and as a result use a fraction of the bandwidth to transmit it, re-pack at the other end.  With such an operation I’d want the checksum to remain unchanged.
+Did you figure out what changed? Did you create the original file with exactly the same zip library code, compiled in exactly the same way? Or are two slightly different builds of the compressor being used?
+Paul, it’s not my code, it’s this line in the zipfile module that’s doing it: https://github.com/python/cpython/blob/master/Lib/zipfile.py#L1578 (zinfo.flag_bits = 0x00 in case the line number in that reference changes) it forces to zero one of the zipinfo header fields regardless of what’s passed into the method, meaning round-trip decompress -> compress may give a different file content.  There is no such line in the equivalent Python 2 module.
+If it matters to you (and there is no obvious “bug fix” reason for setting flag_bits to 0), then one fix is to write a post-processor that parses its way through the zipfile itself and modifies the necessary flag_bits entries accordingly. The ZIPfile format is simple enough that as long as you aren’t changing the length of the file, you should find this fairly easy.
+Or create a modified zipfile module of your own and use that instead. You could add an extra method, e.g. write_with_flags, so that your module would match the regular one for other code but provide extra control as required by you.
+Many options on how to fix, I could do as you say, I could just copy the Py3 zipfile module, change it how I want, and include it with my project, I could monkey-patch, or I could just shrug my shoulders and carry on using Python 2.
+Get the person who manufactures the zipfile to use Python 3 🙂
+Simon, I hope my comment doesn’t sound snarky–I don’t intend it that way.
+Is this a common concern in something you do routinely?  If numerous dupes can’t be de-duplicated prior to archival and network transfer… it seems to be a good opportunity for process improvement somewhere.  
+If the assembly is out of your control (yet the transfer and subsequent care is on your shoulders), I’m sorry–maybe it will help knowing I can relate a bit to that.
+Hi Bryan, no it doesn’t sound snarky in the slightest, and no I don’t control my input, otherwise I wouldn’t set the flag bits on the archive in the first place and I’d have no issue.
+But I do find it odd that people are bending over backwards to excuse a perfectly reproducible bug in Python 3, as if it’s the developer who’s somehow at fault here.  Granted you haven’t said that explicitly, but it’s certainly the way it comes across.  I do code in Python 3, and I’ve converted thousands of lines of code from 2 -> 3.  I’m completely on-board with the latest Python 3 developments, and I’m fixing my byte-string issues in seconds, the tools are picking up a lot of other stuff without me even having to run the code (thanks PyCharm), but Python 3 is not a religion for me, and it’s a bit annoying when people chastise me for still having Python 2 code without understanding all the issues.  Much of the time is consumed trying to fix the third party modules that ‘work’ for Python 3, but fall down with their own edge-cases, because they only got a cursory Python 3 testing.
+I feel for ya buddy.  The niche cases rarely (never?) get attention.  And drive-by testing sucks. :,(
+Sorry Simon.  No doubt it will cause waves, but hopefully you’ll be able to get the upstream folks to use Python 3.
+I have a few legacy systems at my current job whose handoff instructions to me were essentially, “keep this breathing, we need it yet can’t replace it.”  Chrome will completely stop supporting Flash in December–a tidbit that no one should even know anymore–but I have a (strictly) internal system that’s no longer vendor-maintained and will be extremely expensive to replace. And yes…Flash.
+Feel for ya buddy.
+Speaking of niche cases…
+At a job in 2009, I used the same Windows Explorer folders on a daily basis, migrating case files back & forth between folders named “complete,” “notified,” “pending,” “resolved,” “dismissed.”  I started the job still on WinXP, where individual folders could be positioned on my screen in a consistent, predictable, efficient array, and Explorer itself remembered each window’s size and position.  It’s a long habit of mine to UNcheck “hide extensions for known file types” as I check “restore previous windows at logon” and choose “detailed list” instead of icons.  We geeks like to know modification times and file sizes–and sorting by either is often handy.
+If the OS crashed, however–the positions were lost, and I had to rearrange again.  Not a huge effort, but it took a couple minutes I should’ve spent actually working.  I often thought Explorer should maintain an .xml file to track its windows, restoring upon recovery/startup.  Milliseconds to update, it would save time for each user with a need like mine.
+Well… it took me ages to admit my usage was non-standard to the point most non-power-users couldn’t even fathom my explanation–or at least would raise eyebrows at why I considered it a worthwhile lament, since describing the problem took longer than the fix did.
+“Fortunately,” my new Windows7 box stopped tracking window positions altogether–and instead decided to save settings based on “folders of this type,” giving me something entirely new to complain about, for being audacious enough to still care about file size or mod time of “pretty” files like images and audio–where apparently all I really need is a thumbnail to violate my already-set preference for a detailed list.
+> unpack a zip archive and re-pack it so it has the same checksum
+Hahah, I was cutting my Unix/Linux teeth in mid-2000 when the game Quake III Arena was in full swing.  Id Software provided tools for player-created levels, which were simply .zip files rebranded with a .pk3 extension.
+Buddies and I would stage LAN parties, exchanging user-contributed levels, numbering in the hundreds.  We’d scour the web for new custom maps, adding them to the horde–we spent many hours exploring, shooting, categorizing, ranking.
+I took it upon myself to consolidate all these maps to a personal web server.  Wanting a convenient, centralized repository, I hosted the actual game files, despite that most would be available via the original links for years.
+I’ve never claimed to be the smartest dude.
+We’d switch maps at the command line, but recalling the names of all our favorite maps became increasingly cumbersome,† so I wrote a script to parse all the files we’d downloaded and extract each level’s screenshot.  It built a new page to host links for the downloads, with all the images as a guide.
+† Thunda3dm1, Charon3dm3, saiko_tourney1, ztn3dm1, Distonic, mvdm01…
+Anyway, my smug satisfaction with my accomplishment deflated when playing a few isolated games on public servers found us re-downloading maps we *knew* we’d already acquired.  Turns out, in my zeal to streamline everything–including faster downloads–I’d re-packed every map with maximum compression, completely oblivious to how a public game server might strive to mitigate cheaters–thereby using a checksum in that endeavor, ensuring everyone has the same map.
+All my “efficient” re-packs had checksums not recognized by anyone outside our circle of friends.  Every one of us had to download them again at 2.4KB/sec…
+Oops.  I’ve never claimed to be the smartest dude.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

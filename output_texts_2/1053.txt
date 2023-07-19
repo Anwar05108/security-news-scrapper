@@ -1,0 +1,83 @@
+Sophos Home protects every Mac and PC in your home 
+In July 2018, after many years of using Yubico security key products for two-factor authentication (2FA), Google announced that it was entering the market as a competitor with a product of its own, called Google Titan.
+Security keys of this sort are often known as FIDO keys after the Fast IDentity Online Alliance, which curates the technical specifications of a range of authentication technologies that “[p]romote the development of, use of, and compliance with standards for authentication and device attestation”.
+Boldly put, FIDO aims to “help reduce the world’s over-reliance on passwords.”
+The Google Titan device, like similar products from Swedish company Yubico and Chinese company Feitian (which actually makes the hardware used in the Titan), looks like a miniature key fob that contains specialised and supposedly tamper-proof hardware for performing secure cryptographic calculations.
+Much like the chip on your credit card (in fact, Titan keys use the same secure processor as some smart cards), or the SIM card in your phone, Titans are designed to do encryption in a rather special way.
+Titans can generate encryption keys internally, can encrypt (or digitally sign) data that you send to them, and can export the encrypted (or signed) data.
+But they cannot export the secret part of the key itself, which is locked up inside the chip.
+As you can probably imagine, this makes it possible to implement a secure login process where:
+Simply put, the fact that the key itself not only generates but also securely stores its own cryptographic secrets means that it can’t, in theory at least, be cloned or copied.
+This anti-copying feature provides strong protection against attacks such as phishing, where you get tricked into typing in your password on a fake site, and keylogging, where you get infected by malware that monitors your keystrokes and steals your password as you type it in.
+Titan keys use a choice of USB (you plug them briefly into a USB port), NFC (you wave them near an NFC-enabled device such as a phone) or Bluetooth (same idea as NFC). Because they can’t be tricked into spitting out your secret cryptographic keys, they can’t be skimmed or plundered for their data even if you connect them up to a computer or a phone that is itself infected with malware.
+Of course, all this anti-cloning protection relies on two vital assumptions, namely that the Titan key really is clone-proof, and that its private internal data can’t be extracted by an attacker.
+That assumption has just been disproved.
+French researchers Victor Lomne and Thomas Roche from a company called NinjaLab just published a fascinating paper entitled A Side Journey to Titan: Side-Channel Attack on the Google Titan Security Key.
+In this admittedly very technical paper (strong mathematics required), they explain how they bypassed Titan’s anti-clone protection and figured out a way to extract secret data from the device.
+In particular, Titan keys provide support for a public-key encryption algorithm called ECDSA (Elliptic Curve Digital Signature Algorithm), where the device itself generates a public-private keypair, exports the public key only, and keeps the private key inside the device where you aren’t supposed to be able to get at it.
+Amazingly, the researchers came up with a technique, admittedly not an easy or a quick one, by which they could use electromagnetic emanations – tiny, stray radio waves emitted by the device as a side-effect of the electrons whizzing around inside it as it operates – to make guesses about the internal state of the Titan processor chip while it was performing cryptographic calculations.
+In particular, they figured out how to monitor the chip while it was performing authentication operations, something that the device is designed to do whenever requested.
+From the combined electromagnetic emissions of several thousand cryptographic calculations, they were able to infer the private key that was used in the process.
+Interestingly, their electromagnetic snooping didn’t reveal the bits of the private key directly.
+Instead, they were able to guess at the value of some of the bits of a random number, known as a nonce (number used once), generated and used internally in a multiplication operation every time a digital signature was calculated.
+Multiplication algorithms are notoriously difficult to program in such a way that they behave consistently no matter what numbers are being multiplied. 
+Knowing the random nonce, which is deliberately thrown away after each digital signature is completed, is enough to extract the private key, given that you already know the input data, the public key and the output data.
+You can see the “complexity of consistent multiplication” problem in action if you ask someone to multiply without a calculator. They’ll come up with the answer to 312×100 right away; 312×101 will take a bit longer but they should be able to do it in their head;  but ask them for 312×456 and they will almost certainly reach for pen and paper and take many times longer to get the answer. Ensuring that your multiplication algorithm does exactly the same amount of work, in an indistinguishable way, regardless of whether the calculation is “easy” or “difficult”, is surprisingly hard.
+After sampling thousands of digital signature operations, involving thousands of nonces, they had enough information about the internal state of each ECDSA computation to work backwards to the private key.
+That’s the bad news: it proves that if attackers can get their hands on your Titan key for a while, and connect it to a monitoring device of their own for long enough, they can extract the current ECDSA private key and use it to make a software clone of your Titan key.
+The crooks could then snoop on you after returning the original key to you, because if you don’t realise you’ve been hacked, you’ll probably keep logging in as usual.
+The chip inside the Titans turned out not to be tamper proof, and not to be sufficiently protected against electromagnetic snooping.
+That combination led to what’s known as a side channel attack, so-called because it relies on measuring various side effects of the calculations performed, rather than tracking the calculations directly.
+Technically, therefore, the researchers have successfully hacked Google Titan keys.
+Here’s the good news: this attack isn’t very practical.
+Firstly, you need about $10,000 of specialist equipment, carefully set up to perform pinpoint radio measurements:
+If we zoom into the picture of the snooping rig, you can see both the electromagnetic probe (the metal spike emerging from the red-and-gold box) and the precision positioning device (the black slab labelled “Thorlabs”):
+The Langer ICR HH 500-6 electromagnetic probe has a detection coil that is just half a millimetre in diameter and can pinpoint radio emissions between 2GHz and 6Hz.
+The Thorlabs PT3/M 3-axis (X-Y-Z) manual micro-manipulator can be positioned to within one-hundredth of a millimetre (10 micrometres, or just 4/10,000ths of an inch).
+Secondly, you need to open up the Titan key, which the researchers found easy to do, but not in a way that would escape notice when the device was reassembled and returned to the original owner in the hope they would not notice it had been “borrowed”.
+The researchers couldn’t find a way to open up the device with a scalpel or other fine cutter without destroying it, unless they softened up the plastic first with a heat gun, leaving rather obvious signs of tampering:
+Thirdly, you need a corrosive chemical that will dissolve the plastic coating on the secure chip inside the device, without overdoing it and destroying the chip (or your lungs) completely.
+The researchers used fuming nitric acid, a dangerously corrosive substance once used as rocket fuel.
+Fourthly, you need to perform about 6000 digital signature calculations inside the chip in order to collect enough data for later, which takes about six hours given the processing speed of the device.
+(The rest of the work, going backwards from the snooped data to the hidden private key, requires a panoply of statistical calculations and deep learning computations, but can be done “offline”, after you’ve returned the reassembled Titan key to its rightful owner in the hope they won’t have missed it and won’t notice that it now looks as though it was left on a car dashboard in direct sunlight.)
+Note that anyone who already has your username, password and Titan key can login as you anyway, because they have both factors of your 2FA, namely “what you know” (the password) and “what you have” (the Titan key).
+Current Titan keys have no biometric protection to stop them being used by someone else, so stealing someone’s key is already a way into their account.
+So this attack only makes sense for someone who wants to make a clone of your Titan key so that they can:
+Fortunately, where a presumably well-funded adversary wants long-term access to your account to keep you under surveillance for some time, the FIDO authentication standard includes a way of detecting that your key has been cloned.
+That’s because every authentication reponse that’s created by a FIDO key includes a count of how many responses the key has computed so far, together with a digital signature of that count.
+Whenever the attackers login using the cloned key, they have to guess the current value of the counter in your key, add one, and use that to get in.
+If they guess incorrectly, an online service that tracks the counter number of each user’s key would probably catch the crooks out before they got in at all.
+If they guess correctly, however, then the counter in your key will be behind by one (or more) next time you login, and that also ought to raise the alarm.
+So, the most obvious precautions against this hard-to-use attack are:
+The paper includes a list of devices that the researchers either found to be vulnerable, or assume to be at risk because they use the same vulnerable chip (NXP A700X).
+The full list is here, and includes: all Google Titan keys, Yubikey’s Neo product, and various Feitian devices including the MultiPass FIDO and ePass FIDO keys.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I think this is more useful for enforcement units than “common” hackers.
+Or for criminals, e.g. those engaged in targeted industrial espionage or gearing up for large-scale data theft against a predtermined company (possibly followed up with a ransomware attack and a blackmail demand).
+These keys will ruin spy movies. No longer will they keep people alive to beat the password out of them, they’ll just convince them to laydown and take they key out of their pocket.
+Hmm, maybe they can make it more secure and require a password/pin to use it  – lol
+You still need to have a username and password when using. This is just a form of two factor authentication that is used after you enter your username and password.
+I hope that the Neo users, or those with Feitian FIDO keys, don’t skip reading this because “I don’t have a Titan”.  Perhaps a change in the headline is in order?
+The primary target was Titans that are currently being sold (the Neo is IIRC off the market now) so that’s what I went with. The researchers didn’t test the other devices, so for all we know there might be other countermeasures in those (the packaging, for example). 
+First Google used YubiKeys – then they reverse engineered them & tried to implement their own?
+So Google is now following the Microsoft playbook?
+Yet Another Reason NOT to do business with Google.
+I don’t think that’s exactly how it happened – to hear you tell it makes it sound like piracy (as though Google somehow acquired the technology dubiously).
+In fact, it seems that Google simply decided to enter the security key market for itself, using a product from Chinese vendor Feitian in a Google-branded form, presumably under a mutually agreeable licensing deal.
+You don’t have to like the “whitebox” approach to product marketing – you could argue that it reduces innovation, for example, and that it can end up making a potentially risky monoculture look more varied than it really is – but it is surprisingly common in many industries, and it would be rather unfair to suppliers to tell them that once they had signed up one customer they had to stop looking for any others. 
+This really isn’t an issue, given the lengths the “hacker” would need to go to. If they manage to do this, let’s assume that the owner of the key is likely already incapacitated. 
+Seriously though, if you lose your key or it’s damaged you can just log in to your Google account and disassociate it with your account, not hard really; providing you have already got a phone number or other means of 2-step authentication set-up in the event you don’t have your key at hand.
+O.M.G…
+I stopped reading after “‘something you know’, such as your username”. Does the author has a slightest idea about security? Username as an authentication factor? Seriously? Username is used to identify the user, not authenticate. OBVIOUSLY, it cannot be secret. Just think how you would be giving privileges to some resource (e.g. a file on server) if username was a secret… hmm? Right… now it should be obvious (even to Sophos) where the difference between identification, authentication and authorization is.
+If you had read more carefully and not stopped in the middle of the sentence, you would have seen that I wrote (my emphasis below for clarity): ‘”something you know”, such as *your username and regular password*.’
+Basically saying unless someone can physically take your key there is no cracking the Titan key , and if you have that kind of information you definitely don’t keep the key on u, it gets stored in a vault somewhere ,with key no one is getting in
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

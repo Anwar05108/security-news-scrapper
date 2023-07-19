@@ -1,0 +1,53 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re interested in cybersecurity you’ve probably read any number of reports in recent years about the often tenuous state of security in consumer devices.
+From insecure doorbells to webcams, and from light bulbs to home routers, we’ve written our own share of horror stories in recent years.
+That’s disappointing, but hardly surprising.
+Computing gear of this sort – a market segment often referred to as the Internet of Things (IoT), because the devices are typically tiny and don’t look or feel like traditional computers – is generally simple to use, and thanks to a highly competitive market is usually built down to a price, which is good news for consumers…
+…but it doesn’t leave a whole lot of time or money for vendors to expend on security.
+IoT devices also typically have limited memory, disk and processing capacity, for reasons of size and weight as much as price, so their software is often stripped down to fit.
+That can work out well, because the more features you leave out, the fewer places there are for bugs to lurk; but it can also end badly because what gets omitted often includes security checks that might otherwise have been included, or implemented more thoroughly.
+Nevertheless, some vendors of low-cost devices are responsive to bug reports and publish security fixes promptly, which leads to another problem with the IoT ecosystem, namely that many consumers take a “set and forget” attitude to these devices.
+So even if your home router gets updated reguarly with security improvements, when was the last time you went and checked if your device actually has the latest firmware version installed?
+Well, if you have an ASUS RT-AC1900P home router – a high-end, high-bandwidth home device – then we recommend that you do an update check now.
+Researchers at Trustwave found security holes in this router’s firmware late in 2019, which ASUS duly patched, and those researchers have now gone public with a security advisory that details their findings.
+Ironically, the bugs related to the router’s firmware update process, so the update actually patches the update system itself.
+Trustwave found two vulnerabilities, dubbed CVE-2020-15498 and CVE-2020-15499, that could have allowed crooks to pull off a double-barrelled attack:
+The first bug seems to have been a simple oversight – perhaps code added for testing that was never removed, or an insecure option left over from years ago that was never revisited and reviewed.
+Simply put, the router – which runs Linux and standard Linux tools, like many IoT devices – used the well-known wget command utility to organise its downloads, and correctly used an HTTPS (secure) web link…
+…but added the non-default command line option --no-check-certificate so that a download from a bogus site would not be detected.
+As the wget documentation explains, this option tells the software:
+
+Don’t check the server certificate against the available certificate authorities. Also don’t require the URL host name to match the common name presented by the certificate.
+
+The second bug relied on what’s known as cross-site scripting.
+That’s where a web server puts data that you originally provided, typically text, into a web page it sends back to you, but accidentally allows the text to include JavaScript commands.
+In other words, by putting booby-trapped JavaScript in your release notes, you could provoke the server to include your script in a page that was served up under one of its own URLs.
+Injecting JavaScript into a page that’s served up by someone else is basically as good as hacking their server and uploading your own JavaScript to it.
+In both cases the JavaScript comes with the imprimatur of that server, and can therefore access any saved JavaScript resources – cookies, web storage and autentication tokens, for example, that are supposed to be private to that server.
+If you own an affected ASUS model, check your firmware version.
+According to Trustwave, these bugs are fixed if your version is 3.0.0.4.385_20253 or later.
+If you are a programmer, whether of IoT devices or anything else:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Wouldn’t really call an update which updates the updating process irony. That’s what update systems do.
+Irony:
+Man forgot last night’s insulin shot and has none left, hurries to hospital. On the way there he is killed by a speeding ice-cream truck.
+I’m happy with the word “irony” in this context and I am going to stick to it. Almost all updates exist to update some other part of the system, after all. The irony, if you will let me call it that, is that you need to do one last *insecure* update to get the insecure update issue fixed.
+Fair enough
+I believe that the best (IMVHO) use of the word irony, that I have seen, was used by Randal Monroe in his What If book, where Cueball dies of a block of Fe.
+Perhaps because I am a Dad?
+That joke doesn’t really work outside North America – in British and Commonwealth English, “irony” is pronounced “EYE-ruh-knee” in three very distinct syllables, not as “IRON-ee”. We don’t really connect the word or the concept with ferrous objects at all.
+I have lived almost my entire life (40+ years) in N20 and HA8.
+I guess I’m more literary than aural.
+But fair point.
+As far as I am aware, there is no common origin for the words “iron” and “irony” – they are entirely unrelated in literary and etymological terms. I never connected the concepts at all until I found out (surprisingly recently) how North Americans pronounce the two words. 
+(For years and years I didn’t know that Americans don’t pronounce the letter L in the word “solder”, either, or that they leave out the T in “fillet” and don’t sound the letter H in “herb” unless it’s someone’s name. I did, however, quickly learn that a “restroom” is anything but, after seeking one out at an airport in the hope of a quick nap during a long-haul layover. Back when travel was a thing. That was one of life’s swiftest and most easily-learned lessons.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

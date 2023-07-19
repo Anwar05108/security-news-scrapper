@@ -1,0 +1,26 @@
+Sophos Home protects every Mac and PC in your home 
+Slack has fixed a bug that allowed attackers to hijack user accounts by tampering with their HTTP sessions. The flaw could have allowed attackers to pilfer users’ cookies, giving them full account access. They could also have automated those attacks at scale, said the researcher who discovered it, Evan Custodio.
+The bug uses a sneaky trick called HTTP smuggling, which takes advantage of how back-end servers process requests using this protocol. Browsers use HTTP to ask web servers for pages and other resources. Those requests generally go through multiple servers. A front-end proxy server might send it to one of several back-end servers, for example. The front-end server often serves as a clearinghouse for requests from different browsers, meaning that different peoples’ sessions with web applications mingle in the same traffic stream.
+The problem lies in the way that HTTP communications announce themselves. This announcement, known as an HTTP header, has to tell the server where the request ends. It does this in one of two ways.
+The first uses a Content-Length header that tells the server how many bytes long the request is. The second uses a Transfer-Encoding: chunked header. This tells the server that the content comes in chunks, which end with a zero-sized chunk.
+An HTTP request is only supposed to use one of these headers, but HTTP smuggling attacks use both of them to confuse the front-end and back-end servers. The idea is to make each server process the request differently.
+Custodio discovered that Slack was susceptible to a variant of the HTTP smuggling attack called CLTE, in which the front-end server uses the Content-Length header while the back-end server uses the Transfer-Encoding one. Each header specifies a different amount of content to process, causing the front-end server to process more content than the back-end one.
+The part of the content that the back-end server ignores is the malicious content. It still sees this content, but the attack causes it to interpret that text as the start of the next HTTP request, enabling the attacker to replace the next request’s legitimate header with their malicious one. Because the front-end server blends requests from different people in the same stream, this lets them affect someone else’s communications with the back-end server.
+The researcher worked out a way to steal a user’s session data using this technique. He used the CLTE flaw to attach a malicious HTTP GET request that caused a 301 redirect error. Slack used the malicious URL as the redirect location.
+Because this GET request replaces the header of a victim’s own HTTP request, it redirects that victim’s traffic to the malicious URL, Custodio explained, giving an attacker access to their session cookies (effectively owning their account). He added:
+[…] it is my opinion that this is a severe critical vulnerability that could lead to a massive data breach of a majority of customer data. With this attack it would be trivial for a bad actor to create bots that consistantly [sic] issue this attack, jump onto the victim session and steal all possible data within reach.
+Custodio posted the discovery via Slack’s HackerOne bug bounty program in November, and Slack fixed it in 24 hours. He won a $6,500 bounty and got the go-ahead to make it public on 11 March.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+$6500? That’s a paltry value for publicly-held Slack to place on someone doing Slack’s work for them and finding a bug of THIS magnitude that would permit relatively simple, at-scale attacks on customer accounts/data. IMO, add a zero, cheapskates.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

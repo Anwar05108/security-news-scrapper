@@ -1,0 +1,25 @@
+Sophos Home protects every Mac and PC in your home 
+Thousands of active WordPress plugins have been hit with a swathe of cross-site scripting (XSS) vulnerabilities that could give attackers complete control of sites. One of the affected plugins was designed to work with the popular WordPress ecommerce system WooCommerce.
+Researchers at NinTechNet found a vulnerability in the WordPress Flexible Checkout Fields for WooCommerce plugin, which enhances the popular WordPress ecommerce system with the ability to configure custom checkout fields using a simple user interface.
+The flaw, which the authors at WPDesk subsequently blogged about, enabled attackers to add two custom fields to the Billing and Shipping sections of a WooCommerce page. These inject a script that, once run, enables the creation of four new administrative accounts using predefined email addresses. An existing site admin would have to visit either the plugin configuration screen or the checkout page for these accounts to be set up.
+At this point, the infected site would also download a zip file and store it in the site’s content upload section, extracting PHP pages from it and installing them in the plugin section as Woo-Add-To-Carts.
+WordPress firewall and malware scanning company Wordfence rated this vulnerability as critical in its own blog post. It added that the exploit was possible due to an XSS flaw on the pages accessed by the site admin. It happened because the site didn’t check authentication for updateSettingsAction, a function that hooked into admin_init. This contains code that runs whenever an admin page is loaded, including those that don’t require authentication. Wordfence’s researchers said:
+By crafting an array of expected settings, attackers can inject JavaScript payloads into the elements that render onscreen.
+Wordfence discovered several other WordPress plugin vulnerabilities. The other bug severe enough to get a critical rating cropped up in 10Web Map Builder for Google Maps. It seems similar to the bug in Flexible Checkout Fields because it lets an attacker inject JavaScript into settings values that are then called during admin_init. Like the first bug, it runs on pages that don’t require authentication. It also runs for some front-of-site visitors, Wordfence added.
+Two other bugs surfaced by Wordfence got a high severity rating. The first was in the Async JavaScript plugin, which speeds up page load times by blocking JavaScript that delays page rendering. A flaw in that software similar to the one in Flexible Checkout Fields failed to check the capabilities of a built-in function. It enabled attackers to inject malicious JavaScript that triggered when admins viewed certain areas of the dashboard, Wordfence said.
+The final bug affected the Modern Events Calendar Lite plugin, which helps people manage events. This plugin uses several actions for logged-in users with low privileges that manipulate settings data. Attackers have been injecting XSS code to target admin pages and create rogue accounts for themselves, Wordfence said. It was also possible to hit the front page of an affected site to affect visitors, it added.
+These flaws have all been patched, but all affected heavily used plugins. Flexible Checkout Fields for WooCommerce and 10Web Map Builder each have over 20,000 active users, while Modern Events Calendar Lite has over 40,000 and Async JavaScript has over 100,000. In some cases, users reported hacked sites.
+Anyone using these plugins should patch immediately using the blogging software’s built-in update system or by visiting the plugins’ download pages.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

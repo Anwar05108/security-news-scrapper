@@ -1,0 +1,73 @@
+Sophos Home protects every Mac and PC in your home 
+A researcher at vulnerability and red-team company Rapid7 recently uncovered a pair of risky security bugs in a digital home security product.
+The first bug, reported back in May 2021 and dubbed CVE-2021-39276, means that an attacker who knows the email address against which you registered your product can effectively use your email as a password to issue commands to the system, including turning the entire alarm off.
+The affected product comes from the company Fortress Security Store, which sells two branded home security setups, the entry-level S03 Wifi Security System, which starts at $130, and the more expensive S6 Titan 3G/4G WiFi Security System, starting at $250.
+The intrepid reseacher, Arvind Vishwakarma, acquired an S03 starter system, which includes a control panel, remote control fobs, a door or window sensor, a motion detector, and an indoor siren.
+(The company also sells additional fobs and sensors, outdoor sirens, which are presumably louder, and “pet-immune” motion detectors, which we assume are less sensitive than the regular ones.)
+Unfortunately, it didn’t take much for Vishwakarma to compromise the system, and figure out how to control it without authorisation, both locally and remotely.
+Like many modern Internet of Things (IoT), products, the Fortress Security products make use of cloud-based servers on the internet for control and monitoring purposes, accessing the Fortress cloud via what’s known in the jargon as a web API, short for application programming interface.
+And, like most modern web APIs, Fortress uses a programming style known as REST, short for representational state transfer, where data is sent to the API via HTTP POST commands, and retrieved using GET commands, using a set of static, well-defined URLs that act programmatically as web-based “function calls”.
+In the old days, web APIs often embedded the data they wanted to send and receive into the URL itself, along with any needed data, including passwords or authentication tokens, tacked on the end as parameters, like this:
+But constructing a unique URL every time is troublesome to servers, and tends to leak sensitive data into logfiles, because URL access histories are often stored for troubleshooting or other purposes, and therefore ought to avoid having query-specific data coded into them. 
+(Cautious firewalls and security-conscious web servers do their best to redact sensitive information from URLs before logging them, but it’s better not to have confidential data in the URL at all.)
+RESTful APIs, as they are commonly called, use a consistent list of URLs to trigger specific functions, and typically package their uploaded and downloaded parameters into the rest of the HTTP request, thus keeping the URLs free of potentially confidential data.
+For example, if you are using Sophos Intelix (free accounts available!) to do live threat lookups, you first need to authenticate with your username and password, which gives you a session password called an access_token that works for the next 60 minutes.
+There’s just one RESTful authentication URL, and your username and password (Intelix only accepts HTTPS requests, to ensure that data gets exchanged securely) is sent in the request, like this:
+The Fortress API works in a similar way, but Vishwakarma quickly discovered that he didn’t need to go through an authentication stage up front.
+Instead, he was able to send a request along these lines:
+Even though he only supplied a user_name in the request, he received a reply that contained a JSON string labelled IMEI, an acronymn usually used in the context of mobile phones and short for international mobile equipment identity. 
+Every phone, whether it has a SIM card inserted or not, has an IMEI that is burned into the device by the manufacturer (dial the magic phone number *#06# to see yours), and mobile phone operators use it to track your physical device on the network and to blocklist stolen phones.
+Because the IMEI (pronounced eye-me, rhymes with blimey) is unique to your device, you’re strongly advised not to reveal it to anyone else.
+You certainly shouldn’t use your IMEI as if it were a username or a public identifier, and mobile apps in curated online markets such as Google Play and the Apple App Store aren’t allowed to collect them, because IMEI-grabbing apps are considered malicious by default.
+Even though the entry-level S03 home security product doesn’t take a SIM card, and only works via a Wi-Fi network, it seems that Fortress nevertheless uniquely identifies each device with a numeric code it refers to an an IMEI.
+(We’re guessing that this is so that the S03 can share source code with the more expensive S6 Titan product, which has a SIM card slot and therefore a built-in IMEI of its own.)
+Unfortunately, this IMEI is used not just as a username, which would be ill-advised on its own, but as a full-blown password that can be used as a permanently valid authentication token in future requests to the Fortress web API.
+In other words, simply by knowing your Fortress user_name, Vishwakarma could acquire your device’s IMEI, and then simply by knowing your IMEI, he could issue authenticated commands to your device, for example like this:
+In the above command, the data item op appears to stand for operand, the name commonly given to the data that’s supplied to a computer function or machine code instruction. (In an assembler code line such as  ADD RAX,42, the values RAX and 42 are the operands.)
+And the value zero given as an operand to the command ACTIVATE, as shown above, does exactly what you might expect: it turns the alarm off!
+Of course, to figure out the KNOWNVALUE of the IMEI/password for your account, an attacker would first need to know the values of XXXXXX.
+Sadly, as Vishwakarma found out, XXXXXX is simply your email address, or more precisely the email address you used when setting up the system.
+In short: guess email address ==> get permanent authentication code ==> deactivate alarm remotely at will.
+Vishwakarma also took a look at the security of the keyfobs (the remote control buttons, like the button that opens your garage door or unlocks your car) that come with the system.
+Vishwakarma used a funky but increasingly affordable setup known as an SDR, short for software defined radio, a reprogrammable transmitter and receiver system that can be adapted to work at a huge range of different frequencies and to emulate all sorts of different radio kit.
+You’ll need a high-end SDR setup to handle very high-frequency devices such as Wi-Fi (at 5GHz and 2.4GHz), but a hardware dongle costing under $50 has enough performance to “listen in” on transmissions at 433MHz, the frequency band commonly used by remote control devices such as keyfobs.
+In theory, a correctly configured SDR can reliably and easily record the exact radio signal emitted by a keyfob when it’s locking or unlocking your car, your garage or your home security system.
+The same SDR could then play back an identical tranmission later on.
+In that sense, an SDR works like a wax block or a bar of soap would with an old-school key, whereby an attacker (or a private detective in a crime novel) could make an impression of your doorkey today, and then cast a copy of their own to use tomorrow.
+A digital keyfob, however, has one significant advantage over a traditional key, namely that it can “shape-shift” between each button press.
+By using a cryptographic algorithm to vary the actual data it transmits each time, much like those ever-changing 2FA codes that mobile phone security apps produce, a well-designed keyfob should be resistant to what’s known as a replay attack.
+That sort of dynamic code recalculation, typically based on a digital secret that’s securely shared between the keyfob and the control unit when the keyfob is configured, means that a radio code recorded today will be no use tomorrow, or even in two minutes’ time.
+Sadly, as you’ve probably guessed already, Vishwakarma found that the Fortress S03 fobs didn’t produce one-time codes each time they were pressed, but simply used the same code over and over, a vulnerability now dubbed CVE-2021-39277.
+In short: hover near someone’s home ==> capture keyfob “alarm off” transmission once ==> deactivate alarm later at will.
+According to Rapid7, Fortress decided not to respond to these bugs, closing the report back in May 2021, and didn’t object to the company’s proposed disclosure of the flaws at the end of August 2021.
+Thus it looks as though the company isn’t planning any sort of firmware update, whether for its control units or keyfobs, and therefore that these vulnerabilities will not be patched, at least in systems that have already been sold.
+So, if you have one of these systems, or a similar-looking system under a different brand that you suspect may be derived from the same original equipment supplier, there are two workarounds you can use:
+Once again, as we seem to say so often when we’re talking about IoT security: if you’re a programmer, don’t take shortcuts that you know will come back to haunt both you and your customers.
+As we’ve mentioned many times, device identifiers such as MAC addresses, UUIDs and IMEIs are not suitable as cryptographic secrets or passwords, so don’t use them for that purpose.
+And cryptographic material that you transmit or display unencrypted, whether that’s a 2FA code from an authenticator app, an initialisation vector for an encrypted file, or a radio burst from a keyfob, must never be re-used.
+There’s even a jargon term in cryptography for this sort of data: it’s known as a nonce, short for number used once, and that word means exactly what it says.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Dear Paul
+I love your reference regarding “security by obscurity”
+Yes not ideal but a first step.
+As well short cuts are not helpful and a vulnerability disclosure program might also help catch our mistakes quicker… to fix them faster.
+Thanks for sharing
+Urs
+drkpi
+In the 99th percentile of articles I’ve ever seen for clarity.
+I would like to nominate Mr. Ducklin for the position of National (or world) Documentarian.
+On the subject matter, I regularly promote security by obscurity and security by isolation (don’t connect to the web) for elections data and processes.
+Documenting the poor practices of Fortress is a sharp reminder of the untrustworthiness of most technology companies.
+Thanks for your kind words! Glad you enjoyed the piece… I enjoyed writing it :-)
+Excellent article Paul. It shows how crappy these fly by night security companies are today.
+Thanks – glad you enjoyed it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

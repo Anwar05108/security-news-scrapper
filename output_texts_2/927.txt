@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+Have you left a cloud database exposed online?
+According to Dutch security researcher Victor Gevers of the Dutch Institute for Vulnerability Disclosure, who’s been hunting down insecure databases for years, thousands of MongoDB users have done just that – or, to be more precise, many tens of thousands of databases have shown up where they shouldn’t.
+And that’s just this year.
+A significant proportion of exposed databases have been modified by hackers in recent months to include a blackmail demand database in broken English that says:
+There’s a pseudo-anonymous email address that you can use to contact the extortionist, and a Bitcoin wallet for the money.
+(We suspect that some victims will have exposed several different databases at the same time, given that a security blunder that’s easy to make once is just as easy to repeat.)
+Note that when the extortion note says that “your data is backed up,” the crooks aren’t congratulating you on having a backup of your own.
+What they mean is that, whether you have a backup or not, they have one, or so they say, and their leverage is that they’ll dump your data for the world to see, and tell the regulator, if you don’t cough up the money.
+Presumably, the fact that the blackmail message was uploaded to your database – proving that the crooks had write access – is meant to convince you that the crooks definitely also had read access and therefore did indeed steal all your data. 
+It’s possible for hackers to get “blind” access to a database so they can write to it but not read anything out, not even what they themselves just wrote, but write access usually implies read access as well.
+Astonishingly, according to ZDNet, this extortion note has already shown up in close to 23,000 exposed MongoDB databases in recent months, and this number represents close to 50% of all exposed databases out there in that period.
+There are three obvious lessons here:
+One thing missing from the blackmail message above is the sort of pressure you’d expect in a ransomware attack, namely that you’re paying to get your data back because the crooks have wiped or scrambled it.
+Here, the threat is that the crooks will expose your data breach, not that you will lose your data forever.
+Ransomware crooks, on the other hand, started off from a completely different angle: to avoid the hassle of uploading all your data, possibly over a slow internet link, they typically just encrypted it “in place” and offered to sell you back the decryption key.
+That way, they didn’t even need you to be online at all when the ransomware triggered – they just needed to leave behind a ransom demand, a contact email or Bitcoin address, and a unique identifier from which they, and they alone, could figure out the decryption key or keys to send you.
+Sadly, now that internet connectivity is generally very much faster than when ransomware got going nearly 10 years ago…
+…the ransomware crooks have taken to stealing your data first anyway, and only then scrambling it in place, so they can put double pressure on you to pay up.
+Now, the crooks warn you that even if you do have a backup of your own, they’ll expose your data anyway and what could have been just an internal ransomware incident will turn into a full-on external data breach incident.
+Evil stuff.
+Well, it looks as though these database pilferers are doing what the ransomware crooks did, only in reverse.
+Gevers says that in the last few days, the abovementioned MongoDB blackmailers have taken to wiping out the database after stealing it, so that they too can but a double squeeze on you for the money.
+Very simply, if rather obviously, don’t expose data to the internet unless you really intend to.
+Servers like MongoDB do have security features available, but many of them are opt-in, so you need to decide for yourself which ones to turn on, and how strict you want to be.
+It’s easy to criticise server vendors for not shipping their products in such as way that they don’t work at all until you’ve set up (or deliberately turned off) every possible security option.
+But even that wouldn’t solve the problem – many users would simply start out by hitting up their favourite search engine for “download sample configuration file with everything turned off”, and take it from there.
+Your operating and server software can try to discourage you from sloppy security, but in the end, the buck stops with you.
+So, our tips are:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The most obvious recommendation is missing- migrate the data to a compatible but always secure database…
+By default Mong DB installation is without any admin password which is the great cause of such miss happenings.
+While installation of MongoDB it must be mandatory to ask for admin login & password. In most of the development tutorial websites they give example without login/password which is yet another issue.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

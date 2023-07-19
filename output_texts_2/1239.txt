@@ -1,0 +1,73 @@
+Sophos Home protects every Mac and PC in your home 
+A not-yet-published paper from researchers in the UK has been making media headlines because of its dramatic claims about Apple Pay.
+Apple-centric publication 9to5Mac covered it with a headline that was almost a story in itself:
+Apparent flaw allows hackers to steal money from a locked iPhone, when a Visa card is set up with Apple Pay Express Transit.
+If you haven’t heard of Express Transit (known as Express Travel in the UK, where the word “transit” is not used to refer public transport), it’s one of those clever ideas that unavoidably trades off cybersecurity against convenience.
+Simply put, it lets you complete some types of touch-to-pay transaction, even when your phone is locked. 
+You can tell where this is going.
+(Express Transit is not enabled by default, so unless you have deliberately set it up on your device, the risks in this story don’t apply to you.)
+Express Transit makes Apple Pay and your iPhone work a bit like a regular credit card, which doesn’t need unlocking with a PIN code for low-value transactions (in the UK, the limit is currently £45, or about $60).
+Just tapping your credit card on or near a payment terminal – any terminal, whether it’s at a supermarket, in a newsagent, or at a coffee shop – triggers a rapid and entirely automated cryptographic exchange via the chip in your card that bills your account for the amount shown on the terminal’s screen.
+The technology used in this process is known as NFC, short for near-field communication, which relies on an electromagnetic field emitted by the reader that generates a minuscule current via a metal coil looped inside the credit card.
+That tiny burst of electrical energy produces just enough power to activate the chip for long enough to authorise a single transaction and transmit the verification data wirelessly back to the terminal.
+In theory, anyone who has a payment terminal of their own, and a payment provider willing to process their dodgy transactions, could wave the terminal close enough to your credit or debit card, for example while you are waiting in a queue or jammed into a train or bus, and trick your card into making a payment you weren’t aware of.
+In practice, however, the use of bogus payment terminals to extract fradulent transactions by bringing the terminal to the card (rather than the other way around) seems to be extremely unusual.
+So, for all the horror stories you may have heard about “payment leeches” prowling urban trains stealing money from unsuspecting commuters, we have never seen credible reports of successful, systematic frauds carried out this way.
+We’re guessing that the stakes are simply too high for prospective crooks, given the obviously intrusive and anti-social behaviour required to pull off the occasional low-value fake transaction by rubbing up against total strangers on a crowded train.
+Back in 2018, we tested several different types of credit card “shielding wallets”, from simple metal-coated cardboard covers, through to bulky metal card holders, and while we weren’t convinced you really needed to use one, we found that they all worked as advertised. Even our home-made shield hastily folded from tin foil (which is actually made of aluminium, of course) stopped our cards being activated, no matter how close we came to the reader or how many times we tried.
+Does your credit card need a tinfoil hat to keep it safe on the train?
+
+
+But what about NFC payment transations via your mobile phone?
+Unlike your credit card, which you mostly keep in your wallet and only fish out when you are actually at a payment terminal, your phone is almost certainly often on public display, sometimes held in front of you, sometimes just sitting temptingly nearby on a desk, table or counter-top.
+We’re much more likely to leave our phones in a bus, train, taxi, someone else’s office, shop, hotel or even at the beach than we are to lose our credit card in the same way.
+It’s this “time exposed to danger” that persuades us to put lock codes on our mobile devices, so that they can’t instantly be used and abused by anyone who happens to pick them up and turn them on.
+Even if we don’t like typing in a full-on lock code every time we want to use our devices throughout the day, most of us will configure some sort of alternative authentication mechanism such as fingerprint or facial recognition, to keep total strangers out.
+Most of us also set a timeout period that locks our devices automatically after a few minutes, even if we forget to press the lock button before we put the device down.
+Unfortunately, if rather obviously, every phone feature that you activate on the lock screen conspires directly against the security that the lock screen is supposed to provide in the first place.
+Whether it’s allowing notifications and personal messages to appear while your phone is locked, or using the Apple Pay Express Transit feature to authorise tap-and-go payments while your phone is locked…
+…any app or feature that you enable on the lock screen makes a bit of a mockery of the concept of “locking” your phone in the first place.
+Despite the risks, we understand the motivation behind Express Transit.
+Public transport is often a crowded, high-pressure environment where fumbling with your unlock code or not getting your face recognised first time when you are in a crush at the ticketing machine or at the platform gate…
+…can lead to delay, unpleasantness, insults, jostling, aggression or worse from the swarming multitudes around you.
+Thus the selective Express Transit, also known as Express Travel, option in Apple Pay.
+As we understand it, this “automatic unlock” doesn’t open up your account totally, so it doesn’t turn your phone into an instantly-pay-for-anything device like the credit card tucked up in your wallet.
+The feature is only supposed to work with selected public transport services, so that (in the UK, for instance) you can make Express Transit payments at Transport for London terminals and to the First Group bus company, but no one else.
+In the relaxed environment of your favourite Camden Town coffee shop, you’ll still need to unlock your phone to make a payment, but in the rush hour squish at Mornington Crescent underground railway station, you won’t.
+As explained above, enabling Express Transit doesn’t, in theory, open up your locked phone to abuse while you are wandering through a department store, for example, or going to a movie, or paying for fuel at a service station.
+In practice, however, the researchers behind this yet-to-be-published paper claim thay they were able to trick iPhones into making fraudulent payments under carefully prepared circumstances, by setting up their own payment terminal and passing it off as belonging to a public transport company that was part of the Express Transit payment scheme.
+Apparently, they only managed to pull this off with Visa card accounts (presumably, other payment providers were stricter about deciding whether payment terminal X really belonged to company Y), but it wasn’t limited by the usual NFC credit card payment limit.
+Indeed, the researchers claim that by using a fraudulent payment terminal they could get transactions approved up to £1000, well beyond the £45 tap-and-pay limit that currently applies to regular credit cards in the UK.
+Should you be worried?
+We don’t think so, but that’s because we avoid all “make things work at the lockscreen” features on all our mobile devices.
+We have embraced the minor irritation of having to type in our (long!) lock code every time we want to use our phone to do anything more than check the time.
+We’ve worked the it-only-takes-a-few-seconds unlock process into the way we conduct our digital lifestyle, even if that occasionally means standing aside from a quickly moving queue for a few moments to get our phone ready to use at the pinch point.
+So, in this case, our recommendations are as follows:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The SSL cert for nakedsecurity.sophos.com has expired (30 sep)
+I use the RSS feed at http://feeds.feedburner.com/nakedsecurity?format=xml
+Our certificate hasn’t expired (it’s valid until November 2021)… what’s probably happened is that your browser or your operating system itself has an expired “root authority” certificate (that’s the certificate that your browser uses to validate the certificate that was used to validate our certificate, if that make sense). Either that, or you are browsing via a web filter that is still using this expired “root”. 
+You can find some background to this issue here:
+https://nakedsecurity.sophos.com/2021/09/28/serious-security-lets-encrypt-gets-ready-to-go-it-alone-in-a-good-way/
+Updating your browser, operating system and RSS reader (some browsers have their own “root authority” lists; others use the operating system’s built-in list) will probably fix this, asuming that you are using a setup that is still supported. 
+Note that if your software *is* out of date, then updating (or switching to a more recent browser) is highly recommended. That’s because an outdated “root authority” list might contain more than just expired root certificates – it might contain unexpired certificates that should nevertheless have been withdrawn from use for security reasons. It doesn’t happen often, but occasionally the cybersecurity community will agree to stop trusting a so-called “root authority” for not meeting the standards of trust that are expected of it.
+What browser/RSS reeader/OS combo are you using, if I may ask? I suspect that this problem is most likely to show up on older mobile phones, because they may no longer be receiving updates, having been “dropped” by the vendor (possibly long ago!), even though they are otherwise working fine.
+I have tried recent versions of Firefox, Edge and Chromium on Linux; Firefox and Chrome on Android 11; and Edge and Safari on iOS 12… all of them verify our certificate just fine and allow me to visit this site without any warning.
+BTW, if this is happening for Naked Security then it will almost certainly affect your ability to access *any* website that uses the company Let’s Encrypt to issue its web certificates, and Let’s Encrypt is used by millions of sites out there.
+HtH.
+The technology used in this process is known as NFC, short for near-field communication, which relies on a magnetic field emitted by the reader that generates a minusucle current via a metal coil looped inside the credit card.
+“minusucle”–>”miniscule”
+Actually, it’s an electric field, not a magnetic field. RFID tags work the same way.
+I’ve changed “magnetic” to “electromagnetic”, given that it’s electromagnetism that transfers the energy (the coil in the moving card acts a bit like the rotor windings in an alternator, while the payment terminal, which typically doesn’t move, is like the stator field coils).
+As for “minusucle”, that was indeed a typo but the correct spelling is “minuscule”.
+FWIW, the word “miniscule” doesn’t exist, although many dictionaries make mention of it because it’s a very common typo. The word pair is majuscule/minuscule (think of the word “minus”, not “mini”). When used as a pair they refer to the upper case and lower case characters in a typeface. “Minuscule” is also widely used to mean “really tiny”, but I’ve never seen “majuscule” used outside the context of typography and typesetting.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

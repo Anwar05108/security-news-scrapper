@@ -1,0 +1,118 @@
+Sophos Home protects every Mac and PC in your home 
+Thanks to Michelle Farenci of the Sophos Security Team for her behind-the-scenes work on this article.
+Here’s a phish that our own security team received themselves.
+Apart from some slightly clumsy wording (but when was the last time you received an email about a technical matter that was plainly written in perfect English?) and a tiny error of grammar, we thought it was surprisingly believable and worth writing up on that account, to remind you how modern phishers are presenting themselves.
+Out are the implied threats, the exclamation points (!!!) and the money ($$$) you might lose if you don’t act right now; in are the happy and unexceptionable “here’s a problem that you can fix all by yourself without waiting for IT to help you” messages of a sort that many companies are using these days to reduce support queuing times.
+Yes, you ought to be suspicious of emails like this. No, you shouldn’t click through even out of interest. No, should never enter your email password in circumstances like this.
+But the low-key style of this particular scam caught our eye, making it the sort of message that even a well-informed user might fall for, especially at the end of a busy day, or at the very start of the day after.
+Here’s how it arrives – note that in the sample we examined here, the crooks had rigged up the email content so that it seemed to be an automated message from the recipient’s own account, which fits with the theme of an automatic delivery error:
+
+I​n​c​o​m​i​n​g​ ​m​e​s​s​a​g​e​s​ ​f​o​r​ [REDACTED] c​o​u​l​d​n​’​t​ ​b​e d​e​l​i​v​e​r​e​d​.
+This message was sent in response to multiple incoming messages being rejected consistently from 2:00 AM, Wednesday, August 19, 2020.
+To fix, recover and prevent further rejection of emails by our server, connect to your Company-Assigned OWA portal securely below.
+
+Only if you were to dig into the email headers would it be obvious that this message actually arrived from outside and was not generated automatically by your own email system at all.
+The clickable link is perfectly believable, because the part we’ve redacted above (between the text https://portal and the trailing /owa, short for Outlook Web App) will be your company’s own domain name.
+But even though the blue text of the link itself looks like a URL, it isn’t actually the URL that you will visit if you click it.
+Remember that a link in a web page consists of two parts: first, the text that is highlighted, usually in blue, which is clickable; second, the destination, or HREF (short for hypertext reference), where you actually go if you click the blue text.
+A link is denoted in HTML by an ANCHOR tag that appears between the markers <A> and </A> while the destination web address is denoted by an HREF attribute inside the opening anchor tag delimiter. 
+Like this:
+Top. Hovering over the link shows where it goes.Bottom. The link text looks like a URL but is not the link itself.
+ 
+
+
+
+
+
+
+
+
+
+
+            24/7 threat hunting, detection, and response delivered by an expert team as a fully-managed service.
+        
+
+
+        Learn More
+      
+
+
+
+
+
+If you’re thinking that “links that deliberately look as though they go somewhere else” sound suspicious, you’d be right.
+You might wonder why browsers, operating systems and cybersecurity products don’t automatically detect and block this kind of trick, where there’s an obvious and deliberate mismatch between the clickable text and the link it takes you to. 
+Unfortunately, even mainstream sites use this approach, making it effectively impossible to rely up front on what a link looks like, or even where it claims to go in your browser, in order to work out exactly where your network traffic will go next.
+For instance, here’s a Google search for here's an example:
+
+You can see that if you ① search for here's an example, you’ll receive a answer in which ② an explicit domain name (in this case, english.stackexchange.com) is used as the visible text of a clickable link.
+You can also see that when you hover over the domain name link, you’ll see ③ a full URL that apparently confirms that clicking the link will take you to the named site.
+However, if you use Firefox’s Copy Link Location option to recover the ultimate link, you’ll see – thanks to the magic of JavaScript – that your web request actually goes to a URL of this sort:
+Eventually, you will end up at the URL shown at position ③ in the screenshot above, but you’ll be redirected (quickly enough that you might not notice) via a Google track-and-redirect link first.
+So you do end up where the browser told you, but not quite as explicitly and directly as you might have expected – you get there indirectly via Google’s own advertising network.
+The good news is that in the case of this phish you will see the actual web page you’ll be taken to if you hover your cursor over the link-that-looks-like-a-different-link.
+That’s because email clients and webmail systems generally don’t allow JavaScript to run, given that emails could have come from anywhere – even if they say they came from your own account, as this one does.
+So you ought to spot this phish easily if you stop to check where the link-that-looks-internal really ends up.
+In our case (note that the exact URL and server name may vary every time), the real link did not go to https://portal.[REDACTED]/owa, as suggested by the text of the link.
+Instead, it went to a temporary Microsoft Azure cloud web storage URL, as shown below, which clearly isn’t the innocent-looking URL implied in the email:
+A quick check of the domain name via the Sophos Intelix online threat detection service shows its true colours:
+This server has nothing to do with your company’s email, and everything to do with putting you in harm’s way.
+If you do click through, and your endpoint or firewall filter doesn’t block the request, you will see a phishing page that we must grudgingly admit is elegantly simple:
+
+Your email address is embedded in the link in the email that you click on, so the phishing page can fill in the email field as you would probably expect. 
+When we tried this page, deliberately putting in fake data, we received an error message after the first attempt, as though we’d made a mistake typing in the password:
+
+No matter what we did the second time, we achieved “success”, and moved onwards in the scam.
+One tricky problem for phishing crooks is what to do at the end, so you don't belatedly realise it's a scam and rush off to change your password (or cancel your credit card, or whatever it might be).
+In theory, they could try using the credentials you just typed in to login for you and then dump you into your real account, but there's a lot that could go wrong.
+The crooks almost certainly will test out your newly-phished password pretty soon, but probably not right away while you are paying attention and might spot any anomalies that their attempted login might cause.
+They could just put up a "thanks, you may now continue normally" page, and often that's exactly what they do as a simple way to sign off their scam.
+Or they find a page that's related to the account they were phishing for, and redirect you there.
+This leaves you on a web page that really does have a genuine URL in the address bar – what's often called a decoy page because it leads you out at the end of the scam with your innocence intact.
+That’s what happened here – it’s not perhaps exactly the page you might expect, but it’s believable enough because it leaves you on a genuine Outlook-related web page with a genuine Microsoft URL:
+
+If you’re a sysadmin looking to keep phishing attacks out, why not take a look at:
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+‘Apart from some slightly clumsy wording (but when was the last time you received an email about a technical matter that was plainly written in perfect English?)’ Ah, the irony Paul.
+You wrote: ‘Here’s a phish that our own security team received themselves.’ Our own? Who else could it belong to? And themselves? When are they not themselves? And the team is a single unit – it can’t be themselves, only the members of the team can.
+🙂 Just thought I’d wind you up for the weekend – Please keep up the good work
+I am aware that sentence could be simplified, byt I think that all the pronouns and, errr, possessive pronouns or whatever they called are entirely justified – and that the usage can be considered perfectly natural, matching what you might say in spoken English.
+There is a subtle difference between “our security team” and “our *own* security team”. “Our team” could refer to a group of people that Sophos happens to work with a lot, whether a team of temps, contractors, partners, fellow travellers or just chums. But they are “our own security team”, meaning that, just like me, they are directly employed by Sophos, have Sophos ID cards, have Sophos email addresses, and are work colleagues in both letter and spirit. 
+(I’m looking for a new ISP right now and they all seem to talk about making sure you’re at home when “our engineer comes round to install a new line for your service”. What they mean is “a person from BT Openreach [the UK line provider, what would have been the GPO in the very olden days] who will be assigned to do a job us for four hours that day”. Not “our own engineer”, just “our engineer”.)
+As for “they themselves”, that is IMO an unexceptionable way of emphasising that our own team got their own copy of the scam because it was sent to them *directly*, not merely reported and then forwarded by someone else. In other words, it clarifies that it came to them straight from the crooks, not via some sample sharing service or submission system.
+I just realised I *might* ave been trolled, never can tell :-)
+Oh, and thanks for the kind words!
+Hi
+How come crooks manage to get SSL certs in order to achieve this kind of scams? Are they not tracable through these certs?
+Thanks
+If you sign up with a web hosting company you typically get a certificate as part of the deal. Signing up doesn’t require very much in the way of traceable ID. Also, there are various free certificate issuers that have greatly simplified the process of getting your own certs -remember that you don’t have to prove who you are to get a certificate, only that you “have control” over the website or the domain for which you want the certificate. Lastly, if crooks hack into an existing website to host their phishing pages, then the hacked website happily serves up the bogus content uses its own certificate, issued in the name of the hapless company whose website was hacked.
+What about home users who use Outlook Web but not an Exchange server? Are they in danger from this scheme?
+Also I for some reason receive more than my fair share of these. Most are so obvious they go straight into the spam folder if the filters haven;t caught them. Since i receive email only in “Plain Text” some are quite obvious but the Vivaldi also has a Copy Link/Copy email address if you right click on the URL so copy and Paste into Notepad.
+Is it where I thought I would be going?
+No?
+Spam it and move on.
+These days, whether you are a business or a home user the login portal looks much the same (I can go to outlook DOT com or live DOT com and login with my work or my personal address – or login twice and access both in different tabs). Obviously the wording in this particular scam is aimed at business users given the words used, but we’ve seen similar scams that were pretty were after your Outlook email password but weren’t aiming for any particular class of user.
+I get phishing emails several times a week, mainly at my outlook account. At least they have a feature to report them, but I’m not sure there’s much they can do since most of the time they originate from other countries. Gmail and Yahoo mail don’t seem to have a feature to report phishing emails or attempts at fraud.
+Hello Paul,
+Thanks a lot for the explanation. I was quite sure HTTPS would be the proper solution to reduce this kind of behaviour but what you said makes sense. So it seems that browsers editors’ efforts into warning users about unsigned or non existing SSL connexions are in vain. What other solutions than users’ awareness and common sense is there to increase security against these kind of attacks?
+No, no, the effort to move everyone over to HTTPS and to avoid HTTP *is* important. 
+Just remember that the S in HTTP means that the connection uses TLS, and that TLS means *Transport* Layer Security so it protects your network traffic in transit to protect against snooping and tampering. Although HTTPS doesn’t vouch for the fact that the content you see is of good quality (e.g. it could be fake news) or safe to open (e.g. it could be malware), it does help to keep the *connection* secure and to protect your privacy along the way.
+The problem is that without TLS, anyone “on path” between you and the HTTP server you are visiting – which means anyone with access to the Wi-Fi at the coffee shop, your ISP, or anyone else along the way – could, in theory, sniff out all your traffic *and also modify both your requests and the replies so you wouldn’t notice*. 
+HTTPS might not help you to trust the server and the person who runs it… but it does mean that you not have to trust everyone else in the world, too :-)
+Had one yesterday telling me that my mailbox was almost full and inviting me to log on to fix it – and that’s to an MS Exchange account. I didn’t – but if I hadn’t cleared out my nearly full mailbox only a month ago… I wonder if I would? Probably not!
+As you say, what if you had been meaning to clean out your mailbox and the message just rang all the right bells? You probably wouldn’t have clicked… but for most of us that probability of clicking is typically “not quite zero”, so on a bad day/after a late night/when we are in a hurry, it’s at least vaguely possible.
+The other day, I received a warning “from Google” about an unexpected login to the Naked Security YouTube account from a “new” Linux computer denoted as “somewhere in England” (the actual IP number was not disclosed). I was urged to check the details to ensure it was really me… there was a realistic-looking [Click here] button… then immediately I hit a login page.
+As phishes go, it was simple, and realistic, and clever. It is also exactly the sort of thing we warn people against: don’t login via links sent in email. Find your own way to the login page of the services you use. (And if you are a company that sends out email warnings, we advise against sending out login links, as a way of teaching people that they are a bad idea!)
+Heigh. It wasn’t a phish. It really was Google. I see why they do that sort of thing but IMO it really softens people up to phishing attacks, because it’s so easy for a crook to “clone” the text and graphics in the email and on the login page, ad therefore to look very realitic.
+You wrote “consider switching to your laptop..”, usually I can’t. BUT I can copy the URL then paste it into a text app on my mobile – eg. Keep. This is still inconvenient, but more doable than waiting till I get to my laptop
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

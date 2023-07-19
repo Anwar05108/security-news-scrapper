@@ -1,0 +1,23 @@
+Sophos Home protects every Mac and PC in your home 
+The CryptoAPI cryptographic bug that Microsoft reported in its Patch Tuesday release yesterday was so big that it warranted its own story. Here, we look at some of the other nasties that Microsoft fixed.
+Among the most serious bugs were remote code execution (RCE) flaws affecting the Windows Remote Desktop Gateway, which is a Microsoft service that lets authorised remote users connect to resources on a network via the Remote Desktop Connection (RDP) client.
+These pre-authentication bugs don’t require any user interaction to exploit, and involve an attacker sending a specially crafted request via RDP. Labelled CVE-2020-0609 through 11, the bugs affect Windows Server 2012 and 2012 R2, along with Windows Server 2016 and 2019. Rated 9.8 in CVSS, these are red hot bugs that companies should fix immediately.
+In an analysis of the Microsoft patches, Johannes Ullrich at SANS explained:
+Remember BlueKeep? The RD Gateway is used to authenticate users and allow access to internal RDP services. As a result, RD Gateway is often exposed and used to protect the actual RDP servers from exploitation.
+There were several other critical bugs in Microsoft’s patch this month, all overshadowed by the cryptographic whopper that we cover elsewhere but still important to everyday users and admins.
+CVE-2020-0603 is a critical RCE bug in ASP.NET Core stemming from improper object handling in memory. A user would have to open a specially crafted file to be hit, which an attacker could send via email.
+The .NET framework had its fair share of critical bugs this month. One is triggered by specially crafted markup in a file that the system fails to check. Labelled CVE-2020-0605, this bug is critical and affects versions of Windows Server going back to 2008, and Windows ranging from 10 back to Windows 7 service packs. CVE-2020-0646, another .NET Framework flaw, can lay the system low with poor input validation. An attacker could pass malicious input to an application using susceptible .NET methods.
+Also notable but not critical was a bug in the Windows Subsystem for Linux (WSL), which is the part of Windows that allows people to run Linux services and applications. Labeled CVE-2020-0636, it enables an attacker to run code with elevated privileges by running applications that manipulate a weakness in the way WSL handles files.
+Adobe also patched nine bugs in its products on Tuesday, including five critical flaws in its graphics editing software Adobe Illustrator CC. These are memory corruption flaws that could enable an attacker to run arbitrary code on the system. If they can’t execute code, the attempt will probably cause a denial of service. The bugs, CVE-2020-3710 through CVE-2020-3714, affect versions of Illustrator prior to version 24. Installing the latest version, Illustrator CC 2019 24.2, fixes them.
+The company also patched another four bugs in its Adobe Experience Manager product, rated either Moderate or Important, which could lead to the disclosure of sensitive information. It patched these bugs, labelled CVE-2019-16466 through CVE-2019-16469, with new versions of the software.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,69 @@
+Sophos Home protects every Mac and PC in your home 
+Here’s the short version.
+Google just issued a Chrome update with a note that says, “This update includes 1 [critical] security fix.”
+Unfortunately for the curious Chrome user, the long version doesn’t say much more:
+
+The stable channel has been updated to 81.0.4044.113 for Windows, Mac, and Linux, which will roll out over the coming days/weeks.
+[…]
+Security Fixes and Rewards
+Note: Access to bug details and links may be kept restricted until a majority of users are updated with a fix. We will also retain restrictions if the bug exists in a third party library that other projects similarly depend on, but haven’t yet fixed.
+This update includes 1 security fix. Please see the Chrome Security Page for more information.
+[$TBD][1067851] Critical CVE-2020-6457: Use after free in speech recognizer. Reported by Leecraso and Guang Gong of Alpha Lab, Qihoo 360 on 2020-04-04
+The bug itself is still a secret, even though the Chromium core of the Chrome browser is an open source project. The software modifications that patched this hole will ultimately become public but, presumably, that they aren’t now means that both the nature of the bug and how to exploit it can easily be deduced from the fix.
+Even closed-source software patches that reveal changes only at the machine code level are often eagerly “wrangled backwards” by researchers and crooks alike in order to figure out what was wrong in the first place.
+Often, knowing what specific checks were added to program code in order to detect and head off potential exploits can save an attacker weeks or even months of “black-box” bug hunting.
+For example, imagine that you know a weirdly sized image might crash a pixel-processing algorithm.
+That alone would be a hint of how to provoke a crash, but you still might need to try tens of billions of combinations to rediscover the bug yourself.
+But now imagine that you can see clearly that the code takes special precautions – checks that weren’t there before – such as blocking processing of images where the height is exactly 1.337 times the width and the corner pixels are red.
+That’s a bit like knowing four of the six lottery numbers before the draw starts, giving you a much better chance than anyone playing at random.
+As we explained in a recent article about a Firefox zero-day hole, a use-after-free bug gets its name from a common system function called free() that programmers are supposed to call to return blocks of memory to the operating system when they’re done using them.
+Programmers that forget to call free() may end up hogging way more memory than they really need, which can bog down the rest of the system.
+But programmers who do call free() have to be really careful not to keep on using the freed-up memory block by mistake.
+Otherwise, by the time they come to rely on the data in that memory block, another process or another part of the same software may have starting using it for something else.
+For example, if you read in a number that’s supposed to tell you how big the next network packet is going to be, but someone else has already overwritten that number with, say, the total amount of disk space available, you could end up with an answer such as 3 billion when the right number should be no more than, say, 300.
+Dangerous bugs can arise from this sort of mistake, which basically means that the software is treating untrusted data as if it can be relied upon entirely.
+As we wrote last time:
+[I]n some cases, use-after-free bugs can allow an attacker to change the flow of control inside your program, including diverting the CPU to run untrusted code that the attacker just poked into memory from outside, thereby sidestepping any of the browser’s usual security checks or “are you sure” dialogs.
+That’s the most serious sort of exploit, known in the jargon as RCE, short for remote code execution, which means just what it says – that a crook can run code on your computer remotely, without warning, even if they’re on the other side of the world.
+We’re assuming, because this bug is dubbed critical, that it enables RCE.
+Curiously, despite a bug that’s critical enough to imply that it is exploitable and that exploiting it could let a crook implant malware on your computer, Google advises that the new version “will roll out over the coming days/weeks.”
+Days might be OK, but weeks sounds too long to us, so we recommend going through the update process as as soon as you can.
+Go to the About Chrome menu option (or About Chromium if you use the non-proprietary flavour of the browser) and check that you have 81.0.4044.113 or later.
+If you aren’t yet patched, checking the version should automatically trigger an update.
+As an aside, we were hoping there would be an easy way to turn off the speech recognizer part of Chrome and thereby perhaps to neutralise this bug anyway. (Who knew there was a speech recognizer built right into the browser itself?)
+But we can’t find any way to configure the speech recognizer, or even a Chromium setting that acknowledges its existence at all.
+We speculated that turning off microphone access in Chrome entirely might help, but we don’t know whether that would be enough to prevent the buggy code being triggered anyway, given that the faulty code might be used before the “allow microphone access” prompt shows up.
+If you know how (and, better yet, if it would be a workaround for this bug), please let us know in the comments below!
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Is this for Google Chrome on Mobile Devices. On a LG Stylo 5 Android smartphone
+There was an Android Chrome update on 2020-04-15, but as far as I can see the version number is not the same (the mobile one is now apparently 81.0.4044.111).
+As you can see in the Google blurb (see screenshot above), the notification explicitly mentions the ….113 update as being for “Windows, Mac and Linux.”
+(I suggest you update anyway, just to keep current. But it does sound as though this specific bug is desktop/laptop specific.)
+How do I update my chrome.im not very technical with things like that
+Here’s Google’s support page:
+https://support.google.com/chrome/answer/95414?co=GENIE.Platform%3DDesktop&hl=en
+I have an iPad and iPhone that use iOS does that mean I have to download the  Update
+As mentioned in another comment, the text we quoted from Google says this update covers “Windows, Mac and Linux.” Nevertheless, you might as well check that all your apps are up to date. On an iOS device, where the App Store is the only way to download apps, just open the App Store app and tap the “Updates” button to see if you have missed any.
+What is the point of using Chrome if they are closing flash player in December???
+Why are they going to do this?
+Because Flash has been a huge source of security holes over the years… and because there are almost no sites left that require Flash any more. 
+How do I up date my chrome it’s been playing up for weeks now i am old school o am not up to speed on all this
+See comments above – we posted a link to Google’s own support pages on how to get the update. HtH.
+Is the updated Google Chrome causing problems with Google Remote Desktop? as I’m experiencing some issues with some machines on my remote list saying invalid OAuth credentials. 😭
+I am using Linux Mint, how cn I force an update when they have not already updated it. I clicked on the “Refresh” to start an update, says I am up to date.
+If the Chrome version you use is built and supplied by Mint and not by Google then you will need to do whatever you do to check for Mint updates. Any Mint users able to advise on how to do that?
+There’s a little shield icon in the lower right corner of the Mint desktop (on the tool bar) which indicates whether or not any updates are waiting. Clicking that icon should bring up the Update Manager screen and start the system searching for any further updates (whether or not any were indicated by the icon). When the search completes there will be a list of updates, which you can choose to apply or not.
+I haven’t been able to use Google chrome since Tuesday night. It flashes a white screen for maybe a half second. then closes I tried uninstalling/reinstalling/restarting, I tried restarting my router. I’ve tried every solution I could online. I’m wondering if this is why and  I never got a message with an update.
+Hard to say… AFAIK you can’t download old Chrome versions to see if regressing cause the problem to go away. Chrome’s versioning is apparently a one-way street, so no easy experimental way to roll back that I know of.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

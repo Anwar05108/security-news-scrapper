@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+Credit card swipers have found a hard-to-detect way to target WordPress websites using the WooCommerce plugin by secretly modifying legitimate JavaScript files.
+That’s according to web security company Sucuri, which has detailed a recent attack it was called into investigate on a site that had experienced a mysterious spate of credit card fraud.
+How this was happening wasn’t clear until Sucuri ran an integrity check on the files (comparing the files present with a known default state) and it became clear that the attackers had hidden malicious JavaScript code inside a system file.
+This is unusual because most attacks on ecommerce systems involve appending code at the end of a file, a technique which is effective but easier for defenders to spot.
+When it comes to attacks against smaller ecommerce sites, it’s also usually simpler to change payment details, forwarding funds to a malicious account.
+In this incident, the attackers had gone to some trouble to cover their tracks, apparently even clearing the stolen data they cached on the site after the attack.
+The most significant giveaway sign on the WordPress CMS was that a PHP file was added to ensure the malicious code loaded, Sucuri said.
+The important question is how the attackers got into the site in the first place. Unfortunately, that’s less clear although the most likely route is either a compromise of the admin account or by exploiting a software vulnerability in WordPress or WooCommerce.
+Sucuri’s Ben Martin warned that although this type of WooCommerce attack is still the exception, this isn’t the only time he’s seen it.
+Since working on this website, I have seen a handful of other cases, all with varying payloads.
+Ecommerce skimming attacks have become a major problem in the last three years, with several large companies using the Magento platform being hit by a malware outfit called Magecart that netted huge sums.
+The objective in this type of attack is to exploit a security weakness to bury malicious code on payments systems, capturing the credit card details as customers enter them.
+Customers get the products or services they paid for, while in the background the criminals have captured the data they need to commit card fraud.
+These attacks are often not detected until card victims complain, which appears to be what happened in the case documented by Sucuri.
+Despite its growing popularity, the open source WordPress plugin WooCommerce has avoided the worst of this, perhaps because it’s used by smaller websites that are viewed as small fry. Perhaps that’s now changing.
+It’s a reminder that all ecommerce shops need careful defence. In the case of WooCommerce, these include changing the default WordPress username from admin to something attackers will find difficult to guess, as well as using a strong password.
+In addition to more specific security settings such as limiting login attempts and using two-factor authentication, it’s also critical to keep the WordPress and the WooCommerce plugins up to date.
+Sucuri’s Martin also recommends:
+Disable direct file editing for wp-admin by adding the following line to your wp-config.php file: define( ‘DISALLOW_FILE_EDIT’, true );
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Hi. How could I know if my WordPress website is already attacked or not. ?
+The Sucuri report has a screenshot of a bunch of rogue JavaScript that you could look for in:
+...././wp-includes/js/jquery/jquery.js
+Thanks for the great explanations of the need to update core software and the basic security steps.  I’ll reference this article when discussing the need to update sites with my clients.
+Thanks for the article. So which system file had malicious JavaScript code inside?
+According to the Sucuri article, the main badness was code inserted into the file:
+...././wp-includes/js/jquery/jquery.js
+I set-up and maintain a WooCommerce WP site for a client of mine.
+My recommendations are similar to above, but with one slight difference – change the name of the admin account to something that bots don’t generally look for (be it your own name, some sort of 1337 or anything else you can think of).
+There is also a free plug-in called “WordFence”. I have found this to be highly effective at stopping attackers, we you are able to auto-ban people who login using usernames you specify as illegal, such as “admin” “root” “wpeditor” “wpuser” etc.
+Perhaps the most prevelant feature which realtes to this article is it “file change scanner”. You can set the scan to as often as you want, and it will report any changes to files which are outside the normal spectrum of updates, meaning it would spot the above attack a mile away and make it known to you.
+**Disclaimer – I am an independent IT professional, I do not work for, nor have I ever contributed to the development or funding of WordFence.
+I am simply bringing it to others attention as it is very helpful in situations like this.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,119 @@
+Sophos Home protects every Mac and PC in your home 
+It’s like the movie Independence Day, but with the malware part of the story back-to-front.
+In the 1996 Jeff Goldblum classic, the bespectacled, academic antihero finally quashes the alien invaders by connecting to their mothership with his Mac laptop and uploading a computer virus that even the telepathic aliens didn’t see coming.
+In the movie, what’s left of the earth is saved.
+Fast forward to 2021, and we’re witnessing an Independence Day malware attack of another sort.
+In this attack, the REvil ransomware gang broke into the mothership of a popular software management tool from the company Kaseya.
+The cybercriminals uploaded a computer virus to the mothership (more precisely, for the pedants amongst us, they uploaded a ransomware Trojan Horse) that Kaseya then automatically delivered via dozens of different service providers onto hundreds of its customers’ networks.
+As Sophos CISO Ross McKerchar put it:
+This is one of the farthest reaching criminal ransomware attacks that Sophos has ever seen. At this time, our evidence shows that more than 70 managed service providers were impacted, resulting in more than 350 further impacted organisations. We expect the full scope of victim organisations to be higher than what’s being reported by any individual security company. Victims span a range of worldwide locations with most in the United States, Germany and Canada, and others in Australia, the UK and other regions.
+As you probably know, this sort of leveraged onslaught is known as a supply chain attack, for obvious reasons.
+Instead of attacking thousands or millions computers individually, you attack the company that supplies software to all of those computers, or worse still – as in this case – you attack the company that supplies software to the companies that supply software to all of those computers.
+We won’t go into the technical details of the Kaseya attack here – if you would like to know how it worked, SophosLabs has published a full analysis describing the chain of execution all the way from Kaseya’s compromised management servers to the scrambled computers on the victims’ networks.
+This article is highly recommended:
+Independence Day: REvil uses supply chain exploit to attack hundreds of businesses
+
+
+We’ve also published IoCs (indicators of compromise) on our GitHub page if you want to use threat-hunting tools to look for evidence of an attack on your own network, as well as the names Sophos products will report in logfiles when detecting and blocking the various components used in this attack.
+The burning question now, of course, is, “What do the crooks do next?”
+The world’s first-ever ransomware attack, the AIDS Information Trojan of 1989, failed for two fortunate reasons.
+It wasn’t until about 2013 that contemporary cybercriminals “solved” these ransomware payment-and-recovery problems.
+Cryptocurrency made pseudoanonymous international payments possible, so the crooks could collect their blackmail demands entirely online, without involving traditional financial institutions who could freeze or reverse illegal transactions.
+And public-key cryptography, where you use one key (the public key) to lock up data, but need a different key (the private key) to unlock it again, made it possible to have a unique decryption key for each network, or each computer, or even for each file.
+This is the same principle that’s used for good when you visit an HTTPS website. Public-key cryptography allows your browser and the web server at the other end to agree on a one-time data scrambling key, used with traditional symmetric encryption (where the same key both locks and unlocks the data) to protect the current session. Even if you intercept all the network traffic at the start of the HTTPS connection, public-key cryptography means that you can’t extract the so-called session key needed to decrypt the rest of the HTTPS connection either.
+If you get attacked and pay the extortion money, there’s no point in sharing your unlocking key with anyone else, even if they’ve been hit by exactly the same ransomware, because each decryption key is unique.
+Programming blunders by some ransomware cybercrooks have occasionally made it possible to recover without paying in some attacks, but gangs like REvil, the criminal gang behind the Kaseya attack, generally get the coding correct.
+If you don’t have a backup then paying the blackmail money for the decryption key is about your only chance of recovering your scrambled data.
+Even though many modern ransomware Trojans use a different session key for every file they scramble, let alone for every computer, contemporary ransomware is geared towards bulk payments.
+The idea is that instead of hitting as many computers as they can on your network and asking for a few hundred dollars to decrypt each one, the crooks offer to sell each victim a “bulk decryptor” that can unscramble some, many or all of the computers on their network.
+This is the same sort of technique that legitimate encryption software uses to provide a controlled way for specially appointed staff to recover data off employees’ computers if they forget their password, or leave the company in a huff with their data still locked up.
+This isn’t the same as an encryption backdoor that could let anyone with insider knowledge about the algorithm decrypt the data. Usually, the data isn’t encrypted directly with the user’s password. Instead, a random “master encryption key” is generated to secure the data, and that key is re-enrcypted multiple times, using different passwords or public keys. This means that there may be multiple decryption keys that can decrypt the master key that in turn decrypts the actual data. These decryption keys may be split up between more than one person, for example so that an individual computer can be unscrambled either by the user acting alone in day-to-day use, or by the IT manager and HR manager acting together in an emergency. This provides additional privacy control that helps to protect both the user and the company.
+Early ransomware attacks typically relied on squeezing hundreds of thousands of people to pay about $300 each to buy back the decryption keys for their own (but no one else’s) computer.
+Make no mistake, crooks such as the CryptoLocker gang raked in millions of dollars, maybe even hundreds of millions of dollars, this way:
+1 in 30 have been hit by CryptoLocker and 40% pay the ransom, says study
+
+
+If you had 10 computers on your network all scrambled at the same time, that was just bad luck: to recover them all meant paying 10 separate $300 blackmail demands.
+But later attackers took a hybrid approach.
+The SamSam crew, for example, notoriously hit one network at a time, and callously offered “deals” on decryption.
+The price shot up to $8000 per computer, so if you felt that you could recover your business by decrypting just two or three of your most critical laptops or servers, you didn’t have to pay for all of them, but you couldn’t get away with just $300 each, either.
+But for a one-off fee that usually came out at $50,000, the SamSam crooks would give you a universal decryptor (universal to your network, at least) that was pitched as a sort of “all you can eat buffet.”
+In fact, in a fit of “goodwill”, they’d even let you try paying the $8000 fee for individual computers, to see if you could recover enough of your business to get away without paying $50,000 in total.
+Sadly, many victims found that the one-by-one approach just didn’t work out for them, at which point the SamSam crooks would “graciously” allow them to top up their payments to the $50,000 mark.
+Once the crooks had received the all-you-can-eat fee of $50,000, they’d give you a “software upgrade” to the universal decryptor that would work on all of your computers, not just specific ones you had chosen in advance:
+Iranian hackers charged in the US for SamSam ransomware attacks
+
+
+More recently, most mainstream ransomware crooks have discontinued the “individual decryptor” option and will only negotiate to sell universal decryptors – and as we all know, they aren’t asking for $50,000 any more.
+Extortion demands often reach several million dollars, with recent victims Colonial Pipeline allegedly coughing up $4.4 million (ironically for a decryptor that was so slow as to be worthless), and meat packing company JBS supposedly paying out a mammoth $11 million in blackmail money.
+You can see where this is going.
+The REvil gang have apparently now decided that they are going to offer what you might call a universal universal decryptor that will not only unscramble all the computers on your network, but also all the computers on the networks of everyone else affected by what we shall probably be calling the Independence Day attack for many years to come.
+The catch?
+This time, the ueberuniversal decryptor isn’t $50,000, or $4,400,000, or even $11,000,000.
+The crooks are calmly demanding $70,000,000:
+
+On Friday (02.07.2021) we launched an attack on [Managed Service Providers]. More than a million systems were infected. If anyone want to negotiate about universal decryptor – our price is [$70 million in Bitcoin] and we will publish publicly decrypto that decrypts all files of all victims, so everyone will be able to recover from attack in less that an hour. If you are interested in such deal – contact is using victims “readme” file instructions.
+This audacious demand raises many difficult questions.
+Many governments and most law enforcement experts vigorously encourage victims not to pay up.
+Even though it seems that at least some of the money goes on fancy cars, we we know for sure that at least some of the funds from today’s attacks are directly used to fund tomorrow’s:
+REvil ransomware crew dangles $1,000,000 cybercrime carrot
+
+
+Some governments are even seriously considering making ransomware payments illegal as way of breaking the cycle of attacks.
+But if someone else were to cough up the $70,000,000, perhaps from a country with a government with more conciliatory attitudes towards negotiating with criminals, would that make it OK to run the decryptor, even in a country where paying up would have been unlawful?
+Is this the shape of ransomware attacks to come?
+Will regulatory intervention to criminalise ransomware payments make matters better, or worse? 
+Let us know what you think in the comments below! (You may remain anonymous.)
+PS. Don’t forget that even if you get hold of a ransomware decryptor after an attack, whether by paying yourself or through someone’s else’s largesse, that’s not the end of your worries. Check our recent State of Ransomware survey to find out why paying the crooks is not the end of your troubles, and how much you can expect the incident to cost, whether you end up with a decryptor or not:
+Ransomware: don’t expect a full recovery, however much you pay
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Difficult to know how genuine the claim is of “more than a million systems were infected”. Wonder if there is any formula behind the $70MM figure?
+Aren’t governments partly to blame? Wouldn’t a law requiring businesses, especially those in critical public sectors like utilities, to have backup and recovery plans in place and routinely tested, be a wise idea? If security apps, firewalls, etc, continually fall prey to user mistakes, such as clicking on an email link, then surely a plan to shut down and recover from backup(s) would circumvent the need to pay ransoms to crooks. It seems so logical to me. Maybe not?
+One argument against this approach is that it still permits companies that have enough money (or cyberinsurance) lying around to afford the blackmail amount to pay up anyway, if they think that it will actually be quicker and easier than doing a company-wide restore from backup. Colonial Pipeline seems to have been in this position – indeed, it seems the company eventually recovered by restoring their backups because the decryptor they paid $4.4 million for was so slow that they couldn’t afford to wait for it to deliver on its multimillion dollar asking price.
+So there are those who argue that a blanket ban on paying up is the only way to go, with no excuses permitted, not even if it seems pretty obvious that it will force the victim company into bankuptcy, collapse and the loss of all jobs.
+I think you mean computers, not comuters
+Yes, computers, not comuters (and not commuters :-).
+Fixed, thanks.
+You’ve sold me Duck. I’m switching back to Sophos. Bought sophos Home, downloading it now.
+Why did I ever leave…
+Errr, thanks for telling us and welcome back!
+What if the victim company has already purchased cybersecurity insurance for its business-critical resources?
+Will the cybersecurity insurance company pay the ransom amount to get this fixed?
+Depends on the policy, the amount of cover and the alternatives, I guess.
+Cyberinsurance doesn’t automatically “pay the ransom” if there are other ways to make good (in the same way that car insurers get to choose whether to repair or replace a damaged vehicle after a collision).
+A better solution would be to offer up Wanted – Dead or Alive ransoms at that same price point for the criminals. Let’s put a stop to this extortion with actual policy that may stop it.
+I think WE should BLOCK from the Internet countries who do not cooperate with OUR government in punishing the guilty party  of such crimes, as they may be encouraging it too, (see RUSSIA the EVIL Empire is Back!).
+  If that is not Possible (!?), just take 10X more of the Infrastructure out of such country. Problem Solved.
+  Gloves are necessary in winter and Heavy Labor!!!
+Thanks for the article. One question that I’m interested in: Did Sophos or any other anti-malware service succeed in blocking this? Or is it simply the case that if you were using Kaseya you were a sitting duck and had no chance to avoid it and you better hope you have good backups …
+Yes, we did block this (in various ways and with various parts of our product set), not least because an attack of this sort has multiple stages. For all that a cunning multi-stage attack sounds very exciting and devious from the Bad Guys’ side, it often means that cybersecurity products get multiple points at which the attack can be blocked.
+For more information about the various Sophos detection names, please see the SophosLabs article that we linked to above. (The image with the screenshot from Independence Day The Movie in it :-)
+https://news.sophos.com/en-us/2021/07/04/independence-day-revil-uses-supply-chain-exploit-to-attack-hundreds-of-businesses/
+So, for all that this is a bad look for Kaseya, given that their management software is meant to help you keep your network well-organised, not to act as a sort of “injection port” for malware, anybody’s network could end up with malware inside it in any number of different ways (dodgy attachment, unpatched server, risky download, poorly-chosen password, long-forgotten RDP portal, stolen and unlocked mobile phone)…
+…so taking aggressive precautions of your own, including good backups and defence-in-depth security software, are worth doing anyway. Supply chain attacks like this genreally make things worse than they might otherwise be, simply because of the leverage they give to attackers. (It’s kind of like the difference in exposure between getting interviewed on your local radio station and appearing on SNL.) But don’t forget that there have been very many really serious ransomware attacks already this year where no “supply chain” was infiltrated at all. 
+PAY THE RANSOM TO A REVENGE COMPANY TO ELIMINATE COMPLETELY THE CRIMINALS BY BEING INVESTIGATOR, JUDGE, JURY AND ELIMINATOR.
+Hmmm. Seems like Judge Dredd is in da house.
+I think just not paying the crooks anything would be a perfectly satisfactory start…
+For a long time, backups were considered essential in case of hard drive crashes.  Then they were also important to recover from accidental deletions.  Now it is sounding like it is important to recover from malware.
+If a company had a “good” backup process, could they recover from this specific attack?  Are there types of backups that are more important than others?  For example, did this (or similar) attack encrypt thousands of laptops making the laptops unusable (need to be reimaged by IT) or did this encrypt documents for a customer using OneDrive and all the data is still available unencrypted in the cloud OneDrive?
+Is there any industry push to focus on newer/better backups as a mitigation for malware?  Or are we still stuck in a world where we think/hope someone in IT is backup up and most companies have never even tested their restore ability.
+In essence, we (as an industry) should think about impact mitigation as well as prevention.
+Sometimes, ransomware crooks scramble your data and leave everything else intact. They want to you to see just how near yet just how far away your precious files are, and they want you to be able to run core apps like browser and email to “negotiate” and pay up. Just restoring data is enough in those cases.
+Sometimes, they trash everything so you can barely boot up at all. For some companies, that’s a bigger recovery job because it means reimaging the OS fully before restoring the backup (though I would recommend doing that anyway to ensure you start with a a clean slate).
+As for the crooks trashing your backups first: yes, they will do that as widely as you will let them. That’s why “always on” cloud archival won’t necessarily save you (the crooks may disconnect and delete your whole cloud account first). Having a USB drive always mounted as U: won’t help much (the ransomware will identify it and scramble your backup at the same time).
+So it’s not just “making a backup”, it’s “making a backup that will survive a crisis and that you know how to restore reliably in a hurry. 
+Therefore [a] keep at least one offline (and ideally offsite) backup [b] regularly rehearse your restore process (not onto a live system!) [c] make a plan for what to backup when, and stick to it.
+Never put off until today the backup you could have done yesterday!
+Compulsary life sentence for any such crooks who break into the internet with a crime of that size and happen to get caught. And in case a foreign authority can be identified as initiators/organizers political, economic and intelligence counter action has to follow inevitably.
+Yeah.  That’s the problem.  We are finding all these criminals but just not punishing them severely enough.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

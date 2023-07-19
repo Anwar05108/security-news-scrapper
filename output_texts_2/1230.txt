@@ -1,0 +1,57 @@
+Sophos Home protects every Mac and PC in your home 
+The September 2021 Patch Tuesday updates from Microsoft came out this week.
+The fix that everyone was waiting for with bated breath was the patch for CVE-2021-40444, a zero-day remote code execution bug in MSHTML that was announced by Microsoft just days before Patch Tuesday came around:
+Windows zero-day MSHTML attack – how not to get booby trapped!
+
+
+Remotable bugs in MSHTML, which is the web renderer used by Internet Explorer (IE), are always a big deal, especially if the crooks find them before the Good Guys do.
+With so little time left before Patch Tuesday, the big ask of Microsoft was, “Will they make it?”… and, fortunately, the answer was “Yes”:
+Big Office bug squashed for September 2021’s Patch Tuesday
+
+
+Of course, most Patch Tuesday updates close off more than just one security hole, and some of the others often don’t get much publicity, either because they were found by the Good Guys first, making the patch proactive, or they don’t affect every computer on your network.
+This month, CVE-2021-38647 turns out to be a security hole of that sort – interesting and important, but apparently not very exciting.
+This flaw doesn’t directly affect Windows at all, because it’s a bug in Microsoft’s open source Open Management Infrastruture (OMI) tool that is designed for Linux in general, and for Azure-hosted Linux servers in particular.
+You read that correctly: one of this month’s Patch Tuesday bug notifications was a flaw in a product, aimed at Linux sysadmins, that Microsoft ships in source code form via its GitHub service.
+Indeed, the relevant bug fixes were officially available in the OMI source code back on 12 August 2021, more than a month ago.
+So, this vulnerability seemed, on the surface, to be one of those that wasn’t really worth jumping up and down about, and that was probably already patched on many or most servers, given that its public source code had long been updated.
+Well, Wiz, the curiously named startup that discovered and reported this bug, and was therefore responsible for putting in motion the process of getting it fixed, thinks it’s very much worth getting excited about.
+In fact, they’re excited about it to the point that they’ve dubbed it OMIGOD, and written it up on their company blog.
+They even gave it a logo, which we’ve used in the image at the top of the article.
+It’s easy to be cynical when you hear a new BWAIN announced – our lighthearted acronym for Bug With An Impressive Name – but if you have any Linux servers out there, it’s worth taking note of what Wiz has to say.
+Greatly simplified, OMI is Microsoft’s Linux-based answer to WMI, the Windows Management Interface that sysadmins use to keep tabs on their Windows networks.
+Like WMI, the OMI code runs as a priviliged process on your servers so that sysadmins, and system administration software, can query and control what’s going on, such as enumerating processes, kicking off utility programs, and checking up on system configuration settings.
+Unfortunately, cybercrooks, epecially ransomware criminals, love WMI just as much as sysadmins.
+That’s because WMI helps attackers to plan and execute their destructive attacks across a whole organisation, once they’ve got an Administrator-level beachhead somewhere on the network.
+Sadly, OMIGOD is an OMI bug that, in theory, offers criminals the same sort of distributed power over your Linux servers…
+…except that you don’t need that Administrator-level beachhead first, because CVE-2021-38647 basically provides a beachhead all of its own, letting you break in, get root, and take over, all in one go.
+Astonishingly, the bug seems to boil down to a laughably easy trick.
+Rather than guessing a valid authentication token to insert into a fraudulent OMI web request, you simply omit all mention of the authentication token altogether, and you’re in!
+Of course, with the relevant code patches published more than a month ago, in source code form no less, you might assume that Linux sysadmins who are users of OMI have had plenty of time to patch already.
+You might also assume that anyone relying on their Linux distro to provided updated binary packages (thus sidestepping the need to rebuild the code manually from source) would be ahead of the game, too.
+However, as Wiz remarks out rather pointedly in its blog post, many Linux-on-Azure users may be unaware that they have OMI, and therefore not even know to look out for security problems with it.
+That’s because the OMI software may have been installed automatically, along with various Azure service they chose to use.
+Wiz claims that:
+Azure customers on Linux machines – which account for over half of all Azure instances according to Microsoft – are at risk if they use any of the following services / tools: Azure Automation, Azure Automatic Update, Azure Operations Management Suite (OMS), Azure Log Analytics, Azure Configuration Management, Azure Diagnostics [and] Azure Container Insights,
+As the company is forced to admit, “this is only a partial list,” being limited to the ones they happen to know about, so there may well be others.
+If you look after Linux servers, and in partcicular if they’re hosted on Azure, we suggest that you check whether you have OMI, and if so, that you ensure you have the latest version.
+To view all listening sockets (root needed):
+To show all listening sockets with process IDs and names:
+Restrict output to listening TCP sockets, igven that OMI uses HTTPS over TCP:
+To practise using this command, start a listening TCP socket in one terminal window, like this…
+…and then, in another terminal window, use netstat to search for the listening socket on port 8888:
+Note that in the example aove, [0.0.0.0]:8888 denotes that the nc process is listening on port 8888 on all network interfaces, which means that the port can be accessed locally or remotely.    
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+So, did they fix it to the point that we can omit the registry settings we had to put into place? Change reg keys back to default and carry on with life securely?
+Apparently, yes. Though some of the registry settings (or Group Policy settings, which ultimately set the relevant registry settings) that we recommended here for 2021-40444 might be worth keeping anyway.
+For the OMIGOD hole, of course, there was no registry fix [a] because the bug was only announced after it was patched and [b] because Linux.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

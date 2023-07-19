@@ -1,0 +1,27 @@
+Sophos Home protects every Mac and PC in your home 
+Online exchange rate data provider Open Exchange Rates has exposed an undisclosed amount of user data via an Amazon database, according to a notification letter published on Twitter this week.
+Open Exchange Rates provides foreign exchange data for over 200 currencies worldwide, including digital ones. Software developers can access it using an application programming interface (API). It lets software applications query the Open Exchange Rates service, which delivers their results back in a machine- and human-readable format, JSON.
+The company runs its service in the Amazon Web Services (AWS) cloud. Unfortunately, this was the focus of a breach that started on 9 February 2020, the company said in a notification that it sent to customers on 12 March. Linux and open source engineer Sylvia van Os tweeted the notification:
+@troyhunt pic.twitter.com/HfAwV7gtVq
+This incident is different from many of the AWS-based exposures we report here because it wasn’t due to a public database or S3 bucket exposure. In those incidents, organisations publish information on the web for all to see, usually through database or cloud misconfiguration. Instead, this appears to have been a targeted attack.
+Open Exchange Rates explained that it started getting complaints about its API performance on 2 March, which it tracked to a misconfiguration in its network. When fixing the issue, it found that an unauthorised account had been tampering with its AWS environment. According to the letter, they used a compromised secure access key.
+The company shut off that user’s access and fixed the network issue, but found that the account had access to a database containing user data. Its letter said:
+Whilst our investigations are ongoing, we have also found evidence indicating that information contained in this database is likely to have been extracted from our network.
+The data included registered names and email addresses, encrypted account access passwords, user IP addresses, and tokens used to authenticate querying applications. If provided by the user, the data breach also divulged their personal and/or business address, country of residence, and web address.
+It continued:
+There is a risk that the data that may have been extracted from our network could be used to facilitate fraud, identity theft or social engineering attempts.
+As a precautionary measure, the company reset all user passwords, although it left it up to customers to reset their application tokens, which could enable people to use the service on a victim’s dime.
+The company did not respond to our request for comment yesterday. We’ll update this story if it does.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

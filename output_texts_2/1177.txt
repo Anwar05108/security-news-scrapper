@@ -1,0 +1,89 @@
+Sophos Home protects every Mac and PC in your home 
+Riding a bicycle is very popular these days, even if many cyclists in the developed world seem to ride them as a way to get from A to A for exercise, rather than as a way to get from A to B to avoid driving a car.
+In fact, if what you’re after is exercise, then many people don’t even ride from A to A, but instead stay in one spot while the bicycle wheels roll underneath them on a stationary rig.
+It’s not really cycling, because there’s no air resistance, which is the biggest energy obstacle that a real-world cyclist has to overcome when riding at anything but the most modest and wobbly speeds.
+But you can ride an exercise bicycle indoors, which is handy if you don’t like going out in the wind, the dark, the rain, or the traffic.
+It also means you can vary the mechanical resistance artificially and almost infinitely, or get an attached computer to do it in an automated way, which is handy if you want to train for a race with lots of steep climbs but you live somewhere flat.
+And during the coronavirus pandemic, of course, indoor “cycling” means that you can do long and strenuous rides even when you’re stuck with lockdown regulations about how long you can spend outdoors, and how far you can travel from home.
+Additionally, connected products like Peloton Bikes, which are basically exercise bicycles with a built-in Android tablet, an internet connection and a cloud service that the “bikes” connect to, allow you go out on virtual club rides, or take part in realistic road races, with any number of other “cyclists”.
+Apparently, even keen cyclist Joe Biden has a Peloton Bike, which caused considerable cybersecurity commentary when he became President of the United States.
+We were never quite sure why Biden’s online stationary bicycle was trumpeted as a huge national security risk, assuming that POTUS didn’t use the bike’s tablet to look at confidential briefings while racking up the kilometres. (Cycling always happens in kilometres, just as ships travel in knots.)
+We assumed that the President’s cybersecurity advisors would be certain to hook up the Bidenbike to the internet – if they hooked it up at all – via a connection all of its own, used only for cycling and never interconnected to any other White House or governmental network.
+Nevertheless, from a privacy and cybersecurity point of view, especially for anyone with an online bike hooked up to their regular home Wi-Fi network, a security flaw in the bike’s tablet or one of the apps it relies upon could cause serious trouble indeed.
+We know people who not only work while exercising but even join and participate in online meetings at the same time (hint: don’t do it, except as a method to keep meetings nice and short, because it makes everyone else in the meeting feel slightly seasick).
+As you can imagine, any sort of spyware with access to the audio feed of a meeting, or that could take surreptitious screenshots, would be sitting on a cybercrime goldmine.
+Of course, that’s true for any mobile device that you use for meetings, or for doing work of any sort, so the risks here aren’t unique to the world of online bicycles…
+…but it’s vital to remember, by the same token, that your online bicycle therefore needs to be designed, implemented and updated to be as secure as your regular mobile phone or tablet.
+Simply put, your phone doesn’t have to be engineered like a bicycle so it can bear the full weight of your physical body, but your connected bicycle needs to be engineered at least as well as a phone so it can bear the full weight of keeping your digital life safe.
+You can see, therefore, why researchers at McAfee were recently not only astonished to find a security hole in the latest Peloton Bike+ product, but also amused, and perhaps slightly amazed, at the way they came across it.
+One problem with hacking on top-end specialised devices such as electric cars or fancy online bicycles, rather than on low-end devices such as light bulbs and webcams, is that budget and availability become an important issue.
+As the McAfee researchers explain in their report, and this is sage advice: 
+One of the first things that we usually try do when starting a new project, especially when said projects involve large expenses like the Peloton, is to try to find a way to take a backup or a system dump that could be used if a recovery is ever needed. […] Having the ability to restore the device to its factory settings is a safety net that we try to implement on our targets.
+In other words, if you’re hacking on a “device” that cost you serious money, your first step is likely to be to figure out if you can reliably restore it before you start fiddling with it, just in case something goes wrong.
+After all, your boss isn’t going to be very happy if you brick the device by mistake early on and it’s no longer any good for anything at all. (A Peloton Bike without its computer doesn’t even revert to being a bicycle – it just becomes an impractical and rather uncomfortable chair.)
+Greatly simplified, the researchers decided that they weren’t going to use any tricks like unlocking and rooting their Bike+ to extract its secrets or backup its factory state, at least if they could find a way to do it “by the book”.
+The researchers decided to take a real-world approach for two main reasons: they didn’t have another bike handy, and they were keen to look for vulnerabilities that would work out of the box against stock products, rather than needing any “pre-hacking” to be carried out on the device.
+In particular, a device that needs to remain unlocked in order to be compromised may well be spotted by a well-informed user because the device will produce a visible “Orange State” warning every time it starts up:
+So the researchers decided, just as a start, to try booting the device using a standard, open-source, unofficial recovery kernel. (They used TWRP, short for TeamWin Recovery Project, an handy tool for Android research, especially on rooted devices.)
+This is an important lesson in cybersecurity research, by the way: they knew this wouldn’t work, because they knew that the device was boot-locked, meaning that the only way to boot an unofficial Android kernel was to do a firmware unlock first…
+…and modern versions of Android are programmed to wipe all the non-system content at the moment you unlock the firmware, and to wipe it again when you relock it to restore it to a factory state, as you see in the Google Pixel 4a warning below:
+But even though they knew it wouldn’t work, they followed the cybersecurity mantra of never say never, and tried it anyway.
+The method you usually use to boot your phone into a non-standard kernel is to restart the device in what’s called “fastboot” mode.
+You can access your device’s fastboot mode either via via a magic sequence of button presses while it’s powering up, or by using debugging mode while the phone is running:
+Fastboot means that the phone stops short of a full Android bootup, and you can now send it special commands from a laptop via USB, like this:
+On an unlocked device, this will probably work, but you won’t be able to backup the original device content first because the unlocking process forces a device wipe, as shown in the warning screen above.
+On a still-locked device, however, you’re wasting your time, because this is what happens:
+
+Guess what actually happened?
+Well, guess what happened?
+The MacAfee researchers didn’t get a FAILED error, as shown above.
+They ended up with the device sort-of booting but ending up hung at a black screen.
+As unauspicious as that might sound, given that they hadn’t actually got control of the device, the researchers immediately scented victory.
+After all, they wouldn’t have expected their generic recovery kernel (one that was neither designed for nor tested on a Peloton Bike+) to work correctly, even on an unlocked device…
+…but if the bootloader were properly locked, they wouldn’t expect it to boot an alternative kernel at all, let alone badly.
+In other words,  Peloton had apparently turned on all the security settings needed to protect a locked device from being rooted-and-booted, except for the one to suppress the use of the fastboot boot kernel.img command.
+As you can imagine, the researchers still had loads more work to do to get their out-of-the-box Peloton Bike+ into a rooted-but-still-locked state, but as they wryly remark in their report, “[t]his is where our luck or maybe naïveté worked to our advantage.”
+By trying what shouldn’t have worked, just in case it did, they got hold of a remarkable shortcut to victory.
+They were able to come up with a process whereby anyone, techical or not, equipped with a laptop, a USB cable and physical access to a Peloton Bike+, whether in a gym or in your home office, could quickly and unintrusively run a script to leave you with an apparently unmodified but actually completely compromised online bike.
+This sort of hack is often referred to in the jargon as an evil cleaner attack, as a reminder that you should avoid leaving your laptop (which may not have the same level of boot security as your mobile phone) unattended in a hotel room, where corrupt staff with an excuse to to enter while you’re out would have time to implant malware using little more than a poisoned USB drive.
+A rooted Android device is open to having its system configuration changed, app permissions altered, security features overridden, and malicious apps installed.
+That could leave your exercise sessions blighted with spyware that could surreptitiously access the camera and microphone, read out private data, take screenshots, sniff inside encrypted network packets – therefore effectively snooping on the entire device – and then exfiltrate the data quietly and unobtrusively.
+What to do?
+This bug was reponsibly disclosed and Peloton pushed out a “non-optional” update early this month, so owners of the Peloton Bike+ product should already be patched against this flaw, assuming they’ve gone online with the device in the past two weeks.
+Check for software version PTX14A-290 or later.
+For the record, McAfee researchers praised Peloton, saying that “[t]he Peloton vulnerability disclosure process was smooth, and the team were receptive and responsive with all communications.”
+If you’re a software developer and someone reports a security flaw in your product, that’s the sort of response you should be aiming for.
+Oh, if you’re really keen, you could always build yourself a proper bicycle to use as well or instead :-)
+
+
+Well, guess what happened?
+The MacAfee researchers didn’t get a FAILED error, as shown above.
+They ended up with the device sort-of booting but ending up hung at a black screen.
+As unauspicious as that might sound, given that they hadn’t actually got control of the device, the researchers immediately scented victory.
+After all, they wouldn’t have expected their generic recovery kernel (one that was neither designed for nor tested on a Peloton Bike+) to work correctly, even on an unlocked device…
+…but if the bootloader were properly locked, they wouldn’t expect it to boot an alternative kernel at all, let alone badly.
+In other words,  Peloton had apparently turned on all the security settings needed to protect a locked device from being rooted-and-booted, except for the one to suppress the use of the fastboot boot kernel.img command.
+As you can imagine, the researchers still had loads more work to do to get their out-of-the-box Peloton Bike+ into a rooted-but-still-locked state, but as they wryly remark in their report, “[t]his is where our luck or maybe naïveté worked to our advantage.”
+By trying what shouldn’t have worked, just in case it did, they got hold of a remarkable shortcut to victory.
+They were able to come up with a process whereby anyone, techical or not, equipped with a laptop, a USB cable and physical access to a Peloton Bike+, whether in a gym or in your home office, could quickly and unintrusively run a script to leave you with an apparently unmodified but actually completely compromised online bike.
+This sort of hack is often referred to in the jargon as an evil cleaner attack, as a reminder that you should avoid leaving your laptop (which may not have the same level of boot security as your mobile phone) unattended in a hotel room, where corrupt staff with an excuse to to enter while you’re out would have time to implant malware using little more than a poisoned USB drive.
+A rooted Android device is open to having its system configuration changed, app permissions altered, security features overridden, and malicious apps installed.
+That could leave your exercise sessions blighted with spyware that could surreptitiously access the camera and microphone, read out private data, take screenshots, sniff inside encrypted network packets – therefore effectively snooping on the entire device – and then exfiltrate the data quietly and unobtrusively.
+This bug was reponsibly disclosed and Peloton pushed out a “non-optional” update early this month, so owners of the Peloton Bike+ product should already be patched against this flaw, assuming they’ve gone online with the device in the past two weeks.
+Check for software version PTX14A-290 or later.
+For the record, McAfee researchers praised Peloton, saying that “[t]he Peloton vulnerability disclosure process was smooth, and the team were receptive and responsive with all communications.”
+If you’re a software developer and someone reports a security flaw in your product, that’s the sort of response you should be aiming for.
+Oh, if you’re really keen, you could always build yourself a proper bicycle to use as well or instead :-)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It’s not the cyber-security of the Peloton that I object to it’s the psycho-security.
+Why anyone would want a machine that can in effect bully you is way beyond my understanding!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Are you a sysadmin who managed to get your Log4Shell mitigations done in time for the US Government’s cybersecurity deadline of 24 December 2021?
+If so, you may have enjoyed a Christmas mini-vacation along with much of the rest of the world…
+…only to return to the fray this week and find that the Apache Log2j team just put out the fourth patch in what you might call the Log4Shell Vulnerability Saga.
+The newly discovered bug is CVE-2021-44832, patched in Log4j 2.17.1, announced on 2021-12-28 (yesterday at the time of writing).
+“Once more,” dear friends, in the words famously given to King Henry V by the Bard of Avon.
+Fortunately, for all the understandable publicity this fourth flaw has received, and for all that we urge you to patch it promptly anyway, this bug is currently only dubbed Moderate.
+This one doesn’t seem to be directly and easily exploitable like the original CVE-2021-44228 hole that gave rise to the name Log4Shell in the first place.
+To summarise the saga so far, starting on about 09 December 2021:
+This new, fourth flaw was reported just after the Christmas 2021 weekend, on 2021-12-28.
+Fortunately, in Apache’s words:
+Apache Log4j2 versions 2.0-beta7 through 2.17.0 (excluding security fix releases 2.3.2 and 2.12.4) are vulnerable to a remote code execution (RCE) attack where an attacker with permission to modify the logging configuration file can construct a malicious configuration using a JDBC Appender with a data source referencing a JNDI URI which can execute remote code. This issue is fixed by limiting JNDI data source names to the java protocol in Log4j2 versions 2.17.1, 2.12.4, and 2.3.2.
+RCE, of course, is about the worst sort of cybersecurity hole you’ll experience, because it typically means that an outsider can poke an unexpected program into your computer without so much as a by-your-leave.
+An RCE attack might inject an untrusted app, poke a binary fragment of machine code into memory, or sneakily offer up an unwanted script file… 
+…and if the attacker succeeds, you’ll run their code unknowingly, without any official Are you sure (Y/N)? prompt or This could harm your computer dialog to tip you off.
+But for all that this bug mentions RCE, it isn’t really what the jargon calls an unauthenticated remote execution, where anyone who can interact with your network without logging in first (e.g. by visiting a public-facing website) could trigger the bug.
+As Apache mentions, to enable remote execution, an attacker would first need sufficient access to mess with the configuration settings of the vulnerable server or business-logic application.
+We suspect that any attackers with enough access to alter server-side configuration settings will have any number of additional ways to compromise your internal apps, systems or network.
+In other words, if you are directly at risk of CVE-2021-44832 right now, then updating Log4j 2.17.0 to 2.17.1 is probably neither a necessary nor a sufficient solution to your security problems.
+Simply put, don’t just patch to 2.17.1 and think, “Great. Now I can relax until the New Year.”
+In an earlier article, we proposed revisiting your own usage of Log4j in the near future, and working out whether you genuinely need it in your own software.
+If you inherited Log4j without even realising it, as part of the Java “supply chain”, and could readily replace it with something much simpler and less feature-rich, we think that would be a wise choice.
+Some commenters said we were being unrealistic or going over the top by saying this, claiming that we were underestimating the complex logging needs of the average business app.
+But we’re going to suggest, once again, that if you have found Log4j in your ecosystem recently, especially on servers where you didn’t even know it was there, that you should ask yourself the question, “Do I genuinely need a multi-megabyte logging toolkit consisting of close to half a million lines of source code, or would something much more modest and easier to review do at least as well?”
+That’s not a criticism of Apache; it’s merely a reminder that inherited security problems such as Log4Shell are often the unexpected side-effect of a cybersecurity decision made years ago by someone from outside your company whom you’ve never met, and never will.
+For all that the original decision might not be your doing, it’s now your responsibility, so reviewing it can hardly be considered controversial or ill-considered!
+LEARN HOW THE LOG4SHELL VULNERABILITY WORKS
+
+(If you can’t read the text clearly here, try using Full Screen mode, or watch directly on YouTube. Click on the cog in the video player to speed up playback or to turn on subtitles.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

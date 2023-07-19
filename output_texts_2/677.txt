@@ -1,0 +1,28 @@
+Sophos Home protects every Mac and PC in your home 
+Notice anything missing from last week’s Microsoft Patch Tuesday?
+Obscured by a long list of Microsoft patches and some fuss about a missing SMB fix, the answer is Adobe, which normally times its update cycle to coincide with the OS giant’s monthly schedule.
+It’s mostly a practical convenience – admins and end-users get all the important client patches at once, which includes Adobe’s ubiquitous Acrobat and Reader software.
+And yet March’s roster was Adobe-less. This week the company made amends, issuing fixes for an unusually high CVE-level 41 vulnerabilities, 21 of which are rated critical.
+It’s not clear what caused the delay although it might simply be their number and the need to finalise patches before making them public.
+The two patching hotspots are the 22 CVEs in Photoshop and 13 in Acrobat and Reader.
+Of these, 16 uncovered in Photoshop/CC for Windows and macOS are rated critical compared to a more modest 9 in Acrobat and Reader.
+That said, Reader is widely used on Windows and Macs, which is why admins will probably zero in on those as the top priority.
+The Acrobat/Reader criticals include five use-after-free CVEs, a buffer overflow, memory corruption, a stack-based buffer overflow, and an out-of-bounds write.
+Interestingly, these cluster heavily around only two categories of the recently completely revised MITRE Corporation Common Weakness Enumeration (CWE) Top 25 most dangerous software flaws, specifically CWE-119 and CWE-416.
+The first of those generic programming weaknesses, CWE-119 (Improper Restriction of Operations within the Bounds of a Memory Buffer), is by some distance the most common class of software weakness as measured by the number of CVEs associated with it and their severity.
+A similar concentration of CWE-119 weaknesses is true for many of the critical flaws in Photoshop. The answer for Acrobat/Reader DC is to update to version 2020.006.20042 (APSB20-13), while for Photoshop it’s version 20.0.9 for Photoshop CC 2019, and version 21.1.1 for Photoshop 2020.
+Most of the Acrobat/Reader flaws allow arbitrary code execution which would be exploited by persuading users to open a malicious PDF, so these should be patched as soon as possible.
+At least there is some good news – as far as anyone knows, none of the vulnerabilities are being exploited in the wild.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

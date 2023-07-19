@@ -1,0 +1,129 @@
+Sophos Home protects every Mac and PC in your home 
+Microsoft has just released emergency patches for two critical security holes in the Windows Codecs Library.
+We all know what Windows means.
+But what is a Codecs Library, and why are bugs in it such as a big deal that they need to be updated without waiting for the next Patch Tuesday to come round?
+Well, codec is short for encoder-decoder, and it’s the jargon term for the sort of software that takes data of some sort – notably the raw data that represents the pixels in a video or the sound in an audio file – and reworks it so it can be sent and received easily.
+The co- part of a codec takes something like a raw image, consisting of rows and rows of colour pixels, and wraps it up in a format such as JPG or PNG so it can saved into a file for downloading or streaming.
+The -dec part does the reverse at the other end, reading in the file, decompressing it (most images and videos are compressed for transmission because this saves an enormous amount of bandwidth) and getting it back into its raw form so it can be displayed.
+The security challenge here is that the -dec part of any codec – for example, the software that converts JPG files that are downloaded as part of a web page so your browser can display them – can’t blindly assume that the co- part of the process was trustworthy.
+The decoder generally doesn’t have any control over the original encoding process, because files received from outside will have been encoded by someone else, somewhere else, using encoding software entirely of their own choice.
+So the decoder has to assume that any part of the encoded data could have been constructed maliciously by an attacker in order to trigger a bug in the decoder – which is often a complex piece of software.
+For example, many image formats start by telling the decoder how wide and high the image is, and how many bytes are used to store each pixel, in order to help the decoder allocate the right amount of memory for the image once it’s unpacked.
+But what if the data stored in the image doesn’t match the data that follows, and the decoder ends up reading in more pixel data than it allocated space for?
+If that happens, and the decoder doesn’t detect the mismatch, you’ve got a buffer overflow, along with all the security problems that usually entails.
+In fact, the problem is much worse than this simple example, because there are hundreds of different encoding algorithms for image and audio data, plus hundreds of different standards for packing together the encoded data into files for transmission…
+…and users expect all their software, from word processors to video editors, to support as many of these combinations as possible. 
+Try your favourite image editor and see how many different file types it can load or save to get a feeling for how many combinations there are. We use an open-source tool called FFMPEG to create our videos, and the version we currently have includes more than 450 different decoders, and nearly 200 different encoders.
+That’s where the Windows Codecs Library comes in, providing built-in support for a myriad different photo and video file formats to make it easy for software developers to support all the file formats that their users expect.
+Of course, the bad news in doing things that way is that a critical bug in the Codecs Library could end up affecting a whole raft of software programs at the same time, including browsers, document viewers, video editors, image gallery tools and more…
+…but the good news is that if a critical bug does show up, it can be fixed for everyone in one go.
+And that’s what’s happened here: the bugs CVE-2020-1425 and CVE-2020-1457 are described by Microsoft as follows:
+CVE-2020-1425: A remote code execution vulnerability exists in the way that Microsoft Windows Codecs Library handles objects in memory. An attacker who successfully exploited this vulnerability could obtain information to further compromise the user’s system. Exploitation of the vulnerability requires that a program process a specially crafted image file. The update addresses the vulnerability by correcting how Microsoft Windows Codecs Library handles objects in memory.
+CVE-2020-1457: A remote code execution vulnerability exists in the way that Microsoft Windows Codecs Library handles objects in memory. An attacker who successfully exploited the vulnerability could execute arbitrary code. Exploitation of the vulnerability requires that a program process a specially crafted image file. The update addresses the vulnerability by correcting how Microsoft Windows Codecs Library handles objects in memory.
+
+We’re assuming that these vulnerabilities could be combined in order to implant malware.
+Remote code execution bugs often aren’t much use on their own any more, because the crooks can’t figure out where in memory to place their attack code thanks to a security process known as Address Space Layout Randomisation (ASLR).
+ASLR makes the memory layout on every computer different, so most unaided attacks have to guess where to poke around in memory, usually picking the wrong place and simply crashing instead of taking over.
+But in this case, we’re guessing that an attacker could start off by using the first vulnerability to “leak” secret operating system data, including the current memory layout, thus rendering ASLR useless and making the second vulnerability much easier to exploit. 
+Technically, these bugs aren’t zero-days, because they were disclosed responsibly to Microsoft, which fixed them – as far as we know – before any cybercriminals figured them out.
+But now the bugs are known publicly, you can assume that the crooks will be busy trying to work backwards from the patches to figure out how the vulnerabilities work. (Things are a lot easier to find if you know where to start looking!)
+The updates are needed for Windows 10 and Windows Server 2019, and unlike your Patch Tuesday fixes, which arrive via the Security and Updates tab in Settings, Microsoft has pushed them out via the Windows Store:
+How do I get the updated Windows Media Codec?
+Affected customers will be automatically updated by Microsoft Store. Customers do not need to take any action to receive the update. Alternatively, customers who want to receive the update immediately can check for updates with the Microsoft Store App; more information on this process can be found here.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What about enterprise deployments of Windows 10 LTSC? How can we patch these without Microsoft Store?
+I don’t know. Any readers know the answer?
+Microsoft has no updates. Mitre has no details. What gives?
+MITRE just hands out the CVE numbers, so their web pages for recent CVEs generally don’t tell you anything more useful than that the number you’re looking for has been reserved. As for Microsoft – do you definitely have a Windows version on the affected list? (See the Microsoft links in the article for details.)
+If your computers are due for the upgrade and visiting the Windows Store app by hand doesn’t show any updates outstanding…
+…I’m afraid I am not sure how to tell whether [a] you don’t need an update [b] an update already arrived automatically in the background or [c] something is wrong.
+If anyone has any reliable “indicators of update” to share, such as “on my computer the DLL called SOMETHINGCODECCY.DLL changed to a file with yesterday’s timestamp”, that might help… otherwise, I think you are stuck with chasing down that info from Microsoft, based on the precise version of Windows you’re using.
+Sorry I can’t give you any more detail.
+My computer company provided a list of infected models (HP).
+Wondering how does someone who does not have a Microsoft account install this fix.
+You don’t need a Microsoft account, as far as I can see. The screenshot offering me updates as you see in the article was taken without me having an account at all, let alone without logging in this time…
+Is this CVE-2020-1427 or CVE-2020-1457?  
+“…the bugs CVE-2020-1425 and CVE-2020-1457 are described…”
+“CVE-2020-1427: A remote code execution vulnerability exists…”
+The links were correct; I managed to put a -2- in the number -1457 in the text. Fixed, thanks!
+so instead of using the tool built into windows to handle updating the system, they decided to use the store? anyone have any guess why that would be?
+I think this is why I dumped microsoft 2+ years ago!
+You dumped Microsoft because they get critical updates out nice and quickly? Many mainstream apps and operating systems have had image-driven RCE bugs of this sort in recent years, so ditching Microsoft is unlikely to immunuise you from occasional bugs of this sort.
+I cannot tell for sure but there is something weird with default streaming codecs installed with Ubuntu too.
+Seems to me that it is only applicable when using particular apps from the Microsoft Store. So it wouldn’t be applicable to Windows 10 LTSC or any other machine that doesn’t have the particular apps installed.
+Both CVE article links include the below as the first question under FAQ:
+“Is Windows vulnerable in the default configuration?
+No. Only customers who have installed the optional HEVC or “HEVC from Device Manufacturer” media codecs from Microsoft Store may be vulnerable.”
+The FAQ also lists instructions for how to determine if the update has been installed, as per below:
+“How does a user know if the update has been installed?
+You can check the version of the installed package. For example, click on Settings, Apps & Features and select HEVC, Advanced Options. You will see the version there. The secure versions are 1.0.31822.0, 1.0.31823.0 and later.”
+And 
+“How can I check from PowerShell if the update is installed?
+The following command will display the version of the installed package:
+Use Get-AppxPackage -Name Microsoft.HEVCVideoExtension”
+Thanks. That also explains why the update came via the Store, not via the Security & Updates path you might expect.
+Hmmm. I just went looking for Microsoft’s own “HEVC Video Extensions” app and it’s not free (Microsoft wants £0.79 for it). However, the implication above is that you could have acquired the offending code along with some third party device you bought – so it seems you might have inherited these bugs even if you have never knowingly purchased anything straight from the Microsoft Store. 
+On my Windows test computer, where I have no paid products installed from the Store, the abovementioned PowerShell command just returned nothing, which I take to mean “no such package installed”:
+PS C:\Users\duck> Get-AppxPackage -Name Microsoft.HEVCVideoExtension
+PS C:\Users\duck>
+(I tried replacing the package name with the bogus name Microsoft.ArbitraryMadeUpThing to check that no news means nothing installed – I got the same result, i.e. a blank reply rather than an error message.)
+So my theory is that if you do Get updates via the Microsoft Store, then you will either get no patches for these bugs because you don’t need them, or you’ll be safe afterwards either because you already had the updates or because they just got downloaded. The above PowerShell command can then be used and will then either report nothing at all (no update needed or possible, so you are safe anyway) or will list a version number you can check against @Chris’s comment above.
+Go to store > Downloads & Updates > “Get Updates” > Install all updates.
+My list mentioned Win Calc, MS Whiteboard and a few others.
+Whatever else was in the list of updates updated the codec and I received a toast:
+“HEVC Video Extension from the Device Manufacturer Has been updated” 
+et voilà !
+Did not work for me…
+HP said my computer is not vulnerable but I show HEVC ver. 1.0.31053.0 after updates.
+Perhaps a kick at the computer is in order to refresh versions.
+What if you just uninstall the offending version? If HP says it doesn’t come with the hardware in your device and you don’t know where it did come from, removing it will presumably do no harm…
+…but if it turns out you really do need it you can just reinstall it, which will presumably feed you the latest version.
+It seems that this issue does not apply to standard Windows installs, only systems where a user has added certain apps from the MS store. It looks to me as if the problem apps are paid apps. eg. HEVC.
+Following the ‘pushed them out’ link in your article, the MS document has some answers in the FAQ.
+Q.Is Windows vulnerable in the default configuration?
+A.No. Only customers who have installed the optional HEVC or “HEVC from Device Manufacturer” media codecs from Microsoft Store may be vulnerable.
+and
+Q. Why are these security updates offered to affected clients via the Microsoft Store and not Windows Update?
+A. These updates are for optional apps/components that are offered to customers as a download via the Microsoft Store. Updates for optional store apps/components are provided via the Microsoft Store.
+As discussed above (thanks @Chris), it does sound as though it _might_ be possible to end up with the buggy libraries anyway, installed along with some third party device, even if you didn’t buy Microsoft’s own HEVC Video Extension. So my advice would be “just do a Get updates from the Store anyway”, and that ought to be that.
+A great many people do not use or run the MS Store app. They prefer to get their software direct from the supplier rather than via a third-party ‘store’. Many, like me, do not allow the MS Store app to run so there should be no risk to their systems.
+I my opinion, ALL updates should be via the MS Update channel and not via a ‘store’.
+The HEVC Video Extensions software is a Microsoft product, so getting it from the Microsoft Store *is* getting it from the supplier rather than a third-party store. Ironically, a common source of malware infections in the past was through crooks tricking users into installing codecs from bogus sites. Interestingly, there are numerous useful and unexceptionable free Microsoft apps in the Store, so I don’t really understand why anyone would insist on blocking it while at the same time being happy to download apps from a wide range of other sources (all of which will inevitably have their own update ‘stores” anyway.
+Anyway, the idea of operating system distributions having ‘Stores’ where you can download and additional apps  from both the OS creator and from third parties is well-nigh universal these days. (Apple, Google, Microsoft and many Linux distributions do it.) So Windows is not the only platform where OS and “core system” updates come from one source and add-on app updates from another.
+I thought Microsoft was shutting down Stores 😉
+https://www.forbes.com/sites/warrenshoulberg/2020/07/01/microsoft-closing-its-stores-for-one-reason-they-are-bad/#39f814124eec 
+Stores maybe, but not Store!
+Microsux get’s worse every day! Why are patches being delivered by the store? WTH!
+Because it turns out that they are updates that apply to utility software that itself comes from the Store, and therefore that’s a perfectly logical place to put the updates. (See @Chris’s analysis above.)
+As long as the updates have a genuine Microsoft digital signature, come from a genuine Microsoft server with a genuine Microsoft web certificate, are updates that make sense for your computer, and there are clear instructions on how to verify whether you have the right version, does it really matter whether they’re served up from a Windows-flavoured URL or a Store-flavoured URL?
+You might be surprised to hear mention of the Microsoft Store but if you had the buggy library and it was patched automatically (which for most people who had the HEVC app it should have been) and with a genuine update, why would that mean that Microsoft was getting “worse every day”? When the company was unresponsive with patches, everyone complained about that, so it seems a bit harsh to be all over them just because this update arrived via by a channel you didn’t know about before.
+What if the organization have blocked communication to Microsoft store …how they will be able to update?
+If you have indeed blocked access to the Microsoft Store then no one would have been able to download the HEVC Video Extensions component in the first place, so there wouldn’t be anything to update here.
+See @Chris’s comment and my follow-up for how to check if you have the HEVC component at all, and if you do how to check you have the updated version.
+Thanks Paul….I am just wondering if in-case someone would have installed the package before the store was blocked ..how would one can get the updates for fixing the same.
+You wouldn’t. You would be experiencing the “law of unintended consequences” – if you block a web resource that your network relies upon for security updates then you won’t get those security updates.
+If you genuinely think that the Microsoft Store is a security risk (I don’t see how it is, assuming that users can probably download software from 1,000,000 other sources on the internet, including websites that aren’t curated at all) then you also need to make sure that none of your users already have any software that comes from there, given that you think the source is unsafe. You may be able to enumerate which Store apps are on which computers using WMI and/or Powershell.
+This is true for pretty much every “company store”, including the Apple App Store and Google Play, as well as those for browsers themselves such as Firefox and Chrome.
+Hello,
+Are these two CVE-2020-1425 and CVE-2020-1457 vulnerable to Windows 2019 and other servers OR vulnerable to Windows 10 opertaing systems alone?
+Thanks
+The Microsoft links in the article list the affected platforms.
+I have Microsoft.HEVCVideoExtension installed and the only non-MS Store apps I have are Spotify, uBlockOrigin, HPPrinterControl, HPSystemInformation. Spotify I would guess.
+Could it be something that came along with a webcam, video capture device, high-end graphics card or third-party hardware wotsit, do you think?
+Maybe my webcam. I’ve got an HP EliteBook 840 G4 with a pretty standard config. Built-in webcam (covered with tape of course!) but no special video capture or 3rd party hardware wotsits. Using the Intel HD Graphics 620 video driver so nothing special there either. I don’t do any video recording or editing so don’t have any software related to that. I was thinking Spotify due to the encoding/decoding of the music but I’d have to setup a few VMs and do some testing to verify and unfortunately don’t have time for that right now.
+Did you get the update OK? If so, you may wish to, errr, treat this issue as “fixed” :-)
+Yes it appears so. I have:
+Version           : 1.0.31823.0
+I am treating it as fixed. It appears that I was auto-updated which is good in this case but rather disturbing overall. It’s pretty crummy that there are now 2 different ways to update Windows software (one for UWP and one for standard apps) but that only one of the methods seems to listen to my GPO settings and give me control while the other just does whatever it wants. I really do not like that.
+Also curious about how I got that software to begin with. I definitely did not purchase it. Might be from HP bloatware? I can confirm that mine is listed as “HEVC from Device Manufacturer” which is what makes me think that now instead of Spotify.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

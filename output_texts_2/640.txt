@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+Cybercriminals compromise 0.5% of all Microsoft enterprise accounts every month because too few customers are using multi-factor authentication (MFA), the company has revealed.
+In a presentation uploaded to YouTube from the recent RSA Security Conference, director of Identity Security Alex Weinert said 1.2 million accounts were compromised in January 2020 alone.
+Of those compromised accounts, 99.9% were not using MFA.
+Accounts lacking MFA had two characteristics: the use of legacy protocols and a tendency by users to reuse passwords.
+The problem with legacy protocols – POP, SMTP, IMAP, and XML-Auth – is that they don’t offer a mechanism to include an MFA challenge or device verification, which made passwords a single point of failure.
+During January, about 40% (480,000) of the compromised accounts had fallen foul to some pretty simple password spraying where attackers try to login to large numbers of accounts using a small collection of statistically likely passwords.
+According to Weinert, 99% of password spray attacks targeted legacy protocols. Although only 0.5% of accounts were compromised each month, the probability of this happening rose to 7.2% for SMTP, and 4.3 for IMAP.
+The second problem was password re-use, which allowed attackers to reuse credentials stolen from one site on multiple sites in the hope of finding a match, the so-called replay attack. Weinert said:
+Don’t be confused. People do re-use their enterprise accounts in non-enterprise environments.
+The solution to these problems should be turning off legacy protocols and mandating MFA in its place. And yet when the decision was made to turn off legacy protocol support within Microsoft in 2018, the company’s helpdesk was flooded with calls in the middle of the night as the sales platform went down.
+The culprit? An old telesales application tied to a single account using legacy authentication.
+Coincidentally, the following month, Microsoft’s MFA for Office 365 and Azure Active Directory went down twice in a week, leaving many customers around the world using unable to log on.
+It’s an anecdote that explains the size of the problem – even Microsoft is struggling to wean itself from the past.
+There are three simple steps to securing any online account:
+Pick strong passwords. Watch our video to find out how to come up with a brute:
+
+(No video? Watch on YouTube. No audio? Click on the [CC] icon for subtitles.)
+Turn on 2FA or MFA. If a website gives you the option of using two-factor authentication (2FA or MFA), take them up on it. Here’s an informative podcast that tells you all about 2FA, if you’d like to learn more:
+LISTEN NOW
+(Audio player above not working? Download MP3 or listen on Soundcloud.)
+Use a password manager. We know they’re not perfect, but we still highly recommend using one: they can generate strong, unique passwords for each site, and the store and auto-fill them so you have no excuse to re-use any password.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What types of MFA – 2FA products are folks using? What is affordable and recommended? Just curious. Duo / RSA / Yubico etc… some pricey ones out there… Does Sophos have any plans on future solutions for protecting the enterprise?
+If you want to raise the bar without having to buy dedicated hardware, phone based authentication using an app (what’s known as TOTP – usually 6-digit codes that change every 30 seconds) is a good place to start IMO. At the moment, we’re using TOTP for our Sophos Central service – it’s enabled by default – and you can use the free Sophos Intercept X for Mobile app to generate the codes. You don’t need our app – there are loads of others – but ours includes a bunch of other cybersecurity stuff too, including a password vault, dodgy Wi-Fi detection, a QR code checker and (on Android) a full-on anti-virus and web filtering component, too. 
+https://www.sophos.com/en-us/products/mobile-control/intercept-x.aspx
+OK but I do not a device that is recognized by the google app store. Is it available on Amazon, for Kindle? Is the APK available?
+You *can* get the APK from our website but given that it’s already on Google Play it isn’t openly available for direct download – the website download is intended for company deployments.
+AFAIK you can get it easily enough (and it is free to use) but IIRC you will need to register for a Sophos ID and request an evaluation licence for a product set that includes it.
+We can’t support you with all of that here, I’m afraid, but I suggest you to head over to community.sophos.com instead. (You can read posts there without registering but if you want to post your own questions or comments you will need to create an account. It’s free.)
+Alternatively, if you have access to an Android with Google Play Services available on it you may be able to copy the APK off the Play-enabled device (e.g. using developer mode and the Android Debug Bridge or adb) and sideload it onto a non-Play-Store enabled device. That’s how I get it onto my own LineageOS device, which has no Play Store access.
+The other thing we do is use the have i been pwned password list as a blacklist for our AD (dir-synced to 365) so people cant set any of the 550 million ish bad passwords, that combined with the 2fa has so far helped but it requires constant vigilance.
+That’s awesome!  Is there a guide available on doing that?
+You make this headline sound as if it was a Microsoft Employee account that were compromised. You lost my respect and trust on this. The article is misleading.
+I don’t see how it could possibly be interpreted that way.
+If it were the account of a Microsoft employee we’d have said exactly that.
+I think a phrase such as “Microsoft enterprise accounts” is much like saying “Microsoft corporate licensing” or “Microsoft webmail services.” 
+IMO it’s clear in those phrases that Microsoft is the service provider and that the accounts/licences/webmail are provided *to* its customers, not that these are accounts that belong to Microsoft itself.
+(In the same way, if I talk about “an Exampleco rental car” I clearly mean a car I might rent from them to drive myself, not a car that they are currently renting for one of their own staff to use.)
+Looks like someone trying to push fear tactics on you people.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

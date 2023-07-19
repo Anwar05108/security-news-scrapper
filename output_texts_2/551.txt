@@ -1,0 +1,25 @@
+Sophos Home protects every Mac and PC in your home 
+A popular GDPR compliance WordPress plugin vendor has patched a flaw that rendered both site visitors and admins vulnerable to cookie-stealing cross-site scripting (XSS) attacks.
+The GDPR Cookie Consent plugin, created by WebToffee, claims over 700,000 users. The plug-in is a notification app that begs you to accept cookies when you first visit a WordPress site. Website owners use tools like this to stay compliant with GDPR, which points to cookies as a form of online identifier and therefore subject to its consent rules.
+While the GDPR Cookie Consent plugin asks you if you’d mind accepting cookies, it doesn’t ask you if you’d like a dollop of XSS with them too. Until this week, that’s what visitors to pages containing the plugin might have been vulnerable to.
+The flaw, enabled an XSS attack and elevation of privilege in versions 1.82 and earlier, said a blog post by The Ninja Technologies Network, which sells web application firewalls to protect WordPress sites.
+According to Wordfence, the cause of the vulnerability was an AJAX endpoint used in the administration section of the plugin (AJAX uses JavaScript and XML to deliver web page functionality). This exposes three functions to blog subscribers that should only have been available to admins: get_policy_pageid, autosave_contant_data(“contant” is a typo in the code itself), and save_contentdata. The first just returns a post ID for the plugin’s cookie policy page and isn’t really significant, Wordfence said.
+The second defines the standard content for that page and is more worrisome. Because the HTML is unfiltered, an attacker could alter it to contain JavaScript code. That means they could use it to deliver an XSS payload to any user that viewed it on its /cli-policy-preview/ page.
+The third function creates or updates the post that bugs users to accept the cookie policy when they visit a site. Attackers can alter the post_id that this function delivers to change the text of any post, but doing so sets the post’s status to draft, hiding it from regular subscribers. That still leaves it visible to editors, admins, and the author of the post. An attacker could, therefore, use an altered post to mount an XSS attack on one of these privileged users.
+Doing that takes another bit of skullduggery, explains Wordfence. WordPress uses a whitelist of permitted HTML tags when editing content, which would strip out malicious code like XSS payloads. However, the plugin permits shortcodes. These are commands a bit like macros contained in square brackets that WordPress blogs and their plugins interpret as shortcuts to include rich text like image galleries and videos.
+By using shortcode functionality in the plugin, an attacker can hit a site admin with an XSS attack. The attackers could also insert formatted text, hyperlinks, and remote images, explained Ninja Technologies.
+The bug has a CVSS score of 9.0, said Wordfence, which makes it critical, although at the time of writing there wasn’t an assigned CVE number.
+WebToffee has released an updated version, 1.83, and any admins should patch their deployments immediately.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

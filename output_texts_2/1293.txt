@@ -1,0 +1,287 @@
+Sophos Home protects every Mac and PC in your home 
+In this article, we explain the Apache Log4Shell vulnerability in plain English, and give you some simple educational code that you can use safely and easily at home (or even directly on your own servers) in order to learn more.
+Just to be clear up front: we’re not going to show you how to build a working exploit, or how set up the services you need in the cloud to deliver active payloads.
+Instead, you will learn:
+The primary cause of Log4Shell, formally known as CVE-2021-44228, is what NIST calls improper input validation.
+Loosely speaking, this means that you place too much trust in untrusted data that arrives from outsiders, and open up your software to sneaky tricks based on booby-trapped data.
+If you’ve ever programmed in C, you’ll almost certainly have bumped into this sort of problem when using the printf() function (format string and print).
+Normally, you use it something like this:
+You provide a hard-coded format string as the first argument, where %.20s means “print the next argument as a text string, but give up after 20 bytes just in case”, and %d means “take an integer and print it in decimal”.
+It’s tempting also to use printf() when you want to print just a single string, like this, and you often see people making this mistake in code, especially if it’s written in a hurry:
+In this code, the user gets not only to choose the string to be printed out, but also to control the very formatting string that decides what to print.
+So if you ask this program to print hello, it will do exactly that, but if you ask it to print %X %X %X %X %X then you won’t see those characters in the output, because %X is actually a magic “format code” that tells printf() how to behave.
+The special text %X means “get the next value off the program stack and print out its raw value in hexadecimal”.
+So a malcontented user who can trick your little program into printing an apparently harmless string of %Xs will actually see something like this:
+As it happens, the fifth and last value in the output above, sneakily sucked in from from the program stack, is the return address to which the program jumps after doing the printf()…
+…so the value 0x00000000004D110A gives away where the program code is loaded into memory, and thus breaks the security provided by ASLR (address space layout randomisation). 
+Software should never permit untrusted users to use untrusted data to manipulate how that very data gets handled.
+Otherwise, data misuse of this sort could result.
+There’s a similar sort of problem in Log4j, but it’s much, much worse.
+Data supplied by an untrusted outsider – data that you are merely printing out for later reference, or logging into a file – can take over the server on which you are doing the logging.
+This could turn what should be a basic “print” instruction into a leak-some-secret-data-out-onto-the-internet situation, or even into a download-and-run-my-malware-at-once command.
+Simply put, a log entry that you intended to make for completeness, perhaps even for legal or security reasons, could turn into a malware implantation event.
+To understand why, let’s start with a really simple Java program.
+You can follow along if you like by installing the current Java SE Development Kit, which was 17.0.1 at the time of writing.
+We used Windows, because most of our readers have it, but this code will work fine on Linux or a Mac as well.
+Save this as Gday.java:
+Open a command prompt (use CMD.EXE on Windows to match our commands, not PowerShell; use your favourite shell on Linux or Mac) and make sure you can compile and run this file.
+Because it contains a main() function, this file is designed to execute as a program, so you should see this when you run it with the java command:
+If you’ve got this far, your Java Development Kit is installed correctly for what comes next.
+Now let’s add Log4j into the mix.
+You can download the previous (unpatched) and current (patched) versions from the Apache Log4j site.
+You will need: apache-log4j-2.14.1-bin.zip and apache-log4j-2.15.0-bin.zip
+We’ll start with the vulnerable version, 2.14.1, so extract the following two files from the relevant zipfile, and place them in the directory where you put your Gday.java file: 
+Now tell Java that you want to bring these two extra modules into play by adding them to your CLASSPATH, which is the list of extra Java modules where Java looks for add-on code libraries (put a colon between the filenames on Linux or Mac, and change set to export):
+(If you don’t add the Log4j JAR files to the list of known modules correctly, you will get “unknown symbol” errors when you run the code below.)
+Copy your minimlist Gday.java file to TryLogger.java and modify it like this:
+Now we can compile, run and pass this program a command line argument, all in one go.
+We’re logging with the error() function, even though we are not really dealing with an error, because that logging level is enabled by default, so  we don’t need to create a Log4j configuration file.
+We’re using the first command-line argument (args[0] in Java, corresponding roughly to argv[1] in C above) as the text to log, so we can inject the logging text externally, as we did above.
+If there are spaces in the text string you want to log, put it in double quotes pn Windows, or single-quotes on Linux and Mac:
+(If you don’t put an argument on the command line after the filename TryLogger.java, you will get the default log message [no data provided to log] in place of the text Hello there you see above.)
+If you’re seeing the middle output line above, starting with a timestamp and a function name in square brackets, then the Log4j Logger object you created in the program is working correctly.
+Get ready for the scary part, which is documented in some detail on the Apache Log4j site:
+“Lookups” provide a way to add values to the Log4j configuration at arbitrary places.
+Simply put, the user who’s supplying the data you’re planning to log gets to choose not only how it’s formatted, but even what it contains, and how that content is acquired.
+If you’re logging for legal or security purposes, or even simply for completeness, you’re probably surprised to hear this.
+Giving the person at the other end a say into how to log the data they submit means not only that your logs don’t always contains a faithful record of the actual data that you received, but also that they might end up containing data from elsewhere on your server that you wouldn’t normally choose to save to a logfile at all.
+Lookups in Log4j are triggered not by % characters, as they were in printf() above, but by special ${....} sequences, like this:
+See what happened there?
+The only character in the data you supplied that made it into the actual log output was the / (slash) in the middle; the other parts were rewritten with the details of the Java runtime that you’re using.
+Even more worryingly, the person who gets to choose the text that’s logged can leak run-time process environment variables into your logfile, like this (put USER instead of USERNAME on Linux or Mac):
+Given that environment variables sometimes contain temporary private data such as access tokens or session keys, and given that you would usually take care not to keep permanent records of that sort of data, there’s already a significant data leakage risk here.
+For example, most web clients include an HTTP header called User-Agent, and most HTTP servers like to keep a record of which browsers came calling, to help them decide which ones to support in future.
+An attacker who deliberately sent over a User-Agent string such as ${env:TEMPORARY_SESSION_TOKEN} instead of, say, Microsoft Edge, could cause compliance headaches by tricking your server into saving to disk a data string that was only ever supposed to be stored in memory.
+There’s more.
+Thanks to a feature of the Java runtime called JNDI, short for Java Naming and Directory Interface, Log4j “lookup” commands wrapped in ${...} sequences can not only do simple string replacements, but also do live runtime lookups to arbitary servers, both inside and outside your network.
+To see this in action, we need a program that will listen out for TCP connections and report when it gets one, so we can see whether Log4j really is making network connections.
+We will use ncat from the free and popular Nmap toolkit; your Linux your distro may already have ncat installed (try it and see), but for Windows you will need to install it from the official Nmap site.
+We used version 7.92, which was current at the time of writing.
+We’ll keep everything local, referring to the server 127.0.0.1 (or you can use the name localhost, which refers to the same thing),  the very computer you are on at the moment:
+To explain the ncat command-line options:
+Now try this in your other command window:
+Even though your command-line argument was echoed precisely in the output, as though no lookup or substitution took place, and as if there were no shenanigans afoot, you should see something curious like this in the ncat window:
+This means we’ve tricked our innocent Java progam into making a network connection (we could have used an external servername, thus heading out anywhere on the internet), and reading in yet more arbitary, untrusted data to use in the logging code.
+In this case, we deliberately sent back the text string ---CONNECTION [50326]---, which is enough to complete the JNDI lookup, but isn’t legal JNDI data, so our Java program thankfully ignores it and logs the original, unsubtituted data instead. (This makes the test safe to do at home, because there isn’t any remote code execution.)
+But in a real-world attack, cybercriminals who know the right data format to use (we will not show it here, but JNDI is officially documented) could not only send back data for you to use, but even hand you a Java program that your server will then execute to generate the needed data.
+You read that correctly!
+An attacker who knows the right format, or who knows how to download an attack tool that can supply malicious Java code in the right format, may be able to use the Log4j Logger object as a tool to implant malware on your server, running that malicious code right inside the Java process that called the Logger function.
+And there you have it: uncomplicated, reliable, by-design remote code execution (RCE), triggered by user-supplied data that may ironically be getting logged for auditing or security purposes.
+One challenge posed by this vulnerability is to figure out which servers or servers on your network are affected.
+At first glance, you might assume that you only need to consider servers with network-facing code that’s written in Java, where the incoming TCP connections that service requests are handled directly by Java software and the Java runtime libraries.
+If that were so, then any services fronted by products such as Apache’s own httpd web server, Microsoft IIS, or nginx would implicitly be safe. (All those servers are primarily coded in C or C++.)
+But determining both the breadth and depth of this vulnerability in all but the smallest network can be quite tricky, and Log4Shell is not restricted to servers written in 100% pure Java.
+After all, it’s not the TCP-based socket handling code that is afflicted by this bug: the vulnerability could lurk anywhere in your back-end network where user-supplied data is processed and logs are kept.
+A web server that logs your User-Agent string probably does so directly, so a C-based web server with a C-based logging engine is probably not at risk from booby-trapped User-Agent strings.
+But many web servers take data entered into online forms, for example, and pass it on to “business logic” servers in the background that dissect it, parse it, validate it, log it, and reply to it.
+If one of those business logic servers is written in Java, it could be the rotten coding apple that spoils the application barrel.
+Ideally, then, you need to find any and all code in your network that is written in Java and check whether it uses the Log4j library.
+Sophos has published an XDR (extended detection and response) query that will quickly identify Linux servers that have Debian-style or Red Hat-style Log4j packages installed as part of your distro, and report the version in use. This makes it easy to find servers where Log4j is available to any Java programs that want to use it, even if you didn’t knowingly install the library yourself.
+Out-of-date Log4j versions need to be updated at soon as possible, even if you don’t think anyone is currently using them.
+Note that Log4j 1.x is no longer supported at all, and a bug related to Log4Shell, dubbed CVE-2021-4104, exists in this version.
+So, the update path for Log4j 1.x means switching to Log4j 2.
+Remember, of course, that Java programs can be configured to use their own copies of any Java library, or even of Java itself, as we did when we set the CLASSPATH environment variable above.
+Search right across your estate, taking in clients and servers running Linux, Mac and Windows, looking for files named log4j*.jar.
+Unlike executable shared libraries (such as NSS, which we wrote about recently), you don’t need to remember to search for different extensions on each platform because the JAR files we showed above are named identically on all operating systems.
+Wherever possible, update any and all copies of Log4j, wherever they are found, as soon as you can.
+You can prove to yourself that the 2.15.0 version suppresses this hole on your systems, at least in the simple test code we sused above, by extracting the new JAR files from the updated apache-log4j-2.15.0-bin.zip file you downloaded earlier:
+Extract the following two files from the updated zipfile, and place them in the directory where you put your .java files, alongside the previous JAR versions: 
+Change your CLASSPATH variable with:
+Repeat the ${jndi:ldap://127.0.0.1:8888/blah} test shown above, and verify that the ncat connection log no longer shows any network traffic.
+The updated version of Log4j still supports the potentially dangerous what-you-see-is-not-what-you-get system of string “lookups”, but network-based JNDI connections, whether on the same machine or reaching out to somewhere else, are no longer enabled by default.
+This greatly reduces your risk, both of data exfiltration, for example by means of the ${env:SECRET_VARIABLE} trick mentioned above, and of malware infection via implanted Java code.
+Apache has proposed three different workarounds in case you can’t update yet; we tried them all and found them to work.
+This sets a special system property that prevents any sort of {$jndi:...} activity from triggering a network connection, which prevents both exfiltration and remote code implantation.
+We used the popular and free 7-Zip File Manager to do just that, which neatly automates the unzip-and-rezip process, and the modified JAR file solved the problem.
+This technique is needed if you have a Log4j version earlier than 2.10.0, because the command-line and environment variable mitigations only work from version 2.10.0 onwards.
+On Linux or Mac you can remove the offending component from the JAR file from the command line like this:
+This works because Java Archives (.jar files) are actually just ZIP files with a specific internal layout.
+Update. Apache has patched Log4j twice more since this article came out. The first update, to 2.16.0, patches against CVE-2021-45046, where a non-default configuration could permit remote code execution or data exfiltration, and a default configuration could allow a denial of service attack causing the affected process to hang. The second update, 2.17.0, patches against CVE-2021-45105, where a non-default configuration could allow an infinite loop, causing a denial of service in a similar way to the flaw patched in 2.16.0.Note that patching to 2.17.0 includes all previous fixes, dealing with CVE-2021-44228, CVE-2012-45046 and CVE-2021-45105 at the same time. For ongoing information, please refer to the official About Apache Log4j page. [2021-12-18T11:45:00Z]
+As we mentioned above, the primary risk of this JNDI “lookup” problem is that a well-informed criminal can not only trick your server into calling out to an untrusted external site…
+…but also co-opt it into downloading and blindly executing untrusted code, thus leading to remote code execution (RCE) and malware implantation.
+Strict firewall rules that prevent your server from calling out to the internet are an excellent defence-in-depth protection for CVE-2021-44228: if the server can’t make the TCP connection in the first place, it can’t download anything either.
+But there is a secondary risk that some attackers are already trying, which could leak out data even if you have a restrictive firewall, by using DNS.
+This trick involves the ${env:SECRET_VALUE} sequence we mentioned earlier for sneakily accessing the value of server environment variables.
+Even on a non-corporate Windows desktop computer, the default list of environment variables is impressive, including:
+An attacker who knows that TCP requests will not get out of your network can nevertheless steal environment values and other Log4j “lookup” strings like this:
+This looks innocent enough: clearly, there’s no way we can have a real server running at the right location to receive the JNDI callout in this example.
+We don’t yet know the value of ${env:SECRET_VALUE} because that is, after all, the very data we are after.
+But when we did this test, we had control over the DNS server for the domain dodgy.example, so our DNS server captured the Java code’s attempt to find the relevant servername online, and our DNS records therefore revealed the stolen data.
+In the list below, most of the lookups came from elsewhere on our network (browsers looking for ad sites, and a running copy of Teams), but the lookups for useris-duck.dodgy.example were JNDI trying to find the data-leaking servername:
+In this case, we didn’t even try to resolve useris-duck.dodgy.example and make the server connection work.
+We simply sent back an NXDOMAIN (server does not exist) reply and JNDI went no further – but the damage was already done, thanks to the “secret” text duck embedded in the subdomain name.
+IPS rules, WAF rules, firewall rules and web filtering can all help, by blocking malicious CVE-2021-44228 data from outside, and by preventing servers from connecting to unwanted or known-bad sites.
+But the staggering number of ways that those dodgy ${jndi:...} exploit strings can be encoded, and the huge number of different places within network data streams that they can appear, means that the best way to help yourself, and thereby to help everyone else as well…
+…is one of these two options:
+Be part of the solution, not part of the problem!
+By the way, our personal recommendation, when the dust has settled, is to consider dropping Log4j if you can.
+Remember that this bug, if you can call it that, was the result of a feature, and many aspects of that “feature” remain, leaving outsiders still in control of some of the content of your internal logs.
+To paraphrase the old joke about getting lost in the backroads of the countryside, “If cybersecurity is where you want to get to, you probably shouldn’t start from here.”
+LEARN HOW CYBERCRIMINALS ARE USING THIS VULNERABILITY IN THE WILD
+Log4Shell Hell: anatomy of an exploit outbreak
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Dropping log4j entirely would be throwing out the baby with the bathwater. You still need a logging system in place for compliance, security, and development. Log4j is the most mature logging system for the Java ecosystem, and serves as the model/inspiration for the dominant logging systems of most other languages as well. We can’t throw away log4j just as we didn’t throw away printf().
+Suggesting that we abandon a core library like log4j is just as brain dead as suggesting that an organization casually rewrite their entire codebase in a different programming language.
+Java can be statically analyzed, and we can fail builds in the CI pipeline for passing unsanitized input to logging methods.
+Static analysis won’t help you here… this was not a bug, it was a feature. And the fact that something is “mature”, which often means little more than “old and entrenched, but don’t panic because everyone else is using it”, tells you nothing about its cybersecurity qualities. 
+When the Persians said, “This too shall pass,” they weren’t talking about passing CI tests :-)
+IMHO, static analysis would help if we give it the hints it needs.
+For example, rather than passing a plain old instance of the String class to the logger, we could pass an instance of UntrustedString, or TrustedString the the logger. (Both subclasses of java.lang.String – These a made up class names – I have no idea if they exist).
+The logger can do as much expansion as it wants to on a trusted string, but none at all on an untrusted one. Any strings from outside get the untrusted tag and if a programmer constructs a trusted string from an untrusted one with validation and sanitization then it should get picked up in code review.
+All this is similar to the taint flag that Perl has had for about 25 years! This is not a new programming paradigm, and should be part of sensible best practice everywhere these days.
+You can replace lo4j by sfl4j.  Slf4j is way more mature that log4j.
+Slf4j is only  facade, you still need an implementation (i.e. Log4j, Logback)
+I’d like to better understand the downvotes here.  Vulnerabilities are discovered and patched on a daily basis – why would people advocate not using a given library just because there’s been a vulnerability discovered?  Wouldn’t the fastest/easiest option be to patch and move on?  (Full disclosure: I’m neither a dev nor a security expert – just trying to understand).
+Patching is important. But I think it’s perfectly reasonable, in the aftermath of this, to consider if logging code that is quite this extensible/powerful/OTT is really what you need, or whether you just decided to use it because everyone else did. (Note that I didn’t say you *should* throw out Log4j, just that you might *consider* switching over, givem that this “bug” was really a feature – the part that you exploit wasn’t there by mistake, but by design, and the patch basically turns it off by default rather than on.)
+Great explanation, thanks.
+Thanks for the clear write-up!
+Btw, there’s a error with the link apache-log4j-2.15.0-bin.zip
+Likely a typo when you changed the filename but didn’t change the rest of the path. Cheers.
+-JS @breaktoprotect
+Fixed, thanks.
+Excellent write-up.
+Perfect answer to the age-old developer question, “So, do we need to do input validation, and if so, why?” 🙂
+Linux (colon, not semi-colon):
+export CLASSPATH=”log4j-core-2.14.1.jar:log4j-api-2.14.1.jar”
+It does say that in the article, albeit indirectly :-) (“Put a colon between the filenames on Linux or Mac, and change ‘set’ to ‘export’.“)
+…or this article could possibly at least prompt awareness that there should be a question–or rather it should be no question.
+At a former sysadmin job of mine we had a crew of developers whose dominant mantra was clearly “move fast and break things,” though it would be years before I actually would hear the saying.
+They frequently brought forth issues of the look-before-you-leap variety.
+Want to share another POV on logging libraries and why this is a good example why the industry is moving from monolithic code bases to more specific micro-services. Having your application also be ‘concerned’ about formatting logging is having your application do too much. Log handling is a separate concern and shouldn’t be handled in your app. If you start to follow a 12 factor app philosophy you would start logging to plain old system out and let your system/container handle how to get logging where it should go and filtered as needed.  I know this might sound odd if you are a Java dev (it did for me at first too) but the more you reduce the number of dependencies (libs) and concerns of what your app needs todo, the more secure your app will become. Of course, you can’t just do this with legacy apps over night, but something to consider as you build new apps or are making maintenance updates in the future.
+I think the problem here is that Log4j is so abstracted that when you write what looks like simple code that is intended to ‘make this exact data appear in the log’, you may in fact be sending what is effectively bytecode for a ‘logging VM’ to interpret.
+(My own logging library, admittedly for Lua, not for Java, automatically logs exactly what you tell it to if you send one parameter, or does formatting at the other end if you send more than one, sort of like puts() and printf() combined. So if there is exactly one argument to the logging function you will get uninterpolated/unextrapolated/non-cooked data recording.)
+Sure, but your deployment environment  becomes very complex and hard to troubleshoot.
+There are performance differences (costs) in following this approach…at least, following it naively.  For example for most languages and environments I’ve encountered (admittedly not *all*) sysout and syserr don’t buffer their outputs (without some custom code to force it).  Logging libraries do.  These days they also shift the I-O, and its lag, to a separate thread (where available in the environment/language).  These differences matter.
+“But in a real-world attack, cybercriminals who knows” should read “But in a real-world attack, a cybercriminal who knows”.
+In the old days, we used to call it “sanity checking the input”.  It includes such things as checking the input length (How long is that buffer you’re reading into?), error handling (Did your yes/no question allow for an inappropriate answer? Was that string of garbage actually the key entry point for a trapdoor?).  There are many variations on the theme.
+Obligatory old joke:
+A code reviewer walks into a bar and says, “0.20000000000E1 beers, please.”
+And the barman says, “I’m sorry, we don’t serve your type.”
+PS. Fixed the grammo. “Cybercriminals who know…”, thanks.
+Is this an issue for system admins, etc., and not everyday user (pc / Mac)?
+In theory, yes, for example if you had a Java program that scanned files for keyboards and someone could trick you into searching for a “trigger string” (and that trigger string got logged). In practice, this is unlikely. The main issue I can see for home users is whether any cloud services they use, e.g. for blogging, are affected… contact your service providers for advice!
+HI there, I am hearing that this only affects HTTP connectons. If all our external internet-facing are HTTPS. then why would this be a concern? I have noriced that Emotet is now dropping Cobalt Strike. In an attack scenario, if CS is already in the environment, might the attacker simply use CS crafted packets with their own code to attack vulnerable internal systems.? Or can someone help me explain this differently please. Thanks in advance.
+This vulnerability isn’t limited to internet-facing servers, let alone to web servers… as explained in the article, the flaw can be triggered wherever a server processes user-supplied data. So if web server (HTTP or HTTPS) receives user data via, say, a web form and passes that data on to a back-end business server, the problem could happen on that business server, if that data gets logged somewhere.
+… and the problem could happen on every client computer that connects to that business server, if a Java app on the client logs with log4j….  it can happen on all devices
+Indeed. I’d consider it unlikely, but as you say, it *could* happen anywhere.
+As you mentioned in an earlier comment, one irony is that you can imagine a client computer “helper app” – your example was someone trying to generate delivery barcodes offline, using addresses and postcodes in a CSV file – is *more likely* to write log entries if faced with a malformed data item (e.g. a weird address with ${…} where the town should be), so that the app’s user can helpfully “report failures” back to the department that generated the CSV file in the first place. After getting pwned, that is.
+What an excellent article!
+Thanks, glad you found it useful.
+“The primary cause of Log4Shell, formally known as CVE-2021-44228”
+Shouldn’t it be “also know as “CVE-2021-44228″”. Would that be more correct? Just making sure I’m on the same page.
+I think it’s fair to describe the CVE-xxxx-yyyy moniker as the “formal” name (even though it’s not part of a legally binding process, or issued in accordance with some sort of international treaty) because these identifiers are allocated formally, using a process that prevents numbering collisions, provides a common label, and ensures that duplicate reports don’t turn into two differently numbered bugs. (Indeed, “C” is for “Common”.)
+Log4Shell is a casual name – indeed, it’s simply “the one that stuck”, after the people who came up with that name realised that their first choice, LogJam, had already been used for an entirely different flaw (where log referred to discrete logarithms) many years ago.
+So I am happy with calling the CVE number “formal”, and Log4Shell “informal”. Think of the word “formal” in the sense of “evening wear” rather than in the sense of “court hearing”.
+Thew madness here is: why does a logger need such elaborate  lookup functionality in the first place? It is all those exotic features (to be polite) that make software fragile and insecure.
+Because a job worth doing IS WORTH OVERDOING!
+Paul – silly question but a PowerShell search (GetChildItem of the JAR files on a server) parsed through “select-string “JndiLookup.class”” returns such a string in a non-Log4j JAR file i.e. ws-hubcommon.jar. In this case what would the mitigation be?
+I can’t really answer that… but although this bug is dependent on JNDI’s rather liberal attitude to “look this up in a directory server” (where the returned “data” can be a Java class file to run!), the exploitability in the Log4j case is caused by the fact that the JNDI function calls *can be triggered by user-supplied data*. This makes the risky JNDI functions rather easy to invoke remotely, and that’s the danger.
+JNDI is available to any and all Java apps because it’s part of the Java runtime, but then so are Java functions to make network connections, read and write arbitrary files, execute new processes, and so on. So, an app that uses JNDI isn’t automatically more dangerous that an app that uses any other potentially risky features, providing that it can’t be triggered to do its risky business at will by an outsider.
+Having said that, if you are worried, you could try copying that JAR file (for backup, just in case) and performing the same manual excision of the dodgy-looking jndiLookup.class file from the JAR as detailed above for the log4j-core JAR file… if your app still works and your logging isn’t broken, then that might set your mind at rest until you hear (or don’t hear) from the vendor.
+HtH.
+Very precise and well written.
+slf4j + logback is probably the way to go… you can transform a log4j.properties file into a logback.xml pretty easy and with quite mininal code adaptations.
+If your servers are properly firewalled, there should be no access to external jndi implementations.
+As explained above, your firewall might not be enough if affected servers can mke DNS requests because the servername lookup that precedes the TCP connection would succeed before any subsequent TCP connection would fail.
+Regarding what you stated about DNS, it is only true if the attacked server is able to make outbound DNS requests, and that is usually blocked by corporate firewalls that will only allow DNS requests to known internal servers. SO, if you block both outbound TCP and UDP connections to anything you don’t trust, you are not at risk of leaking anything or to execute any remote code.
+Except that if your own DNS server is prepared to resolve external DNS names for your back-end servers (and I suspect that in many business networks that is the case), then the rogue DNS request will still escape.
+I suspect that in this “cloudy” era, many corporate servers *can* resolve arbitrary domain names (via the corporate DNS server). After all, even on your home network your individual computers don’t need external DNS access – everyone in the household typically gets their DNS answers from the router. The router asks the outside world for outside addresses and passes the result back.
+In other words, blocking your servers from making direct DNS connections to the outside is not sufficient. You need to configure your own DNS server to restrict the replies it sends to your servers to answers about your own domain names only. 
+Thank a lot for the explanation. Being a dev myself, sadly I know and worked with a lot of dev who wouldn’t understand a word from this, nor why it’s important.
+Fantastic article! Reminds me of this timeless article on why we need to view software components like parsers as potentially Turing complete machines ready to be hijacked: https://www.usenix.org/system/files/login/articles/login_aug15_02_bratus_0.pdf
+Look, log4j version 1 might be unsupported but at least it’s vulnerability is only applicable if you use network logger. If you do not, version 1 is just fine and you mentioning people should update to version 2 is unnecessary. If you are using log4j normally with file / console logger there are no issues with version 1 that would require anyone to upgrade to version 2.
+Well, there must be *some* issues left in there or else a brand new CVE would not have been issued relating to this Log4Shell-like bug. 
+I stand by my statement that “the upgrade path for Log4j 1.x is Log4j 2”, in the same way that the upgrade path for Windows 7 is Windows 10 (or Windows 11, or a supported Linux/xBSD distro).
+I did a scan of my computer, and perhaps you should mention that (older?)  Zigbee is littered with occurrences of Log4j.   Being a low bandwidth instrumentation protocol, it might be overlooked when scanning/checking/on a checklist.  But since it’s normally used for instrumentation and connectivity, it could be used for intrusion and/or mischief.
+Thank you!
+Paul, great write up and discourse today (even with the GtM issues).  We’re also finding log4j libraries that seem to have been renamed (e.g., ant-apache-log4j.jar).  We’re hoping that searching for anything with “log4j” in the name will reveal all of them–assuming that no developer got too crazy with naming conventions.  Can you confirm that this will only impact Java archive (.jar) files?  If so, then I’m hoping we can safely ignore files like log4jLog4jMLog.java.
+I don’t think that you can put .java files on your CLASSPATH, though if they have a main() you can run them straight up with ‘java …’.
+What I don’t know is whether files like ‘ant-apache-Log4j.jar’ are indicative of a forked/tweaked/renamed Log4j build, or a wrapper one level up that itself imports the regular Log4j libraries. Can anyone advise?
+As far as I can see, the file ‘ant-apache-log4j.jar’ is some sort of connector for LOG4J<–>Ant. So although it references log4j in the filename, it isn’t part of log4j. It doesn’t include any of the log4j-core .class files, and most importantly, it doesn’t contain jdniLogger.class, which is the code file that you can “self-delete” from the LOG4J log4j-core JAR file (versions from 2.10 onwards, apparently) in order to create a “self-patched” variant of LOG4J.
+So I don’t think that ant file can cause any CVE-2021-44228 trouble *unless and until there is a log4j-core file* (and perhaps others) to hook up with…
+The article is great but it seems like it assumes certain settings are already done in log4j. What are the pre-requisites for this attack to be successful?
+Also as we know, several companies may still be running in log4j 1.x series. What about those systems?
+Are the steps outlined here applies to that version as well? Apache is official saying that 1.x is not vulnerable here https://logging.apache.org/log4j/2.x/security.html
+Wht I wrote in the article is pretty much all I can be sure of telling you about version 1.x:
+“Note that Log4j 1.x is no longer supported at all, and a bug related to Log4Shell, dubbed CVE-2021-4104, exists in this version. So, the update path for Log4j 1.x means switching to Log4j 2.”
+Asking for advice with 1.x is a bit like asking whether a bug patched in Windows 10 applies to Windows 7, and if so what to do about it: the answer will inevitably be, “install a supported version and upgrade that.”
+Simply put, the 1.x product has come to the end of the line, so if you want an upgrade for it, you have little choice but to switch to 2.x or work on 1.x yourself. As far as I know, there is no bug quite like CVE-2021-44228 currently known in Log4j 1.x, so AFAIK you are probably OK sticking with it… but who knows what other krakens lie in the depths as yet undiscovered? (
+Nicely explained. So, this is triggered only if the user is malicious & doesn’t impact apps used internally by a company even through the Internet –  where the users are already trusted enough to not harm the company along with MFA in place.
+Not exactly. If the company has an outward facing web app that uses forms, it’s potentially at risk. If a malicious string is typed into the form, when the form is read, even if an error is generated, the malicious string can trigger a log event that allows the server to be taken over.
+Exactly – the data entered into the form may simply be passed on to an internal business logic server and logged there. Anywhere that data passed inwards from the outside is processed, it could be logged, and anywhere it could be logged, the logger might be coded using Log4j, so the bug could be exploited internally, too. Internal user logins ans 2FA don’t enter into that equation.
+In the video I made demoing the vulnerability, I simulated this sort of setup by using a simple Windows server written in C to receive a phone number submitted via a website. I then passed that data on to a Java program for “processing”, where I logged it using Log4j. Ultimately, I popped a calculator to show that generic RCE was possible. So the program that actually accepted the incoming connection was not the component that was exploited…
+https://nakedsecurity.sophos.com/log4shell-the-movie
+Hello Mr. Ducklin,
+firstly thank you for this “walkthrough”.
+I tried your mitigation under point 7  B and if i use set its only for the currently opened shell.
+As long as i dont close it everything works, but it doesnt write it into the enviroment variables.
+To write it there i used setx with the option /m so it would be persistent after closing the command shell and rebooting. Without the option /m i would need to make the setx for every user.
+Maybe i get something wrong, did you use the set command differently?
+Yours sincerly,
+Marius Heßmann
+Ah, I didn’t make that clear: using set (Windows) or export (Linux) to create an environment variable is an “in memory” thing that is supposed to be for that shell only.
+If you want to set the value for future shells you will need to do as you suggest. (You can also add environment variables for *every* Windows procees via Control Panel.) 
+On Linux or Unix, an easy way to ensure that an environment variable is set via the shell (well, via Bash, at least) for a specific process is to adapt the script that starts that process from this:
+$ /the/command/to/run plusthe args ‘that you’ -Dwant=to pass.toit
+…to…
+$ ENVVAR_TO_SET=valueyouwant /the/command/to/run plusthe args ‘that you’ -Dwant=to pass.toit
+The “run” process will be pre-fitted with the specified extra environment variable.
+I just wanted to say I really think you have gone the extra mile here compared to other security companies, thank you for all of the info. I also really enjoyed your webinar yesterday Paul, it was very useful.
+Thanks. I appreciate your kind words.
+Great explanation, thank you very much.
+One note for MacOS users.
+For MacOS use : java TryLogger.java ‘${jndi:ldap://127.0.0.1:8888/blah}’
+Yes, I forgot to mention that the dollar sign and squiggly brackets are “magic characters” for both Bash and Zsh (macOS users typically have one of these shells). So you need to wrap the argument in quotes so the ${…} is taken literally. 
+This is “Enteprise” software, SMH.  The entire Java ecosystem is a total cesspool.
+For developers using Spring Boot with Maven, this is super easy to mitigate and doesn’t require changing any code. Just add 2.xx.x under the  tag in your POM you’re good to go after rebuilding your application. Replace the xx.x with the subversion you want to use. At the time of this comment the latest version available is 2.16.0.
+To be clear, in the jargon I’ve used above (or perhaps I can be kinder on myself and say “terminology”) I would call an upgrade to 2.16.0 a “patch”, because the unwanted code has actually be replaced, not merely reconfigured. I have kept the word “mititgation” to mean that you have suppressed the issue and can consider yourself safe… but you aren’t finished yet :-)
+As long as you have 2.10.0 or later, the mitigation of simply finding vulnerable JAR files and rewriting them with the jndiLookup.class element removed is also worth considering. I have not heard of anything breaking, and given that in the brief time that existed between 2.15 and 2.16, Apache seems to have spurned JNDI instead of merely trying to control it implies to me that it was alwys considered a “just in case someone really wants it” kind of feature…
+nice explanation. Thanks a lot. (reader from Belgium)
+Thanks, glad you found it useful!
+Excellent article, thanks to Paul.
+Thanks for your kind words. Glad you liked it.
+Thanks for the great article, Paul. It is the best summary of the problem that I have found. And I really liked that you are talking about the biggest problem: finding EVERY SINGLE Java app in the whole network that uses log4j. This means that it is not enough to just scan (web) servers. Even if there is a single client computer that processes data and logs with log4j it could trigger the attack.
+All it takes is a malformed cell in an Excel file, a csv/txt file, a malformed entry in a database column…..
+Just one client app in the logistics department trying to print barcodes doesn’t find the zip code entered by the attacker and logs the information about the order. Together with the comment field where the attacker entered the lookup string. Boom!
+Btw: the zip code can also be completely valid, if the app logs debug or info messages. But probably attackers will try to create invalid data that causes apps to log errors.
+Because there is not soooo much time to wait for all software vendor updates I wrote scripts to remove JMSAppender.class and JndiLookup.class and also rolled out the environment variable via GPO and setx. Very easy to implement and removes the dangerous parts of the logging framework for both 1.x and 2.x versions. I think it is very important to act very quickly and for smaller IT departments it is very hard to patch/upgrade every single app.
+I saw test collections for insomnia that send just a bunch of malicious http requests and that in my opinion gives a false sense of security if admins just test the systems directly exposed to the internet.
+Good advice, and it’s good to hear that “auto-purging” JAR archives of the .class files you mention (JMSAppender.class and JndiLookup.class) has worked for you, apparently without breaking anything. As you say, that’s a good precaution while you wait to find out which suppliers are going to update which apps, and when.
+There are various fixes out there that propose finding the vulnerable .class files in memory and bodging them live in-place (no app restart required!) but if it comes down to hacking the .class files yourself, my preference would be for self-patching the JARs on disk and restarting the relevant app, because I feel it gives you a much cleaner “do-over” that is much more likely to fail safely if something does go wrong.
+After removing JNDiLookup.class file When I am trying to start my elastic search service I am getting below error:
+2022-04-27 06:32:42 Commons Daemon procrun stderr initialized
+Exception in thread “main” ror: org/apache/logging/log4j/core/config/Configuration
+	at org.elasticsearch.cli.Command.main(Command.java:85)
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:91)
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:84)
+Caused by: java.lang.ClassNotFoundException: org.apache.logging.log4j.core.config.Configuration
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	… 3 more
+Great explanation, Thank you so much.
+What if an attacker correctly exploits the vulnerability by correctly responding to JNDI lookups?
+No substitution of the ${jndi: ..} statement occurs in the logs?
+Like in the case reported above:
+Main says, ‘Hello, world.’
+19:17:21.876 [main] ERROR Gday – ${jndi:ldap://127.0.0.1:8888/blah}
+Main is exiting.
+What am I trying to understand is whether exploitation can always be successfully detected from the logs by searching for the string “${jndi:”?
+Thank you.
+I have wondered that myself and I am not sure. In my example I didn’t try to return any replacement text after exploiting the bug, so I can’t tell you whether it is possible to do both. 
+I think you should assume that it is possible both to run an unauthorised program and to disguise the fact in the logs, i.e. that the absence of any “jndi” strings in your logs is not, in itself, evidence that the bug was never exploited.
+Simply put: presence of strings like the one above is evidence someone at least tried to attack (successfully or not) but absence of those strings doesn’t prove no one tried…
+Thank you!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

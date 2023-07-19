@@ -1,0 +1,121 @@
+Sophos Home protects every Mac and PC in your home 
+HTTPS, as you probably know, stands for secure HTTP, and it’s a cryptographic process – a cybersecurity dance, if you like – that your browser performs with a web server when it connects, improving privacy and security by agreeing to encrypt the data that goes back and forth.
+Encrypting HTTP traffic end-to-end between your browser and the server means that:
+Without HTTPS, there are many places along the way between your browser and the other end where not-so-innocent third parties could easily eavesdrop on (and falsify) your web browsing.
+Those eavesdroppers could be nosy neighbours who have figured out your Wi-Fi password, other users in the coffee shop you’re visiting, curious colleagues on your work LAN, your ISP, cybercriminals, or even your government.
+This raises the question: if snooping and falsifying web traffic is so easy when plain old HTTP is used, why do we still have HTTP at all?
+LISTEN NOW: UNDERSTANDING HTTPS/SSL/TLS
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.(Note that we recorded this podcast back in July 2012. Since then, the number of Certificate Authorities trusted in most browsers has been energetically and deliberately reduced from about 650 to about 150; and Internet Explorer has been replaced by Edge.)
+It’s now more than 10 years since a Firefox plugin called Firesheep hit the news – if you were interested in cybersecurity back in 2010, you will almost certainly remember that name.
+Firesheep author takes backhanded pot-shot at free speech
+
+
+Back then, many websites where security and privacy were important – examples include social networks, car rental firms, online support forums and even banks – paid only lip service to HTTPS.
+They would use encrypted connections when it would very clearly have been dangerous to do otherwise, such as on the login page where you entered your actual password, or on the payment page where you put in your credit card details.
+But they would drop back to HTTP for everything else because it was a bit faster and easier – you didn’t need to spend extra time and CPU power at each end encrypting and decrypting every data packet that you sent and received.
+What Firesheep did was to turn the Firefox browser into an easy-to-use network sniffer – that’s the jargon term for a network surveillance tool – that just about anyone could use, regardless of their technical skill.
+Firesheep would automatically sniff out other people’s social networking connections, wait until after the secure login part that couldn’t be eavesdropped because of HTTPS encryption, and then target the insecure HTTP traffic that followed.
+Firesheep would read in the headers from those unencrypted HTTP web requests, extract the session cookies or authentication tokens that denoted the user’s identity, use the stolen authentication data to impersonate the unfortunate user, and hijack their account.
+All of this was done automatically, right inside a browser where an attacker could point-and-click to exploit any hacked accounts at once.
+In theory, anyone in the coffee shop around you could have been running Firesheep, digging around in your Facebook account or posting on your Twitter feed, and you wouldn’t have realised until it was too late.
+Firesheep certainly put the cryptographic cat amongst the pigeons, if you will pardon the mixed faunal metaphor.
+Indeed, the Firesheep story was an important catalyst in persuading most of the major players in search, social media and online services to bite the bullet and use HTTPS all the time.
+Facebook, for example, made “HTTPS always” an option in 2011, turned it on for everyone in North America in 2012, and by 2013 had pretty much abandoned HTTP altogether.
+Apple’s App Store moved over to HTTPS in 2013; Microsoft pledged to encrypt almost everything back in 2013; and Google made Gmail HTTPS-only in 2014. 
+By 2015, Google’s search ranking algorithms were downvoting sites that didn’t offer HTTPS versions; in 2017, the search giant started publicly shaming login and credit card pages that still used HTTP by labelling them “not secure“; and by 2018, Google was applying that label to any website that hadn’t upgraded to HTTPS.
+HTTP, in other words, has been inexorably waning for the past decade.
+Well, it’s 2021, and the vast majority of websites now support HTTPS.
+Think of how long it’s been since you found a mainstream website – indeed, any website – that didn’t offer HTTPS if you insisted…
+…and you will arrive back at the question we posed above: why do we still have HTTP at all?
+More importantly, why is HTTP still the default choice of your browser if you type an URL into the address bar and don’t explicitly put https:// at the start?
+Why don’t browsers these days assume we mean HTTPS unless we go out of our way to type in http:// instead?
+The simple answer is that there are still enough non-HTTPS websites left out there that switching to HTTPS by default would cause sufficiently many transitory technical hassles to be disruptive.
+Sadly, inadvertent disruptions caused by well-meaning efforts to improve cybersecurity often have the undesirable and paradoxical consequence of luring less well-informed users into deliberately reducing the security they already have, as a “workaround” to bypass the “problem”. 
+Nevertheless, it really does look as though HTTP finally is on the way out, based on the evidence of a code change that was added to the Chromium browser project on the very last day of 2020.
+Chromium, of course, is the Google open source project that forms the core of many modern browsers, including Chrome, Edge, Vivaldi, Brave, Opera and many others (the only mainstream browsers not based on Chromium are Firefox and Safari).
+The change is documented as follows:
+
+(What Google calls the omnibox is just a fancy name for what most of us still call the address bar – “omni” because you can use it for searching as well as navigating.)
+Unfortunately, we’re still a long way off this being a default, because the above change notification also points out:
+In plain English, this means that the final goal is not going to be quite as dramatic as banning HTTP altogether.
+The Chromium developers currently seem to be aiming for a system where HTTPS will be preferred by default, but that the system will not only fall back automatically and quickly back to HTTP if needed, but also remember which sites “prefer” HTTP, thus helping to keep HTTP alive that little bit longer.
+Intriguingly, changes of this sort often end up becoming curiously controversial, as you can see from the range of Naked Security comments on the articles we’ve linked to above.
+A small but vocal minority seems convinced that Google, Microsoft, Firefox, Apple and others are promoting HTTPS simply to inconvenience small businesses and community websites, even though HTTPS certificates can now be acquired for free and kept up-to-date easily.
+But we think that railing against HTTPS is a bit like refusing to wear a seatbelt when you are in a car, and telling your friends that you won’t give them lifts any more if they inisist on wearing theirs…
+…with the likely outcome that your friends will quietly stop going anywhere with you at all.
+So, if you still haven’t upgraded your website to support HTTPS, we suggest that you make it your own New Year’s Resolution for 2021!
+HOW TO ENABLE HTTPS-ONLY IF YOU’RE A FIREFOX USER
+Interestingly, Mozilla started out on the road to banishing HTTP in a slightly different way.
+If you’re a Firefox user, you already have access to “HTTP-Only” mode on the Settings > Preferences > Privacy & Security page:
+
+Note that this option is stricter than what Chromium is proposing, which is why it’s not on by default: if you enable HTTPS-only mode in Firefox, you will be faced with a warning page every time you reach a site that doesn’t accept HTTPS connections.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Duck wrote “…why do we still have HTTP at all?”
+Here’s an example. I belong to a forum that’s been in existence for probably two decades. The users post a lot of links. The forum operators refuse to upgrade the forum to TLS (https). They are concerned that users will click the links in the searchable archive and get the danger/security warning that results from attempting to follow an unencrypted link from an encrypted page.
+Of course they could write a script to go through the archives and attempt each link with security and edit the links that succeed. This would also give them a count of the links that were only available unencrypted.
+IMO, they should do this:
+1. Get an HTTPS certificate and make the forum work using https://links and http:// links interchangeably. This ought to be a simple task and would cost little or nothing. It’s just a bad look to force users to *downgrade* when supporting HTTPS is pretty easy – it’s sort of saying that your users’ security isn’t really of any interest, and you don’t care what they think about it.
+Once that’s working:
+2. Make all http:// links into simple HTTP 301 redirects to exactly the same URL with “http” replaced with “https”. All old links will keep working (and dud links will keep on giving 404 errors, just like before) but the content will be served via HTTPS.
+Once that’s working:
+3. Add an HSTS header (which means “next time, switch to HTTPS by default because you now know I support it, even if the user types in or clicks an HTTP link”) to all the HTTPS replies. 
+Once that’s working:
+4. Rewrite all HTTP links inside the archive with HTTPS.
+Once that’s working:
+5. Apply to joint the HSTS “preload” list, which is a curated list used by most browsers and many other web client software to tell that softwae always to upgrade to HTTPS anyway.
+Fairly quickly, the number of visits that actually start with HTTP requests on port 80 will decline until it is pretty much zero. At that point, the HTTP service on port 80 can be shut down (but there would be no need to rush that part if 1-5 are working.)
+Good move, now let’s see it on Edge. Your arguments don’t convince me that there is a real problem making HTTPS mandatory. The unconverted will moan but if they have to do it they will, and it’s so simple to do. We’ll probably be left with a selection of websites that have been abandoned or never get any maintenance, and we are probably better off without them.
+Thank you Edge.  The Chrome and Firefox ham-fisted approach basically just broke every web app tutorial that’s ever been created.
+Just curious. No blogpost about Solarwinds?
+Our own security team wrote up some fairly detailed advice here:
+https://news.sophos.com/en-us/2020/12/14/solarwinds-breach-how-to-identify-if-you-have-been-affected/
+https://news.sophos.com/en-us/2020/12/14/solarwinds-playbook/
+HtH.
+Why should we have HTTP? Well, because a HTTPS handshake easily takes 100-200ms, which is too long for an open API that has to respond with a 99.9% <50ms.
+TLS 1.3? (Zero RTT setup is possible.) Long running connections that handle many requests each? (If latency is that important then you might as well avoid the TCP connection setup overhead, too.) Don’t use HTTP as the underlying protocol? Don’t use TCP?
+Use QUIC/ HTTP 3.0. It will resolve your problem.
+Duck,
+In your first paragraph you went from “can’t easily” > “much harder” > “nearly impossible” > “absolutely impossible” to eavesdrop.  Does this imply that NSA and nation states can do it, but don’t disclose how.  Or are you trying to CYA suggesting that you are unsure?  Can the cybersecurity field simply not state with certainty that it is indeed absolutely impossible to eavesdrop TLS? Or maybe nothing is impossible – maybe TLS 2.0 will use ECC or some quantum encryption.
+You can call it “CYA” if you like – I am just keeping in mind that:
+1. As you say, “nothing is impossible,” and unless you have an algorithm that is provably secure and that has been implemented in a way that can be proved correct, I think it makes sense not to make absolute statements in cybersecurity.
+2. There are plenty of ways that TLS session data might be recovered without technically “cracking” TLS. Examples include poor quality random numbers when setting up the connection, spyware on one or both of the computers at each end, a rogue TLS certificate that permits a so-called Man-in-the-Middle (MitM) attack, or incorrectly configured debug settings in the TLS or browser code (Start Firefox, Chromium or Edge with the right environment variable set, for example, and they will faithfully record all the cryptographic keys for every secure connection that gets made.)
+So I don’t want to give the impression that TLS inevitably shrouds all data in magic cybersecurity smoke just because you typed https:// into the address bar; at the same time, I don’t want to give the impression that if all you have is access to yesterday’s encrypted HTTPS traffic data as logged by my ISP that you are likely to be able to do anything with it, even if you are GCHQ.
+If I were discussing this article in an audio presentation, I would probably say it in my usual way, namely: “It’s theoretically possible that you might find someone who already knows how to crack TLS on demand. Good luck with that – and be sure to let us know if you succeed.” :-)
+HTTPS is a lot safer but there will always be the human factor which attackers in the same network can exploit by redirecting traffic and send them off to a bogus website tricking the user to download and run a payload, basically a trojan.
+This is really only a concern if the client isn’t experienced in computers or networking of course, since there’ll be a lot of red flags from the clients perspective once the attack is initiated.
+Well, one thing that makes it easier to defend against the 10 people inside your network who might be able to spy on your HTTPS traffic no matter what encryption you use is first to defend against the other 7,999,990 people outside your network who would be able to spy on your HTTP traffic anyway if you didn’t encrypt at all…
+The use case I constantly HATE having to deal with is the redirect to login wifi connections that just permanently break and I can never get to a login page. CONSTANTLY run into this problem and only using http:// will easily get me to the stupid login page. 
+If https became mandatory without fixing ALL the implementations of these agreement pages I’d lose what little is left of my mind.
+It’s outrageous that people would rather advocate for NO internet access because they can’t get to the login page in the name of security for those people. Yes, being unable to access the internet would probably be more secure but it feels like it might miss the point.
+I can’t remember the last time I encountered one of those Wi-Fi “captive portals” – even before lockdown first started last year, when I used other people’s Wi-Fi more often than now. All the coffee shops in my area just have a Wi-Fi password written down inside, where you will see it if you bother to buy something. 
+The last time I saw one was at a shopping centre where you had to “register” to use the Wi-Fi by handing over personal info, including date of birth (the sneaky justification for this was that some of the shops services they might advertise were age restricted, e.g. liquor stores, where you have to be 18). Their small print of the agreement also authorised the shopping mall to sniff out your network traffic to see what products you were searching for in order to let their shops promote special offers at you. (That was a couple of years ago – no idea if that sort of data collection is still tolerated under GDPR.)
+In cases like that, being unable to access the internet would indeed be way more secure… 
+It drives me mad to see links on websites are more often than not using HTTP when I’m viewing that site using HTTPS.
+This is especially so when we are talking about websites from Government, Cyber-security and big business.
+I can only conclude from it that they must want to promote the hacking of their websites! 😡
+To be fair, a lot of old links on old pages are http:// because that’s how the world used to be.
+On the Naked Security site, we do what we can to ensure that old links to our own content have been replaced with https:// (if I spot ones that have escaped conversion I usually go in and edit them by hand).
+One thing that helps with this problem is HSTS, where all your secure web pages include a special header that says “use HTTPS next time for this site, no matter what”. Your browser will remember that and auto upgrade any http:// links to your site, even if those links are on other pages you can’t control. Once you know that every valid link on your website is available via both HTTP and HTTPS, you can:
+1. Set all your HTTP pages to redirect to the equivalent URL served over HTTPS.
+2. Set all your HTTPS pages to return an HSTS header to say “do this by default from now on.”
+That way, the first time someone visits anywhere on your site via HTTP ought to be their last, which greatly improves things.
+You can browse HTTP sites in Firefox with HTTPS-Only Mode enabled — you just need to click through the warning page whenever you visit a site that doesn’t support HTTPS.
+Oh! So you can! (Took me a while to find an HTTP-only site on the real internet :-)
+Thanks… I have edited the article accordingly.
+“Chromium, of course, is the Google open source project that forms the core of many modern browsers, including Chrome, Edge, Vivaldi, Brave, Opera and many others (the only mainstream browsers not based on Chromium are Firefox and Safari).”
+Paul Ducklin does not seem to realize that Chromium is based on Webkit which is Apple’s open source implementation of Safari. Even Google’s Blink prject is a fork of Webkit soooo ….
+Paul Ducklin does realise that the core of Webkit (which IIRC was itself forked from, errr, was it KHTML?) was forked to start the Chromium/Chrome projects, some 13 years ago, sooooo….
+…I don’t know what is supposed to follow the word “soooooo” here. “So what?”, perhaps? 
+Anyway, if Y is based on X, it seems to be a truism that X therefore cannot be based on Y, in the same sort of way that children cannot be their own parents. 
+So even if Blink had stuck closely to WebKit right to this day, which it did not, and even if Chromium had stuck closely to Safari, which it did not, then my statement that “Safari is not based on Chromium” could still be considered entirely unexceptionable.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

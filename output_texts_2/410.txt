@@ -1,0 +1,47 @@
+Sophos Home protects every Mac and PC in your home 
+When is a password breach not a password breach? When is a password warning a hoax?
+That’s the double-trouble situation that faced cryptocurrency exchange Poloniex this week, following a tweet at the end of last year in which, according to Poloniex:
+[S]omeone leaked a list of email addresses and passwords on Twitter, claiming the information could be used to log in to Poloniex accounts.
+The company itself tweeted as follows:
+Earlier this week we required a small group of customers to reset their password in response to a tweet claiming to contain a list of leaked email addresses and passwords. To confirm, there was no information or data leak originating from Poloniexhttps://t.co/K0abtloPVt
+Of course, there’s a big difference between knowing someone’s password for service X, and hacking service X.
+Crooks sometimes present a list of hacked passwords as some sort of “proof” that they successfully broke into a server, but unless they can produce a significantly long list, this sort of “evidence” doesn’t prove much.
+Indeed, in December 2019 we wrote about the conviction of a hacker from London called Kerem Albayrak.
+He filmed himself logging into two people’s iCloud accounts as part of a blackmail attempt against Apple, demanding $100,000 in iTunes cards in return for not inflicting damage on millions of additional iCloud accounts.
+The two breached accounts were supposed to support his claim to have a massive stash of Apple iCloud passwords, but he’d got hold of those two passwords without hacking Apple at all.
+According to Poloniex, that’s much like what happened in this case.
+The “Poloniex emails and passwords” announced on Twitter seem to have been from a previous, unknown breach, and the crooks were simply chancing their arm by guessing that at least some of the account names and password might also work on the Poloniex site.
+Poloniex claims that just 5% of the users in the “hacked list” were actually Poloniex customers at all, and that 90% of the accounts in the list were already in the well-known haveibeenpwned database that tries to keep track of the billions of already-discovered breached records that are circulating online.
+Those two figures do indeed suggest that Poloniex wasn’t the source of the breached data.
+Also, Poloniex says that it uses a salt-hash-stretch mechanism called bcrypt in its password database, which protects passwords from recovery by cybercrooks even if they manage to steal the whole database.
+Instead of storing the password itself, you store the output of a time-consuming cryptographic calculation based on the password. That means that when a user types in their password, you can check that it matches the hash in your database, and thus that it is correct, but you only ever need to have the actual password in memory briefly. You can work forwards to verify the hash if you already know the password, but you can’t work backwards from the hash to figure out the password. Crooks with a list of hashes can try to crack the passwords one-by-one, an enmormously time-consuming task that makes it as good as impossible that they could ever recover an extensive list of passwords.
+Poloniex nevertheless reset the passwords of any users who did show up in the list – a good precaution just in case any of the old passwords might have worked.
+Interestingly, Poloniex says that, because it uses bcrypt and stores hashed passwords, it “cannot confirm if the password listed with your email address is the password you use on Poloniex.”
+As far as we can see, Poloniex could put all the passwords on the list through the bcrypt algorithm and see if any of them did match up with the stored hashes – basically, carrying out a pretend login for each listed account – so we’re not sure why the company says it cannot check how many passwords do match up.
+Facebook and other cloud services do just that – they deliberately acquire and try known-breached passwords against their own users in the hope of being able to reset those passwords and warn their users before the crooks get round to it.
+Nevertheless, we concede that testing a large list of passwords would be a lot of extra work – the same sort of processing power needed to process the same number of actual logins – so we can understand why the company chose not to do so.
+We’ve now answered the first question above: “When is a password breach not a password breach?”
+In this case, the crooks do seem to have come up with breached passwords, but they were just regurgitated from an earlier breach, not the result of a new one.
+The second question is a bit tricker: “How to know that a password reset warning isn’t itself a scam?”
+Poloniex has tried to answer that by following up the breach notification email it sent out to users whose passwords were reset with a more public announcement giving information about what happened.
+Our advice isn’t specific to Poloniex accounts, or to cryptocurrency accounts – these tips work across the board:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Interesting how much of phishing and scamming at times will resemble psychological processes found in poker.
+PS:
+> Never click on links in password reset emails
+Would this be better clarified as unsolicited emails?  No doubt the distinction is salient to some, but specifying the difference might save someone the angst of wringing one’s hands over a legitimate confirmation email, subsequent to a requested passwd reset.
+:,)
+Good point, given that some interactions in which you trigger a password reset yourself do require clicking a special link to confirm it was you – just like activating an account in the first place or signing up for a newsletter.
+I think I’ll edit that bit, thanks.
+“Never click on links in password reset emails” <- Can I presume there's a missing 'unsolicited' in there?  It seems surprisingly popular for a password reset (especially for forgotten passwords) to result in an email with a long link
+True – see above comment. Have a look now and see if you are happier with the new text…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

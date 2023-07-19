@@ -1,0 +1,55 @@
+Sophos Home protects every Mac and PC in your home 
+At the start of this month, CVE-2021-42321 was technically an Exchange zero-day flaw.
+This bug could be exploited for unauthorised remote code execution (RCE) on Microsoft Exchange 2016 and 2019, and was patched in the November 2021 Patch Tuesday updates.
+Microsoft officially listed the bug with the words “Exploitation Detected”, meaning that someone, somewhere, was already using it to mount cyberttacks.
+The silver lining, if there is such a thing for any zero-day hole, is that the attacker first needs to be authenticated (logged on, if you like) to the Exchange server.
+This means that anyone in the position to exploit the CVE-2021-42321 vulnerability would almost certainly already either be logged on to the network itself or signed in to a user’s email account, which at least rules out anonymous, remote attacks mounted by just about anyone from just about anywhere.
+Nevertheless, a bug of this sort still represents a critical security issue, because regular users aren’t supposed to be able to upload and run arbitrary programs on any of your network servers, least of all your mail server.
+Although cybercriminals who can read your email are already a serious concern, crooks who can infiltrate the email server itself, without needing to be a sysadmin to start with, are a very much greater threat.
+With control over the entire mail server, rather than just a single user’s email account, attackers could potentially implant malware to spy on all corporate email, in and out; send bogus emails in anyone’s name right from inside the organisation; implant RAM-scraping malware to watch for business secrets held only temporarily in memory, or to retreive temporary network passwords; snoop on network activity from a central location; and much more.
+If you’re the sort of person who is conservative about patching, and likes to delay for a while to see if other people have problems first…
+…we’re hoping that the “zero-day/already in the wild” tag on this bug encouraged you not to wait too long, and that you have already applied this month’s updates.
+If you haven’t, don’t delay any longer.
+For better or worse, a security researcher going by Janggggg (yes, with five Gs), also known as @testanull, has recently published a proof-of-concept (PoC) exploit for the CVE-2021-42321 hole. 
+By his own admission, his attack code (ironically published on Microsoft’s GitHub site) “just pop[s] mspaint.exe on the target”, meaning that the published exploit can’t directly be used to run arbitrary code.
+But Janggggg has also provided a link to a “grey hat” tool that he says will help you to generate your own so-called shellcode (executable code masquerading as data) that can be embedded into the exploit in place of simply launching Microsoft Paint.
+Bluntly, this means you can adapt Jangggg’s PoC so that instead of merely requesting it to do something, you can instruct it to do anything.
+This is a good example of how Patch Tuesday is often followed by what is jocularly referred to as Weaponised Wednesday or Takeback Thursday, when security practioners scramble to reverse engineer the patch itself in order to get insights into what was fixed, and how.
+This sort of patch analysis isn’t trivial, but it does frequently help researchers and attackers alike to “rediscover” the bug, and also to get helpful insights into how it might actively be exploited.
+As you can imagine, finding and exploiting a security hole in any software product is much easier and quicker if you know where to start looking, in the same way that you’re much more likely to win at blackjack if you know which cards have already been dealt from the pack.
+Often, the details of how a bug was patched – for example, new error-checking code added to detect and reject invalid input data – can provide a handy shortcut to understanding not only how the bug works, but also how to construct booby-trapped input that allows the vulnerable program to be taken over completely, instead of simply crashed.
+Patch at once!
+To verify that your Exchange servers are safe against this and other known security holes, you can use Microsoft’s official Exchange Server HealthChecker PowerShell script.
+This extensive script reports on numerous aspects of your Exchange configuration, including advising you about missing security updates.
+Note. Microsoft added Exchange 2013 to the list of vulnerable versions on 2021-11-16, only to change its mind on 2021-11-17 and report that it had “removed Exchange Server 2013 from the Security Updates table as it is not affected by this vulnerability.”
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Interesting. I saw the KB push for Exchange 2013 about a week ago. The date in my WSUS shows released 11-9-2021. I’ve applied it to ring one of my Exch2013 machines, no issues so far, in case anyone else already has it staged in WSUS or SCCM.
+The fact that Exchange 2013 received an update doesn’t mean it’s vulnerable to this bug… could be any number of other issues patched instead.
+Exchange 2013 received the exact update that is listed in the link to the KB, in the article, that matches the CVE numbers for the specific vulnerability. Sure, it could’ve been cumulative – but that seems a little coincidental.
+Here’s the MS KB article. Even though the CVE doesn’t list Exchange 2013 as one of the systems affected, it’s clearly listed here:
+https://support.microsoft.com/en-us/topic/description-of-the-security-update-for-microsoft-exchange-server-2019-2016-and-2013-november-9-2021-kb5007409-7e1f235a-d41b-4a76-bcc4-3db90cd161e7
+Thanks! That document confirms my earlier assumption, where I said there “could any number of other issues patched instead” (though I probably ought to have said “as well or instead” -)
+As the KB article notes (my emphasis), “This *security update rollup* resolves vulnerabilities in Microsoft Exchange Server.” Three CVEs are listed, of which one is the issue described here.
+Indeed, the Exchange 2013 download link on that page makes it clear that this is a multi-bugfix patch, because this link…
+https://www.microsoft.com/download/details.aspx?familyid=8ef4e237-7007-4e30-9525-75ae6e66bb41
+…describes itself as “Security Update For Exchange Server 2013 CU23 (KB5007409)”, where CU stands for Cumulative Update.
+In short: get the patch. There are three CVE-specific bugs variously fixed, of which at least one (actually, I suspect two) applies to every Exchange platform listed.
+Most of your articles seem to be directed at companies with servers and internal  networks. What about the home user who is connected to the internet thru a paid internet service provider.
+Can you place a note at the top of each post to indicate who the vulnerability effects?
+I think we pretty much did that here by putting the words “Exchange bug” into the headline, and explicitly saying in the second sentence that the bug applies to “Microsoft Exchange 2016 and Exchange 2019”. (If you use an Outlook.com webmail account at home, this doesn’t affect you.)
+Don’t forget that a lot of our readers are interested in cybersecurity very generally, so they typically read home user advice even if they are IT staffers at work (not least because they are home users as well when they aren’t “on the clock”, and probably help out lots of friends and family on their home computers), and they typically read corporate cybersecurity advice even if they *don’t* work in IT (just to keep abreast of what cybercriminals are getting up to when they attack the workplace).
+In other words, if you don’t have an Exchange server in your immediate vicinity, this article doesn’t apply to you *directly*, but it’s still a useful piece to read if you want to learn more about how security bugs get uncovered, developed and turned into working exploits… 
+…because it’s not always the Bad Guys who produce and distribute working attack tools. Is that morally right? Ethically fair? Publicly useful? (Those aren’t rhetorical questions. We know what *we* think but we’d like to know what *you* think, too!)
+HtH.
+This is the first month in 6 years that I don’t have to worry about Exchange 2010 or 2013 patches, well, or any Exchange patches period. Yeah, Exchange 2010 was long in the tooth but I wasn’t able to get the client to exchange (ha!) it until last month.
+I’m sorry that all you other admins still have to go through this. I wouldn’t wish it on anyone. Y’all are still heroes in my book!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

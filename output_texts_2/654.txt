@@ -1,0 +1,28 @@
+Sophos Home protects every Mac and PC in your home 
+Intel’s March security updates reached its customers this week and on the face of it, the dominant theme is the bundle of flaws affecting the company’s Graphics drivers.
+There are 17 of these all told, including six high-severity flaws, starting with CVE-2020-0504, a buffer overflow leading to a denial of service flaw whose CVSS score of 8.4 suggests the need for urgent attention.
+Intel doesn’t offer much detail on the individual flaws beyond the fact they allow the usual trio of privilege escalation, information disclosure and denial of service, all of which require local access.
+Beyond this lie fixes for another 11 flaws affecting product lines including SmartSound, BlueZ, the Max 10 FPGA, the NUC firmware, and the Programmable Acceleration Card (PAC) N3000.
+However, the star flaw of the month is CVE 29, the Load Value Injection (LVI) weakness (CVE-2020-0551) publicised this week by a diverse group of mainly academic security researchers.
+Following in the footsteps of a series of chip-level flaws with impressive names (Spectre, Meltdown, Fallout, ZombieLoad, RIDL, CacheOut), this one is what might light-heartedly be called a ‘NOBWAIN’ (Not a Bug With an Impressive Name).
+According to the researchers, LVI is unlike previous side-channel processor attacks:
+Instead of directly leaking data from the victim to the attacker, we proceed in the opposite direction: we smuggle – ‘inject’ – the attacker’s data through hidden processor buffers into a victim program and hijack transient execution to acquire sensitive information, such as the victim’s fingerprints or passwords.
+Reported to Intel last April, it’s a novel technique which could, for example, be used to steal data from Software Guard eXtension (SGX) enclaves, a secure memory location inside post-2015 Intel processors used to store things like encryption keys, digital certificates, and passwords.
+There is no simple fix for LVI, researchers claimed, but Intel said it would, from this week, release mitigations for the SGX platform and software development kit from this week. Beyond that, it downplayed the issue:
+Due to the numerous complex requirements that must be satisfied to successfully carry out the LVI method, Intel does not believe LVI is a practical exploit in real-world environments where the OS and VMM are trusted.
+The full list of affected processors can be found on Intel’s website, essentially all processors that come with SGX.
+For now, because LVI is a theoretical exercise, it isn’t an issue the average Intel user needs to worry about. There are no known exploits of this, or any of the previous hardware flaws found since Spectre and Meltdown were made public more than two years ago.
+However, it’s clear that chip designers have some work on their hands building defences against these attacks into future hardware. These days, buyers largely upgrade to achieve higher processor performance. It now looks as if security might soon be just as compelling a reason.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

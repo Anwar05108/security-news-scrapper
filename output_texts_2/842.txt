@@ -1,0 +1,70 @@
+Sophos Home protects every Mac and PC in your home 
+Yesterday, SophosLabs published details of a sophisticated new ransomware attack that takes the popular tactic of “living off the land” to a new level.
+To ensure their 49 kB Ragnar Locker ransomware ran undisturbed, the crooks behind the attack bought along a 280 MB Windows XP virtual machine to run it in (and a copy of Oracle VirtualBox to run that).
+It’s almost funny, but it’s no joke.
+The attack was carried out by the gang behind Ragnar Locker, who break into company networks, make themselves admins, conduct reconnaissance, delete backups and deploy ransomware manually, before demanding multi-million dollar ransoms.
+Like a lot criminals who conduct similar “targeted” or “big game” ransomware attacks, the Ragnar Locker gang try to avoid detection as they operate inside a victim’s network with a tactic dubbed “living off the land”.
+Living off the land entails using legitimate software administration tools that either already exist on the network the crooks have broken into, or that don’t look suspicious or out of place (PowerShell is a particular favourite).
+SophosLabs reports that in the attack, the gang used a Windows GPO (Group Policy Object) task to execute the Microsoft Installer, which downloaded an MSI containing a number of files, including a copy of VirtualBox and a Windows XP virtual machine with the Ragnar Locker executable inside.
+VirtualBox is hypervisor software that can run and administer one or more virtual guest computers inside a host computer. Typically, guests are sealed off from the host, and processes running inside the guest are unable to interact with the host’s operating system. This is to prevent hostile processes, like malware, from attacking the host or taking it over, in what’s known as a virtual machine escape.
+However, the protections that separate the guests from their host assume a hostile guest inside a friendly host, and that wasn’t the case here, because the attackers had access to both guest and host.
+In fact, from the attackers’ perspective they were trying to create the reverse of the normal situation – a friendly (to them) guest environment protected from a hostile host.
+To the attackers, the victim’s network is a hostile environment. Living off the land is designed to allow them to work as stealthily as possible, without triggering any alarms in the network’s security software. When they start running malware they’ve broken cover and are at much greater risk of detection.
+Running their malware inside a virtual machine allowed them to hide it from the prying eyes of security software on the host.
+And because the attackers controlled the host they were easily able to weaken the wall between the host and the guest.
+They did this by installing VirtualBox add-ons that allow files on the host to be shared with the guest, and then making every local disk, removable storage and mapped network drive on the host accessible to the guest virtual machine. With those drives mounted inside the guest, the ransomware could encrypt the files on them from inside the protective cocoon of the virtual machine.
+Meanwhile, as far as the security software on the host was concerned, data on the local network was being encrypted by legitimate software: VirtualBox’s VboxHeadless.exe process.
+So, from the perspective of the host, the attackers never broke cover and continued to “live off the land”, using legitimate software, until they dropped the ransom note.
+For the technical details of this attack, read Mark Loman’s in-depth article on Ragnar Locker over on our sister site, Sophos News.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Interesting article.
+I did not see any mitigation measures, will you be providing some.
+Does Sophos prevent this attack?
+This attack was stopped by the CryptoGuard feature of Sophos Intercept X. The EDR features revealed how the attack played out leading up to that point (there are some fancy charts in Mark Loman’s technical article on Sophos News, linked at the end of this one).
+Mitigation is similar for all forms of targeted attacks. The information I laid out in the article below, about SamSam attacks, applies equally well to attacks like this, and others of its ilk.
+https://nakedsecurity.sophos.com/2018/08/02/how-to-defend-yourself-against-samsam-ransomware/
+Use AppLocker to block VirtualBox and obviously only allowed it where known to be safe.
+VirtualBox (and numerous other virtualisation tools) can be regulated by the App Control feature in Sophos’s endpoint protection product:
+https://www.sophos.com/en-us/threat-center/threat-analyses/controlled-applications/VirtualBox.aspx
+Remember, though, that in an attack like this, where the crooks are already inside your network, have wangled themselves sysadmin powers, and are willing to take the time to compile a one-off version of their malware with your name in it…
+…they’re also going to be willing to spend the time to change the “helper tools” they choose to use along with their malware, or to fiddle with your security settings (e.g. turning AppLocker off) and do some careful experiments until they find an arrangement that works well. 
+Generally, the crooks are working on the assumption that if they trigger a few security warnings here and there, but keep the noise down enough, they are likely to learn enough to come up with a final game plan before you notice that the warnings they’ve triggered tell a bigger story that might first appear.
+Thanks for this article Mark on this more sophisticated threat and for the mitigation options you reference.
+@Paul can you explain how AppLocker could be disabled, please? I’d like to try to prevent that from happening.
+If an attacker has admin access on a system, they could turn if off but only by using one of the following methods: shutting down the Application Identify Service using either the sc command, via services.msc or by gpedit.msc. If they try to forcefully shut it down, I would imagine it wouldn’t shut down since a high integrity process can’t shutdown AppLocker running with System level integrity.
+Also AppLocker should have blocked the attacker getting admin access in the first place by blocking scripts from running and blocking the running of unauthorised .exe files (the VirtualBox process, assuming it hadn’t already been whitelisted) and blocking the use of unauthorised .msi files.
+Any light you could shed on this would be much appreciated. Thanks for spreading awareness of this threat.
+I am assuming that a crook who has domain admin powers could simply edit the network-wide security policy with the policy editor and remove Virtual Box from the list of “locked” apps. 
+Microsoft has a documentation page entitled “Delete an AppLocker rule” that gives a few ways to do it if you are interested in what changes you could look for in your logs – I guess there would inevitably be telltale signs that you have a rogue/supoernumerary sysadmin in your midst…
+Guys, instead of asking us “what we think”, you better tell us what methods Sophos Home has in store to fight this new threat. I just installed it on one of my computers this week.’
+Mark, Duck, what’chu got for us?
+The method already exists. The attack was stopped by the CryptoGuard feature of Intercept X, which blocked and reversed the attack. Sophos Home includes CryptoGuard. 
+It’s worth noting that this attack was targeted – it wasn’t a “spray and pray” attack, it was an attack directed against a specific victim (with elements of the attack created for this victim alone) designed to extract an enormous ransom. Whilst that doesn’t mean you won’t see this tactic employed again, it may not be worth the effort, given that it was stopped when in was a novel and unknown tactic, and it’s certainly not going to fit into an email attachment for a “spray and pray” virus.
+Well written.
+Would it help if host drives shared within the virtual machine were read-only to the guest VM and any applications running inside that VM by default?
+It would not stop the VM being used to shroud the launch of the malware executable, so although it would stop the crooks writing the scrambled file content back to the files they were attacking, it wouldn’t stop them stealing your file contents.
+Also, assuming that the crooks have already set themselves up as domain admins, you can probably assume that if a preliminary test showed them that they were blocked from creating writable shares inside guest VMs (they wouldn’t need to use actual ransomware to determine that fact), then they’d make every effort to grant themselves write access first before firing up the attack. Or they’d try another approach to the attack that didn’t need them to deploy their VMs at all.
+So, yes, it would be a useful protection, but it might not go as far as you’d like in an attack where the crooks are already at an equal level of control as your own domain admins… defending reliably in those circumstances is pretty tricky!
+What about file backups and a disaster recovery scenario?
+Surely business critical files should be backed-up each night to a secure file storage medium that is encrypted using an asymmetric key pair, eg GPG, and not normally accessible during normal operating hours?
+Once the backup has run, then the backup medium is detached from the system, and not accessible unless required to make recoveries from.
+That way the business owner will only loose 1 days worth of files, learn from being hacked and be able to restore their files from their own secure backups.
+Then give the hackers a one finger salute 🙂
+PS: I’m a Linux sys admin with an interest in computer security.
+Offline backups that are connected only for controlled recovery purposes? Ideal! 
+Today’s ransomware crooks go out of their way to find your online backups, so they can either wipe them (perhaps after cloning them as a quick way of stealing tour trophy data!) or encrypt them along with everything else.
+Thanks Paul.
+So once they have got admin rights they own the system and can do whatever they want?
+Not quite “whatever they want”, and not without the chance of spotting them… but pretty close. (2FA is tricky for the crooks, so that is worth using when you can.) Generally speaking, if there’s a security setting that a regular admin can change via some sort of command line operation or by clicking in a system GUI, then it’s wise to assume a crook could do it, too.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

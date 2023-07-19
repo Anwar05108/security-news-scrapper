@@ -1,0 +1,37 @@
+Sophos Home protects every Mac and PC in your home 
+Usually, when browser updates come out, it’s obvious what to do if you’re running that browser on your laptop or desktop computer.
+But we often get questions from readers (questions that we can’t always answer) wondering what to do if they’re using that browser on their mobile phone, where version numbering is often bewildering.
+In the case of Firefox’s latest update we can at least partly answer that question for Android users, because the latest 88.0.1 “point release” of Mozilla’s browser lists only one security patch dubbed critical, namely CVE-2021-29953: 
+This issue only affected Firefox for Android. Other operating systems are unaffected. Further details are being temporarily withheld to allow users an opportunity to update.
+The bug listed here is what’s known as a Universal Cross-site Scripting (UXSS) vulnerability, which means it’s a way for attackers to access private browser data from website X while you are browsing on booby-trapped website Y.
+That’s definitely not supposed to happen.
+Your browser is supposed to stop data such as cookies “leaking” between websites, or else site Y could peek at data such as your login details for site X, and abuse that site-specific data to masquerade as you on site X and hijack your account.
+Browsers are supposed to enforce the aptly-named Same Origin Policy, or SOP, whereby locally-saved web data is locked down so it can only be read back in later on by the same website that saved it in the first place.
+This helps to maintain security and privacy by preventing websites from leeching information about each other’s users.
+One trick often used by crooks to violate the SOP is plain old Cross-site Scripting (XSS), which is the name given to any JavaScript-based privacy flaw that affects a specific website.
+Imagine, for example, that I can trick your website into serving up JavaScript of my choosing, for example by sneakily embedding some JavaScript in a search link in such a way that your server erroneously reproduces my unmodified JavaScript in any replies sent back to those who click on that link.
+Even though it’s my script, it came back from your server, so my code passes the “same origin policy” test, giving me access to data about your users that I shouldn’t be able to see.
+That’s an XSS.
+But UXSS is the name given to a cross-site scripting flaw that is caused by a bug right inside your browser, not merely a bug on one specific website.
+Loosely speaking, a UXSS is an XSS risk that applies wherever and whenever you browse, typically even when you visit well-maintained web servers that are themselves secure against site-specific XSS attacks. 
+So this is definitely an update you want if you use Firefox on Android.
+If you go out in your car and one of the many drivers you encounter is careless and could get you into an accident, that’s a bit like the risk of XSS. You can always watch out for and do your best to avoid the careless ones. But if you yourself are that careless driver… that’s like the risk posed by UXSS, because it goes along with you everywhere.
+Despite knowing for sure that an updgrade to 88.0.1 is what you need, we still aren’t sure exactly how you check you are up to date.
+For example, Google Play [2021-05-06T13:10Z] is currently offering us version 88.1.3, which it claims was updated on 05 May 2021.
+That sounds “better” than 88.0.1, but given that there is no 88.1 version on offer for our laptops, it’s not clear whether 88.1.3 includes the 88.0.1 fix or not.
+Even worse, when we clicked on the [Full Release Notes] link directly under the version number of 88.1.3, we ended up on the Firefox 88.0 page, giving a release date of 19 April 2020, which is the same day that 88.0 (definitely not 88.0.1!) came out for non-mobile platforms too.
+All we can say is, “Get the update from Google Play if you can, but make sure you check back regularly just in case.”
+And to all the browser makers out there, we’d like to ask, “Please will you make it easier for us and our readers to match up the browser version numbers on our mobile phones with the release notes that we rely upon for our laptops and desktops?”
+By the way, 88.0.1 isn’t just for Android – you need to update if you are using other operating systems, too.
+The 88.0.1 release includes a second security patch, dubbed CVE-20210-29952 and rated High, that fixes a bug that no one has figured out how to exploit yet, but that someone might yet work out how to “weaponise” to implant malware.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

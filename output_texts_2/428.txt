@@ -1,0 +1,29 @@
+Sophos Home protects every Mac and PC in your home 
+Attackers are using a serious bug in Citrix products to scan the internet for weaknesses, according to experts.
+The flaw, CVE-2019-19781, affects the company’s NetScaler ADC Application Delivery Controller and its Citrix Gateway. The first product is a piece of network equipment that ensures online applications perform well, using load balancing and application monitoring. The second provides remote access to applications on a company’s network or in the cloud. An attacker could use the bug to execute arbitrary code, according to Citrix, which published an advisory on 17 December.
+Positive Technologies, which wrote a report of the bug on 23 December, warned that 80,000 companies were at risk. NIST gave it a 9.8 (Critical) CVSS 3.0 score.
+A bug that lets attackers execute arbitrary code without even needing an account is particularly serious. Positive Technologies explained:
+This vulnerability allows any unauthorized attacker to not only access published applications, but also attack other resources of the company’s internal network from the Citrix server.
+Although Citrix hasn’t released details of the bug in its advisory, several researchers have suggested that it is a directory traversal vulnerability that allows someone from the outside to reach a directory that they shouldn’t access.
+There are no known proof-of-concept exploits at the moment, but the SANS Internet Storm Center demonstrated on 31 December its ability to exploit weaknesses in the code and upload files to the system without “any special tools or advanced skills”.
+Security researcher Kevin Beaumont tweeted on Tuesday that he had picked up multiple scans on his honeypot network, indicating that people were trying to read sensitive files using directory traversal:
+He told us:
+I had a bunch of IPs from China and Hong Kong, they also spray other exploits.
+Johannes Ullrich, head of SANS ISC, also saw scans coming in from China, along with others from a French DSL and colocated servers in Europe and the US. The scanners used a simple GET request to download smb.conf, which is a configuration file for Samba, the Windows file and print interoperability system for *nix boxes. Some scanners were also trying (and thankfully so far failing) to POST scripts to boxes on the SANS honeypot.
+Tripwire’s principal security researcher Craig Young, who had been running non-malicious scans this week to enumerate the base of target machines, found around 39,000 vulnerable IP addresses. Indexing them against certificate data revealed high-value targets including 141 distinct .gov domains in the US, and another 351 across ccTLDs (primarily Australia and the UK).
+He said:
+It is alarming that so many organizations are currently at risk in such a sensitive part of their organization. Each one of these devices is an opportunity for criminals or spies to gain access to restricted networks and impersonate authorized users.
+There’s no patch for this vulnerability yet, but Citrix has provided some mitigation steps to help protect systems for the time being. If you’re a Citrix user and haven’t deployed these yet, there’s no time to waste.
+There’s also a detection rule for Sigma, a generic signature format for security incident and event management (SIEM) systems, that will help detect people trying to hit your Citrix products with an exploit.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Oooh… that’s a particularly nasty vulnerability!  But I’m left wondering how someone could even access any directories without any sort of account at all.  I’m not in the cybersecurity field, so any explanation would be appreciated.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

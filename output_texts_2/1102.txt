@@ -1,0 +1,88 @@
+Sophos Home protects every Mac and PC in your home 
+If you’ve ever used the Python programming language, or installed software written in Python, you’ve probably used PyPI, even if you didn’t realise it at the time.
+PyPI is short for the Python Package Index, and it currently contains just under 300,000 open source add-on modules (290,614 of them when we checked [2021-03-07T00:10Z]).
+You can download and install any of these modules automatically just by issuing a command such as pip install [nameofpackage], or by letting a software installer fetch the missing components for you.
+The full list includes, to put it plainly, some peculiar projects, with the first five in alphanumeric order being…
+…and the final five doing their very best to be last on the list:
+As you probably know, many contemporary programming ecosystems such as Python, Node.js and Ruby provide huge, free, public repositories of this sort, and come with easy-to-use tools to fetch all the add-on modules you need and install them automatically.
+If you suddenly realise you want to use Python module called asteroid, for example, you can just do pip install asteroid, after which your own Python programs can say import asteroid, and start making use of the package.
+The package asteroid is not a look-alike of the game Asteroids by Atari, by the way, nor is it related to astronomy. It’s an audio processing system that claims to be able to separate voice recordings with multiple participants into separate channels for each speaker.
+The ease with which trusting users download and install new Python (and Node.js, and Ruby, etc.) components has led to a range of cybercriminal attacks against package managers.
+Crooks sometimes Trojanise the repository of a legitimate project, typically by guessing or cracking the password of a package owner’s account, or by helpfully but dishonestly offering to “assist” with a project that the original owner no longer has time to look after.
+Once the fake version is uploaded to the genuine repository, users of the now-hacked package automatically get infected as soon as they update to the new version, which works just as it did before, except that it includes hidden malware for the crooks to exploit.
+Another trick involves creating Trojanised public versions of private packages that the attacker knows are used internally by a software company.
+The public version of the package is given a higher version number that the internal version, and if the company hasn’t secured its auto-updating processes correctly, the attacker may be able to trick a company’s whole development team, or even the organisation’s official software build system, into updating private code from an untrusted (and malicious) external source.
+Cybersecurity researcher Alex Birsan famously made well over $100,000 in bug bounties recently by feeding external versions of supposedly internal software packages into dozens of IT giants including Apple, PayPal, Microsoft and Shopify.
+This sort of trick is known as a supply chain attack, for obvious reasons.
+In a supply chain attack, the crooks don’t break into your network and install the malware directly.
+Instead, they insert their malware upstream from you, implanting it into someone else’s network, repository or delivery mechanism and waiting for the infection to pass down the chain until it reaches you.
+LEARN MORE ABOUT SUPPLY CHAIN ATTACKS
+Securing your supply chain from third party risk
+
+
+A third sort of supply chain attack – one that is rather less sophisticated and has no guarantee of success, yet is extremely easy to pull off – is to create a fake package with a misleading name that users in a hurry might download and install by mistake.
+Just like typosquatting in the website world, where crooks register near-miss domain names in the hope you won’t notice you’re on the wrong site (e.g. writing c0mpany instead of company), package squatters register near-miss or otherwise believable package names that they hope you’ll fetch by mistake.
+Recent examples, now removed, that turned up just last week in the Python Package Index include:
+As far as we are aware, none of these fake packages contained outright malware, or indeed any permanent package code at all.
+However, some of them (if not all – it’s hard to check now that they have been removed) included a Python command that was intended to run when the package was installed, rather than when it was used.
+The command looked like this:
+This is a crude but simple way to do what’s know in the jargon as telemetry – in other words, to keep track remotely of who has downloaded and installed the package.
+The code above simply calls home to a remote web server with the name of the installed package in the URL, and ignores the data that comes back, if there is any.
+Presumably, the redacted IP number in the above URL (it’s a Tencent cloud server hosted in Tokyo, Japan, for what that’s worth) is operated by the uploader of the above packages…
+…who goes by the unusual and mildly ungrammatical moniker Remind Supply Chain Risks.
+Fascinatingly, if rather pointlessly, this user didn’t just upload the five fake libraries listed above, but a grand total, according to the Wayback Machine, of 3951 utterly bogus PyPI packages.
+Peculiarly, many, if not most, of the package names were either incongruous or unlikely to be chosen by mistake, such as Build-Number-Incrementor-for-C-Sharp and Web-Service-for-Android-GMaps-AsyncTask-Demo.
+We haven’t been able to figure out where or how our mystery Supply Chain Risks user generated their list of fake package names, but perhaps just having a small number of “real-looking” typosquat fakes amonst the vast sea of bogus and even ludicrous ones was part of the plan?
+At any rate, it looks as though Remind Supply Chain Risks subscribes to the idea that a job worth doing (or, as in this case, a job that isn’t really worth doing at all) is worth overdoing.
+Fortunately, the Python team has already removed all these offending items…
+…although we couldn’t help noticing that there is already a new fake beautifulsoup4 imposter in the PyPI database, this time entitled beatufulsoup4, uploaded on 2021-03-03.
+This one contains no code at all, but it does have the this-would-be-wittier-if-it-were-not-wearing-a-bit-thin-by-now project title “You may want to install beautifulsoup4, not beautfulsoup4” to prove its this-didn’t-really-need-proving-yet-again point.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Your advice about not blindly downloading package updates is harder to follow than it might appear, because of just how much some scripting languages have embraced code reuse and open source.
+Put simply, when you tell pip (or npm, ruby jems etc) to install a library, it will also install that library’s dependences, and so on following all the dependency chains until you have the latest version of everything. Seeing as all the libraries are open source, and everyone firmly believes in not re-inventing the wheel, none of the upstream package developers will provide their own code to do even the simplest bit of string manipulation when another library is available for the purpose. In the npm world it is not hard to find examples where a single, and relatively straightforward library will pull in over a thousand dependences. In most cases the upstream developer will only need one or two methods in each library they depend on, but they pull in the whole thing
+To give a concrete example, I have a largish Perl project I am working on. The cpanfile lists 230 top level dependencies, but when I use carton to download and install them all, it emits a cpanfile.snapshot that lists all the ultimate dependences and their versions. That file has 5707 Perl libraries listed. It would be quite a stretch to review even the 230 directly required modules, reviewing more than 5000 others is clearly impossible.
+Even if somehow, you were able to review all the dependent libraries at the start of a project, then you still have the problem of how to keep up. Some of those thousands of upstream libraries will be mature and hardly ever change, but many will publish new versions every few weeks, which means that every day you get dozens of new upstream library releases. Do you spend all day reviewing each new change, do you freeze your versions and miss an important security update, or do you blindly accept each new version at the risk of getting a buggy or malicious version?
+I think part of the solution to this problem is add gatekeepers to the library repos that will review and approve releases of widely used packages, so that it is rare to pull in a non-approved package from a public repo, and that package can be properly reviewed.
+For example, for Perl developers working in Debian Linux, most commonly used Perl libraries are available as deb packages from the standard Debian repos, so for most Perl projects most of the required libraries are available from a trusted source via apt-get. (This advantage extends to Debian derived distros such as Ubuntu or Mint, but not Red Hat derivatives or other scripting languages).
+For scripting languages and their module libraries in general, I think the solution would be to split the repo into three parts, an untrusted section where anyone with a minimal bar to entry can upload a package, an approved section where a three or more respected community members have reviewed the code, and signed their approval to say that there are is nothing malicious or horribly buggy in each release, and a trusted section that has been reviewed to a higher standard, and where a security team has agreed to push out fast security fixes as needed. The library installer (pip or whatever) would then be configured to take the latest version from the approved or trusted sections, but untrusted code would not be installed automatically except from a local package file.
+I guess the answer to that is a reminder that although you can outsource your data collection/payment processing/marketing emails/software engineering/coding/testing…
+…you can’t outsource the ultimate responsibility.
+Simply put, if you are relying on more than 5000 Perl libraries, any one of which could be Trojanised if any one of the project maintainers makes a mistake with their password, gets their own computer hacked with compromised source, shares upload keys with a “helpful new coder” who turns out to be a crook who has befriended them for malicious purposes, or goes rogue themselves, that’s pretty much, well, your problem. So the fact that vetting them all is “hard” is the tradeoff you made in return for not having to coding and maintaining your own modules in the first place.
+I suspect that your divide and conquer approach is a good one – assign different levels of trust to diffferent repos and vet them accordingly. It would slow down development and progress in some people’s eyes, but it might also help rein in those who still hold onto the “move fast and break things” principle, which has always been at odds with cybersecurity.
+Indeed, if you have cybersecurity dependencies in your code that rely on the trusthworthiness and carefulness of 1000s of people you don’t know, working in teams you have never met and never will, you need to find some way of vetting all the code you use, at least to some degree, every time you adopt a new version of any one of those dependencies.
+This is especially true if it’s a cloud-based service (or a locked-box appliance) maintained by you that your customers can’t update for themselves even if they want to. It’s cold comfort to a customer that “the bug was hidden deep in the text-splitting code used by the parser package that we chose to plug into the HTML scanner that was called with the data that emerged from the gunzip code that we use in the HTTP request processor that we call from our TCP connection handler” when all those software components were your choice, and the customer isn’t able to patch, update or swap out any components they aren’t sure about themselves.
+“You used open source code in my unique project?”
+“It looked valid”
+“You are so fired.”
+Unfortunately, this amount of massive reuse ultimately ends up requiring developers to use tools that can perform automated security audits on imported packages and their dependencies.
+There are many such systems available, but they’re not cheap, which is going to seriously hurt small-time developers, and even some larger ones (if they don’t already have a system installed).
+What about other package managers such as APT or YUM?
+The risks are similar, because you’re trusting a sea of dependecies that are maintained and release by other people, though the core packages for any Linux distro are often maintained by a smaller, cohesive group with a shared focus: the distro.
+You can add additional respoitories at will, but by default most distros have a core set of code that the distro builders aim to vouch for. In that sense, the package respoitories that are part of your distro are a bit more like Python itself (with its extensive core libraries), while the PyPI ecosystem is a bit like “all the other places you can go” to get more esoteric builds of other software. 
+See @David Pottage’s comments for a view on how language package managers might be able to take a more hierarchical approach so it’s not either “trust the Python team only” or “trust the rest of the world as well”.
+We’re in the cybersecurity business, so the only open-source thing we use is gcc.
+What, no clang :-)
+There have been instances of compromised gcc though,
+Let’s not forget the lessons of the left-pad JS debacle either. Everything is built on trust, which more often than not comes back to one person or a small group of people. Software systems are some of the most complex systems known to humankind so it seems we will always need to have the tradeoffs mentioned, even after all best practices are followed.
+Btw, I saw this, you sly devils you: Don’t choose a PyPI package *juat* because the name looks right.
+Tee hee, I am glad you spotted that little “joke”…
+…because I didn’t. It was a genuine, albeit ironic, typo :-)
+Distros have checksums attached to the files so you can check the file integrity. This doesn’t solve the problem of high-level upstream hacking, but it does help. If all packages came with PGP or other checksum, at least you could have a chance at detecting problems. 
+On the other hand, how many of us use the checksums when we are installing ISO’s.
+Problem with pure-play checksums is that they are often published on the same site, even on the same page, as the ISO itself so if the ISO gets replaced, the checksums can be updated, too. (Most distros ought to check the hashes and the digital signatures for every downloaded update, assuming you have the distro’s public key on hand.)
+Usually authentic mirrors should have right versions, so if a single mirror is fudged with incorrect checksum and/or isos, then a cross check of mirrors (somebody can write this util) can detect.
+This isn’t about one mirror getting fudged… it’s about all the mirrors having the “correct” copies of a bogus package.
+If trust, honesty and integrity are broken, the only way to take the ultimate responsibility is coding all by oneself.
+Even then, it’s easy for mistakes to be made. Just as there are typos, without the appropriate review and validation mechanisms in place, you open yourself up to potential for mistakes to be made in terms of exploitable vulnerabilities.
+its a about time Python team added digital signatures for packages or at least start looking at how it could be done. Possibly a payed for service? At least to cover the costs of testing and adding the cert.
+Or self signing by the developer, linked to a recognised CA.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

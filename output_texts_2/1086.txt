@@ -1,0 +1,94 @@
+Sophos Home protects every Mac and PC in your home 
+We know what you’re thinking: “I bet you this is what they call a supply chain attack.”
+And you’d be right.
+The “one man” in the headline is cybersecurity researcher Alex Birsan, and his paper Dependency Confusion: How I Hacked Into Apple, Microsoft and Dozens of Other Companies, which came out last week, will tell you how his “attack” worked.
+Of course, Birsan didn’t literally do it alone and unaided (see the end of his paper for the section of shout-outs to others who helped directly or inspired him indirectly during his research), and he didn’t really attack anyone in the way that a criminal hacker or cracker would.
+His work was done in accordance with bug bounty rules or pre-arranged penetration testing agreements, and Birsan actually includes bug bounties in his credits:
+
+[A shout-out to] all of the companies who run public bug bounty programs, making it possible for us to spend time chasing ideas like this one. Thank you!
+
+LEARN MORE – How NOT to be a bug bounty hunter
+You can also listen directly on Soundcloud.
+Loosely speaking, the corporate vulnerabilities that Birsan uncovered have the same cause as many malware-by-software-update stories we’ve written about before – a problem perhaps best described as a dependency disaster situation, although Birsan more graciously refers to it as dependency confusion.
+Many programming languages these days come with an enormous treasure trove of community-contributed content that helps you to write even complex software very quickly, by giving you easy and automatic access to add-on libraries that solve programming problems that might take weeks, months or even years of work to code from scratch.
+If you’ve ever programmed in C on Windows, for example, and you’ve wanted to add cryptographic capabilities to your software – to encrypt and decrypt data with AES, for example, or to validate file hashes, or to access high-quality random numbers…
+…you’ll know that you don’t have to implement all that complex (and easy-to-get-wrong) stuff yourself.
+You can just load and use the built-in system library BCrypt.dll (BCrypt is short for basic cryptography) and call the function BCryptGenRandom() in that library directly.
+Your software is then said to be dependent on BCrypt.dll, inasmuch as your program won’t run if that DLL isn’t present (although on Windows it always is), and because your program automatically inherits all BCrypt’s strengths and weaknesses.
+When it comes to popular open source coding environments such as Node.js (basically JavaScript running outside your browser), Python and Ruby, these dependency trails can become much wider and much deeper, and therefore correspondingly much, much bigger and harder to control.
+A few years ago, for instance, we wrote an article entitled NPM update changes critical Linux filesystem permissions, breaks everything.
+To set the scene in that article, we asked you to imagine that you had been set the task of writing a JavaScript program to match two images of human faces.
+To solve this problem from scratch on your own might take years, but thanks to a ready-made library called facenet, you can literally do it in a few lines of code of your own. (There’s a working code example in the facenet package that is just 16 lines long, including comments.)
+But, as we described back in 2018, facenet itself depends on @types/ndarray, argparse, blessed, blessed-contrib, brolog, canvas, chinese-whispers and many other packages; chinese-whispers, in turn, needs jsnetworkx, knuth-shuffle and numjs; of these, jsnetworkx needs babel-runtime, lodash, through and tiny-sprintf; and babel-runtime in turn needs regenerator-runtime, and so it goes, on, and on, and on.
+As British mathematician Augustus De Morgan famously wrote in his 1872 book A Budget of Paradoxes:
+In other words, even though a decision to use facenet in your program will reduce the complexity of your code enormously, it will greatly increase the complexity of the “hierarchy of fleas” on which your code depends.
+For better or worse, modern package management tools, including PyPi (for Python), RubyGems (for Ruby) and NPM (for Node.js) can hide this dependency complexity from you by automatically identifying, fetching, downloading, configuring and installing the packages you need, plus the packages on which they depend, and so on.
+As handy as this sounds, you’re probably thinking that there’s a lot that could go wrong here, and you’d be right.
+A complex dependency tree means a complex package supply chain, and a complex supply chain means a greatly increased attack surface area for you, and thus indirectly for your customers.
+After all, whenever one of the packages in your own sea of dependencies gets updated, your package manager can fetch and install the update for you by itself – automatically distributing it to your whole network, and even onwards to your customers, if you aren’t careful.
+So, any mis-step in the curation of any of the packages you rely upon, by any one of the hundreds or even thousands of coders in the community whose programming, testing and software publishing skills you have implicitly chosen to trust, could lead to a security disaster.
+Worse still, updated packages that are fetched and installed by your dependency manager can introduce malware into the heart of your coding ecosystem even if the source code in the package itself remains the exactly the same.
+That’s because software packages of this sort typically include general-purpose installation scripts that are run just once, at install or update time, so a malicious installation script could sneakily mess with your network without visibly altering the directory trees full of source code that your developers rely on.
+With a modified and booby-trapped package installation script, but unsullied and unmodified package source code, your developers won’t notice or experience any changes in the behaviour of the software that they’re working on, because the source code theydepende upon will remain unaltered.
+In Birsan’s research, he found numerous cases where source code published by a variety of major vendors, including Apple, Microsoft, Telsa, Uber, Yelp and dozens of others, contained clearly documented dependencies on internal (company-created) packages written in a variety of different languages.
+As you can imagine, these internal packages – ones that weren’t available in public repositories like PyPi, Gems and the NPM archives – had internal names, for example because the functions they performed would never be needed in other software and would therefore be no use to anyone else.
+(In your own network, for example, your coders might have JavaScript packages with unique names such as our-own-file-verifier or our-own-modified-authentication-check. There’s nothing wrong with that, not least because it makes it easy to spot your own customised internal packages at a glance.) 
+So Birsan wondered:
+As you can probably guess from the headline, the answers to these questions were: Yes; None; They get accepted; and Yes, dozens of them.
+In short, Birsan and his fellow researchers found a way to infiltrate updates into many corporate development environments in which the package source code they injected was unchanged, and thus would have gone unnoticed during code comparisons (diffs), code reviews and testing…
+…but where the package update scripts, which get run just once during a remotely triggered update, were programs of their own choice. 
+Birsan didn’t actually install real malware – he just used a simple call-home script to confirm that his remotely injected “malware” had indeed been executed inside the “victim’s” development network, and from there had been able to connect outwards.
+And there you have it – full-on remote code execution (RCE) holes that could be deployed at will, using popular public code repositories as unwitting malware carriers.
+No passwords to hack; no 2FA codes to guess; no VPN vulnerabilities to unravel; no elevation of privilege exploits to acquire sysadmin rights; no malware or hacking tools to deploy; in fact, no access needed to the victim’s network at all.
+Birsan himself additionally recommends reading a paper from Microsoft entitled Three ways to mitigate risk using private package feeds.
+In the jargon, go for a zero trust approach: take nothing on trust, but verify everything instead.
+As we’ve known since Homer’s time, there’s many a slip ‘twixt the cup and lip.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Great post,
+Thank you.
+Thanks, Mahhn. Glad you enjoyed it. As the original paper proves, “hacking without hacking” can be devastatingly effective, because the usual warning signs (bad login! blocklisted IP number! unauthorised account creation! dangerous download site! unappoved software installation! unknown user! suspicious VPN log entry!) just never appear.
+Recently I was speaking with our IT big boss, sharing with them some concerns of moving to quickly to cloud environments without having detailed insight, explaining all the layers upon layers of vendors involved, that we and the cloud provider themselves have zero awareness of the potential issues in the layers. At least where we have our own environment (still) we can use our tools to scan for the “fleas” and manage them. In the cloud all we have is Trust, the one thing I don’t have to spare.
+This was a great article to share with them, they appreciated it and the deeper insight. Also makes me look less paranoid for them to know these concerns are not my own at all. Besides, I’m not paranoid, “they” are out to get us 🙂
+Back in the day, when working as an IT security evaluator, I suggested that if I wanted to sneak malware into a C program, it should go in the header (or into something loaded by the header).
+I moved away from IT security evaluation in 2000 and retired altogether in 2011.
+Or into the makefile! 
+Apparently one of the recently revealed SolarWinds “supply chain” malware hacks works by adding the malware code to a source file just before compilation and then removing it straight after.
+S
+Good one Paul. I suspect this is a weakness that has not been widely exploited but might be now it has been given an airing. Your list of things to be checked and tested is all very good but I doubt most companies, especially SMEs, will have the resources necessary to do the job properly. So perhaps there should be consideration of checking and certifying the libraries from which updates come, so that the users can have full confidence in what gets installed.
+The Microsoft paper linked to above suggests that the average package (it didn’t say which programming languages) in an open source repository has 180 dependencies… hard for any public repository to certifying everything in there! (Even Google can’t keep malware out its own Play Store.) 
+Locking down local package managers to update from local sources (easier to do with some than others) is a good starting point. Birsan’s paper and the Microsoft guide explain how to get started with this sort of lockdown.
+A couple of thoughts.
+Is the use of dependencies described above the reason that programs (and apps) have such huge file sizes?
+I assume that these packages have multiple functions some of which are needed and some that are not.  Does that mean that the overall package includes many functions that are not used in it but nevertheless are still available to the programmer, malicious or otherwise?
+In programming languages such as JavaScript and Python, the usual answer is “when you use a library package you get everything in it, including the parts you don’t need and will never use”. The same is true when using DLLs (you can’t load half of a DLL).
+For example, if your program loads the OpenSSL DLL in order to use just the SHA-256 function, you will also load and have available all the other features compiled into that version of the library, typically including every other hash function it knows about, every symmetric encryption algorithm it supports, every public key cryptosystem, all its random number generators, all its X.509 certificate handling code…
+This is one reason why languages such as Go prefer to do what is called “static linking”, where a program is compiled to a single executable file that omits any parts of any package that aren’t actually used. This helps to avoid “package bloat” – but it can make the individual executable files much bigger than they would otherwise be because every EXE must contain its own copy of everything that it needs – nothing is shared with other EXEs.
+(The disadvantage here is that with shared libraries – where possibly 100s of programs might use, say, a single copy of the OpenSSL DLL file – you can fix a bug in OpenSSL by updating that one copy of the DLL. But with static linking you need to identify every program that has the buggy OpenSSL code built into it and recompile and update all of them, because each one contains its own copy of the buggy part.)
+Thank you for your reply and the deeper explanation of the programmer’s hobson’s choice of reusing code to aid production and updates to that code and exposing the possibility of vulnerability to attack.  It put me in mind of what is a slightly different but closely aligned point;
+“It’s been said that software is “eating the world.” More and more, critical systems that were once controlled mechanically, or by people, are coming to depend on code.”  from; https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/ accessed 18/02/21
+As a civilian ( I don’t do any programming), I was wondering whether it would be possible to force the update be only obtained from the developer or official depository of updates, so that an OS would ignore any other source, no matter how enticing it looked?
+Anyway, this seems to be an horrendously large hole, and I was wondering whether as a user there was anything I could do to help myself?
+Thanks for making this problem public, as even if many have not used it so far, it must have been used by a few bad actors.
+There are some specific hints in Alex Birsan’s paper and Microsoft’s document (link above), notably for Python and PyPi, that explain how to constrain various pacakage manager tools so they will follow your instructions for update sources only, and never try to “reach out” unilaterally to “help you out”.
+That way you can use a test system to track and test all the updates to packages you need to get fomr outside repositories, before copying trusted ones yourself to your internal repository. You can also prevent any rogue updates coming from outside that are only ever supposed to be sourced from inside.
+As Birsan mentions, there are several different angles to the “hierarchy of fleas” problem. 
+There are packages you need to fetch from outside, but that get updated sloppily or recklessly by the real owner and that poison your codebase if you are merely incautious. There are outside packages where the real owner’s account gets hacked and fake updates get planted, sometimes with the malicious changes sneakily disguised. There are packages you need from outside that suddenly get deleted or discontinued by the owner and leve you with an unexpected “outage”. There is typosquatting, where you decided to add a new external package but you aren’t sure whether you need “cool-package-1” or “cool-package1” and pick the wrong one. And there’s this rather weird issue where you “know” you are safe from outside influence because you wrote the package yourself, only to get a “free” and unwanted “upgrade!
+As any carpenter will tell you: measure twice; cut once. Unfortnuately, the “easy” way is to connect your internal Node/Python/Ruby/Lua/Whatever software source code tree directly to NPM/PyPi/Gems/LuaRocks/SomeBigPublicDatabaseOfFreeStuff and let the updates take care of themselves. 
+In short, our long-running advice to “patch early, patch often” doesn’t mean “patch automatically; patch carelessly”! You can do things early and often whilst also being careful and correct.
+In the DeMorgan quote, insert “on” between “so” and “ad”.
+No, it’s correct as it stands… “and so ad infinitum”. 
+The poem doesn’t scan if you add another syllable in that line. Inserting the word “on” would spoil the rhythym. 
+Think of the word “so” as meaning “thus” and “ad infinitum” as meaning “for ever”, giving et sic ad infinitum if it were all in Latin or and thus for ever if all in English. Compare with the English phrase and so to bed, as Samuel Pepys used to write at the end of a day’s entry in his diary.
+The image of a Jenga tower might be more accessible to most consumers, despite (or because of) the fact that this simplifies the complexity of the dependency tree. At its simplest, each library is one rod or block in the tower. (I know that we’re talking about multiple Jenga towers nested/encapsulated in other towers, but end users need an image they can visualize, right?)
+The big difference in a Jenga tower is that when you start the game you have a predefined number of identical and equally trustworthy blocks; none of the blocks change size and shape randomly as the game proceeds; you never find yourself suddenly facing a move where you are forced to include dozens of brand new pieces you’ve never seen before in positions you didn’t choose; and you only need to work in three dimensions.
+So I fear that a Jenga tower might lead people to visualise a much simpler and more stable starting point than a typical project tree…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

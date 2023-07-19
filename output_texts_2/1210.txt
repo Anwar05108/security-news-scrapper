@@ -1,0 +1,130 @@
+Sophos Home protects every Mac and PC in your home 
+Evan Grant, a researcher at network security scanning company Tenable, recently decided to have a go at hacking a home router.
+The idea, it seems, was more to learn about the general techniques, tools and procedures available to router hackers than to conduct a security assessment of any particular product.
+Understandably, therefore, Grant picked a router model using two non-technical criteria: was it popular, and was it available in Canada (Grant’s home country)?
+After opening up the router casing to get access to the circuit board, Grant made good progress, by quickly:
+Grant’s first stop was to download a binary file (executable program) called httpd, which is the name under which you typically find a home or small business router’s web server, used for managing the device from a browser.
+The name httpd stands for HTTP daemon, where HTTP means that the program handles web traffic, and daemon is the Unix/Linux name for what Windows users know as a service: software that runs in the background whether anyone is logged in or not. (The word daemon is properly pronounced “die-moan” or “day-moan”, but many sysadmins just call them “demons”, and you may need to follow suit to avoid causing confusion.)
+Disassembling the web server binary revealed critical bugs, caused by programming errors, that Grant was able to chain together to take over the router via its web interface without needing a password.
+Firstly, the router had a list of built-in web server subdirectories where authentication was not required, so that “harmless” files such as as http://[router]/images/logo.png would work for everyone.
+(A company logo isn’t a secret, so why not let anyone access it, whether they’ve logged in already or are still stuck on the login page?)
+But once the router had matched the name of the “harmless” subdirectory, it didn’t bother applying any other security checks such as looking for risky characters in the filename.
+This means that Grant could use a filename such as /images/../login.htm in the URL as an unauthenticated equivalent to web pages that would otherwise prompt for a password or block access entirely, such as http://[router]/login.htm.
+This sort of bug dates back decades, and is known as a directory traversal vulnerability, because the special directory name .. (two dots) is shorthand for “go up one directory”.
+Thanks to the “go up one” component, the file named /images/../login.htm actually refers to a file that sits above the /images subdirectory, not in the directory tree underneath it.
+Directory traversal bugs that rely on the “go up one” trick often show up in logs with filenames such as ../../../../../etc/passwd or ../../../../Windows/System32. The trick here is that if you “go up” by more subdirectories than your current depth in the directory tree, you don’t get an error. Once you get to the root directory, every subsequent ../ simply gets ignored, because “one up” from the root directory is just the root directory again. So, a filename preceded by sufficiently many apparently innocent relative pathnames of ../ is equivalent to a dangerous and suspicious absolute filename such as /etc/password (the list of Unix usernames) or C:\Windows\System32 (the all-important Windows directory where system software lives).
+Secondly, the router set an authentication cookie, valid for any other password-protected page, as soon as a page was accessed for which authentication was supposed to have taken place.
+In other words, the authentication token wasn’t generated as a side-effect of a correct password being entered, but merely as a side-effect of a protected page being accessed, even if that page itself was reached via an authentication bypass.
+Simply put, a bypass in one place, using the abovementioned directory traversal bug, led reliably to bypasses elsewhere.
+(Curiously, the authentication token used by the router wasn’t supplied as a web cookie, but embedded in an inline image object called spacer, where JavaScript from the router could decode it and use it to access other password-protected pages.)
+This directory traveral bug was duly reported to the relevant router vendor, Buffalo, and received the vulnerability identifier CVE-2021–20090.
+However, the story didn’t end there, because Grant (who did his original research with a Buffalo WSR-2533DHPL2 router) eventually realised that this wasn’t so much a router vendor’s bug as a firmware vendor’s bug.
+In other words, it wasn’t just Buffalo routers that were at risk.
+Tenable ultimately identified and listed 37 widely-used products that all shared code from router and firmware vendor Arcadyan, including several products from Arcadyan itself.
+The bug itself, it seems, has been present in Arcadyan’s code, unnoticed until now, since 2008.
+Affected products include routers shipped by well-known ISPs around the world, including BT, Deutsche Telecom, KPN, O2, Orange, Telecom Argentina, TelMex, Telstra, Telus, Verizon and Vodafone.
+All of these products ought to have updates available by now, but we don’t know how many products currently in use have actually downloaded and installed those updates yet.
+Unfortunately, according to follow-up reports from researcher at Juniper, cybercriminals are already probing the internet for vulnerable devices.
+So, if you’re affected by this bug, or think you might be, we urge you to check for updates as soon as you can.
+HOW TO PROBE FOR THE BUG ON YOUR OWN NETWORK
+According to Tenable’s report, you can perform a basic test on your own router by finding the URL for a page that you know exists, such as http://[router]/home.htm, and verifying that it comes up if you visit it.
+Then you try to visit the same page via the “go up one” trick described above, and verify that the page does not come up, which is evidence that the directory traversal bug CVE-2021-20090 either doesn’t exist or has already been patched on your device.
+From the command line, you could use the curl program, available on Windows, Mac or Linux, as shown here.
+You need to replace the text [router] with the name or IP number of your own router – if you aren’t sure what that is, try 192.168.0.1, 192.162.0.254, 192.168.1.1, 192.168.1.254 or 10.0.0.1.
+You also need to find a web page such as home.htm, index.htm or login.html that exists on your device, and that produces some content whether you are logged in or not:
+If your router is vulnerable, then trying to access the same page via the filename /images/../home.htm should give the same result as above, because that implies your router will accept the “dot-dot” directory traversal trick.
+If your router is not vulnerable to CVE-2021-20090, then the directory traversal will fail and the “dot-dot” trick will not work, which should result in a “404 Not Found” error.
+Note that you can’t just write /images/../home.htm in the URL, because curl, or your browser, will automatically simplify it before making the request.
+You need to represent the third slash character in the URL with its hexadecimal URL “escape code” %2F (the ASCII encoding of /), like this:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Good write-up.
+THIS: “Avoid turning on remote access to your router’s management console.”
+I think the line “but include an option to enable remove access if you want” contains a typo… “remove” should be “remote”.
+Fixed, thanks!
+Our home router appears on that list…
+Port 80 and 443 are forwarded to our private cloud server, so the cURL command returns the login page of that service and not the router login page (when inputting the router’s ip via https). Would this forwarding actually mitigate the Directory Traversal bug threat (considering that the PCS is properly secure)? If not, is there an alternative check one can perform?
+I assume so, because it means that the HTTP requests never actually get handled by the httpd program on your router.
+Assuming that you aren’t accepting TCP connections to ports 80 and 443 from *outside* your network (I am guessing that from your use of the word “private”), you could try simply turning off the redirection for port 80 temporarily and testing the commands directly against the router itself.
+PS. If you *are* allowing access to your private cloud server from outside, I strong;y suggest closing port 80 and accepting requests *only* via 443, using TLS. (In fact, why not do that anyway? Why allow any computer or phone on your private network to use HTTP instead of HTTPS when you simply don’t need to? One less server that won’t be producing sniffable traffic!)
+Useful to know, but I seem to get both results – possibly because I am the edge of my knowledge of caching etc.
+$ curl -D – http://192.168.1.1/home.htm
+produces a home page – as expected; all OK
+$ curl -D – http://192.168.1.1/images/..%2Fhome.html
+produces a 404 error which the article seems to imply “you’re OK”
+But it then goes on to serve up the same home page:
+HTTP/1.1 404 Not Found
+Status: 404 Not Found
+Content-Type: text/html; charset=UTF-8
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Transfer-Encoding: chunked
+CONTENT-LANGUAGE: en
+Date: Wed, 11 Aug 2021 07:59:42 GMT
+Server: lighttpd/1.4.39
+<!–
+2017 Belkin International, …
+So what’s the answer – or do I need to inhibit some form of caching – and will that just make the test “look right” – without preventing the vulnerability?
+Thanks
+I suspect you are fine. 
+The 404 reply means that you aren’t getting *the same* response from the router as before, even if the HTML page that ultimately gets returned in the body of the message is identical or similar to what you get when you access it directly. 
+If this bug were present then you would expect the router to treat “home.htm” and “images/..%2Fhome.htm” *as the same physical file on disk* and thus to process and reply identically both times, with a “200 OK” code to denote that the file exists on the router. (The bug is that the filename “images/../home.html” is treated as “go down into the images directory…then come straight back up again…then look for home.htm”. Thus if one file exists, the other must also exist, because they are two names for the same thing, due to the bug, and thus if one has a “200 OK” response then the other should, too.)
+Also, your HTTP headers mention “Server: lighttpd”, which strongly suggests that the web server code in use is completely different. The server in the Tenable bug report would almost certainly write “Server: httpd” there, as you saw in my example.
+(A server can put what it wants in that header, or leave it out completely, but it’s a good hint that you have a different firmware from the buggy one in the report, one that is based around a different web server. That doesn’t, of course, mean that the version of Lighttpd you have is itself bug free, but if it were my router, the combination of the 404 error and the different server ID would convince me I was not at risk in this case and that CVE-2021-20090 does not apply.)
+Thanks
+| if you aren’t sure what that is, try 192.168.0.1, 192.162.0.254, or 192.168.1.254.
+I would also try 10.0.0.1, since in the US, most Routers I’ve used had that IP as default.
+Thanks, I’ll add that one to the list, along with Cassandra’s 192.168.1.1.
+I think my 192.168.1.1 may arise from the fact that I have daisy chained a newer Router on an old modem/router – which is at 192.168.0.1
+Seems these days everything has gone to 192.168.1/24 or 192.168.0/24.  I’ve not seen a 10.x.x.x default config in a long time. This confuses me, because 10.x… is always easier to type.
+daemon:
+I’ve never heard the “moan” part; I’ve only heard “mun.”  On the first syllable I fortunately was trained early by several guys who all pronounced the “day” part unambiguously.
+A little like Gene Simmons, I was raised by the d(a)emons.
+:,)
+/watch?v=1M_lObsh5gE#t=225
+In Ancient Greek it’s spelled with the letter omega (Ω/ω, meaning “big O”), a long, rounded vowel (that is not a technical term but I think it will do), not with omicron (Ο/ο, meaning “little O”), which is a thinner vowel. 
+Sort of like the difference between the O sound in “phone” and the O sound in “botnet”.
+Here’s an aide-mémoire…
+It’s a program that runs on its own
+   Which is why it is called a daemon
+It doesn’t need users logged on
+   If it did it would be a daemon.
+“big O”, a rounded vowel
+I see what you did there…
+:,)
+I remember being taught – or more precisely being told, which is not the same thing at all – that the loopy shape of the post-classical lower-case omega (ω) was inspired by the shape of two omicrons next to each other (οο), written in one stroke as two anti-clockwise loops starting from the upper left, without closing the top of either circular shape. 
+(It seemed like a reasonable assumption to me at the time, but it was presented to me as a remark in passing rather than as something that might be considered plausible by an experienced philologist, so I have never taken it as what you might call “a fact”.)
+I can certainly get to my router’s login page with:
+http://192.168.1.254/images/..%2FMain_Login.asp
+But I think that’s the web browser being clever.
+Curl gives me the more reassuring:
+C:\>curl -D – http://192.168.1.254/images/..%2FMain_Login.asp
+HTTP/1.0 200 OK
+Server: httpd/2.0
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+Date: Fri, 13 Aug 2021 09:11:25 GMT
+Content-Type: text/html
+Connection: close
+top.location.href=’/Main_Login.asp’;
+C:\>
+But would I care anyway, as the router’s web interface isn’t exposed to the internet?
+(Asus RT-AC87U BTW.)
+That doesn’t look right to me.
+In my tests, Curl, when given a URL like that, did not “pre-correct” the string “/images/..%2F/…” to say just “/“, but did pass that exact URL across to the router, leaving the router to decide if it wanted to reject it outright or to process the dot-dot part and serve up the relevant file.
+I would therefore expect the URL above to give a 404 reply and not a 200, because I would expect the router to treat it as an invalid filename.
+So if I were you I would search for a firmware update on the ASUS site in case there has been a recent patch.
+Having said that, the risk is indeed greatly reduced if you are not accepting logins from outside (especially not unencrypted ones via HTTP!), though router bugs are still a problem from inside your network for two reasons: any other device on the network could be used to attack the router (on the “injury to one is an injury to all” principle), and booby-trapped links on a web page you visit might be able to trick you into visiting your router via risky URLs.
+Not sure what to say overall. Without access to the router itself it’s hard to be certain how or why it’s behaving as it does.
+Maybe you could try asking ASUS support a direct question such as “can you confirm whether  [your model number] is affected by any of the bugs described in [link to Tenable’s article]?”
+My “test” will *probably* help you decide that a router is OK (the text in the article is from my own router), but unfortunately the result you observed doesn’t tell you there *is* an exploitable hole… it just “doesn’t suggest there isn’t” :-)
+HtH
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

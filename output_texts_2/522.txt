@@ -1,0 +1,32 @@
+Sophos Home protects every Mac and PC in your home 
+Does WhatsApp have a lot of vulnerabilities or are there simply a lot of people looking for them?
+Ask PerimeterX researcher Gal Weizman, who last year set about poking the world’s most popular messaging platform to see whether he could turn up any new weaknesses.
+Sure enough, this week we learned that he uncovered a clutch of vulnerabilities that led him to a tasty cross-site scripting (XSS) flaw affecting WhatsApp desktop for Windows and macOS when paired with WhatsApp for iPhone.
+Patched this week as CVE-2019-18426, it’s the sort of weakness iPhone WhatsApp desktop users will be glad to see the back of.
+The immediate problem was caused by a gap in WhatsApp’s Content Security Policy (CSP), a security layer used to protect against common types of attack, including XSS.
+Using modified JavaScript in a specially crafted message, an attacker could exploit this to feed victims phishing and malware links in weblink previews in ways that would be invisible to the victim.
+According to Weizman, this is probably remotely exploitable although the users would still need to click on the link for an attack to succeed.
+However, it could also be used to gain read permission to the local file system, that is the ability to access and open files and, potentially, for remote code execution (RCE).
+An underlying problem is that WhatsApp desktop uses older versions of Google’s Chromium framework, written using the cross-platform Electron platform. This is a convenient way to develop web applications that also work on desktop computers. But, as PerimeterX’s summary of the research says, these are:
+Susceptible to these code injections, although newer versions of Google Chrome have protections against such JavaScript modifications. Other browsers such as Safari are still wide open to these vulnerabilities.
+Even so, better rules in the software’s CSP would have mitigated much of the XSS, as would have updating Electron, said Weizman:
+When Chromium is being updated, your Electron-based app must get updated as well, otherwise you leave your users vulnerable to serious exploits for no good reason!
+Vulnerable versions of WhatsApp Desktop prior to v0.3.9309 paired with WhatsApp for iPhone versions prior to 2.20.10.
+It’s not the first time WhatsApp’s required a patch to fix its security. Recent incidents have included an MP4 flaw that could have led to an RCE, and another involving malicious Gifs with the same effect on Android.
+Last May, a severe WhatsApp zero-day was being exploited by a nation state group to attempt to install spyware on targets simply by phoning them. In 2018, Google researchers revealed a flaw that could have compromised a device, again via a simple call.
+Arguably, the problem here isn’t WhatsApp but the complex nature of modern messaging applications coupled to the willingness of researchers (and malicious actors) to hunt for them in the world’s number one communications app.
+For all its much-vaunted security features, attackers have a strong incentive to look inside the app’s guts for security holes that could undermine this. If you’re a WhatsApp user, remember that this won’t change soon.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Heb
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

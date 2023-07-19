@@ -1,0 +1,122 @@
+Sophos Home protects every Mac and PC in your home 
+Here’s a bureaucratic nightmare that unfolded over the weekend
+Digicert is one of the Big Five commercial CAs, short for certificate authorities – companies that sign and vouch for the digital certificates that put the the S in HTTPS and the padlock in your browser’s address bar.
+As we’ve mentioned before, web certificates and HTTPS (secure HTTP) aren’t just about protecting you from surveillance by encrypting the data that flows between your browser and the websites you visit.
+They’re refered to as certificates rather than just encryption keys because they provide some sort of assurance that the people running the site you’re reading have some sort of authority – for various interpretations of the word “authority” – to do so. 
+Note that the certificate doesn’t vouch for the safety or the accuracy of the content on the site, so cybercriminals who set up their own sites can acquire certificates for those sites. But the web certificate system does make it harder for crooks to set up imposter sites using existing website names.
+The simplest form of web certificate is called self-signed, and anyone can create a self-signed certificate in seconds that claims to represent any web property they like.
+Here, we’ve used OpenSSL, via a simple series of Lua script commands, to produce a public/private keypair, put the public key into a web certificate, make the certificate valid for 7200 seconds (two hours), and set the certificate to be authoritative.
+In the last line, we self-signed it with the private key we generated up front:
+
+We ended up with a private key that we can use to set up HTTPS connections, plus a certificate to send to the other end to vouch for our website, tied cryptographically to our own private key:
+
+As you can imagine, no browser accepts self-signed certificates directly from websites by default – by replacing the text string example.test in the code above, we can generate a self-signed certificate in any name we want, valid for as long as we like, so self-signed certificates provide no authentication at all.
+Using the code above, running in a loop on a single core of a five-year-old laptop, we generated more than 800 256-bit elliptic curve private keys and web certificates per second. 3072-bit RSA keys, which provide similar security levels to 256-bit elliptic curve keys, are much slower to create, limiting us to about three certificates per second per CPU core.
+In real life, you can’t rely on self-signed certificates, because there’s no one to vouch for them except the self-signer, who could be anyone.
+To acquire a certificate to use on your own website, you create your own certificate, as we did above, but then get someone else to sign it rather than just vouching for it yourself.
+That means getting a certificate authority to vouch for you in some way, typically using:
+For reason of scale, CAs don’t generally sign website certificates directly, but sign them using an intermediate certificate that is signed by a root certificate that does belong directly to the CA itself.
+Website certificates are generally known as leaf certificates, because they’re at the very end of a chain of signatures, and the chain of trust goes like this:
+This three-level system reduces the number of root certificates that browsers need to keep track of (Firefox’s own database currently [2020-07-13T12:00Z] contains just 138 root certificates.)
+It also means that if a CA devolves signing powers to numerous different offices or to business partners around the world, it doesn’t need to share its master signing key (the aptly named private key) with any of them.
+Also, if one of those offices or partners makes a blunder or goes rogue, the CA can revoke just one intermediate certificate instead of being forced to invalidate its own root certificate, which would typically cause a much bigger disruption than the “divide and conquer” approach of the leaf-intermediate-root three-level system.
+Unfortunately, Digicert was faced over the weekend with the task of revoking a whole raft of certificates – ironically because of a bureaucratic blunder that went unnoticed until now, rather than because of any sort of active attack.
+Digicert describes the problem as follows:
+DigiCert has identified an issue where some of our intermediate CAs (ICAs) were not listed as part of our most recent WebTrust EV audit.
+To explain: as part of a regular community auditing process, CAs are supposed to submit a list of subsidiaries and business partners that are authorised to sign extended validation certificates as intermediaries on the CA’s behalf.
+In other words, if any company X has an EV certifcate that is vouched for by intermediate company Y that is in turn vouched for by a trusted root CA certificate from company Z, then Z has to make sure company Y is listed whenever it submits its extended validation audit documents – in the understandable interests of transparency .
+Because Digicert just realised that it hadn’t been reliably submitting its “company Y” list, it was faced with two choices, mandated by the WebTrust EV audit specifications.
+Either…
+Or…
+Digicert opted for the latter approach to minimise disruption to browser users, though apparently it meant revoking 50,000 individual EV certificates instead of just six intermediate certificates.
+If you run a website and your certificate has been revoked, you’ll probably realise when you or any of your customers try to visit it, because you will see a security warning.
+But you may as well check the validation chain on your certificate anyway, and one easy visual way to do this is with the Firefox browser.
+Visit your own site and click the padlock icon:
+
+If you see a line that says Certificate issued to, followed by the name of your company or the company that does your web hosting, then you have an extended validation certificate. (DV certificates aren’t issued to any specific company, so this line will not appear.)
+If you have an EV certificate, click the Right arrow icon, then More Information, then View Certificate, which shows you, from left to right, the validation chain of your certificate:
+
+The middle entry at the top is the name of the issuer of the intermediate certificate, and if it is one of these six then you are affected:
+(Above you can see that the www.sophos.com site doesn’t have a root CA of Digicert, and was therefore unaffected.)
+All EV certificates signed by the above intermediate CAs have now been revoked, but any regular domain validation certificates will remain valid until they expire naturally.
+Those above six CA names will not be used to sign any more certificates at all, so if you have a revoked EV certificate that needs reissuing, it will come from one of these new intermediates instead:
+If your Digicert EV certificate is already signed by one of these three then it’s already been renewed and you are done.
+How to renew and replace revoked ceritificates is described in Digicert’s ICA Replacement knowledgebase article.
+By the way, if you’re a website visitor and you see a certificate revocation warning over the next few days, please don’t ignore and bypass the warning just because you’ve heard about a mass revocation and assume “that’ll be the reason” – just steer clear of the site until the owner reissues and replaces the certificate.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Wondered for a while, good time as any to ask:
+What qualifies a certifying authority to be trustworthy? Who certifies them as certifiable?
+e.g. I could start a business, issuing certs–ratifying the recipients just like the big boys do:
+Put “Ro4Jw!tF&mDTf0/pXko!w%’|AAB[Kt!d(j8m{$” in a text file or in your DNS zone.
+Since there are only five CAs (and not every web host doing it), I assume there’s some sort of top-tier qualification they’ve met.  Aside the obvious stuff like proving a secure infrastructure to resist compromised keys.
+PS: typo in the EV section
+there aren’t yet any CAs who will provider them for free
+Fixed the typo, thanks.
+As for becoming a publicly trusted CA (there are more than just five of them), well, there are some community guidelines to meet before it’s worth even thinking of applying to “join the club”. A good place to start is the CA/Browser Forum’s website:
+https://cabforum.org/working-groups/scwg/network-security/
+The so-called “baseline requirements” for acting as a TLS certificate CA cover a lot of ground, including the procedures neeed for accepting certificate signing requests and rewnewing certificates, the sort of physical security needed for your computer systems, the technical controls needed for handling private keys, the auditing assessments you will undergo for compliance, and a whole raft of other operational, technical and legal rules:
+https://cabforum.org/baseline-requirements-documents/
+That’s for starters. The various maintainers of widely-used CA lists, such as Mozilla, Apple, Microsoft and Google, have these plus many other requirements for you to meet. An example is Mozilla’s “Root Store Policy”:
+https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/policy/
+Of course, you can become your own CA easily by creating your own root CA certificate and adding it to your own operating system or browser CA database – for example to perform traffic interception on your own or your company’s web traffic. But please bear in mind that if anyone gets hold of your root CA private key then they can pretty much trick you into trusting any site they like. (In Firefox, where the list of root CAs is independent of your operating system, you add root CAs via Preferences > Privacy & Security > View Certificates… > Authorities > Import.
+> more than five
+Dang–sorry.  I misinterpreted “the big five.”
+Which in retrospect was pretty dumb since you didn’t say “the five.”
+I lack the technical chops to understand how a root cert can be stored on an air-gapped machine but still be used to certify the intermediates.  I’d love to take a cryptography class and learn more stuff like this.
+An “air gap” between two devices can be interepreted literally – it doesn’t mean that data cannot move between them, just that they are never interconnected via a common communication medium. So a storage medium that is writable on one device and readable on the other, but can only be plugged into one at a time, could move data between them in a fashion that is much easier to control and audit strictly than if they are connected (for example) to the same router.
+Hardware security modules (HSMs – simplified examples include some Yubikeys and most smart cards) take this one step further for cryptographic keys, for example by generating symmetric keys inside the device, but only ever allowing ciphertext in/plaintext out or plaintext in/ciphertext out. The key can’t be exported from device. Likewise, an HSM can be instructed to construct a public-private keypair, after which the only electronic interface into and out of the device allows you either to [a] export the public key or [b] sign a blob of data with the private key. Any attempt to extract the actual private key by opening up the device and trying to piggy-back onto the memory chips directly and extract their contents is supposed to destroy the device and wipe all the data in it. 
+HSM technology is what stops the FBI – or, indeed, Apple or Google – extracting the lock code from your iPhone or (recent) Google phone – the chip will confirm whether a given lock code is correct, but will only give you N guesses, and will not let you read the current lock code out, even if the device is already unlocked.
+It takes very sophisticated HSM hardware and software to accomplish this. When we build an enterprise PKI architecture we start with the root CA. We want to airgap that root from the network so it is virtually impossible to steal your root keys, essentially the keys to the kingdom. We generally do this by generating the root keys on a HSM and  also creating the quorum of smart cards that allow access to the HSM. We then build the CA on a laptop and take the Laptop, HSM and Smart Cards and lock them in a safe. Then leveraging the HSM’s security architecture we can take a quorum of cards to a rack mounted HSM and essentially transfer a hash of the root key  to the new HSM. Now it can sign on behalf of the root while the root being entirely secure.
+I envisioned a set of qualifications on the order of PCI/SAS70, boiling down to
+“Safety of the entire web could theoretically hinge on your infrastructure. Show us why trusting you won’t be a mistake.”
+While lacking details, I wasn’t far off the mark.
+Thanks for the info.  No doubt BryCert, LLC will hit it big quite soon.
+:,)
+> how a root cert can be stored on an air-gapped machine but still be used to certify the intermediates.
+AH.  I got it (bonk) I’m slow today.
+The intermediates are validated by the root in a controlled environment, removing the need for the root to live in VulnerableLand *
+* trademarked term…but feel free to steal it.
+PS: bummer… no longer a [reply] button on comments awaiting moderation…couldn’t reply to where I implied the question.
+:,(
+What you suggest is exactly what some governments have attempted to do in order to be able to MiTM traffic. Lookup Darkmatter and their attempt to become listed in the Firefox root store. And how it didn’t really matter if they were listed themselves because they were able to get cross-signed by another trusted entity. It is a pretty interesting story. Certificates (and CAs) are invaluable to the security of the Internet but there are also some major issues with the system that most users are not aware of. Comodo and DigiNotar are a could of other CAs with at best questionable pasts and security practices and also worth reading about if you are interested in the subject.
+Here are some Naked Security articles you might like about CA blunders, MiTM “decrypt-recrypt” worries, and so on. For further reading:
+https://nakedsecurity.sophos.com/2011/09/20/end-of-the-road-for-diginotar
+https://nakedsecurity.sophos.com/2013/01/08/the-turktrust-ssl-certificate-fiasco
+https://nakedsecurity.sophos.com/2013/12/09/serious-security-google-finds-fake-but-trusted-ssl-certificates
+https://nakedsecurity.sophos.com/2015/03/26/serious-security-china-internet-network-information-center
+https://nakedsecurity.sophos.com/2016/08/31/how-one-man-could-have-owned-github
+https://nakedsecurity.sophos.com/2016/09/28/mozilla-to-take-action-again-wosign
+Group census. Keeps everyone in check.
+HI Paul
+Any chance you could provide the above lua script in text format rather than as an image?
+You need a recent Lua (I used 5.4) and the luaossl library (try LuaRocks). I wrapped the code in a function here, and switched to the elliptic curve known as ‘secp384r1′ to OpenSSL, or P-384 for short. If you want an RSA key, change the argument to keypair.new to something like {type=’RSA’,bits=2048}.
+Here’s an example:
+Strange that the report we shared with the top team at Digicert on the 22nd April clearly showing 3 separate RAT’s with hundreds of impending and implied vulnerabilities was totally ignored and dismissed pre their breach two weeks later and their F status domain facing the internet is now an A!
+Equally as strange that they now come out and claim an issue on the 2nd July and revoke over 50,000 certs.
+Much easier to head an alert than ignore it I would suggest, but your guys know best.
+Are you stating that the “Salt” incident (from, what was it, May 2020?) and this tranche of certificate revocations are in fact related, and therefore that the revocations were not down to an auditing mistake after all? Or merely inviting people to make that inference on the basis of “post hoc ergo propter hoc”? The audit failure seems to be an accepted matter of public record, so the simpler explanation – namely that the two events are unrelated – seems perfectly reasonable to me.
+Ummm, what? Was that bot generated content or something that was supposed to make sense? I’m lost.
+There are two use cases for certificates: firstly encryption; and secondly domain ownership.
+In the first case, of encryption, any certificate is just as valid as any other. There will be a time when this is not true, e.g. when decryption by eavesdropping snoopers is fast enough.
+But the thing that bugs me is the browser presentation and responses to certificate use cases. Ordinary humans will struggle to decipher the rediculous messages provided by most browsers. If humans are to handle side cases, then presenting clear information that actually helps in the decision making process of ‘should I trust thus?’ – even for self signed or where the url domain does not match the San entries.
+And where certificates are used for other services like ldap and smtp, the situation is similar – with limited setup and understandable feedback when things don’t match.
+I figure that we still have a long journey before certificates can be obtained, applied and used in a straightforward way.
+Trust 100 %
+I used to use my own self-signed certificate and a local Python web server to host, temporarily, a “web site” just to allow family to upload or download files they wished to exchange with me. I would send them my cert via a PGP encrypted email and we only exchange our keys with our family. I also allowed only their IP address through iptables once they told me their current address.
+Unfortunately, urls like https://nn.nn.nn.nn/myserver are now actively discouraged by the browser. Self-signed certs and lifetimes of a year are also discouraged. I don’t want to ever use someone else’s cloud for file transfers.
+Do browsers really “discourage” URLs of the form you mention? My main browser, which is Firefox, happily accepts and tries to fetch data from any syntactially valid URL – at least, every valid URL I have tried, including ones of the form:
+https://198.51.100.42/myserver  — IPv4 dotted format
+https://3325256746/myserver     — decimal big-endian 32-bit unsigned integer format
+https://0xC633642A/myserver     — hexadecimal big-endian 32-bit unsigned integer format
+Self-signed certificates aren’t exactly “discouraged” either – in fact, they are not accepted at all by default, but your recipents can add them to their own certificate stores to trust your site explicity (which sounds more or less the way you want to go – a self-contained chain of trust).
+And certificate lifetimes of a year are not “discouraged” either – many browsers either already do, or soon will, disallow certificates valid for *longer* than a year (more precisely, a year plus a month plus a few spare days), but one-year certificates can be still be considered entirely normal and are still widely used and issued.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

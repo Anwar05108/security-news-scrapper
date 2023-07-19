@@ -1,0 +1,123 @@
+Sophos Home protects every Mac and PC in your home 
+Five years ago to the day, we wrote up our reminiscence of an infamous and globally troublesome computer pandemic from the turn of the century.
+That makes the Love Bug computer virus 20 years old today, depending on your timezone and how early in the infection chain you were.
+With apologies to The Beatles:
+(We doubt this version is one you want to sing along to the Beatles’ tune, but if you aren’t familiar with the 1960s original, you can check out the album cover and listen to it online.)
+The Love Bug virus was also known ILOVEYOU because it spewed itself out in emails with those three words, jammed together as one, in the subject line.
+Intriguingly, the author mis-spelled the variable names mail and mailad (short for mail address) in the code as male and malead.
+Whether that was simply a typo or a Freudian slip we shall probably never know:
+
+As shown above, the code used Visual Basic automation to get the Outlook program to do the email sending, retrieving every entry in your address book, both individuals and groups, and spamming out emails that looked like this:
+Then, as today, Windows suppressed file extensions by default, so few users would have seen that the innocent-looking TXT file in fact ended in .vbs and was therefore a Visual Basic Script in disguise.
+Worse still, back then Outlook would run attached scripts right way if you double-clicked on them, without warning you that you were actively launching a program that could take over your computer instead of passively opening a file to take a look at it.
+The fact that the virus would only generate its deluge of infectious spam if you had the Outlook email client installed and configured correctly didn’t really hamper its spread much back then.
+Webmail was in its infancy in 2000 and despite the popularity of Hotmail (which is now, of course, Outlook), many home users still used the Outlook program to send and receive mail via their ISP and very many companies used Outlook via a Microsoft Exchange server on their own network.
+This really was one of history’s “fast burner” virus outbreaks.
+ILOVEYOU also replicated itself across computers and networks, finding and infecting files including any existing Visual Basic files (.VBS and .VBE) as well as Javacript, various web-related files, JPEG images and MP3 files:
+
+Sadly for victims, infected files were blindy replaced with the Love Bug code, rather than being parasitically infected by having the virus inserted at the start.
+In other words, the original content could not be extracted from infected files, so the after effects of a Love Bug attack were a bit like a ransomware attack today, but with no way to restore the originals except to reload a recent backup.
+For reasons we can only imagine, infected MP3 files were marked hidden after infection, thus vanishing both literally by being overwitten and figuratively by dropping out of sight.
+The virus also tried to spread via IRC, short for Internet Relay Chat, which was far and away the most popular instant messaging system back in 2000.
+There were numerous hints in the code that implied it came from Manila in the Philippines, but given that all malware is, by definition, untrustworthy, text strings in the virus can’t blindly be believed:
+Barok, by the way, is a well-known comic book character in the Philippines; it’s also the name of a password-stealing Trojan that the Love Bug malware tried to download onto infected computers, using the curious but innocent-sounding name WIN-BUGSFIX.exe.
+In this case, the malware author seemed to have been telling the truth about his whereabouts, because a suspect was soon identified: a college student in Manila by the name of Onel de Guzman.
+He never finished his studies, bailing out of college after turning in a password stealing Trojan as an independent study project which he promoted as follows:
+ 
+The importance of this study is to help other people most especially Windows users. We all know that when we connect to the internet […] we spend a lots of money to pay the accounts for only using a couple of hours. So this program is the main solution, use it to steal and and retrieve Internet accounts of the victim’s computer.
+His lecturer did not take kindly to this, commenting “this is illegal” and noting that “we do not produce BURGLARS.”
+Apparently, de Guzman’s lecturer got one detail wrong in his reponse: de Guzman may have been a burglar as far as the spirit of the law was concerned…
+…but when it came to the letter of the law, the police couldn’t find a way to charge him under what would now probably be anti-hacking regulations or computer misuse laws.
+It seems that what he’d done wasn’t illegal on its own in the Philippines at the time – we’re assuming that prosecutors would have to have proved that he’d actually acquired passwords and abused them for financial gain, therefore establishing that he’d broken laws that didn’t relate only to what we now call cybercrime.
+The Philippines legislature quickly moved to change that, presumably fearing that without more teeth in the legal code, malware disseminators could continue to shrug their shoulders and get off.
+So de Guzman may have brought about a modernisation of cybercrime regulations in The Philippines, but he himself slipped the knot and got off scot free.
+Malware disseminators in other countries, including the UK and the US, had already been convicted by the year 2000, and had been (or soon would be) sent to prison.
+So although de Guzman’s college career came to an early end, he wasn’t convicted of a crime and didn’t end up paying a fine or going to jail.
+We’ve often wondered what became of de Guzman after the Love Bug outbreak, and now, thanks to a BBC reporter’s digging, published over the weekend, we’ve found out.
+According to reporter Geoff White, de Guzman, now 44, runs a mobile phone kiosk in a Manila shopping mall where White tracked him down recently.
+As White tells it:
+
+[De Guzman] created a title for the email attachment that would have global appeal, tempting people across the world to open it.
+“I figured out that many people want a boyfriend, they want each other, they want love, so I called it that,” [de Guzman] said.
+
+How right he was.
+The good news is that a virus outbreak coded in the style of Love Bug probably wouldn’t get very far these days.
+Firstly, Outlook and other mail client software is much more cautious about launching script files sent in as attachments, so crooks need to take extra steps to persuade you to run them.
+Secondly, far fewer users have Outlook installed, so the trivial mass-mailing code shown above wouldn’t be as effective.
+Thirdly, viruses like Love Bug spread in a complete and self-contained way so that once they reached a victim’s computer, they didn’t need always-on internet access to continue spreading.
+They also typically spread with enormous aggression whenever they got the chance, assuming – as was the rule back in 2000 – that most users went online only intermittently.
+As a result, even though they often caused short term “fast burning” global computer pandemics, they also become widely known quickly, could often be analysed with completeness and certainty once a sample was acquired, and attracted the sort of attention needed to get sysamins everywhere on the case rapidly.
+That’s the good news.
+The bad news, of course, is that today’s malware attacks don’t need to use Love Bug’s crude and aggressive spreading techniques – indeed, they don’t need to be attention-drawing worms or viruses at all.
+So a Love Bug style attack is unlikely in 2020 not only because our defences have got stronger but also because the crooks have purposefully chosen to launch and sustain more subtle attacks that don’t set off the all alarm bells at once.
+Oh, there’s more bad news.
+Windows still doesn’t show you file extensions by default, so files called LOVE-LETTER-FOR-YOU.TXT could still be just about anything, from images and videos to documents, scripts and programs.
+But you can fix that!
+Type file explorer in the search bar and launch the Windows File Explorer app; go to the View menu and check the box labelled File Name Extensions.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It was not a big deal when it happened. Nothing about the way we approached security back then is common practice today. Not sure why it is a story now.
+Anyone working in technical support in AD 2000 would probably disagree that it “was not a big deal.” As for *everything* being different in security today…
+…I’d agree that an awful lot has changed, but *everything*?
+Billion dollars has lost just to remove this bug. Just do tour research.
+Chuck, I was a junior sysadmin the day ILOVEYOU hit–my team handled our production web servers.  I was quite glad to not be working facility tech support.
+I was in the office before the Exchange server was taken offline.  My inbox contained one solitary virus message–an application developer across the facility I’d never met.  I skeptically declined to open the message.  Within five minutes, I received several more… then a dozen.  In 20 minutes I had maybe a couple hundred.
+With 2200 employees out of mail contact, the server still didn’t resurface until the next afternoon.
+I’ve not always been known for making the wisest choices, but I felt pretty smug for rejecting my one true love.
+:,)
+I was working at a large credit card company at the time. Our team did not have an issue, so perhaps you where the real junior sysadmin.
+I have had more problems the Sophos Virus protection with marking real files like word.exe and deleting it off our workstations.
+I had to wait 1 year, 4 months and 28 days for the XG V18.0 update to fix a problem that was crushed by a previous update to 17.4.
+I am currently in possession of an order of multiple RED 20 devices that I can not connect to my firewall because I need to wait for the XG V18 MR1 update.
+So if I am not happy about the crap news Sophos posts I feel justified.
+Chuck, I apologize for the delayed response (R.I.P. WordPress comment reply notifications)…
+I love (no pun intended) Sysinternals PS Tools and have lamented Sophos quarantining the handiness therein. I’m sorry about your Red Boxes yet still must wonder how they relate to ILoveYou.
+I certainly didn’t intend any aggression with my response; I know solely what I saw first-hand and what I recall reading, which was widespread infection in far more places than not.  In fact, yours is the only account I’ve ever seen describing it as “not a big deal.”
+But yes.  I whas a junior admin, mere months into his first I.T. job.
+Thanks for pointing that out.
+My prior comment didn’t specify that I didn’t admin the mail server–nor was I desktop support.  Coupled with my prudence and a little luck, my personal culpability in spreading ILoveYou was zero.  My group ran production web and application servers, which were unaffected.  It might be worth mention that the senior admin on our team did in fact open one.  That, or he sent me a love message that day which I never opened.  Ah, opportunity lost…sorry Tony.
+If your Large Credit Card Team had a proactive mechanism in place for precluding ILoveYou, congratulations.  That’s genuinely impressive–and judging by the news over the succeeding few days you guys were a rare case.  Well done, and I truly mean that.
+Or maybe you simply didn’t receive any infected emails, because no one loved you.
+Not even Tony.
+:,)
+“ILOVEYOU also replicated itself acroos computers and networks”
+Is ‘acroos’ a British thing?  BTW, where did the ability to register for reply notifications go?
+Fixed, thanks!
+As for “reply notifications”… I don’t know (because I see all the comments anyway :-) but I’ll ask.
+Any news yet?  It was very nice to get notifications of new comments on articles.
+I’m afraid that the comment notification system doesn’t exist any more, following our recent move (which ought otherwise to have been invisible to our readers :-) to a newer flavour of the WordPress.com service.
+Bummer.  I really liked that feature.  After relying on it for awhile, my replies (which were already not-overly-timely) have regressed even further.
+:,(
+As mentioned in the article, Microsoft likes to hide ‘known’ file extensions by default. I have never thought that a particularly good idea, not least because I have in the past seen half a dozen or so files with the same name but different extensions, all in the same folder.
+Has anyone ever said why it is a ‘good’ idea to hide the extension?
+I think the theory is that you don’t need to know the exact type of the file and therefore it’s just a hassle to have to remember your DOCs from your DOCXs and your PDFs from your TXTs, and anyway the extension might be wrong so why not let the operating system figure it out from the content and let the user focus on the name?
+The problem comes with files where the type (and thus how the operating system treats it – which could be dangerously) is determined by the extension, as with files such as .VBS, .JS, .PS1 and .BAT.
+That’s a nice explanation, but it’s still just a lousy excuse for a really dumb idea.
+With each new version of Windows over the years, I’ve always nuked that idiotic default first thing after installation.  And cussed at Microsoft while I did so.  Can’t imagine how it has survived for so long!
+Here’s a thought: create one of those online petitions, addressed to the powers-that-be at Microsoft, demanding that the default choice be forever changed in future releases, with a pop-up dialogue explaining the danger before allowing it to be set to hide extensions.  Then put the word out to all the cybersecurity firms and bloggers to spread the word.  Post the link to the petition on all the social media platforms and hopefully it will go viral.  Send Microsoft a clear message!
+It’s not my explanation, to be clear, it’s just what I think I’ve heard as “the reason”. The argument seems to be that extensions are to guide the computer and are an unnecessary detail for users, who might find extensions confusing or hard to remember. To me that’s a bit like saying “people are stupid”, and then setting out to make it true :-)
+Another argument for ignoring extensions – which is not the same as suppressing them from view! – is that they can be exploited to cause dangerous false *negatives*, where the extension implies it’s a safe sort of file but, when opened, the content causes it to be treated and processed unsafely.
+You can’t rely on the name *with* the extension to tell you the type of a file, so the operating system may do something unexpected (and dangerous) with it even though it looks harmless. But you can’t rely on the name *without* the extension to tell you how the operating system will deal with it. Sometimes the OS peeks inside the file to figure it out, whatever the extension says; sometimes the OS blindly uses the extension, regardless of what’s inside the file. 
+So in my book there isn’t really any such thing as “an extension” – it’s an interesting and occasionally useful part of the filename that should be shown because, combined with the directory name, it’s what uniquely identifies the file in human-readable terms.
+I think the most obvious argument against extension suppression is that MYGAME.C, MYGAME.OBJ and MYGAME.EXE are three different files, so why imply they are all called PROGRAM as though they are the same? Sure, They might not live up to their extensions, so that the .C file might be a Python script and the .EXE might be a document. But so what? They might not live up to their filename of MYGAME either, and no one is suggesting suppressing filenames!
+To me that’s a bit like saying “people are stupid”, and then setting out to make it true
+Wish I could upvote ten times for this.
+I’ve always assumed it was an aesthetics thing.  A cleaner desktop, uncluttered, more visually appealing.   I suppose it also could be rooted in “information overload” preferences, but I may be splitting hairs.
+The fewer things they know about their computer, the more intimidated they are by the magic happening inside it, so like Steve, I’ve quickly changed this with each new build, whether it’s my own machine or a rebuild for someone else.
+I get more frustrated than I care to admit by the popup confirming my update for all folders of this type.  
+This is as silly as a cardboard box somehow transforming into a plastic bin because I’ve removed books to load it with shoes instead.
+Technology (software) progress uses this marketing strategy – the lesser user know it’s better.
+It’s why we have auto-update without permission, in example.
+Oh,  I thought that the creator of the virus has been working in a good IT company.
+He was at college, it seems.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

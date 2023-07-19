@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Belgian cybersecurity researcher Polle Vanhoof just published a fascinating and well-written paper about an exploitable hole he found in the payment system used in some Nespresso prepaid coffee machines.
+That’s actually much better news than it sounds.
+Vanhoof disclosed the flaw back in September 2020; has publicly praised Nespresso in his writeup for its responsiveness in handling the issue; and waited until now to publish his article with Nespresso’s blessing:
+As we mentioned in yesterday’s article about how to handle data breaches, practising in advance how to respond promptly and honestly if things go wrong is vitally important, so we suggest that you take a leaf – or perhaps a bean – out of Nespresso’s playbook here.
+Nespresso, it seems, already has mitigations that coffee vendors can use against this hack, given that it only works against older payment cards that were defeated cryptographically more than 10 years ago.
+Nevertheless, shops that sell coffee (we are using this circumlocution to avoid the ambiguity of the Dutch word “coffeeshop”) from older Nespresso vending machines might want to read the article.
+So too should anyone who is interested in learning more about smartcard hacking, more about how to write readable and enjoyable cybersecurity articles, or both.
+Simply put, Vanhoof relied on the fact that many older Nespresso setups rely on what’s known as a stored-value wireless payment card, something that’s similar to but importantly different from a modern credit card.
+Wireless in this case means that the card uses NFC, short for Near Field Communication, the same underlying technology that’s used by credit cards, many modern door security cards and almost all passports issued in the past 10 years.
+When you wave an NFC card near an NFC reader, the electromagnetic emissions from the reader (which needs to be connected to a power supply) are enough to power up the card, because the antenna on the card is arranged in the form of a metal coil that generates electricity as it moves through a magnetic field.
+There’s just enough electrical energy left over in the powered-up NFC card to conduct a brief, wireless exchange of cryptographic data with the NFC reader.
+This means that NFC cards don’t need a battery so they can be small, flat, light and cheap.
+If you take a single-journey trip on Dutch Railways, for example, your printed, flexible, cardboard ticket actually has an NFC chip called a Mifare Ultralight sandwiched inside it.
+LEARN MORE ABOUT NFC
+Does your credit card need a tinfoil hat to keep it safe on the train?
+
+
+Stored value, in the case of the Nespresso cards, means that any credit left in the account is saved on the card itself, so that the system works on coffee machines with no internet connection.
+As you can imagine, a stored-value card needs to be tamper-proof, or else the owner of the card could keep rewriting the amount of credit left, or changing any stored expiry date or other identifying data in the chip.
+Strong cryptography can help with this, which is why modern mobile phone SIM cards and credit cards are extremely difficult – as good as impossible, in fact – to clone.
+Unfortunately, as Venhoof discovered, older Nespresso cards are based on the Mifare Classic NFC chip, which uses strong-but-not-quite-strong-enough cryptography.
+With just tiny amounts of electrical energy available for just a few milliseconds, NFC cards have to achieve a tricky balance of low power consumption with high cryptogtraphic strength, and in the Mifare Classic, this balance ended up tipped towards the attacker.
+Instead of using a well-researched and publicly documented algorithm such as AES-128, the Mifare Classic used a stripped-down, proprietary 48-bit cipher known as Crypto1.
+Crypto1 cipher diagram, courtesy of Wikipedia.If you ever have seen a diagram of AESyou will notice how much less vigorous Crypto1 seems.
+The cryptographic security of Crypto1 was demolished back in 2008 and 2009.
+Key lengths of 48 bits just aren’t really good enough these days, because 248, which is the maximum number of different keys  you can represent in 48 bits (about 300 million million), just isn’t a truly large number any more.
+Indeed, the well-known 56-bit cipher DES, which has 256 times as many possible keys as a 48-bit cipher (because 256/248 = 28 = 256), was replaced with AES way back in 2001 because 56-bit keys were already considered dangerously short by the late 1990s.
+Worse still, researchers discovered that the digitial shredding-mixing-mincing-and-liquidising performed by the fast but comparatively simple Crypto1 algorithm was inadequate even to provide 48 bits of security.
+A good encryption algorithm, regardless of its key length, should give no usable hints in its previous outputs as to what might come next, in the same way that a well-balanced roulette wheel that has turned up red 10 times in a row should be no more likely to produce red than black on the 11th, or any other, spin.
+But researchers discovered that they could make inferences about what Crypto1 would do next if they could see the encrypted data so far.
+The unequivocally named paper Dismantling MIFARE Classic, published by researchers from Radboud University in Nijmegen, The Netherlands in 2008, introduced an key-recovery hack against Crypto1 that could be completed within a second, and needed just 8MBytes of RAM to run.
+Vanhoof was able to resurrect this attack and adapt it to his Nespresso card in order both to extract the encrypted content – something that shouldn’t be possible without knowing the key up front, because the key can’t be physically read out of the card – and to rewrite the card’s contents undetectably.
+In other words, he could not only clone a card and in theory turn one €5 card into 100 €5 cards, but also turn a €5 card into a €500 one.
+As Vanhoof explains in the paper, he figured out very easily that the stored value in the card, for Dutch coffee machines at least, was a 3-byte unsigned integer representing the coffee credit left in cents.
+Three bytes is 24 bits, and the biggest integer you can fit into 24 bits is 224-1 (the -1 is there because unsigned integer values start at zero, not at one).
+That’s just over 16 million Euro cents, or more precisely, €167,772.15 – which is a lot, an awful lot, of coffee.
+Amusingly, when Vanhoof tried a modified chip (with permission!) against a vending machine, it could only show eight characters, and truncated the amount displayed to a mere €67,772.15.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The researcher in question appears to be from Belgium, not The Netherlands.
+Ooooer. I guess you are right. His contact page gives no location but he owns a dot-BE domain and, oops, his Privacy Policy says Belgium.
+Fixing now, my bad.
+I’ve updated the headline and the article, and done a bit of grovelling on both Twitter and The Facebook, where the old headline got sucked automatically into our posts. Thanks for letting me know. I have a nagging feeling my colleagues (esp. those in Benelux) are going to remind me of this mistake every time issues such as “precision”, “accuracy” and “who invented chips” comes up at work.
+So much for Belgian waffle!!
+(yeah… I know… but someone had to do it!)
+Heheh. What triggered you to think the guy is Dutch?
+I can’t tell the difference between Vlaams and Nederlands :-) Actually, for all I know he might be Dutch, or from anywhere else in the world for that matter, but he currently has a BE domain and an address near Leuven, so “Belgian” it is.
+I think I was misled by his name and the fact that the paper he wrote referred to another paper from Nijmegen. (That’s a very thin excuse, a bit like assuming I’m from France because my surname starts with “du” and my CV mentions that I have given talks in Paris. But it’s the only excuse I’ve got.)
+I had to look up Dutch word “coffeeshop” to see the disambiguation.
+They couldn’t just call them potshops?
+Cannabis (which is what Dutch coffeeshops sell) is not actually legal in The Netherlands so I guess the name is a sort of legalistic euphemism… in the same way, during the years of alcohol prohibition in the US, that Long Island Iced Tea did not contain tea.
+I’m always skeptical about appliance manufacturers that attempt to add WiFi access to their devices.
+I barely trust the technology companies to get it right.
+To be clear, the wireless technology in this case his NFC, not Wi-Fi…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

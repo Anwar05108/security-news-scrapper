@@ -1,0 +1,70 @@
+Sophos Home protects every Mac and PC in your home 
+Are you part of the Maker scene?
+If so, you probably have your very own 3D printer (or, depending on how keen you are, several 3D printers) stashed in your garage, shed, basement, attic or local makerspace.
+Unlike an old-school 2D plotter than can move its printing mechanism side-to-side and top-to-bottom in order to skim across a horizontal surface, a 3D printer can move its print head vertically as well.
+To print on a surface, a 2D plotter usually uses some sort of pen that releases ink as the print head moves in the (X,Y) plane.
+A 3D printer, however, can be instructed to emit a stream of liquid filament from its print head as it moves in (X,Y,Z) space.
+In hobbyist printers, this filament is usually a spool of fine polymer cord that’s melted by a heating element as it passes through the head, so that it emerges like gloopy plastic dental floss. 
+If emitted close enough to a part of the output that’s already been printed, the melted floss gloms onto the existing plastic, hardens, and ultimately forms a complete model, like this (but a lot more slowly):
+As you can imagine, there’s a lot that can go wrong when printing a model in this way, notably if the fine stream of molten gloop doesn’t emerge near an existing surface onto which it can stick and solidify.
+If the model becomes poorly balanced and falls over; if the print head gets out of alignment; if the polymer is not quite hot enough to stick, or is too hot to harden in time; if there’s even a tiny mistake in any of the (X,Y,Z) co-ordinates in the print job; if an already-printed part of the model buckles out of shape or warps slightly; if the print nozzle suffers a temporary blockage…
+…then you can end up with the print head spewing out a detached swirl of unattached plastic thread, like a giant toothpaste tube that’s been squeezed, and squeezed, and squeezed.
+And once your 3D printer has got itself into the squeeze-and-squeeze-the-toothpaste-tube state, it will almost certainly keep on squishing out disconnected strands of plastic floss, with nothing to adhere to, until the filament runs out, the printer overheats, or you spot the problem and hit the [Cancel] button.
+This produces what makerpeople refer to as a spaghetti monster, as this Reddit poster reveals in a plea for help entitled What makes spaghetti happen?, complete with a picture of one that got away:
+The problem with most 3D print jobs is that they don’t take minutes, they take hours, perhaps even days, so it’s difficult to keep an eye on them all the time.
+Many hobbyists rig up up webcams that they can connect to remotely, so that they can intermittently check up on running print jobs while they’re out and about running other jobs such as shopping and going to work, which gives them a chance to shut down a failed job without using up a whole spool of filament first.
+But even with remote access enabled, you can’t keep watch all the time, especially if you’re sleeping while an overnight job completes.
+Enter The Spaghetti Detective (TSD), an open source toolkit that uses automated image recognition techniques to detect the appearance of “spaghetti” in or around a running print job so that it can warn you or shut down the job automatically.
+Alternatively, if you don’t want the hassle of setting up a working TSD server of your own (there’s quite a lot of work involved, and you’ll probably need a spare computer) then the creator of TSD, Kenneth Jiang, offers a cloud-based version that’s free for occasional use, or $48 a year if you want 50 hours of online webcam monitoring a month that you can use to detect spaghettified jobs automatically.
+Jiang himself say that he identifies as a hacker, not a coder, and admits that this which means he favours “getting features built fast”, as well as being “sloppy about coding styles” and “terrible at algorithm questions”.
+Well, those comments came back to bite him late last week when he made some modifications to the TSD cloud code and inadvertently opened up printers on private networks, such as a home Wi-Fi setup, to the internet at large.
+As one Reddit user dramatically claimed (the original post has since been deleted for undisclosed reasons): [Woke] up this morning and [saw] this on my 3D printer, with a picture allegedly showing a job kicked off by someone they didn’t know, from a location they couldn’t determined:
+The good news is that Jiang has now fixed the problem he mistakenly created, written up a full mea culpa article to describe what happened, and thereby retained the goodwill of many, if not most, of the makerpeople that find his service useful:
+I made a stupid mistake last night when I re-configured TSD cloud to make it more efficient and run faster. My mistake created a security vulnerability for about 8 hours. The users who happened to be linking a printer at that time were able to see each other’s printer through auto-discovery, and were able to link to them too! We were notified of a case in which a user started a print on someone else’s printer. […] My sincere apologies to our community for this horrible mistake.
+(If you’re looking for lessons to learn from this response, take note that Jiang didn’t start with the dreaded words, “We take your security seriously”; he didn’t excuse himself by saying, “At least credit cards numbers weren’t affected”; and he didn’t downplay the bug because it only lasted eight hours and apparently affected fewer than 100 people.)
+The bad news is that although the immediate bug is fixed, the underlying system for deciding what devices are supposed to be able to discover which printers is still fundamentally flawed.
+Jiang, it transpires, was permitting two devices to “discover” each other automatically based on whether they showed up on the internet with the same IP number, as they typically would if they were on the same private network behind the same home router.
+That’s because most home routers, and many business firewalls, too, implement a feature called NAT, short for Network Address Translation, whereby outbound traffic from any internal device is rewritten so that it appears to have come directly from the router.
+The replies, therefore, officially terminate at the router, which then rewrites the incoming traffic for the true recipient, and forwards it inwards to the originator.
+This process is necessary (and, indeed, has been used since the 1990s) because there are fewer than 4 billion regular (IPv4) network numbers to go around, but far more than 4 billion devices that want to get online these days.
+NAT allows entire networks, whether they consist of 5, 555 or 5555 different devices, to get by with just one internet-facing network number, and permits ISPs to reallocate network numbers on demand, instead of allocating them permanently to individual customers, where they might neither be needed or even used.
+The bug that opened up Jiang’s TSD cloud so that anyone could discover everyone was caused by the fact that he accidentally started supplying the IP number of one of his own servers, a load balancer through which he passed all incoming traffic, as the “source IP address” of every incoming connection.
+Loosely speaking, he turned the load balancer into a second layer of NAT, so that everyone seemed to be connected to the same public network, thus making all the connected devices seem to belong to the same person.
+Unfortunately, reverting the misconfiguration that caused this bug has only papered over the problem, for the simple reason that IP numbers aren’t suitable for identification and authentication.
+Firstly, two devices with different IP numbers may very well be on the same physical network, as all devices were in the early days of the internet, back before NAT became necessary.
+Secondly, two devices with the same IP number may very well be on different networks, for example if an ISP applies a second level of NAT in order to group different customers together and therefore to reduce the quantity of public IP numbers they need.
+Likewise. if several companies in a shared building decide to pool their funds and share a firewall and high-speed internet connection, thus effectively letting the building act as an ISP, they may end up with the same public IP number, even though the individual devices are on independent networks operated by different businesses.
+Jiang, in the meantime, says he’s looking to replace the current TSD auto-discover system with one that’s more precise and presumably also more secure, so if you’re a TSD user, keep an eye on his website to see how that project is getting along.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+from Kenneth Jiang’s post:
+I don’t want to sugar-coat this. This is a serious security vulnerability. I created The Spaghetti Detective to let all 3D printing hobbyists have a way to safely monitor their printers from everywhere. This is the one of the worst mistakes I can make.
+I’ve not used a 3D printer; it’s never interested me beyond marveling at the intricate, fanciful, and stunning creations some folks have brought to life through their diligent, expressive efforts.
+However, reading his response makes me want to partake, simply to support someone who understands and embraces true accountability, and I love his closing comment:
+“people are basically good.”  .
+The Naked Security blog is highly useful and has helped me lots of times…but it often brings news that’s not exactly a pick-me-up, and it can become easy to forget how a bit of gratitude can go a long way.
+This was a great detour and reminder of that. Thanks for posting Duck!
+Thanks. I’m glad you enjoyed the tale.
+I thought it was worth highlighting that cybersecurity mistakes are easy to make – and that the underlying flaw here (poor coding of the autodetect functionality) was masked until a much more obvious bug showed up and revealed it. Happily, Jiang has taken criticism of his casual IP-based approach well, and says he’s getting to grips with fixing it right away.
+But I also thought, as you suggest, that the good news part of this story was worth telling too, namely that it’s possible to introduce a bug, fix it and write up a decent breach report without resorting to the sort of weaselwordiness that I mentioned in the article. 
+BTW, this piece, from my former colleague Mark Stockley, should be mandatory reading for everyone who works in PR, product management or marketing at any company that collects personal information or has any online services (which is pretty much everyone these days):
+https://nakedsecurity.sophos.com/2015/10/09/what-you-sound-like-after-a-data-breach/
+Although it’s now nearly six years old, it still feels worryingly current… prescient, even :-)
+I use Spaghetti Detective on my printer and it has saved by bacon in the past.  Even if he wasn’t as forthcoming (which I really appreciate), I would still have to use it because it’s the best thing going.  After receiving his apology letter, I am even more glad I subscribed.
+He won’t lose this customer.
+Reminds me of a plot from a Charles Stross novel. Except the pwned printers weren’t printing anything as innocuous as this! 🙂
+I also have a 3D printer, and investigated using Octoprint for monitoring. The install guide for octoprint has a number of BIG RED WARNINGS about how it is a VERY BAD IDEA to connect your octoprint server to the internet. They go on to say that you should definitely not trust the password authentication on octoprint itself as it might have bugs, and if you insist on accessing it over the internet you should do so via a VPN, or at the very least with a proxy in front of it to do authentication and restrict IP addresses.
+In their words: “A physical device that includes heaters and stepper motors really should not be publicly reachable by everyone with an internet connection, even with access control enabled.” – In other words a miscreant could easily damage your printer or even start a fire that would burn down your house.
+In the end I never installed Octoprint. The whole thing is configured to work well on a Raspberry Pi via a pre-built image, but the tangled web of poorly documented dependences makes it very difficult on any other type of Linux computer. In any case, like most software engineers I am working from home these days, so I can check my printer in person whenever I want.
+Even [especially?!] at 3am :-)
+“turned the load balancer into a second later of NAT” – second layer?
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

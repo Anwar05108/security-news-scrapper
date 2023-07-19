@@ -1,0 +1,48 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers have uncovered the biggest connected-TV (CTV) ad fraud operation they’ve ever seen, fueled with fake ad views seen by bogus eyeballs that actually belonged to a bot network they named ICEBUCKET.
+Bot-mitigation security firm White Ops said on Thursday that at its peak – January 2020 – the ICEBUCKET bot operation impersonated more than 2 million people in over 30 countries.
+ICEBUCKET also cooked up 300 publishers out of thin air, then stole advertising dollars by tricking advertisers into thinking there were real people on the other side of the screen. Those were no humans: they were all bots, working to exploit the limited transparency of what’s known as the server-side ad insertion (SSAI) platform for measuring video ad impressions.
+With SSAI, ads are stitched into the fabric of video content so there are no delays or hiccups caused by launching an ad player. It’s commonly used for advertising on several edge devices, such as CTVs, smart phones, gaming consoles and set-top boxes like Roku.
+Besides the reduction in latency, advertisers benefit from the ability to target-market. Like plenty of Internet of Things (IoT) gadgets, TV streamed through the internet brings the ability to discern quite a lot about who’s viewing it, enabling advertisers to target exactly the type of viewer they think is likely to buy whatever it is they’re selling.
+But as White Ops tells it, SSAI is still in its infancy. The firm can see the fraudsters as they discover holes in the system and worm their way through. In the case of ICEBUCKET, they’ve done it by spoofing edge devices to make them look like SSAI services.
+They’re sending out ad requests from data centers for those spoofed edge devices. Requests coming from data centers aren’t remarkable: that’s how real SSAI providers do it. But rather than show ads to live humans, the fraudsters are simply calling the reporting APIs to indicate that the ad has been “shown”.
+There’s not a lot of information available to advertisers in an SSAI environment. It’s often limited to the device user-agent and IP address. Falsifying information in the HTTP headers is “relatively simple,” White Ops says. But what makes ICEBUCKET a sophisticated bot attack is the nuance of how it’s faking those headers.
+The end result: advertisers are paying good money for humans to view their ads – and, mind you, those are pricey ads to buy, given that targeted marketing going to very specific demographics of humans fetches premium ad dollars – but they’re actually playing to home theaters devoid of actual audiences, White Ops says:
+The ads that are ‘served’ either never see the light of day or are never viewed by a human. An audience of sophisticated bots is really just an empty audience.
+Using custom code and including standard HTTP headers, ICEBUCKET presented its traffic as coming from a legitimate SSAI provider for a variety of devices and apps. ICEBUCKET assembled requests for ads to be inserted into video content for viewers using CTV and mobile devices, but none of those devices or viewers actually exist. The operation largely used obsolete devices to pose as user-agents: ones that aren’t used much anymore or that never even existed in the first place.
+White Ops says that the IP addresses look to have been algorithmically generated to mimic desirable audiences – in other words, the audiences that advertisers pay top dollar to target ads at.
+White Ops says that ICEBUCKET is the biggest SSAI spoofing operation that’s ever been discovered. Near its peak in January, it accounted for nearly 28% of all programmatic CTV traffic that the firm could see. That translates to around 1.9 billion ad requests per day for the month of January, just from this one botnet.
+Most of the programmatic traffic the firm saw going through the SSAI platform – 66% – was coming from the scheme, while 15% of the mobile ad programming came from ICEBUCKET. Besides mobile devices, the botnet was also working through set-top devices including Roku.
+At 46%, Roku was the top device spoofed by ICEBUCKET. Others included Samsung Tizen Smart TV, Google TV (which Google discontinued in 2014) and Android. Roku, for one, confirmed that the impressions were spoofed. After White Ops informed the company about the scheme, Roku checked its internal systems and found that it wasn’t showing any ICEBUCKET activity at all on its platform.
+What makes ICEBUCKET unique – and difficult to stop – is that some of its traffic is being generated to benefit app publishers. In some cases, White Ops has seen publishers mix organic and ICEBUCKET traffic. Why? The firm has two hunches: it could be a way to hide the operation by creating obfuscating noise that makes it tough to identify the bogus traffic, with a subset of traffic not benefitting the operation directly, or it could point to fraud-as-a-service.
+If it is fraud-as-a-service, the botnet operators are getting paid to generate traffic on behalf of the app publishers. The mix of fraudulent plus legit activity not only makes it harder to detect; it also generates more money for the scheme.
+It could be that both of those options are in play, depending on what subset of the traffic you’re looking at. But while White Ops can’t conclusively determine what the point is of the mixed traffic, it knows one thing for sure: this operation is still going strong.
+ICEBUCKET is an ongoing operation. The volumes shown in [our illustrations] have not gone down to zero. The fraudsters are still out there, but we are able to execute our bot mitigation and bot prevention techniques to detect them and protect against their attacks; we’re disclosing this discovery now so others can do the same.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I don’t really understand these types of attacks. How does this benefit the attacker? If they are “spoofing” views to the ad, is it the advertiser who is benefiting? That doesn’t make much sense so I would assume it is the one who the advertiser is paying to host their ads. In this case that would be the platform the attacker is “spoofing”? But then the platform would benefit and not the attacker. How is this working?
+Advertisers pay app developers to insert the add code within video, they pay a small amount for each ad viewed. The advertisers are paying these fake “app developers” for viewed ads. These bots imitate legitimate ad traffic within apps on devices, generating income for the fake app developers for ads that were never actually viewed. Basically, the Advertisers end up paying for a service they aren’t actually getting. Given how intrusive ads have become these days, I’m not entirely heartbroken they are getting scammed, and some may say they even deserve it.
+“White Ops says that the IP addresses look to have been algorithmically generated to mimic desirable audiences – in other words, the audiences that advertisers pay top dollar to target ads at.”
+How does an IP address indicate a desirable audience?
+Perhaps by geolocation?
+Not surprising really.
+I worked with a guy in the late 1990’s who would walk home at lunchtime to check on his PC which was running a script to visit a catalog of web pages and generate clicks on as many of the ads as possible.
+Of course, he was signed up to a pay-per-click advertising survey service.
+Icebucket is just the same concept “on steroids”. Not that I agree with the practice, then or now.
+Raises a question though…. how many of the advertisers being ripped off are themselves breaching the privacy of their viewers via their data collection and retention practices?
+Exactly! Which is why I don’t feel bad for them one bit.
+Thieves defrauding spies…
+Here’s one to the heroes fighting against forced tracking and you-as-a-product! 🍻
+So in other words, someone found a way to trick those intrusive ads (that are invading our privacy in order to target us) into thinking that these ads are actually being watched by humans?
+I love it! Keep up the good work hackers.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

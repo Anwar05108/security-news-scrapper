@@ -1,0 +1,88 @@
+Sophos Home protects every Mac and PC in your home 
+Thanks to Craig Jones, Director of Information Security at Sophos, and the Sophos Security Teamfor their behind-the-scenes work on this article.
+If you’re a Google Android user, you may have been pestered over the past week by popup notifications that you didn’t expect and certainly didn’t want.
+The first mainstream victim seems to have been Google’s own Hangouts app.
+Users all over the world, and therefore at all times of day (many users complained of being woken up unnecessarily), received spammy looking messages like this:
+
+The messages didn’t contain any suggested links or demand any action from the recipient, so there was no obvious cybercriminal intent.
+Indeed, the messages did indeed look like some sort of test – but by whom, and for what purpose?
+The four exclamation points suggested someone of a hackerish persuasion – perhaps some sort of overcooked “proof of concept” (PoC) aimed at making a point, sent out by someone who lacked the social grace or the legalistic sensitivity of knowing when to stop.
+Attention soon landed on an article published about two weeks ago by a cybersecurity researcher going by “Abss”, who claimed to have made more than $30,000 in bug bounties by identifying Android apps that had been careless with their popup notification keys.
+(Just to be clear here: we’re not for a moment suggesting that Abss had anything to do with sending out this week’s rash of annoying messages.)
+Abss noticed that many mainstream Android apps use a notification interface provided by Google known as FCM, short for Firebase Cloud Messaging, formerly Google Cloud Messaging, formerly Android Cloud to Device Messaging.
+He wondered, as cybersecurity bounty hunters are wont to do, just how secure the authentication between each of these apps and the FCM backend might be.
+After all, as Abss himself points out, a malicious attacker with the FCM authentication code for a particular service wouldn’t just be able to send rogue messages from an installed copy of the app.
+Much worse, they might be able to send one rogue message to the FCM system and have it delivered as a phone popup notification to every single user of that app:
+These notifications could contain anything the attacker wants including graphic/disturbing images(via the “image”: “url-to-image” attribute) accompanied with any demeaning or politically inclined message in the notification!
+Abss discovered that it was possible to extract usable FCM authentication tokens from many mainstream apps by using debugging tools that monitor apps as they run and record the data that they use – such as arguments to function calls – at critical points in the code.
+This gave him a starting point for getting rogue notifications into the system.
+Next, Abss found a way to deliver rogue messages by making a specific sort of HTTP request to the FCM service interface, but it was based on what FCM calls topics.
+As he explains in his article:
+Topics are server side attributes that define a collection. For example, an application could define a topic called “news” and group users interested in the news category so as to send them similar notifications at once instead of sending notifications to every individual separately.
+At first, he figured that an attacker would need to guess at the names of topics that the users of a particular app had signed up for, which would first mean figuring out the list of topics that each app offered.
+Ultimately, and rather amusingly, however, he soon discovered that FCM allows a notification to be tagged for delivery to users who are interested in various combinations of topics, and this meant he could easily find a topic specifier that covered all users of any app.
+His trick involves delivering messages to everyone who isn’t interested in a particular topic, given that it’s much easier to guess the name of something that the average person doesn’t care about than to figure out specific items in which they have a particular interest.
+FCM’s messaging interface allows users to combine topics of interest in a variety of different ways, using boolean logic.
+For example, a food delivery service that wanted to send a notification relating to two topics, say “vegetarian” and “pizza”, wouldn’t need to trigger two separate notifications, which would result in people interested in both topics getting two messages.
+Instead, they could combine two topics into one notification by specifying an expression denoting topic = vegetarian OR topic = pizza.
+Of course, as any programmer will know, where there is OR there is also usually AND.
+Indeed, the food company could choose to target only pizza lovers who were also vegetarians with an expression along the lines of topic = vegetarian AND topic = pizza, thus limiting rather than widening the number of recipients.
+You can guess where this is going.
+Imagine that the food delivery company wanted to notify its users of a brand new meat lovers’ pizza, but didn’t want waste the time of any vegetarian subscribers, who would have no interest in such a product and might even be irritated to have it talked up to them.
+For that sort of situation, FCM allows logical expressions that denote conditions such as topic = pizza AND (topic NOT vegetarian), thus first including all pizza lovers but then removing all those who are also vegetarians from the list.
+With this sort of flexibility, Abss realised that he didn’t need to guess at a topic that existed for a specific app and that most users would be interested in.
+All he had to do was guess at a topic that did not exist (pretty much any random string of text garbage would do – he didn’t even need a real word) and ask FCM to deliver a notification to everyone who was NOT subscribed to his non-existent topic.
+(This works because NOT NO ONE is equivalent to EVERYONE, or in boolean logic terms, NOT FALSE is TRUE.)
+As we mentioned above, Abss had nothing at all to do with the annoying Hangouts messages described above – he just discovered the means by which an app could inadvertently leave itself exposed to misuse.
+The best guess is that someone who had read his article, and who figured that a job worth doing was worth overdoing, decided to “prove” a point that didn’t need making.
+Google seemed to get on top of the rogue messages fairly quickly, presumably by updating its app, changing its FCM authentication keys, or both.
+Next it was Microsoft’s turn to get hammered, with Teams users on Android receiving messages with four exclamation points:
+
+Microsoft quickly started investigating the problem, which only seemed to spur the troublemakers on to deliver yet another wave of bogus messages (note the grammatical and spelling mistakes):
+
+Microsoft does now seem to have fixed the issue – and, no, the company didn’t send out yet another notification via Teams to announce the fix.
+It did, however, take to Twitter for that purpose:
+We've isolated the source of the issue and applied a mitigation. We've confirmed that no further unexpected notifications are being sent to users' Android devices. Additional details can be found in the admin center under TM221041.
+If you make or support an app that uses FCM, you need to review who might have access to your authentication tokens.
+If they’ve been exposed in any way, you will need to delete your old server keys and create new ones – in the same way that you change account passwords after a data breach or switch the door locks when you move into a new house.
+Advice on how to do this can be found in Abss’s article.
+By the way, this advice applies to any API keys for any applications or services you provide, as well as to access codes and passwords for any online portals that you use, all the way from RDP and SSH to your blogging site and your web content management system.
+Be especially careful that you don’t accidentally upload authentication keys or codes along with your source code to online services such as GitHub.
+This is especially important if you are responsible for any open source software.
+You will regularly need to upload your latest source code, which is meant to be public, and it’s easy to include private data at the same time that just happens to be mixed in with the public files in your local repository.
+Remember: if in doubt, don’t give it out!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+So does that mean this article is spam due to the spelling errors? 😉
+That’s amusing… though it would be a bit more useful if you were to say what you found so I can fix them. (Finding your own typos is surprisingly hard!)
+In the first mention of the writer, where it is placed in quotes, the name is spelled “Abbs” with two “B”s and one “S”. In later reference, it is spelled “Abss”, with one “B” and two “S”s.
+It’s Abss. I’ll fix the inconsistency, thanks.
+“A job worth doing
+As we mentioned above, Abbs had “
+Got that one now, too, thanks!
+Only because you asked, and the original commenter hasn’t yet responded:
+ argmuents
+ notifcation
+That’s all I spotted… big deal! Although it must be at least a tad embarassing to realize that you added THIS parenthetical remark regarding the Teams notification:
+ (note the grammatical and spelling mistakes)
+…AFTER making the same misspelling yourself earlier on! All in good fun; I always love your articles in spite of the typos, etc.
+Fixed, thanks.
+third paragraph from last reads “Be especially careful rhat you don’t accidentally upload authentication keys or codes along with your source code to online services such as GitHub.”
+I thing “rhat” should be “that”
+Me too. Fixing it, thanks!
+“as cybersecurity bounty hunters are wont to do”
+I believe there is something a tad wrong with this sentence, otherwise great article!
+Thanks! 
+PS. I can’t see anything wrong with that phrase – “wont to do” (not “won’t do”). It’s a pretty common word in Germanic languages denoting that you’re accustomed to something. For comparison I think it’s the same word as “gewend” in Dutch, “gewoond” in Afrikaans or “gewohnt” in German, except that we no longer use “ge-” for the past tense and we now pronounce W more like the double-U we call it than the letter V that precedes it in the alphabet. “Wont == accustomed” is unexceptionable usage, isn’t it? Goes right back to Saxon times AFAIK.
+This appears to be back, affecting older unsupported phones. Fake Meta notifications that switch on the device’s location.
+Notifications are just popup messages, and that’s what this article was about – unwanted test messages, in fact.
+You seem to be describing a very different sort of issue – some sort of attack or exploit that can illegally turn on the location setting it it‘s off. You’ll need to provide more evidence and information to go on, because what you mention here doesn’t seem to be the same thing that’s “come back” at all…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

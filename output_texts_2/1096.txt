@@ -1,0 +1,82 @@
+Sophos Home protects every Mac and PC in your home 
+Ransomware gets the big headlines, because of the enormous blackmail demands that typically arrive at the end of ransomware attacks.
+Indeed, the word “ransom” only expresses half the drama these days, because modern ransomware attacks usually involve the crooks making copies of all your data first before scrambling it.
+The crooks then demand a combination payout, part ransom and part hush-money.
+You’re not only paying to get the local copies of your data unscrambled, but also paying for a promise from the crooks that they’ll delete all the data they just stole instead of releasing it to the public.
+But what about the very start of a ransomware attack?
+Technically, that’s often a lot more interesting – and often more important, too, given that many ransomware attacks are merely the final blow to your network at the end of what may well have been an extended attack lasting days, weeks or even months.
+Given the danger that arises as soon as the crooks sneak into your network, it’s as important to learn how malware gets delivered in the first place as it is to know what happens to your files when ransomware finally scrambles them.
+With this in mind, SophosLabs has just published an intriguing report on a malware delivery ecosystem dubbed Gootloader.
+You may have heard reference to Gootkit, a name given to the malware family of which Gootloader forms a part, because it’s been around for several years already.
+But SophosLabs decided to give the initial delivery mechanism a name of its own and study it in its own right:
+The Gootkit malware family has been around more than half a decade – a mature Trojan with functionality centered around banking credential theft. In recent years, almost as much effort has gone into improvement of its delivery method as has gone into the NodeJS-based malware itself.
+In the past, Sophos and other security experts have bundled the discussion of the malware itself with analysis of the delivery mechanism, but as this method has been adopted to deliver a wider range of malicious code, we assert that this mechanism deserves scrutiny (and its own name), distinct from its payload, which is why we’ve decided to call it Gootloader.
+The report goes into the sort of detail that is well worth knowing if you’re interested in how modern malware embeds and extends itself inside a network, including a discussion of so-called “fileless” attacks.
+
+The term fileless attack is a bit of a misnomer, because “fileless” malware often involves at least one physical file to get the malware started, and may also rely on various intermediate files along the way. But fileless malware is entirely unlike regular software in the way it operates. Well-behaved software typically installs its executable code into a self-contained directory on your hard disk, uses the registry to save its configuration settings, and relies on the operating system to load its various software modules into memory and keep them under control. Fileless malware flouts these conventions (ironically, it often uses the registry as a sneaky place to store obfuscated versions of its executable code), loading its malware code directly into memory in order to bypass the regular tools that sysadmins use to monitor the system for unexpected and unwanted processes.
+Even if you aren’t an assembly language expert or a malware analyst, the SophosLabs paper is well worth reading for its description of how the Gootloader criminals lure well-meaning users into installing the Gootloader malware in the first place.
+Simply put, the crooks game Google’s search engine, tricking Google into treating hacked websites as trustworthy sources, and presenting innocent users with apparently “perfect matches” to their search queries. 
+(As far as we can tell, this gang has focused its effort on poisoning Google searches, but the tricks below could be used against other search engines, too.)
+The report explains the process in detail, but we’ll summarise it here:
+SophosLabs has encountered Gootloader’s fake message board pages in a variety of different languages, including English, German, French and Korean, with different campaigns targeted at different regions.
+Here’s an English-language example from the paper, where the unfortunate visitor had searched for information along the lines of intercompany settlement agreement (chart) alberta:
+As you can see, the search term doesn’t fit very naturally into the boilerplate text used by the Gootloader crooks, but it looks realistic enough at a glance.
+The vote of thanks from the “happy user”, together with the fact that the datestamps are recent, gives the content a veneer of believability.
+The title of the “message board” web page that’s presented, the download link that shows up, and the name of the file offered for download, are all constructed from the search phrase in order to make the fake page seem like a perfect fit for the query.
+Note that although the hacked site displays the malicious download link, the link itself points off to a different download server.
+We’re assuming that the crooks are using this two-stage approach so that the Gootloader malware files themselves don’t show up on the hacked site, which helps the hacked site to keep a clean reputation for a lot longer than it otherwise might.
+To tell Windows to show file extensions, go to File Explorer, click on the View item in the menu bar and then turn on the option File name extensions. If the Explorer window is narrow you may need to open the Show/hide tab first.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What about MacOS? The talk above was about Windows.
+I’m not aware of any Gootkit/Gootloader malware that targets macOS (or xBSD, Linux, etc.), so in this case the advice was entirely focused on Windows. 
+Having said that, my ‘show file extensions’ advice is generally relevant for macOS users too, so here’s how to do it:
+* Open Finder.
+* Go to Finder > Preferences (or hit WackyKey+Comma).
+* Select the Advanced tab.
+* Make sure ‘Show all filename extensions’ is turned on.
+Why that is considered an advanced option I don’t know, but it is :-)
+While we are here, another setting I recommend checking on your Mac is:
+* Open Safari
+* Go to Safari > Preferences (or hit WackyKey+Comma).
+* Select the General tab.
+* Make sure that ‘Open “safe” files after downloading’ is turned off.
+The fact that the word “safe” appears in double-quotes right there in the Preferences dialog seems to be reason enough on its own not to use this “feature” (my own air quotes this time)!
+HtH.
+I am sorry but I don’t understand this phrase 
+“The deeply devious part of this, of course, is that the crooks don’t need to guess in advance what search text a hapless visitor is going to type into Google.”
+I am confused.
+As an SEO person, didn’t Google scrub the actual search text from their referrer data? This has been a huge issue, not being able to get the actual search text any longer from a Google hit.  So how can that be true and your statement that the crooks don’t need to guess in advance the search text? It seems that for this to work, the crooks DO have to guess the exact phrase.  A new industry has sprung up to try to get the “not provided” keyword data back. How to the crooks get it?
+Ah, I think I need to rewrite that bit – the crooks are indeed relying on specific phrases up front because IIRC the URL slug is constructed from the search text.
+I wrote “the name of the web page”, meaning the text in the URL, and of course that is set in stone when the search engine comes crawling, so even if the crooks do have a cunning plan to get the search term by other means , they aren’t using it here because they are of necessity locking together the term and the slug at the start.
+Updating now!
+(Thanks a lot for the comment.  Article now updated [2021-03-02T20:20Z].)
+Also change the file association for .js files to open with Notepad, so you can’t accidentally run them.
+Yes, that’s a useful trick, given that you almost certainly never need to run JavaScript programs by double-clicking on them. (Setting .JS files to open with NOTEPAD doesn’t stop you launching JavaScript files from the command line, just from firing them up by mistake.)
+Here’s the way I know, assuming you have a .JS file handy (you can create an empty one on the desktop for the duration of the process below if you want):
+* Right click on an existing .JS file.
+* Choose the ‘Open with >’ option.
+* Click ‘Choose another app’.
+* Turn on ‘Always use this app to open .js files’.
+* Choose Notepad (or any other editor you like).
+If you can’t find an app to your liking in the menu, choose ‘More apps’ and scroll down to the end of the list to reveal the ‘Look for another app on this PC’ option. With this you will get a file chooser dialog that lets you pick any opener program you like. 
+To restore double-click-to-run functionality, use the ‘Open with’ option to go back to the app ‘Microsoft Windows Based Script Host’ as the opener for .JS files.
+you have another spelling mistake:
+… harmless but turn malicious in memory after running, apparently —  inncocently,  —for a while.
+Fixed, thanks.
+I’ve reported poisoned results to Google a few times after encountering this myself.  The pages I encountered were more like blog posts than interactive forums.  Less sophisticated, but it was a similar sort of garbage with an identical intent:
+Sometimes Windows can suffer from QuickBooks Enterprise crashing error -6808 errors.
+If you have trouble with QuickBooks Enterprise crashing error -6808 errors, we’ll suggest here that you run a couple benign commands in a terminal which will do nothing but heighten fears your computer is irreparably broken.  After that doesn’t help, you should download our FREE tool to fix QuickBooks Enterprise crashing error -6808errors.
+Curious, I checked the download by hovering the link (.exe files won’t much help my Linux box), and playing a bit with the URL I was able to get the site to feed me another page, identical except the specific error was different.  The download link didn’t dynamically change however, always the same RepairTool.exe or similar.
+Felt a bit smug to discover the crooks’ sloppy implementation, but I knew it could trick a non-technical user, so I hope reporting helped de-rank the infected servers.
+Inever heard back from Google.  Probably because they were already focused on a polyp in my colon they still haven’t yet notified me of–but my health insurance company will unquestioningly raise my rates in 5… 4… 3…
+I don’t use Google anymore (Ecosia, FTW), but I’d expect most/all search engines can be vulnerable to this practice.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

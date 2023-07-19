@@ -1,0 +1,114 @@
+Sophos Home protects every Mac and PC in your home 
+Note. This article is not a “howto” list of tricks for skipping any of the steps in Signal’s official account setup process, such as deliberately bypassing the part where you have to put in a phone number.(In fact, as this article explains below, you can’t. [2021-02-14T22:00Z].)
+Signal is a popular instant messaging (IM) app with a difference.
+That difference – or at least its major difference – is simple: it’s not owned and operated by an industry behemoth.
+WhatsApp belongs to Facebook, Skype is part of Microsoft, and iMessage is owned by Apple, but the open-source app Signal belongs, inasmuch as it belongs to anyone, to Signal.
+Signal is a US-registered non-profit organisation that was founded entirely around making and supporting the messaging app.
+As a result, Signal’s big selling point is, well, that it isn’t selling anything.
+Sharing information about you with third parties isn’t part of Signal’s business model, so there’s actually no point in it figuring out how to do so…
+…which means that there’s a much more compelling reason to believe the organisation when it claims to have an unbending focus on end-to-end encryption.
+Signal not only has no desire, but also has no need, to take any interest in what you’re saying, or whom you’re saying it to.
+Signal is also endorsed by a privacy celebrity that other IM service providers can’t match, namely Edward Snowden.
+Snowden is quoted on Signal’s website with the five simple words, “I use Signal every day.”
+(With apologies to well-known cryptographers Bruce Schneier and Matt Green, who are two of Signal’s other celebrity endorsers.)
+Signal, however, has one curious aspect that puts some people off, this author included.
+We’ve never bothered with Signal for the reason that signing up means handing over your phone number.
+Conveniently, a phone number is all you need to sign up, but you can’t sign up with your name instead, or with an email address.
+You need to use a working phone number that really is yours.
+Basing the identity of accounts on a phone number makes a lot of sense, not least because a phone number is something you can easily and cheaply acquire in many countries, and it guarantees that the user has a satisfactory way of verifying their identity.
+But in some countries, getting hold of a phone number isn’t an easy process, and may involve proving not only your identity but also your address.
+Indeed, getting hold of an “anonymous” SIM card, or using an improperly registered one, is a criminal offence in some jurisdictions.
+And there’s something unappealing about entrusting your identity on a secure online service (one that prides itself on immunity to surveillance) to a cryptographic chip that must by law be registered with a central authority so it can keep tabs on you via that same chip.
+There’s something even less appealing about the worry that you could be locked out of your own account simply by losing the right to the phone number you used for the account.
+This irony isn’t lost on Signal, and it has just announced a new feature called Signal PINs that allow you to keep control of your account even if you lose your phone or are forced to switch numbers and can’t get your old one back.
+Signal aims to be easy and safe to use for everyone, which is why it hasn’t insisted on using long and hard-to-remember “recovery codes”.
+Signal PINs can be as long and complex as you like, including letters as well as digits, if that’s what you prefer, but you can safely use a short PIN if you want something that’s easy to remember and doesn’t need writing down, an act that could be a risk for some Signal users.
+Signal is using a technique it announced late last year called SVR, short for Secure Value Recovery.
+One obvious problem with short PINs used as recovery codes for databases that aren’t stored in secure memory on your smartphone is the issue of what’s called an “offline attack”.
+For example, your iPhone can get away with a 6-digit PIN because you can only type in the PIN on the phone, and the only way to verify the PIN (unless there is a bug somewhere) is to communicate directly with a tamper-resistant chip inside the phone.
+That chip can’t be opened up, modified or cloned, so the internal counter it maintains of how many guesses you’ve had at the PIN can’t be reset or bypassed – you get 10 goes and then it’s game over.
+You can’t make 10,000 copies of the chip and have 9 guesses on each copy without getting locked out forever.
+But regular server databases aren’t as easy to protect against attacks where the crooks aren’t hindered by the presence of dedicated, tamper resistant hardware.
+Signal has therefore put a lot of effort into developing hacker-resistant storage “enclaves” that the company can run on its own servers – using Intel’s Software Guard Extensions (SGX) – to keep your master secrets secure with a pass code that’s easy to remember.
+As we mentioned, however, you don’t need to use a PIN to secure your Signal account – you can just use your phone number alone, as before, or choose a proper pass-phrase that’s as long as you like. (We recommend the latter, SVR or no SVR.)
+The disappointing news here, at least in our opinion, is that Signal isn’t yet announcing a way to use its product without handing over a phone number at all.
+We’ve seen excitable reports in the media suggesting that this marks the beginning of the end of phone-based identity for Signal, but we don’t think it does.
+You still can’t use the laptop versions of the app without setting Signal up on your phone first, and you can’t set it up on your phone without handing over a real, live phone number right at the start of the installation.
+As Signal itself says, PINs aren’t a replacement for phone numbers but they do provide a safer way to recover your account in an emergency than a phone number alone.
+In the latest version of our apps, we’re introducing Signal PINs. Signal PINs are based on Secure Value Recovery, which we previewed in December, to allow supporting data like your profile, settings, and who you’ve blocked to be securely recovered should you lose or switch devices. PINs will also help facilitate new features like addressing that isn’t based exclusively on phone numbers, since the system address book will no longer be a viable way to maintain your network of contacts.
+It’s a start, not least because it means an interfering government or mobile phone company can’t lock you out of your account simply by cancelling your SIM card.
+But you still need a phone to get onto Signal in the first place.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+</div
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Finest click bait. Thanks for wasting my time!
+If you already knew about Signal PINs then you didn’t need to read the article and you would have known that from the headline. 
+If you didn’t, and you have an interest in Signal (or have ever wondered how to recover an account if you lose your phone and can’t replace your SIM card), then I can’t see how this wasted your time. You now know what this new self-identification feature can do for you, and what it can’t, which is information you would not have got in some of the other coverage I’ve seen.
+If you were desperate to confirm the rumours that Signal accounts could now be set up without having a phone at all, then you may be disappointed, but at least you are well-informed now, so I can’t see how that wasted your time.
+I can’t apologise if you didn’t like the article merely because it didn’t tell you what you were hoping to hear…
+The title of this article is quite misleading. At this point in time Signal cannot identify you without a phone number!
+The function of PINs is to enable secure syncing of address books over Signal’s servers. This is necessary to eventually enable support for usernames rather than phone numbers as identifiers — but that’s still a bit away.
+I’m also looking forward to this feature, but Signal’s MO — unlike other secure messaging apps — is to do things slowly and meticulously. For a secure product, this is the right way to do it.
+The title of the article is completely misleading! Signal does not have usernames yet, let alone not needing phone numbers at all. And of course reading the article confirms that there is no such claim made in it. I wouldn’t think NakedSecurity would resort to such clickbait tactics.
+The headline is IMO perfectly accurate. As far as I can tell (admittedly not having an activated Signal account of my own), you can now identify yourself to Signal, for example to recover details such as your account address book, by setting up a passphrase or PIN, so that you aren’t locked out if you lose your phone and can’t get your old number back. Quite how that state of affairs is not commensurate with the headline I simply can’t see.
+One of the points made in the article, for clarity, is that although you can get at your account without your phone number, you still need a phone number *to establish an account in the first place*. Some reports we’ve seen imply that Signal PINs, errrr, signal the end of phone numbers for setting up accounts, and as far as we can see [a] that is not possible and [b] there is nothing in Signal’s wording to suggest that phoneless account opening is coming soon, or even at all.
+So part of reason for publishing the article was to make clear what these new self-identification Signal PINs are really for. They *do* let you identify yourself to Signal without a phone number, just as the headline says, once your account is activated and the PIN feature turned on. What the article takes care to explain is that identifying yourself to Signal with a PIN is not enough to create a new account in the first place, just in case you made that inference.
+I work a lot with people in authoritarian states and the main reason we don’t use Signal is because of the phone number. The fact that my partners need to walk around with my number on their phones to send me msges is very off-putting. If they lose their phones and someone accesses their contacts it’s game over.
+Click bait title – lame, treat us like adults and also reduce the size of your pictures while youre at it if you want to be taken seriously.  Look at the size of that picture for the signal icon on here – why? 
+More text less pictures.
+If you compare every Naked Security article, the title picture is the same size for all of them.  Naked Security does not have varying sized pictures at the head of their articles.  Just scroll through them back and forth and you’ll see that clearly.
+Indeed. WordPress calls it the “featured image” and it provides a bit of colour and visual relief to brighten up the look and feel of the various ways that an article can be displayed, automatically resized and cropped to various widths and ratios depending on whether you’re reading the article itself (about 780×400 pixels as it happens in our layout), looking at our home page listing recent articles (about 330×160), perusing search results (150×150) or viewing the list of current “top stories” (about 90×90), receiving our newsletter (I forget the size there), and in other places. This “featured image” concept and the sizes we’ve using can be considered both unexceptional and unexceptionable these days.
+Where an article is about a specific brand, product or service with a logo that people will recognise and that is, in our opinion, abundantly clear, we very often use a simple image, which we know will scale and crop cleanly and well, so it looks neat and clear at all sizes.
+I simply cannot see what is unreasonable, confusing, ugly, childish or disproportionate about using a plain Signal icon as the one-and-only visual image to accompany an article of 1200 words that is all about Signal. Websites are allowed to be visually appealing and make use of colour to go along with text, and this one is no exception.
+Tend to agree with start point of this.
+I looked at signal, got as far as ‘tell us your phone number’ screen, laughed at all the privacy claims and deleted the app.
+There’s at least two other highly secure messages apps that ask no identifying info whatever.
+Can you provide the names of said apps?
+My understanding is an app installed on a phone does not need to ask the user for the phone’s number, because the app can read the phone number of the phone on which the app is installed.
+In that case, you would have still supplied your phone number in order to sign up.
+Even though I can’t really say I have a critical NEED to keep my phone number secret, I will never, ever under any circumstances consider using any messenger that requires me to hand it over just to use the service. It’s none of anybody’s goddamned business – my phone or desktop is simply interchangeable communications infrastructure and nothing more. I’m happy to pick a unique, public alias, but otherwise “I” am whoever controls this public/private key pair; that’s all anyone else – including the service provider – needs to know, full stop. As it is, Signal and any other messenger that requires a phone number is nothing but a bad joke.
+Misleading. I don’t know what the author is going on about, but everyone including me came here to learn how start a signal “account” or whatever without needing to give it your phone number. Not possible.
+Nowhere in either the headline or the article is there any suggestion that you might be able to start an account without a number – indeed, the article goes to pains to explain that you can’t – and certainly no implication that the article might teach you how to do it. 
+Neither the headline nor the article explain how to win next week’s lottery either – if you were expecting to learn that as well you would be similarly disappointed. 
+So, indeed, the article doesn’t do what it didn’t intend – not sure how that is a bad thing, though.
+I honestly don’t understand why Signal hasn’t been forked and published as a version that doesn’t require phone numbers.
+there is session which is a fork of signal without phone. getsession.org
+I’m very glad I found this article–specifically the comment section. I work in a very sensitive arena. I’d just recently suggested to colleagues we convene an international chat using Signal to preserve everyone’s privacy. Then I opened Signal on my laptop and got the message I need to scan the QR code with my phone. I don’t recall having had to do that in the past. But I was turned off. Why do I need my phone to use Signal? Suppose someone doesn’t own a phone, just a laptop? And I’d recently read about all the many ways mobile phone are a privacy nightmare–so I almost never use mine anymore. 
+Anyway, a search of this issue brought me here. And, ultimately, I found Massimo’s 19 October 2020 comment (06:02 local time). THANK YOU, MASSIMO! I’m reading more about Session, including the Session group’s white paper. I’m excited there might be a privacy-centric communications app that doesn’t require providing personally identifying info (duh!)–such as a phone number.
+Absolutely undisputedly misleading “article”, 100% click bait.
+Even worst that the author without any humility or sense of responsibility refuses to acknowledge he conned us into it and wasted our time.
+NakedSecurity must remove this author and all the articles of this author to save face.
+It’s almost as though you didn’t read the article :-)
+Paul, by now you should have realised that the headline is being misinterpreted by probably most of the visitors coming here from search engines, myself included.
+Whould it be really so hard to change the headline to something like “[…] identify you without a phone number, phone still required for account setup”, or at least put an update to that effect at the top of the article?
+Being smug with the readers who complain only reinforces the feeling of intentionally being mislead, I’m not sure what’s to be gained by that.
+From your suggested headline, I assume that the question you asked your search engine was: “setup signal without phone number”.  I Googled for that. The top suggestion was “This little-known trick lets you use Signal without giving out your phone number”. Article summary for that one basically says “use a temporary or secondary phone number”. Clearly, that article *implictly* answers your question right there, because it makes it pretty clear you can’t sign up without a number at all. 
+The second Google suggestion was this article, with an article summary on Google that includes this text from the artivle: “You can’t sign up with your name […], or with an email address. You need to use a working phone number.” Clearly, that *explicitly* answers your question in advance of clicking – it unequivocally states before you even click through *that you can’t sign up  without a number*.
+In any case, if you came here to find out how to sign up for Signal without a phone number, despite the headline, I suggest that this article does indeed answer your question perfectly well. You can’t. [At least, not as at 2021-02-14T22:00Z]. 
+Nevertheless, I am going to add a note at the top of the article to advise people who are looking for a way to bypass giving a phone number during Sign’s signup process that the TL;DR is “You can’t.” 
+I still don’t think it is “smug” to point out that this article [a] is not actually about signing up for Signal and doesn’t claim to be; [b] yet clearly answers the question “how do you sign up without a number?” anyway. 
+the headline is accurate.  Just because people didn’t get what they wanted, doesn’t meant they were misled.
+The identification and loss of privacy that concerns me is the apparent constant use of the phone number as the user id for communications. Please correct me if I have misunderstood this. That number hopefully is not being used for anything else, whether it is a primary or secondary number.
+Concur with previous commenters: Article headline is misleading.
+From this headline —> “Signal secure messaging can now identify you without a phone number
+22 May 2020”
+To this prefaced caveat —> “(In fact, as this article explains below, you can’t. [2021-02-14T22:00Z].)”
+Then this mid-level remark —> “…Signal isn’t yet announcing a way to use its product without handing over a phone number at all.”
+And this final word —> “But you still need a phone to get onto Signal in the first place.”
+Very “clickbait-ish” indeed.
+A separate entry/article should have been written detailing “how to recover a [Signal] account if you lose your phone and can’t replace your SIM card.” It would have been much more informative. 
+This was the most useful part of the article:
+“That chip can’t be opened up, modified or cloned, so the internal counter it maintains of how many guesses you’ve had at the PIN can’t be reset or bypassed – you get 10 goes and then it’s game over. You can’t make 10,000 copies of the chip and have 9 guesses on each copy without getting locked out forever. But regular server databases aren’t as easy to protect against attacks where the crooks aren’t hindered by the presence of dedicated, tamper resistant hardware.”
+Wow, so many years, and still we’re fretting over whether “identification”, as in signing on to a service, is the same as or different to “signup”, as in setting up an account in the first place.
+You can’t (or you couldn’t when this was written three years ago) join the service without using a phone number, but you could identify yourself to the service to maange or recover your account without one (e.g. if you lost your number).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,89 @@
+Sophos Home protects every Mac and PC in your home 
+As you know, our usual advice for Patch Tuesday boils down to four words, “Patch early, patch often.”
+There were 56 newly-reported vulnerabilities fixed in this month’s patches from Microsoft, with four of them offering attackers the chance of finding remote code execution (RCE) exploits.
+Remote code execution is where otherwise innocent-looking data that’s sent in from outside your network can trigger a bug and take over your computer.
+Bugs that make it possible for booby-trapped chunks of data to trick your computer into executing untrusted code are much sought after by cybercriminals, because they typically allow crooks to break in and implant malware…
+…without popping up any “are you sure” warnings, without needing niceties like a username and a password, and sometimes without even leaving any obvious traces in your system logs.
+With all of that in mind, the statistic “56 fixes including 4 RCEs” signals more than enough risk on its own to make patching promptly a priority.
+READ MORE – FEB 2021 PATCH TUESDAY IN DETAIL
+Frag out: four remote attack bugs fixed in Microsoft’s February Patch Tuesday
+
+
+As well as the four potential RCE holes mentioned above, there’s also a patch for a bug dubbed CVE-2021-1732 that is already being abused in the wild by hackers.
+The situation where an attack is known before a patch comes out is known as a zero-day bug: the crooks got there first, so there were zero days on which you could have patched to be ahead of them.
+Fortunately, this zero-day bug isn’t an RCE hole, so crooks can’t use it to gain access to your network in the first place.
+Unfortunately, it’s an elevation of privilege (EoP) bug in the Windows kernel itself, which means that crooks who have already broken into your computer can almost certainly abuse the flaw to give themselves almighty powers.
+Having crooks inside your network is bad enough, but if their network privileges are the same as a regular user, the damage they can do is often fairly limited. (That’s why your own sysadmins almost certainly don’t let you run with Administrator rights any more like they used to back in the 2000s.)
+Ransomware criminals, for example, typically spend time at the start of their attack looking for an unpatched EoP bug that they can exploit to boost themselves to have the same power and authority as your own sysadmins.
+If they can grab domain administrator rights, they’re suddenly on an equal footing with your own IT department, so they can pretty much do whatever they like.
+Intruders who have access to an EoP exploit will probably be able to: access and map out your entire network; alter your security settings; install or remove any software they like on any computer; copy or modify any file they like; tamper with your system logs; find and destroy your online backups; and even to create secret “backdoor” accounts that they can use to break back in if you find them this time and kick them out.
+If you’re still not convinced to patch early, patch often, you might also want to read Microsoft’s special security bulletin entitled Multiple Security Updates Affecting TCP/IP.
+The three vulnerabilities listed in this bulletin are the uninterestingly named CVE-2021-24074, CVE-2021-24094, and CVE-2021-24086.
+The bugs they represent, however, are very interesting indeed.
+Even though Microsoft admits that two of them could, in theory, be exploited for remote code execution purposes (thus they make up 2 of the 4 RCE bugs mentioned above), that’s not what Microsoft is most worried about right now:
+
+The two RCE vulnerabilities are complex which make it difficult to create functional exploits, so they are not likely [to be abused] in the short term. We believe attackers will be able to create DoS exploits much more quickly and expect all three issues might be exploited with a DoS attack shortly after release. Thus, we recommend customers move quickly to apply Windows security updates this month. 
+The DoS exploits for these CVEs would allow a remote attacker to cause a stop error. Customers might receive a blue screen on any Windows system that is directly exposed to the internet with minimal network traffic.
+
+DoS, of course, is short for denial of service – a type of vulnerability that’s often downplayed as the “last amongst equals” when compared to security holes such as RCE and EoP.
+Denial of service means exactly what it says: crooks can’t take over a vulnerable service, software program or system, but they can stop it working altogether.
+Unfortunately, these three DoSsable holes are low-level bugs right down in the Windows kernel driver tcpip.sys, and the flaws can, in theory, be tickled-and-triggered simply by your computer receiving incoming network packets.
+In other words, just proceesing the packets in order to decide whether to accept and trust them in the first place could be enough to crash the targeted computer – which could, of course, be a mission critical internet-facing server.
+Microsoft itself is warning you to prioritise these patches if you like to do your updates one-at-a-time, and has even come up with scriptable workarounds for those who are still afraid of the “patch early” principle:
+
+It is essential that customers apply Windows updates to address these vulnerabilities as soon as possible. If applying the update quickly is not practical, workarounds are detailed in the CVEs that do not require restarting a server.
+
+Despite the workarounds, we’re with Microsoft here, and we agree wholeheartedly with the words essential and as soon as possible.
+Don’t delay. Do it today!
+JARGONBUSTER VIDEO: BUGS, VULNS, EXPLOITS AND 0-DAYS IN PLAIN ENGLISH
+
+Watch directly on YouTube if the video won’t play here.Click the Settings cog to speed up playback or show subtitles.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Who needs to worry about DoS from remote attackers?  Microsoft Update brings my computer to its knees!  Almost every second day (or so it seems) . Fans howling and disk usage at 100%.  Response times measured in *minutes* – DoS if there ever was one.  These days I give up and walk away in disgust.  And, silly me, I thought it was *my* computer …
+Why not switch to a different operating system if you don’t like Windows? 
+Linux and FreeBSD (and if you are super-security conscious, OpenBSD) are free add easy to acquire, although you might find some of your hardware, notably Wi-Fi and Bluetooth, might not be supported very well or even at all, especially on OpenBSD. (Supporting more different drivers means less time to review the code in each one, plus some hardware vendors won’t play ball with the open source community.)
+Depending on your distro, Linux updates are mostly unobtrusive, but you should get ready for frequent kernel updates (which require a reboot) and, how can I put this, a community that combines a massive dose of co-operative helpfulness with an absurd (though admittedly largely ignorable) dose of disputes that are so petty and yet so deep that even Lemuel Gulliver would have been astonished.
+FWIW, I have only ever run stripped down Windows setups (no Office, which is one less big thing to update) and standard hardware and I have never had update troubles. Having said that, I reinstall Windows very often because I use it for research and not for regular work. This might give me a more predictable and reliable base on which to unleash the updates… but for a few years now they have “just worked”, although sometimes the reboot has involved a 15 minute or 20 minute wait.
+On Linux I have only once in recent years had update trouble due to an easily-repaired problem of my own making. (I locked myself out by breaking login authentication. I had to boot from a recovery USB and run a console command to reinstall a single software package.)
+Maybe I have been fortunate, but it has certainly given me the zeal to patch early. The longer you leave it, the worse it seems to get…
+Don’t temp me Mr. Ducklin.  I have some familiarity with several UNIX flavours.  I even have an old Red Hat distro from the late 90s kicking around.  Rebuilding the kernel is wham-bam thank-you ‘mam and you’re done.  It would be a joy compared to the Dangle and Thrash that Windows Update has become.  No new words, just new combinations for old ones I say.
+I’m OK with Windows (even though it has become Jabba the Hutt of Bloatware).  It’s Windows Update that needs to be banished to its own Circle of Hell. “Office” and being assured of compatibility with external documents is what keeps me in this ongoing instance of “Operating System Stockholm Syndrome”.  All the way back to “Start Me Up” Windows ’95 I might add.
+I’ve been out of the loop for a while.  It’s gotten to the point where computer projects are like home improvement projects.  They both fall into two categories: the difficult and the impossible.  It may be time to grip the bit between my teeth.
+I don’t envy you having to reinstall Windows even if it’s for research purposes!  Not one bit.  The only reason I’ve not ripped Windows Update out by the roots is the patch early and patch often mantra I’ve learned so well from Sophos.
+If you want the latest kernel (and optionally the very latest KDE, if that floats your boat), browser, Office-compatible apps and the like, all wrapped in a gorgeously old-school, fully scriptable text-mode installer, then you need look no further than the oldest distro still going (just a bit older even than Debian). Still proudly independent and still splendidly doing its own thing (and redoubtably leaving out some of the complicated things that it doesn’t like, such as the tentacular bootscript system known as [REDACTED]).
+Slackware-current FTW.
+(You will get new kernels very early and very often, so it fits my abovementioned mantra just fine :-)
+And of course, my old friend … EMACS.
+In Slackware, the core package sets have really simple names. New-fangled things like KDE and XFCE are found in the wordily-named package directories “kde” and “xfce”, but the kernel source is “k”, development tools are “d”… and Emacs is “e”, so you can quite literally take or leave the entire thing by including or excluding that single-letter package set.
+If I tell you my local slackware mirror goes a, ap, d, and then jumps to f, you will know that I am of the Vi religion. (As the old joke goes, “Apparently, after all these years, Emacs finally has every single feature it will ever need, except for one: an editor.”)
+Good one.  There’s nothing like a good keyboard-centric editor.  I respect anyone who can get good mileage out of VI.  All the more power to you.
+VI vs EMACS reminds of (IBM mainframe) VM vs TSO: “Your TSO wish is my VM command.”  I was of the TSO camp but a little ribbing is just fine.
+I’ll have to have a look at slackware.  Thanks for the info.
+These days, my editor of choice on Linux (and who would ever have thought it would come to this!) is Microsoft Visual Studio Code when running X, but still vi for a serial terminal session (still handy on RPi devices if you don’t want the hassle of an HDMI screen) or ssh. 
+I remember using vi on 1200 bits/sec terminal lines and its parsimony in both keystrokes sent and screen updates returned made it perfectly usable.
+You’re post isn’t even remotely like my experience nor millions of others. You have something wrong with your system.
+Stone stock and unmolested Windows 10 re-install on an ASUS all-in-one “Grandpa Computer” from 2015.  It’s not going to win any 1/4 mile races at the best of times even when new.  Memory (only 4GB) and (by modern standards) a very slow disk don’t help.
+Your “not even remotely like me” experience gives me hope for my next machine.  Thanks.
+yeah, w10 is bloat/spyware and needs a faster system to monitor you properly.
+I liken it to Chrome OS, it’s not about “your” experience, it’s about collecting “marketing” data, and micro payments. You want a media player – not installed by default – buy one at the app store.
+Don’t want x-box gaming software running on your cooperate PCs, Too Bad, MS does.
+If it wasn’t for work, I wouldn’t touch it myself.
+That is definitely not normal. I’m sorry to say but it is the computer. I personally use older and new Windows systems and they don’t experience those issues (sorry if that isn’t very useful). I would advise having that system checked out by a knowledgeable and trusted support technician, consultant or trusted and knowledgeable friend or relative.
+Thanks.
+It is frustrating to be sure.  See my reply to Ry above.  Cheers!
+I’m glad to hear your system is a Windows 10 re-install. In that case I’m sure its fine; it does just seem the hardware is possibly the reason.
+Agreed; you should have hope for a new system. More memory would help though (if its an option).
+My 2014 system has 24 GB of RAM with a mechanical hard disk and can easily multitask (>5 intensive items) when running Windows Update. My 2016 system is even quicker with an SSD and 16 GB RAM.
+For my most powerful 2019 system; you can’t even tell it is updating. You are working away and then it tells you its time to restart and is ready again in less than 2 minutes.
+Take care.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

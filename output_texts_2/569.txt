@@ -1,0 +1,27 @@
+Sophos Home protects every Mac and PC in your home 
+OpenSSH version 8.2 is out and the big news is that the world’s most popular remote management software now supports authentication using any FIDO (Fast Identity Online) U2F hardware token.
+SSH offers a range of advanced security features but it is still vulnerable to brute force attacks that try large numbers of passphrases until they hit upon the right one.
+One way to counter this is passwordless login using cryptographic keys, but these are normally stored on a local drive or in the cloud. That makes them vulnerable to misuse and creates some management overhead.
+A more secure alternative is to put them on a USB or NFC hardware token such as a YubiKey that ties a generated private key to that device. This means that authentication can’t happen without the token being present as well as requiring a physical finger tap by an admin.
+However, it seems that getting U2F tokens to work with SSH has required support for the Personal Identity Verification (PIV) card interface, which only the most recent and expensive tokens offer.
+Adding support inside OpenSSH simply means that any U2F token can now be used, including older FIDO1 and more recent FIDO2 hardware. Specifically, as version 8.2 documentation says:
+In OpenSSH FIDO devices are supported by new public key types ‘ecdsa-sk’ and ‘ed25519-sk’, along with corresponding certificate types.
+But why is FIDO U2F such a big deal when hardware tokens have been around for decades?
+The simple answer is that FIDO U2F is an open rather than proprietary specification, which means that third parties can sell USB tokens that comply with it. That has not only lowered cost but meant that the same token U2F can be used across multiple applications and services.
+In short, the life of OpenSSH admins just got a lot easier.
+The OpenSSH maintainers also announced their intention to get rid of the weak. ancient SHA-1 hashing algorithm:
+It is now possible to perform chosen-prefix attacks against the SHA-1 hash algorithm for less than USD$50K. For this reason, we will be disabling the ‘ssh-rsa; public key signature algorithm that depends on SHA-1 by default in a near-future release.
+This is a reference to a recently published paper, SHA-1 is a Shambles, which demonstrated that a successful collision attack could now be carried out for $45,000 or thereabouts. That was a drop from a previous and somewhat harder proof-of-concept attack carried out by Google that put the cost at more than double that sum.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

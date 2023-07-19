@@ -1,0 +1,67 @@
+Sophos Home protects every Mac and PC in your home 
+Google’s Cybersecurity Action Team just published the first ever edition of a bulletin entitled Cloud Threat Intelligence.
+The primary warnings are hardly surprising (regular Naked Security visitors will have read about them here for years), and boil down to two main facts.
+Firstly, crooks show up fast: occasionally, it takes them days to find newly-started, insecure cloud instances and break in, but Google wrote that discover-break-and-enter times were “as little as 30 minutes.” 
+In Sophos research conducted two years ago, where we set out specifically to measure how long before the first cybercriminals came visiting, our honeypots recorded first-knock times of 84 seconds over RDP, and 54 seconds over SSH.
+Imagine if it took just one minute after you closed the contract on your new property for the first crooks came sneaking up your driveway to try all your doors and windows! (No pun intended.)
+Importantly, in our research, the cloud instances we used weren’t the sort of cloud server that a typical company would set up, given that they were never actually named via DNS, advertised, linked to, or used for any real-world purpose.
+In other words, the first crooks found us in about a minute simply because we showed up on the internet at all: we were attacked no matter what we did to keep a minimal profile.
+They didn’t need to wait until we’d publicised the servers ourselves, as you would if you were starting a new website, blog or download site.
+Likewise, the criminals didn’t need to wait until we’d established the servers as standard network API targets (known in the jargon, slightly ambiguously, as endpoints) and started generating visible traffic ourselves that could be spotted using those online services.
+In real life, therefore, the situation is probably even worse than in our research, given that you’re definintely a generic, automatic target for crooks who simply scan, re-scan and re-re-scan the internet looking for everyone; and you may also be a specific, interesting target for crooks who are on the lookout not just for anyone, but for someone.
+Knock and don’t run: the tale of the relentless hackerbots
+
+
+Secondly, weak passwords are still the primary way in: Google confirmed that weak passwords are not only a thing used by cybercriminals in cloud intrusions, but the thing.
+Technically, weak passwords (a category which, sadly, includes no password at all) did not not have an absolute majority in Google’s “how did they get in?” list, but at 48% it was a close call.
+Notably, password security blunders were a long way ahead of the next most likely break-and-enter technique, which was unpatched software.
+You’d probably already guessed that patching would be a problem, given how often we write about this issue on Naked Security: vulnerable software let in 26% of the attackers.
+Amusingly, if we’re allowed to give a wry smile at this point, 4% of Google’s intrusions were allegedly caused by users accidentally publishing their own passwords or security keys by uploading them by mistake while publishing open source material on sites such as GitHub.
+Ironically, Naked Security’s most recent warning about the risks of what you might call “cybersecurity self-incrimination” came just last week.
+We reported how investigators in the UK were able to track down more than 4400 GitHub projects in which the uploader’s own Firefox cookie files had somehow become entangled – a search that literally took seconds when we reproduced it.
+And that’s just one type of file that could contain API secrets, from one specific application, on one particular cloud sharing service.
+We’re not sure whether to be relieved that self-incrimination accounted for just 4% of the intrusions, or dismayed that this break-in technique (we’re not sure it’s sophisticated enough to be called “hacking”) was on the list at all.
+Github cookie leakage – thousands of Firefox cookie files uploaded by mistake
+
+
+We know what you’re thinking.
+“Surely the intrusions were all about ransomware,” you might be saying, “because that’s the only cybersecurity issue worth worrying about right now.”
+Unfortunately, if you’re viewing ransomware in isolation, putting it on its own at the front of the queue to deal with in isolation, and relegating everything else to the back burner, then you’re not thinking about cybersecurity broadly enough.
+The thing about ransomware is that it’s almost always the end of the line for the criminals in your network, because the whole idea of ransomware is to draw maximum attention to itself.
+As we know from the Sophos Rapid Response team, ransomware attackers leave their victims in no doubt at all that they’re all over your digital life.
+Today’s ransomware notifications no longer rely on simply putting up flaming skulls on everyone’s Windows desktop and demanding money that way.
+We’ve seen crooks printing out ransom notes on every printer in the company (including point-of-sale terminals, so that even customers know what just happened), and threatening employees individually using highly personal stolen data such as social security numbers.
+We’ve even heard them leaving chillingly laconic voicemail messages explaining in pitiless detail how they plan to finish off your business if you don’t play their game:
+
+Well, in Google’s report, all but one of the items on the “actions after compromise” list involved the cybercriminals using your cloud instance to harm someone else, including:
+But top of the list, apparently in 86% of successful compromises, was cryptomining.
+That’s where the crooks use your processing power, your disk space, and your allotted memory – simply put, they steal your money – to mine cryptocurrency that they keep for themselves.
+Remember that ransomware doesn’t work out for the crooks if you have a newly-configured cloud server that you haven’t really put to full use yet, because there’s almost certainly nothing on the server that the criminals could use to blackmail you.
+Underutilised servers are unusual in regular networks, because you can’t afford to let them sit idle after you’ve bought them,
+But that’s not the way the cloud works: you can pay a modest sum to have server capacity made available to you for when you might need it, with no huge up-front capital costs before you get the service going. 
+You only start paying out serious money if you start using your allocated resources heavily: an idle server is a cheap server; only when your server gets busy do you really start to rack up the charges.
+If you’ve done your economic calculations properly, you expect to come out ahead, given that an increase in server-side load ought to correspond to an increase in client-side business, so that your additional costs are automatically covered by additional income.
+But there’s none of that economic balance if the crooks are hammering away entirely for their own financial benefit on servers that are supposed to be idle.
+Instead of paying dollars a day to have server power waiting for when you need it, you could be paying thousands of dollars a day for server power that is earning you a big, fat zero.
+Cryptomining criminals under the spotlight – a SophosLabs report
+
+
+Think of it like this: sorting out your cloud security is the best sort of altruism.
+You need to do it anyway, to protect yourself, but in doing so you protect everyone else who would otherwise get DDoSed, spammed, probed, hacked or infected from your account.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“Imagine if it took just one minute after you closed the contract on your new property for the first crooks came sneaking up your driveway to try all your doors and windows! (No pun intended.)
+…
+In other words, the first crooks found us in about a minute simply because we showed up on the internet at all: we were attacked no matter what we did to keep a minimal profile.”
+Sheesh! It’s incredible how the time to probing is measured in seconds now. It’s like having people banging on the doors before the lights are turned on. And as soon as the lights are on, it’s game on for the malicious actors.
+zomg great writing. Laughed so hard about “researchers” posting POC’s of exploits “to help everyone out”. I’m one of those guys and I still wonder.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

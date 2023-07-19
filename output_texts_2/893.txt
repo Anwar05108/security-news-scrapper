@@ -1,0 +1,22 @@
+Sophos Home protects every Mac and PC in your home 
+Remember when as a server operator all you had to worry about were people scanning for open ports and then stealing secrets via telnet shells? Those were the days, eh?
+Things got a lot more complicated when the cloud got popular. Now, hackers are gaining access to cloud-based systems via the web, and they’re using them to mine for cryptocurrency. Microsoft just found a campaign that exploits Kubernetes to install cryptomining software in its Azure cloud. That could generate some mad coin for attackers – and cost legitimate cloud users dear.
+Software containers are small collections of software that run in isolation from each other, making it easier for lots of them to coexist on the same system. Kubernetes is an open source project that lets administrators manage software containers en masse, and it runs in cloud infrastructures like Microsoft’s Azure. Kubeflow is an open source framework that implements Tensorflow on top of Kubernetes, and Tensorflow is a system originally developed by Google for training AI systems.
+AI training jobs need lots of computing power, so they generally use graphical processing units (GPUs), which can chew through floating point calculations very quickly. That’s great for mining some cryptocurrencies that use proof of work algorithms. They too rely on lots of computing power. While GPUs aren’t appropriate for mining all proof of work-based cryptocurrencies, they’re great for some like Monero and (for the time being until a long-planned algorithmic changeover kicks in) Ethereum.
+The Azure Security Center found a malicious container running as part of a Kubeflow implementation. The container was running a cryptominer to use the same computing power that Kubeflow was using to train AI. Sneaky. So how did it get there?
+As is often the case, user misconfiguration was the culprit. Kubernetes uses something called Istio, which is a framework to connect container-based software services. Kubeflow uses Istio to expose an administrative dashboard. For security, it uses something called Istio-ingressgateway to do this. That service is only accessible internally, and this is key, because the only way to access it is via port-forwarding over the Kubernetes API.
+That should make the management interface for Kubeflow secure, but some admins apparently modified Istio to make Istio-ingressgateway directly accessible from the public internet. That’s convenient, but not a good idea from a security perspective because it means attackers can see the management interface from the public internet. From there, they could manipulate the system to install their malicious container on the Kubernetes system.
+This isn’t the first time that people have hacked Kubernetes or used it to mine for cryptocurrency. Someone pwned a Tesla Kubernetes Amazon Web Services deployment in 2018, exploiting an administrative console that wasn’t password protected and then installing a miner on the system.
+More recently in April this year, Microsoft identified a large-scale attack in which the attacker installed tens of malicious pods (collections of containers) on tens of clusters (groups of machines running containers).
+Earlier this month, Sophos also documented a cryptomining campaign called Kingminer that attacked servers using exploits including brute forcing RDP, the mechanism used to access Windows machines remotely.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,75 @@
+Sophos Home protects every Mac and PC in your home 
+Security researchers at the Technical University of Darmstadt in Germany have just put out a press release about an academic paper they’ll be presenting at a Usenix conference later in 2021.
+(If the end of the last sentence gives you a sense of déjà vu, that’s because it seems to be “pre-announce your Usenix research” month: we wrote earlier this week about Dutch academics who had come up with a new memory-flipping trick based on rowhammering for subverting your computer via a browser.)
+The paper itself has a neutrally worded title that simply states the algorithm that it introduces, namely: PrivateDrop: Practical Privacy-Preserving Authentication for Apple AirDrop.
+But the press release is more dramatic, insisting that:
+Apple AirDrop shares more than files. [We] discover significant privacy leak in Apple’s file-sharing service.
+For those who don’t have iPhones or Macs, AirDrop is a surprisingly handy but proprietary Apple protocol that lets you share files directly but wirelessly with other Apple users nearby.
+Instead of sharing files via the cloud, where the sender uploads to a central server from where the recipient then downloads the file, AirDrop works even when both users are offline, using a combination of Bluetooth and peer-to-peer Wi-Fi for fast, simple, local wireless sharing.
+The problem, according to the researchers, comes in the form of AirDrop’s Contacts only mode, where you tell AirDrop not to accept connections from just anyone, but only from users already in your own contact list.
+To be clear, opening up AirDrop to Everyone doesn’t mean that anyone can access your phone without you knowing, because you get a pop-up first that requests permission, and the sender can’t bypass that.
+But one problem with Everyone mode is that if someone tries to send you a file, the pop-up includes a tiny thumbnail of the file they want to send, so you can make sure it’s not only a sender you trust but content you want.
+That means you can easily be bluejacked, the slang term for someone sending you an unsolicited pic that you are forced to see in order to decide whether you want to see it.
+Locking things down with Contacts only therefore seems a good choice.
+However, there’s a different sort of problem if you use the Contacts only mode, say the Darmstadt researchers.
+Simply put, the two ends of an AirDrop connection agree on the whether they consider each other a contact by exchanging network packets that don’t properly protect the privacy of the contact data.
+The researchers claim that the contact identifiers, which are based on phone numbers and email addresses, are exchanged as SHA-256 cryptographic hashes, in order to protect the original data.
+Each end converts their own contact data into hashes and compares those against the data sent over from the other, rather than sharing and comparing the original phone numbers and email addresses.
+This means that each end doesn’t have to reveal its raw contact data up front to the other just to see which entries they have in common.
+Apparently, the hashes exchanged are just that, straight hashes, with no salt involved, so that if you had a precomputed list of all possible hashes for all possible phone numbers, you’d be able to look them up in your hash list and thus “reverse” the cryptography by sheer brute force.
+UK mobile numbers, for example, have the form +44.7xxx.xxx.xxx, because all UK numbers start +44 and all mobiles in the UK start with a 7, leaving just nine digits for the rest. 
+Therefore there are only 109 possible numbers, for a total of 1 billion, which most modern laptops could compute in hours or even minutes.
+Each SHA-256 hash is 32 bytes long (256 bits), if you choose to store the whole thing instead of approximating it by keeping only the first half, for a total of just 32GB of disk space to save the lot.
+For email addresses, computing an exhaustive “reverse list” is clearly impossible, but by using a list of known email addresses, such as those dumped in various data breaches over the years, you could build and save a “reverse dictionary” of likely candiates in the same sort of time and space as you’d need for the phone number list.
+Of course, the contact agreement stage of the AirDrop process happens over TLS, so a third-party attacker can’t just sniff the hashed contact data wirelessly.
+And even with a jailbroken phone, the attacker couldn’t easily set up a modified iOS kernel that would reliably extract the contents of the AirDrop packets for subsequent cracking.
+However, the Darmstadt team already “solved” the TLS problem in a Usenix paper from 2019, by figuring out a way to run a Manipulator-in-the-Middle attack, or MitM for short, against the AirDrop connection setup process.
+A MitM is where X thinks they’re talking directly to Y, which we’ll denote as X<->Y, but the traffic is actually being proxied, or relayed, through the M in the middle, like this: X<->M<->Y.
+TLS, of course, is supposed to help you to prevent MitM attacks by allowing each end, if it wishes, to request a digital certificate from the other, and for each end to verify that the other’s certificate was digitally attested by someone they trust.
+And in Contacts only mode, AirDrop apparently insists on each end coming up with a certificate that’s ultimately signed by Apple itself.
+According to the 2019 paper, however, if the recipient is using Everyone mode in AirDrop, then self-signed certificates are allowed, so even iPhones that have never called home to Apple to register for an Apple account can vouch for themselves and use AirDrop anyway.
+In the 2019 paper, the authors also figured out a way to spot that two users were trying to start up an AirDrop connection and to prevent it from working by jamming the network traffic setup with fake connection resets…
+…and they also figured out that, if you get in the way often enough when two people are trying to share files, many recipients will eventually say to the sender, “Hang on a minute, I’ll temporarily switch to Everyone mode and see if that works.”
+At which point, an attacker can start up an AirDrop service that looks like the real recipient’s by picking a device name similar to the real one (e.g. using John instead of John’s iPhone), trick the sender into connecting to the MitM device, connect onwards to the now-open-to-everyone recipient, and end up as the MitM.
+Bingo, a working MitM atttack!
+At this point, say the researchers, you can read out the SHA-256 hashes of the sender’s contact list, and have a go at cracking the hashes of the contact data in the list against the tables you calculated earlier.
+They researchers claim that:
+[We] informed Apple about the privacy vulnerability already in May 2019 via responsible disclosure. So far, Apple has neither acknowledged the problem nor indicated that they are working on a solution.
+Presumably that’s why they’ve written this year’s Usenix paper, which presents a modified AirDrop-contact matching protocol that they claim solves all these problems, in the hope that Apple might adopt it in future.
+As you have probably figured out, there are a lot of moving parts in this attack, so there are plenty of places where attackers need to get lucky.
+In particular, as far as we can tell, the attackers need recipients to get frustrated enough at not being able to connect that they revert to Everyone mode; and the attackers then also need senders to misrecognise the recipient’s device in the list when they try to recconect.
+So, if you are worried about this attack:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+who just randomly accepts air dropped files in the middle of their day?
+The point is that this issue doesn’t depend on you randomly accepting files.
+It depends on you behaving in a certain way when someone non-random wants to send you something…
+…at the same time that there is a nefarious third party within wireless range.
+Maybe there are some espionage vectors here (or a nation-state can take this a step or 10 further) or that my pea-brain can’t extrapolate out the rest of a possible attack chain, but this doesn’t seem that bad. I would probably rate this an Unlikely to Seldom in likelihood and with only Marginal consequences, ie like a CVE 5/10. What am i missing?
+That’s a fair point, but [a] if you are worried about state-sponsored actors, why not be worried about any and all cybercrooks in your midst? [b] the consequences of data leakages like this tend to be cumulative [c] why not add more anonymity and privacy protection to protocols like this if you can?
+I don’t know how you’d compute a CVE score for something like this, and I agree it ought to be very low, but it’s not going to be zero. FWIW, the tips we give in the article (notably, turn off AirDrop explicitly when not needed) make for good habits anyway. I turn off Bluetooth and Location unless and until I know I need them; I turn off Wi-Fi (which admittedly I rely on most of the time) whenever I know I don’t need it; I clear my phone browsing history very regularly because I can; I remove apps unless I use them regularly; and I set aggressive lock screen timeouts. 
+Loosely speaking, I still try to behave as though all those things make very little difference (so I don’t rely on them as an excuse to take risks elsewhere) but they line up nicely with my digital lifestyle motto of “if in doubt, don’t give it out.”
+In brief: you are right that this isn’t “that bad”; I don’t think you should stop using AirDrop; but remember that attacks only ever get better.
+I don’t believe I misunderstood the contact-sharing portion, but maybe.
+Seems to me it would be preferable to require the AirDrop sender to share (scrambled via SHA-256†) their own info, allowing the recipient to decrypt only a single contact and reach a verdict: friend or foe.
+Much like the decision a century ago that senders must pay postage on a letter they want delivered, why does the recipient need to divulge anything at all until the sender is a known quantity?
+† A typo just inspired me to envision the next big security company, sure to be a big hit with the Venn Diagram intersection of cryptography enthusiasts and basketball fans:
+SHAQ-256
+The company will be my brainchild and eventually be worth billions, but as Walter White before me, I’ll squander my stake for a paltry $5000.
+Bummer.
+Turning off AirDrop when not needed would be a good habit but things like ” turn off Bluetooth and location services when not needed “is just silly.
+For me , I need them every day for various practical scenarios ( driving with GPS navigator which requires location to be active or phone calls in the car which requires Bluetooth active).
+You don’t expect thousands of people who spent $2,000 (or more) on an Iphone to turn off services because it’s safer.
+You spend your *entire day* in your car making phone calls while in motion?
+It takes no more than a second to turn Bluetooth and location features off when you don’t need them, and no more than a second to turn them back on. I’m always surprised that people who can remember to check that they turned the gas off before they go out, who take the trouble to double-lock the front door every time they leave the house, and who never accidentally leave the motor running when they get out of their car, find it hard or weird to take equally quick-and-easy precautions in their digital lives. 
+But you are right: I don’t *expect* everyone to turn things like location services on and off all the time. Nevertheless, I *encourage* it. After all, most of the time you know where you are to at least as much accuracy and precision as you could possibly need…
+In short, it’s not a big deal if you don’t do it, but it’s not a big deal to get in the habit of doing it, either.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

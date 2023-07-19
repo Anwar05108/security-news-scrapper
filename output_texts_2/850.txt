@@ -1,0 +1,54 @@
+Sophos Home protects every Mac and PC in your home 
+Apple has just blasted out 11 email advisories detailing its most recent raft of security fixes.
+Confusingly, some of these updates have been available for several days already – the most recent version of iOS is 13.5, and it was officially announced on Apple’s main Security update page on 20 May 2020.
+In fact, the updates listed for iOS and watchOS are still flagged [2020-05-27T12:00Z] with the words “details available soon“, even though Apple’s Security Advisories have full details.
+And Apple’s updates for its non-mobile software products are covered in detail in the Advisory emails, but are not yet mentioned at all on the HT201222 security page.
+For completeness, the updates are numbered APPLE-SA-2020-05-25-1 to APPLE-SA-2020-05-25-11, and cover:
+The bug fixed in Windows Migration Assistant seems to be a DLL loading flaw that affects the Windows version of the software – an app that might, ironically, be the last Windows program you ever need to run.
+Note that DLL loading errors generally don’t allow attackers to perform what’s called remote code execution (RCE), but merely to trick you into using a legitimate program to load up an untrusted component that’s has already been downloaded locally onto your computer.
+So crooks may be able to use this sort of bug to finish off an attack (or to make an existing intrusion worse), but not to break in to start with.
+We counted 63 distinct CVE-tagged vulnerabilities in the 11 advisory emails.
+We shan’t go over every one of them here, but we’ll note that 11 of these vulnerabilities affected software right across Apple’s mobile, Mac and Windows products.
+This is a reminder that vulnerabilities in cross-platform programming libraries may require vendors to put out updates for all the platforms on which that library is used.
+Bugs such as buffer overflows and use-after-free errors can’t always be exploited on every platform, and even if they can, each variant of the exploit might need a lengthy phase of experimentation all of its own.
+Nevertheless, where there’s a memory mismanagement flaw that can be triggered by remotely-supplied content, it’s wise to assume that if exploitation is possible on one platform, it can probably be figured out for other platforms, too.
+For each patched bug, Apple lists its possible impact, so we filtered all the Impact: lines out of the 11 different advisories to give you an idea of the range of different issues fixed, which came to 41 in all.
+We’ve shortened some of the lines slightly to make them easier to read, but the variety of bugs fixed in this round of patches is clear:
+The silver lining here is that the length of the list and the variety of bugs shown above isn’t a sign of security weakness.
+It’s tempting to look at a list like the one above, or the list of 114 vulnerabilities fixed by Microsoft in this month’s Patch Tuesday, as a sign that things are getting worse.
+But by that argument, a company that never puts out updates at all and thus keeps its vulnerability count at zero, would come out as perfectly secure,  even though it’s likely that such a company isn’t finding bugs because it carefully isn’t looking, rather than because it’s looking carefully.
+Instead, you can see the breadth and depth of today’s “here’s what we just patched” lists as a sign of cybersecurity maturity and of ever-increasing attention to detail.
+That’s because bugs don’t go as far as they used to for attackers, who often need to combine multiple flaws in order to pull off remote code execution exploits.
+For example, bugs that can reliably crash apps with remotely supplied data often can’t easily be “weaponised”, or used to cause a crash that ends reliably in code execution.
+Attackers may need to use a memory disclosure bug first, to figure out what programs are loaded where, without which their later attempt to exploit a code execution bug might crash completely instead of taking over control.
+And attackers might need to mix a privilege elevation bug in there too, or a sandbox escape, otherwise they might end up with an attack that is so constrained in what it can see and do that they might as well not have bothered.
+So the days of occasional patches only for the most serious bugs labelled “remote code execution” are over.
+Regular patching of all reported issues, even those that sound unimportant on their own, is a must…
+…so we are going to say what we’ve always done, and that is, “Patch early, patch often.”
+Even if you have set your Mac or your iDevice to update automatically, make a point of checking regularly that you really are up to date:
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This is the first time I have ever turned off Apple updates and this is due to the new COVID api they are including. If this eventually is forced I will scrap my apple phones and go to dumb phones.
+Well, it’s a Google/Apple API, so you are right that you may need to go to a non-smartphone. At least for the “close encounter” tracking, whether it’s a Covid-19 app that’s tracking your encounters (where you can at least say there’s a noble purpose behind it) or some post-coronavirus app with not quite the same sense of community benefit, I assume that the process will depend on Bluetooth, so if you can live with Bluetooth turned off you may well be able to ignore the “tracking and tracing” part of that whole API. (I rarely use Bluetooth on my phone, and I rarely have Location Services turned on, mainly because my battery lasts longer that way.) Bluetooth and Wi-Fi tranmissions can already be used to track who’s around – this is how apps work that tell you where your buddies are, and then where to find you.
+It’s important to know this is an API, John. It doesn’t do anything by itself. It only is used if another app on your phone plugs into it. Presumably you trust Apple somewhat (otherwise you wouldn’t be using iOS at all)? If so, there is no risk* to this update beyond what you’ve already accepted. An app could use this API after you install the update, but an app could simply handle the Bluetooth stuff itself before this API is implemented. For example, this is exactly what TraceTogether does, which is the reference implementation on which both the Singapore government’s and Australian government’s contact tracing apps (and possibly others) are based. The API simply allows the low-level Bluetooth interactions to be handled by the operating system, rather than by an app itself.
+* After writing this I considered there might be a slightly higher risk if the Bluetooth interactions in the API are executed with a higher privilege than by an app, and a vulnerability in the API was found and exploited by a nefarious party. If this is what you meant, John, then fair enough. But I don’t think it was…
+I have more confidence in security and privacy knowing there is now a structured API in place that puts limits what apps can do/call.
+Ah but what to do if I don’t want that recently released COVID tracking feature they seemed to want to put into play along w/ all these fixes?  No way to accept just 1 part of the IOS update, so I suppose it’s time to just go with the flow, security high privacy, even lower.
+so apple has issues as well? everyone points fingers at microsoft, cisco, android etc. but when it comes to apple, everything is fine LOL 
+applecrapple 🙂
+I think most cybersecurity observers (including this site) write about updates from Google, Microsoft, Apple and other multi-platform vendors in a very similar tone these days.
+… so do not even think about it, to stop patching to avoid the latest update because of the new systemwide implemented bluetooth-tracking interface. They keep us alarmed to swallow the pill…
+I would rather be tracked than dead, or cause anyone else to become infected.
+I see some thinking they’ll just opt out of the tracking apps after installing this. Hope is darn sure the last to die. With the base installed I can only imagine it’ll be a done deal. Do I wonder if ‘dumb’ cell phones will have tracking capabilities? Sure. Software or provider, it won’t really matter. Might be a subject to cover.
+I’ve just updated my ios device, and under the bluetooth privacy settings, you can enable/disable the ‘COVID-19 Exposure Logging’ function, so if anyone is concerned about that, it shouldn’t stop you from getting your app up to date and secure.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

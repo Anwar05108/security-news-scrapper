@@ -1,0 +1,23 @@
+Sophos Home protects every Mac and PC in your home 
+Microsoft really wants to secure the Internet of Things (IoT), and it’s enlisting citizen hackers’ help to do it. The company has launched a $100,000 bug bounty for people who can break into Azure Sphere, its security system for IoT devices.
+Microsoft first announced Sphere at the RSA conference in April 2018. It’s an IoT ecosystem encompassing both connected devices and the cloud service that controls them.
+In August the following year, it launched the Azure Security Lab, which offers resources to ethical hackers and runs regular security research challenges. The latest, the Sphere Security Research Challenge, lets bug hunters talk directly to Microsoft’s technical team as they try to break into Sphere.
+Microsoft Sphere consists of three parts. The first is Sphere OS, a hardened custom version of Linux produced by Microsoft. It runs on the second component, custom silicon produced by Microsoft partners including MediaTek, NXP, and Qualcomm. It communicates with the third part, which is a Sphere security service running in the Azure cloud that manages security across a fleet of connected devices. That cloud-based service uses digital certificates to authenticate connected devices, and also manages secure device update services.
+IoT manufacturers can build the chip and the Sphere OS into their own devices (which you might do if you were going to produce a brand new device for mass deployment) or they can connect existing IoT hardware through a Sphere-based gateway module that Microsoft developed.
+There are two $100,000 prizes. The first goes to anyone who can execute code on Pluton, which is the security subsystem providing a root of trust on the Sphere microcontroller. This system, which features security measures that Microsoft learned while building the XBox chip, runs a secure boot process that loads other software components before providing runtime services.
+The second $100,000 prize goes to anyone who can run code in Secure World. This is one of two operating modes for Sphere devices, and is a restricted access mode that only runs Microsoft-supplied code. The Security Monitor that runs in Secure World brokers access to Pluton and protects sensitive hardware like memory. User applications run in a less restricted area of the Sphere OS known as Normal World.
+This isn’t a free-for-all bug bounty. It’s a three-month initiative running from 1 June until 31 August and it’s open only by application. Interested parties must apply by 15 May 2020. The attack scenarios are also restricted (you can’t physically attack the device, for example).
+Sphere challenge also lists several attacks that won’t win the $100,000 prize but which will trigger payouts under Microsoft’s existing bug bounty program for Azure, with bonus payments of up to 20%. These include running code on networkd (a Linux networking daemon), spoofing device authentication, or unexpected elevation of privilege. If you can alter software and configuration options that you’re not supposed to, or alter the firewall built into the microprocessor hardware and cause a Sphere device to communicate with an unauthorised destination, that’ll also earn a payout.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

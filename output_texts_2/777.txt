@@ -1,0 +1,27 @@
+Sophos Home protects every Mac and PC in your home 
+Remember the Shadow Brokers, the mysterious group that stole and leaked a collection of NSA files in 2016? Well, it’s the gift that keeps on giving. A security researcher claims to have unearthed a previously-unknown APT group after reading over some of the dumped files.
+The Shadow Brokers published their stolen NSA files online in several batches. One of the largest was batch number five, which got the nickname ‘lost in translation’. In March 2018, Budapest University’s Laboratory of Cryptography and System Security (CrySys Lab) published a report picking apart this file drop. It focused on a file called sigs.py which contained 45 file signatures that government operatives could use to scan machines for infection. Each file signature could be linked to a different attack group. Some of the signatures, like Flame and Stuxnet, were already known. Others were less common. The lab identified one of them, a file called godown.dll in signature 37, as IronTigerASPXSpy. It got this reference from a file listing on VirusTotal.
+Juan Guerrero-Saade, a security researcher and adjunct professor at Johns Hopkins University’s School of Advanced International Studies, wasn’t convinced, arguing that misleading files make their way onto VirusTotal all the time. He realised that the file in question was a 15Mb memory dump of a McAfee installer. In short, it’s a red herring.
+Investigating godown.dllfurther, he found that the file was a drop from a larger multi-stage infection framework. The tools and techniques that the framework used indicated a unique cluster of activity. It pointed to an advanced persistent threat group that wasn’t publicly known until now.
+Although it’s difficult to directly attribute the attack to a specific actor, Guerrero-Saade noted that some of the resources in the files mention Farsi (Persian), which is native to countries including Iran. The name used in the root debug path, c:/khzer, apparently means ‘to survey or monitor’ according to friends of his that are acquainted with the language, and so he decided to call the attack group Nazar, after the heart-shaped amulet supposed to protect people against the evil eye in many countries across the middle east.
+While the evidence is far from conclusive, he said:
+When we think about Iranians targeting we tend to think of western APTs. In this particular case if we were to take all of the attributed indicators at face value it sort of defies that general perception.
+This could mean we’re looking at an Iranian-born cluster of activity that’s targeting what looks like exclusively Iranian victims he adds, pointing to previous domestic spying toolkits that have come to light in other countries, although he warns that further investigation is necessary to firm up that idea.
+Despite the age of the leaked NSA files, he also mused that this activity could be ongoing. Many of these tools and techniques are notably dated (or “old-school” as he describes it in his excellent talk on the topic at the OPCDE Virtual Summit):
+For example, the dropper, GPUpdates.exe, is an executable packager based on commercial software called Zip 2 Secure, which was last updated in 2012. The malware also sets up some other DLL files that reuse off-the-shelf commodity software for tasks including turning on microphones, key logging, and screen grabbing. It also includes an ancient packet sniffer.
+Researchers at malware analysis company MalwareLab.pl investigated the EYService orchestrator that controlled the malware and found a long if-else tree that triggered various commands. These included recording audio, listing files and programs, and setting the command and control (C2) server.
+He explained that the assets used appear to place the attack files between 2010 and 2013, and the attack targets Windows XP and prior. This doesn’t mean that the attack group is defunct, though. He added:
+I don’t think this has subsided. If anything this is a super-old-school version and I’m sure there’s got to be some Vista-and-forward Windows version.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

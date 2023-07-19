@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Right at the end of 2019, we wrote about the “decade-ending Y2K bug that wasn’t” in a serious article with a humorous side.
+In that article, we described a perennial “gotcha” facing Java programmers faced with the simple task of printing out the year.
+If you tell Java to treat the date as four digits by using the abbreviation YYYY, which is a very common way of denoting the year in all sorts of other apps, you will get the right answer most of the time…
+…but in some years, the answer comes out exactly one year off for just a few days at the start or the end of the calendar year.
+Memories of the Y2K bug!
+Y2K, or the millennium bug, was where programs that tried to save memory by storing dates as “99” instead of “1999” got confused at the end of 1999, because the sum 99+1 rolls back to 00 when you only have two digits to play with.
+But it turns out that the Java bug that people were comparing to Y2K was a completely different beast.
+The bug in the Java case is that Java’s shorthand to denote the current year in four digits is yyyy, and not YYYY – it really matters whether you use capital letters or not.
+Confusingly, and for many people, surprisingly, the text YYYY in a Java program denotes the year in which at least half of the current week lies, as used for things like payroll and weekly accounts.
+So if there are an odd few days at the start or end of a year, they’re transferred to the previous or following year when you count in weeks to do your accounts.
+Phew.
+Because, when you think about it, the idea of a Y2K-style bug resurfacing at the end of 2019 seems pretty unlikely.
+Programs that only used two digits for the year instead of four would surely have been found out on New Year’s Day 2000, and would have been off by 100 years ever since, and would therefore quickly have been patched or replaced?
+Perhaps not.
+Because one way to patch the Y2K problem was to move it, rather than actually to fix it.
+In other words, instead of reworking your program so it could correctly calculate that 1999+1 = 2000 (and so on for any four-digit year), you could take a shortcut and just tell your program to treat the 00 as AD 2000, instead of AD 1900, thus giving you an extra year to deal with the problem properly.
+There was a downside there, namely that you no longer had any way of denoting the year 1900, but that was often much less of a problem than not being able to recognise 2000 – you accepted the risk of very occasional bugs that might never show up, instead of facing certain disaster at the stroke of midnight on New Year’s Day in Y2K.
+Of course, this trick could be used to give you more than one extra year – at the end of 2000, for example, if you still hadn’t managed to fix your software with four-digit years, you could push the cutover point to the end of 2001 instead – you’d lose 1900 and 1901 but gain 2000 and 2001 instead.
+You can guess where this is going, namely that what works for one or two years can work for 10 years…
+…or for 20 years.
+We’ve seen numerous stories in the media recently alleging that various computer systems around the world seem to have done just that, effectively putting Y2K off until 2020 by deferring the flipover point until 2019-12-31.
+A notable case is that of parking meters in New York, where, according to the New York City’s Department of Transport:
+[T]he credit card payment system software was configured to end on January 1, 2020, and officials say […] the company that makes the meters, never changed the date. Card payments stopped working last Thursday, January 2, 2020.
+Behold – a Y2.02K bug!
+Actually, we don’t know whether this was a bug of the Y2K sort, or just an operational issue with a different cause.
+After all, if the devices suffered a 100-year calculation error at the transition from 2019 to 2020, then you might reasonably expect the system to have failed on New Year’s Day, rather than on the second day of the month.
+But the moral of the story is simple, and it goes well beyond just getting the year right.
+If there’s any sort of this-stops-working-abruptly-for-some-reason setting in your software – and there are many good reasons for building one in, whether it’s to force the retirement of long-superseded code, or to comply with regulatory terms, or for some other purpose – then don’t let it take you by surprise.
+By the way, Windows 7 support, including the publication of security updates and patches, ends next week after 2020-01-14.
+Don’t let it take you by surprise!
+Although Windows 7 won’t abruptly stop working, there are probably many IT managers and staff who secretly wish it would.
+That would at least bring all those unknown and unreported Windows 7 computers out of the shadows and turn them into the devil you know, rather that the devil you don’t…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Perhaps the bug didn’t show until 2 January because parking in metered spaces is free on 1 January . . .
+Ah, that could be the case. But [A] when I saw “was configured to end on 01 Jan ” I read that in the same way as I would read “the year ends on 31 Dec”, i.e. that the system would work until the end of said day and [B] I assumed that New York, the city that never sleeps, would never, ever have free parking days. (Everywhere I’ve lived in recent years with metered parking has been “always pay” – you might get a cheap rate overnight, or pay less on Sunday, but as for $0, forget it. One of the many reasons I gave up owning a car. When you’re driving them they’re handy and dandy – it’s when you get to your destination that the trouble starts.)
+1) NYC meters do NOT operate on Sundays or Major holidays (including New Years Day).
+2) The was not a two digit/4 digit glitch but a screw up on the part of the company providing the software for the meters in New York and about a dozen other US cities that had the same problem.  The Jan 2 cut off was a fail-safe security measure, like the expiration date on a credit card, so that the software would have to be renewed and not work forever.  The company just did not remind the cities about this.
+3) Curb parking payments could still be made at the meters by coins (lots of them) or by mobile app.  So the City continued to write tickets for unpaid parking.
+4) The software fix had to be installed by hand on all of the City’s 14,000.meters.  It has now been completed.
+It was never a ‘millennium’ bug as it was an effect that would occur on the change of year from 1999 to 2000. The millennium was actually on 1st January 2001, after 2000 years had been completed and there was never a year 0.
+Technically, you can consider anything that affected any calculation that crossed the 1999-to-2000 boundary as an example of the millennium bug.
+As for when ‘the millennium’ started… well, *a* millennium can start whenever you want, then count forward 1000 years, but the most widely agreed value of when *the* millennium started is 2000-01-01.
+Interestingly, the federation of Australia (the date on which it became a single sovereign country) happened on 1901-01-01 because it was then accepted – by some people at least – as the dawn of the new century. 
+In the following 99 years we collectively lost patience with waiting for 2001 and decided to redefine the dawn of the next new century at 2000 by imagining that there had been a year numbered 0 after all. 
+Maybe it was the late 20th-century triumph of the programming language C, which famously counts from 0, over Pascal, which counts from 1?
+At any rate, it was a jolly good idea not to wait until 2001. It certainly *looked* like a new millennium had arrived when the year changed abruptly from:
+MDCCCCLXXXXVIIII
+to just:
+MM
+Judging by the fireworks at that very moment, a significant majority of the world had accepted the new definition.
+(Actually, I was in the UK at that time and IIRC the BBC used the subtractive notation for Roman numerals – harder to read but shorter to write – so 1999 came out as MCMXCIX, but you get the idea.)
+I remediated several IBM mainframe sites for Y2K or worked on a team which did so.  It was all COBOL.  Although not exactly the same problem as described here, we generally used 50 as the flip-over point:  for unremediated datasets which would continue to have two-digit years, the programs needed to know if the year encountered in the data occurred was 19nn or 20nn.  So, if the data had YY < 50 then in programmatically we considered it to be 20nn, else it was 19nn.  Surely all these COBOL programs will have been replaced by 2049, right?
+We missed a few programs (or made errors in the program logic) and the results were hilarious.  At one insurance company, the computer operator called me at 3:00 a.m. on 1/1/2000 and asked why he had a four-foot-high stack of automobile insurance renewal notices printed out.  All of the insurance policies had expired since the renewals job thought it was 1900.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

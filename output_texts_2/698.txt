@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Thanks to the team at SophosLabs for sending us the SMS used in this scam.
+If you’re sitting at home right now, sheltering from the coronavirus pandemic – and there’s a good chance you are – then you are probably either thinking about a home delivery, or waiting for one.
+In the UK, for example, even people who have no symptoms of the virus, and who haven’t been in contact with anyone who’s infected, have been instructed to make their shopping outings “as infrequent as possible”.
+Indeed, many stores considered non-essential have been forced to shut, including electronics shops, so the new HDMI cable or the replacement mouse you need for working from home may only be available online.
+So, with home delivery companies seriously stretched and long shipment times, we suspect that lots of people will be anxiously watching their phones for text messages like this one:
+
+The URL in this case was a short domain name with a brief coded sequence of letters and numbers at the end – pretty usual for links in text messages, which are typically shortened to fit in the limited length of an SMS.
+And given that no one wants to see their lovingly awaited shipment of toilet rolls go astray at the very last step of the way for something as minor as an address glitch, it’s tempting to click through to check what’s going on.
+As you can see, the site has a reassuring HTTPS padlock, meaning that transmission to and from the site is secure, but the site itself is just a visual ripoff of the Canada Post/Postes Canada brand (this SMS was received by SophosLabs in Vancouver, BC):
+
+In case you are wondering about that HTTPS certificate, here’s what it looks like – we used Firefox on our laptop, where clicking on the padlock in the address bar makes it easy to inspect the details:
+
+The server is running on the popular cPanel web hosting service, which provides a web certificate automatically (that’s a good thing, because unencrypted web traffic can be snooped on and tampered with far too easily).
+Highlighted above is the fact that the certificate was created on 2020-03-24, the very same day that this scam campaign went out.
+Anyway, your delivery is held up by a mere $3 shortfall, which is the sort of amount you’d probably consider paying anyway and arguing about later, if the alternative is to lose your delivery slot.
+If you do proceed, then the crooks first want you to confirm your address, as stated in the original SMS message…
+
+…and then they want to “process” your $3 payment by capturing your credit card details to complete the transaction:
+
+(By the way, in Anglophone Canada, monetary amounts are written with the dollar sign at the front; only in Francophone Canada would you expect the dollar sign at the end – so that’s one of many hints here that something is not right.)
+Above, we put in non-existent credit card information to see what would happen next – some phishing scams of this sort redirect you to a genuine page on the courier company’s or the card company’s real site in order to throw you off the scent – and we were presented with a bogus “card declined” message.
+If you’re a regular Naked Security reader, this screenshot might ring a bell, and that’s because it is not merely similar to but in fact exactly the same as the bogus “payment back-end” that we wrote up in a similar scam at the very start of 2020.
+The payment form you see is actually a sub-window hosted on and delivered by a different server, which is presumably meant to mirror the way that a lot of genuine payment processing sites work, where the actual payment part of the transaction is handled by your financial provider.
+The trick of pretending to decline your card is a canny one, because it not only provides the crooks a plausible way to terminate their scam, but also gives them a chance that they might phish you twice in a row.
+As we pointed out last time:
+As you can see, the crooks are still phishing for more, even at the end, brazenly suggesting that you try another credit card and thus giving them two-for-the-price-of-one.
+Of course, if you get this far you’ve just handed over your card details to the crooks, including the CVV (security short code) from the back of your card that no legitimate merchant would store.
+P.S. Don’t forget that just typing data into a web form exposes it to crooks because they can “keylog” what you type into a webpage even if you never press the [Finish] button.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

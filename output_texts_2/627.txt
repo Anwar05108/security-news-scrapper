@@ -1,0 +1,32 @@
+Sophos Home protects every Mac and PC in your home 
+First came ‘fuzzing’, a long-established technique for spotting bugs such as security flaws in real applications using automated tools.
+More recently, security fuzzing tools have expanded in number, and today there are hundreds of specialised open-source tools and online services designed to probe specific types of software.
+But which security fuzzing tools, techniques and algorithms work the best when assessing real programs for bugs?
+That’s been harder to know without fuzzing the fuzzers. But doing this presents a problem – traditional assessments often use too few benchmarks and don’t run over long enough periods because testers lack the resources to do anything more ambitious.
+So fuzzing users base their enthusiasm for specific tools on incomplete data or their own experience, which creates some uncertainty.
+Now Google, which delivered its own open-source testing tool OSS-Fuzz in 2017, has announced FuzzBench, a free service “for painlessly evaluating fuzzers in a reproducible way.”
+Reading Google’s description, it almost sounds too good to be true. Researchers integrate the fuzzer they want to test using an easy API and 50 lines of code. FuzzBench then throws real-world benchmarks and many trials at the tool until, after 24 hours, the results appear:
+Based on data from this experiment, FuzzBench will produce a report comparing the performance of the fuzzer to others and give insights into the strengths and weaknesses of each fuzzer.
+It would be flippant to call this fuzzing by numbers, but the hope is that by giving fuzzers more data on what works they can spend more time making fuzzing tools better.
+Improving fuzzing matters because being able to do it quickly, cheaply, and easily should, in theory, be one of the best ways to reduce the number of security flaws in software when used under what is politely called real-world conditions.
+Fuzzing software involves throwing large numbers of random, tweaked and permuted (fuzzed) input files at an application in the hope of triggering unexpected or hard to find bugs, thereby highlighting security vulnerabilities.
+Essentially, it tries to reproduce how a program might be used and the security vulnerabilities this might give rise to in everyday use, ones that are difficult to detect using manual code review.
+Requiring no access to source code, this makes it what is called a ‘black box’ technique – the same fuzzing principle used by hackers when trying to find flaws worth exploiting.
+Developers submit the fuzzer they want to test to the FuzzBench platform which generates the report by running 20 trials of 24 benchmarks over a 24-hour period using 2,000 CPUs. The fuzz also runs ten other popular fuzzers (including AFL, LibFuzzer, Honggfuzz, QSYM, Eclipser) to provide a comparison.
+Statistical tests are part of the suite to estimate how much of the difference between one fuzzer and another is down to chance as well as providing the raw data so developers or pen-testers can make their own assessment. Crashes aren’t included as a metric but will be in future.
+Google has offered a sample report to give some idea of how the data is presented at the end of the fuzz.
+As with all fuzzing tools, the benchmark of FuzzBench’s success will be how many researchers and developers use it. If it works as advertised, the ultimate beneficiaries will be the billions of people who depend on reliable software.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Google reveals Fuzzbench, the Fuzzing Fuzzer. Kinda of a tongue twister there. So we now have an AI that checks the AI of another program. We are about 3 steps away from SkyNet or Her.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

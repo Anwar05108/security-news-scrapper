@@ -1,0 +1,70 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers report flaws, vendors issue patches, organisations apply them – and everyone lives happily ever after. Right?
+Not always. Sometimes, the middle element of that chain – the bit where organisations apply patches – can takes months to happen. Sometimes it doesn’t happen at all.
+It’s a relaxed patching cycle that has become security’s unaffordable luxury.
+Take, for instance, this week’s revelation by researcher Kevin Beaumont that serious vulnerabilities in Pulse Secure’s Zero Trust business VPN (virtual private network) system are being exploited to break into company networks to install the REvil (Sodinokibi) ransomware.
+His evidence comprises anecdotal reports from victims mentioning unpatched Pulse Secure VPN systems being used as a way in by REvil. Something he has since seen for himself:
+I’ve now seen an incident where they can prove Pulse Secure was used to gain access to the network.
+As Beaumont points out, the patches for the vulnerabilities in some versions of the Pulse Connect Secure (PCS) and Pulse Policy Secure (PPS) were first made public in an advisory published by the company on 24 April 2019.
+This covered 10 CVEs, including one critical rated a maximum 10 on the CVSS scale (CVE-2019-11510), a second (CVE-2019-11508) rated 9.9, plus six additional CVEs affecting the Ghostscript PDF interpreter.
+A week before that, as we reported, a more general warning was issued by US-CERT regarding weaknesses in several companies’ VPN clients, including Pulse Secure’s Connect Secure.
+So, for up to eight months before the latest REvil attacks, it was public knowledge that Pulse Secure’s VPN systems had severe weaknesses that needed urgent attention.
+As Beaumont describes:
+It allows people without valid usernames and passwords to remotely connect to the corporate network the device is supposed to protect, turn off multi-factor authentication controls, remotely view logs and cached passwords in plain text (including Active Directory account passwords).
+On 14 August, someone posted an exploit for CVE-2019-11510 on OpenSecurity.global, after which it was only days before criminals started scanning for the vulnerability (Beaumont used threat intelligence from BinaryEdge.io to confirm this).
+Bad Packets even posted a warning that it had detected a mass scanning for the Pulse Secure flaws. The bad news – according to scans, in late August 2019, 14,528 servers out of 41,850 running the software had not been patched for the vulnerability.
+Logically, the companies caught out in REvil’s latest attacks were on the ‘failed to patch’ list. Or perhaps, as Beaumont mentions, the attackers were able to install backdoors that overcame any subsequent patching.
+Somehow, Pulse Secure’s patches were missed, ignored, or not applied for reasons unknown. Whatever the cause, getting to the bottom of why these flaws were left to fester is in everyone’s interest.
+The latest count of vulnerable Pulse Secure servers? According to Bad Packets…
+On Friday, January 3, 2020, we conducted our nineteenth round of vulnerability scans and found 3,826 Pulse Secure VPN servers worldwide remain vulnerable to compromise.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+If you are going to use abbrviations for something could you at least tell us what the abbreviation is. WTF is a VPN?
+It’s a Virtual Private Network. I’ll add that to the article where the acronym is first used.
+A VPN is software to create an encrypted connection from your computer’s network card to somewhere else – often the network back at head office – so your effectively emerge into public view on the internet from somewhere you trust more than, say, the ISP used by the coffee shop in the country you’re visiting right now.
+For a jargon-free overview, please see:
+https://news.sophos.com/en-us/2015/10/19/what-is-a-vpn/
+If you don’t know, you shouldn’t be reading this article.
+Why on earth not? How else to learn?
+The OP has a reasonable point – we generally try to avoid using acronyms on Naked Security without writing them out when we first use them, unless they are so well established as to be considered words in their own right. 
+After all, you don’t have to understand what a VPN is or how it works for this article nevertheless to be informative – the deal is that a bug in a product that is supposed to help you do networking more safely could be turned against you by the crooks. And just knowing that VPN stands for “virtual private network” does make things a lot clearer.
+Sure, the OP could have gone to a search engine…
+…but we could just as easily have added the actual meaning of the abbreviation, and we usually do that, and now we have. Dumping on the OP seems a bit unnecessary! 
+As an aside, the term VPN is probably more widely misunderstood that not. Very many people see a VPN as a way of assuring anonymity and privacy, just because it has the word “private” in it and involves encryption. They assume VPNs are ‘secure’ and ‘privacy-enhancing’ by nature, and some VPN providers pitch their services as if they do just that, and help you stick it to the man. Yet they do not, or at least they might not, and the P in VPN does not stand for *privacy*. As we explain here:
+https://nakedsecurity.sophos.com/serious-security-understanding-the-p-in-vpn/
+I’m with you on avoiding “IT talk” or, if forced to, to at least explain it the first time it occurs.
+We cannot afford to put off “ordinary users” from taking an interest and asking questions – particularly when it comes to IT security.
+Users “blinded with science” are probably more of a menace than the interested user who checks before deciding, say “I’ve got VPN security – or whatever – so I can download this app safely”
+This blog is accessible to most – from IT professionals to home users – and so it should be; even if it means the Finance Director can ask awkward questions.
+No offense intended, Jim, but a VPN is a pretty basic concept and acronym for most people in the IT field.  Articles like this are targeted towards those people and don’t usually need common used acronyms defined. 
+You could always just Google any terms that you find unfamiliar.
+The technology industry’s love of acronyms, and its willingness to assume “everyone gets it” is a pet peeve of mine. It costs very little space to define your acronyms the first time you use them; we usually do so. 
+I remember the first time I heard “RCA” used to mean “root cause anaylsis”. The person using it laughed in my face that I didn’t know exactly what he meant when he said “we’re trying to find out the RCA”, even though I associated – still do – RCA with Radio Corporation of America and the famous equalisation curve they came up with to improve the sound quality of 45rpm gramophone records (check it out) – a really neat analog solution to a tricky problem that we now assume everyone just solves with a DCT. (I’m not going to tell you that’s short for discrete cosine transform; heck, everyone who has ever listened to digital music ought to know that!)
+What the person really meant was, “We are trying to find out what really went wrong,” but they couldn’t bring themselves to talk in English. I think they thought I’d be impressed if they threw in a fancy IT acronym, even though the sentence they uttered was ungrammatical if you expanded the acronym.
+Not that I feel strongly about it.
+While I mostly agree with you about the overuse of acronyms in the IT industry, having sat through my share of product pitches full of unknown acronyms, I think there are two things here that are prompting some of us to comment here on this item.  The first is that the target audience here for this article is IT professionals with more that passing understanding of networks and network security concepts.  The second is that, in my humble opinion, the term VPN (at least in the industry) is, as you put it, “so well established as to be considered words in their own right.”
+I mean the author did not define CVSS or CVE, two far less common acronyms, but the OP did not ask about those nor were they ever defined.
+I certainly don’t want to discourage the OP from reading or learning, nor to I want to make him feel bad for asking questions.  But I don’t think it was necessary for him to criticize the author for not defining a pretty common industry acronym.  It’s his criticism of the author I object to.
+Good points. I’m not defending the OP’s tone – he could have asked politely, and would have got the same result from me – but at the same time I don’t want anyone looking at Naked Security to think they aren’t welcome here if they aren’t already self-proclaimed experts, or to feel that they can’t ask questions because the community will turn on them and say, “You shouldn’t be here if you don’t know stuff.”
+(And, to be fair, CVSS and CVE are kind of incidental to the story, whereas the headline says ‘danger due to VPN flaws’, and that does raise the question, ‘How to know if this applies to me?’)
+My assumption was that VPN is now common parlance. On reflection, spelling out Virtual Private Network harms nobody. Clarity is never a bad thing.
+If you are going to use abbrviations for something could you at least tell us what the abbreviation is. WTF is a WTF?
+I think we can assume that the OP was being ironic, as are you…
+…the point stands that “VPN” is an oft-heard but much-misunderstood term for a widely-misrepresented technology, and it costs very little just to expand the acronym for clarity.
+Lol if you don’t know what a VPN is you had just better keep your fingers crossed and pray about computer safety.
+#What is WTF abbreviation? Lol
+Nice one  🙂
+Wow That’s Fantastic!
+Which VPN companies are affected by this or is it all of it, so people can know if they’re affected.
+Seems like this relates to a specific VPN product, so it would depend on which software your VPN provider gives you to use.
+We use Anchor Free/ Pango. So I don’t know if it’s the same software that’s referenced above. How does one find out if the VPN you’re using is compromised / remains compromised from vulnerabilities listed? Basically how does one know that their VPN is protecting them as intended instead of being a major risk to their security?
+I’d suggest contacting your supplier, vendor or service provider for advice. Given that the patches have apparently been out since early last year, you’d hope they would have info about if their implementation was vulnerable and if so when it was patched…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,48 @@
+Sophos Home protects every Mac and PC in your home 
+We’ve seen several news stories talking up some great new features in Apple’s latest software update for iOS, which was released yesterday.
+However, we’re much more interested in the security patches that arrived in the update to iOS 14.6, because Apple fixed 38 significant bugs, covered by 43 different CVE bug numbers.
+For what it’s worth, the update to macOS Big Sur 11.4 shared many of those bugs with iOS, as well as adding a raft of its own, with 58 significant bugs patched, covered by 73 different CVE bug numbers.
+Perhaps even more importantly, one of the Big Sur bugs that was patched, now dubbed CVE-2021-30713, is a security flaw that is already known to criminals and has already and quietly been exploited in the wild.
+In fact, this exploit was only recently reported to Apple after lurking unnoticed in Mac malware known as XCCSET that dates back to last year.
+Ironically, this bug exists in a system component called TCC, short for Transparency Consent and Control, a part of macOS that is supposed to make sure that apps don’t do things they aren’t supposed to.
+According to security researchers at Mac management software company Jamf, this bug provides a sneaky way for a simple AppleScript utility with no special permissions at all to “leech off” the permissions of an an already-installed app.
+Usually, malware that blindly ran an AppleScript utility to record your screen would cause a giveaway security warning to pop up asking you if you wanted to let the malware go ahead.
+Unless and until you clicked through into the Security & Privacy page in System Preferences, and manually approved the malware by adding it to the list of apps allowed to record your screen, the cybercrooks would be out of luck.
+Jamf researchers, however, realised that by judiciously inserting the malicious screenshotting AppleScript utility into the application directory of software that already had Screen Recording permissions…
+…they could then launch their AppleScript under the assumed authority of the so-called “donor” app and take screenshots covertly without any warnings popping up.
+The researchers used Zoom as the “donor” app in their research article, but noted that the average Mac user is likely to have numerous screenshot-ready programs already installed, such as Discord, WhatsApp, Slack, WeChat, TeamViewer and many others. This trick is not limited to Screen Recording permissions, either, so other installed apps could be “piggybacked” too. This means that an attacker could invisibly acquire unauthorised access to other permissions such as Location Services, Photos, Camera, Microphone, and files and folders that would otherwise be off-limits.
+Other potentially serious bugs that are shared between iOS/iPadOS and macOS, and therefore necessitate that you patch your iDevices as well as your Macs, include:
+Big Sur also gets patches against a whole raft of serious bugs, including RCE, in the smbx software, which is installed on Macs so that they can connect to Microsoft networks. (The letters SMB are short for Server Message Block, the original name for Microsoft’s file sharing protocol.)
+Apple’s mobile platforms don’t include Microsoft-compatible networking code, so they aren’t affected by the smbx bugs, but iOS does get a patch for a Wi-Fi bug dubbed CVE-2021-30667 and explained with the words: “an attacker in WiFi range may be able to force a client to use a less secure authentication mechanism.”
+We’re not sure what that means, but given that iPhones haven’t supported the old and insecure WEP protocol at all for many years, and that most iPhone wireless connections use WPA2…
+…the only step down from there is “no encryption at all”. 
+On iDevices, go to Settings > General > Software Update.
+On a Mac, it’s Apple menu > System Preferences > Software Update.
+If you’re already up to date, then the updater will say so; if not, it will offer you an immediate opportunity to catch up.
+The latest versions to look out for at the time of this article [2021-05-25T12:00Z] are: iOS/iPadOS 14.6, watchOS 7.5 and macOS 11.4.
+If you’re still using macOS 10.14 or 10.15 (Mojave or Catalina by name), you’ll be offered updates specific to those versions, and you’ll need to get Safari 14.1.1 as a separate update. (On Big Sur the new version of Safari is included in the main update.)
+There isn’t an iOS 12 update this time, so that version stays at 12.5.3.
+And, no, we didn’t forget our mantra: Patch early, patch often, because why be behind when you could be ahead?
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Apple will need to step itself up if it wants people to still think of them as “Virus-free”. They can’t be both secretive and insecure. People who buy a Mac because it “can’t get viruses” aren’t the same people who like patching Zero Day bugs.
+Apple’s marketing has outstripped what it delivers for QUITE some time now.
+I think you have to be. One of the biggest ecosystems in the world obviously is going to be a target. The beauty of iOS is the patches come out very quickly and are universally available on all supported devices. It’s quick and easy to update, you get reminded to do so, and there’s really no downside other than having your device reboot and being unusable for a brief period of time. These days people better get used to patching, as that’s the reality we live in. The bigger issue is having to wait months for a patch due to having to wait for Google, your device manufacturer, and also your carrier to all complete their own separate development and testing cycles and just being vulnerable that whole time.
+Really, in this day and age, anyone who buys a Mac because it “can’t get viruses” simply isn’t paying attention, which isn’t Apple’s fault.  There have been anti-virus programs for Macs available and recommended for years.  Macs are a different virus/malware target than Windows PCs for various reasons, one due to sheer numbers of PCs compared to Macs.  But both are targets non the less, and both require awareness on the part of the user.
+Agreed. We discussed this very issue in the Sophos Naked Security Podcast that was recorded on the same day that this article came out. I used slightly different words for people who still say, “Macs don’t get viruses,” namely, “Oh, really?”…
+https://nakedsecurity.sophos.com/s3-ep34-apple-bugs-scammers-busted
+Remember the commercials where the ‘PC’ guy had a cold?  That was Apple telling everyone their computers don’t get viruses.
+Yes. We referenced those ads in the abovementioned podcast :-) The middle-manager bloke in the suit (who was a PC, of course) kept getting sick, tripping over, getting lost or having to wait for updates, whereas the hipsterish youngster with a Mac was always on top of his game.
+To be fair, Apple implicitly repented of those ads (and rather undermined any lingering belief anyone might have retained in them) by quietly introducing a rudimentary anti-virus of its own in macOS (or OS X as it was), what was it, about 10 years ago!
+They did  repent of them.  Word on the street was because people liked the PC guy better 🙂
+They did introduce some protection into their OS, but without, as you pointed out, informing the general public.
+It’s the same with the sensational media; the lie is on the front page, but the retraction is on page 46 a month later.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

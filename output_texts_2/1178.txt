@@ -1,0 +1,129 @@
+Sophos Home protects every Mac and PC in your home 
+We don’t often put out programming appeals on Naked Security, especially when the code that we’re looking for is dangerous and destructive.
+But this time we’re prepared to make an exception, given that it’s a rainy Friday afternoon where we are, and that this issue is now in its fifteenth consecutive year.
+Our attention was drawn to the problem by a tweet from well-known Google cybersecurity researcher Tavis Ormandy, who tweeted today to say:
+The legend continues, the question was posted for the 15th consecutive year today! 👻 https://t.co/NkTngOopoY
+— Tavis Ormandy (@taviso) June 17, 2021
+
+With just one exception that I know of (an email that appeared in July in 2008), the same person has emailed the Linux Kernel Mailing List (LKML) sometime in the month of June, ever since 2007, to ask the same question
+Every year for 15 years in a row, including 2021, the mysterious R.F. Burns (yes, we think it’s a pun, too) has wanted to know:
+Despite many helpful and not-so-helpful answers each year, the mysterious questioner still doesn’t seem to have figured out how to do the job.
+A tongue-in-cheek exchange at the very first time of asking explains the reason for the potential cybervandalism as follows:
+Ironically, modern laptops don’t really have PC speakers any more.
+Sure, they have speakers built in, but they’re connected up to the sound card that’s also build in, so they merely provide a low-quality version of the same sound output you’d hear if you plugged in headphones.
+But those are just speakers, not specifically a PC speaker, which wasn’t connected to a sound circuit at all.
+The original PC speaker was only ever intended to be used to make beeps to alert you to some sort of error, notably during startup  when the screen might not be working and you wouldn’t be able to see any error messages that might have been displayed.
+Back in the day, most PC components ran at 5 volts DC, and the speaker was no different: it was connected to a 5V supply on its positive terminal and earthed (grounded) on the other.
+The 5V input wire could be turned on and off via an otherwise unused bit in the keyboard controller (bit 1 of port 0x61, in case you want to try writing your own PC speaker code).
+If you wrote a value of 1 into the speaker control bit, the speaker magnet would actuate and the speaker would jump to its “energised” position. 
+Set the bit back to zero and the speaker cone would move back to its “silent” position.
+Flip that magic bit on and off at a suitable frequency and you would effectively create a square wave of constant pitch and volume.
+Vary the frequency every so often, and you could vary the pitch to play rudimentary tunes, and when we say rudimentary, we really mean it.
+But rudimentary wasn’t good enough for gaming hackers.
+As well as controlling the speaker directly via what’s known as bit-banging (where you directly program a control wire by writing a timed stream of 1s and 0s to it yourself), you could also connect the speaker’s voltage wire up to the PC’s programmable interval timer (PIT).
+Then, you could vary the pitch of the sound that came out by reprogramming the PIT every so often, meaning that you had more precise control of the speaker’s frequency, and you didn’t need to have code running in a tight loop just to generate the bit-flips needed for a specific note.
+Instead, you could dedicate what little CPU power you had at your disposal to tweak the PIT continuously to drive the speaker at varying frequencies, including ones faster than it could actually handle, given that PC speakers were both tiny and tinny and could reproduce only a narrow frequency band.
+Instead of producing a very high frequency at a constant volume, the electromechanical limitations of the speaker – basically, its inertia, or lag in starting to move when energised – meant that it wouldn’t have time to describe a full square wave at all.
+In this way, you could produce controlled sounds at a lower volume that normal, so you could simulate a sound card that supported, say, 6-bit (64 different sound levels) or even 8-bit (256 different levels), instead of having a speaker that could only reproduce 1-bit sound (playing at full volume or totally silent).
+By this method, a crude form of pulse width modulation, early PC games achieved astonishing results without sound cards.
+Many games of the DOS era could not only play back music that sounded way better than the mere sequence of square-wave beeps that the speaker was designed to produce, but even reproduce human speech, though it was often hard to understand or sounded as if the narrator had a really weird and nasal accent.
+So, could you actually blow a PC speaker if you had the sort of precise control over it that you would get at Linux kernel level?
+As our legendary questioner keeps asking, could you blow a PC speaker with a kernel driver?
+Volume alone, the means by which many a cheaply powerful-but-clippy amp turned too high for too long in student digs has ruined many a set of not-quite-as-highly-rated-for-power-as-you-thought-they-were speakers, isn’t going to do the trick.
+The PC speaker is supposed to run at a constant volume, based on that on-or-off 5V input wire, so it’s intended to operate in a “turned up to 10” state all the time.
+There’s no way to turn that 5V input to 5.5V, which would be the same percentage increase as turning it up from 10 to 11, and blow the speaker that way.
+You can trick the speaker into running at a lower volume that it thinks, and therefore to produce better sounding output by effectively turning it down below 10, but you can’t turn it up above 10.
+You could try to freak out the speaker by running it through a carefully-constructed cascade of frequencies that would tax its physical resilience, except that the PC speaker almost certainly isn’t good enough to notice, let alone to reproduce reliably enough, the complex and chaotic physical motion you had in mind.
+One tongue-in-cheek but helpful responder to R.F. Burns (we’re now as good as certain that the name is part of the joke), in the first year of asking, suggested that it might be possible to find a specific frequency for each speaker at which you would cause resonance, and get it to shake itself to bits.
+Resonance is the sort constructive interference that old vehicles tended to experience at certain speeds, when body panels or window glass would start to vibrate in exagerated and ever-increasing and brain-jarring sympathy with the engine until you sped up or slowed down a tiny bit.
+Is it possible? Can it be done?
+We’re pretty sure it can’t, or else R.F. Burns (now we know it’s a joke it’s not really funny any more) would surely have figured out the magic frequency in the past 14 years, and stopped asking how to do it.
+So, if it can’t be done, this question must, surely, have a hidden meaning…
+…but what is that hidden meaning? Answers below, please!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Duck,
+Perhaps this might be where the “R.F. Burns” comes from in this context: https://ieeexplore.ieee.org/document/5618607, seeing as the poster is asking how to blow a speaker.
+Good find! But that paper was published three years after our RF Burns first asked his non-electromagnetic question.
+The highest stress I can think of would be to write the value of 1 into the speaker control bit to actuate the speaker magnet would actuate, and leave it there.  At that point your running 5 volts DC into the dynamic speaker coil, which will maximize the current flowing through the coil (no inductive resistance since it’s DC rather than AC).  As long as the 5 volt supply circuit can actually supply the full 5 volts continuously, the power dissipated in the coil will depend on the resistance through the coil.  Assuming an 8 ohm speaker, which is rated based on AC impedance, the DC resistance will typically be in the 5-7 ohm range, and the power dissipated will be in the 0.7 to 1.0 watt range.  The original IBM-PC speaker’s specification’s was an 8 ohm, 0.5 watt speaker.  So dumping 0.7 to 1.0 watts of power would have a reasonable chance of causing damage to the coil (blowing it out) over a fairly short period of time, perhaps within a few minutes.
+I guess that “melting” or “burning out” a speaker is equivalent to “blowing” it. I always assumed that the speaker’s resistance was chosen (or adjusted with a resistor of its own – would that do the trick?) to prevent it being overloaded in this way.
+In a traditional audio system design, a speaker’s impedance (it’s DC resistance plus the reactance to the AC being fed to it) is chosen to match the amplifier.  For simplify, this is normally referred to as the speaker’s resistance.   Using a speaker lower in resistance (impedance) relative to the amplifier’s design can draw too much power from the amplifier, causing damage to the amplifier.
+You can buy speakers with the same resistance rating but with different wattage capacities.  So if you had a 100 watt amplifier designed for an 8 ohm speaker, and connected an 8 ohm 100 watt speaker and cranked the volume, all is good (and pretty loud).  But if you connected a 8 ohm 10 watt speaker to that same amplifier and cranked the volume, you’d pass more current through the speaker’s coil than it could handle, and burn it out.
+Is the supply current limited?
+I think it’s  a question that’s long past its utility (As you note; modern machines don’t have ‘PC speakers’ in them, and it would have been trivial to just go through and physically remove them decades ago, since they’re not necessary for normal operation) but it has become more than that now.  Mr. Burns has gotten obsessed with the idea and keeps posing the question in the hopes that someone has figured out something. Given the ruggedness of the little speakers and the limited amount of power available to drive it, I personally don’t believe there is a way to blow numerous speakers.  One might possibly be able to find a way to blow one specimen out of a thousand, but each speaker is different, so it’s unlikely that one ‘magic frequency’ can be found that would blow nearly any speaker.
+Seriously, you’re saying this question is LONG PAST ITS UTILITY? I don’t mean to be rude, but THAT SORT OF PRACTICALITY AND REALWORLDLINESS IS SIMPLY NOT ACCEPTABLE :-)
+Heck, next people will be wondering, “What’s the point of porting Doom to run on an IKEA digital light bulb?” (Someone more or less just did that.)
+This reminds me of an episode of Big Bang Theory where Dr Sheldon Cooper has one of his online gaming accounts hacked and someone steals Glenn, his trusty Battle Ostrich. Sheldon is most upset at his loss, and even more upset at the disinclination of the LA Police to issue an immediate APB. “3000 hours! 3000 hours clicking on that mouse, collecting weapons and gold. It’s almost as if it was a huge waste of time.”
+🙂
+They’ve ported Doom to an IKEA digital light bulb?   I SIMPLY MUST HAVE A COPY!!  C’mon Duck, don’t hold out on us.  THE WORLD NEEDS THIS!!.
+Hmmm. You can read the story here, inter alia:
+https://www.theverge.com/2021/6/14/22533512/doom-ikea-tradfri-smart-light-bulb-hack
+But the original videos and writeup by the hacker who alleged they did it were apparently removed on request (no reason given) earlier this week:
+https://www.reddit.com/r/itrunsdoom/comments/nys0bv/doom_running_on_an_ikea_tr%C3%A5dfri_rgb_gu10_lamp/h1tnx4z/?context=3
+Hey, I just checked.  The GU10 (380 lumen *and* 400 lumen) LED bulbs are both in stock at my local IKEA.  I just might have a summer project … 108kB isn’t a lot of RAM but it might just work.  WHY DOES IT TAKE 108kBs TO RUN A LIGHT BULB – that’s the question!
+Probably has an OS (e.g. FreeRTOS), it’s got a Zigbee stack, probably doesn’t need 108kbytes of RAM, but that’s how much the chip has got.
+In the old days you could save space and money by reducing chip count by reducing peripheral chips such as RAM, but with a system-on-chip, errrr, chip, you have a  “one size fits all” approach where you may end up with more than you need.
+LOL! 108kB ~ I once wrote a payroll calculation program in 10k words on a Univac 1108 (eqv 40kB) and we have advanced so far in 50 years that that resource can now manage a light bulb! If I’d known that 50 years ago I’d have thrown in the towel there and then!
+With the speaker attached to a USB port the issue expands from USB 2.0 at 500ma current draw over a USB type-1A black tab (1/2 inch wide) connector or a USB Micro type-B connector found on the older cell phones; to USB 3.1 at 900ma over a USB Type-1A blue tab (1/2 inch wide) connector or a USB Type Type-C connector. You most check your speaker before you connect it for it’s current rating at 5 volt DC. If your computer’s USB restricts the current draw to protect the port and it’s electronics, as there are no fuses here, your speaker’s volume will be restricted. But if your computer does not restrict the the USB current draw by the speaker then your computers’ USB ports and their electronics could be damaged by an over-draw of current on the 5 volt DC power to the port. USB ports were not designed as 5 Volt DC power switching devices. Vendors are manufacturing miniature devices that are powered by low current 5 volt DC that state you could plug these into your USB ports and providing you with a USB cable. Check your USB ports; are they USB 2.0 with USB Type-1A with a black tab (1/2 inch wide) at 500ma, or USB 3.1 with USB Type-1A with a blue tab (1/2 inch wide) or a USB Type-C connector at 900ma.
+These “PC speakers” are wired onto the motherboard, and predate USB by about 15 years… you really do only have that one 5V control line, and a bit in the keyboard port that sets whether it’s 5V or 0V.
+Hey!  That type of crime is serious, as documented in:
+https://best-sci-fi-books.com/review-halting-state-by-charles-stross/
+It sets his slow clock rate …synchronizes, if that sounds appropriate to these frequencies .. 
+OR
+He is  (a) SPY  and this is one of his Dead Letter Box type  messenging protocols.
+OR  He (or other) is DEAD, and like a LOYAL DOG, his pet service continues to send out the light house bleeps redolent of the living creature.  Sort of pulsar.
+OR
+It is a doorway into another portal, hinting at infinite mirroring and looped Black-Cat style somewhat worrisome images suggestive of potential normally-unseen dimensions of existence. Or stuff in fewer words.
+OR (H0)………..
+……………………….. It’s simply that The Creature has been close  to
+Oooer Nige :
+By the way … where is Nige?
+…….maybe lubricating the path of CV19#n4£
+Some have suggested it’s a “canary”, where if the message *stops* arriving, it conveys a meaning of some sort. 
+(That’s a trick that can has been used in the past to circumvent rules than say you are legally prohibited from announcing that X has happened, for example when X is “here is a warrant demanding you to reveal user data for all your customers, but you must not warn them”. The so-called “warrant canary” works the other way around, by regularly announcing that X has *not* happened, and then suddenly cutting the announcements if it does. Thus the “canary” tells you that a warrant has been received by *not* sending any message, therefore complying, in theory at least, with the letter if not the spirit of the law.)
+Once a year, however, seems a bit infrequent for a message canary of that sort.
+I’m the OP.  I saw the request to clarify below, I’ll reply quite plainly to the question.  This is all literal. (This comment answers plainly, almost totally literally.)  Something about this reminded me of a proposal I made, a question I asked, very recently, so I knew I should reply to the request for clarification or any hidden meaning (tl;dr – no hidden meaning).  Regarding the question in the article ‘what is that hidden meaning’, there’s no hidden meaning, it’s pretty much a yes or no question for a particular use case, obviously it changes the desktop irrevocably.  If the answer is yes then it becomes an interesting spectacle for the whole world, people can write articles about it to their hearts’ content, probably it can be in some hacker film or something.  The article mentions that things are transitioning to laptops, so obviously the question is not perennial and timeless.  In other words, it’s a lot less interesting on a 70 year old desktop than when these things are still current.  So I’d say: 1) no hidden meaning, serious question. 2) with the expectation that besides solving the use case (main reason for the question) it’s a performance spectacle if the answer turns out to be yes – expectation is this would be in (hacker) films, people would know about it.  When in the history of the world has pure magnetism and just some bits changed a desktop forever? 3) whoever asked the question is convinced it’s possible, and since I said I’d be literal: I think it is possible.  Some people might scoff and say ‘come on it’s just a magnet’, or a snake of coil, the whole question is absurd.  They have a right to their opinion, but it’s still a question without hidden meaning, so if the requested clarification is whether there is any hidden meaning then no, there is no hidden meaning.  If the answer’s no, it’s no, if it’s yes the asker rejoices, but it’s a serious question. answer in another article.
+I’m not sure that “the asker rejoices” if the answer is yes. Your original explanation in 2007 about preventing audio disruptions to computer classes seemed to convey some hidden regret that the answer might end up not being no.
+Although I guess that if those audio disruptions have been going on for more than 14 years already, you might be ready to change your mind by now.
+Based on that yes. If you can write a Kernel module that will cause the laptop to misread the charged state of it’s batteries, allowing it to over charge and burn up the laptop, the speaker(s) will also burn up in the fire.
+That is what I would call a Pyrrhic victory :-)
+I don’t think you can write a kernel module to burn down a laptop… but the use case on this occasion does seem to be to leave the rest of the system intact (and was aimed at desktop computers, not laptops, so no battery to overcharge anyway)…
+OP, are you R.F. Burns?  I’m curious if the original need still exists today.
+The tricky thing is that apparently not everyone online is who they claim to be. Who knew? And even if the OP really is RF Burns, there might be several of them (the name itself is, after all, plural).
+I actually have managed something very similar.
+As part of my Bachelor in CS, i took an embedded programing class.
+We were using the Lego NXT block as a platform and it did have a speaker and very similar ‘sound architecture’.
+A GPIO drove a speaker through a high-pass filter(don’t recall the specifics, but i think the datasheets are available online).
+Anyhow, while playing with sound generation, i wrote a frequency sweep, and was marveling at the sound and the harmonics i could hear.
+A few seconds later i smelled the classic ‘burnt electronics’ smell, and the NXT brick never beeped again…..
+My theory is that i burned either the speaker itself or the high-pass filter by using too high frequencies.
+I recall back in the 80s there was some avid discussion around the possibility of killing someone who was sitting in front of a CRT screen – none of these new-fangled flat screens back then.  Heck, we were still getting past calling the glass-TTY!
+Anyway, the theory was (and I believe it was only related to one particular model) that with an appropriate signal, you could cause the CRT gun to oscillate in such a way that it would break off the back of the tube and accelerate through the front of the tube and then through the person sitting in front of it.
+Oddly, I never tried it!
+While it’s not directly related to a “PC” speaker, I have seen speaker stacks catch on fire. Atmospheric conditions certainly play a part in any attempt to “blow something up” to 11 or otherwise. I trust the Duck in his ongoing assessment; but there are always 12 sides to every story. Throwing atmospheric/ elevation/ humidity into the mix :)..
+Was there an outdoor concert and did it rain? Were the amps on top of the stacks? Were they valve (tube) amps? Was Matt Pike on guitar?
+I thought laptop speakers were piezoelectric, not magnetic? (Space and power considerations)
+Perhaps you could play the silly games described here with an electromagnetic speaker, but I suspect none of them would work with a piece of crystal.
+The original PC speaker was a 2.5” loudspeaker of entirely conventional form. To save space, later speakers were often of the moving-iron sort. These look a bit like piezo speakers on account of their size, but they aren’t – they’re just even smaller, cheaper and tinnier versions of modern-day moving-coil speakers (in fact they pre-date moving-coil speakers, going right back to telephones of the Victorian era).
+As explained in the article, the term “PC speaker” is used specifically to refer to this sort of speaker setup. Laptop speakers can be considered to be a completely different sort of peripheral. RF Burns was definitely not referring to what we would now simply call “laptop speakers”…
+For clarity here is a picture of the old magnetic speakers. You could buy these from computer/electronic stores.
+https://en.wikipedia.org/wiki/PC_speaker
+As for the sound quality…  Youtube “All your base are belong to us”
+Take away the context where he is trying to remotely blow the speakers of desktop machines, and just look at the question.
+“Is it possible to write a kernel module which, when loaded, will blow the PC speaker?”
+Nothing in the question requires the the PC speaker to be connected to a classic motherboard.  So buy a PC speaker, and wire it to a raspberry pi or Arduino, or whatever using whatever custom breadboard and pinout you want.  I’m pretty sure you could write a linux driver that would then cause the speaker to blow, because you are not limited by anything from the spec.
+Why?  Two reasons:
+1) Because it fulfills the requirements of the problem in a literal/geeky way.
+2) If you have a bunch of desktops, you could open each one, remove the speaker connector from the motherboard and connect it to your board.  Load the linux driver and blow the speaker.  Reconnect it to the motherboard.
+If you don’t have physical security, you don’t have security.
+*Can* you do it? Or are you just saying you could? If if you can, then how? That was the OPs 1st (2nd, 3rd, 4th… 15th) question. Not whether you are “pretty sure it must be possible”, but if you actually know how to do it.
+Of course if you have access to the motherboard and can remove the speaker you could almost certainly blow it with a 9v smoke alarm battery (or a lightly modified cattle prod) but [a] don’t try this at home and [b] the original use case was to blow speakers remotely with no physical access (and nothing else disturbed).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

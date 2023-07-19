@@ -1,0 +1,51 @@
+Sophos Home protects every Mac and PC in your home 
+If you’re a regular reader of Naked Security and Sophos News, you’ll almost certainly be familiar with Cobalt Strike, a network attack tool that’s popular with cybercriminals and malware creators.
+For example, by implanting the Cobalt Strike “Beacon” software on a network they’ve infiltrated, ransomware crooks can not only surreptitiously monitor but also sneakily control the network remotely, without even needing to login first.
+Indeed, if your network tools come up with a “Cobalt Strike” alert, we recommend that you investigate immediately, even if your cybersecurity software reports that it blocked and removed the rogue software automatically.
+That’s because a Cobalt Strike intrusion means that someone was trying to establish a beachhead inside your network, perhaps for a ransomware attack, perhaps for a data heist, or perhaps for both…
+…and if they got in once, it’s reasonable to assume that if you don’t find and close the door on them, they (or someone else) will break in again, because that’s quite literally what cybercrooks do for a living.
+The Cobalt Strike Beacon tool unassumingly pretends to be a web client, just like a browser or an official software auto-updater, and regularly calls home to a designated server using innocent-enough web requests, just like a browser or a legitimate auto-update tool.
+But those call-home requests aren’t innocent at all: the computers they’re connecting to are known in the jargon as C&C servers, or C2s for short, where the Cs in the name stand for Command and Control.
+Software implants that work in this way are generally referred to as bots (short for robots) or zombies, and they work well even on networks that have strict firewall rules to block incoming connections.
+That’s because zombies don’t need to listen out for incoming requests, like web servers or SSH (remote login) servers do.
+Instead, they use their innocent-looking outbound requests not only to upload data stolen from inside the network, but also to download the latest command and control instructions from their aptly named C&C servers at the same time.
+Well, researchers at Sentinel One have just announced a brand new BWAIN – our shorthand for Bug With An Impressive Name – entitled Hotcobalt, which is a command processing bug in the Cobalt Strike server code.
+The Hotcobalt bug means that a beacon that misbehaves – whether by accident or design –  can crash the C&C server it’s talking to…
+…thus stranding the botnet of zombies that are currently reporting to it, leaving them at least temporarily unable to take further commands. 
+Botnet, short for robot network, is the collective noun for a related group of bots or zombies that are all under the control of the same botherder or botmaster.
+At this point, you’re probably wondering whether this should really be called a bug, given that it could be used to crash someone else’s server, or a feature, given that it could be used to disrupt cybercriminality by temporarily “beheading” an entire botnet in a single strike.
+In fact, it’s officially a bug: it has the designation CVE-2021-36798, and was patched by the vendor on 2021-08-04 in Cobalt Strike version 4.4.
+That’s because Cobalt Strike, for all its popularity with cybercrooks, is actually a commercial software package that’s sold as “threat emulation software” and is widely used by legally approved penetration testers and legitimate researchers.
+(Cobalt Strike is not openly available for download, and not just anyone can buy it, but that hasn’t stopped the cybercrime community from acquiring it via theft or subterfuge and using it anyway.)
+The bug was apparently caused by an easy-to-make programming error: putting too much trust in data received from someone else.
+When exfiltrating a stolen screenshot, the Beacon program would transmit the image data as a 4-byte image size, followed by that many bytes’ worth of raw data.
+The server would read in the size specification, allocate enough memory to handle the request, and then download the exfiltrated data into the memory block that it just created.
+What the server didn’t do was to decide in advance whether the specified memory allocation size was reasonable or safe to use.
+So, with 4 bytes (32 bits) to play with, a miscreant could create a battery of unofficial “here comes a screenshot” requests, each one asking the server to reserve up to 232-1 bytes (4GBytes).
+Although 4GBytes isn’t considered a lot of memory these days (contemporary mobile phones, for instance, typically have 6GB to 8GB each), multiple requests to allocate 4GB will quickly bog down your server-side code, even on the beefiest hardware.
+In 32 bits, you can’t represent the number 232 directly, because you can only represent 232 distinct values, one of which is 000..000, or zero. You can therefore count only as far as one less than 232 before your addition wraps back round to zero. To visualise this, think of the Y2K bug, where the year AD1999 was followed not by AD2000 but by AD1900 all over again. With just two decimal digits to play with, you could store 100 different values ranging from 00 to 99, representing 1900 to 1999. When you computed 99+1, you didn’t have the three digits you needed to “carry one” and represent 100, so you jumped back to 00, dramatically losing a century in the process.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Good article, Paul — thanks!
+I like the “Assume that all inputs are untrusted” rule.  As a programmer, our development group has seen many examples of input that can cause problems if not carefully handled (going all the way back to noisy data on RS-232 inputs).  One has to assume all inputs can (and often eventually will) have trash on them, either from noise, users that type unexpected keys (or just lots of keys), or malicious intrusion attempts.
+It’s kinda like picking up your phone nowadays.  You have to assume first that there as risk that whoever is calling is trying to scam you (unless it’s about your car warranty — they’re always legit  🙂  ).
+Ha. Picking up your phone is an interesting excerise in trust these days!
+Phone calls could have come from anywhere, and probably did… “Caller ID” never identified the *caller*, though Americans got used to thinking it did because of the name. In Europe we generally know it as CLI, for “calling line identification”, which might have made us feel a bit more scientific back in 1999. But the problem is not the words “caller” or “calling line” but the concept of “ID”.
+If you call on someone else’s phone, there’s no Caller ID, because phone numbers don’t call you, people do. If you call via VoIP, there’s no calling line identification, only the ID of the “last hop” between the calling line (probably some VoIP service) and you. And even if you call in person from your own phone, there’s still no real “identification” because you can spoof the number anyway. You can pretend to be your own bank if you really want to confuse yourself.
+And if you *make* the call instead of receiving it, especially in a world where so many calls are answered by an outsourcing company anyway, then ID and trust are equally complicated…
+https://nakedsecurity.sophos.com/2021/08/03/bazarcaller-the-malware-gang-that-talks-you-into-infecting-yourself/
+Assume that all inputs are untrusted
+With rogueware calling home have we got to the stage where we also have to say: assume all OUPUTS are untrusted?
+Surely it should be possible for an outbound firewall to have a blocklist for non-legit “phone homes” – or on a zero trust basis a clearlist for legit calls?
+Yes, that’s exactly what our various firewall components do. There are numerous characteristics you can check before the connection even starts, as well as while it’s being set up but before any data gets exchanged, e.g. IP number, domain name, existing site reputation, details of web certificate, nature of process setting up connection, phase of moon (actually, not that one, but all the others)…
+At least with websites, unlike phone calls, you can’t subvert things like DNS and the web certificate being presented just whenever you want, so there are a few more controls that you can rely on than with something like Caller ID, which simply isn’t worth the paper it’s not written on.
+Having said that, malware and malware operators have loads of tricks at their disposal to be an ever-moving and sneaky target, so it is a bit of a cat-and-mouse game, no matter how aggressively cautious (no oxymoron intended) you are…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

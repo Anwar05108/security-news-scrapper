@@ -1,0 +1,29 @@
+Sophos Home protects every Mac and PC in your home 
+What’s the difference between a scheduled security update and one that’s out-of-band?
+In the case of the critical Windows 10 Server Message Block (SMB) vulnerability (CVE-2020-0796) left unpatched in March’s otherwise bumper Windows Patch Tuesday update, the answer is two days.
+That’s how long it took Microsoft to change its mind about releasing a fix after news of the remote code execution (RCE) flaw leaked in now-deleted vendor posts and word spread to customers. It even gained a nickname – ‘SMBGhost’ – in honour of its elusive status.
+It wasn’t simply that word had slipped out about an unpatched flaw but the seriousness of the flaw itself, with one of the leaked advisories describing it as ‘wormable,’ in other words able to spread very rapidly.
+To a lot of people, that sounded eerily similar to the wormable SMBv1 vulnerability exploited by the global WannaCry and the NotPetya attacks in 2017.
+The SMB protocol is widely used to connect printers and network file sharing, so the possibility of a repeat alarmed admins. As Microsoft said:
+To exploit the vulnerability against an SMB Server, an unauthenticated attacker could send a specially crafted packet to a targeted SMBv3 Server.
+(There’s more on possible exploit scenarios in the detailed analysis from SophosLabs.)
+After initially suggesting partial workarounds – disabling SMBv3.1.1 compression on servers and blocking port 445 using firewalls – Microsoft has now issued a patch, KB4551762.
+That’s good news because blocking port 445 would be a last resort, as it’s used by other bits of Windows plus things like Azure file storage. These also didn’t do much for desktop computers.
+The issue only affects 32/64-bit Windows 10 and Server versions 1903 and 1909 because earlier versions don’t support the affected SMBv3.1.1.
+It’s unlikely the flaw is being exploited in real-world attacks yet, but that could change at any time. There are bound to be some servers that won’t receive the patch in the coming weeks.
+Those will be at risk of a serious compromise. The solution is to make haste and patch now.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+You’ve labelled the patch “KB4451762”, but the link text and the page it goes to says it’s “KB4551762”.  Just spent 15 minutes tracing back trying to figure out why KB4451762 wasn’t showing on my SCCM server.
+Sorry. It’s fixed now, thanks.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

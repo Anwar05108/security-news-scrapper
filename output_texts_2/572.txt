@@ -1,0 +1,37 @@
+Sophos Home protects every Mac and PC in your home 
+Almost half of connected hospital devices are still exposed to the wormable BlueKeep Windows flaw nearly a year after it was announced, according to a report released this week.
+The report, called 2020 Vision: A Review of Major IT & Cyber Security Issues Affecting Healthcare, comes from CyberMDX, which provides cybersecurity systems for hospitals.
+It says that 22% of a typical hospital’s Windows devices are exposed to BlueKeep. The proportion of Windows devices connected to a network that are vulnerable is far higher, at 45%, it adds.
+CyberMDX gathers these kinds of metrics via its own platform, which tells it about the machines it’s protecting in the field. It told us that it has analysed a little over a million data points collected from machines across hundreds of facilities.
+The BlueKeep bug, first reported in May 2019, is wormable, meaning that an attacker can trigger it without human interaction. An exploit could spread by sending malicious packets via the Remote Desktop Protocol (RDP) to Microsoft’s Remote Desktop Service (RDS).
+It affected Windows 7 and Windows Server 2008, and Microsoft issued patches when it first reported the bug. However, as with many patches, it has taken companies a long time to apply, and there is a ‘long tail’ of machines still online and vulnerable.
+The problem doesn’t just lie with BlueKeep. According to the CyberMDX report, 25% of connected devices in hospitals are also exposed to another flaw: DejaBlue.
+News of DejaBlue surfaced in August when Microsoft patched another two RDP bugs, this time affecting versions of Windows up to and including Windows 10. These bugs, CVE-2019-1181 and 1182, are also wormable.
+Like BlueKeep, the bug was exploitable using a maliciously crafted RDP message. The saving grace for some users is the use of Network Level Authentication (NLA), which when turned on requires authentication before an attacker can trigger an exploit. However, if the attacker has valid credentials, they could still mount the attack.
+Patching devices is a particular problem in healthcare according to the CyberMDX report, which suggests some devices need specialised toolkits or skill sets when modifying their code. Regulations may also put hurdles in a healthcare company’s way when patching these devices.
+Those aren’t the only reasons for poor patching, though. We can look to the UK National Audit Office’s investigation of WannaCry, another worm-based attack that bought the National Health service to its knees in 2017, for some answers. That document said that most affected systems were unpatched boxes still on support contracts.
+There was no formal mechanism for checking that recommended patches had taken place when WannaCry hit, the document said. After the attack, it admitted that it needed a way to ensure that organisations acted on the alerts that NHS Digital was sending out, which included applying software patches. So enforcing best practice seems to be a problem for large healthcare bureaucracies.
+Jon Rabinowitz, VP of marketing for CyberMDX, confirmed that visibility is an issue for hospitals:
+Patching medical devices is a challenge hospitals constantly face. Many hospitals lack the necessary asset visibility to even centrally identify vulnerable devices. Some devices run multiple operating systems and most SIEMs will not be able to properly capture and communicate this information for IT/IS teams.
+There’s also the matter of identifying the exact version of the OS running as well as noting what patches and updates have been installed across the device/software lifecycle. This requires a level of granularity that just doesn’t normally exist in the standard structure for hospital IT operations.
+The NHS had developed a cybersecurity response plan following government warnings about the possibility of an attack but hadn’t yet implemented it, the NAO report added.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Server 2008, not Windows 2008.
+Fixed, thanks.
+Some vendors will try and claim regulations keep them from patching these vulnerabilities but the FDA made it quite clear that vendors are clear to patch security vulnerabilities without the need for recertification.
+I can appreciate the difficulty (testing, time, planning) in patching disparate, dispersed, and sporadically online devices, and certainly mission critical (life or death) devices… but why is RDP even enabled in the first place? I know this is oversimplifying things in a hospital context, but port scanning networked devices to see what’s got RDP open is a pretty basic concept that every IT team should be able to do with relative ease. 
+In such an environment, RDP should be disabled in your Windows image AND via Group Policy, and the ports should be scanned regularly and automatically by your management platform/SIEM. 
+“There’s also the matter of identifying the exact version of the OS running as well as noting what patches and updates have been installed across the device/software lifecycle. This requires a level of granularity that just doesn’t normally exist in the standard structure for hospital IT operations.”
+This is ridiculous if true. From a purely technical standpoint you can install management software and configure it to pull this information from PCs on your network in under an hour. A few hours if it needs to go through the networking team for routing or security. I’m not sure why this would be overly difficult, even in a “highly secured” environment like a hospital.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

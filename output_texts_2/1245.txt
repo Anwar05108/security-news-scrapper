@@ -1,0 +1,72 @@
+Sophos Home protects every Mac and PC in your home 
+Software patches are sometimes a bit like buses.
+You don’t get one for a while, and then three come at once.
+For buses on busy urban routes, at least, the explanation of the phenomenon goes something like this.
+If three buses start out travelling the same route together in a nicely spaced sequence, then the first one is most likely to be the slowest, because it will be stopping to scoop up most of the waiting passengers, while the ones behind will tend to travel faster because they need to stop less often or for shorter periods.
+So buses naturally tend to bunch up and arrive in bursts. 
+When it comes to software patches, however, the problem often works the other way around.
+If the first patch arrives too quickly, then it may not have been reviewed or tested quite as much as you might like.
+So it’s not so much that the next patch in the queue catches up because the first one is too slow, but that the next one has to be rushed out in order to keep up…
+…and, if you aren’t careful, then that second patch might itself beget a third patch, needed to patch the patch that patched the first patch.
+And thus with Apache: just two days ago, we reported a path validation bug dubbed CVE-2021-41773 that was introduced in Apache 2.4.49:
+Apache web server zero-day bug is easy to exploit – patch now!
+
+
+We advised you to update to 2.4.50, which would indeed have protected you against at least some of the known exploits already circulating on Twitter.
+But the 2.4.50 update itself was incomplete, having been put together in something of a hurry, so that although it blocked some ways of exploiting the bug, it didn’t reliably block all of them.
+The bottom line is that if you have Apache 2.4.49 (released 2021-09-15) or Apache 2.4.50 (released 2021-10-04) then you now need to update to Apache 2.4.51 (released 2021-10-07).
+We haven’t investigated this in detail, but a quick look at the three versions listed above suggests that the vulnerability progressed like this:
+Will the sudden arrival of the third bus in this burst of patches mean that we’ll soon have 2.4.52 to follow?
+We don’t know.
+But at least the patch-for-the-patch came out within two days of the 2.4.50 update, which, though imperfect, would have stopped a range of already-known attacks that were widely circulated in the wild.
+So we don’t regret having urged you to update to Apache 2.4.50 earlier this week, even though it now means updating once again. 
+(Our Linux distro took care of both of these updates for us quickly and automatically, but if you’re using an Apache version you built yourself, don’t forget that you need to recompile it.)
+Our earlier article about this CVE-2021-41773 bug includes an explanation of the jargon terms path validation and path traversal, and provides some suggestions on how to find Apache servers that you might not realise are in use on your network:
+Apache web server zero-day bug is easy to exploit – patch now!
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Typo in “The bottom line is that if you have Apache 2.4.59 (released 2021-09-15) or Apache 2.4.50 (released 2021-10-04) then you now need to update to Apache 2.4.51 (released 2021-10-07).”
+Obviously there is no version 2.4.59 yet (unless those patches have really been coming bumper-to-bumper).
+Oops, fixed. Thanks!
+You have an error:
+The bottom line is that if you have Apache 2.4.59 (released 2021-09-15)
+Should be:
+The bottom line is that if you have Apache 2.4.49 (released 2021-09-15)
+That’ll teach me to take a break from checking comments on a Friday arvo :-)
+Great Shakespearean quote, but there seems to be a small error in the fourth paragraph of the section entitled “Three Apache Buses”. It talks about version 2.4.59 when surely it should be 2.4.49?  It seems only a small error, but it puzzled a stupid person (I.e. me) for a moment until I realised what was meant.
+The small errors can be the very worst…
+…which is an irony considering that the bug under discussion revolves around the issue of incorrectly detecting a single character (dot or slash).
+Anyay, it’s fixed now. All’s well that ends well. (Sorry, couldn’t help that.)
+Seeing as how every web server in existence has to deal with this exact issue, you would think it would pretty much be a solved problem by now. At the very least, shouldn’t there be a standard list of URLs you can drop into a unit test to verify that your code is behaving correctly?
+Any well-managed URL-handling codebase will have a (possibly quite long) list of test URLs, typically including: real-world geniune ones (historical web logs are your friend), known-bad ones from actual previous incidents, sythentically generated permutations of good and bad ones, deliberately created weird ones..
+…but the problem with standard acceptance test lists like that are that the crooks can use them to help them decide which ones *not* to use.
+I must admit I was surprised that the previous exploit examples weren’t already in a test set somewhere, but there’s a limit to how many permutations of existing data you can realistically test, either by generating all combinations and trying the lot or using a smart fuzzing tool that tries to picks the “worst” examples. It’s easy to have a LOT of test data. It’s much harder to pick the 2% of the samples in that test set that will give you 98% of the coverage so that you have enough time to get through them.
+To be fair to Apache, knowing what you should have tested for is trivial with the 6/6 vision that hindsight gives you, in the same way that last week’s lottery numbers are easy to “guess” :-)
+All of my Centos7 boxes are happily running 2.4.6. I noticed that’s still the stable version released in the default repos. I have no plans to manually recompile all of them.
+Hmmmm. Quite a lot of known and long-reported CVE-class security bugs fixed since 2.4.6 came out… so although you dodged this recent bullet, you could be at risk of dozens of other known holes.
+Unles CentOS has been backporting its own patches to the older version. (If so, you will have to hope that the 2.4.49 changes weren’t amongst them.)
+With all these typos this looks a bit like a-patchy blog post?
+OK, I give up. It’s hard to proofread your own prose, because you know what to expect, but I went through as slowly as I could manage, and couldn’t find “all these typos” you are referring to… it would have been helpful if you had listed them so I could have fixed them.
+Unless you have seen the comments at the top to warn me I’d written “59” instead of “49” and taken them as enumerating multiple errors, though they all refer to the same typo (which I already fixed).
+I’ll conduct another perusal later on (for years I wrongly thought that word meant just skim-reading, when it actually means quite the opposite), assuming there really are several mistakes left.
+No, I was just wondering if the blog Gods were looking unkindly on a blog about a patch requiring multiple updates, itself requiring multiple updates and waiting for version 1.02 or should that be 1.03?
+Ah, you mentioned “all these typos”, and as there was only one I found so far (albeit mentioned thrice &#45:) and already fixed, I assumed there were more and set out desperately trying to find them. They may be there… but they have eluded me thus far if they have. And if they have then I agree in advance to agree with you.
+I was going to ignore these, but since you brought it up:
+RUSHED:
+… but that the next one has to be rushde out in order to keep up…
+SUSPICIOUS:
+Apache 2.4.51 now watches out for a wider range of suspcious encodings.
+I noticed both of them when first reading the article, but after reading the comments I went back to find them again.  It took something like three tries to find both of them again.  So much for my proof-reading credentials.
+Fixed, thanks! I stared straight at those without seeing them…
+One of our servers is 2.4.46 and I’m kinda tempted to not yet patch for a couple of days given this patch inception going on….
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

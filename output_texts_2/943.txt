@@ -1,0 +1,142 @@
+Sophos Home protects every Mac and PC in your home 
+VPNs are all the rage these days, because they’re supposed to boost your privacy and stop you being tracked.
+In fact, “VPN” has become a word in its own right, pronounced vee-pee-en, and it’s a crowded market with companies advertising online, on TV and even in print media to compete for your consumer dollars.
+Most VPNs have a free app you can download, but you typically need a paid subscription to make it work or to unlock premium services.
+The app will scramble all the network traffic between your device and the company’s servers, and unscramble it and release it onto the internet from there – perhaps even in a different country – which does indeed disguise the true source of your data packets, and therefore makes you harder to trace.
+But the connection with privacy, and by association, with anonymity, comes from the fact that VPN is short for virtual private network, which has the word “private” right there in the name.
+In truth, the “private” part of a VPN isn’t really about you being anonymous or pretending to be someone else.
+The  P in VPN really just refers to the idea of using a public network to transmit traffic that in the olden days would have gone across a private circuit or a leased line, and was therefore considered and managed as part of your company’s LAN, or local area network.
+In fact, if you’ve ever used a company VPN – and in this era of coronavirus lockdown, it’s very likely you have – you will be well aware that your corporate VPN makes you identify yourself exactly, perhaps with a password and a 2FA token, so the company knows who you are before you connect.
+Your traffic is private from surveillance as it traverses the public network, because VPNs use encryption to shield the raw network packets from being sniffed out, but your traffic is not anonymous once you are inside the virtual castle of the company network.
+In short, the VPN itself knows who you are and sees what you get up to, even if the routers through which your encrypted VPN packets travel do not.
+And that’s a good thing, because it means that you’re only sharing that company network with other people who are supposed to be there (you hope!) and who can be held accountable for their behaviour, rather than with a random bunch of unknown strangers.
+As we mentioned above, consumer VPNs can arrange to decrypt your traffic and surface it onto the public internet far away from where you are, so they not only disguise your physical location (which does indeed improve your privacy somewhat), but also let you disguise your country of residence.
+For many people, that is the primary value of a personal VPN service – it lets them bypass censorship that may be applied by ISPs in their own country, and it also lets them bypass so-called geoblocking that stops them watching overseas TV shows and movies or accessing other region-limited content.
+But it also means that you are putting an awful lot of trust in the VPN provider, because that provider essentially becomes your new ISP, so you need to be aware of the extent to which they do (or don’t) follow the surveillance and monitoring laws in the various countries where they operate.
+Many VPNs tell you that “they don’t keep any logs at all”, and therefore that they would have nothing on you that they could hand over to law enforcement even if they wanted to.
+But many countries have legal mechanisms whereby various authorities – with without a warrant, depending on the jurisdiction – can compel a service provider not only to start keeping logs for specific individuals, but also to keep quiet about the fact – in other words, they have to keep logs of your traffic, but they are gagged from warning you up front, and they can’t tell you even if you ask.
+This legal peculiarity led to a trend, a few years ago, of so-called “warrant canaries“, which were like canaries in coal mines that signalled dangerous gases by falling unconscious and dropping off their perches. Companies would regularly put notices into web pages or documents to say that they were not currently under any sort of gagging order. The idea was that removing the “negative gag” notice, which would essentially be a legal requirement if a gag order were applied, would therefore act as if the company had added a “positive gag” notice. This would therefore comply with the letter of the law, if not exactly its spirit. This sort of legal sophistry is not widely used any more, not least because it turned out to be quite confusing.
+Of course, some VPNs will assure you that this can’t happen to them (and therefore indirectly to you) because their companies are registered in countries where such legal provisions don’t exist.
+But any VPN knows where you are and, to some extent at least, who you are while you’re using the system, and may even need to keep what amount to in-memory logs – ephemeral data, to use the jargon term – for some or all of each session, just to make the service work reliably.
+What you have to assume, therefore, is that anything they know about your traffic for the purposes of handling it while you are online never gets saved anywhere permanent, whether by accident or design.
+And history suggests that ephemeral data – stuff that should evaporate forever from memory once it is no longer needed, and never get written to disk or forwarded to another server – has a way of surviving when it shouldn’t.
+After all, in recent memory, both Google and Facebook admitted that, sometimes, passwords you had typed in during the login process – data that was only ever supposed to be held in RAM and get scrubbed after it had been validated – had accidentally been sent off in plaintext and saved in logfiles deep in their respective systems.
+Facebook discovered in 2019 that it had committed hundreds of millions of passwords to disk, and set about finding and purging them; Google also admitted that it had incorrectly been saving away some passwords – we don’t know how many, but we know that the data went back for 14 years to 2005.
+In other words, logging the unloggable is easy to do even if you genuinely set out not to do it, and even if you are two of the biggest internet companies out there, with large and well-funded cybersecurity teams.
+According to a report published last week by VPNMentor (note: VPNMentor earns affiliate revenue from links to and coupons for selected VPN companies that it recommends), its researchers stumbled across copious user logs from seven VPNs operating out of Hong Kong. 
+(VPNMentor named the affected services as follows: UFO VPN, FAST VPN, Free VPN, Super VPN, Flash VPN, Secure VPN, Rabbit VPN.)
+Further digging suggests that these seven products were all rebranded from one main provider – software and IT services are often sold in this way, with the same (or very similar) code and back-end systems forming the core of offerings from several different licensees.
+As you have probably guessed by now, this data wasn’t supposed to be publicly accessible, but was exposed via a cloud database – ElasticSearch, in this case – that had not been correctly configured.
+According to VPNMentor, about 1 billion database entries relating to approximately 20 million users (so that’s an average of 50 items per user) were exposed, including various data fields including:
+Activity logs, PII (names, emails, home address), cleartext passwords, Bitcoin payment information, support messages, personal device information, tech specs, account info, direct Paypal API links.
+So not only did these VPNs collect data that they ought not to have retained at all, such as plaintext passwords, but they inadvertently exposed it publicly.
+Furthermore, VPNMentor claims that “[a]ccording to their respective websites, every VPN [on the list] provides military-grade security features and zero logs policies to reinforce their users’ information security.”
+Or, it would seem, don’t follow “zero logs” processes at all.
+The burning question here, especially with many of us working away from the office these days, is, “Do I need a VPN now I’m working from home?”
+We discussed this topic in our weekly Naked Security Live video, back in April 2020 when UK and US lockdowns first started:
+
+Watch directly on YouTube if the video won’t play here.Don’t forget that you can use the cog icon to turn on captions.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+What happened to the good old Raspberry Pi + OpenVPN = A single night confiuration fun?  Sounds like the only person you can trust anymore is yourself.  Assuming you did the due diligence, you should be able to trust your home ISP.  So just route your own traffic to your equipment and problem solved.  Don’t have to worry about a third-party not doing what they said they were or weren’t going to do.  It is just you and you can do with the logs with whatever you want with them.
+(Not putting in a name due to Meta Data Leakage!)
+The problem is – especially in these coronavirus times, as we discuss in the video – many of the people who are using VPNs are already at home when they’re doing so, and therefore just plugging their own laptop directly into their own router already ensures that their own traffic is going to their own equipment…
+…but they’re using the VPN to sidestep their own ISP/government/country to get around tracking/censorship/not being able to watch the TV shows they want.
+In the BC (before coronavirus) era I just used a home SSH server to set up tunnels if I really needed them while I was off in London/Brussels/Amsterdam/Edinburgh/my local coffee shop. But I haven’t been off anywhere much lately, except into bluebell woods to record socially distanced Naked Security Live videos which were meant to be public anyway. (For the video I just relied on 4G from my mobile provider.)
+I have a VPN setup to connect to my Sophos UTM home firewall when I’m out and about remotely. I’ve been seriously considering setting up a Digital Ocean droplet or AWS instance to host a VPN in another location. I should imagine the cloud providers would keep logs though, even if the VPN provider doesn’t. Unless the VPN providers own their own data centres chances are there are mountains of logs somewhere. Most likely just flow data but you never know.
+For my personal VPN I do keep logs mainly for security, monitoring and diagnostic purposes should something go wrong.
+It makes me wonder how VPN providers diagnose issues and detect evil if there are no logs whatsoever? If they’re sanitising logs how well are they doing it? How are they doing security monitoring? If some bad guy finds a zero day in OpenVPN, Cisco ASA and the like (it happened to Citrix Netscaler earlier this year so nobody is immune!) and starts attacking VPN concentrators it could be seriously bad news. Of course as more sites transition to https and DoH that makes performing evil a little harder but still it would be bad news indeed!
+I assume all three of your question-marked sentences are rhetorical :-)
+As always, the problem with being certain that someone is not doing X is that unless there exists some Y, where Y precludes X and the person can show they were doing Y instead (I think the word I am after is “alibi”), you are kind of stuck and have to use other ways to figure out whether to believe them. “Have you ever had a Kylie Minogue song stuck so you just can’t get it out of your head?” Some of us never have… but we’ll never be able to prove it.
+“I just can’t get you outta my head….” hmm-mmm-mmm-hmm-mmm-mmm-hmm-mmm-mmm-mmm… D’OH!! Dammit!!!
+You should be so lucky, lucky, lucky, lucky, you should be so lucky…
+I’ve got my fingers in my ears and I am saying “La la la, la la la la, la la la” to shut you out…
+…hmmm, that ended badly.
+Yeah use your home vpn to pirate a movie and get back to me
+I guess it depends whether you just want a VPN to take some control over your own privacy when you are on the road without needing to pay for an additional service run by someone you can’t really learn much about, or whether all you really want is a thinly disguised excuse for ripping off content that will disguise your home IP number.
+And that, I guess, is one of the problems with knowing which VPNs to trust. After all, if a VPN provider is happy to attract customers who want to pirate stuff, you do have to ask yourself: if the authorities do take an interest in “your” IP number (one that actually belongs to the VPN company but that was loaned out to you), do you think that the VPN company will take all the blame itself, and face the music on your behalf? Or do you think there is a chance that the company might throw you under the proverbial bus, on the grounds that they probably know who you are, or at least where you live, in real life?
+Of course, you can argue that this is a very good reason for a VPN company not to keep any logs – it’s in their interest not to know who did what. Law enforcement can’t collect data that doesn’t exist. But, as we mentioned in the article, it’s harder than you think to run a service that “forgets” the right data – at least it is for a commercial company that needs to attract, retain *and bill* its customers, including taking regular credit card payments. If half of a company’s network software needs to forget everything in order to keep the cops out, but the other half needs to remember precise details in order to keep track of customers, send them marketing offers, collect their money and generally discourage them from moving to a competitor…
+…how likely do you think it is that the company will get that separation strictly correct? All the time? And never yield to pressure from the authorities?
+A non-commercial volunteer service like Tor doesn’t have this problem – there aren’t any usernames, passwords, billing addresses, payment card numbers, fair usage monitoring and so forth, so the software doesn’t have to keep track of some user data and discard the rest. That makes it much less likely for a blunder that involves the “keep it” parts of the system retaining data that was supposed to be part of the “discard it” part.
+< face the music
+I see what you did there.
+When that copyright infringement email arrives, you will find that you just can’t get it out of your head.
+If it just required the use of a VPN to pirate films, I think that everyone would be at it. In the real world it takes a lot more to be a successful pirate.
+lol, if you setup a Pi with OVPN and connected to it, you’d be connecting to yourself……. zero value.
+Maybe so, with so many people working from home and so few people working on the road these days. If you are at home, you are, well, already on your home network and therefore inside the VPN anyway. But for countries where lockdown is easing, coffee shops are re-opening, and people are working “away” just to get a bit of a change of scenery…
+…then a home VPN is a perfectly useful thing to have. It means that when you are working (or even just relaxing online) via someone else’s Wi-Fi access point, you are no less secure than when you are at home. True, you might not be more secure, but sometimes just being no less secure is surprisingly comforting. With a third-party VPN provider, you may be more secure, but you won’t have the same certainty about being no *less* secure, because your traffic won’t travel via your normal ISP.
+For example, if your office hasn’t yet re-opened yet but your country’s borders have, you’ll probably never have a cheaper chance at taking (or enjoy a less crowded flight or train to get to) a “working holiday” in a place you’ve always wanted to visit. If you live in Amsterdam you might always have fancied hanging out in, say, Bristol [*] (because Isambard Kingdom Brunel!) for a couple of weeks, or if you’re from London you night want to see what Flanders [*] is like (because Victor Campenaerts!).So you might think, “Why not?” And right now, you may very well be able to take just that sort of trip without going on a formal vacation.
+A home VPN would then be very convenient indeed!
+[*]  AFAIK, the UK is still considered part of the EU for visa purposes until the last day of 2020.
+I’ve never even heard of these. Immediate red flag.
+(VPNMentor named the affected services as follows: UFO VPN, FAST VPN, Free VPN, Super VPN, Flash VPN, Secure VPN, Rabbit VPN.)
+Hong Kong based is a large red flag for me!
+Candidly, can anyone trust any VPN provider to behave honourably? It’s always said that you should only use ones that you pay a subscription for, but can anyone prove that these are any more trustable than free ones?
+I always feel that an actor from a countries government, whether in the East or West, could set up a company in a country not a member of the Five Eyes taking care that they keep this fact secret from the other employees, and then enjoy free access to the traffic flowing through their servers and passing back the useful bits to their government.
+In this case it doesn’t look as though there was any subterfuge. In other words, even before you get to the words “behave honourably” you have to get past “do not shovel stuff into unprotected public cloud buckets at all, whether it’s secret stuff or not”. Once you get past “doh”!” you can start thinking about the “hmmmmmm?” aspects :-)
+Just to bring it back to my original question – how can you trust any VPN provider? It seems to me that they all claim to be doing to do the right thing, but are just a bunch of unknowable people who handle your personal data.
+I really don’t know. You could ask a similar question about ISPs, except that they are generally [a] local and [b] at least somewhat knowable.
+Short version:  No.
+Longer version:  No.
+In all seriousness, the moment you put your faith (or data) in someone else’s hands, you lose control of everything.
+This includes VPNs, VPSs, ISPs etc etc, but we usually do it anyway because we *want* there to be some trust.
+I live in Australia where our Gov implemented metadata retention.
+“You can trust us!!!” they claimed.
+Nope.
+There have been a number of breaches and access to those who were never supposed to have access to it.  It’s really just a bad joke.
+My suggestion to everyone posting comments here is to go to YouTube and search for the Def Con 22 video by Zoz called “DEF CON 22 – Zoz – Don’t xxxx It Up!” (the xxxx is a particular swear word).
+It’s a great video and offers some great advice and talks about LEA using correlation techniques to catch people.
+Thanks – we’re always told to choose a VPN by looking at their web page and reading what they say and their policy on logs etc. When I did this it proved to be just about impossible to decide between them, apart from the differences in the logging of traffic policy they stated.
+Of course you’re totally right about the ISPs we use, all a matter of trust as well.
+Thanks – as you say we just have to rely on internet companies honesty. But it’s not something I would do in my normal business life, i.e. just taking everything someone says as gospel truth just because they say so.
+Indeed. When I chose my current ISP, which is obviously and of necessity a company operating in my country, I did think I was able to get some feel of how reliable they would be overall, and how much they really knew and cared about networking, and whether their support was scripted/automated/outsourced to another country (which would my PII in another country anyway). So I had something to go on. But, like you, I have not found a way to get that kind of feeling about the consumer VPN providers I have looked at myself. It’s a bit like trying to judge a book by someone else’s description of the picture on the cover…
+No. The moment you put your faith in someone else’s hands, you’re in trouble.
+And yes, the situation you outline in your second paragraph is correct.
+And I’d be surprised if it wasn’t already happening.
+My litmus for trust is whether a company has undergone a third-party security audit from a reputable source. The more consecutive years the better, but this is a relatively new trend in VON providers, so I don’t think there are many companies with more than three years worth of audits.
+YMMV on whether that is sufficient.
+This is particularly unfortunate, given the current situation in Hong Kong, and the lowering of the Great Firewall of China around it.  While not going so far as suggest that this log leak was intentional or political, I assume the Chinese authorities might nonetheless be quite interested in knowing about the Hong Kong residents who choose to use a VPN service.
+Ouch.
+I am reminded of a 1970 incident where a salesperson came around to my company and demonstrated some software.  Before leaving, he “removed” it, 😉  You can guess, the mainframe had backed it up; that was found out by the IT guys later.  In this case they were ethical and did remove it from the backup; I think.
+Accidents and deliberate subterfuge happens.  Until we get laws, end-to-end encryption, and some sort of routing obfuscation, we need to anticipate leakage (:   So just send, sanitized, love letters; even to politicians (ugh).
+So pretty much make sure your VON isn’t chinese owned or operated.
+Or Russian.  Or US based.  Or UK based.  Or [insert country here].
+You really need to research:
+– data retention laws (relating to a specific country)
+– whether a company has provided data (logs etc) to Governments/LEA/etc
+If law enforcement or a government agency goes to a company and demands access to logs, those companies will generally provide it.  They generally will not be able to tell you – the customer – that they have provided those logs to LEA or whomever, because that would likely result in them being prosecuted, and possible prison time.
+And even if they aren’t keeping logs, they can generally be requested to keep logs for particular users or whatever.
+So, when you “trust” a company, you can “trust” that they WILL buckle to legal pressure.
+They don’t want to go to prison over one customer.
+Well using a VPN doesn’t always work as I found out trying to access Amazon Prime video from outside of the country. Amazon seemed to know I was using a VPN and would not allow me to watch the video, even though I was a prime member. (I have since closed my Amazon accounts for other reasons.)
+I think they go by the credit card address. At least that’s what they told me. The licensing of content, whether books or movies, can be downright byzantine: with stuff being available in Vanuatu but not in Fiji etc, and these restrictions are not necessarily the fault of Amazon, infuriating though they may be.
+Yes, they definitely go by the credit card details.  There are a few shows that I *want* to pay money for so that I can have a permanent copy, but they disallowed me even though I wanted to purchase three series of that show.
+So, that left me with the alternative option of “finding” them.
+It’s very frustrating when you’re trying to do the right thing.
+It really depends on the size of your VPN provider. If they only have a couple dozen exit nodes, it is fairly easy for companies like Netflix or Amazon to just block or filter those IP addresses. It is somewhat harder to play whackamole with the larger VPNs that have thousands of servers.
+True cross-discipline accountability and boundaries backed by full business commitment with consequences are the best answers to such issues. There are countless technologies and a number of architectures that could be put into practice, but as the cited wealthiest of wealthy firms have demonstrated, the “solution” has much more to do with the guts and determination of the people: the leaders of the lines of business as well as the development and operational staff must relentlessly pursue privacy and security. The question to ask at the start of any project, process or procedure is “What if it was my PII?”
+Can the auditing techniques you mention reasonably detect whether a seemingly honest VPN, run in the apparently best and open practices, was in fact being run by a hidden actor, who could examine any traffic for their own benefit?
+“VPNs operating out of Hong Kong.”
+Yep, by the nature of law in China, the government has access to all data. So that’s a thing.
+I expect that at least some VPN services, are really in business to snoop for insider trading, and supposed national security,, being a magnet for people with things to hide, brings the data to you.
+And just like the Silk Road, a competitor or government agency can take over the biz and harvest all the data they want.
+What about a cryptocurrency VPN that uses only cryptocurrency to pay for the VPN?
+Or Tor, which uses volunteers and doesn’t have usernames, customers, passwords or payments :-)
+I’m ambivalent about your post. On one hand, factually correct. On the other, you’re not providing an alternative. It’s like trusting the employees at a restaurant won’t spit on your food in the kitchen. There is no way to ensure they don’t do that, but imagine never going to a restaurant because of that possiblity.
+In the article it noted ; “Bitcoin payment information, support messages, personal device information,…” were leaked. I’m thinking if the VPN has any linked data about your phone number, the devices used, addresses, email, etc. Bitcoin won’t help. I think there may be VPNs where it possible to pay anonymously, but still, you have to trust VPNs that it’s not simply an alternative payment that they treat the same way as credit cards.
+My paid vpn actually collected what I was doing and reported it. It turned out I wasn’t doing anything illegal but they gave away their own lie that there are no logs. Really why would anyone expect any vpn to be better than your isp. They can be worse.
+What VPN was that?
+Names are listed in the article.
+Can I have daily email update.
+There’s a blue box near the top of every article that says: “Get the latest security news in your inbox.” You can put your email address in there to sign up to our newsletter. (It comes out from Monday to Friday if there was a new article in the last 24 hours.) 
+Your email address is used only for this newsletter, not for other marketing stuff, and you can unsubscribe easily. Also, we email you a “confirm” link first to activate your subscription before we start sending you daily messages, to prevent someone else signing you up without asking…
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

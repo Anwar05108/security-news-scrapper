@@ -1,0 +1,68 @@
+Sophos Home protects every Mac and PC in your home 
+An iPhone and Android app called NHS COVID-19 is the official iPhone and Android coronavirus contact tracing software for the vast majority of the population of Great Britain.
+(England and Wales have standardised on NHS COVID-19, but Scotland has gone down a different path with an app of its own.)
+Today also marks the first day of slightly more liberal lockdown rules in England, with non-essential shops allowed to open for the first time this year, and outdoor alcohol and food service permitted at pubs and eateries.
+Indeed, much of England is so excited about this newfound demi-freedom that some hairdressers and barbers took bookings from one minute past midnight this morning, just to give regular customers the chance of being first in.
+Apparently, the government was keen to have an updated version of the NHS COVID-19 app ready in time, with added (though optional) location tracking features that would allow users to share their location logs with the health service.
+We’re guessing that the government thought that a voluntary feed of location data might help with planning for reducing the risk of a new wave of coronavirus infections as the current British lockdown eases.
+According to the BBC, however, this new version was blocked by both Apple and Google, and won’t be available either in the App Store or through Google Play.
+(To be clear, the old version remains online for download and will keep working fine if you have it installed – the app itself hasn’t been banned or thrown out.)
+The NHS COVID-19 app relies on a feature added to both iOS and Android known as Exposure Notifications, jointly created by Apple and Google:
+On April 10, 2020 Google and Apple announced a joint effort to enable the use of Bluetooth technology to help governments and health agencies reduce the spread of COVID-19 through contact tracing, with user privacy and security core to the design.
+Whether you love or hate Apple or Google (or feel a bit of both emotions for both companies), their combined goal in building this application programming interface (API) was laudable, given that it was neeeded quickly and globally, and given that privacy should always be coded in right from the start, even, perhaps especially, if you’re in a hurry.
+On the principle that the best way to avoid losing data is not to acquire it in the first place, the API was specifically designed to avoid collecting or sharing personal data about contacts, infections and location.
+As Apple’s and Google’s joint FAQ explains:
+Additionally, Exposure Notifications support can be turned off centrally for all apps, regardless of each app’s individual setting.
+As a simple and easily-enforced additional requirement,the mobile phone juggernauts also clearly stated (our emphasis) that “[t]here will be restrictions on the data that apps can collect when using the API, including not being able to request access to location services, and restrictions on how data can be used.”
+We assume that this is a sensible precaution to stop what’s known as feature creep taking hold in health authority apps.
+In other words, you’re not allowed to have location-aware features of any sort in apps that use the Exposure Notifications API, no matter that your location collection is soft opt-in (e.g. collects data by default but requests permission before reading any of it back in for use) or even hard opt-in (e.g. doesn’t collect data at all until you ask it to start doing so).
+This, is seems, is what has kept the new NHS COVID-19 app out of Apple’s and Google’s online stores.
+An app that contains code that tries to use both the Location permission and the Exposure Notification permission is not only clearly non-compliant but also easy for Apple’s and Google’s app verification systems to detect automatically.
+This is more of a “what did they expect?” moment for the developers of the NHS COVID-19 app than a reason to start panicing about your pandemic privacy.
+But it is a fantastic reminder to review what permissions you have already granted, perhaps without even realising it, to apps that you have already decided to install on your phone.
+After all, there’s not much point in worrying about a government app that might ask you if you want to share personal tracking data with your health service…
+…if you are going to let other apps read your location in detail whenever they like, including apps with names such as Totally Not Free Fleeceware Compass App That Is Inferior To The Builtin One Yet Costs $149.99 After Three Days Even If You Uninstall It After Just Three Minutes In Frustration At How Useless It Is.
+Fleeceware, by the way, is the name we use to describe apps that that you almost certainly want to stay away from because they are designed to seduce you, often with exaggerated claims and hundreds or thousands of fake 5-star reviews, into signing up for a short “free” trial that automatically rolls over into a paid subscription after as little as 48 hours if you aren’t careful.
+So, please take this opportunity to read our 5 top mobile privacy tips:
+iOS 14 and Android 11 privacy tips – top 5 things to check
+
+
+And watch our Naked Security Live video:
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I would be very happy to provide and share personal data about contacts, infections and locations, if it helps keep the R-number down. I am not happy that Apple and Google are preventing me from installing such an app.
+They’re not stopping you from giving away your personal data, and they aren’t stopping you from installing “such an app”. You just can’t build that functionality *into an app that uses the special Exposure Notifications API*. 
+As explained in the article, this helps to ensure that Exposure Notification apps, which get special Bluetooth privileges so they can keep running and beaconing all the time, really are *only* doing the privacy-preserving sort of track-and-trace that is specified as a “must have” in the API. 
+If a government wants to mandate that its residents must share precise personal location data at all times with the country’s health authority, well, sobeit, but Apple and Google have formed the (righteous IMO) opinion that such functionality needs to be factored out into a separate app, so it can’t ride on the marketing coattails of the privacy protections built into the Exposure Notificiations API. That sort of “feature creep” is dangerous because, well, it gets creepy quickly. (Singapore, for example, has apparently already decided that the medical tracking data from its own apps should also be made accessible to police to track criminal activity.)
+If I were Apple or Google I would want to restrict the API in exactly the same way, and the companies should IMO be applauded for sticking to their guns on this one. You can build an API that provides good infection tracing and timely health warnings *without* forcing everyone to give up their privacy, so why not restrict use of the special API to *just* that functionality to improve trust and takeup of the app?
+If a government wants to build an app to track its citizens centrally and then pitch it to the populace under the guise of “medical necessity” or “community duty”, then I guess Apple and Google are saying, ” you can’t do that in any app as one that is based on the Exposure Notification API.”
+Feature creep by a government? No, never!
+Next, though, the “world beating” Track & Trace system – with a budget almost as large as the UK’s annual defence budget, and it still doesn’t work – will be enhanced by the Home Secretary unilaterally declaring a legal requirement for all serfs…sorry, ‘citizens’…to have a QR code tattooed to their forehead. This will be read by corona gestapo drones fitted with laser beams. Anyone found to be outdoors without permission will be ordered home. Any delay will be met by the metallic clomp-clomp of a RoboCop-style enforcement droid and its lethal demand:
+“Return home. You have ten seconds to comply.”
+I agree with Paul. It should certainly be optional. I was impressed at the time that Google and Apple worked together on anything at all, and less impressed with the gov’t’s “we’ll do our own, thank you” approach.
+However what I’m finding is that the Apple version works with GPS on or off (so presumably it’s the ‘old’ version). But the Android version won’t work with GPS disabled -“To make Bluetooth work, we need you to turn on location services on your phone” (really?!!!) – so I guess the Android version is still the ‘new’ one. Or have I missed something?
+To be fair to Her Majesty’s Government, the location tracking part of the app was optional… it’s just that it was built into the same app that does the non-location-based Exposure Notification tracking too. The rules are simple: no location access permitted at all for apps using Exposure Notification.
+I take this as the same sort of approach as “encrypt everything with no exceptions” – it’s just easier to keep things under control by having a single, simplifying rule.
+On the question of “no Bluetooth without location”, I can’t advise you. I have Android 11 (a non-Google flavour, so it doesn’t support Exposure Notification anyway) on an old Galaxy S3, and I can enable Bluetooth just fine with Location off. 
+As for whether the Android version of the NHS COVID-19 app is sill “the new one”, my understanding is that the “new” one alluded to in the article was never actually released – it wasn’t a case of it getting into the App Store/Google Play and then getting reverted, but rather a case of being blocked before release.
+Anyone out there got a Google Android 11 phone with the NHS COVID-19 app installed and working, but with the global Location setting turned off? 
+(There have been cases before where devices – not specific apps, but the devices themselves – have insisted on having GPS access before activating various types of radio commnuication. The “excuse” was that location checking allows the operating system to ensure that it chooses legally correct radio settings for the country you are in, given that different countries have different legal regulations for permitted freqeuencies, opertating power, and so on. Perhaps your firmare is stuck with a requirement *at the OS level* for the Bluetooth stack to require the GPS receiver to be enabled as some kind of compliance thing? As for whether any app, including NHS COVID-19, wants, or has ever actually used, Location access – this can be tested using Settings > Apps & notifications > [Tap on app] > App info, or via Settings > Apps & notifications > Advanced > Permission manager. Via the Permission manager you can lock out apps even from usingpermissions they would unexceptionably need, e.g. you can prevent the built-in Messaging app from handling SMS messages, or deny the Phone app access the microphone.)
+Spot on Paul! It must be something in the Android OS, whereas it isn’t in iOS.
+Buried deep in the support pages is:
+“On Android 10 and earlier, turn on the phone’s location setting. The system uses this to scan for Bluetooth signals but it does not collect or track your location…
+For phones running Android 11, the location setting does not need to be on.
+We’ve prevented public health authority apps using ENS from requesting access to your device’s location.”
+And my phone’s Android 8.
+When I checked, the NHS app has never requested location access.
+Thanks for sorting that one! And for me, thank you Apple and Google (never thought I’d say that!)
+Ah, Android 8 is pretty ancient by now, for the modern definition of ancient. Android has steadily been adding more nuanced privacy controls – in earlier releases the controls were pretty crude, especially for anyone who had ever used an iPhone. (Android originally required apps to ask for all the permissions they might ever need up front, apparently to “simplify” the user experience, and you couldn’t alter or override individual permissions for indiviuals apps at all.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

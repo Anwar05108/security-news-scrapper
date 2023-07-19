@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Mobile app developers Tommy Mysk and Talal Haj Bakry just published a blog article entitled “TikTok vulnerability enables hackers to show users fake videos“.
+As far as we can see, they’re right.
+(We replicated their results with a slightly older Android version of TikTok from a few days ago, 15.5.44; their tests included the very latest builds on Android and iOS, numbered 15.7.4 and 15.5.6 respectively.)
+We used a similar approach to Mysk and Haj Bakry to look at the network traffic produced by TikTok – we installed the tPacketCapture app on Android and then ran the TikTok app for a while to flip through a few popular videos.
+The tPacketCapture app works rather like tcpdump on Unix/Linux computers, logging your network packets to a file called a .pcap (short for packet capture) that you can analyze later at your leisure.
+We imported our .pcap file back into Wireshark on Linux, which automatically “dissects” the captured packets to give you a human-readable interpretation of their contents.
+As you’d expect, a lot of TikTok’s network conversation is encrypted using TLS to create HTTPS (secure HTTP) connections, as you can see if we extract a representative subset of TLS setup packets from our capture file:
+So the TikTok programmers certainly seem to know about TLS and why it’s important.
+But huge swathes of the content that gets sent back from TikTok’s content delivery network (CDN) isn’t encrypted, as this randomly chosen sample of packets from the capture reveals (we shortened the URLs because some of them were very long):
+The data fetched using plain old unencrypted HTTP requests included profile pictures, still frames from videos, and the videos themselves.
+At this point, you might be wondering, “If all the data transmitted via HTTP is already available for anyone to view, what harm does this cause?”
+For example, it took us a few seconds to extract these avatar images and video stills directly from the unencrypted data that we found in our packet dump:
+
+But we were also able to view all that content in the app without logging in – in other words, those images were already intended, by the people who uploaded them in the first place, to be visible to anyone who cared to look.
+Anyone, in fact, who merely downloaded and played around with the TikTok app for a few minutes, as we did.
+However, as Mysk and Haj Bakry pointed out in their article, there are two important reasons why apps of this sort should use HTTPS for everything:
+Indeed, Mysk and Haj Bakry’s post includes some short videos showing fake coronavirus news videos inserted into the TikTok app where you certainly wouldn’t expect to see them.
+They delivered their “fake news” by booby-trapping their own network router to redirect requests from TikTok’s CDN to use their own video server instead.
+But if the TikTok app were using HTTPS throughout, that sort of deception would be considerably more difficult because their router would not have the right HTTPS certificate to vouch for their swapped-out content, so the app would reject it.
+As far as we can see, TikTok has made the same sort of programming blunder that Tinder made (and then hurriedly fixed) back in 2018.
+TikTok’s regular website does seem to use HTTPS for serving up videos; but its app, perhaps for reasons of simplicity and speed, does not.
+That’s good news, because it implies that TikTok’s CDN is already perfectly well-equipped to handle HTTPS requests, and therefore that the company ought to be able to update its app quickly to bring it into the 2020s.
+In the meantime, we’ll repeat the advice we gave when Tinder had to rush to add HTTPS into its app two years ago:
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Miscreants can not make any money messing with the content, only govt minded snoops would benefit from  spying on your viewing habits.  And well,  they probably have a dozen other ways to do that anyway.  Sure go ahead and encrypt it if it makes you FEEL safer.
+Not all cybercriminals do it for money. Some do it because they’re creeps and stalkers. Others do it because they’re destructive and can get away with it. Yet others do it for political, social or just bragging motives. And there are plenty of crooks who are happy to learn any extra tit-bits of data about you if they think it will improve their chance to scam you in the future. (Anyway, fake news is big-money business by all accounts, so I find it hard to believe that a determined crook couldn’t find a way to make at least some money out of this.)
+As an aside, think of those sextortion/porn scam crooks who spam people all the time trying to blackmail them for allegedly watching porn – as far as we can see they don’t make much money at all out of their scheming. But they still cause plenty of fear, uncertainty, doubt, revulsion and so on amongst some of the people they send their odious and confrontational emails to.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

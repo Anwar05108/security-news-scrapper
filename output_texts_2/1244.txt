@@ -1,0 +1,53 @@
+Sophos Home protects every Mac and PC in your home 
+[01’47”] Apple Pay gets hacked (sort of).
+[13’18”] DOJ busts four gift card scamming suspects.
+[25’23”] We give you our top tips for #Cybermonth.
+[27’40”] Ukrainian Cyberpolice take on ransomware crooks.
+[32’13”] Oh! No! The user that volunteered to RTFM!?
+With Paul Ducklin and Doug Aamoth. Intro and outro music by Edith Mudge.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+WHERE TO FIND THE PODCAST ONLINE
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found.
+Or just drop the URL of our RSS feed  into your favourite podcatcher software.
+If you have any questions that you’d like us to answer on the podcast, you can contact us at tips@sophos.com, or simply leave us a comment below.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Can you add a link so that your articles can be read.  I am not a big fan of podcasts.
+You might like to subscribe to our newsletter, which will send you article links once a day.
+Or you can just click on the Naked Security logo at the top left of the page, which will take you to our main page where all articles on the site will appear in reverse chronological order. (They don’t all show up at once, to save time and bandwidth, because there are tens of thousands of articles in total, but there’s a button at the bottom that will fetch the next week or so’s worth each time.)
+For those articles that we refer to in each week’s podcast, you will find the links in the list of segments next to the timecodes, just above the podcast player. 
+The majority of content on our site is in written form, with the podcasts there for people who like to sit back and listen as well as to read our stuff, as their mood takes them. The majority of topics we cover in the podcast relate to articles published before each episode was recorded. We do sometimes discuss topics that we weren’t able (or didn’t have time) to cover in writing, but that’s fairly rare. Loosely speaking, if you read every article each week *except* the ones labelled [Podcast], you will almost always have covered the material that we discuss in the podcast, so you can skip the [Podcast] articles.
+The words that show up in blue and that pop up an underline when you hover over them are the links will take you to each related article for each segment in the list.
+Typically there will be one link per segment, as you see this week for the Apple Pay story, or zero links for the Oh! No! “fun stories” that we tell at the end of each episode. (Those are short snippets at the end, meant for listening, not based on articles we’ve already researched and written up.) 
+Occasionally there may be multiple relevant articles for a segment, as in the “DOJ busts four gift card scamming suspects” segment on this page, which is why there are two links in that line.
+HtH.
+AGAIN – Two more days have passed and I still get certificate errors. 
+Accessing the blog via the RSS feed http://feeds.feedburner.com/nakedsecurity?format=xml gives “The issuer certificate of a loccally looked up certioficate could not be found” -> ISRG Root X1 expired 30 september
+Is anyone reading this (and doing something about it)?
+Hi, Jan. This is the third time you’ve asked about this here, and I am not only reading your comments (otherwise they wouldn’t be getting approved) but answering them too:
+https://nakedsecurity.sophos.com/2021/10/04/becybersmart-2021-week1/#comment-6334573
+https://nakedsecurity.sophos.com/2021/09/30/how-to-steal-money-via-apple-pay-using-the-express-transit-feature/#comment-6333839
+As I’ve mentioned before, I can’t really help you to troubleshoot this issue without knowing what software you are using when the message you describe pops up. 
+The error is clearly not in our certificate, because our current one doesn’t expire until Sun, 02 Jan 2022 at 09:35:11 GMT. The certificate you are referring to that has expired *as far as your web client software is concerned* isn’t ours to issue or to fix – it’s the root certificate issued by Let’s Encrypt that your client software is using to see if it’s willing to verify our certificate or not. (Thus the mention of a “locally looked up certificate”.)
+When I visit our site, and my version of Firefox performs this certificate validation, its “locally looked up certificate” is, just as on your computer, Let’s Encrypt’s root validation certificate called “ISRG Root X1” (ISRG is the umbrella organisation of Let’s Encrypt). But the one in Firefox’s current database is valid until Mon, 04 Jun 2035 11:04:38 GMT. That’s because both my operating system and my Firefox local certificate stashes (they both link to the same files, actually) are up to date, and the expired ISRG Root X1 certificate you seem still to have lying around somewhere has been replaced with the current one.
+As I suggested in a previous comment, my best guess is that your browser is handling this perfectly well, or else you wouldn’t be able to visit the site to leave your comments, and therefore it is your RSS reader that is the key to the problem. Without knowing what software that is, I’ve had to guess from previous comments of yours that you are using RSSOwl, which relies on Java and a stripped-down Firefox, and therefore presumably uses either a database of root certificates held by the Java Runtime, or a locally-held list of Mozilla certificates, or the list of trusted certificates from your operating system, or some combination of these. So even if I have guessed right about RSSOwl, I don’t know what version of that program you’re using, nor what version of Java, nor which OS version.
+As an experiment, I installed RSSOwl on Windows 11 with the latest security updates and the latest Java, and it worked fine. I was able to access our content via RSS without error, to preview the articles in RSSOwl’s built-in mini-browser, and to click through to open every article directly in both RSSOwl built-in “full browser”, and in Edge. (My buest guess from the configuration menu in RSSOwl is that on Windows, it uses Microsoft’s built in root certificates, which include the current ISRG Root X1 certificate that expires in 2035.)
+Everyting worked fine for me with these two RSS feeds:
+https://nakedsecurity.sophos.com/feed
+http://feeds.feedburner.com/nakedsecurity?format=xml
+Anyway, I still don’t have enough information to be certain, but if I were to wager on it, I’d guess that something, most likely OpenSSL or the certificate store it’s using, is out-of-date on your computer. 
+In theory, if you’re using a web filtering product that is out of date, the web filter’s proxy could cause these errors to appear, but I am ruling that explanation out, or else you wouldn’t be able to access this site with your regular browser to leave the comments.
+That’s all I’ve got.
+HtH.
+Thank you for your very extended answer, and apologies for not coming back for replies earlier. I assumed the error was ‘on your side’ so just reporting it would be enough. I switched from RSSOwl to QuiteRSS some time back and it looks like this is using the old IE engine, which would explain things. It’s hard to get a decent up-top-date RSSreader nowadays, they are all old. I’ll go looking for paid ones too.
+There is a fork of RSSOwl that has had some activity recently. I couldn’t get it to work properly on Linux but YMMV on Windows.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

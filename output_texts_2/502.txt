@@ -1,0 +1,57 @@
+Sophos Home protects every Mac and PC in your home 
+If there’s one open source project with an unashamedly clear focus on security, it’s the OpenBSD operating system.
+In its own words, its efforts “emphasize portability, standardization, correctness, proactive security and integrated cryptography.”
+Indeed, numerous sub-projects under the OpenBSD umbrella have become well-known cybersecurity names in their own right, notably OpenSSH – which ships with almost every Linux distribution and, since Windows 10, with Windows – and LibreSSL.
+There’s also OpenSMTPD, a mail server that aims to allow “ordinary machines to exchange emails with other systems speaking the SMTP protocol”, for example to let you run a mail server of your own instead of relying on cloud services like Gmail or Outlook.com.
+Well, if you do use OpenSMTPD, you need to make sure you’re not vulnerable to a recently-disclosed bug that could let a crook take over your server simply by sending an email containing evil commands.
+Being security-conscious doesn’t stop the OpenBSD project from writing buggy code…
+…but it has made the core team very quick at responding when bugs are reported, which is what happened in this case.
+The bug itself brings back memories of the infamous Internet Worm from way back in 1988, when a programmer called Robert Morris – ironically, the son of a government cryptographic researcher called Robert Morris – unleashed an auto-spreading computer virus that quickly swamped the then-fledgling internet.
+One of the self-spreading tricks used by Morris was to exploit a “feature” in the Sendmail software – one that was not supposed to be used in real life, only for debugging – that allowed him to embed system commands inside the text of an email.
+When the email was received by the server, it would essentially be launched as a program, instead of processed and delivered as a message.
+This new OpenSMTPD bug, denoted CVE-2020-7247, was found by cybersecurity company Qualys, and gives cybercriminals a similar sort of attack lever to Morris’s worm.
+In fact, when Qualys coders developed and published a Proof of Concept (PoC) to demonstrate the exploitability of this bug, they admitted that they “drew inspiration from the Morris worm”.
+OpenSMTPD allows you to specify a command that it will use to handle the mail that it receives, whether that’s email coming in from outside or messages that you’re queuing up for delivering to other servers.
+Like many Unix programs, it uses the system’s command shell /bin/sh to spawn your command of choice, passing along the email address details as parameters.
+As you probably know, “shelling out” to user-specified commands is risky, because the shell treats some characters in its list of parameters in a special way.
+You can try this for yourself, for example by sending the commands below to a Unix shell.
+(The option -c means “run what follows as a command” and the text echo inside the command string is itself a command that means “print the message that follows”.)
+You’d probably, and reasonably, expect to see the following output:
+But you don’t – instead, you see:
+The reason is that the semicolon character (;) in the last line tells the shell to split the line into two commands and run them one after the other.
+So the shell doesn’t print out ;echo more text at the end of the third line.
+Instead it acts as though you had done this…
+…which is not the same thing at all!
+OpenSMTPD does try to stop dangerous characters such as semicolons from leaking into the commands it generates, by checking both the username part (duck in our example above) and the domain part (example.com in our example) of any email address you specify as the sender or the receiver of any message.
+In pseudocode, it’s something along these lines:
+But things are never quite that simple, because usernames and domains that are totally blank obviously fail the dodginess test, but sometimes need to be allowed.
+When issues like this come along, programmers often need to describe this sort of ‘special case’ logic in their code, and wherever there’s an exception, there’s a risk that a security bypass might be introduced.
+The OpenSMTPD code actually ended up like this:
+You can see the problem above, namely that two special cases for accepting dodgy data were handled inside the very “if” statement that was there to reject dodgy addresses.
+The end result is that a blank domain name is enough to get a message accepted even though that message already failed the username safety check!
+You’re supposed to address SMTP messages like this…
+…but the Qualys researchers figured out that they could trick the software into running commands of their own by saying something like this…
+..instead.
+The “usernames” above are ;command line of their choice; and ;another unexpected command;, both of which are clearly both dodgy and dangerous.
+Ironically, even though OpenSMTPD correctly detects those text strings as dangerous, the rogue data gets allowed through to the command shell anyway because it’s not followed by a domain name.
+The new code is much easier to follow, and gets the special cases out of the way first, so the “if” statements that deal with rejecting messages don’t have sub-clauses that revoke that rejection:
+This bug is dangerous because, by default, OpenSMTPD listens for local mail that’s being sent out.
+When mail is received locally, the server uses the root (superuser account) to deal with it, so anyone who’s already logged in can use this bug to “promote” themselves to root.
+That’s an elevation of privilege (EoP) vulnerability.
+But if you are using OpenSMTPD to accept mail from outsiders, then the bug is worse because users who don’t even have accounts on your system, let alone who aren’t logged in, can run commands on your server just by transmitting a sneakily-formatted email.
+That’s a remote code execution (RCE) vulnerability.
+Therefore:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“Watch out when programming for special cases”
+When in doubt read: Elements of Programming Style – Brian Kernighan
+Which has before and after code rewrites and, to me, was inspirational (after having scrxxxd myself several times) 🙂 🙂
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

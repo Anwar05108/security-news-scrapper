@@ -1,0 +1,37 @@
+Sophos Home protects every Mac and PC in your home 
+You’ve probably heard of a Blue Moon, which is the second full moon in any calendar month.
+The last one was back in 2018; the next one is coming up in October 2020.
+Well, 28 July 2020 is a Blue Firefox Update event – the second major security fix of the month, given that Mozilla now uses an every-four-weeks-on-Tuesday rhythm, and Firefox 78.0 came out on the first day of the month.
+Interestingly, you don’t get double-scheduled-update months from many other sources, because Mozilla’s algorithm differs slightly from – and, in strict terms, is more regular than – other well-known schedules.
+Microsoft and Adobe follow a process of “once each month on the second Tuesday”; Oracle has a system than delivers “four times a year on the Tuesday closest to the 17th day of the first month of each calendar quarter” (don’t ask us, we don’t know why!), and Apple favours the “when security fixes are ready they arrive, and we deliberately don’t say exactly when for security reasons” approach.
+In other words, if Firefox tells you today that it’s got an upgrade ready, numbered 79.0 and giving you both feature updates and security fixes, it’s not a mistake even though you already had an upgrade at the start of July 2020.
+The good news is that there are no “red-coded” critical security fixes this time, as you will see from Mozilla security bulletin MFSA2020-30.
+Nevertheless, three bugs, denoted CVE-2020-15652, CVE-2020-6514 and CVE-2020-15655, are rated high, and it’s definitely worth patching to fix the middle one of these alone.
+The CVE-2020-6514 bug was found by well-known Google bug-hunter Natalie Silvanovich, and is described as “WebRTC data channel leaks internal address to peer”.
+In plain English, what this means is that a crook could, in theory, entice you to some sort of audio or video related URL – a chat session or similar – and trick your browser into revealing information about what’s stored where in memory.
+As we’ve explained before, most remote code execution (RCE) attacks – where crooks trick your browser into treating data as code and running it, bypassing any security checks or pop-up warnings – depend on the attacker being able to guess where to “land” in memory on your computer.
+Otherwise, the exploit will typically crash the browser completely rather than toppling it in the controlled way needed to take over the execution flow.
+These days, this sort of “soft landing” is deliberately made difficult by most operating systems through the fairly simple expedient of randomising the memory locations used each time a program runs for the first time – a technique known by the self-explanatory name of ASLR, short for address space layout randomisation.
+As a result of this randomisation, crooks who figure out an exploit that works perfectly on their own system are unlikely to have it work correctly on your computer…
+…unless the crooks can get hold of second vulnerability that leaks information about your browser’s currently-chosen location in memory, thus turning a random position that can only be guessed at into a known one that can then be used with certainty.
+Unfortunately, it sounds as though Firefox’s WebRTC system – used for real-time audio and video chat via browsers – used memory addresses as one-off tmeporary identifiers for WebRTC sessions, rather than just picking random numbers instead. 
+After all, two different blocks of memory allocated for sessions that happen at the same time can’t be at the same address, so memory addresses often do make handy unique identifiers – but that’s a bit like using your social security number when a website asks you to pick a username that cold be anything at all.
+SSNs make excellent unique identifiers – indeed, that’s basically their job – but they are also supposed to be kept confidential.
+In short, memory address leakage bugs often aren’t considered critical vulnerabilities on their own, but in a cunningly-deployed combination exploit, they might be just what a crook needs to turn some other theoretical RCE hole into a working attack.
+Another bug that caught our attention, even though it only gets a grey-coded low rating, was CVE-2020-15658, described as “Overriding file type when saving to disk.”
+By offering a download with weird characters in the filename, an attacker could trick you into approving a download that looks like one sort of file, and gets shown to you that way, but actually gets saved to disk as something very different.
+Details are scant about the nature of this particular bug, but you can imagine how crooks could exploit a bug that offered you an image file with a safe-sounding download name such as KNOWN.EXE[WEIRD STUFF]NICE-PIC.JPG, only to end up sending you KNOWN.EXE instead – a file you’d never have agreed to have on your computer otherwise.
+As usual, go to the Hamburger (three lines) icon at the top right of the Firefox window, then use Help > About Firefox to check for the 79.0 version and download it if needed.
+If you’re using the Extended Support Release (ESR), your update should take you to 78.1.0esr (most recent ESR version) or 68.11.0esr (one-before-last) instead.
+Remember that the leftmost two numbers in the ESR release added together (78+1 or 68+11 in this case) should come out the sameas the leftmost number in the regular release (79 here). 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

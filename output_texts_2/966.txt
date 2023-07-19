@@ -1,0 +1,128 @@
+Sophos Home protects every Mac and PC in your home 
+An excellent article appeared last week on the APNIC blog.
+Researched and written by Matthew Thomas of Verisign, the article is entitled Chromium’s impact on root DNS traffic, and it has raised some important issues amongst the Chromium browser development community relating to a feature in the browser code that’s known as the Intranet Redirect Detector.
+To explain.
+APNIC is the Asia Pacific Network Information Centre, headquartered in Brisbane, Australia, one of five internet number registries around the world.
+These Regional Internet Registries (RIRs) look after global IP number allocations, maintain definitive internet domain name databases for their regions, and generally concern themselves with the health of the global internet.
+As you can imagine, anything that upsets the balance of the internet – from spamming and cybercrime to misconfigured servers and badly-behaved network software – is of great concern to the RIRs.
+The root DNS servers form the heart of the global Domain Name System, which automatically converts human-friendly server names such as nakedsecurity.sophos.com into network numbers that computers can use to send and receive traffic, such as 192.0.66.200 (that was our IP number when I looked it up today, as shown below).
+As you can imagine, any unnecessary load on the root DNS servers could slow down internet access for all of us, by stretching out the time taken convert names to numbers, something that our browsers need to do all the time as we click from link to link online.
+Chromium, as you almost certainly know, is a Google open-source project that produces the software at the core of many contemporary browsers, notably Google’s own Chrome Browser, which accounts for the majority of web traffic these days on laptops and mobile phones alike.
+Chromium is also used in many other browsers, including Vivaldi, Brave and – recently, at least – Microsoft Edge. (Of today’s mainstream browsers, only Safari and Firefox aren’t based on a Chromium core.)
+As you can imagine, any problematic code in Chromium could have an enormous global effect due to the prevalence of Chromium-based browsers in modern internet usage.
+And last, but not least, the Intranet Redirect Detector is a “feature” added to the Chromium browser that is supposed to detect, and work around, a deceptive practice known as NXDOMAIN redirection (or, pejoratively, as NXDOMAIN hijacking) that is still used by some ISPs in some countries.
+Very generally speaking, DNS redirection is where an ISP or network provider doesn’t tell you the unadorned truth about a server name you want to locate online.
+Sometimes, this sort of purposeful inaccuracy can be a good thing, if you’re aware that it might happen and if it’s done sensitively.
+An obvious example is for the purposes of security filtering, where a network security device or cloud service deliberately redirects known bad domains, such as malware repositories, thus heading off potentially malicious traffic right at the DNS level.
+A more controversial example of DNS redirection involves censorship, where a country’s government demands that ISPs kill off traffic to all sorts of sites that the authorities regard as “dangerous”, not only if those sites might lead to malware or other unexceptionably nasty content, but also if those sites present facts and opinions that the state wants to hide from its citizens.
+But NXDOMAIN redirection is another thing altogether.
+Simply put, a DNS lookup for a server name that doesn’t exist at all, and therefore can’t be resolved, is supposed to come back with a DNS error 3, known as NXDOMAIN, short for non-exsistent domain.
+Here is some Lua script code that we used to do two DNS lookups and retreive the low-level results, using Google’s free and uncensored DNS server located at IP address 8.8.8.8.
+First, we looked up a DNS record of type A (short for IP address) for nakedsecurity.sophos.com and received a chain of two answers: 
+The first answer is a CNAME (short for canonical name), which says that nakedsecurity.sophos.com is actually an alias for the server where our content is stored, namely news-sophos.go-vip.net, so the IP number of the go-vip.net site is actually the one we want.
+The second answer then chases down the A record of the relevant go-vip.net server, giving us the answer 192.0.66.200, which is where we need to connect to access Naked Security’s content.
+TTL, by the way, is short for time to live, and denotes how long, in seconds, we can assume the reply is correct before we need to look it up again. A browser, for example, might need to fetch 10 or 20 different items from the news-sophos.go-vip.net server, such as stylesheeets, JavaScripts, images and HTML files, just to display one web page. By telling our computer that it can rely on the original DNS reply for up to a minute before checking again, load on the DNS system is greatly reduced. But with a suitably small TTL value, stale DNS entries don’t last long and soon get corrected automatically. TTLs typically vary from 60 seconds for cloud services that need to adapt quickly to changes in availability, to several hours for static servers that handle little traffic.
+Second, we asked about a made-up name that doesn’t exist:
+As you can see, the DNS server quickly and definitely told us, “There’s no such site, so there’s no point in trying to access it.”
+Censorship, of course, could be achieved by keeping a list of domains you don’t like and deliberately, if dishonestly, “downgrading” their true answers to NXDOMAIN errors, thus making it look as though the sites don’t exist at all.
+But it’s hard to imagine why you might want to perform this trick the other way around and pretend that a non-existent domain really does exist.
+However, many years ago a number of ISPs began to do just that, treating all NXDOMAIN replies as missed opportunities for advertising.
+If you mistyped a domain name, for example, an ISP could use a DNS hijack to send you to one of its own portals instead, and offer you a range of alternative webpages or products when you got there.
+If the ISP figured that the domain name you were interested in might actually be worth some money, and therefore that you might be  checking to see if it was in use, then it could pop up a page offering to sell you the domain right away.
+Instead of “downgrading” a real site to non-existent status, as a censorship-happy government might do, NXDOMAIN hijacks go the other way, “upgrading” domains that don’t exist so that they appear to be there after all.
+The problem, of course, is that this makes it impossible to tell if a domain really exists or not, because every server name magically works, even when it shouldn’t.
+Sadly, there aren’t any globally-agreed internet regulations that the RIRs or ICANN – the Internet Corporation for Assigned Names and Numbers – can use to stamp out this practice, but for more than a decade, ICANN’s official opinion has been that:
+[We] strongly [discourage] the use of DNS redirection, wildcards, synthesized responses and any other form of NXDOMAIN substitution.
+Indeed, ICANN criticises NXDOMAIN hijacking as producing a poor user experience, because it means you can no longer easily tell whether a domain really exists or not, and as being a potential abuse of power, given that end users who want to resolve domain names to their own servers have to pay for each domain individually.
+Interestingly, the creators of the original Chromium code faced a problem of their own with NXDOMAIN trickery, namely that they wanted their new browser’s address bar to be a search engine at the same time.
+Instead of typing in a URL, you could just type in a word to search for, and Google – whose primary business, after all, is online search and advertising – would treat it as a search term.
+However, many companies use unadorned domain names internally, so that staff who are in the office (or, in coronavirus times, are connected via VPN) – can use single-word names to reach internal corporate servers.
+Chromium, therefore, checks to see if any “search term” in the address bar also works as a domain name, so that it won’t accidentally stop you accessing servers that do exist on your intranet.
+But if you’re using an ISP with DNS servers that do NXDOMAIN hijacking, then every domain name you try will seem to exist, and Chromium won’t usefully be able to distinguish between search terms and domain names.
+In other words, domain hijacking behaviour seen as a “feature” by ISPs turned out to get in the way of the autosearch “feature” that Google wanted to implement in the Chromium code.
+So, as Matthew Thomas explained in the research we referenced at the start, the Chromium programmers created yet another “feature” to help them decide whether to enable their autosearch “feature”, and coded it up in a file called intranet_redirect_detector.c.
+What this code does is to try three randomly-generated domain names when the browser starts up, as our own local DNS logs show here:
+If two (or all) of these unlikely domains resolve, and come back with the same IP number, Chromium infers that NXDOMAIN hijacking is taking place.
+In other words, if the intranet_redirect_detector triggers, then the browser assumes it can’t rely on DNS lookups to tell the difference between words you probably meant to search for, and servers you probably wanted to browse to.
+As cheeky as the Chromium code might seem, three random DNS lookups every time you open your browser doesn’t sound like a lot.
+After all,  many people don’t even restart their browser once a day, preferring to keep apps open as long as they can, and rarely logging off or shutting down their computers.
+But, as Thomas points out, on a network where there is no NXDOMAIN hijacking, those random DNS lookups all have to be handled by the root DNS servers.
+The made-up domains names don’t exist, and therefore won’t be in anyone’s DNS caches, and will always require your computer’s DNS resolver to check right back to the mother ship – one of the 13 root DNS servers – for an answer that annoyingly serves no purpose except to help Chromium configure its autosearch “feature”.
+And given that Chromium’s code is running on the majority of laptops and phones out there – that’s an absolute majority, in the sense of “running more than 50% of all laptops and phones in the world”, not merely “running on more devices than any other browser code” – then it turns out that those randomised test lookups are giving the root DNS servers a huge amount of extra work to do…
+…none of which has anything to do with finding the location of any real servers, which is the main purpose of DNS.
+Even worse, as NXDOMAIN hijacking becomes less common, thanks to pressure on ISPs not to do it, Chromium’s pressure on the root DNS servers will increase, because more and more of the random intranet_redirect_detector lookups will end up making it all the way to those 13 root servers, only to produce errors.
+The good news is that the Chromium development list seems to have accepted that this autosearch detection feature has triggered what you might call the Law of Unintended Consquences, and represents bad publicity for Chromium and Chrome alike.
+Of course, just dropping this the “feature” entirely from the Chromium code would probably be the quickest solution…
+…but that itself would very likely trigger the Law of Unintended Consequences once more by introducing confusion amongst users who have been relying on the feature, probably without even realising it.
+We therefore suspect that the solution will have more than one part, perhaps including:
+Avoiding the Law of Unintended Consequences in cybersecurity is very tricky…
+…but having a community that is willing to listen and react to well-reasoned articles like the one from Matthew Thomas is an important part of its solution!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Sounds like all that Google has to do is to send all, searches and name lookups alike, as searches.  Their servers can then keep some sort of distributed cache of DNS results on behalf of all the browsers that search through Google.  This way, it works like one and only one server is looking up those searches, on the one hand, and there would be one set of results already available to all their browsers, so this would become a non-issue.
+Google is probably doing that already, since browsers autocomplete searches using some sort of content already available by Google.
+I understand why Intranet Redirect Detector is implemented, but I am not clear about its effectiveness if it runs only when the browser is opened. 
+For example, I open my Chrome browser at home on my phone or my laptop while connected to my home WiFi. Then I go to Tim Horton’s for a coffee and connect to its WiFi. But, Tim Horton’s uses a different ISP than me. The question is: 
+How does Chrome determine ISP has changed and it has to run Intranet Redirect Detector again?
+Does it keep track of which ISP I’m using by periodically executing ping or trace-rout?
+From a very quick look at the code, I think the answer to your questions is, “Yes.”
+In https://chromium.googlesource.com/chromium/src/+/master/chrome/browser/intranet_redirect_detector.h you will see, as private methods in the IntranetRedirectDetector class:
+  // Called on connection or config change to ensure detector runs again (after
+  // a delay).
+  void Restart();
+  // Called when the startup or restart sleep has finished.  Runs any pending
+  // fetch.
+  void FinishSleep();
+It seems that running IRD when browser is launched is not the main culprit.
+For example, when I go out for a coffee, it could go something like this:
+  1- I leave home; my Android phone automatically switches from WiFi to LTE network
+  2- I go into coffee shop; my phone switches to coffee shop’s WiFi (provided I set it up to auto-connect)
+  3- For security, I start my VPN client
+  4- Stop VPN after I’m done
+  5- Leave coffee shop; back to LTE
+  6- At home; back to home WiFi
+Assuming each time the connection changes the IRD is run, having a cup of coffee and checking emails can cause my phone’s browser to run IRD an extra 6 times.
+No wonder APNIC is frustrated!
+It seems they’ve created a faulty system that always keeps us looking for solutions while they hold our minds and time hostage I say no more
+Or does it monitors the device’s IP address and run Intranet Redirect Detector every time the IP address has changed?
+See above… connections or configuration changes seem to provoke the detector to do its checks.
+Making the address field do double duty as a search box is a needless convenience anyway.. What Chrome should do is have a real search box next to it, like FF does. Then this problem goes away.
+I think I’ll avoid the problem by sticking strictly with Firefox and by using Cloudflare for my DNS lookups.  To the extent that Firefox does any slurping of my personal data, I’d rather have it go to Mozilla than to the Google.  And I trust Cloudflare to not play tricks with my DNS requests, except at my request.  I use the Cloudflare IP addresses that request Cloudflare to return NXDOMAIN for hosts that are “adult” or malicious.
+Hi Paul, thanks for your post looking at this issue. Just to clarify an important point: while the post from Matthew Thomas appears on the APNIC Blog, this is a guest post as Matt works for Verisign (not APNIC) and this is his research.
+The APNIC Blog welcomes technical guest posts from across the Internet operations community, and we felt this was an important piece of research to share. We thank Matt and Verisign for agreeing to do so and want to make sure the credit for this research goes where it is due.  Thanks again – Tony @ APNIC
+Thanks, I’ll make that a bit clearer! I mistakenly formed the opinion (I suspect that I am using those words here because they sound more informed that saying “assumed” or “guessed” :-) that Matthew did this as some sort of collaboration with APNIC. I will specify his affiliation directly in the article.
+Done. I added the detail that Matthew works for Verisign. I also made his name into a link to his author bio on the APNIC blog, which states his affiliation, tells readers it’s a guest post, and includes a natty mugshot. HtH.
+(Is that a Lacoste crocodile I can see there?!?!)
+Cheers Paul!
+Is there a way to detect those ISPs doing DNS hijacking, then punish them?
+Well, there’s Chrome’s way… look up a selection of “surely these can’t exist” websites and see what comes back. If you get DNS replies for names that aren’t supposed to exist (e.g. for domains that aren’t listed in WHOIS) then that’s bad sign #1; if you visit those “magically instantiated” domains and get some sort of marketing/placeholder/can we help you? guff then that’s bad sign #2.
+Of course, if you have an ISP that does this sort of hijacking only occasionally (for example, only for unregistered domain names that it thinks are interesting) then it might be very hard to detect, though it would be correspondingly less annoying as a result.
+I haven’t recently been on an ISP (e.g. at home or in a coffee shop) where I’ve noticed this sort of behaviour, so I don’t have any stats on how prevalent it is… whether it happens less in the UK and Europe that in North America, for example, I have no idea. One comment on Matthew Thomas’s article claims that it “was the norm a few years back […] in Germany. It’s not allowed anymore and so the practice has stopped.”
+As suggested in one comment already, why not use separate search and URL boxes?   To  insist on one box doing double duty seems like trying to “too clever by about half”.  If software creators could get past trying to be “creative” and just make the damned thing work (and be easily understood) it would be really nice.  In other words, try being a software engineer and not an “author”.
+It always annoyed me that they combined the two boxes. I’ve lost count of the number of times I have put a local IP address into a browser bar and got a google search result instead!
+Ah, the price of progress. At least Firefox still lets you split them apart if you want and have an address bar that’s an address bar and a search box that’s a search box. 
+What I dislike about the combined URL/search system – the “onmibox” as Chrome rather tellingly calls it – is the number of times I end up mistyping an address and thereby accidentally submit a chunk of text to a search engine that I didn’t intend to tell it I was interested in, such as a local filename that is no one else’s business but where I forgot to put file:// at the start.
+(My other address bar peeve: don’t guess that I meant to type “http://” if I only enter a domain name. Because I almost certainly *didn’t* want “http://”. If anything, I meant to type “https://”, and, as suggested above, if I didn’t want “https://” then I probably meant to put “file://” instead.)
+I find the whole treat anything I type as a search a PITA – I’d much rather it just had an address box and tried to connect to whatever I type there and either succeed or fail, not try and do other things. If I want to search then I’ll go to a search engine’s website. Trying to over complicate things in the interests of user convenience causes unexpected issues as described in this article, and isn’t even that convenient to many people.
+FF and its old-school search box FTW :-)
+Hey Paul, great article! There are two instances of “to to” in here though. 🙁
+Fixed, thanks. For many months my regular muscle memory mistake was typing “that” for “than” (and vice versa). Before that I went through a period of typing “proce” instead of “price” even when I really concentrated, and now I have got this “to to” thing going on. I’m sure I’ll get over “to to” soon, but then something else will pribably come alung instedd.
+I really think goog does this to get “hit counts” for forwarding traffic to its advertisers. Just like they do with all web links sent in Gmails (hover over any link sent through gmail, to see it directs to google first)
+Except that these lookups – visiting URLs like “http://cgcevlrdergi/” – typically *don’t* generate hits. They are only done with the expectation (or perhaps the hope) that they’ll *fail*.
+Thanks, I just expected goog was gaining something out of this for themselves.
+Well, they are gaining something: very simple detection of antisocial behaviour by ISPs, but by antisocial usage of DNS.
+Thanks for the article.  This makes me think about all the botnets out there that could be used to potentially overwhelm the root DNS servers. 
+That said, I’m assuming that DDoS protections would help protect against this though.
+Thank you – a well explained article.
+Glad you enjoyed it. Thanks for your kind words.
+I’ve been investigating some DNS queries from several servers running Chrome which correlates with this article. However, the random domain names also have a .io, .net or .org TLD appended to the end of it. Is this is something expected as part of this Chrome behaviour? I cannot find any sources which mention random TLDs being used as part of this initial check as well.
+No, the behaviour was to use random domain names that were individual words with no dots in them.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

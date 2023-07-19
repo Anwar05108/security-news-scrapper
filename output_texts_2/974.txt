@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+Internet scammers are always looking for a better way to separate unwitting device users from their money. And as with all other endeavors, they’ve learned that it pays to advertise.
+At SophosLabs we recently researched a collection of scams that exploit web advertising networks to pop up fake system alerts on both computers and mobile devices. The goal: to frighten people into paying for a solution—to a problem they don’t even have.
+It’s not exactly a new trick. “Scareware” pop-ups have been used for years to prompt people into downloading fake virus protection and other malicious software, including ransomware.
+But the latest variations find other ways to cash in on fake alerts: using them as the entry point to technical support scams or prompting their victims to purchase fraudulent apps or “fleeceware” off a mobile app store.
+Browser developers have done a lot to limit the damage that can be done by malicious pop-up sites, including recent fixes by Mozilla that attempt to limit the ability of malicious web pages to slow down and lock up the Firefox web browser.
+But even if the scammers don’t lock up your web browser, they can make it appear that something has gone terribly wrong—and that you need to do something immediately about it.
+That’s where the potential damage begins, with victims allowing the fraudsters to gain access to their device, and to install and extract payment for totally unneeded (and potentially harmful) software. These scams reap tens of millions of dollars from their victims each year.
+A whole industry has sprung up around fake alert scams, including scam kit toolkit developers and commercial platforms for managing malicious advertising campaigns.
+That industry is diversifying its customer base as well. We’ve recently spotted fake alert campaigns targeting Japanese, German, and French-speaking Windows and macOS users, and have observed efforts by tech support scammers to find people who speak those languages to participate in their scams.
+Fortunately, these scams are usually pretty easy to spot if examined critically. Like phishing messages, they often contain messages with strange phrasing, capitalization, and grammar or spelling mistakes.
+Sometimes they include a countdown, in order to make you more nervous—after which they suggest your phone or computer will be damaged.
+And some technical support scams will play computer-generated voice messages urging you to take action.
+But all of these scams have one very specific thing in common—they go away when you close your browser.
+While mobile fake alerts and similar pages on desktop browsers can be easily closed, “browser lock” support scam pages often use scripts that make it difficult or impossible to close the web browser normally or navigate away from the page, including:
+Using Task Manager (on Windows) or Force Quit (on macOS) may be the only way to escape some of these pages, short of a reboot—that and not allowing the browser to restore pages from the last session when re-launching.
+However, the best way to prevent most of these attacks is to cut off the ad networks that they rely on.
+Privacy tools such as the Electronic Frontier Foundation’s Privacy Badger browser add-on block trackers used by less reputable ad networks.  Reputation-tracking services can help as well, blocking domains known to host or deliver malicious ads.
+As with phishing, education is also key. If you’re on your guard for these scams you’re less likely to fall for them.
+If you’d like to learn more and get behind-the-scenes analysis, check out the SophosLabs deep dive report.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+The truly amazing thing about these scams is that there are very intelligent people out there who really believe them.
+Indeed.  
+My Dad worked in computer development, eventually with supercomputers.  A brilliant mind, and not normally gullible.  He retained his sharp mental facilities until he died at 86; never a sign of any dementia.  And yet he fell for one of these scams.  He seemed to question it after the fact, as he called me and told me about it.  I recognized the situation for what it was, and told him what I thought had happened.  He even argued about it being legitimate, but I’m sure he knew by then that he had been had.  I used the occasion to clue him in on Naked Security and Krebs on Security, and suggested that he download and run a scanner that ran outside of Windows (specifically, the Sophos tool).  Eventually he let me know that he had in fact been scammed, and that they took him for a few hundred bucks.  Luckily, he had great backups so he just wiped it all clean and restored his system.
+Every time I hear or read a tale of something like this, and catch myself thinking – as so many others do – “How can anyone be so stupid?!?”… I think of him and realize that it can, in fact, happen to ANYONE, under the right (or wrong!) set of circumstances.  The best we can do is try to keep ourselves informed, and try to educate others.  Thanks to Naked Security and other writers out there who are so helpful in that effort!
+Why doesn’t Sophos provide a tool to block “scareware”?
+We do – if we consider that a website is risky, whether it’s related to malware, phishing or whatever then our products will block it outright. If we think that something you just downloaded is dangerous, whether it’s an app, some JavaScript or even a body-trapped image file, we’ll block it.
+This includes a wide range of categories of badware, such as ransomware (scrambles files), fleeceware (tricks you into overpriced deals), adware (hammers you with pop ups), spyware (steals data entered or viewed as you use your device), scareware (lies about security problems to extort money or trick you into an action), and more…
+Where can we get Sophos products that block all these malicious software products?
+For home use, see the Free Tools bar at the bottom of every Naked Security article. For software to protect your business, go to https://sophos.com/ and choose the Products page…
+It’s not realistic to expect anyone or anything to block *all* malicious code, because new stuff is always coming out, but Sophos probably catches 99.9% of it. I’m a customer not an employee of Sophos, so that’s an estimate based on how cyber criminals work versus how malware detection works.
+Until the last 5 or 10 years, the common method was signature-based detection, where the security software recognizes certain code sequences in known malicious software. But with cyber crime becoming such a big business, signature-based detection by itself has become a game of whack-a-mole. It still has a place in security, though, for two reasons. A given threat might be discovered and security software is updated to be able to detect it some days after it first appears, but that threat will continue to be used for months or years because the bad guys know that not everyone patches or updates on time. So signature-based detection is still a valid first layer of defense, catching the vast majority of threats using relatively little processing power.
+The newer method is behavior-based detection, where the security software attempts to recognize patterns of behavior in other software to estimate its risk level. This has the advantage that it can detect new threats and will learn to get better over time. The disadvantage is that while it may catch 99% of threats that weren’t already caught by the signature-based detection, it’s unlikely to catch 100% of threats because new threat methods, if radically different enough from what everyone else has done before (which is a relatively rare event, I can think of 5 examples in the last 10 years), may not trigger a high threat level. 
+Sophos uses both detection methods, and gathers information from the field so it’s always improving.
+Part of the problem now is that legitimate messages, emails and alerts now have many of the same characteristics as scams.
+I don’t mean that the scams have got better at impersonating real emails but that real emails are so hard to spot now. Microsoft itself generates messages from 365 which lack normal domains, the address is an obsfucated mess of code and it rarely identifies ther ecipient by name, yet has similar obsfucted links going to (legitimate) but unrelated domains.
+How on earth are we supposed to educated our ser to spot scams when major suppliers Like Microsoft (and they are not alone) produce such lazy contrary product?
+[rant over]
+My personal opinion is that I too don’t like this tendency for companies – not just Microsoft – to use a wide range of domains simply because they’re nice and short. Sadly, lots of companies do it routinely, either to save characters to or to wrap one URL in another for tracking purposes. (Tweets from @NakedSecurity about new articles, for example, end up with a T dot CO Twitter address redirecting to a WP dot ME WordPress address redirecting to NAKEDSECURITY dot SOPHOS dot COM. I get why it works that way and I’ve come to terms with it… but sometimes I just wish that the web would call a spade a spade.)
+As you say, we are also stuck with absurd tracking codes in URLs, sometimes apparently with multiple randomly chosen 128-bit strings “for uniqueness”. This is as absurd to me as model numbers for products such as washing machines that contain 12 characters and then add several variant digits at the end – just how many different models do they expect to manufacture within the lifetime of the universe?
+Having said that, fraudulent domains do often stand out, either because they are hacked sites with domain names that don’t match because they’re obviously from a different industry sector, or because they were registered to be look-alikes that stand out if you check carefully, or because they are randomly chosen for availability.
+So although dodginess is indeed harder to spot these days (or, less kindly put, legitimate domains often look rather dodgy themselves), rogue domains often do still stand out to a well-informed human observer – so it is worth looking carefully!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

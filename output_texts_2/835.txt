@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+Microsoft is warning of a coronavirus themed malware distribution campaign with a bit of a twist.
+We’re tracking a massive campaign that delivers the legitimate remote access tool NetSupport Manager using emails with attachments containing malicious Excel 4.0 macros. The COVID-19 themed campaign started on May 12 and has so far used several hundreds of unique attachments. pic.twitter.com/kwxOA0pfXH
+This one claims to come from the highly regarded US institution Johns Hopkins University, an organisation that has become a household name during the current coronavirus pandemic.
+The jargon term “malspam” has caught on in recent years to describe this sort of attack – unwanted mass email that is malevolent by design because it actively aims to disseminate malware.
+(Most of us probably regard all spam as malicious as a matter of definition – it’s illegal in many jurisdictions, after all – but it’s handy to have a word to denote spam that goes way beyond being merely unwanted and unlawful, and that will immediately try to harm you if you do what it suggests.)
+Like many malspam campaigns, such as those described in the recent SophosLabs report from a gang of crooks we dubbed RATicate, this one tempts you with an attachment that looks legitimate enough at first glance.
+According to Microsoft, the attachment says it’s a spreadsheet, and it really is: if you open it you will see a genuine-looking graph of coronavirus statistics for the USA.
+One giveaway of scamminess here is that Johns Hopkins itself runs a world-renowned Coronavirus Resource Center, yet the data in the spreadsheet claims to be from the New York Times.
+Another giveaway in the email sample chosen by Microsoft is that the subject line reads as follows:
+A respectable research group would simply not use terminology of that sort – charts themselves are entirely neutral.
+Although the adjective “horrible” here might grab your attention, it’s a good sign that you are talking to someone whose goal is to scare you rather than to inform you in a reliable and objective way.
+The twist in the tale of this malspam is that although it downloads and delivers a number of different files, just like the examples in our RATicate report, including a “zombie” component, or Remote Access Trojan (RAT), that lets crooks secretly control your computer remotely…
+…it also includes a remote access program that’s neither malware in its own right, nor secretive.
+Along with the pure-play malware part, says Microsoft, the booby-trapped spreadsheet also installs components from a legitimate remote support software product called NetSupport Manager.
+Like many other remote assistance systems such as TeamViewer, Logmein and the QuickAssist software built into Windows itself, NetSupport Manager is a blessing when there’s a trusted friend on the other end helping you figure out why your printer isn’t working.
+Unfortuntely, remote access tools are a security crisis if your “assistant” is a technical support scammer “searching” for problems you don’t have, to trick you into spending hundreds or thousands of dollars on nothing, or a more determined cybercrook looking for an easy way to rifle through everything on your computer for juicy data to steal.
+The technique of using legitimate tools in unlawful and unexpected ways – which even includes ransomware crooks using pirated copies of genuine backup and encryption tools so they don’t need to write their own file scrambling software – is known as “living off the land.”
+Here, the metaphor is not so much one of an alternative lifestyle that involves living off-grid and rarely visiting towns or stores, as you might interpret that term in real life.
+For cybercriminals, “living off the land” means almost exactly the opposite: it’s analogous to carefully avoiding an alternative lifestyle, staying on-grid, wearing conventional clothes, using the same shops as everyone else, and fitting in as unexceptionably as possible.
+In this case, there is a bit of subterfuge in the “living off the land” part, inasmuch as the malware gives the NetSupport Manager tool a filename of dwm.exe.
+This means the sneakily installed support tool doesn’t look out of place if you use Task Manager to view the list of running processes.
+The filename dwm.exe usually refers to a standard Windows component found in C:\Windows\System32 that is the Desktop Window Manager – as the name suggests, it’s one of the programs responsible for what shows up, and how it looks, on your Windows desktop.
+The good news is that this malspam campaign can’t install and activate the malware unless you help it along.
+In particular, you can avoid this sort malware and its “living of the land” companion program if you:
+Note that this malware involves a booby-trapped spreadsheet, a rogue software download from a rogue website controlled by the crooks, and the installation of software that isn’t itself malware but isn’t something your IT team would probably be very happy about.
+So look for an anti-virus program that can eliminate both known and unknown malware samples, that includes web filtering to block rogue downloads, and that has behavioural features that can detect suspicious activities such as the right sort of software being installed in the wrong sort of way.
+If you’re a system administrator using a Sophos endpoint product, consider using our Application Control feature to prevent the unauthorised use of legitimate but unauthorised utilities on company-managed computers, including remote access and configuration tools.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Always verify. Second source. Be alert to tricks. Perhaps I’m peaching to the choir here, but it still needs to be said.
+I am usually very careful and verify that emails aren’t suspicious, unsolicited or from unknown senders… and yet last week, in the middle of a busy period I clicked on a link in an email that seemed legit. Thankfully it was sent by our IT department as part of a periodic phishing drill – the results could have been disasterous. A good reminder to slow down and pay attention.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

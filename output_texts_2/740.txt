@@ -1,0 +1,71 @@
+Sophos Home protects every Mac and PC in your home 
+This weekend, we were urging you to check your Firefox version to make sure you were up to date…
+…and now we’re urging you to check again.
+The update that came out over the weekend was an emergency patch, issued for a security hole that was found because it was already in use by criminals in real life – what’s known in the trade as a zero day because there were zero days on which you could have patched in advance.
+This one is a bit less dramatic, being a scheduled update of the sort you expect to see issued on a regular basis.
+Regular readers will know that we used to call these Fortytwosdays, as an homage to HHGttG, because regular updates used to arrive every six weeks, and 6×7 = 42.
+We’ll refer to this one a Fourthytuesday instead, now that Firefox has reduced its update wavelength to four weeks to get important-but-not-zero-day-critical fixes out just that bit more frequently.
+You should be checking that you have 75.0, or 68.7.0esr if you or your organisation uses the Extended Support Release.
+Those versions are bumped up from from 74.0.1 and 68.6.1esr that arrived urgently over the weekend.
+Screenshots of how to verify your version can be found in our weekend article about the zero-day patch. (Hamburger > Help > About Firefox.)
+It’s handy to know how to update verification at will, because merely checking that you’re up-to-date will give you a one-click option to get any patch that you might have missed out on. 
+Also, if your automatic update hasn’t happened yet, a manual check will let you “jump the queue” and get the update a bit sooner.
+ 
+
+
+
+
+
+
+
+
+
+
+            24/7 threat hunting, detection, and response delivered by an expert team as a fully-managed service.
+        
+
+
+        Learn More
+      
+
+
+
+
+
+Perhaps the most interesting item on the list in this update is the bug denoted CVE-2020-6828, which is specific to Firefox for Android:
+
+Even though an exploit using this vulnerability wouldn’t strictly be a Remote Code Execution (RCE) attack, where program code is typically stuffed into memory by a crook and then executed right away, it’s a reminder that any bug in which a crook can remotely overwrite configuration files can be just as dangerous.
+If I can reconfigure one of your apps to operate insecurely and then wait until the app restarts (or the device reboots) to exploit the hole I opened up, I might actually end up in a stronger position than crashing the app and running my malware at once.
+An app that is suddenly provoked into misbehaving may draw attention to itself – and exploiting code execution vulnerabilities using what are essentially “controlled demolitions” is prone to failure, or might work reliably only on a few specific operating system builds or types of device.
+But an app that starts up normally, just not in the security state you would choose for yourself, can be a gold mine for a crook who has the patience to wait for a restart or a reboot and then sneak in surreptitiously later on.
+The good news is that this hole isn’t a zero day, so the crooks don’t seem to know about it yet.
+In short: patch now!
+For the non-Android versions of Firefox, Mozilla identified a number of memory mismanagement bugs that they assume could have been wrangled into exploitable RCE holes, given enough effort.
+There are also some subtle bugs that give you some insight into why some security holes that are obvious when you know where to look never show up in testing, such as CVE-2020-6824:
+ As you can imagine, this is not the sort of workflow you’d imagine programming into an automated test (well, not until after the bug was found!), and it’s not the sort of thing you’re likely to do in real life very often.
+ Going to a website to change your password – after a breach notification, for example – is likely enough, but changing it twice in a row to a “random” password without exiting Firefox inbetween isn’t likely at all.
+ We’re guessing that until someone did this – perhaps even as a harmless mistake – and was surprised to see the website warn them that they’d chosen the same password as the time before, which ought to be as good as impossible with a correctly functioning random number generator.
+ (This is also a good reminder of why “randomness is hard“, because random numbers considered one-at-a-time don’t tell you anything about how good your randomiser is, and even a good randomiser is no good if you use the same “strong” random number twice in a row.)
+ We said it above, we’ve said it before, and we’ll say it here: patch now!
+ The crooks don’t seem to have figured out these bugs for themselves yet, so get yourself an extra step ahead of them ASAP.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+One strike two strike one more your out
+You realise that this update was coming anyway as a routine and predictable part of the development process, and there will be one next month, and the month after that…
+Can’t you be more short and sweet-with a button that says it all “update”
+There is an update button…
+though it is on the About screen.
+Except on Linux (or at least Ubuntu flavours); No Update button, but you get a fairly prompt Ubuntu update – which includes the Firefox update.
+I somewhat skirted the issue of Firefox on Linux because the answer on how to update depends on whether your distro bundles it in, and if so whether you use the bundled version or install Mozilla’s own build as you would on Mac or Windows. I use my distro’s build of Firefox because I’m on Slackware, which packages up the ESR flavour and I quite like having that. (Slackware automatically repackages Mozilla’s builds and sends an update advisory so, like you, I typically get my Firefox updates within a couple of hours of them coming out, but fetched as a distro update. Therefore, like you, when I click “About Firefox”, I’m not checking back against Mozilla’s repository.)
+But you can install Mozilla’s own build as well or instead of your distro one, and if you do that, the update process is just like it is on Mac or Windows. “About Firefox” fetches the new version if there is one, and then invites you to restart Firefox to activate it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

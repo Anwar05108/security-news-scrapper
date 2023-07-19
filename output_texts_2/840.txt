@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+US states are being flooded by fraudulent unemployment applications in a scam that’s largely orchestrated by a sophisticated Nigerian cybergang and carried out on the ground by money mules, many who’ve previously been involved in romance scams.
+Online fraud is, after all, a moveable feast: the crooks pack up shop and move to where the money’s flowing. These days, that means unemployment benefits that have spiked with the pandemic and fattened due to government relief efforts. Beyond regular unemployment payouts, benefits are coming with an extra $600 per week for out-of-work Americans during the pandemic, plus the one-time $1,200 payment eligible adults are receiving under the CARES Act.
+Unfortunately, the benefit payouts are sitting ducks when it comes to cybercrooks, given that states’ resources to weed out fraud are lacking. States are vulnerable to getting ripped off because they lack the controls necessary to detect patterns, a federal fraud investigator anonymously admitted to infosec journalist Brian Krebs.
+Multiple claims for benefits that have the same IP addresses and/or bank accounts? These should be obvious giveaways, but the scammers are getting away with it as a distracted, resource-strapped country reels with coronavirus.
+Over the weekend, Krebs reported on an alert recently issued by the US Secret Service that warned about the gang behind the rampant relief-benefit swindling. It’s pulling off large-scale fraud against multiple state unemployment insurance programs, exploiting the COVID-19 pandemic with fraudulent unemployment and CARES Act claims. Total losses could potentially hit hundreds of millions of dollars, the Secret Service said in its alert.
+On Tuesday, researchers at Agari Cyber Intelligence Division (ACID) – which creates technology to protect against phishing, business email compromise (BEC) and other email-inflicted scams – said they’ve recognized, and have been tracking, the crooks who are likely responsible.
+In fact, ACID said, it looks like some, if not all, of the threat actors behind the scams are likely part of a known, decade-old business email compromise (BEC) cybergang that it calls Scattered Canary.
+The West African gang has run a range of scams over its 10+ year history, including unemployment fraud, social security fraud, disaster relief fraud, and student aid fraud, as detailed in a report ACID published about the group in June 2019.
+The group is now targeting states including Florida, Massachusetts, North Carolina, Oklahoma, Rhode Island, Washington, and Wyoming. ACID researchers have found evidence that the cybergang has also been involved in previous attacks targeting CARES Act payments, as well as new scams targeting Hawaii unemployment benefits.
+ACID says it’s identified the methods the group uses to create accounts on government websites – namely, they’re exploiting a Gmail feature – and where the stolen funds are directed.
+The crooks are taking advantage of a Gmail feature in which Google ignores periods when interpreting Gmail addresses. Google gives this example of how dots don’t matter: “if your email is johnsmith@gmail.com, you own all dotted versions of your address,” Google says, including:
+ 
+ 
+When Google says that John.Smith “owns” the variants, it means that Google is going to funnel all the email from all those variations to one email address: in this example, johnsmith@gmail.com.
+To set the stage for its attacks, the group used this ignore-the-dots feature to set up dozens of accounts on state unemployment sites and on the Internal Revenue Service (IRS) site that’s used to process CARES Act payments for people who don’t file taxes.
+The fact that the email addresses look different – because of the dots – but Google treats them all like they should go to one email address has enabled the gang to carry out crimes fast and efficiently. It’s been able to funnel all communications from a slew of email accounts to a single Gmail account, which is much easier than having to separately monitor incoming mail for each and every one of the bogus accounts the gang has set up on targeted sites.
+ACID has identified 259 variations of a single email address used by the crime ring to create accounts on state and federal websites so as to carry out fraud. Here’s an example, with the email addresses expurgated, that shows benefit applications that were successfully processed using the group’s’s tweaked, dot-stuffed, fraudulent Gmail accounts:
+ACID researchers have seen four recent examples of the gang’s fraud. They observed one spate of fraud where the group filed at least 82 fraudulent clams for CARES payments. Between 15-19 April, they filed the fraudulent benefit applications using the website the IRS set up to process claims from people who aren’t required to file tax returns.
+It was a snap to pull off, given that all the crooks needed was the kind of personally identifiable information (PII) that’s regularly stolen in identity theft:
+The only information needed by the gang to file these claims was an individual’s name, address, date of birth, and social security number.
+At least 30 of the 82 claims were accepted by the IRS and presumably paid out.
+Another example: consistent with the recent US Secret Service warning – which mentioned Washington state as being a primary target – the criminal group has filed at least 174 fraudulent claims for unemployment with the state of Washington since 29 April. The claims were eligible to receive up to $790 a week for a total of $20,540 over a maximum of 26 weeks, according to the email sent to the cybergang. The CARES Act also includes $600 per week in pandemic-related unemployment compensation through 31 July.
+The total maximum potential loss resulting from these fraudulent claims: $4.7 million.
+ACID published this example email from Washington Employment Security Department (ESD) as a result of a fraudulent unemployment claim from the cybercrooks:
+Massachusetts is also a primary target. The cybercrooks filed at least 17 fraudulent claims for employment with the state between 15-16 May. ACID said it couldn’t see the exact benefit amount for each claim, but that the maximum weekly benefit is $823 and can last 26 weeks. Adding in the $600 pandemic unemployment payment brings the maximum potential loss for the state’s claims to nearly $500,000.
+The network’s next target is apparently Hawaii – a state that’s escaped its claims-fraud attention until now, from what ACID has seen. The cybergang filed its first two bogus unemployment claims on Hawaii’s Department of Labor and Industrial Relations website on 17 May, and more will likely follow.
+The criminals are using Green Dot prepaid cards to cash in on their fraudulent claims. Such cards have been used to divert payroll in BEC attacks, since they can be used to receive direct deposit payments. Green Dot cards are also advertised as being able to receive government benefits, such as unemployment payments, up to four days before they’re due to be paid.
+The payment cards are part of a bigger trend: the FBI has warned that BEC crooks are increasingly going after payroll funds. As of August, the bureau reported seeing a spike in spoofed emails sent to companies’ human resources or payroll departments. The emails look like they’re coming from employees requesting a change to their direct deposit account – a tweak to a related scheme, in which a crook gains access to an employee’s direct deposit account and alters the routing to another account.
+ACID has identified 47 Green Dot accounts that the organized crime group has used to receive fraudulent payments. All of the accounts were set up under the name of the individual on whose behalf the group filed a fraudulent claim.
+This is far from the first time that crooks have wrung whatever they can out of the coronavirus. We’ve seen malware pretending to be from John Hopkins University that used a subject header about “horrible” pandemic charts as a lure. In April, the IRS warned about a rash of coronavirus-themed tax fraud attacks.
+As of March, thousands of COVID-19 scam and malware sites were being pumped out on a daily basis: people going online to put up coronavirus scam sites or to sell counterfeit surgical masks; fake self-testing kits for HIV and glucose monitoring; and/or bogus antiviral meds, chloroquine, Vitamin C or other food supplements.
+This isn’t stopping anytime soon. ACID has seen a more than 3,000% increase in COVID-19-themed phishing attacks since the beginning of February. The phishing attacks are targeting the newly enlarged remote workforce. ACID says BEC actors are also evolving their tactics to adapt to stay-at-home orders.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Great post and info.
+Hi. Who do I contact if I know of a source that is running this scam?
+I’d suugest starting at https://ic3.gov (Internet Crime Complaint Center), assuming you are in the USA.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

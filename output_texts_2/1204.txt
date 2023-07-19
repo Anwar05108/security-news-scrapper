@@ -1,0 +1,121 @@
+Sophos Home protects every Mac and PC in your home 
+Yesterday, we wrote about a vaguely mysterious zero-day patch pushed out by Apple. 
+Like almost all Apple security fixes, the update arrived without any sort of warning, but unlike most Apple updates, only a single bug was listed on the “fix list,” and even by Apple’s brisk and efficient bug-listing standards, the information published was thin.
+The update was issued only for the very latest supported incarnations of iOS, iPadOS and macOS (major release numbers iOS/iPadOS 14 and macOS 11).
+Older but still-supported versions of iOS and macOS (iOS 12, as well as macOS 10.15 Catalina and 10.14 Mojave), along with watchOS and tvOS, didn’t get a mention at all.
+Whether those not-yet-patched versions are vulnerable but are proving harder to fix, are vulnerable but simply aren’t going to be fixed, or don’t actually contain the buggy code at all, we aren’t yet sure.
+This lone bug is known only by the impersonal, database-issued name of CVE-2021-30807, and is attributed to “an anonymous researcher”.
+Update. An additional patch, watchOS 7.6.1, has been issued to extend this fix to that platform. [2021-07-30T12:58Z]
+Was the new bug the secret heart of a new jailbreak that got leaked to Apple ahead of time? Was it an exploit built for a cybercrime attack that never took place? Was it part of a law enforcement phone cracking toolkit that wasn’t supposed to become known but did? 
+We don’t know.
+All we know is that Apple says that  it “is aware of a report that this issue may have been actively exploited”. 
+That statement has a fair amount of distance in it: not that it was exploited, but that it may have been; and not first-hand experience but merely awareness of a report about it.
+Of course, none of that really matters given that Apple made it clear that this was a dangerous vulnerability (a likely code execution hole with kernel privileges), and pushed out patch to fix it.
+Many, if not most, eligible iPhone users will already have received the update automatically, and the rest can get easily it on demand via Settings > General > Software Update.
+Well, no sooner was Apple’s pach out than security researcher Saar Amar added a whole new splash of intrigue into the existing puddle of mystery.
+Saar Amar, who describes himself as working at MSRC (Microsoft Security Response Center) and being into “reversing, exploits, Windows internals, virtualization, [and] mitigations”, tweeted that he’d discovered this very vulnerability back in March 2021, but hadn’t had time to exploit it properly and therefore hadn’t bothered to report it to Apple.
+Of course, when the unannounced patch arrived, Saar Amar realised that someone else must have reproduced his research work independently in the meantime.
+Technically, he had tweeted that he’d discovered the vulnerability back in March 2021, but he didn’t disclose it at the time.
+Back in March, he tweeted a SHA-512 hash of a file he’d created called description_and_poc.txt:
+This one is not accessible from the app sandbox, but still pretty cool 🙂 sha512(description_and_poc.txt)=d36248d389e069acf611f8f69f93c0ec8b96da1ac9c84e3323355db7e4892fc26394bcef3cf1ef17a1a591f3a0443141534960e011da6371f03c70c7967b484b
+— Saar Amar (@AmarSaar) March 29, 2021
+
+Tweeting a cryptographic hash is a simple way of proving that you know something at time X without revealing it until later on.
+It would be impossible (or at least be computationally infeasbile, in the jargon) for someone else to come up with a file of their own that just happens to have the same hash as yours, even if they were to spend decades on the problem.
+In other words, if you can later produce a file with the same hash that you declared at time X, you can convince everyone that you must indeed have had that file in your possession since at least X.
+You couldn’t have constructed the file from scratch after you published the hash, therefore the file must have preceded the hash.
+A similar technique for establishing “primacy of discovery” has been used for centuries. Oxford physicist Robert Hooke, for example, gave advance notice of his discovery of what is now Hooke’s Law by writing a teaser, in 1660, that said: The true theory of elasticity or springiness […]: ceiiinosssttuu“. When unscrambled, the letters at the end can be arranged to read: ut tensio, sic uis, which is Latin for the extension is proportional to the force, the result that he finally published in 1678. (If you hang a 2kg mass on the end of a spring, it will stretch twice as much as if you hang 1kg on it. That’s the essence of Hooke’s Law, which you may have been required to learn at school, and possibly to validate experimentally with rubber bands and steel weights.)
+
+On the same day that Apple announced the fix for CVE-2021-30807, Saar Amar published a document on Github that had that very SHA-512 hash, as you can check for yourself.
+The document includes proof-of-concept code for a local privilege escalation in the very same kernel function noted by Apple in its latest bulletin.
+So, the secret’s now out about the nature of the mystery bug!
+But why hold back?
+Saar Amar says he put the basic vulnerability to one side in March because he intended to come back to it in August and to groom his code into a full-blown exploit (essentially, a proof of concept capable of delivering an actual jailbreak, not merely the promise of one) before disclosing it to Apple as a “high-quality submission”.
+Holding onto bugs in this way in not unusual, for several reasons, including: 
+In this case, Saar Amar reported in his hashed document that this was a “very straightforward vulnerability”, and has subsequently written that “the vulnerability is as trivial and straightforward as it can get”.
+With this in mind, of course, you could argue that putting the bug on ice for an expected five months (March to August) created a realistic risk that someone else would find it in the meantime, and that the bug-hunter who rediscovered it might decide to use it as a zero-day, and not for the purposes of responsible research.
+(Indeed, that seems to be what happened.)
+Would you have disclosed the PoC directly to Apple back in March, as unpolished as you thought your work to be, in the hope that it would then be patched?
+Or would you merely have staked your claim to it, in the tradition of Robert Hooke and many other enlightenment scientists, in the hope of writing up a bigger, better and more complete research article later in the year, and unquestionably getting it patched?
+Have your say in the comments below! (You may remain anonymous.)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Maybe hackers should get just as much recognition for disclosing partial exploits sooner than full exploits later? Everyone remembers the guy at school who thought they were such a whizzkid at football that they would never pass so they could score all the goals themselves. It would work for a while but then the other team would figure out how to tackle them and it would all go pear shaped.
+Sure would be nice if bug was fixed in March instead of July.
+“… much more more …”
+Not quite sure that is what you meant. 🙂
+Fixed, thanks!
+Only Apply has the ability to attract early disclose by valuing the bug based on its severity. Hope Apply learned the lesson, but won’t bet on it.
+Although in this case, the potential financial value of the bug doesn’t seem to come into it.
+Someone who finds bugs in the employ of Microsoft who sits on a discovery of an iOS bug smells like corporate politics to me.
+Although he lists MSRC as an affiliation on his Twitter account, it’s possible, perhaps even probable, that this work was done on his own time and therefore not subject to Microsoft’s own rules of engagement or preferred practices.
+Firstly, I can’t imagine Microsoft deliberately witholding this bug from Apple, simply because there would be no point. (The big guns in softare regularly appear as bug finders in each others patch reports.)
+Secondly, he credits checkra1n, an iPhone jailbreaking collective, and praises the group as a “crazy game changer for our community”, which are not words I’d expect to hear in an official capacity from Microsoft.
+Thirdly, the results were published on his personal Github page, not via an official Microsoft channel.
+The article states a reasonable explanation.  BTW, how many bugs has Apple reported to MS?  Talk about corporate politics!  Apple is the worst, by far.
+I’m not sure how many Microsoft bug reports acknowledge Apple researchers. (I have a historical list of Apple security update email summaries in which searching for “Microsoft” or “MSRC” would be fairly easy. I don’t have a directly searchable list at my disposal would easily let me search the other way around to count the number of “Apple” mentions in Microsoft Patch Tuesday reports, and even if I did it’s not be clear how those counts could usefully be compared.)
+All I can say is to note that your claim “Apple is the worst, by far” needs evidence *from you* if you expect it to be treated as anything but a throwaway remark, and to point out what I said in an earlier comment, namely that this saga may be down to what a researcher has done in his own time, despite apparently being affiliated with a big name software vendor.
+I don’t know about your conjecture about someone saying that “Apple is the worst by far” or asking for evidence… It sounds more like someone’s personal perspective and thus has no need to be backed up. I also think that Apple is the worst by far, and have always thought about them since their inception. That is just my personal thought on Apple… and I will not even go into what I think about people who actually use their products.
+So, as long as you personally *think* (or merely *claim* that you think) that something is true, even if that “something” is an explicit judgement of or accusation against someone else’s integrity…
+…then it’s OK not only to state it publicly as if it were a fact but also to refuse any request to “show your working” and support your claim with evidence?
+Who knew?
+As an aside, keep in mind that I am personally a user of Apple’s products (amongst many other providers), and I work for a company that builds software to protect the hundreds of millions of others who use them too.
+I don’t plan to stop using Apple’s products just on your say-so, or to stop offering advice to Apple users just because of your unsupported (and therefore unsupportable) claims. Just so you know.
+“I could have thrown you a life preserver,
+.  .  .  but I wanted to see how long before you would drown.”
+Ut tensio, sic vis,  not “uis” Hooke’s law: the force is proportional to the tension (or extension)
+In the 17th century, U and V were essentially interchangeable and many Latin authors and texts simply used U throughout. If you look at Hooke’s own publication of 1660 (see image above), you will clearly see that he chose to typeset his sorted anagram as “ceiiinosssttuu”, *not* as “ceiiinosssttuv”. Therefore his own orthographic choice for the unscrambled phrase could only have been “ut tensio, sic uis”. 
+He could equally well have written “ceiiinosssttvv” to stand for “vt tensio, sic vis”, which would have meant exactly the same thing, or (as you might expect to see in modern editions of Latin texts in the Anglophone world), “ceiiinosssttuv” for “ut tensio, sic vis”.
+Therefore the Latin word that today may be written as VIS or UIS can be considered as interchangeable (and as homophonic) as the contemporary English words GREY and GRAY or CHECK and CHEQUE.
+I decided to stick with Hooke’s own orthographic vsage, or else my decoding of the anagram wovld have been confvsing, giuen that there would have been a V in my vnscrambled uersion, but no V in his scrambled one.
+I trvst that clears the matter vp.
+Clear as mvd.
+I assume this comes from the Hebrew were the letter vav/vov/waw (ו) with a particular set of vowels can be articulated as a V (or W) sound, and with other vowels, as a U sound.
+Depending on where (and how) you learned Latin, you will either have been taught to pronounce V (consonontal U) as W, and probably to soften your Cs (thus Caesar would have said, “weni, widi, wichi” when he came, saw and conquered. You will also have been instructed that everyone who says otherwise is inexcusably wrong…
+…or you will have been taught that V, even if typeset as U in the text, should be voiced like the modern English V (thus you would say “vim” for the Latin accusative of “vis”, just as we say the English word “vim”). You will accept that we shall never know for sure how old-timers Katullvs, Seeza and Sikkero really would have spoken if ever they red there own litterature alowd ennyway, and that it’s probably just as well not to get too fussed about it.
+However you want to pronounce them, U and V can be swapped around (or U used for both) without much confusion even in modern written English, in the same way that we use C to represent both S and K these days, or sometimes write G where J would surely make more sense.
+If you mix them up in speech then you might sound weird, as English people do when they pronounce a German -V- as if it were a German -W- (the car brand Volkswagen permanently eludes many native English speakers), yet still be comprehensible.
+Anyway, we have no idea how Hooke himself pronounced VIS, although we know for sure that he spelled is UIS. (Actually, all we really know for sure that his *printer* spelled it UIS, but we’ll assume that Hooke agreed, given the significance of the anagram in the edition concerned.)
+OK, that’s really interesting!
+I don’t know any Latin, but interestingly, my 14 year old is learning it. He tells me that he was taught that V is always pronounced as a W and U is always pronounced as a vowel, not a consonant.
+I’m not entirely sure what to take from that.
+But fascinating article, as always!
+Then I would say, pronounce “ut” (which means “as” in this context) as as “ut”, and “uis” or “vis”, however the editor of the text chooses to write it, (which means “force”) as “wiss”.
+Note that the “v” shape is easier to inscribe distinctly – e.g. the sculptor can chisel two straight lines into a block of marble more easily than that curved line in the “u”.
+Also if you are using a broad nib pen on parchment, those two straight lines are easier to draw than the “u”.
+Indeed. AFAIK, in Ancient Rome they didn’t have U, and wrote V for both U and V (presumably, as you say, because Vs are easier to inscribe). 
+I’ve seen (modern) Latin texts that use both U and V, and we do in English, and others that use only U for both sounds, but not modern texts that only use V. No idea why.
+Not really worth holding onto when the finder himself said the exploit was straightforward. If it was something in-depth and complex it would make sense to wait, but not for something ‘straightforward’.
+If it’s really that “the vulnerability is as trivial and straightforward as it can get”, then I don’t see the benefit of waiting – a paragraph or two of general explanation would suffice.  If it’s something strange that requires a lot of things to happen with questionable exploitability, then maybe it would make sense to develop a stronger proof of concept to convince the company that it’s worth taking seriously.
+I agree. I find it hard to imagine that in this case, Apple would have put the original PoC on the back burner and not bothered to patch it until someone figured out how to turn it into a real jailbreak.
+I’m not sure I am entirely convinced by word “surprised” in researcher’s statement “I kept this bug and intended to find some extra time to work on it in August. But then, iOS 14.7.1 came along, and I was surprised to see it was fixed as ‘in-the-wild'”.
+After all, he also wrote that “building the POC is an immediate step that worked at the first shot”, which is not exactly congruent with being “surprised” that someone else figured this out for themselves in the three or months since he first came across it.
+Lots of private individuals hoard zero days. “Cyber” education paints bugbounties as a great way to collect bugs and security reports. Sadly it also killed the “make a burner email and report the vuln” industry filled with good intentions and normal nerds approach security reporting. 
+Responsible disclosure didn’t kill the ohday industry, it just changed it.
+Well, if it was really “very straightforward vulnerability”, and has subsequently written that “the vulnerability is as trivial and straightforward as it can get”… If there are any real losses due to the exploit, I’d say he’s just as culpable as anyone for those loses for keeping quiet.
+Frankly the most value in finding a exploit should be at the time of discovery, no matter how rough… And it should devalue every day thereafter.
+Lastly, all this hoopla around quality at apple. Really? It’s just as bad as the others, the others just have less cult around them.
+The cult of expensive ‘speak and say’ toys.
+Its related to pegasus.
+The problem with jumping to that conclusion is that [a] there are lots of other credible explanations [b] the Pegasus story isn’t about “a single bug” but is really about an entire industry relating to hacking tools, the companies that create them and how and where they end up being sold.
+In other words, this patch quite likely has nothing at all to do with Pegasus (and therefore won’t adjust your risk from or the reach of the Pegasus toolkit), and even if it does block a hole that turns out to have been used by software such as Pegasus, it won’t be the whole story (and therefore won’t adjust the risk you think you may face from Pegasus very much).
+In short: you should patch early/patch early anyway, because the average phone user is probably at far more risk from all the attackers out there who are not Pegasus customers than those who are.
+(That’s a bit like saying, “Don’t get hung up on protecting specifically against ransomware, just because it’s the cyberthreat that’s hogging the media spotlight. Protect as broadly as you can and aim to cover the high-profile threats along with everything else.” Or like saying, “Don’t drive carefully only on the freeway just because speeds are higher there. That will distract you from the precautions you could take everywhere.”)
+Pegasus
+See my comment above. 
+Short answer: maybe, but probably not, and anyway so what? 
+Don’t patch just because of headline stories, or else you may get casual about the threat as a whole.
+If I had the oppertunity, I would have started on it immediatly, dedicated an hour a day to working on it. I also, would have used it to make a flashy demonstration, right before submitting it to Apple. You can be a good guy and still troll the “unhackable” Apple.
+The usual approach in what’s known as responsible disclosure is to agree a “disclosure date” in advance, and to defer your flashy demo either until the disclosure deadline passes (this prevents the vendor saying they’ll fix it but never doing so), or the vendor publishes the patch and agrees with you disclosing once people have had a fair chance to download it.
+The risk from flashy demos that come out before the patch is ready is that even if they don’t give away the full details of the hack, they often give away enough to give handy hints to everyone else of where and how to start looking for the hole that’s being exploited.
+Repeated and extraneous words in article: new of splash, of of mystery, work work.
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

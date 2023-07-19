@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+If you have a PC or laptop with an Nvidia graphics card (colloquially known as a GPU, short for graphics processing unit), make sure you’ve installed any of the company’s April 2021 updates that you need.
+GPU cards affected by the bugs include those branded GeForce, RTX, Quadro, NVS and Tesla, on both Windows and Linux.
+Nvidia’s “virtual GPU” (vGPU) software packages, which support its GPUs inside virtual machines that use software such as VMWare vSphere, Citrix Hypervisor, Nutanix AHV and Linux’s KVM (kernel-based virtual machine), also get updates on Windows and Linux.
+The patches cover 13 different CVE numbers, running from CVE-2021-1074 to CVE-2021-1078 for the GPU driver fixes, and from CVE-2021-1080 to CVE-2021-1087 for the vGPU products.
+For an explanation of the mysterious gap at the slot numbered CVE-2021-1079, please see the What to do? section below.
+The GPU software bug that ended up with the highest “base score” using the well-known CVSS bug-rating system was CVE-2021-1074, described as a “vulnerability in the [GPU driver] installer where an attacker with local system access may replace an application resource with malicious files.”
+Nvidia isn’t saying exactly what form this bug took, but when installer vulnerabilities of this sort appear, they are often down to one of two things:
+Even though vulnerabilities of this type are rightly considered serious, they’re actually hard to prevent altogether, given that attackers who want to exploit them typically need write access to your hard disk already.
+In other words, an attacker who could introduce a booby-trapped DLL or script file for your installer to launch could probably just run the malicious file directly anyway, or replace the installer itself with malware.
+Nevertheless, installation utilities should be hardened as much as possible against this sort of treachery, because:
+Just as worrying, in our opinion, though with a lower CVSS score, is the CVE‑2021‑1075 bug in one of Nvidia’s kernel drivers.
+This vulnerability is described with the words “the program dereferences a pointer that contains a location for memory that is no longer valid, which may lead to code execution, denial of service, or escalation of privileges.”
+This sort of error is oftern referred to in the jargon as a use-after-free bug, because the system command free() is commonly the function you call when you want to invalidate and hand back memory that your program doesn’t intend to use again.
+And unauthorised code execution in the kernel usually means big trouble because it often provides a way for a regular user to award themselves system-wide superpowers, without needing to know or guess the Administrator password first.
+In other words, crooks who have already broken into your computer could probably do a lot more damage with CVE‑2021‑1075 than they could with CVE-2021-1074.
+That’s because CVE-2021-1074 might allow the crooks to run commands indirectly that they could probably already run anyway, albeit more obviously, while CVE‑2021‑1075 might give them access to sysadmin utilities that would otherwise be off limits.
+The vGPU bugs include a number of vulnerabilities that Nvidia says could “lead to information disclosure and tampering of data,” flaws that are definitely of concern.
+A virtual machine, or VM, is a sort of simulated software computer known as a guest that may co-exist with several other VMs on the same physical hardware, known as the host.
+One of the security promises that you rely upon when you use VMs is that the virtualisation software should keep the guest VMs apart from each other at least as effectively as running each VM on its own dedicated, standalone computer.
+Likewise, although you want the host operating system to be able to control and manage the guest VMs, you expect that this flow of control wont’t work in the other direction.
+No guest operating VM should be able to mess with other guests, which could be running software for other departments inside your company or even hosting software for multiple different customers, and no guest should ever be able to make unauthorised changes to the host operating system that controls it. 
+(As you can imagine, a full-blown guest-to-host escape, as it’s known, also facilitates guest-to-guest tampering as well, given that once attackers have escaped to the host, they can misuse the host to mess with the other guests that are running on it.)
+So it is always important to patch virtualisation bugs that could allow data to leak between parts of the system that are supposed to be kept strictly apart.
+As always, patch early, patch often!
+Nvidia has a list of affected products plus the updated driver version numbers you want, as well as instructions on how to figure out which versions of its driver software are installed already.
+By the way, if you were wondering where the missing bug number CVE-2021-1079 went from the sequences listed above, the answer is that it was allocated to a flaw in the Nvidia GeForce Experience software, not in any bugs in GPU drivers or vGPU packages.
+If you use GeForce Experience, the bug that was patched could lead to code execution or to elevation of privilege, so you need to patch that software too, as explained in a separate Nvidia security bulletin.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Nvidia + Linux = !
+Thanks Paul,
+I decided not to wait for updates from Microsoft or Lenovo, and install the updated driver immediately on my P1.
+It didn’t help that the version number in the NVIDIA System Information is a different one than in the driver properties. After upgrade on my system the driver version is 27.21.14.6231, according to the driver itself, and 426.31, according to their System Information.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

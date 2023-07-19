@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+Microsoft is the latest browser vendor to join the encrypted DNS club by supporting DNS over HTTPS in Windows 10. In Build 19628 and higher, you’ll be able to encrypt your DNS traffic to prevent your geeky flatmate, that hoodie-wearing person in your local coffee shop, and possibly your ISP from snooping on your browsing destinations.
+We’ve explained encrypted DNS before, but briefly, it encrypts DNS queries between your computer and the DNS resolver (which does the DNS lookup for you) so those in between can’t see which websites or other URLs you’re asking for. There are two types. One is DNS over TLS (DoT) which is tricky to implement on many networks. The other, which more networks are likely to play nicely with, is DNS over HTTPS (DoH). The latter is the version that Microsoft is using.
+Encrypted DNS is better in some ways than the existing DNS, which operates in plain text, but as some Naked Security readers have pointed out, it still has some gotchas.
+First, your DNS resolver has to support the technology. Second, that company can still see all your traffic, so you still have to trust someone who can see where you’re surfing to respect your privacy. Third, it stops any local cybersecurity tools from inspecting your DNS traffic to filter out malicious URLs. Your DoH-enabled DNS resolver might well have its own filtering, but that means you’re trusting it with just about everything, and makes it difficult to introduce multi-layered DNS filtering protection. It also stops the authorities from censoring certain sites or snooping on your traffic, which is a divisive issue.
+When it first announced its plans to introduce DoH in November, Microsoft said that “supporting encrypted DNS queries in Windows will close one of the last remaining plain-text domain name transmissions in common web traffic.”
+This month sees the company fulfil its vow by experimenting with it as part of the Windows Insider program. To enjoy encrypted DNS queries, you must be in the Fast Ring, which is the group in the program that gets weekly updates with brand new features. That gets you Preview Build 19628. Even then, you’ll have to turn DoH on because it’s off by default.
+With this announcement, Microsoft joins Firefox, which aims to make DoH a default feature in Firefox, and Google, which is experimenting with it in Chrome.
+When it announced its intention to move to DoH, Redmond said that it wouldn’t change users’ DNS settings, but offers a choice of three DoH providers for those who want to use DoH: Cloudflare, Google, or Quad9. It also provides instructions for adding your own DoH-capable resolver using the command line.
+Whether or not you take advantage of this feature depends on your local network configuration, and – given that Microsoft warns this is an experimental feature – your risk appetite. If you decide to take the plunge, Microsoft offers instructions on how to flip the DoH switch here.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“… Mozilla, which mandates that people use Cloudflare as their DNS resolver …”
+No, they don’t.
+When they first released the feature as a preview, Cloudflare was the default option. Since it was released properly, you can choose between Cloudflare, NextDNS, or a custom service.
+Removed that bit, thanks!
+“Mozilla, which mandates that people use Cloudflare as their DNS resolver if they want to encrypt their DNS traffic in the Firefox browser.” This isn’t true. It DEFAULTS to Cloudflare, but you can also choose NextDNS or put in your own selection as a custom URL.
+Fixed, thanks.
+Do we need the ability to randomly choose a DNS resolver for each https call to obfuscate any “browsing pattern snooping” by the DNS resolver? We can selected which resolvers we are willing to see used and then the browser randomly picks one each time.
+DoH requests aren’t anonymised in the way that, say, Tor requests are. To the DoH server operator, your lookup requests give the same information away about you as a regular DNS request would – they know your IP, the domain you asked for, and when you asked, just like before.
+So if your current default DNS server is one hosted by your ISP (or Google’s 8.8.8.8, or IBM’s 9.9.9.9, and so on) then switching to DoH may change your provider, but not what that provider can infer about you. If you are currently in the habit of DNS server-hopping then you may want to switch DoH servers every now and then; if not then as long as you trust the DoH provider no less than you trusted your DNS provider you aren’t really any worse off with DoH in terms of “pattern snooping”. But you are better off against DNS hijacking, DNS redirection and general DNS snooping by other people on the network.
+But if I did a google search using DNS resolver 1 and got a returned search result page, but then when I clicked on one of the results it went off to DNS resolver 2, DNS resolver 1 would not know which result I had selected and DNS resolver 2 may not know the search terms I had used to get the first page; I would then have broken the pattern?
+Or am I not understanding something?
+I see the point – my point was that if you aren’t already doing some kind of DNS hopping with unencrypted DNS then there’s no compelling additional reason to do it now. 
+(As for search engine tracking, well, DNS 1 wouldn’t know your search terms anyway, so although it might see “google search followed by visit to online bookstore X” and might therefore guess you had searched for books, it would have no idea which other domains were returned in the original search results.)
+What’s tricky about “DNS over TLS”? I have my router set to do that at Cloudfare and just let everything use the default DNS, aka “Auto”, which is the router.
+I think the reason browser makers have added DoH into the browsers themselves is because of the desultory number of encrypted queries directly from DNS resolvers themselves. If you’re on the Firefox team, or Edge, or Chromium, or whatever, it must be kind of annoying to work on encrypting all the web traffic you generate, even including data such as server names sent in SNI requests, only to see those self-same server names leaking out in sniffable and fakeable plaintext DNS requests…
+My understanding is that DoT is easier for a network provider to block because it uses port 853 compared to port DoH’s 443, which is used for HTTPS and therefore not realistic to block. So if you control the network (or are working with a provider that doesn’t block DoT) then you’re fine, but if you begin using a network that doesn’t allow traffic on that port, you’ll run into problems.
+Thanks for the heads up: ‘it stops any local cybersecurity tools from inspecting your DNS traffic to filter out malicious URLs.”
+We will be sure to disable this when it becomes standard, so we can continue to filter malicious sites at work.
+if your staff come in through a VPN onto a closed network, you could always use regular DNS to a company DNS server, via your web filter, and then make your external DNS queries using DoH or DoT yourself to shield them from snoops.
+Exactly. You can still use non-encrypted DNS internally and have your outer-most DNS server encrypt it’s requests outward. I do this on my home network with a Windows server and NextDNS account.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

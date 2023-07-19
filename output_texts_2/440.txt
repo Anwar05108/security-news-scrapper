@@ -1,0 +1,45 @@
+Sophos Home protects every Mac and PC in your home 
+A fortnight in to 2020 and we have the first security flaw considered important enough to be given its own name: Cable Haunt – complete with eye-catching logo.
+First discovered by Danish company Lyrebirds some time ago, Cable Haunt is an unusual flaw which in Europe alone is said to affect up to 200 million cable modems based on the Broadcom platform.
+Specifically, the flaw is in a normally hidden software layer called the spectrum analyser (SA) used by Internet Service Providers (ISPs) to troubleshoot a subscriber’s connection quality.
+According to Lyrebirds, this analyser has several problems starting with the basic problem that the WebSocket interface used to control the tool from a web browser is unsecured.
+Because parameters sent via this are not restricted by the modem, it accepts JavaScript running in the browser – which gives attackers a way in as long as they can reach the browser (although not in Firefox, apparently).
+Using HTTPS instead of an exposed WebSockets would have dodged that bullet by implementing Cross-Origin Resource Sharing (CORS) security.
+What might an attacker do?
+Identified as CVE-2019-19494 (a second CVE, CVE-2019-19495, relates to the vulnerability on the Technicolor TC7230 modem), it’s clear from that list that this is a flaw users should not ignore.
+The researchers offer what looks like a valid reason for giving the issue a name – the desire to grab attention to a flaw they hint that some modem makers and ISPs have been ignoring since the company reported it to them in early 2019. The risk:
+At this rate it would eventually leak out of our hands and into organizations with time and resources to take advantage of the vulnerability.
+Lyrebirds thinks it knows why things have been moving so slowly too:
+We are a small unknown crew with no reputation and could therefore not establish connection with any manufacturers directly, even though we tried.
+The vulnerability affects cable modems using Broadcom’s reference software as part of their firmware, so the first thing is to work out whether your broadband connection is served using that technology combination (ones advertised as being fibre or ADSL are not affected).
+Beyond that, because modem makers integrate the firmware for Broadcom modems to suit their own needs, the degree to which specific models using the software are affected is hard to predict.
+The researchers list several models and firmware versions known to be at risk from Sagemcom, Technicolor, Netgear, and Compal, but they caution that this isn’t exhaustive.
+The researchers have also made available a test script that more technical users can use to work out whether a modem is vulnerable. It’s a not a guarantee, however – even if it comes up negative, a modem might still be vulnerable, they caution.
+The first piece of good news is that because cable modems are remotely managed, ISPs will apply a fix automatically when it becomes available.
+The second piece of good news is that there’s no evidence attackers have exploited the flaw – yet.
+When your ISP gets around to applying the fix will be up to them. Some might have quietly done so already but expect others to take longer. If the researchers couldn’t get modem makers and ISPs to talk to them, customers may not get much further.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+> cable modems are remotely managed
+I’m typically quite displeased by this BigBrother facet of my CM, but today I’ll make an exception, downgrading to mildly irked.
+So does the conspicuous absence of the term BWAIN, confirm its use has officially been vaccinated?
+If I’d written it I would have snuck the word BWAIN in there. When I saw the name “Cable Haunt” I did mutter “BWAIN” under my breath…
+Hi! I’m one of the discovers of this BWAIN.
+I enjoy the article, however I would like to point out, that the 4.8 rating is related to a 2018 issue with the same last digits in its CVE entry. At the time of writing the vulnerability is still awaiting analysis by nist: https://nvd.nist.gov/vuln/detail/CVE-2019-19494
+Fixed that, thanks for spotting it!
+Mitigation? If the first step is that the exploit executes in the browser of an endpoint on your LAN then wouldn’t a simple F/W rule: Deny Source: any/any, Destination any/LAN address of your cable modem simply prevent the compromised endpoint from sending the buffer overflow back to the cable modem? Or am I missing something?
+If all your rule does is ‘block all IP traffic from anywhere to the router’ then you won’t be able to correspond with the router at all… so no DHCP, no DNS, no router configuration screen. Sounds a bit like locking your keys in the car to me…
+Well heck, if you don’t wanna crash… it’s a perfect solution!
+:,)
+The only winning move is not to play
+ — W.O.P.R.
+Umm no, not at all. My modem and router are on separate internal address ranges, they’re not combined into a single device – The rule works as expected. So any potentially comprised endpoint on my LAN’s subnet can’t reach the internal address range of my modem, so should no longer be able to deliver the buffer overflow used in the attack (that’s the question). All other traffic flows normally in and out of my modem but my endpoints cannot reach the modem on its internal address space.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

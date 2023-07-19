@@ -1,0 +1,38 @@
+Sophos Home protects every Mac and PC in your home 
+The scene stealer in January’s Patch Tuesday updates from Microsoft was CVE-2020-0601, a very serious vulnerability in the crypt32.dll library used by more recent versions of Windows.
+The flaw, which also goes by the names Chain of Fools and Curveball, allows an attacker to fool Windows into believing that malicious software and websites have been digitally vouched for by one of the root certificate authorities that Windows trusts (including Microsoft itself).
+An attacker could exploit the flaw to disguise malware as legitimate – Microsoft-approved – software, to conduct silent Man-in-the-Middle attacks or to create more realistic phishing websites.
+The vulnerability is undoubtedly very serious, but in the days since its disclosure I have started to wonder if there is a silver lining to this cloud.
+Fortunately, there may be a few.
+First, it appears this vulnerability only affects the latest editions of Windows, including Windows 10, Windows Server 2016, Windows Server 2019 and their derivatives. It doesn’t affect older versions of Windows, nor does it impact users of MacOS, Linux or Unix variants.
+Second, the vulnerability can be detected both in the network and at the endpoint. This means you may have a heads-up from patched machines or network security devices, even if some of your endpoints may not yet have the January 2020 updates.
+It would also seem that the most important thing, Windows updates themselves, are unaffected by the vulnerability. Windows Update uses a pinned certificate chain with RSA certificates, which are not affected by CVE 2020-0601. This means you can safely update systems without fear of someone booby-trapping your updates.
+Perhaps most importantly though, CVE 2020-0601 is the first Microsoft Windows vulnerability disclosure credited to the NSA (National Security Agency). That isn’t to say the agency hasn’t assisted in previous vulnerability disclosures, but it’s the first time it’s been made public. This is a new precedent and a new look for the agency. This may be a result of the Vulnerabilities Equities Process, which is used to determine the relative risk/benefit ratio of a zero-day vulnerability with regard to its use as a weapon.
+This may signify an evolution in the position of the United States’ role in disclosure.
+A similar form of attack, attributed to the NSA, was used by Flame malware almost eight years ago. The malware surreptitiously infected Windows machines by bypassing the cryptographic validation of software signatures.
+After infecting a host, Flame would abuse the WPAD auto-proxy configuration “feature” in Windows to direct Windows Updates to the infected computer as a proxy. The attackers knew that Windows Update still trusted a couple of certificates that used the MD5 algorithm, long known to suffer from calculated collision weaknesses. This allowed them to supply fake updates to their proxy implant and make them appear to be signed by Microsoft’s MD5 certificate authorities.
+This attack was first discovered by Iran in 2012 and forced Microsoft to reconsider and modernize how it secures Windows Updates. While it might have been slightly embarrassing for both the NSA and Microsoft, it demonstrated that they were more than happy to keep dangerous vulnerabilities to themselves.
+Four years later, just before Christmas in 2016, the Shadow Brokers resurfaced, claiming to have stolen NSA cyberweapons available for auction. The veracity of the claim was unclear at the time, but it appears the group did have stolen NSA exploits, which may have put pressure on the NSA to do something to head off the threat at the pass.
+With the cat out of the bag, the NSA contacted Microsoft and shared details of the exploit before the Shadow Brokers were able to make a public disclosure or sale. Microsoft released MS17-010 (patching CVE 2017-144) in March 2017, to patch the vulnerability, known as EternalBlue.
+At the time the patch didn’t get much attention and, unfortunately, many organisations didn’t apply it quickly enough. The result was the headline-making Wannacry outbreak in May of 2017.
+While disclosing details of EternalBlue to Microsoft (albeit grudgingly) was an improvement over what the NSA had done with Flame, it wasn’t done early enough to prevent adversaries from abusing one of the US government’s own fully armed exploits.
+Which brings us to CVE 2020-0601, a proactively disclosed, dangerous zero-day vulnerability that could have been a sibling to Flame and EternalBlue.
+It is unclear why the NSA chose to disclose this vulnerability to Microsoft. Discovery of US enemies using it against American targets perhaps? Or maybe the NSA had already made use of the vulnerability and was concerned that others may have discovered it. Or perhaps the agency has learned from its previous instances of playing with fire.
+The answer is probably classified and we will likely never know with certainty, but there is one thing we can say for sure: we are all safer for it.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Chet!  Nice to see you back on these pages!
+“It is unclear why the NSA chose to disclose this vulnerability to Microsoft”
+The NSA has a responsibility to secure sensitive networks as well as breach them – this vulnerability is particularly nasty when it comes to networks with tighter security configurations (such as application whitelisting) as it allows an attacker to bypass trusted controls (i.e. spoof trusted vendor certificates). According to some (including the UK NCSC – see the CyberEssentials anti-malware requirements), application whitelisting is considered a safe alternative to antivirus, so many networks with this configuration wouldn’t have a system to fall back on in the event of a compromise.
+The decision makers in the NSA probably decided that the risks to secure networks of this vulnerability being exploited by a third party was too high, hence the disclosure. If the vulnerability only affected “insecure” networks, chances are they would have stayed quiet.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

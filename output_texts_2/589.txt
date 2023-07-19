@@ -1,0 +1,61 @@
+Sophos Home protects every Mac and PC in your home 
+SophosLabs has just published a detailed report about a malware attack dubbed Cloud Snooper.
+The reason for the name is not so much that the attack is cloud-specific (the technique could be used against pretty much any server, wherever it’s hosted), but that it’s a sneaky way for cybercrooks to open up your server to the cloud, in ways you very definitely don’t want, “from the inside out”.
+The Cloud Snooper report covers a whole raft of related malware samples that our researchers found deployed in combination.
+It’s a fascinating and highly recommended read if you’re responsible for running servers that are supposed to be both secure and yet accessible from the outside world – for example, websites, blogs, community forums, upload sites, file repositories, mail servers, jump hosts and so forth.
+In this article, we’re going to focus on just one of the components in the Cloud Snooper menagerie, because it’s an excellent reminder of how devious crooks can be, and how sneakily they can stay hidden, once they’re inside your network in the first place.
+If you’ve already downloaded the report, or have it open in another window, the component we’re going to be talking about here is the file called snd_floppy.
+That’s a Linux kernel driver used by the Cloud Snooper crooks so that they can send command-and-control instructions right into your network, but hidden in plain sight.
+If you’ve heard of steganography, which is where you hide snippets of data in otherwise innocent-looking files such as videos or images where a few “noise” pixels won’t attract any attention, then this is a similar sort of thing, but for network traffic.
+As we say in the steganography video that we linked to in the previous paragraph:
+You don’t try and scramble the message so nobody can read it, so much as deliver a message in a way that no one even realises you’ve sent a message in the first place.
+The jargon term for the trick that the snd_floppy driver uses is known as in-band signalling, which is where you use unexceptionable but unusual data patterns in regular network traffic to denote something special.
+Readers whose IT careers date back to the modem era will remember – probably unfondly – that many modems would “helpfully” interpret three plus signs (+++) at any point in the incoming data as a signal to switch into command mode, so that the characters that came next would be sent to the modem itself, not to the user.
+So if you were downloading a text file with the characters HELLO+HOWDY in it, you’d receive all those characters, as expected.
+But if the joker at the other end deliberately sent HELLO+++ATH0 instead, you would receive the text HELLO, but the modem would receive the text ATH0, which is the command to hang up the phone – and so HELLO would be the last thing you’d see before the line went dead.
+This malware uses a similar, but undocumented and unexpected, approach to embedding control information in regular-looking data.
+The crooks can therefore hide commands where you simply wouldn’t think to watch for them – or know what to watch for anyway.
+In case you’re wondering, there isn’t a legitimate Linux driver called snd_floppy, but it’s a sneakily chosen name, because there are plenty of audio drivers called snd_somethingorother, as you can see from this list we extracted from our own Linux system:
+In real life, the bogus snd_floppy driver has nothing to do with floppy disks, emulated or real, and nothing to do with sound or audio support.
+What snd_floppy does is to monitor innocent-looking network traffic to look for “in-band” characteristics that act as secret signals.
+There are lots of things that “sniffer-triggered” malware like this could look out for – slightly weird HTTP headers, for instance, or web requests of a very specific or unusual size, or emails with an unlikely but not-too-weird name in the MAIL FROM: line.
+But snd_floppy has a much simpler and lower-level trick than that: it uses what’s called the network source port for its sneaky in-band signals.
+You’re probably familiar with TCP destination ports – they’re effectively service identifiers that you use along with an IP address to denote the specific program you want to connect to on the server of your choice.
+When you make an HTTP connection, for example, it’s usually sent to port 80, or 443 if it’s HTTPS, on the server you’re reaching out to, denoted in full as http://example.com:80 or https://example.com:443. (The numbers are typically omitted whenever the standard port is used.)
+Because TCP supports multiple port numbers on  every server, you can run multiple services at the same time on the same server – the IP address alone is like a street name, with the port number denoting the specific house you want to visit.
+But every TCP packet also has a source port, which is set by the other end when it sends the packet, so that traffic coming back can be tracked and routed correctly, too.
+Now, the destination port is almost always chosen to select a well-known service, which means that everyone sticks to a standard set of numbers: 80 for HTTP and 443 for HTTPS, as mentioned above, or 22 for SSH, 25 for email, and so on.
+But TCP source ports only need to be unique for each outbound connection, so most programmers simply let the operating system choose a port number for them, known in the jargon as an ephemeral port. 
+Ports are 16-bit numbers, so they can vary from 1 to 65535; ephemeral ports are usually chosen (randomly or in sequence, wrapping around back to the start after the end of their range) from the set 49152 to 65535.
+Windows and the BSD-based operating systems use this range; Linux does it slightly differently, usually starting at 32768 instead – you can check the range used on your Linux system as shown below.
+On our Linux system, for example, ephemeral (also known as dynamic) ports vary between 32768 and 60999:
+But there are no rules to say you can’t choose numbers outside the ephemeral range, and most firewalls and computers will accept any legal source port on incoming traffic – because it is, after all, legal traffic.
+You can see where this is going.
+The devious driver snd_floppy uses the usually unimportant numeric value of the TCP source port to recognise “secret signals” that have come in from outside the firewall.
+The source port – just 16 pesky bits in the entire packet – is what sneaks the message in through the firewall, whereupon snd_floppy will perform one of its secret functions based on the port number, including: 
+Sure, the crooks are taking a small risk that traffic that wasn’t specially crafted by them might accidentally trigger one of the their secret functions, which could get in the way of their attack.
+But most of the time it won’t, because the crooks use source port numbers below 10000, while conventional software and most modern operating systems stick to source port numbers of 32768 and above.
+For details of the port numbers used and what they are for, please see the full Cloud Snooper report.
+As suggested above, there is a small chance that source port filtering of this sort might block some legitimate traffic, because it’s not illegal, merely unusual, to use source port numbers below 32768.
+Also, the crooks could easily change the “secret numbers” in future variants of the malware, so this would be a temporary measure only.
+There are five TCP source port numbers that the driver watches out for, and one UDP source port number. Ironically, leaving just TCP source port 9999 unblocked would allow any “kill payload” commands to get through, thus allowing the crooks to stop the malware but not to start it up again.
+This will help you to spot and stop dangerous files of many types, including rogue kernel drivers, unwanted userland programs, and malicious scripts.
+Crooks need administrator-level access to your network to load their own kernel drivers, which means that by the time you are vulnerable to an attack like Cloud Snooper, the crooks are potentially in control of everything anyway.
+Many network-level attacks where criminals need root or admin powers are made possible because the crooks find their way in through a legimitate remote access portal that wasn’t properly secured.
+Yes, crooks who already have root powers can tamper with your logging configuration, and even with the logs themselves, making it harder to spot malicious activity.
+But it’s rare that crooks are able to take over your servers without leaving some trace of their actions – such log entries showing unauthorised or unexpected kernel drivers being activated.
+The only thing worse than being hacked is realising after you’ve been hacked you could have spotted the attack before it unfolded – if only you’d taken the time to look.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Interesting.  Thanks for sharing nice run down.  Still,  it would be nice if you decayed some words to how snd_floppy can be installed on your system.  In short what is the entry point?
+As far as I know, we aren’t aware how the crooks got access to install the driver in the case we looked at. 
+Common entry points for crooks looking to “take over” these days include [a] existing backdoor malware on a computer used by someone who already has access [b] poorly-secured remote access portals such as RDP (where there are Windows computers in the mix) and SSH and [c] missed security updates for system components that have been forgotten about, such as plugins added to content management systems that don’t update themselves along with everything else.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

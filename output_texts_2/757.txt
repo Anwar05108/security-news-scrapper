@@ -1,0 +1,38 @@
+Sophos Home protects every Mac and PC in your home 
+Google has kicked 49 malicious Chrome browser extensions out of  its Web Store that were posing as cryptocurrency wallets in order to drain the contents of bona fide wallets. 
+The extensions were discovered by researchers from MyCrypto – an open-source interface for the blockchain that helps store, send and receive cryptocurrency – and from PhishFort, which sells anti-phishing protection. 
+On Tuesday, Harry Denley, MyCrypto Director of Security, said that malicious browser extensions aren’t new, but the targets in this campaign are: they include the cryptocurrency wallets Ledger (57% of the bad extensions targeted this wallet, making it the most targeted of all the wallets, for whatever reason),  Trezor, Jaxx, Electrum, MyEtherWallet, MetaMask, Exodus,  and KeepKey. 
+Denley said that essentially, “the extensions are phishing for secrets,” including users’ mnemonic phrases, private keys, and keystore files, which are security files used for things like identifying app developers or in SSL encryption.
+Denley said that once a user entered those secrets, the malicious extensions sent an HTTP POST request to the backend, which is where the bad actors got their hands on the secrets and used them to vacuum out wallets.
+MyCrypt identified 14 unique command-and-control servers (C2s) receiving data from compromised systems. After running fingerprinting analysis on the servers, the researchers found that some of them were linked. That means they likely had common bad actors pulling multiple servers’ levers. 
+While some of them sent the phished data back to a GoogleDocs form, most  hosted their own backend with custom PHP scripts, Denley said. You can see a list of the servers here on his post. 
+Most of the domains are brand new: 80% of them were registered in March and April. The oldest domain, ledger.productions, is the most interconnected to other servers. That gives researchers some indication of the same backend kit or the same actors running the campaign for most of the extensions.
+One of the servers gave off a few clues about the campaign, if in fact those clues can be taken at face value. For one thing, it looks like the crypto wallet raiding campaign could have roots in Russia, given that an admin’s email ends in “r.ru”.
+MyCrypt published the following video to show how a malicious extension targeting MyEtherWallet users works. 
+Denley said that the process mimics a typical MyEtherWallet experience, until a user types in their secrets. The malicious app sends them back to the C2s, then routes the user back to the default view, and then does … absolutely nothing. 
+That results in either a frustrated user who submits their secrets again, or maybe even feeds the malware new secrets; or a user uninstalling the extension and forgetting about it until their wallet has been drained dry. The “drained dry” outcome is likely to happen only after the extension has been removed from the store, meaning that a ripped-off user can’t investigate where their security hole was, Denley said. 
+Some of these nasty extensions have been rated up by a network of bogus reviewers dishing out fake 5-star reviews. The reviews were cursory and low-quality, such as “good,” “helpful app,” or “legit extension.” 
+Denley says that one extension – MyEtherWallet – had the same “copypasta”, with the same review posted about 8 times and purportedly authored by different users. All of the reviews shared an introduction into what Bitcoin is and an explanation of why the (malicious) MyEtherWallet was their preferred browser extension. 
+The researchers sent funds to a few addresses and submitted secrets to the malicious extensions. They weren’t automatically swept, however, perhaps because the bad actors are only interested in high-value accounts, or maybe because they have to manually sweep accounts. 
+Although the researchers didn’t lose their secrets to the malicious extensions, others have publicly posted about losing funds to the extensions on the Chrome support forum, Reddit and Toshi Times.
+Google swept the trashy extensions from the Chrome store within 24 hours of getting a heads-up. 
+Back in February, Google abruptly yanked 500 Chrome extensions off its Web Store after researchers discovered they were stealing browsing data, pulling off click fraud and serving up malvertising. The extensions had installed themselves on millions of users’ computers.
+At the time, our advice was to not assume that, just because an extension is hosted from an official web store, it’s safe to use. The cryptocurrency-draining malicious extensions are just the latest of a long string of examples. The best advice:
+Denley had other helpful advice, as well, which you can find on his post. One of his tips is to consider creating a separate browser user that you use solely for cryptocurrency data in order to limit your attack surface, and to separate  your personal and cryptocurrency profiles so as to increase the privacy related to your cryptocurrency profile.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+But goog keeps us safe,,, they are entering the healthcare industry and going to,,, what are they going to do, oh yeah, collect data and monetize it. The topic, yeah the topic, Chrome, the safest browser in the,,, google world. Do they use their own product? (that’s a serious question)
+Thank you Lisa, for keeping us informed, and the reality that not even google can provide true security to their cattle, er customers, er product users, yeah, users. (gad I hate being locked in my house, but don’t we all)
+You’re welcome!
+Yet another time?!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

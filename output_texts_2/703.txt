@@ -1,0 +1,49 @@
+Sophos Home protects every Mac and PC in your home 
+Android apps are snooping on other software on your device – and that could tell shady advertising companies more about you than you’d like.
+The news emerged this week in a paper from researchers in Italy, the Netherlands, and Switzerland. The privacy violations centre around installed application methods (IAMs), which are application programming interfaces (APIs) that allow applications to interact with other software on your phone without telling you. It lets them do a variety of things including finding the names of those other installed apps.
+There are legitimate uses for IAMs. An app such as a VPNs, backup software, or firewall might use them to co-operate with other installed software. An accessibility app can use them to make other software more usable for people with disabilities.
+That doesn’t mean all instances are in the user’s best interest. The researchers studied 14,342 free Android apps in the Google Play Store, along with 7,886 open-source Android apps. They analysed the software’s use of IAM APIs and also followed up with a questionnaire for the apps’ developers to assess how aware they were of what the apps were doing (70 developers participated).
+The most common piece of information collected via IAMs was packageName, which just reports the names of other installed apps. This alone can reveal a lot about a phone’s user, though. The paper cites other research showing that it’s possible to deduce certain things about the user purely from the apps installed on their devices, including gender, religion, relationship status, and countries of interest. They can also predict major life events such as marriage and becoming a parent with up to 87% accuracy.
+It’s no surprise, then, that commercial applications tended to use IAMs far more. 4,214 commercial apps used these, compared to just 228 of open-source apps. The most popular types of commercial app using this technique were games at 73%.
+Most of the commercial apps snooping on other installed software didn’t do it from within their own code. Instead, 83.66% of these queries came from third-party libraries that the apps used. More than one third (36%) of those libraries were classed as advertising-based, while the next most common category (31%) came under the utility category, which is effectively a catch-all of different functions to streamline software development.
+In many cases, app developers were not aware that these libraries were making calls at all, and in one case asked the researchers which piece of code the call was being made from so that it could be removed. One developer blamed a point-and-click app builder that they used.
+The fact that developers don’t always know what their apps are doing is worrying, and it leaves two options. The first is for Google to enforce stricter notifications and controls around their use. The paper said:
+As other privacy-sensitive parts of the Android platform are protected by app permissions, forcing developers to explicitly notify users before attempting access to these parts, begs the question on why IAMs are treated differently.
+You’d think Google would be wise to apps that like to sniff around their users’ installed software. Apple politely asked Facebook to remove the VPN app Onavo from its app store for just this reason after the media giant used it to snoop on its users’ other mobile app software usage.
+Google didn’t respond to our request for comment but it seems to be aware of the problem now. It is introducing a <queries> tag in app manifest files that enable apps to describe what app they’re querying. However, it isn’t clear what limitations the company will enforce on these queries. It will include a QUERY_ALL_PACKAGES permission that lets an app talk to any other app it wants, for which the company will provide usage guidelines in the future.
+This new tag and permission will ship with Android 11 but the researchers aren’t entirely happy with it. They said:
+The newly introduced permission does not appear to be considered as a dangerous permission. Hence, access to IAMs is still silent for the end-user. Although these new rules are a step in the right direction, it is unclear whether they are sufficient to limit data collection activities.
+This use of IAMs is a risk in iOS, too, the researchers said, but Apple seems ahead of Google here. More recent versions of iOS force apps to declare applications of interest for app store moderators to review.
+The other option for stopping this kind of information harvesting is to rely on privacy-aware users to fill in the gaps. The researchers recommended that users check vetting services like Virus Total to examine an app’s activities and focus on those that don’t make their money from ads.
+The takeaway here is clear: no matter how many ad blockers and other tools you deploy, data-hungry companies continue to find new ways to carry off data about you under the radar that they can use to profile you more accurately. If they can do this by sneaking such things into other apps via libraries, they will. This will continue to erode trust in mobile apps. Isn’t it time for a more honest app ecosystem?
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Oh to just ditch Android!
+it’s an ever increasing murky soup of spyware, malware, bloatware and zombieware
+Be gone!?
+And switch to what? Iphone? Not my jar of applesauce.
+Of couse – Android is the sole environment for this Marvin – free the world of Android and it all goes away …. Yeah, right!
+If I want to upgrade my laptop’s OS, I can download the latest Linux (new LTS versions every two years, intermediate upgrades every 6 months for Ubuntu/Mint distros), install it and get sometimes daily updates to keep it secure. Brand of laptop is immaterial. No reason that a laptop cannot last at least six years (I have a 12 year old netbook running current Linux!)
+Want to upgrade my tablet or smartphone? If it is more than a couple of years old or not the right make? Tough – buy a new one.
+And thus we get mass global manufacturing, global supply chains and all the necessity for long haul business travel and money being spent on what should be fripperies. I’m NOT saying it is the only cause, but it is part of the attitude.
+… My laptops don’t tend to last 12 years, probably because I use them kinda heavily.
+android is an adv/spy machine and always has been. Ditch google and you ditch android. Life without scregle is sweet.
+And change to what? Apple’s ecosystem makes me nervous, and I am *very* weary of what would happen if they had a monopoly. Plus I can’t stand the UI.
+Ignore this anti-android propaganda, I’m an iOS user myself it’s what I started with and used to BUT even I can admit Android is way better for many reasons overwhelmingly than Apple iPadOS/iOS.
+What do you expect from a OS made by an Advertising company? Security or Data mining?
+Google doesn’t make an OS to sell, they make it to collect data on people and push adds.
+It’s really just that simple.
+Android while under goog, will never be secure, due to it’s purpose.
+/e/ OS is fantastic. Android but can be entirely without Google and for my needs at least it has an adequate range of secure and Google free apps. For many apps it feels relatively easy to see how much info they do or don’t leak. I’m still on the lookout for a podcast app though 🙂
+Google is saying they are going to update their policies with guidelines on the query all functionality, but are they going to enforce through having all apps using this permission being audited and removed unless there is a true need, just like what they are doing with use of background location requests?
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

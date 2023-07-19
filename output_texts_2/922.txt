@@ -1,0 +1,78 @@
+Sophos Home protects every Mac and PC in your home 
+Our chums over at online IT publication The Register just spotted an interesting code change in the Chromium browser from last week.
+Google, it seems, is joining Apple in limiting the maximum validity of web security certificates – those digitally signed blobs of data that put the S in TLS and the padlock in your address bar – to just one year.
+The code change is headlined Enforce 398-day validity for certificates issued on-or-after 2020-09-01, and it looks like this:
+
+Enforce publicly trusted TLS server certificates have a lifetime of 398 days or less, if they are issued on or after 2020-09-01.
+Certificates that violate this will be rejected with ERR_CERT_VALIDITY_TOO_LONG and will be treated as misissued.
+Apple announced back in February 2020 that it was going to start doing this in its Safari browser.
+Safari comes as part of the macOS distribution on Macs, so it’s always available and widely used.
+Even if it’s not the first choice for most Mac users, it’s commonly fired up as an “alternative” browser, for example when you want to be logged onto the same site using two different accounts, or logged on in one browser but not logged on in another.
+And Safari, or at least its programmatic core known as WebKit, is the only browser code allowed on iOS.
+As you probably know, web certificates have two parts: a public key, presented to the world to identify your server; and a private key, used by your server to prove that it really does own the public key it is presenting as its identity.
+You can think of the public key like the blue slip (or white disk, or pink sheet, or or whatever colour it is in your country) that goes with your car to show that it’s registered to the owner YOUR NAME, and you can think of the private key as the formal ID you show when you need to prove that you really are the person YOUR NAME listed on the slip.
+The slip isn’t meant to be a secret – in some countries it’s a sticker that actually goes on the vehicle – and the data on it can be copied easily, because it doesn’t really mean anything without your ID to vouch for it.
+Well, in the context of web certificates, crooks who get hold of your private key are like car thieves with a clone of your ID: they can pass themselves off as you and therefore convince people that your property belongs to them.
+And if crooks can set up a server that can “prove” it’s yours, those same crooks can trick other people into trusting fake content on their fake site as if it were yours, vouched for cryptographically by you.
+Of course, crooks can bask in the trust conferred by your certificate without stealing your private key, for example by hacking into your site and modifying or adding fake or malicious content to your server.
+If the content comes from your site, then it will automatically have the imprimatur of your certificate and thus be vouched for by you and your brand.
+But crooks who get hold of your private key can go much further than that, and they can do it without having to rely on your server at all – they can effectively create a clone of your server, pretty much anywhere in the world they like, where you can’t easily shut it down or remove the offending content. 
+If they use your name, brand, logos and everything – including your web certificate – then anyone who visits their bogus server will almost certainly be willing to trust as if it were yours.
+Apple’s argument is that the longer the life left in a certificate, the longer that crooks have to abuse it if it’s stolen or turns out to have been fraudulently signed, so why not cap the upper limit at a single year?
+Everyone in the industry generally agrees that some sort of limit is necessary, as the Chromium source code below reveals. (We’ve edited the comments, which are lines that start // for non-technical clarity.)
+Don’t worry if you aren’t fluent in C++ because the basic ideas here are easy to follow.
+The code below comes from a function called HasTooLongValidity(), which returns true if a certificate is not to be trusted, and false if it’s OK. 
+(We think the function should be named the other way around, so that true would mean HasAcceptableValidity() and false that it was no good, but that’s a discussion for another time.)
+BR is short for Baseline Requirements, the agreed principles that set minimum standards for certificates:
+
+As you can see above, the limit on certificate lifetime has been reduced many times over the years, from 10 years to 5, then to 3¼ and then again to 2¼.
+Now, Google and Apple are homing in on 398 days, which is a full year plus a full month plus at least two extra days.
+Not everyone is delighted by this change, given that it was essentially implemented by Apple unilaterally early this year, apparently without industry consensus, and is now being copied by Google in its Chromium browser.
+In other words, it feels to some people like a sort of “policy by stealth”, given that with both Apple and Google now behind it, the opinion of everyone else doesn’t matter because everyone else will need to follow suit.
+Some observers ask why it’s necessary to have such a strict expiry limits on certificates, given that it’s unneccessary for certificates that have been looked after properly and is therefore largely forcing change for change’s sake.
+In the same way that few companies still force regular password changes “just because”, but save password resets for when they’re really needed, why force certificate updates even for people who haven’t had their private keys stolen?
+Others ask why a year is seen as “too long” given that certificate authorities such as Let’s Enrcypt are already issuing certificates that are only valid for three months at a time, thanks to a smoothly automated process for renewal.
+If millions, or even hundreds of millions, of boutique websites using Let’s Encrypt’s free certificates can manage three-monthly renewals with ease, how can one year be considered too short for certificates from more mainstream, traditional certificate authorities?
+For what it’s worth, these new limits in Apple’s and Google’s browsers don’t apply to certificates you’ve authorised yourself with signing certificates of your own, so you can set any sort of expiry limits you like in your own ecosystem.
+But for the rest of us: any web certificate issued after September 2020 that you hoped would last for two years will be rejected by both Apple’s and Google’s browsers with the error CERT_­VALIDITY­_TOO_LONG.
+You can fight it – or you can go with the flow and adapt your certificate renewal workflow to acquire and use one-year certificates.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I thought there’s an established process to revoke certificates as well.  If a private key were stolen, couldn’t the owner simply report it to VeriThawte, thereby pulling the rug from under that cert’s web of trust?
+I realize that’s a logistical concern–but I recall a while ago, millions of certs were revoked (trying to remember the cause). Maybe I’m conflating the two in thinking it’s done on an individual level when required.  
+Not that I’m endorsing an unlimited validity interval either.  Just wondering if this is akin to forcefully recalling everyone’s tires annually because some people drive until their tires are completely bald.
+* tyres?
+Certificates can and do get revoked and a good web client ought to check to see if a certificate is valid – assuming you know the certificate was stolen in the first place, which you might not realise.
+Your argument about tyres [*] is how some people see this issue, saying that because tyres on many cars last much longer than a year, why make everyone change them annually? The counter-argument is that no raw materials are really wasted in the case of certificates, so this is no more onerous than a compulsory annual vehicle safety check, which many countries do enforce.
+[*] My understanding is that the American spelling “tire” is actually the original 17th-century spelling of the word, and “tyre” the somewhat more recent alternative that caught on and stuck in Britain after the two countries, how shall we say, diverged in the 18th. IIRC a vehicle tire/tyre derives from the word “attire”, because the tyre/tire clads the rim as a coat clothes a person. Back in the 1600s and 1700s, spelling in English was pretty loose. Shakespeare apparently spelled his own name differently in each of the few signatures of his that remain. Orthography only really become a thing from the late 1700s onwards, after Samuel Johnson’s famous dictionary came out.
+This is misguided and may be a net minus in terms of overall security for most entities. If the intent of the one year expiry is to mitigate a lost or cracked encryption key why not address the issue of checking for certificate  revocation first?
+I think the arguments are: [a] you have to realise your certificates were stolen to revoke them [b] renewing certificates isn’t that hard [c] so let’s have both.
+Renewing certs so often is a pain in the neck unless you’ve scripted out the whole process for every server and device you have.
+However, the good news about getting your certificate renewal organised like that is you end up with a definitive list of servers that are supposed to be there… rather than buying long-life certificates and forgetting them for years :--)
+Paul, I see your point but I’m still of the mind that this is a bad idea overall. You should be aware if your certificates are stolen or at least working toward a comprehensive inventory and monitoring of your environment, certs included. Wasn’t the implementation of certificate transparency a good step toward that end? To not be aware is to be somewhat negligent and the one year expiry I would suggest is to give those who are not monitoring a false sense of security (and maybe an excuse to not monitor). Just my 2 cents.
+> net minus
+I see what you did there.
+:,)
+$$$$$$$$$$$$$$$
+but not for me!
+I’ve used certs from Let’s Encrypt quite a bit. Those are 90 day certs – but they have a nice auto-renewal utility so you never have to do much except watch for the notification emails. Get your certs working like that and you’ll never have to worry.
+Certificate expiry isn’t about leak of private keys. As you’ve correctly assumed, there is no evidence that leaking or cracking of private keys are that common to warrant a regular expiry.
+The reason for certificate expiry is about identity validation. When you create a certificate, the certificate authority checks a number of details about you and they embed these information in the certificate:
+– domain name control (for all types of certificates)
+– organisation legal registration (for OV and EV certificates)
+– consent of the specified organisation (for OV and EV certificates)
+These need to be re-verified regularly because domain name registration also expires, also business registration and legal status are also something that changes over time. You shouldn’t be allowed to keep an OV/EV web certificate once your business no longer has an active legal status in the country where the business is legally registered.
+Now, is the renewal certificate overpriced? Yes, yes indeed, it’s very overpriced. In most countries, most of these data can be checked mostly automatically and even the verification part that requires human involvement wouldn’t really take that much time. Certificate renewal even at EV level shouldn’t have costed hundreds of dollars, but yet that’s what CA charges.
+CA justifies these expensive prices because they claim that they provide guarantees and will pay a huge sum of money if they misissue certificates. But as we all know, these are just fiction; all CAs that were found to have been negligent in their certificate issuance process have simply declared bankruptcy and absolved themselves of these payments. Nobody has ever paid out a single cent.
+Regular expiry isn’t the problem, it’s the overpriced and unenforcable guarantees that are the problem.
+Well, there’s Let’s Encrypt :--)
+If you don’t know your private key has been stolen, you’re quite likely to request the renewal certificate with the same key.  So shortening the validity of a certificate does nothing to solve this alleged problem.  (If you do know it’s been stolen, you get the certificate revoked.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

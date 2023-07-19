@@ -1,0 +1,41 @@
+Sophos Home protects every Mac and PC in your home 
+The US Department of Homeland Security (DHS) on Tuesday said that an infection by an unidentified ransomware strain forced the shutdown of a natural-gas pipeline for two days.
+Fortunately, nothing blew up. The attacker never got control of the facility’s operations, the human-machine interfaces (HMIs) that read and control the facility’s operations were successfully yanked offline, and a geographically separate central control was able to keep an eye on operations, though it wasn’t instrumental in controlling them.
+Where this all went down is a mystery.
+The alert, issued by DHS’s Cybersecurity and Infrastructure Security Agency (CISA), didn’t say where the affected natural gas compression facility is located. It instead stuck to summarizing the attack and provided technical guidance for other critical infrastructure operators so they can gird themselves against similar attacks.
+The alert did get fairly specific with the infection vector, though: whoever the attacker was, they launched a successful spearphishing attack, which enabled them to gain initial access to the facility’s IT network before pivoting to its operational technology (OT) network.
+OT networks are where hardware and software for monitoring and/or controlling physical devices, processes and events reside. Some examples are SCADA industrial control systems, programmable logic controllers (PLCs), and HMIs.
+After the attacker(s) got their hands on both the IT and OT networks, they deployed what CISA called “commodity” ransomware, encrypting data on both networks. Staff lost access to HMIs, data historians and polling servers. Data historians – sometimes referred to as process or operational historians – are used in several industries, and they do what you might expect: record and retrieve production and process data by time and store the information in a time series database.
+Although humans partially lost their view of some low-level OT devices, the attack didn’t affect PLCs, and hence, the facility never lost control of operations. From the alert:
+At no time did the threat actor obtain the ability to control or manipulate operations.
+CISA’s alert also noted that, although the victimized facility’s emergency response plan didn’t specifically take cyberattacks into consideration, a decision was made to implement what DHS called a “deliberate and controlled shutdown” of operations. That shutdown lasted about two days. It also affected other compression facilities that were linked to the victimized site, the advisory said:
+Geographically distinct compression facilities also had to halt operations because of pipeline transmission dependencies.
+As a result, “the entire pipeline asset” had to be shut down for two days, not just the victimized compression facility.
+Why, in this day and age, when ransomware and other malware attacks are running amok, would cyberattacks have been left out of a utility company’s emergency response plan? CISA said in its advisory that the victimized facility pointed to a gap in cybersecurity knowledge being a mitigating factor: it’s at the heart of the facility’s failure to “adequately incorporate cybersecurity into emergency response planning.”
+For years, DHS has been warning that enemy nations have been ready to disrupt US energy utilities.
+In 2018, DHS’s chief of industrial-control-system analysis, Jonathan Homer, got specific. He said that between 2016 and 2018, Russian hackers snared “hundreds of victims” in the utilities and equipment sectors, to the point where “they could have thrown switches” in a way that could have caused power blackouts. Similarly to the recently announced natural-gas compression facility attack, those compromises also started with phishing attacks, according to Homer. He added that the attackers had, at the time, been sophisticated enough to even jump air-gapped networks.
+Although we don’t know which malware strain was involved in this week’s advisory, Ars Technica notes that it comes two weeks after researchers from industrial cybersecurity firm Dragos reported that a ransomware strain known as EKANS had tampered with industrial control systems used by gas facilities and other critical infrastructure.
+Dragos reported that EKANS, a ransomware that emerged in December 2019, is pretty straightforward, as ransomware goes: it encrypts, it displays a ransom note. But beyond that, it’s been tailored to cripple industrial control systems in particular. From Dragos’s writeup:
+EKANS featured additional functionality to forcibly stop a number of processes, including multiple items related to ICS operations. While all indications at present show a relatively primitive attack mechanism on control system networks, the specificity of processes listed in a static “kill list” shows a level of intentionality previously absent from ransomware targeting the industrial space.
+ICS asset owners and operators are therefore strongly encouraged to review their attack surface and determine mechanisms to deliver and distribute disruptive malware, such as ransomware, with ICS-specific characteristics.
+Mind you, we don’t know if EKANS was used in this recent incident at the natural-gas pipeline. What we do know: ransomware exists to specifically target such crucial infrastructure facilities, and operators should be aware of the risks that entails.
+Again, CISA’s advisory provides guidance for critical infrastructure operators. Here’s additional guidance for the rest of us:
+For information about how targeted ransomware attacks work and how to defeat them, check out the SophosLabs 2019 Threat Report.
+For more advice, please check out our END OF RANSOMWARE page.
+
+
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This is very interesting, particularly the fact that the entire system had to be shut down. In the 1980’s I worked in Risk Management for a major pipeline operator in Canada. There was a SCADA system which controlled a main area. To test the emergency response it was decided by operations people to close the SCADA for one section and have the operations personnel run the pipelines manually. This was a long weekend test. The end result was that people could run the system quite well BUT it was 1) hard to find the people and bring them in and 2) the people who could run it were exhausted at the end. The SCADA kept on running in the background and clicked in when a dangerously high pressure signal was not attended to by personnel. The conclusion was that it would be impossible to keep operating for a long time because the expertise was, in general, resident in a few people who had the experience in running such complicated systems in the past. The young persons did not have the knowledge, book learning and intuitive knowledge, nor the confidence to do the operations. Dependence on computerized systems simply means that when a computer problem arises, there is no one to operate a pipeline or a manufacturing process and the system has to be shut down. I like to compare it to a just-in-time manufacturing process. If one vehicle load of parts doesn’t arrive at the exact moment because it crashed on a highway multi vehicle pile up the whole plant has to shut down because one part can’t be installed when it must be installed. It was a wise decision by the pipeline operator to shut down. Disconnecting the SCADA and computers meant that there was no one capable of operating the system manually and there was no other choice. The emergency response procedure worked. The attack would have failed if there were people capable of running the pipeline manually and could jump in immediately to take over.
+I beleive we need to keep OT and IT seperate … i have a methodology to deploy OT and IT seperately .. this is.the need of future critial infrastructure .
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+You might be forgiven for thinking that July 2021 was Microsoft’s month for cybersecurity vulnerabilities.
+First there was PrintNightmare in several guises, followed by HiveNightmare (an entirely unrelated bug that nevertheless attracted the “Nightmare” moniker), followed by PetitPotam (which went down the cute aquatic mammal naming path).
+Now, however, it’s Apple’s turn to be in the patch-right-now spotlight, with a somewhat under-announced emergency zero-day fix, just a few days after the company’s last, and much broader, security update.
+This one doesn’t have a fancy name, but instead goes simply by CVE-2021-30807, and was reported, according to Apple “by an anonymous researcher”.
+Indeed, all we know about it, and all Apple has said so far, is that:
+An application may be able to execute arbitrary code with kernel privileges. Apple is aware of a report that this issue may have been actively exploited.
+If the crooks knew about it first, that makes it a zero-day bug, the jargon term used when the patch came out after the Bad Guys had a head start, rather than before the Bad Guys figured it out for themselves.
+(The name zero-day or 0-day denotes that there were zero days during which even the keenest and earliest adopters of official updates could have patched in advance.)
+The vulnerability was apparently found in the IOMobileFrameBuffer kernel code, a component that helps userland applications (in other words, unprivileged software) to configure and use your device’s or computer’s display.
+The functions supported by IOMobileFrameBuffer help with the management of settings such as video power saving, as well as colour and brightness correction.
+We’re guessing that there’s a function in there that could be called in an unexpected and erroneous way that caused some sort of buffer overflow or buffer misdirection, where the kernel failed to check the parameters it was passed and therefore allowed an unprivileged program to shovel data into privileged memory where it wasn’t supposed to be.
+That sort of bug frequently leads to DoS, or denial of service attacks, where a malicious program can deliberately crash the device at will.
+Memory corruption bugs sometimes lead to information leakage holes, where a malicious program can read out other people’s data that is supposed to secret.
+In the worst cases, however, the ability to make controlled but unauthorised modifications to kernel memory may cause even more serious kernel bugs.
+These include elevation of privilege (EoP), where an otherwise uninteresting app suddenly gets the same sort of power as the operating system itself, or even remote code execution (RCE), where an otherwise innocent operation, such as viewing a web page or opening up an image, could trick the kernel into running completely untrusted code that didn’t come from Apple itself.
+In particular, when Apple notes that “an application may be able to execute arbitrary code with kernel privileges”, you should assume that an attacker could not only steal your personal data without any visible warnings, but also effectively “jailbreak” your device, thereby bypassing Apple’s protective security boundaries entirely, without so much as a by-your-leave.
+Patch early, patch often!
+Annoyingly, you won’t yet find mention of this update on Apple’s main security update portal, the well-known HT201222 web page.
+Similarly, the company has not yet [2021-07-27T13:00Z] issued any of its customary email alerts about the issue.
+You can read Apple’s very thin description of the update to iOS 14.7.1 and iPadOS 14.7.1 at HT212623, and of the macOS 11.5.1 update at HT212622.
+As far as we can tell, those are the only updates available at the moment, but we can’t tell you if iOS 12 and older-but-supported versions of macOS don’t have updates because they aren’t vulnerable, or simply because Apple hasn’t got around to patching them yet.
+Watch this space for additional information!
+As a reminder, you can check for updates and automatically jump to the head of the queue to fetch them (assuming you are not yet up-to-date) as follows:
+Update. Apple’s security portal page has now been updated to list these fixes. An additional patch, watchOS 7.6.1, has been issued to extend this fix to that platform. [2021-07-30T12:58Z]
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Those of us who have an iPhone in order to make phone calls with an iPhone 6 running iOS 12.5.4 are out of luck for a fix. Instead, all the others who practice “look at me, look at me , I have the latest gadget” get preferential treatment. It just doesn’t seem fair that loyalty to a brand should go unrecognized for some of its products. But why should I upgrade the phone when the one I have works perfectly fine for my purpose of talking and why can’t Apple provide a fix. After all there are only 12 models, 12 operating systems and Apple has thousands of employees 12 or so of whom can be assigned to each iPhone model  for a quick fix. (Slight exaggeration of simplisticity.)
+As explained in the article, it’s actually slightly worse than that, given that it is not clear whether an iOS 12 fix is needed but not possible, is needed and still being worked on, or is not needed at all. That is a consequence of Apple’s system of making security announcements only after a fix is out. (It is indeed possible that iOS 12 is not vulnerable, for example if the buggy code was introduced in iOS 13 or later.)
+Any computer guy who is OCD about writing articles will cringe at a spelling error that should be as obvious as pie. You spelled the word authorized as “authorise” and that word stuck in my head was so bothersome because that word is a huge deal being that it is the root of all actions being executed or not.
+Anyways, not trying to be a prick but I see this word everyday at some point of my day while working with customers.
+Naked Security’s house style is, and always has been, to follow the spelling and orthography that you would reasonably expect the author of the article to use.
+If a writer whom our readers knew was from the US, say, were to talk about “colours” and “licences”, that would look a bit weird, because you wouldn’t expect them to write like that.
+The author of this article is a lifetime user of what you might loosely call Commonwealth English, so the spellings “jewelry” and “authorization” would look similarly peculiar from his own pen or keyboard.
+We do try to avoid terms that are obviously confusing or ambiguous, such as “pavement” (which describes the road surface itself in the US but denotes a footway alongside the road in the UK), “actionable” (which means advice that is genuinely useful in real life in the US, but that warns you about something that could get you sued in court in many Commonwealth countries), and “football” (which relies heavily on the use of the hands in some codes of the game).
+But when it comes to spelling, we assume that our readers are aware of, and are willing to embrace and enjoy, some of the subtle differences in our shared language.
+Intriguingly, the famous King James Bible, which appeared in 1611 and had an enormous influence on modern English, is to this day commonly referred to as The Authorized Version, always with a Z (although that Z is, of course, pronounced zed, not zee). 
+But in general British and Commonwealth usage, the -ise and -isation endings and their ilk have become not merely unexceptionable but prevalent. 
+For example, see these URLs:
+https://www.gov.uk/world/organisations
+https://www.sahpra.org.za/press-releases/sahpra-authorises-the-coronavac-vaccine-with-conditions/
+https://www.csiro.au/en/work-with-us/ip-commercialisation
+PS. What is “obvious” about pie? (And, given that many pies are circular, did you mean “pi”?)
+Grammatically speaking, there is no “s” on the word anyway.  Hearing “anyways” nearly everyday, because I’m a teacher, is equally annoying I’m sure.  All you can do is shake your head in disbelief.
+Interestingly, my Oxford Dictonary of English accepts “anyways” as an alternative for “anyway”, but it denotes it as “N. American informal or dialect”.
+So your students could argue that it’s fine for them to *say* it, although you could insist in return that you will treat it as non-standard English if ever they *write* it. Quid pro quo.
+Mr Meadors, you even misquoted Paul. His word was “unauthorised”. He didn’t write “authorise”, which is a verb and not the adjective needed to describe “modifications”.
+To be clear, if I had written “authorise”, or “authorised”, or “authorisation”, or “authorising”, or any such word, I would nevertheless have used an S every time, and not a Z 🙂
+In British English, either S-spellings or Z-spellings seem to be considered standard English (apparently, the Oxford lexicographers prefer Z, but are willing to accept S), but the S spelling not only seems to be much more common in regular use these days, but also is the one I happen to prefer. 
+And so that’s what I do, unless I am using an S-or-Z word as a kind of proper noun, e.g. if I were referring to the founding document of the Organization of African Unity, which itself used the Z spelling in its original English constitution. (It is now the African Union, of course, so the old name is rarely needed these days.)
+Hi Paul, absolutely love your work 🙂
+Big Sur 11.5.1 won’t install on my Mac desktop (late 2015 model). Apparently others have also had this issue. Has Naked Security done any investigation?
+I haven’t even tried the update yet because I haven’t powered on my ageing MacBook this week… but even when I do it (this weekend?) my system won’t match your desktop setup anyway.
+Any Mac desktoppers out there who could comment?
+Updated my MacBook 12″ today, went without a hitch. Of course, that’s not a desktop computer, but it is of 2015 vintage. (Annoyingly, it’s the most recent laptop model that *won’t* support the next macOS. Best-looking laptop ever made, but that “butterfly” keyboard, what were they thinking?)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,34 @@
+Sophos Home protects every Mac and PC in your home 
+GitHub has uncovered a form of malware that spreads via infected repositories on its system. It has spent the last ten weeks unpicking what it describes as a form of “virulent digital life”.
+The malware is called the Octopus Scanner, and it targets Apache NetBeans, which is an integrated development environment used to write Java software. In its write-up of the attack, the GitHub Security Labs team explains how the malware lurks in source code repositories uploaded to its site, activating when a developer downloads an infected repository and uses it to create a software program.
+Following a tip from a security researcher on 9 March, the Microsoft-owned site analysed the software to find out how it worked.
+GitHub is an online service based on Git, a code versioning system developed by Linux creator Linus Torvalds. Git lets developers take snapshots of files in their software development projects, enabling them to revert their changes later or create different branches of a project for different people to work on. GitHub lets them ‘push’ copies of those repositories to its online service so that other developers can download (clone) and work on them too.
+Here’s how Octopus Scanner works its dastardly magic. A developer downloads a project from a repository infected by the software and builds it, which means using the source code to create a working program. The build process activates the malware. It scans their computer to see if they have a NetBeans IDE installed. If they don’t, it takes no further action. But if they do, it infects the built files with a dropper that deliveres its final payload: a remote access trojan (RAT) that gives the perpetrators control over the user’s machine. The malware also tries to block any new project builds to replace the infected one, thereby preserving itself on the infected system.
+Octopus Scanner doesn’t just infect the built files though. Most of the variants that GitHub found in its scans also infect a project’s source code, meaning that any other newly-infected projects mirrored to remote repositories would spread the malware further on GitHub.
+GitHub Security Labs scanned the site’s repositories and found 26 of them containing the malware. The team matched the malware that it found with software hashes on VirusTotal and found a low detection rate, enabling it to spread without easily being caught.
+GitHub regularly grapples with people using its repositories to deliberately distribute malware. Usually GitHub can just shut those repositories down and delete the accounts, but Octopus Scanner was trickier because the developers owning the respositories (known as maintainers) didn’t know they were infected. They were running legitimate projects so blocking those accounts or repositories could affect businesses. GitHub couldn’t merely delete the infected files in a compromised repository either, because the files would be crucial to the legitimate software project.
+GitHub said that it was suprised to see the malware targeting NetBeans, because this isn’t the most popular Java IDE. It concluded:
+Since the primary-infected users are developers, the access that is gained is of high interest to attackers since developers generally have access to additional projects, production environments, database passwords, and other critical assets. There is a huge potential for escalation of access, which is a core attacker objective in most cases.
+We may never know who was behind Octopus Scanner but according to GitHub’s research it has been in circulation since as far back as 2018. It’s a sneaky example of code that targets a specific group of people covertly and efficiently.
+Sophos products identify the malware samples listed in the GitHub Security Lab’s article by the names Java/Agent-BERX and Java/Agent-BERZ. If you are a NetBeans programmer, you can search for those names in your logs for evidence of Octopus Scanner files in your own build environment.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+NetBeans might not be the most popular Java IDE, but it is one of the oldest, so they might be targeting places that have been around a while.  Or maybe a specific place that they know is using NetBeans.  Just speculating.
+Often, development environments and toolkits that you’ve used to build and deliver a real project, even if it was back in 2008, never die. They don’t even fade away. They just sit there in a big directory tree where someone can type make or hit the [Build] button every time there’s an unavoidable need to create a new version…
+Same problem we have with old Windows versions (XP) , Android on smartphones.
+It why we have to implement non-stop system updates. Even on older devices/systems.
+NetBeans is not the problem. And the “problem” is gone for good.
+See  http://wiki.apidesign.org/wiki/Malware or https://blogs.apache.org/netbeans/entry/newly-identified-inactive-malware-campaign
+IMO the relationship between NetBeans and Ant is sufficiently close and interwoven in this case that they can be discussed under the label “NetBeans”.
+The point is not so much that it’s NetBeans but that this is a supply chain attack with a difference – the crooks aren’t trying to poison the product that you supply but to poison the product that you use to create the product – and therefore, potentially, a whole raft of other products too. I am not sure if the word “meta-attack” is a valid term but that’s how I think of the development environment infection part of it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

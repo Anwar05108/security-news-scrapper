@@ -1,0 +1,44 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers at WordFence, a company that provides cybersecurity services for WordPress users, has warned of two security problems in a popular WordPress plugin called Rank Math.
+That’s “math” as in “calculations relating to” and “rank” as in “search engine rating”, not “rank math” as in a real stinker of a calculus problem.
+The creators of Rank Math, it seems, had neglected to put security checks on some of the remote commands that the plugin supports.
+As a result, someone who hadn’t logged in could have triggered two related bugs.
+In the first bug, a regular user could have promoted themselves to an administrator without logging in first.
+That’s a sneaky sort of bug for a discontented user to have at their disposal because it means they could acquire admin privileges without leaving anything in the logs that tied the modification directly to them.
+That might give them plausible deniability for how they “accidentally” found themselves in the Captain’s chair.
+Also, this bug allows a privilege change in general, not just a privilege elevation in particular.
+So an attacker without an existing account to promote could demote the site’s real administrator instead, potentially locking them out of their own website altogether.
+The second bug was caused by the same programming omission, and related not to user privileges but to URL redirections.
+Redirections are where a web server diverts you from one link to another, for example to update an old article to take you to an updated one; to let you access a regular link via a shortened or easy-to-type link instead; or to move some content off one server onto another while keeping old links alive.
+In other words, redirections are both usual and useful, and many web properties make use of them. (As far as we know, this feature is not activated by default in Rank Math, but we suspect that at least some users will have turned it on.)
+Because of the redirect bug, an unauthenticated user, such as an attacker on the other side of the world, might be able to access and reconfigure Rank Math’s redirect database, thus causing existing web pages to divert visitors elsewhere, apparently even to a completely different website.
+Simply put, a crook could as good as hack your site with bogus pages without actually modifying any of your content so that your site could end up looking completely different to visitors, but with the content management system in WordPress showing your stored articles untouched.
+Alternatively, a crook could redirect some, many or all of your existing pages to URLs that don’t exist, thus presenting a very dishevelled look to your customers.
+(One small silver lining, as Wordfence mentions in its analysis, is that crooks can’t redirect your home page, so even in the event of a determined attack, the main page on your site would stay live.)
+Of course, you can imagine how attackers could combine these bugs: first mess up your content so that your site doesn’t obviously seem to have been hacked yet presents as unreliable, with key services inaccessible; then lock you out so you have big trouble repairing the damage.
+When adding a remotely accessible feature to a WordPress plugin, the usual approach is to use a feature called REST, which is a lot easier to say and remember than what it stands for: representational state transfer.
+Simply put, REST programming means you use a URL such as example.com/plugin/configure to access the functions you want, with the parameters you want to pass to the functions in the web requests you send.
+The server uses the URL to identify the service you want, and the content of the request to tell it what you want to do.
+Because the URL is typically accessible to anyone, even just by using a browser and working by hand, it’s important to make sure that REST functions – or endpoints, as they are known in the jargon – are protected by access controls to stop unauthenticated access to functions that reveal private data or permit changes to be made to the server.
+In WordPress’s REST system, you can do this in your plugin code by adding what’s called a permission_callback to your REST endpoints that double-checks that only the right people are doing the right things.
+Rank Math didn’t previously have permission checks on the affected REST endpoints, but they added them quickly, reacting very promptly to the WordFence report and putting out a patch within three days.
+If you are a PHP coder and you want to see how Rank Math responded, you can download and compare the old and revised versions – it’s an interesting and informative thing to do.
+The product ships as PHP source code, meaning that the crooks can look and learn from the patch itself, so you might as well do the same.
+Below you can see some of the changes, highlighted automatically using a “diff” tool that detects and highlights changes between two versions of a file. (We used tkdiff; the colour green denotes lines added since last time.)
+If you use Rank Math, make sure you are patched – simple as that.
+The version you want to fix these bugs is 1.0.41.0. (At the time of writing the version number is already 1.0.41.2 [2020-04-02T15:00Z], but anything before 1.0.41.0 still has these particular vulnerabilities.)
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+In case I haven’t mentioned it before, we’re getting a couple of hundred hack attempts per day on every element of a WordPress installation. If it begins with ‘wp-‘ it arrives as a GET or POST query. If we used WordPress, I’d be worried enough to patch it to the hilt., which would be my advice to anyone who does. Also, check apache’s access log, which will give you an idea of the intensity of the attack.
+The scary part is that the bad guys are always ahead. So, one must always consider every possibility when developing software of any sort.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

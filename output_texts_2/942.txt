@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+When it comes to updates, Apple doesn’t do “predictable”.
+Other organisations such as Microsoft, Mozilla and Adobe are well-known for publishing updates not only frequently but also regularly.
+Indeed, with those companies, you don’t just get updates at least once a month (or once every four weeks for Mozilla), but the pre-announced ones are always scheduled to arrive on Tuesdays.
+Never Mondays, because some big organisations have IT rules that set Mondays aside for clearing up any crises that might have happened over the immediately preceding weekend.
+Never Fridays, in case of any crises that might arise in the immediately following weekend as a result.
+And never Wednesdays or Thursdays, because Tuesday gives you the longest clear run of spare weekdays before Friday arrives and shuts down the so-called “change window” once again.
+Apple, on the other hand, follows a more reclusive approach, so that macOS and iOS updates – with very occasional exceptions – show up unexpectedly, with no pre-announcement of the nature, scale or importance of what’s getting fixed:
+For the protection of our customers, Apple doesn’t disclose, discuss or confirm security issues until an investigation has occurred and patches or releases are generally available.
+The idea seems to be to give cybercriminals the fewest hints about where the latest bugs might be, and the least amount of advance warning about where to start looking.
+In other words, the crooks have very little to go on except what they can glean from reverse engineering the patches and comparing the new code to the old, and they only find out for sure what the patches look like at the same time that the rest of us can download and deploy them.
+On the other hand, Apple’s cone of silence can sometimes be annoying and hard to understand, because it means that concerned users can never be quite sure when already-known bugs in open source components that ship with Apple’s products are going to be fixed.
+For example, the latest update includes a patch on older macOS versions for CVE-2019-20807, a remote code execution bug in Vim, an open source text editor that ships as part of the macOS distribution and is extremely popular and widely used in the technical community:
+That bug has been well-documented since early 2020, and clearly dates back to 2019, so Apple’s policy of not saying whether it’s looking into already-known vulnerabilities or not, but of keeping quiet unless and until an update turns up, leaves users uncertain as to whether:
+Of course, we know now that Apple did know about the Vim issue mentioned above, and has patched it at last, so any users who were wondering about it can now scratch that one off their list of concerns…
+…but keeping silent even about bugs that are already well-known – as well as documented and fixed by other vendors – seems a strange choice.
+A few of the macOS fixes caught our eye:
+Note that even if a bug exists in a file type that you never use, such as an arcane image or video format, you are still at risk from booby-trapped web downloads or email attachments.
+After all, the operating system knows what file types it can handle and will typically choose which file processing code to use automatically, so the crooks don’t have to rely on you jumping through hoops to figure out how to infect yourself by mistake when they send you files with extensions you’ve never heard of.
+There are also a bunch of fixes in Safari, including patches for remote code execution vulnerabilities, that you need to download separately if you are still using macOS Mojave or High Sierra. (On the latest version, macOS Catalina, the Safari update arrives along with the main macOS patches.)
+Users of iOS 13 on iPhones and iPads get an update to 13.6 covering many of the bugs listed above, given that macOS and iOS share a huge amount of code.
+The iOS 12.4.8 update, however which is the only pre-13 iOS version still supported, “has no published CVE entries”, according to Apple, which implies that it received little more than a touch of spit-and-polish.
+Get the updates while they’re hot!
+There’s nothing here that sounds anywhere near as dramatic as Microsoft’s just-patched “SIGRed” bug in its DNS server, but that bug admittedly attracted special attention as much because of its funky name (dramatically channelling the “Code Red” worm of 2001) as because of its current danger.
+Kernel-level remote code execution risks like the ones listed above are always worth patching as quickly as you can, because they can be considered trophy bugs for any cybercriminal.
+A crook who figured out a working exploit for any of the kernel holes mentioned would almost certainly (and immediately) find any number of willing buyers on the dark web.
+On a Mac, go to Apple menu > System Preferences > Software Update.
+On iPhones and iPads, it’s Settings > General > Software Update.
+After the update, depending how many Apple devices you have, you should be on some, many or all of: iOS 12.4.8, iOS 13.6, macOS 10.15.6 (if you are on Catalina), macOS 10.13.6 with Security Update 2020-004 (High Sierra), macOS 10.14.6 with Security Update 2020-004 (Mojave), and Safari 13.1.2.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I am already on Catalina 10.15.5 and have just received a notification of an update to 10.15.6 (18 July 2020).
+Oops, I typed in the old number, not the new one… 10.15.6 it is, now fixed – thanks!
+Would also be helpful if Apple could publish the EOL dates for various operating systems
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,39 @@
+Sophos Home protects every Mac and PC in your home 
+Google has issued an update for its widespread Chrome browser to fix three security holes.
+Unfortunately, one of those holes is what’s known as a zero-day: a bug that was already being exploited by cyerbcrooks before Google tracked it down and fixed it.
+Google, which is often vociferous about bugs and how they work, especially those found by its own Project Zero and Threat Analysis teams, is playing its cards close to its chest in this case.
+As the company’s update notification says:
+Access to bug details and links may be kept restricted until a majority of users are updated with a fix. We will also retain restrictions if the bug exists in a third party library that other projects similarly depend on, but haven’t yet fixed.
+We’re guessing that Google is worried that giving away too much at this stage might encourage additional attackers – ones who haven’t figured this bug out yet –  to try to get in on the act. 
+If those crooks know other Bad Guys have already figured out how to exploit this vulnerability for active attacks, then they know that there’s more than just a theoretical chance of abusing the bug if they happen to rediscover it themselves.
+So far, then, Google has only offered this comment about the vulnerability:
+CVE-2020-6418: Type confusion in V8. Reported by Clement Lecigne of Google’s Threat Analysis Group on 2020-02-18
+Google is aware of reports that an exploit for CVE-2020-6418 exists in the wild.
+Two researchers at a business called Exodus Intelligence have already published a proof-of-concept exploit, which they devised by studying recent changes in the V8 source code. Fortunately, their example requires you to visit a web page using Chrome with its so-called sandbox protection turned off. In regular use, however, Chrome runs with its protective sandbox enabled, so even if this proof-of-concept exploit were to trigger the bug, it couldn’t then grab control from the browser to run malware code of an attacker’s choosing. We assume that Google’s statement about an exploit “in the wild” refers to an attack that works even if Chrome is run in the usual way.
+To explain.
+A type confusion bug is where you are able trick a program into saving data for one purpose (data type A) but then using it later for a different purpose (data type B).
+Imagine that a program is very careful about what values it allows you to store into memory when you are treating it as type B.
+For example, if a ‘type B’ memory location keeps track of a memory address (a pointer, to use the jargon word), then the program will probably go to great lengths to stop you modifying it however you like.
+Otherwise, you might end up with the power to read secret data from memory locations you aren’t supposed to access, or to execute unknown and untrusted program code such as malware.
+On the other hand, a memory location that’s used to store something such as a colour you just chose from a menu might happily accept any value you like, such as 0x00000000 (meaning completely transparent) all the way to 0xFFFFFFFF (meaning bright white and totally opaque).
+So if you can get the program to let you write to memory under the low-risk assumption that it is storing a colour, but later to use that “colour” as what it thinks is a trusted memory address in order to transfer program execution into your malware code…
+…you just used type confusion to bypass the security checks that should have been applied to the memory pointer.
+(For performance reasons, a lot of software verifies the safety of data when its value is modified, not every time it is used, on the grounds that if the data was safe when it was saved, it should remain safe until the next time it is modified.)
+V8, in case you are wondering, is the JavaScript “engine” that is built into the Chrome browser.
+Numerous other projects use V8, notably the node.js software development system, widely used these days for server programming, and Microsoft’s new-but-not-quite-official-yet variant of its Edge browser, which is based on Google’s V8 engine rather than Microsoft’s own ChakraCore JavaScript system.
+We’re assuming that if other V8-based applications do turn out to share this bug, they will soon be patched too – but as far as we know now [2020-02-25T18:50Z], the in-the-wild exploit only applies to V8 as used in Chrome itself. 
+As Google reports:
+The [regular release version] has been updated to 80.0.3987.122 for Windows, Mac, and Linux, which will roll out over the coming days/weeks.
+However, given what seems to be a clear and present danger in this case, we suggest that you don’t wait for your Chrome to get round to updating by itself – go and check for yourself if you’re up-to-date.
+And remember, patch early, patch often, especially if the crooks are already ahead of you!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

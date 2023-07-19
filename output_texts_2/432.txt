@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+New research has heightened an already urgent call to abandon SHA-1, a cryptographic algorithm still used in many popular online services.
+In a paper called SHA-1 is a Shambles, researchers Gaëtan Leurent and Thomas Peyrin have demonstrated a new, powerful attack on the system that could enable attackers to fake digital certificates for as little as $45,000.
+Leurent, from INRIA in France, and Peyrin, from the Nanyan Technological University in Singapore, demonstrated their attack by creating a fake digital certificate using the GNU Privacy Guard (GPG or GnuPG) system.
+Published in 1995, SHA-1 is a hashing function that creates a digital fingerprint calculated from a block of data such as a file.
+Hashes of this sort serve two useful purposes: they let you and I confirm we have the same file without having to exchange the entire file again for verification; and they let me uniquely (or as good as uniquely) identify a file for later on in such a way that I don’t have to share the actual contents with you now.
+This relies on one of several properties in a cryptographic hashing function, namely that is should be impossible (or as good as impossible) to create two files that have the same hash.
+That’s known as a collision, and it subverts the idea that a hash pinpoints a specific file.
+People had long suspected weaknesses in SHA-1, but then in 2017, researchers at CWI Amsterdam along with Google successfully performed a collision attack against the algorithm.
+They were able to append a prefix to the original file being hashed that produces the same hash when prefixed to another file.
+This is called an identical prefix attack, and it’s serious, but it’s difficult to use practically because you can’t easily use it to duplicate the hash for an existing file. Instead, you create two messages of your own that hash identically.
+In theory, the only way to find two files with the same hash is to keep trying over and over again until you get lucky, which should take impractically long, even if you use hundreds or thousands of powerful computers to help you.
+But the CSI/Google attack – which nevertheless needed 110 top-end graphics cards running for a whole year – worked out 100,000 times faster that it was supposed to by luck alone.
+As a result, the major browser vendors rushed to abandon the use of SHA-1 in SSL digital certificates.
+This latest research puts yet another nail in SHA-1’s coffin – it speeds up the attack tenfold, and also introduces another and more devastating collision attack, known as a chosen prefix collision.
+In this attack, the researchers can take an existing file and calculate a prefix that will produce the same hash when applied to that file and their tampered version. This enables you to produce fraudulent versions of existing digital certificates, which is exactly what they did as a proof of concept.
+Here they explain how they created two keys using the GPG ‘Web of Trust’, using different user IDs that produced the same hash, proving that an attacker could impersonate someone else with a fake key.
+The researchers used a rented cluster of GPUs for their research, and suggest that that the attack cost $45,000 today. By 2025, they predict, the cost will come down to under $10,000.
+It’s time to finally break up with SHA-1, the researchers explain in their paper:
+This work shows once and for all that SHA-1 should not be used in any security protocol where some kind of collision resistance is to be expected from the hash function.
+Some have already taken note. GNU, the open-source provider of various utilities including the GnuPG implementation of PGP, implemented a countermeasure on 25 November, the researchers explained.
+The problem is that even though people have had plenty of warning to abandon SHA-1, it’s still in frequent use, including in secure online communications:
+Continued usage of SHA-1 for certificates or for authentication of handshake messages in TLS or SSH is dangerous, and there is a concrete risk of abuse by a well-motivated adversary.
+As the researchers point out, the popular source control system Git (as used in the popular Microsoft-owned source code collaboration and sharing site GitHub) still uses SHA-1 to guarantee the integrity of its commit IDs.
+Fortunately, however, Git’s use of SHA-1 doesn’t mean we’re facing a sudden cryptopocalypse. We asked Junio Hamano, the maintainer of Git, about the issue. He pointed us to page 25 of the researchers’ paper, which advises that people use this SHA-1 collision detection library.
+The authors of that library, Marc Stevens of CWI and Daniel Shumow of Microsoft Research, point out that Git, GitHub, Google Drive, Gmail, and Microsoft OneDrive, have implemented it. (Here’s GitHub’s announcement on the matter.)
+So yes, it’s time to get off SHA-1 and onto a more secure cryptographic system like SHA-2.
+For many organisations, though, that’s like turning an oil tanker around. With a massive installed base of applications and users, they’ve turned to other alternatives like software countermeasures.
+For those developing new applications, however, be sure to give SHA-1 a miss.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Well then I suppose I’m unsurprised to see a few of these in my sshd logs…
+sshd[18187]: Unable to negotiate with xxx.xxx.xxx.xx port 59054: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+…and I don’t literally mean “a few.”
+The default settings in /etc/ssh/sshd_config for OpenSSH do allow a bunch of SHA-1 based protocol internals…
+…good for you if you have inhibited those for your server. I chopped mine down thus after reading this latest paper:
+[. . .]
+KexAlgorithms        curve25519-sha256
+Ciphers              chacha20-poly1305@openssh.com
+MACs                 hmac-sha2-256
+HostKeyAlgorithms    ssh-ed25519
+[. . .]
+This issue highlights the fundamental problem with hashing algorithms; they were designed to be fast, and that quickness is what makes them weak.  Newer hash functions are purposefully slow, which makes brute force attacks utterly infeasible but doesn’t negatively impact day to day use.
+Actually, this attack is not about speed, it’s about the actual computational strength of the algorithm not being as high as its design claims. 
+As mentioned in the article, the original CWI/Google attack went 100,000 times faster than brute force and this one improved things to be 10 times faster again.
+Modern hashing algorithms aren’t “designed to be slow” – they need to be fast enough to help you encrypt and secure all your traffic without slowing things down to the point that people don’t want to encrypt. In fact, high hashing throughout is an important part of design. There are some specialised uses of hashing algorithms, such as password verification, where you deliberately slow the final hash rate down (e.g. by repetition).
+Slowing a hash down doesn’t of itself improve its quality – if an attacker can undermine its safety by taking shortcuts, because those defeat the design characteristics.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

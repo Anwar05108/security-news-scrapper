@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+A tweak to the next version of Mozilla Firefox should fix the longstanding problem of generating a password that exceeds the maximum length allowed by a website without being alerted that this has happened.
+It sounds like an obscure issue, but anyone who regularly uses a password manager to generate passwords or passphrases longer than the 16 or 20-character limits imposed by many websites will have encountered this issue at some point.
+The user generates a long password (or upgrades an existing one), pastes it into the website, which automatically truncates it according to the max length attribute.
+Except that websites often offer no warning that this has happened, which means that the original and now incorrect non-truncated password is saved by the password manager.
+Spotted by the security blogger Martin Brinkmann, it now seems that Firefox 77, due on 2 June, will warn users when this is happening using a red border and the following message:
+Please shorten this text to x characters or less (you are currently using y characters).
+Importantly, this happens before the password is saved to the website which allows the user to adjust its length until a site’s maximum is matched.
+As a thread on Bugzilla makes clear, this complaint is far from new.
+Ultimately, it’s the responsibility of websites, which impose limits on passwords without always stating what these are, coping with divergence using the blunt force of truncation.
+But solving the problem in the browser has the advantage that it will work for all websites quickly.
+All things being equal, yes. However, where the law of diminishing returns sets in is open to debate.
+In 2016, NIST’s Special Publication 800-63-3: Digital Authentication Guidelines recommended abandoning arbitrary character limits, raising maximums to at least 64.
+But it also recommended a lot of other things too, such as disallowing common bad password choices and not forcing users to change passwords at arbitrary intervals.
+The message a lot of big internet companies such as Google, Facebook and Twitter extracted from that document, as well as their own learning, was to make this layer of security as easy for people to understand as possible.
+Rules were streamlined, and the focus shifted from simply encouraging longer passwords to avoiding short ones using minimum lengths, discouraging re-use, and trying to persuade users to sign up for additional checks such as two-factor authentication.
+In fact, it’s been possible to use passwords between 60 and 128 characters in length with many services for some time, but not all companies flag or even encourage that.
+It’s not that much longer passwords are a bad idea so much that services would rather focus on raising minimum standards.
+Perhaps, behind the curtain, big Internet companies are also a bit sick of passwords. That might explain their enthusiasm for alternative technologies such as WebAuthn, which has been supported in Firefox since version 60 in 2018, and promises to do away with passwords for good.
+However enthusiastically techies cling to their long passwords, it’s clear the debate about their importance is slowly being eroded by new technologies.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I’m specifically thinking of Microsoft and their 16-character limit on passwords and you don’t know it until after you submit the form. What’s up with that? It’s not like the hash takes any more room when the password is longer. Outdated thinking indeed.
+Good on you Martin.
+Bad on sites that do not warn users of this flaw in their systems.
+This has been a bugbear of mine for a long time now. It’s especially annoying on banking websites
+You would think that banks in particular would follow strong password practices.
+How will Mozilla know the limit set on the server side?
+Seems it’s based on attributes in the HTML, so it looks as though you’re relying on the server telling you there’s a max_length limit.
+The only other way to test password lengths I can think of is to try logging out and back in with one character lopped of and seeing if the password still works. If so, repeat until the password fails. Then you can probably infer that you’re one shorter than the maximum. (That’s perhaps not a great idea in case you lock yourself or produce some logging freakout as a law of unintended consequences.)
+Of course, for all you know the server could be ignoring wacky characters, changing everthing to upper (or lower) case, or worse, even if there’s no length limit.
+I got done my this a little while back… I was also a bit (!!) annoyed the site limit was 8 characters. Luckily I worked it out, but all the same…
+Another annoying one is when a site changes their password rules and won’t let you log on as your password doesn’t contain a symbol, despite being your real password and having a ton of entropy. Oh and doesn’t say anything more than “logon failure”. Had that twice!!
+Also a personal favourite – my router manufacturer asked me to change the admin password to admin1234 before sending them a copy of the config (as it’s encrypted). The router liked this as a password. It didn’t like my 16-character all-alpha password containing no words at all, and called it weak. Also only one of them features in listings of >500M common passwords…
+Indeed, it’s pretty annoying to paste random 32 hex characters straight from /dev/urandom into a password field and be told it’s unacceptably weak because someone might guess it, as though the server is so much smarter and well-informed than you are, and then to type in Passw0rd! instead and to be congratulated for being a terribly clever chap because you used such a cunning and unpredicatble combination of upper/lower/numeric/wacky characters.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

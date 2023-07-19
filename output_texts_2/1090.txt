@@ -1,0 +1,115 @@
+Sophos Home protects every Mac and PC in your home 
+Journalist Liam Thorp, who writes for the Liverpool Echo in England, recently published an amusing story that he subtitled, “Hilarious mix-up may have highlighted a potential issue with the vaccine roll-out.”
+As you can imagine, medical mix-ups rarely end well, especially when they involve calculations that determine drug doses.
+But, fortunately for Liam, who describes himself, in a deadpan but gently witty and guaranteed-to-make-you-smile video, as “a bit on the chunky side,” this mixup ended with a little bit of embarrassment for his doctor but a lot of happy laughter all round.
+Nevertheless, as with most IT-related “tall stories”, there are some serious lessons we can learn from this one, so here goes.
+Liam received a text message (SMS) inviting him for his first coronavirus vaccine shot on account of his “excess weight.”
+Presuambly, Liam could have simply grabbed the opportunity and gone in for the jab, but his social conscience led him to think that if he had, as he suspected, been offered vaccination by mistake, he’d be jumping the queue ahead of those who really ought to get the chance ahead of him.
+That’s because the UK is currently delivering vaccines in what it thinks is order of medical priority – for example, although you might not have been surprised to read that Her Majesty the Queen was in one of the first groups to be vaccinated, the reason was down to her age (she’s 94), not because she’s the face on all our coins and stamps.
+Liam, however, says he is 32 years old with no underlying health problems that he’s aware of, and certainly nothing on record that ought to have shoved him to the front of the queue.
+The mystery was unravelled the next day when his GP phoned to explain to Liam that it was, indeed, all a massive mistake.
+The UK health system is using a formula known as BMI, short for Body Mass Index, as a crude guide to calculate whether patients on its books are considered “severely obese”.
+BMI, it seems, was concocted some time in the early 1800s by an astronomer and mathematician who was looking for a simple rule-of-thumb to indicate objectively whether someone was undernourished, doing about right, or overweight.
+It’s very basic: you take your body mass and divide it by the square of your height. 
+For global consistency, BMI always uses kilograms and metres, which were the units chosen by its Belgian inventor, Lambert Adolphe Jacques Quetelet.
+Why, or even if, this is a useful metric is unclear – and some current mathematicians and medical professionals do indeed consider BMI to be an inexplicable oversimplification.
+Clearly, dividing mass directly by height wouldn’t work, because the volume of a cube isn’t proportional to its height.
+But the volume of a cube isn’t proportional to the square of its height, either: as the name “cube” itself suggests, its volume is the cube (the third power) of its height.
+It’s the same for round objects.
+If you ever studied mathematics at school you will probably remember being compelled to learn the formulas for the circumference and area of a circle, and perhaps for the surface area and volume of a sphere. 
+You may not remember the formulas themselves, but you are sure to remember being told to remember them:
+Areas increase in a quadratic way (i.e. by squaring), and volumes in a cubic way (i.e. by cubing).
+As you grow, however, you don’t increase in size at the same rate in every dimension.
+Unlike a cube, you don’t end up as wide as you are tall, you’re not as deep as you are wide, and your legs are a totally different shape and size to your torso, so presumably cubing your height in the BMI formula would be little better than squaring it, tending to overestimate your volume rather than to underestimate it.
+But it’s still not obvious why BMI divides by the square of your height, given that you aren’t flat, either – unlike a square, which does have a width and a height, yet has a depth of zero and therefore no volume at all.
+Modern BMI alternatives suggest using your height raised to the power 2.5, thus slotting in somewhere beween squaring and cubing, in order to maintain the simplicity of the calculation, given that height and body mass are easy to measure with basic equipment. Other 21st-century proposals suggest using a mobile phone app to estimate your volume more reliably using silhouettes derived from photos snapped from various angles.
+Nevertheless, BMI is what the UK health service is using to decide whether your body mass is sufficiently high, given how tall you are, to put you at greater than normal risk from COVID-19.
+If your BMI is above a pre-decided value, you’re offered you a chance in the vaccination queue that you might not have have got based on other factors alone, such as your age.
+And here’s the thing: Liam Thorp’s BMI was computed as 28,000, which was above the threshold needed to qualify him for early vaccination.
+We’re assuming that somewhere there was some programming code like this:
+What apparently didn’t exist was code, say, like this:
+As far as we can tell, the largest reliably known BMI on record is a shade over 200, which was recorded by a Saudi Arabian man who reached a body mass of just over 600kg.
+He has apparently now got down to just 68kg, a good match for his height, but given that he was the second heaviest person in history at his peak weight, and the heaviest living person at that time, it’s a good bet that there is no one currently alive who has a BMI more than 200.
+So Liam’s BMI measurement of 28,000 wasn’t just inaccurate, it was wildly, unbelievably, bizarrely and perhaps even dangerously wrong, given that there was at least one automated system that depended on it to make active decisions about his health care.
+Apparently, Liam’s height is pretty lofty (for those who aren’t Dutch, at least), at 1.88m.
+We can therefore figure out how heavy he’d need to be in order to hit a BMI of 28,000:
+In comparison, the locomotives that pull cars and trucks through the Channel Tunnel weigh in at about 130,000kg, or 130 tons.
+In the UK (and, surprisingly perhaps, also in many other Commonwealth countries that gave up the imperial system decades before Britain), Liam’s height is typically described in vernacular speech as six foot two inches, or 6’2″ if written down including its units.
+And measurements such as height and and mass should never be recorded without their units, or they simply don’t make sense, because height and mass are, by definition, not dimensionless numbers.
+Your body mass, for example, simply can’t be 72, or 144. (Or 10/4 in the UK’s curiously confusing system of stones and pounds, where there are 14 pounds in a stone, who knew?)
+Body mass has to be recorded as something like 72kg, or 144lb, or 10st4lb, so that the numbers make sense in real life.
+It seems that Liam’s 6’2″ had ended up entered as 6.2…
+…and the field it was entered into assumed that the units were centimetres.
+As far as we can tell, even the shortest person on earth is ten times taller than that.
+So Liam’s height was as improbable when it was entered as his computed BMI was when the vaccination scheduling system sent him his appointment.
+Of course, the last point above is vital in cybersecurity.
+Many a malware attack has succeeded where it ought to have failed because a warning was written off as, “Probably just the sysdamins doing some tests.”
+And many an otherwise obvious phishing attack has succeeded because, “The web filter never blocked it so I decided to take that as a free pass from the IT department to go to the site anyway.”
+To recite a carpentry metaphor we have used before: in cybersecurity, it pays to measure twice, cut once.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+…using your height raised to the power 2.5…
+Duck, you’ve once again overestimated us Americans.  Raising anything to a non-integral power is tricky enough when we didn’t just spend an hour arguing over whether we’ve correctly converted Feet/Inches to Meters (Metres?) in the first place.
+Still a great article as usual however.
+:,)
+Do you guys still use degrees Fahrenheit for temperature, and inches of mercury for air pressure?
+Not sure who you mean by “you guys”. 
+In the UK, air temperature is universally given in degrees Celsius, though you sometimes still hear it referred to as Centigrade and almost always spoken aloud as “C”, with or without “degrees”. (Or you just say something like “it’s 30 today”, although admittedly not very often.)
+Barometric pressure was given in millibars for many years, which AFAIK is part of the weird non-SI flavour of the metric system that Britain apparently favoured in STEM around the 1970s. CGS, I think it was called, with weird units such as dynes, ergs, bars and so on. The millibar has the handy characteristic that sea level air pressure is about 1000. These days the Met Office officially seems to use hectopascals, because 1 bar = 100kPa so 1 mbar = 1hPa, but their weather app has apparently just gone back to using the word “millibar”.
+There’s not much mercury around in real life any more, although I think medics still use mmHg for blood pressure. But then they use kg/m2 volumetrically, so what do they know :-)
+@4caster Yep.
+And despite that it’s simple math to convert length and weight (and relatively simple for temperature), I still find the meter and Centigrade rather disorienting.
+The values in your post below (1.84 m, 76 Kg) should be very straightforward – or rather ARE very straightforward – but I personally have difficulty divorcing myself from the (admittedly, patently inferior) imperial measurements and therefore had no idea if you’re average or not until I converted the units.  
+Being inextricably linked to an obsolete system is a little embarrassing, and these discussions always find me recalling a line from an Ellen DeGeneres standup bit, c. 1990: “Europeans say we Americans don’t use the metric system because we’re stubborn, but that’s not right. We tried! We’re too stupid! We can’t!”
+Technically, the US never adopted the “imperial system,” not least because by the time it came along to standardise meadsurements across the British Empire, the Revolutionary War and the 1813 War were long over and the USA was long established as a republic all of its own. Imperial units included some funky changes that were apparently done for marketing purposes, e.g. an Imperial Pint was increased from 16 fluid ounces to 20 in order that the pint would be slightly *more* than half a litre, not slightly less. This is why our pint is 25% bigger than yours.
+IIRC the US units are known as “common measure” and the important ones, such as the inch, were *almost* but not exactly the same as imperial measures, until some time in the 1950s when UK, AU, CA, NZ, ZA and IN (I think) agreed to standardise, and (even more funkily) to redefine them in terms of SI units. So the US inch became a teeny tiny bit longer; the UK inch a teeny tiny bit shorter, and both are now exactly 25.4mm *by definition*. (Alternatively, 0.9144 metres is exactly 1 yard.)
+Centigrade, of course, is no longer called that – it’s now known as the Celsius scale to avoid ambiguity with which sort of “degrees” you mean. The convenience of having 0 degrees C to denote freezing is just so overwhelmingly useful that I don’t know anyone in the UK who can even remember how the F scale works.
+Apparently, Fahrenheit wanted to avoid  negative numbers in regular life, but just couldn’t get a cold enough reference temperature that worked across the world, and wanted human body temperature to be 100F.But a flaw in his calibration equipment means that once he had locked in his boiling point of water, which came out at 212F (is that right?) and corrected for the flawed equipment, what he thought was 100F turned out to be slightly less, so the whole plan never quite worked out properly.
+Weirdly, Celsius figured he’d have 100C for freezing point and 0C for boiling point. Wiser minds demanded that higher temps should have higher numeric values and so the scale was apparently flipped around, and that is the format that stuck.
+Informative as always, Sir Duck–constantly inspiring me to spend an hour on Wikipedia.
+Agreed: it’s impossible to overstate how handy it is to freeze at zero and boil at a hundred (yes, 212).  Still, the body’s temperature of 37 (or room temp of 21) just feels… wrong.
+And in a comical illustration of what’s truly wrong, the map on Wikipedia’s “Celsius” article is hilarious–provided we disregard how sad it is.
+https://en.wikipedia.org/wiki/Celsius
+Growing up in the Rocky Mountains, I never knew that Daniel Fahrenheit wanted real life to always use positive numbers, the realization of which brings even more comedy:  Nearly every winter here has periods where the temperature never exceeds zero ** day or night… a week or so is very common.
+And no doubt anyone in Greenland or Alaska (or of course Omond House) will have even more haughty reactions than mine.
+** although we’ve already covered how I couldn’t tell you if in Celsius that’s 500 or -500
+A handy aide memoire when it gets cold (by your standards) is that -40 is where the lines for F and C cross over, thus -40C = -40F. (A few places in Scotland occasionally go below -20C, as happened a few weeks ago in Braemar, home to the lowest ever recorded temperature in the UK, but nowhere has ever gone below -30C.)
+Much of Southern England spends several weeks in winter at more or less 1C. A chap I known who comes from way north in Russia and considers -30C to be where true cold starts once told me he found our 1C/100% winter weather much worse than -30C “because it never actually freezes and everything in life turns into damp towels.”
+Hah, funny.
+And yes, a sustained, wet cold can get oppressively uncomfortable.
+PS: nice header photo…hahah.
+As long as Liam doesn’t try to walk across it…
+BMI has been shown to be misleadingly useless. I have a friend who was a middle weight weightlifter and very strong (he held the English title for some years) but he had a BMI of 43 – way over the suggested ‘good’ figure and Doctors kept telling him to loose weight. Eventually they tested his fat levels and were shocked to find he had virtually none! He was all muscle and not fat. So he was very healthy and not unhealthy at all. So BMI ignores what a person’s actual fat content is and that’s what they should be measuring. Consequently, any reliance on BMI is very likely to be false.
+great explanation of a mistake and how to mitigate but the bit about banks wiring you money by mistake, maybe needs updating .see:  https://www.cnn.com/2021/02/16/business/citibank-revlon-lawsuit-ruling/index.html
+I don’t think that Citibank case bears comparison with what would happen to us regular people. That was a massive, hard-fought case with $500,000,000 at stake and financial institutions going to war with each other. It’s also on appeal, so no money is going anywhere for the moment. 
+AFAIK, the lenders that refused to refund the money, even though it could subsequently be shown not to been intended for them, only had to convince the courrt that they thought it was a genuine payment at the time. The argmuent seems to be that because Citibank just happened to pay in exactly the same amount as a loan that it already owed back, the lender was entitled to assume it was not a mistake. So for you to use that argument yourself in the example I made up, it looks as though you’d have to be exactly $98,963 in credit to your bank already in order to be able to say, “I had no idea it was a blunder.”
+I assume, if the appeal fails and the lender gets to keep the money, then Citibank will be entitled to treat the incorrect payment as the full settlement of the loan that its lender said it thought was being repaid, and therefore that the money will not entirely be “lost”. I don’t see how the lender who aruged “I thought you were repaying a loan” could take the money and then also claim, because the money was not actually meant to be a loan repayment, the loan was still due in full… but then IANAL.
+Anyway, I’ll stick with my statement, “You will almost certainly end up having to pay it back.” 
+From an excellent professor: “Units, units, units, you nit!”
+BMI is mathematically illogical and should go the same way as the defunct airline with the same initials, British Midlands International.
+Until age 50 I measured 1.84 m, and weighed 76 Kg, a BMI of 22.45, around the middle of the healthy range. In the 28 years that have passed since then, I have lost 5 cm in height, which is now 1.79 m. My weight remains 76 Kg, so my BMI has gone up to 23.72. If I grow much shorter and remain the same weight, I shall soon be overweight.
+I have no reason to believe my fat percentage has risen. So from where am I supposed to lose mass to prevent me from becoming overweight?
+And in case anyone thinks that only my spine has compressed, that is not the whole story. I have had to lower my bicycle seat twice, so some height has come off my legs.
+I’m curious how on earth can a piece of software that doesn’t perform basic validations on user input, not even a simple range check, find its way past quality control and into NHS systems. Makes you wonder how robust these systems are, especially when it comes to protecting people’s medical data.
+I suppose that in this case you can argue that it “fails safe” inasmuch as getting the message by mistake doesn’t dose you with a treatment you otherwise wouldn’t expect – it just gives you earlier access to the vaccine, admittedly to everyone else’s collective disadvantage.
+Of course there is the panic of being told you are somehow life-threateningly overweight when you aren’t. Not ideal, especially if you react by rushing into a super-aggressive weight loss regime, thinking you are doing the right thing, only to  end up going from mid-range weight to actually underweight. (I assume there is a lot less “health leeway” in being underweight, given that there is clearly a hard limit on how light you can get without dying, but not an obvious upper limit on how heavy.)
+Many years ago in the days when everything was 8 bit assembly code, and a car engine controller was 2k ROM and 64 bytes RAM, I used to write these things. Car electronics are in notoriously noisy electrical environments, and so a noise spike from say the sensor on the throttle could lead to a surge in power, which would be dangerous. Therefore I used to sample and filter, and do things like looking at maximum rate of change of the throttle against values that were twice the maximum possible values – much like the synthetic example above.
+This highlights a difference between people who work on embedded systems, who generally are aware of the impact of errors they might make e.g. crash the car, and people who put together web sites and apps where the result of errors is a mis-display or something humorous. What this case shows is when software really developed for a non-critical use gets used in a more critical situation. I am sure that there are a lot of people who put checking into apps and web pages, but there is not the same mindset of culpability for someone being injured or worse. After all, if the software lessons had all been learned, we would not be getting security issues due to buffer overflows some 40+ years since they were first identified as an issue – probably before the birth of the average programmer of today.
+Well, well, well. You say:
+“Many a malware attack has succeeded where it ought to have failed because a warning was written off as, “Probably just the sysdamins doing some tests.” ”
+Here’s todays BBC:
+https://www.bbc.com/news/world-asia-56165762
+[“South Korean troops failed to notice a North Korean man who crossed the heavily fortified border this month even though he appeared on TV cameras eight times and triggered alarms.”]
+which says:
+“A JCS official told Yonhap that the soldier in charge of coastal surveillance equipment was making adjustments at the time and thought the alarms were a system error.”
+Keep ‘em coming?
+I have read that BMI was never meant to be a scientifically sound measurement, so it’s use in medical science is ridiculous and embarrassing. I have also read that in my nation, the USA, there is a curve that appears to be different from just a square root curve. I’ve seen the graph. Oh, and there are two graphs. One for young people, and an upwardly-adjusted curve for older patients, to account for naturally getting shorter with age. It’s both overly simplified and overly complex for what it is. Meanwhile, perfectly healthy, happy people (for instance, a good, strong, athletic, energetic 8-year-old girl) are being classified as obese. BMI use is absurd.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

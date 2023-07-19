@@ -1,0 +1,43 @@
+Sophos Home protects every Mac and PC in your home 
+Keybase, owned by online meeting and teleconferencing behemoth Zoom, is a secure messaging and file sharing service that describes itself as providing “end-to-end encryption for things that matter.”
+End-to-end encryption is pretty much what it says: encryption that starts on your computer, typically inside an individual app such as when a browser submits a login form, and only gets stripped off at the far end when the data arrives at its final destination, such as when a website receives the login form with your username and password in it.
+End-to-end encryption over the internet doesn’t just mean that your data is encrypted while it’s in transit from node to node along its network journey – it’s supposed to be a stronger guarantee than that.
+It not only means that your data isn’t decrypted while it’s at any “rest stops” along the way, such as when an email message is held at your ISP for delivery later on, but also means that your data cannot be decrypted along the way, no matter whether you trust the person operating that “rest stop” or not.
+When it comes to instant messaging or file-sharing apps that offer end-to-end encryption, even the company that handles your data is supposed to be merely one of those rest stops, and therefore can’t (or isn’t supposed to be able to) see what’s in your files, no matter how long you store them.
+If criminals steal that company’s servers, or the police arrive at the company with a search warrant, neither the crooks nor the cops can decrypt your data, and the company that is storing your encrypted files can’t help them to do so, either. (Indeed, the company can’t even decrypt the data for you if you forget your password, no matter how strongly you can prove that the encrypted files are yours.)
+As Keybase explains it, “We use public key cryptography to ensure your messages stay private. Even we can’t read your chats. […] Keybase can store your group’s photos, videos, and documents with end-to-end encryption.”
+What end-to-end encryption systems can’t do is protect your data before it enters their control, e.g. before it’s loaded into their app for transmission, or after it’s extracted from their service, e.g. when the intended recipient exports a file they just received.
+If you copy an unencrypted file from a USB drive to your laptop, for example, before uploading it into a service such as Keybase, neither the Keybase app nor the Keybase servers can do anything about those two unencrypted copies of the file that now exist.
+After all, it’s your choice what to do with your data while it’s outside the Keybase system, and you wouldn’t expect the app to mess with files that you hadn’t explicitly entrusted to it.
+You do, however, expect security-conscious apps like Keybase to be cautious with how they handle any unencrypted data themselves, such as the text you type into a message or the content of an image file you want to send.
+Yes, the app needs temporary access to the raw data you want to send or upload, whether that data is already encrypted or not, so that it can apply its own encryption before transmitting or storing it.
+But the app needs to take as much care as it can (and as much care as the underlying operating system will permit) not to let that raw data get stored where it might easily be accessed by anyone else.
+That typically means keeping any unencrypted data in memory only, and overwriting that memory as soon as the data is no longer needed.
+Unfortunately, as the old adage goes, there’s many a slip betwixt the cup and the lip, and the same sort of inattention to detail that might lead you to spill red wine down the front of your favourite shirt in real life might lead to a spillage of private data on your computer.
+Sometimes, that spilled wine might not directly be your own fault, because you could get bumped by someone else; in IT terms, spilled data can happen because the operating system decides to “help” in a way you failed to predict or prevent.
+For example, many operating systems use a so-called swap file on your hard disk as automatic temporary storage to free up RAM for other programs if your software is idle, quietly and automatically swapping your data back in from disk when you next need it. 
+This can result in confidential data, including passwords, network authentication keys and fragments of private files, sometimes getting written to disk by the operating system itself.
+Also, some operating systems, and many programming libraries, helpfully keep cached copies of files you’ve used recently, in case you need to access them again soon, or they create search indexes based on the content of files you’ve used, in case you need to find them quickly in the future.
+This sort of well-meant file caching is particularly common with files that would otherwise need a lot of pre-processing every time you opened them, such as images.
+Well, a quadrumvirate of security researchers (John Jackson, Aubrey Cottle, Jackson Henry and Robert Willis) from a group going by 桜の侍 (Sakura Samurai) had a dig around in the files that were created and used by Keybase while it was running…
+…and they found that the app had a tendency to leave behind unencrypted copies of images that you had uploaded into the app, even after the images were supposed to have been sent and the original data wiped out.
+They looked at both the Windows and the macOS versions of the app and quickly discovered various transient directories where abandoned image files cold be found:
+They claim that the vulnerability affected the Linux version of the software, too; they didn’t explictly list the directories where left-over images were found, but Linux users can probably guess where to look, based on the distro they use.
+The researchers were easily able to recover image files that had previously been used by Keybase but that users would assume no longer existed on their hard drive in unencrypted form.
+(Keybase includes a feature to “explode” local messages after a certain time so that you can’t leave local copies around by mistake, but the leaky directories listed above even included left-over images from “exploded” messages.)
+The researchers disclosed this bug responsibly (it is now denoted CVE-2021-23827), and Keybase fixed it promptly.
+They’re only telling their story a month after the bug was fixed, presumably by agreement with Keybase, and presumably in order to stop crooks who otherwise wouldn’t have known where to look rushing in to see what they could vacuum up before the new version had a chance to enter widespread use.
+So, if you are a Keybase user:
+Zoom, owners of Keybase, told us by email [2021-02-23T20:40Z] that the Windows and Mac desktop apps have an auto-update feature that checks for an update once an hour, applies it, and restarts Keybase automatically. (If you haven’t enabled auto-updating, you will receive a dialog prompting you to accept the update manually.) There’s no auto-update feature on Linux, but if you are using an officially supported distro you can use your distro’s package manager to update. Alternatively, Zoom said, you can simply download and install the latest package over your existing version. This will overwrite the application files, but not the user configuration in your home directory.
+If you are a programmer:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

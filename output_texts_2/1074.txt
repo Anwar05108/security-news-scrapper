@@ -1,0 +1,57 @@
+Sophos Home protects every Mac and PC in your home 
+Google, whose Project Zero bug-hunting team is often surprisingly vocal when describing and discussing software vulnerabilities, has taken a very quiet approach to a just-patched bug in its Chrome browser.
+In this case, the low-key announcement is understandable, because the patch fixes a hole that cybercrooks are apparently already abusing:
+The phrase “exploit exists in the wild” is shorthand for “the crooks found this vulnerability before we did and are already using it in real-life attacks”.
+This situation is also known as a zero day, or 0-day as you may see it written, because there were zero days in the past on which even the most diligent user could have patched ahead of the crooks.
+Simply put, the word exploit refers to any trick that allows an attacker actively to abuse a software vulnerability and thereby to pull off some sort of unauthorised activity.
+Fortunately, even though all buffer overflows and similar bugs can be considered vulnerabilities, not all of them can reliably be exploited.
+For example, many (if not most) buffer overflows could cause a program to exit unexpectedly with an error, or even to crash without a proper error message, but nothing more dangerous than that.
+Sometimes, however, a buffer overflow can be abused not only to crash the affected program but also to take over its flow of execution before the operating system, or any other security software, can detect and control the crash.
+That’s known as remote code execution, or RCE, and RCE exploits against browsers are worth a lot of money these days in the cyberunderworld, because they provide an ideal conduit for cybercrime.
+That’s because browsers spend most of their time downloading, decoding, rendering and displaying unknown and untrusted files from anywhere and everywhere on the internet.
+Crooks with access to a reliable browser RCE exploit – for example, one that can be triggered by a deliberately booby-trapped image file or a purposefully malformed HTML document – have a powerful and treacherous way of injecting unauthorised program code into your browser.
+By simply luring you to a web page that contains a suitably booby-trapped exploit file, the crooks can trick your browser into downloading, processing, and choking on, their exploit.
+This sort of attack, which you will sometimes hear referred to as a drive-by because it can be triggered merely by viewing a malicious web page, bypasses any of the telltale “are you sure” warnings or popups that would otherwise alert you to malicious activity.
+Once the crooks get that far, you have to assume that they can pull off a variety of additional attacks, such as reading private browser data, including authentication cookies; snooping on your browsing activity; modifying the pages served up by other websites; and implanting malware that will keep on running even after you exit the subverted browser process.
+In this case, we’re assuming that the exploit is triggered using booby-trapped JavaScript files, given that the buffer overflow bug exists in V8, which is the name of the JavaScript processing code used by Chrome and Chromium-based browsers.
+To check what version you have, click the three-lines icon (the “hamburger menu”) in the top right corner. For Chrome, go to Help > About Chrome. For Chromium simply click About Chromium.
+(In either browser, you can also put the special URL chrome://settings/help into the address bar.)
+The version you are looking for is 88.0.4324.150 or above.
+If you aren’t up-to-date, use the Update Google Chrome option on Windows or Mac to force an update.
+If you’re on Linux and your version of Chrome or Chromium is provided by your distro maker, check back with your distro for update details.
+Note for Edge users. According to Microsoft, this bug affects Edge, but Edge version numbering differs from that in Chrome. The Edge version number that fixes this vulnerability is 88.0.705.63. (See @Edward Stallard’s comment below.).
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Yup! I was at the .146 level. I had two instances open., each with about a dozen tabs. Completely painless update: clicked Update and the update was made in place–similar to that old tale about replacing the pistons while the engine was running.
+I have Chromium on Linux and I see there is a pending update. Thanks for the full explanation.
+Chrome for idiots (that’s me…) :
+1. press the 3 dots in the upper right of your screen.
+2. press ‘settings’ under that.
+3. go down under that,  and under “Safety settings” press “check now.”  Respond accordingly. You should be good after that…
+Thank you very much!!!!
+I have a LG Stylus phone. Google Chrome version IS not up to date but it will not allow me to update. Says the current version is up-to-date.
+If Chrome was preinstalled on the device then I guess you will get the update when LG is good and ready. 
+Ironically, Google’s update notification talks about how this otherwise urgent update is “for Windows, Mac and Linux which will roll out over the coming days/weeks,” which sounds a bit casually long for a zero-day… and doesn’t mention Android at all, neither to say if the Android build is affected at all nor to say if there is a new version for phones.
+Thank YOU from a complete PUTER Dummy….You have all saved me so many times…Thank you thank You!!!!
+ Wendi
+Is there any word if this effects other Chromium based browsers. Edge specifically? Mine is version 88.0.705.63 and is up to date.
+The answer seems to be: Yes, it affects Edge, in theory at least, and Yes it has been patched in the latest version. But Edge version numbering isn’t the same as Chrome, at least not after the first number in the quartet (88 in your case).
+Apparently, this is what you need to know:
+https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-21148
+This page says that Edge 88.0.705.63 includes a fix for CVE-2021-21148, because that version of Edge is based on the code from Chromium 88.0.4324.150. 
+(Which leaves me confused for Edge on Linux, which currently seems to be on 90.0.782.0, which sounds so far ahead of 88 that you might assume it’s immune… yet for all I know could have inherited the bug from the Chromium 88 code, and still be behind in its V8 implementation. More news if I find it.)
+Thanks for this comment – I have now added the information to the article above.
+don’t forget your Brave browser. it is a chromium build also, It can be viewed in the “about brave” section on settings. Update on play store will cover it.
+Chrome keeps crashing if I attempt to open a second tab. I can open a second window without it crashing, but not a third. I also cannot access any other programme I am currently running if it is in full screen because Chrome crashes when I do that, too. It also crashed when I attempted to send Google a crash report. 
+I ran a safety check, it said everything was up-to-date, and then it crashed. 
+Sending this in my ancient version of Safari, which won’t run most of the sites I like to use.
+In the end, on the advice of a friend who works in IT, I uninstalled Chrome and re-installed it and the glitch hasn’t re-appeared. Yet.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

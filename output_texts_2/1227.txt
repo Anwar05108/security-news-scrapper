@@ -1,0 +1,92 @@
+Sophos Home protects every Mac and PC in your home 
+Articles in our Serious Security series are often fairly technical, although we nevertheless aim to keep them free from jargon.
+In the past, we’ve dug into into topics that include: website hacking (and how to avoid it), numeric computation (and how to get it right), and post-quantum cryptography (and why we’re getting it).
+
+
+
+This time, however, the Serious Security aspect of the article isn’t really technical at all.
+Instead, this article is a reminder of how you can make it easy for people to to help you with cybersecurity, and why you want to help them to do just that.
+After all, lots of companies these days either run bug bounties, or hire an outside company to look after bug submissions, which shows that they are genuinely interested in knowing about security vulnerabilities in their products or services.
+But that still doesn’t answer the questions, “Where to report? Whom to tell? How to do it?”
+Relying on bug-finders to work it out for themselves, especially when a third-party bug bounty company is involved, is prone to failure.
+Firstly, some bug-hunters aren’t interested in communicating via an external service in order to tell you about a problem they’ve discovered, and would prefer simply to tell you directly.
+Some aren’t interested in receiving a bounty; some don’t don’t want the hassle of creating what might be yet another account with a third-party provider; and others simply want the option of communicating with you easily and privately.
+Secondly, even researchers who do this sort of thing for a living need to know the right place to start, and having a standardised storage place for contact details makes bug reporting easier for everyone.
+Problems with the issue of “where to report” were illuminated amusingly in the media last week, when a UK developer called Connor Greig received a promotional email from fast-food giant MacDonald’s…
+…into which a bunch of Azure database connection text had leaked, apparently including authentication credentials.
+At a glance, it looks as though some of the confidential input data from the database query that was used in generating Greig’s email had accidentally been repeated in the output data he was sent, dumped inadvertently into the body of the email.
+That’s a bit like entering your password up front in order to login to your chosen webmail service, and then accidentally pasting the password text into the body of all the emails you subsequently sent out.
+As it happens, Connor Greig runs a boutique web-based company of his own that aims to improve revenues and analytics for social media creators, so he not only realised that he was looking at data he wasn’t supposed to have, but also recognised the value of reporting the problem so it wouldn’t happen again.
+To cut a roundabout journey short, he couldn’t figure out where to start, despite apparently trying the most obvious phone numbers and email addresses he could find. 
+The problem with sending comments such as bug reports to email addresses that aren’t clearly listed as “the right place to send notifications about cybersecurity issues” is that you can’t be sure that the email reached anyone, or even if it did that the recipient themselves knew what to do with it. After all, if you can’t easily find out where to send this stuff, it’s reasonable to assume, in a large company, that insiders might have exactly the same problem, leaving your report bouncing from pillar to post while the problem persists.
+So Greig took an unusual step.
+He published a bug report via the medium of TikTok!
+I don’t want these. Please answer emails McD. #cybersecurity #mcdonalds #disclosure #help #techtok #monopoly
+ ♬ original sound – CreatorSphere.co 
+ 
+He didn’t dance his report, or sing it, just asked that if “someone can put me in touch that would be great, because currently I have the keys to the kingdom… and I don’t want them!”
+According to news site The Register, Greig’s video did get the attention of someone at McDonalds, but the company (perhaps understandably, given the circumstances) was at first inclined to treat the bug report as “suspicious”, leading to yet further delays in dealing with it.
+Ultimately, Connor Greig did get to communicate with someone who was in a position to deal with the problem…
+..but it would have been a much shorter tale if his first attempt to report the issue had hit the spot.
+The good news is that there’s a simple and nearly-but-not-quite standardised way to let security experts know where to start.
+It’s currently a draft internet standard entitled A File Format to Aid in Security Vulnerability Disclosure, and the proposed system has already been accepted by IANA (the Internet Assigned Numbers Authority) as what’s known as a Well-Known URI.
+The filename is the easily-remembered security.txt, and the idea is that it is a simple, text-only download that you can place at the top level of your company’s domain, as we do at Sophos: https://sophos.com/security.txt.
+There are numerous information lines that you can put in this file, the most important of which is a group of one or more Contact items, as you will see in the file that we use [2021-09-13T16:00Z]:
+We’re offering you three different ways to get in touch with us, from an internal email address for those who prefer direct contact, to a third-party website for those who are interested in submitting security reports to stake a formal bounty claim.
+You can also put your security.txt file at a special location reserved for IANA well-known URIs, like our blog hosting company Automattic, owner of WordPress.com: https://automattic.com/.well-known/security.txt.
+The concept of Well-Known URIs and where to put them is defined in RFC 8615.
+If you have a website, why not add a security.txt file today if you haven’t already? 
+It’s quick and easy to do, and it could save you hours or days in a cybersecurity emergency…
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+nice idea
+Everyone’s used to “robots.txt”, and expects legitimate web crawlerbots to take notice of it, so having security.txt seems a nice analogue for researchers to consult!
+Like the ICE (In Case of Emergency) entry in your phone’s address book.
+Nice idea – bit like having a useful “contact” page reference in the footer of your webpages to give you email addresses for Customer Service, Phishing Reporting, Warranty Claims etc.
+But then “the suits” decided they would try and “get clever” and “steer” contacts through “appropriate” (probably automated) web-forms and FAQs and it all became a maze! And to add insult to injury you had to take screen shots of web-forms in order to have a copy of your correspondence.
+I’m (in the UK) looking at you – Amazon, British Gas, Currys etc etc etc!
+What happened to working monitored email addresses like webmaster@example.com, postmaster@example.com, phishing@example.com, security@example.com, customerservice@example.com?  Instead if you can get them to email you their correspondence comes from  no-reply-pls@amazon.co.uk – it’s as if they don’t want to talk to you!
+Welcome to the resurgence of snail mail – it will be the saving of the Royal Mail!
+A bit like startup companies that pretend to be open and traceable, as though you really could track them down if you wanted, yet have nothing but an anonymous web form by means of which get in touch with them at all – no physical address, no company registration details, no VAT number, no names, no pack… no evidence of anything except a tissue of virtual existence.
+Oh, and another insult-to-injury (or perhaps this one is adding injury to insult) is where you have to go via a web form…
+….but you have to create an account first (with little or no clear indication of how you uncreate the account once it’s no longer needed).
+I tried some websites
+Didn’t work
+https://www.microsoft.com/security.txt
+https://www.google.com/security.txt
+https://www.cnn.com/security.txt
+https://www.cdw.com/security.txt
+https://www.nytimes.com/security.txt
+https://www.paypal.com/security.txt
+https://www.ebay.com/security.txt
+https://www.shopify.com/security.txt
+https://www.walmart.com/security.txt
+http://www.etsy.com/security.txt
+https://www.bestbuy.com/security.txt
+https://www.target.com/security.txt
+https://alibaba.com/security.txt
+http://youtube.com/security.txt
+http://twitter.com/security.txt
+http://instagram.com/security.txt
+Works
+https://www.amazon.com/security.txt
+https://www.trendmicro.com/security.txt
+https://www.wix.com/security.txt
+http://facebook.com/security.txt
+Did you try URLs of this form, too:
+https://[domain-without-www]/.well-known/security.txt
+https://[domain-with-www]/.well-known/security.txt
+(Note that the proposal requires that the security.txt file be served *only* via HTTPS, so it’s not wrong if a site refuses to respond if you ask via http://, though some sites redirect you to the https:// page automatically.)
+For example:
+$ curl https://google.com/security.txt  –> 404, not found
+$ curl https://google.com/.well-known/security.txt  –> 301, moved to https://www.google.com/.well-known/security.txt
+$ curl https://www.google.com/.well-known/security.txt –> 200, returned security contact details
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

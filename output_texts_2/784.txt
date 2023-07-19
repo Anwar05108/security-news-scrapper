@@ -1,0 +1,28 @@
+Sophos Home protects every Mac and PC in your home 
+Microsoft has quickly fixed a flaw in its Teams videoconferencing and collaboration program that could have allowed attackers to launch a wormlike attack on multiple accounts by sending one victim a malicious GIF image.
+Discovered by Israeli security company CyberArk, the underlying weakness is a combination of two issues.
+The first concerns the way Teams manages authentication tokens.
+Teams can generate a lot of these, depending on what it is accessing (SharePoint, Outlook, for example), which gives the user the right to view content or resources from a Microsoft subdomain accessed during a session.
+To simplify, the ability to view an image is defined by two tokens, skypetoken_asm and authtoken, that also control lots of requests a user can make through the Teams API and Skype, such as sending and reading messages, creating groups, adding users and changing permissions.
+Importantly, if an attacker could somehow get hold of an authtoken they could generate their own skypetoken. That should be impossible because such tokens are only sent to Microsoft subdomains… which is where the second weakness becomes important.
+Unfortunately, CyberArk discovered two Microsoft teams.microsoft.com subdomains that proved vulnerable to takeover, which immediately created the architecture for an attack:
+If an attacker can somehow force a user to visit the sub-domains that have been taken over, the victim’s browser will send this cookie to the attacker’s server and the attacker (after receiving the authtoken) can create a skype token.
+The only caveat to that is the attacker would still need to get hold of a valid certificate for a targeted subdomain, which CyberArk believes wouldn’t prove a big hurdle.
+Because it would be much harder to defend against than the old trick of sending victims a malicious link. To prove the point, CyberArk worked out that it would be possible to send a targeted user a message which would retrieve a a specially-crafted malicious proof-of-concept Donald Duck Evil.GIF image from a hijacked subdomain.
+Simply displaying this would execute the theft of the user’s authtoken, thereby giving the attacker access to their chats, control of the account, and the ability to forward the same message to anyone in their group. Without quick intervention, this could have allowed an attack to compromise large number of big company accounts and groups.
+Anyone who accesses Teams using the Teams application or via a web browser. In theory, internal Teams groups wouldn’t be affected although an attack could still be launched if external communication (such as videoconferencing) was possible.
+Microsoft was told about the issue on 23 March, after which it corrected the misconfigured DNS subdomains. On 20 April, the company has pushed out other tweaks to close the vulnerability so the issue should be fixed by now providing updates have been applied, which should happen automatically.
+There are no indications the flaw has been exploited by a real attacker.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

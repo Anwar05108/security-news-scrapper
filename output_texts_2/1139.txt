@@ -1,0 +1,167 @@
+Sophos Home protects every Mac and PC in your home 
+One of the hot new jargon terms in cybersecurity is supply chain attack.
+The phrase itself isn’t new, of course, because the idea of attacking someone indirectly by attacking someone they get their supplies from, or by attacking one of their supplier’s suppliers, and so on, is not new.
+Perhaps the best-known example of a software-based supply chain attack in the past year is the notorious SolarWinds hack.
+SolarWinds is a supplier of widely-used IT monitoring products, and was infiltrated by cybercriminals who deliberately poisoned the company’s product development process.
+As a result, the company ended up inadvertently serving up malware bundled in with its official product updates, and therefore indirectly infecting some of its customers.
+More recently, but fortunately less disastrously, the official code repository of the popular web programming language PHP was hacked, via a bogus patch, to include a webshell backdoor.
+This backdoor would have allowed a crook to run any command they liked on your server simply by including a special header in an otherwise innocent web request.
+The PHP team noticed the hack very quickly and managed to remove the malicious code in a few hours, so it was never included in an official release and (as far as we can tell) no harm was ultimately done in the real world.
+PHP web language narrowly avoids “backdoor” supply chain attack
+
+
+As you can imagine, it’s difficult to conduct what you might call a “penetration test” to judge a software project’s resistance to malevolent bug patches.
+You’d have to submit fake bug fixes and then wait to see if they got accepted into the codebase, by which time the damage would already have been done, even if you quickly submitted a followup report to admit your treachery and to urge that the bug fix be reverted.
+Indeed, by that time, it might be too late to prevent your fake patch from making it into real life, especially in open source projects that have a public code repository and a rapid release cycle.
+In other words, it’s a tricky process to test a project’s ability to handle malevolent “fixes” in the form of unsolicited and malicious patches, and by some measures it’s an ultimately pointless one.
+You might even compare the purposeful, undercover submission of known-bad code to the act of anonymously flinging a stone though a householder’s window to “prove” that they are at risk from anti-social vandals, which is surely the sort of “test” that benefits neither party.
+Of course, that hasn’t stopped apparently well-meaning but sententious researchers from trying anyway.
+For example, we recently wrote about a coder going by the grammatically curious name of Remind Supply Chain Risks who deliberately submitted bogus packages to the Python community to, well, to remind us about supply chain risks…
+…not just once or twice but 3951 times in quick succession.
+Even a job not worth doing, it seems, was worth overdoing.
+Poison packages – “Supply Chain Risks” user hits Python community with 4000 fake modules
+
+
+In 2020, something similar but potentially more harmful was done in the name of research by academics at the University of Minnesota.
+A student called Qiushi Wu, and his professor Kangjie Lu, published a paper entitled On the Feasibility of Stealthily Introducing Vulnerabilities in Open-Source Software [OSS] via Hypocrite Commits.
+Unfortunately, the paper included what the authors described as a “proof of concept”: 
+We [took] the Linux kernel as target OSS and safely demonstrate[d]  that  it is practical for a  malicious committer to introduce use-after-free  bugs.
+The Linux kernel team was unsurprisingly unamused at being used as part of an unannounced experiment, especially one that was aimed at delivering a research paper about supply chain attacks by actually setting out to perpetrate them under cover.
+After all, given that the researchers themselves came up with the name Hypocrite Commits, and then deliberately submitted some under false pretences and without the sort of official permission that professional penetration testers always negotiate up front…
+…didn’t that make them into exactly what their paper title suggested, namely hypocrites?
+Fortunately, it looked as though that brouhaha was resolved late in 2020.
+The authors of the paper published a clarification in which they admitted that:
+We respect OSS volunteers and honor their efforts. We have never intended to hurt any OSS or OSS users. […]
+Does this project waste certain efforts of maintainers? Unfortunately, yes. We would like to sincerely apologize to the maintainers involved in the corresponding patch review process; this work indeed wasted their precious time.
+
+Despite the apology, however, the researchers insisted in their clarification that this wasn’t what a Computer Science ethics committee might call “human research”, or social engineering as it is often known.
+Sure, some officially-endorsed tests that IT departments conduct do indeed carry out what amounts to social engineering, such as phishing tests in which unsuspecting users are lured in to click a bogus web link and then confronted with a warning, along with advice on how to avoid getting caught out next time.
+But you can argue that this “hypocrite commit” research goes much further than that, and is more like getting a penetration testing team to call up users on the phone and then talking them into actually revealing their passwords, or setting up fraudulent bank payment instructions on the company’s account.
+That sort of behaviour is almost always expressly excluded from penetration testing work, for much the same reason that fire alarm tests rarely involve getting a real employee in a real office to start a real fire in their real trash basket.
+Well, the war of words between the University and the Linux kernel team has just re-intensified, after it transpired that a doctoral student in the same research group has apparently been submitting fake bug reports again.
+This prompted one of the Head Honchos of the Linux world (not that one, we mean Greg Kroah-Hartman, aka Greg KH) to declare:
+
+Please stop submitting known-invalid patches. Your professor is playing around with the review process in order to achieve a paper in some strange and bizarre way.
+This is not ok, it is wasting our time, and we will have to report this, AGAIN, to your university…
+
+Even if you excuse the researcher because you think that kernel team is over-reacting due to embarrassment, given that numerous of these fake patches had already been accepted into the codebase, it’s hard not to feel sympathy with Greg KH’s personal tweet on the subject:
+Linux kernel developers do not like being experimented on, we have enough real work to do: https://t.co/vWvtxjt7A5
+— Greg K-H (@gregkh) April 21, 2021
+
+A real war of words has now erupted.
+Apparently, the researcher in this case admitted that what he did was wrong, but in an unrepentant way, saying:
+
+I respectfully ask you to cease and desist from making wild accusations that are bordering on slander.
+These patches were sent as part of a new static analyzer that I wrote and it’s sensitivity is obviously not great. I sent patches on the hopes to get feedback. We are not experts in the linux kernel and repeatedly making these statements is disgusting to hear.
+Obviously, it is a wrong step but your preconceived biases are so strong that you make allegations without merit nor give us any benefit of doubt.
+I will not be sending any more patches due to the attitude that is not only unwelcome but also intimidating to newbies and non experts.
+
+Which provoked Greg KH to respond with:
+
+You, and your group, have publicly admitted to sending known-buggy patches to see how the kernel community would react to them, and published a paper based on that work.
+Now you submit a new series of obviously-incorrect patches again, so what am I supposed to think of such a thing? […]
+Because of this, I will now have to ban all future contributions from your University and rip out your previous contributions as they were obviously submitted in bad-faith with the intent to cause problems.
+*plonk*
+
+We assume that the word *plonk* is an onomatopoeic description of the ball (a hardball, by the sound and *volume* of it) landing back in the other player’s court.
+And the University is officially involved now, pledging to investigate and to consider its position:
+Leadership in the University of Minnesota Department of Computer Science & Engineering learned today about the details of research being conducted by one of its faculty members and graduate students into the security of the Linux Kernel. pic.twitter.com/QE9rrAyyMX
+— UMNComputerScience (@UMNComputerSci) April 21, 2021
+
+We’re not sure how the University is likely to respond, and how long the “ban” is likely to be upheld, but we are waiting with interest for the next installment in the saga.
+In the meantime, we have two suggestions:
+There are plenty of real bugs to find and fix (and many companies will pay you for doing so).
+So, if you’re genuinely interested in bugs, we urge you to focus your time on finding and fixing them, whichever side you support in this specific case.
+LEARN MORE ABOUT MANAGING SUPPLY CHAIN RISKS
+Securing your supply chain from third party risk
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Linux kernel project is absolutely justified in taking this action.  They have enough work to do without these kinds of shenanigans.
+I’m thinking that *plonk* might be the online equivalent of “mike drop”?
+🙂
+I was imagining a TV lawyer dumping a giant heap of paperwork on the table with an impressive thudddd while saying, “In accordance with the obligations of disclosure…”
+Given that they submitted patches that they knew contained use-after-free bugs, which could potentially be used in attacks if they were released, I think their bigger concern should be whether their actions were legal.
+Plonk comes from fidonet and usenet. It indicates that you have added them to your killfile and will no longer see anything they post.
+Presumably, then, “*plonk*” means that you not only added them to the killfile, but also that when you typed “ZZ” to save, you hit the second Z *really* hard and demonstratively.
+If the University of Minnesota researchers did not have permission to do so and deliberately submitted buggy software of any kind, then that is an attack on the Linux software development system. The researchers are wrong and their behavior is unethical. Only an unethical, immoral, selfish and self-centered person would engage in research on a subject without complete disclosure and permission. Definitely the researchers and also the entire University of Minnesota should be permanently banned until they show they are trustworthy. The entire U of MN is untrustworthy due to the lack of oversight and monitoring by the university administration.
+I fully agree with Greg, but “The entire U of MN is untrustworthy due to the lack of oversight and monitoring by the university administration.” is not constructive. It’s silly to expect any/every teacher to be mico-managed by university admin. Or to blame anyone besides the one person/teacher responsible for the action.
+The university’s response was appropriate: “Leadership in the University of Minnesota Department of Computer Science & Engineering learned today about the details of research being conducted by one of its faculty members and graduate students into the security of the Linux Kernel.”
+I assumed that the Uni-wide ban was done because it seems that this research group – which presumably would have needed official approval from the Uni anyway – had been asked to stop doing this already, and had publicly apologised for wasting everyone’s time, only to be caught doing it again, and again admitting that it was a “wrong thing” to do… yet still not saying that they were going to cease and desist. 
+I hear you about micromanagement, but this issue seems to be bobbing around at a much higher level than that, esp. if there’s Ph.D. work involved. Remember that a Ph.D. degree is supposed to produce novel findings that are typically researched over three years (double it and add one if part-time), following a research programme that is formally agreeed with the Uni right from the outset. 
+Maybe what the Linux crew is looking for right now is some *macromanagement* by the Uni to keep researchers to reasonable and agreed rules of engagement? Perhaps the devil here is not in the details of the individual bugs but but in the general process for approving research projects?
+My understanding (maybe wrong) is that the teacher did this on his own and the university management wasn’t aware till the Ban hammer hit, but from your post it sound like they did know before it got that far. I still like to hold individuals accountable than others by association, but if they did know, it “is” on them, and I am mistaken, happens, and will happen again 🙂
+This seems to be an example of someone that thinks because they’re a department head, they have no accountability to anyone.  Hopefully the UoM will bring down the hammer and teach this individual otherwise.  Knowing how many institutions of higher education protect their tenured professors these days makes me skeptical on the expectations of any real consequences.
+I don’t like this type of unauthorized research, especially since the researchers ignored the legitimate request to cease and desist. I side with the Linux team on this one. I am a retired Information Security Officer, BTW.
+Well, the test from the University is complete. They can write a paper that they were caught and banned.
+Definitely on the side of Linux. I know nothing of Linux, and can barely do php programming, but this seems a ‘daft’ thing to do, especially when they were asked not to.
+If you deliberately harm anyone for any purpose without their express permission and cooperation, your actions are wrong, unethical and probably should be considered criminal. In the “Real World”, damaging someone opens the door to both civil and criminal remedies, so why not here? This potentially harms others who only want their Linux box to permit them to safely permit them to do their work and are unknown to either the experimenter nor the subject of this crazy and immoral exercise.   My guess is seeking permission to do testing of the security of the Linux supply chain could have been negotiated, designed and carried out in an entirely positive manner, that benefited everyone but they chose not to do so, which should almost never be acceptable.
+Somehow, we have adopted the idea in many quarters that only our own personal well-being matters. This is a very destructive view. We need to wake up and learn to respect one another again.
+I’m on the side of Linux. The  UoM computer science and engineering Dept. was asked(told)to stop. And didn’t. And in a further provocation, a selfish me-first researcher took on the role of victim to castigate the Linux team for their efforts to stop this line of research. The protocol of informing your targets before testing was not followed.
+I can see reasonable arguments on both sides, although if the researchers wanted to know how the Linux team would respond…they found out!
+Also I’ve always seen “plonk” used as “I’ll be forwarding all of your future transmissions to /dev/null”.
+All is fair in love and war. Since the patches were accepted, then the vetting process of same is insufficient. One must assume that criminals would use any means available, fair or unfair (including social engineering), to introduce a backdoor or malicious patch.
+“Even if you excuse the researcher because you think that kernel team is over-reacting due to embarrassment, given that numerous of these fake patches had already been accepted into the codebase…”
+All being fair in love and war, if one of these exploits got into the kernel and was then abused in the wild or even caused issues with someones system  then this lines the paper authors up for civil litigation or potentially criminal charges (and they may be liable in non-US juristictions). If you’re doing this kind of research you should do everything you can to ensure that anything you introduce doesn’t get out into the wild. As far as I can see the authors have done little or nothing. A fairly standard thing would be to approach one of the people in charge and work out a protocol that would prevent this happening.  To not have a backstop to prevent exploits you’ve deliberately introduced from getting into the wild is reckless. Even just introducing bugs which affect performance and allowing them to make it into released code is morally dubious.
+In my opinion, the “Researcher”‘s comments raise serious questions about their competence in the field.  They admit they are not “experts” but are willing to sabotage the work of others in order to educate themselves?  And then use their lack of expertise as a defense?  In my opinion the Linux team was remarkably well restrained.  I believe an appropriate response would have been a formal Cease and Desist order against the University along with exploration of criminal charges.  I agree with Reed Bailey’s comment above; Mahn has a good point about micromanaging but the University should have an ethics policy that prohibits this behavior, including significant penalties for violation.
+On the “plonk” issue, the term goes back at least to the days of Usenet News.  I always thought it referred to the sound a news reader made when a user blocked posts made by another user.  That hollow “plonk” sound that came from the limited sound systems of the time meant the news reader would not display the  blocked user’s posts.
+I agree with this. If a real threat actor introduced malicious code, there would be legal action taken. 
+What is the difference between a threat actor and a researcher who does the exact same thing without permission? Doesn’t this make them a threat actor as well? shouldn’t they be treated in the same manner?
+This is no different to malicious destruction of physical property with the intent of testing physical security and then coming back with the defence of “I guess that shows you weren’t properly prepared for such an attack”
+Plonk is from Usenet – https://en.wikipedia.org/wiki/Plonk_(Usenet)
+From 1989 at the latest, apparently! IDNKT.
+I side with the Linux team.  Even looking at the argument that the Linux vetting of submitted patches could be improved, Paul’s analogy of a rock anonymously being tossed through someone’s window is a good one — you don’t ethically attack someone else’s property/product, physical or intellectual, unless the test is mutually agreed upon.
+The actions of the University of Minnesota. researchers seem to me to be like someone deliberately putting poison in food stuff being delivered to a restaurant’s kitchen to see if the staff in the kitchen can detect the poison before any customer dies or is made ill from consuming it.
+This is the best analogy I’ve seen so far.
+If I was hiring a security professional and any similar research paper by the applicant came up in the interview where it was noted no prior permission was signed off on by the target, the interview would have immediately ended.
+In my previous life, I had finally responsibility for hiring top level programmers and this type of incident is a red flag that would never be acceptable. Not then. Not now. Not ever.
+Exactly! Something is mentally and ethically amiss with both Wu and Lu.  This what can happen in an echo chamber where there is no real oversight of people like this.
+Deplorable stupidity. In the UK this would probably be an offence under the Computer Misuse Act. We also have a derogatory term for such a person – Plonker!
+Considering that Linux is embedded everywhere, including medical devices, this approach by the ‘researchers’ was irresponsible and unethical at best, and criminal at worst. They were potentially endangering people’s *lives* as well as people’s livelihoods.
+The research team apparently played fast and loose with the University’s IRB (Institutional Review Board), getting a post facto approval therefrom as not involving humans in the experiment because they weren’t recording personal information. Needless to say, this was misdirection, as humans and the development community were the direct focus of the experiment.
+I don’t know how long it will last, but IMHO the Uni-wide participation ban is justified. The researchers ran amok, apparently in arrogance, and the University failed egregiously in its oversight responsibilities. Trust is earned, and can be lost (as in this case) by abuse.
+The faculty member should be fired, the student should be expelled, and both should be investigated for possible criminal action. Anything less is unfair to all Linux users and an insult to everyone who works hard on doing their job as well as possible.
+The concept is good, but the execution is faulty. A potential problem needs to be investigated, but not this way.
+This is unethical, that’s without a doubt true.
+Though, it does bring up the valid question. If these obviously-buggy-patches made their way into the kernel and stayed, then what else was able to make it through? What about nation-state actors (Including the NSA) that would submit seemingly innocent patches that break something else in the kernel that they later exploit for their own surveillance/gain?
+We shouldn’t stop asking these questions just because the maintainers get their feeling hurt, are called-out, or have to deal with some more patches. This is exposing a real problem and sparking a real conversation that needs to be had!!!
+What if the malicious patches they merge weren’t from this university? They’re willing to merge a lot of buggy stuff from the university, so what else are they not catching? The maintainers are only human after all, they’re not omnipotent gods and huge OSS projects aren’t perfect/secure just because they’re open-source.
+I’m distrustful of the UoM ‘researchers,’ the excuses they’ve tried using, their weak defensive posture… everything. I’d like to see extensive background checks done on them and any ongoing or past outside communications they’ve had with whoever. The Linux ban U-wide is a very appropriate response, shame it wasn’t done earlier before any potential vulnerabilities may have been uncovered / tested. I wouldn’t be surprised to hear more of this later.
+Yeah, the pride that keeps you from admitting wrongdoing can tank ya.  I think the good doctor and his graduate student are in for a life’s lesson.
+Well, the researchers wanted notoriety with the publication of their paper, and now they have it.
+I agree with Paul W that they should be respectively fired or expelled. I’m just imagining some pratt checking in crap on my project’s codebase, and how I’d feel.
+A good PHD project would be to work with the relevant Linux community, to develop a methodology for preventing supply chain attacks. Numerous others would have benefited. Throwing bricks though windows to prove they can be broken is not good research.
+They need to be banned permanently. The Linux community does so much good for computing. Had this been the first time it would be bad enough. But for a university faculty to engage in this behavior is nothing short of supporting actual unethical hacking. I have no compassion for them. Drop that ban hammer, and leave it there, set a precedent for those that think it’s a joke to pull this stuff.
+As far as a second chance? NO!
+Daddy always said, “First time shame on you, second time shame on me”.
+While I am never against the idea of research, this researcher went way out of line by not properly making the arrangements with Linux Kernel team on what he was doing.
+Because of what this researcher was doing, it not brings down reputational risk to his University, but to all public Universities who commit code to the Linux kernel legitimately. 
+I don’t like taking sides and would of course remain impartial, but in this case the Linux Kernel team is right.
+I’m just waiting for Linus Torvalds to show up….this researcher has no idea what is coming his way…..
+Linus Torvalds has already weighed in.  Seems to me Wu and Lu are the modern-day equivalents of Laurel and Hardy.  😛
+That’s an insult to Stan & Ollie!
+Okay, so the general sentiment of this thread is in favour of the Linux kernel devs and not the University of Minnesota, and I kind of agree – I’ve been using Linux for ten years plus now. I love it and would hate to see it destroyed – in fact I’m actually compiling Firefox 89, beta 3 right now. (Takes just under an hour on this PC). Did I check the code, No! I just assume that Mozilla has a firm grip on what they’re doing and just dive on in there – just like all the other releases that were fine. Should I have checked it? Probably… Is Node.js secure? What about the Rust Crates? Not to mention all the dev files… I don’t know, but I assume so. Don’t get me wrong I do look at code, but usually when an issue occurs as I don’t have time to check it properly. I guess the point I’m making is that very few people actually check the source code and rely more on good will / luck / blind faith that everything is okay, after all if they had checked the code properly then Greg-KH wouldn’t have replied that they would have to “rip out your previous contributions as they were obviously submitted in bad-faith with the intent to cause problems”. So, why wasn’t it checked properly? Yes, I know, they shouldn’t have done it, but… Why wasn’t it checked? I know the devs are busy, but there’s plenty of talented people out there and there’s enough financial incentive from many large companies using the Linux kernel, so perhaps they do have a point that commits aren’t being checked properly (albeit they went about it the wrong way)? How may sneaky bug fixes have already been submitted that could be obscure backdoors / privilege escalation / authentication bypass etc? Hmmm, Makes you wonder!
+Code could have been submitted with staging functions which on their own would seem to be fine.  Then built up with other trojaned commits could add up and then be used as the attack vector.  So losing trust it means that all code submitted has to be re-reviewed.  Kinda like when a dodgy cop is found, they then have to re-review every single case that they were involved in.
+LOL.. He didn’t apologize he blamed them, he tried to save face.  Go live in China and you will understand.
+He should be facing criminal charges.
+As is implied in the second of two suggestions at the end of the article, if you want to be a useful contributor and make a positive impact, go out and find the plethora of real bugs and quit being a nuisance to others in the name of “research”.  
+What are those clowns at the university thinking?  So, this is our brightest of the bright?  Research without applied ethics is, well… unethical.
+The Linux folks are razor sharp pragmatic and aren’t interested in BS.  They want Linux to be successful, and they prove it with their actions.  There is no whining about pie-in-the-sky features.  The attitude is, if you want it, then YOU make it happen.
+So, to the Linux community, if you think there is a problem with them accepting malicious code, then do something conductive to fix it.
+Maybe spend time reviewing patches.  Maybe do a source code audit.  Create a tool to help manage the situation.  Anything.
+But, to submit bad code to prove it can be done.  Sheesh.  They don’t have to bear with this bull, they’ll get along just fine without it.
+*Ploink*
+Mr. Kroah-Hartmann delivered a well deserved shot across the bow. Given the history of this [f***]-up,  it is more than understandable he did not want to get bogged down un university red-tape and took drastic action. The problem is UMN and its obvious breach of even the most basic ethics, as the article points out, not with the kernel developers reaction to it.
+It seems to me that although the U of M definitely needs a good solid smack to get and hold their attention, a permanent ban for the entire school would hurt far more than those responsible,  Present and future students would suffer for it, as might some professors who share no blame.  I submit that the most effective course of action to ensure results and yet limit damage where it is not due would be to maintain the ban until a specific goal is met.  Well, actually three of them: expulsion of the student, termination of the professor, and a very public statement from the University to include a full and sincere apology (no wishy-washy double-talk!) and a substantial explanation of how they will ensure this will never happen again.
+Linux team did not overreact.  The professor should have been fired, any students involved should have been expelled and their credits for any such work erased.  And their names should be submitted to Homeland Security as “people to keep watch on”.  They should also AT LEAST be fined for the costs of time spent by the Linux team correcting the stuff they submitted, plus possibly some punitive civil and maybe criminal charges.  It was wrong, they KNEW it was wrong, and they DID IT AGAIN.  Like drunk drivers in their second or more DUI stop.  Saying “sorry” is not enough, especially since they obviously did not mean it and felt no remorse.   I would be fitting if the professor and students were legally banned from using any electronics more sophisticated than an off-the-net microwave oven.
+Criminal charges? What law do you think was broken, given that all they did was to submit patches? It might indeed be unethical behaviour, but what crime was committed? 
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

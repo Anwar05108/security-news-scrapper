@@ -1,0 +1,286 @@
+Sophos Home protects every Mac and PC in your home 
+LISTEN NOW
+
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+With Doug Aamoth and Paul Ducklin. Intro and outro music by Edith Mudge.
+You can listen to us on Soundcloud, Apple Podcasts, Google Podcasts, Spotify, Stitcher and anywhere that good podcasts are found. Or just drop the URL of our RSS feed into your favourite podcatcher.
+READ THE TRANSCRIPT
+DOUG AAMOTH. Cryptographic bugs, sensible cybersecurity regulations, a cryptocurrency conundrum, and a new Firefox sandbox. 
+All that and more on the Naked Security podcast. 
+[MUSICAL MODEM]
+Welcome to the podcast, everybody. 
+I am Doug. He is Paul…
+PAUL DUCKLIN. I wouldn’t have said “conundrum”, Doug. 
+I might have said “catastrophe” or “business as usual”… but let’s leave that until later, shall we?
+DOUG. I was slightly diplomatic, but yes, “catastrophe” probably would have been better… stay tuned for that one. 
+Well, we like to start the show with a Fun Fact, and the Fun Fact for this week is that on its patent application, the name for the computer mouse was not-quite-as-succinct: “X-Y position indicator for a display system.” 
+When asked about the origin of the mouse name, its inventor, Douglas Engelbart, recalled, “I just looked like a mouse with a tail, and we all called it that.”
+DUCK. The other name to remember, there is, of course, Bill English, who is essentially the co-inventor. 
+Engelbart came up with the idea of the mouse,  based on a device called a planimeter, which had fascinated him when he was a kid. 
+And he went to Bill English, his colleague, and said, “Can you build one of these?” 
+Apparently it was carved out of mahogany… you’ve seen the pics, Doug.
+DOUG. It’s lovely, yes.
+DUCK. It’s quite chunky! 
+And is it true – I think you’ve said this on a previous podcast – that they had the cable coming out of the wrong side at first?
+DOUG. At first they did, coming out of the wrist end, yes.
+DUCK. And when they flipped it round, obviously, it’s a tail… it can only be a mouse!
+DOUG. Well, thank you for that, Mr. Engelbart. 
+Despite the instances of repetitive stress injury and carpal tunnel syndrome… other than that, the mouse has gone swimmingly. 
+It is an aptly named peripheral, and speaking of things that are aptly named: we have a Mozilla bug called “BigSig”. 
+So, I wonder what that could be about?
+DUCK. Strictly speaking, it’s CVE-2021-43527. 
+It was found by well known serial bug-hunting expert from Google, Tavis Ormandy. 
+It was an old school buffer overflow that nobody had noticed for years and years and years, inside the cryptographic library called NSS, short for Network Security Services. 
+Mozilla has always used NSS in all of its products, instead of using something like OpenSSL, which many of our listeners will know about, and instead of using the native implementations on each operating system.
+Microsoft has its Schannel, or Secure Channel; Apple has Secure Transport; but Mozilla, wherever it can, has said,”We’re going to stick with this one particular library.”
+They’re not the only organisation to use it – it turns out there are quite a few other products that have included NSS. 
+There’s a point when it allocates an area in memory to store all the data it needs to do a signature verification, and one of the things you need when you’re verifying a signature is a public key. 
+The biggest key you’d *ever* need is *surely* going to be an RSA key of 16 kilobits, which nobody really needs because it’s way bigger than you need even today to be secure.
+[IRONIC TONE]. It’s very time consuming to create 16 kilobit keys, so it’s *bound* to be big enough, Doug.
+DOUG. So it’s essentially there’s a size limit to the key. 
+The keys in the wild, even the biggest RSA ones that we’ve typically seen, are a quarter of the maximum size. 
+DUCK. Yes.
+DOUG. But if you send over a key that’s bigger than the allotted size, there’s no size check to say this key is too big?
+DUCK. There is now!
+BOTH. [LAUGHTER]
+DUCK. There’s a function added…
+Sadly, as Tavis Ormandy pointed out, the data that immediately follows in memory – in other words, the stuff that’s going to get overwritten – does include what are called function pointers. 
+Function pointers are data objects that determine how the program behaves – where it goes in memory to execute code in the future – and when you get an overwrite like that, [A] a crash is almost guaranteed, and [B] there is always a possibility, because you can decide how to divert the program at the other end, that you could get remote code execution.
+DOUG. That answers the “Who cares?” question that I was going to ask in a more tactful way, but…
+DUCK. Let’s go back to that “who cares?” 
+Really, what we’ve answered is, “Why care?”
+The “who cares?” is, obviously, anybody using Firefox, which is probably the best known and most widely used Mozilla product.
+Except that, for reasons that I don’t fully understand and weren’t disclosed by Mozilla, the one product that just happens not to be vulnerable to this (maybe it does the size check somewhere else?) is Firefox – good news!
+DOUG. Yes!
+DUCK. However, even in their own security advisory, the Mozilla team members explicitly listed as vulnerable:
+But perhaps the most concerning is LibreOffice, probably the most popular free and open source alternative to Microsoft Office, that not only uses NSS, but also, at least on Windows, includes its own version of the DLL where the bug exists.
+So if you are using LibreOffice, then last week, when the bug notification came, you probably ignored it because you thought, “Mozilla doesn’t affect me. LibreOffice has got nothing to do with them.”
+But it turns out that you do need to upgrade. 
+If you are using LibreOffice, they have now put out an update: 7.2.4 is what you want.
+DOUG. [QUIET TYPING SOUNDS] Just searching my own system here. 
+Would you say the NSS3.DLL file that I found in my Tor browser that hasn’t been modified since 1999… would that be something I might want to look into?
+DUCK. That’s worrying, because when I checked my Tor browser version, it didn’t have the latest NSS, but it had a more recent one than 1999, so that timestamp may be wrong.   
+Maybe re-download Tor, Doug, and see?
+DOUG. Yes, maybe I’ll do that. 
+It’s been quite a while since I’ve used that or updated it.
+DUCK. Yes, of all the browsers that you probably want to avoid having [LAUGHS] exploitable privacy violating holes in…
+DOUG. Yesssss… [LAUGHS}
+DUCK. …Tor may be the one that you start with.
+DOUG. It will be right at the top of that list, actually.
+DUCK. Depending on what you’re using it for.
+DOUG. We’ll add that to my to-do list! 
+If you’d like to read more, and see some sample code you can use to check the NSS versions on your systems, that article is called: Mozilla patches critical BigSig cryptographic bug – here’s how to track it down and fix it.
+And on the theme of fixing things, we move on to what seems like sensible legislation to protect consumers from lazy, lazy security on IoT devices.
+DUCK. That’s correct, Doug. 
+The US was probably the first country to try and get serious about this, and the US can be very influential when it comes to telling device manufacturers, “Thou shalt do the right thing,” without having laws that are unpopular.
+Because the US can just go, “OK you can do what you like. But if you wish to sell to the Federal Government, here are the standards that we’ve decided we want you to stick to.”
+They can influence things without saying, “We’re going to have a law that applies to everyone.”
+They’re saying you can sell, but you can’t sell where the real money is, into the Federal Government market.
+This is the UK, where the government doesn’t quite have that kind of purchasing power, particularly for IoT devices. 
+So they’ve been dancing around this for a couple of years, and they’ve got a parliamentry Bill. 
+Remember, a Bill is what it’s called before it actually gets enacted in parliament and then gets Royal Assent. 
+So, a Bill means it’s a proposed legislation, like in the US, and it’s called “PSTI”, for Product Security and Telecommunications infrastructure. 
+And I admit, when I first saw that, I thought, “Uh-oh, here we go. It’s going to be about backdooring encryption all over again. Telecoms!”
+DOUG. Indeed.
+DUCK. Quite the opposite. 
+It’s basically saying that we’re just going to set three minimum things: “Must be at least *this* tall to go on the ride if you want to sell IoT devices.”
+It’s still a long way off – it still has to become an Act, get its Royal Assent, and then apparently they’re talking about having a 12-month sunrise period while you get your act in gear. 
+Tell us what you think of these, Doug… there are three simple things that they want you to bring to the party.
+DOUG. They start out very simple and get slightly more complex, but not really that hard. 
+I mean, the first one is just a no-brainer.
+DUCK. “Default passwords. Can’t have them!” 
+DOUG. The problem it solves is someone like me, back when I was getting interested in cybersecurity, I shouldn’t have been able to sit in a coffee shop, and find a Linksys router, and know that the username was admin and the password was admin. 
+Most people don’t change that because they don’t know anything about that when they’re setting up their router.
+DUCK. Or they know perfectly well about it…
+DOUG. And they don’t care.
+DUCK. It warns them right at the end,  And it says at that some future time, you may want to change this…
+…and users think, “That’s a true statement,”  but doesn’t make you do it, does it?
+DOUG. No. [LAUGHS]
+DUCK. But if you followed Douglas Aamoth’s advice and got a password manager?
+10 seconds work to do it.
+DOUG. Yes. Do it!
+DUCK. And then when your ad device magically starts working, it is at least a bit different from everybody else’s. 
+So that’s a start, “No default passwords.”
+DOUG. And the next, one slightly more complicated but still important: a reliable way to disclose vulnerabilities to you. 
+If you’re a company, you need to be able to take those, and act upon them.
+DUCK. It’s not that difficult. 
+We spoke about it, didn’t we, on the podcast not long ago: yourwebsitename forward-slash security.
+DOUG. Easy!
+DUCK. And people go there and it says, “Here’s how you can tell us.”
+I understand people’s frustration, in some cases, where they literally cannot send a bug report that they don’t even want money for – they just would love to tell somebody, and can’t!
+How do you police that? I have no idea. 
+But at least they’re saying, “Come on, guys. How hard is it to have a standardised email address that actually works?”
+DOUG. It’s also probably not a bad place to put… almost much like you’d find the ingredients on the side of a box of food, you put your security ingredients on the security page to tell people how you are securing your devices in the first place. 
+“Here’s what we’re doing. Here’s how to contact us. Here’s what to look for in a bug report.”
+DUCK. Yes, Chester and I spoke about that in a recent podcast, I think when you were on vacation, Doug.
+About moves in the US to require hardware and software manufacturers to provide, if you like, a Security Bill of Materials.
+I think this Bill is a baby step that leads to the possibility of actually knowing what’s in your product.
+Doesn’t seem too much to ask, does it?
+DOUG. It does not!
+OK, so, the third item on this list:  we talked about no universal default passwords; a reasonable way to disclose vulnerabilities; the third thing, this might be the simplest. 
+It’s just probably a resourcing issue for most companies: you need to tell your buyers how long you’re going to provide security fixes for the products that they’re buying.
+DUCK. I suspect that will be the most controversial with manufacturers, because they’ll go, [WHINY VOICE] “Well, we don’t know. It depends. We might not sell many of that device, and then we’ll make another one, and that sells brilliantly. And we don’t have to put the same amount of security effort into both of them.” 
+That’s where I can envisage manufacturers pushing back on the grounds of cheapness. 
+And I think this will become an ever increasing issue – or I hope it will – for environmental reasons, as well.
+I think it was on that same podcast with Chester, where he was describing some IoT hacking research he did several years ago…
+He went out and bought all these devices: light bulbs, this, that and the other.
+Some of them were out of support *before he even opened the box*! [LAUGHS]
+He he has these Internet-enabled light bulbs, and he said, “They’re quite nice, but basically, they’re all stuck on purple…
+DOUG. [LAUGHS]
+DUCK. …from when I was playing around with controlling them.”
+And there isn’t even a way that you could connect to them locally and reprogram them: they’re basically lost in space. 
+Of course, the critics of this law say, “You need more teeth than that,” because all that’s going to happen is that manufacturers will flood the market with a cheap device, and then they’ll dissolve that company and come back with a new one.
+They’ll let their vendor say, “Sorry, we can’t help you with updates. The manufacturer’s out of business.”
+Now, I’m sure that we already have laws that protect consumers from people deliberately folding their company in order to evade regulations… but policing this is obviously going to be the hard thing.
+At least it’s waving some placards in the face of the IoT marketplace. 
+In the discussion that they’ve got about this Bill, the UK government has come up with some examples, and I think that it was only one-in-five of the vendors that they surveyed had any sort of vulnerability disclosure process.
+And if you don’t have a vulnerability disclosure process, then you can’t have any commitment to upgrades!
+Because you go, “I’ve done all the upgrades I think we need.”
+DOUG. Right!
+DUCK. But 50 people have been trying to tell you about 49 different vulnerabilities. 
+It’s amazing how complicated this simple thing gets when, or if, you are dealing with a part of the market that is determined not to comply.
+DOUG. Yes, we will keep an eye on that.
+ Lots of great comments on the article, so head on over there if you want to read and reply.
+ The article is called IoT devices must protect consumers from cyber harm, says UK government, on nakedsecurity.sophos.com.
+ Now, time for “This Week in Tech History.” 
+ While we talked about the handy-dandy mouse earlier in the show, this week, on December 9, 1968, the mouse’s inventor Douglas Engelbart gave the first public demo of the mouse to a crowd of about 1000 at a computing conference.
+The mouse demo was part of a longer 90-minute presentation that also touched on subjects such as hypertext and video conferencing. 
+In fact, the mouse demo may have almost been something of an afterthought. 
+The main presentation was for a “Computer Based Interactive Multi-Console Display System for Investigating Principles by which Interactive Computer Aids can Augment Intellectual Capability.” 
+So it sounds like the early early days of AI…
+DUCK. [WHISTLE OF APPRECIATION]. That’s when press releases were press releases, Doug. 
+DOUG. Oh, yes, sir!
+DUCK. Wowee! Capital letters! That is quite a title! 
+Basically, it was, “In 50 years, I jolly well hope there’s an Internet. Try and make it happen, guys.” [LAUGHS]
+DOUG. Yes!
+I saw the flyer – there’s a photo of the flyer for this speech. 
+They said that there would be a demo room available, because they were basically streaming this presentation to a remote location.
+DUCK. [AMAZEMENT] In 1968?!
+DOUG. Yes, how about that!?
+DUCK. “The Mother of all Demos,” it is now known as.
+You can find the whole thing on YouTube… you think, “Oh, that was obvious,” but it jolly well wasn’t obvious in 1968!
+DOUG. Exactly! 
+[IRONIC] And thanks to pioneering technologies such as that, we have things like cryptocurrency and the ability to sell some of it and buy some of it at the same time, while not actually selling any of it, and just making free money. 
+Right, Paul? 
+Is that how it works in this story?
+DUCK. “Cryptocurrency Company Catastrophe,” who would have thought?
+MonoX is the company in this case.
+As recently as, I think, the 23 November – they weren’t quite live as far as I know, but they have a blog article from that date – they were saying. “We’re not trading publicly yet, but we’re nearly there, and we’re going to revolutionise decentralised finance. We’re going to open up to everybody. We’ve had three software audits. We’ve been live testing for three months. We’re ready to go.”
+And sadly, it already looks as though the roof has caved in.
+Because like you said, they allowed you to trade the MonoX token, and it turned out that if you just withdrew the money from yourself and paid it back to yourself –  and it really does seem to be as simple as this – they did the subtraction of the amount that was taken out of your balance, *but they didn’t commit that yet*. 
+And then they took the balance you had *before the subtraction*, and they added in the new amount and that’s what got finalised. 
+So you basically got the plus (less a fee, I suppose), *without the minus going through*.
+So apparently somebody just wrote a contract that did a load of transactions with a script in a loop that sold their own tokens to themselves over and over again, accumulating value. 
+And then once they’d got all the value available, they went, “Let’s spend it.” 
+And they mopped up by buying a whole load of other cryptocoins and trying to cash them out.
+$31 million later… oh, dear!
+DOUG. Unreal.
+DUCK. Yes. Blunders can be expensive! 
+Just because you’ve had a software audit, and you’ve done a bit of testing, doesn’t mean that someone isn’t ready for you. 
+[ORATORICALLY] “The price of not losing your $31 million is eternal vigilance.”
+DOUG. [LAUGHS] That’s the problem: the $31 million mistake! 
+It’s good to catch it early like this, but not to the tune of $31 million. 
+So, they’re talking about either getting the authorities involved, and/or they’ve made a plea to the attacker saying, “Please give us our money back. Please.”
+DUCK. I’m guessing that they’re remembering that Poly Networks hack that we spoke about a few weeks back, where somebody pinched $600 million, if you don’t mind, and then started bragging about it. 
+And then they ended up being nice to the person and calling him – what did they call him? – “Mr. White Hat.”
+They said, “You can keep half a millionn But please give us the rest back.” 
+Lo and behold, they got almost all of it back!
+So I think that MonoX… they’re kind of hoping that the person will do the same thing.
+But I suspect they’re dreaming, Doug, because by all accounts, from people who have been tracking this, at least some of the money that whoever it was made off with has already been shoved through what’s called a tumbler.
+That’s one of those cryptocurrency exchanges that does a whole load of redundant loopy-bloopy transactions that mix cryptocoins together so they can’t easily be traced back. 
+So it’s a wait and see…
+DOUG. They did say “please”,  and the power of please got Poly Networks off the hook! 
+So we’ll keep an eye on this story. 
+But if you want to read up on the initial ramifications, that article is called:  Cryptocurrency startup fails to subtract before adding – loses $31 million on nakedsecurity.sophos.com.
+And our final story of the day: Firefox. A new update!
+DUCK. Oh, yes!
+DOUG. A lot of fixes, and a new fun sandbox.
+DUCK. That’s correct, Doug. 
+There’s a whole lot of bugs fixed – security holes – as you would expect: Mozilla is pretty good at that. 
+So there are:
+I understand there’s also an interesting bug where an attacker could create a web page that made your cursor appear in the wrong place.
+That just sounds like an annoyance, doesn’t it? 
+Except that if the crooks can get you to think you’re clicking on “No! Cancel! DEFINITELY DO NOT do this,” when in fact you are clicking on “Like this very much indeed,” that could be a serious security hole!. 
+DOUG. [LAUGHS]
+DUCK. They fixed all that stuff, so go to Help > About and check you’ve got the latest Firefox.
+If you’re on the bleeding-edge version, that should be “95.0” from Tuesday of this week.
+The other thing they’ve done, as you say, they’ve introduced yet another sandboxing technology into Firefox. 
+It’s called “RLBox” – and I searched high and low, left and right, and I couldn’t find who or what RL was, so I’m assuming it just means runtime library.
+DOUG. Yes, I was going to say, “runtime library”…
+DUCK. It’s an interesting technology for the programmers amongst our listeners. 
+It allows you to separate an application from the shared libraries it loads: in Windows that’s something like a DLL; in Linux or Unix, it would be a .so, for “shared object file”; on macOS, they’re usually called .dylib, “dynamic library”.
+The idea is that they are program fragments, if you like, that you suck into memory at runtime, so you don’t need to have them built into the program. 
+That way, if you don’t need a video player, for example, then it doesn’t have to be in memory with the program.
+But the whole problem with a shared library is that, when you load it into memory, it interacts with the rest of your code as though it had been compiled right into the application in the first place. 
+So, they’re what’s called “in-process” libraries. 
+In other words, once you’re using a shared library, it’s very hard to say, “Oh, I want to load the shared library, but I want to run it in a completely separate operating system process, where it has its own memory space so that it can’t do whatever it wants; it can’t misbehave and start peeking at other web pages already in memory in the main app.”
+So, a shared library essentially becomes part of the app. 
+If you want to have two processes that run separately, you have to design your app like that in the first place, or go and do an awful lot of retrofitting. 
+My understanding is what they’ve tried to do with RLBox is they’ve provided a way that you can load a shared library, but it gets put into a little safe space of its own, and then the RLBox sandbox manages the function calls, the subroutine calls, that go between the main program and the shared library.
+Those calls are no longer quite as tightly coupled, memory and security wise, as they otherwise would have been.
+You have to fiddle with your program a bit, but you don’t have to go and rip the whole thing apart and start again. 
+So it’s a way of retrofitting security where previously that would have been very difficult indeed. 
+So far, it’s only a few things that get dealt with in this way: they’ve got a part of the font rendering process separated; they have the spelling checker that’s built into Firefox separated; and anything to do with playing OGG-format files. 
+So that’s all they’ve done so far – it’s not a lot, but it’s a start. 
+And, apparently, in the next month they will add this separation for XML file parsing, which is another rich source of bugs in any applications that process XML files, and also more general protection for font rendering. 
+Many, if not most websites these days don’t rely on the fonts that you’ve set in your browser. 
+They actually say, “No, I want you to use this cool looking font that I chose,” and they package the font into the web page and send it across.
+And the format is called WOFF: Web Open Font Format. 
+Of course, parsing fonts that come from an untrusted source is really, really complicated. 
+So if you have a bug in your font processing, it means somebody could use a boobytraped font to take over a web page, and suck data out of it. 
+That RLBox protection is coming next. 
+So it’s a baby-steps start, but in my opinion, it is both an interesting and an important one.
+DOUG. Very cool! 
+OK, so you can download the latest Firefox, or head over to Naked Security and read this article called:  Firefox update brings a whole new sort of security sandbox.
+DUCK. And if that doesn’t work for you, Doug…
+DOUG. [LAUGHS] Download Lynx!
+DUCK. Absolutely. 
+I did a check, actually, and the Firefox that I was running while I was writing that article…
+I checked how many shared libraries were actually loaded: 205, and those things are all over-and-above what was compiled into the program itself. 
+ Lynx?  That has 14. 
+ How times change!
+DOUG. Still in development! 
+Well, it is time for our “Oh! No!” 
+This could almost be termed a “No! No!”…
+DUCK. [LAUGHS]
+DOUG. Reddit user CyberGuy writes:
+I worked for an MSP, and the other day I had a client report that multiple computers couldn’t print. 
+I connected one of the devices and tried to ping the printer, and was unsuccessful; then tried to ping the print server, and was also unsuccessful. 
+I thought this was odd because the user wasn’t remote – they were sitting maybe 20 feet away from their wireless access point.
+I decided to hit the gateway, and it almost immediately dawned on me what the problem was.
+This client uses Ubiquiti access points, and upon accessing the web management portal, I was greeted by a login page for Netgear. 
+I called the client and asked if they possibly knew why this device was connected to a Netgear access point. 
+The client told me, “Ah, Sally, the receptionist, brought that in two weeks ago because her Internet was running slow.” 
+I was stunned that they decided to allow a low-level employee to bring in their own wireless access point from home, plug it in, and allow half of the users to connect to it.”
+So, as I said, a “No! No!”
+DUCK. She actually plugged it into a socket?
+DOUG. And then all the people around her connected to it for internet.
+DUCK. Oh, because word got around, “Hey, Sally’s, access point is really cool.”
+DOUG. “It’s faster,” yes!
+DUCK. The thing is, why would it be *faster*? 
+Probably, “Hey, it only has half the restrictions!”
+DOUG. Exactly, yes.
+DUCK. All the social media sites that are normally banned! Online gaming downloads! 
+So, 10/10 for initiative?
+DOUG. Yes.
+DUCK. But 3.5/10 for cybersecurity.
+DOUG. And I can tell you, as a former MSP myself, without even looking up, the default username for a Netgear router is admin and the default password is password. 
+So, if those hadn’t been changed? Big trouble!
+Well, if you have an “Oh! No!” – or a “No! No!” – you’d like to submit, we’d love to read it on the podcast.
+Email tips@sophos.com; comment on any of our articles on nakedsecurity.sophos.com; or hit us up on social @NakedSecurity. 
+That is our show for today, thanks very much for listening.
+For Paul Ducklin, I’m Doug Aamoth, reminding you until next time, to…
+BOTH. Stay secure!
+[MUSICAL MODEM]
+Not enough time or staff?Learn more about Sophos Managed Detection and Response:24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

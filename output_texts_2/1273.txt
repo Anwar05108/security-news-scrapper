@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Well-known email tracking organisation Spamhaus, which maintains lists of known senders of spams and scams, is warning of a fraudulent “FBI/Homeland Security” alert that has apparently been widely circulated to network administrators and other IT staff in North America.
+Indeed, some of our own colleagues have reported receiving messages like this:
+
+Spamhaus suggests that at least some of the recipients’ email addresses have been scraped from already public sources such as databases published by ARIN, the [North] American Registry for Internet Numbers.
+Note that this does’t imply that ARIN has suffered any sort of breach.
+It is merely evidence that the crooks behind this disinformation campaign have focused primarily on email addresses that seem to be associated with network adminstration, in the same way that contact email addresses picked deliberately from podcast feeds would probably go to people who record or produce podcasts.
+Intriguingly, the fake messages don’t include any attachments, phone numbers or web links, making it unlikely that your email filter would consider them risky because of any so-called calls to action they contain.
+But the text in the email consists of a bunch of technobabble that looks scary at first sight, including sentences like this:
+Urgent: Threat actors in systems.
+Our intellience monitoring indicates exfiltration of several of your virtual clusters in a sophisticated chain attack.
+We recommend you check your systems and IDS monitoring.
+As you can see in the screenshot above, the email also plausibly suggests that US law enforcement and security services can’t currently blocklist or take down the servers being used by the “attackers” for at least four hours, because they need to keep those servers online as part of an intelligence gathering operation.
+In other words, you’ve been warned, but you’re on your own, so Do Something At Once.
+The rogue messages, redacted above, also explicitly name a perpetrator, claiming that he belongs to the cybercrime clan known as Dark Overlord.
+As you probably know, it’s most unlikely – both for operational and legal reasons – that the US authorities would name and shame an alleged perpetrator up front, while active surveillance was still in place, and no charges had been presented to or unsealed by a court.
+The person named, as it happens, is a cybersecurity researcher who has published a book entitled Hunting Cyber Criminals, including Dark Overlord.
+Occasionally, for example if you become aware of a looming ransomware attack in your own network, or if there’s a sudden global cybersecurity issue such as the Heartbleed bug, you may need to divert your cybersecurity experts in order to deal with the emergency.
+But don’t let yourself get distracted by Joe Job messages of this sort – “fake news” like this is not only unfair to the people who are accused in it, but also potentially disruptive to your own cybersecurity protection.
+Not enough time or staff? Learn more about Sophos Managed Threat Response:Sophos MTR – Expert Led Response  ▶24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Holy! Great information. Always love news like this to start my day off as an IT infrastructure Engineer.
+Kudos to whoever came up with the scary sounding buzzwords in the email! “Blackhole the transit nodes”, “fastflux technologies”, “global accelerators” – that’s some proper sci-fi sounding jargon!
+Although it’s all a bit of a mouthful in the format you see it above, many of the individual terms are cybersecurity jargon that you will often hear in real life.
+For better or worse, our industry is quite partial to jargon with a militaristic or sci-if angle (or both!). 
+Notably, “blackholing” is a real thing, whereby an ISP or network owner sets up a dud network route or a dud server that prevents malicious traffic from going where the crooks expected. So is “fast flux”, the shorthand name given to a technique whereby malware keeps chopping and changing the domain names it uses, and the servers it connects to, in order to make it into a moving target. This makes blocklisting (where you recognise dangerous traffic at source and stop it getting out) or blackholing (where the dodgy traffic is diverted out of harm’s way, as described above) much harder. 
+Likewise “exfiltration”, typically a military term, means stealing data by copying it off a network; “virtualised clusters” are banks of servers that run on simulated computers rather than on specific hardware; and “transit nodes” are computers through which network traffic passes.
+The sender of the message has, admittedly, rather over-egged the pudding in this case by turning real jargon into true technobabble. But for all we know that may have been deliberate – a way of boasting, a sort of Ozymandian “look on my works, ye mighty, and despair”…
+the ic.fbi.gov domain has a DMARC policy set to reject non-compliant emails, assuming the FBI has not been hacked and therefore this email is not signed or from a mail server within the SPF record, setting up your inbound email system to honour the DMARC policy of a domain would have killed this email before it reached the mailbox.
+AFAIK the email did come from the FBI alert system (not sure how that was achieved) so any SPF/DKIM/DMARC rules would have been satisfied.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

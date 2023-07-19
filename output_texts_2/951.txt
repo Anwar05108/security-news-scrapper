@@ -1,0 +1,91 @@
+Sophos Home protects every Mac and PC in your home 
+Another month, another BWAIN!
+That’s our tongue-in-cheek name for a cybersecurity vulnerability that not only gets assigned an identifier like CVE-2020-10713, but also acquires an impressive name plus a jaunty logo (and even, in one intriguing case, a theme tune).
+This month’s bug with an impressive name (see what we did there?) is called BootHole, and its logo rather cheekily shows a boot with a worm sticking out of a hole in the toecap.
+The bad news is that this bug affects the integrity of bootup process itself, meaning that it provides a way for attackers to insert code that will run next time you restart your device, but during the insecure period after you turn on the power but before the operating system starts up.
+The good news for most of us is that it relies on a bug in a bootloader program known as GRUB, short for Grand Unified Boot Loader, which is rarely found on Windows or Mac computers.
+The bad news for the sysadmins among us, however, is that GRUB (more precisely, GRUB2, but it’s often just referred to as GRUB) is the default bootloader used by several popular Linux distros these days.
+In other words, if you have a rack of Linux servers somewhere, whether that’s a physical rack in your own server room or a virtual rack in a cloud service, you may have lots of important computers that are – in theory at least – at risk.
+By the way, the logo that we referred to above as “cheeky” – because it features a worm – might be taken to imply that this is an wormable security hole.
+A wormable hole would mean that a crook who could infect one of your servers with malware exploiting this bug might be able to kick off a self-spreading feature that automatically dissemimated the malware to other servers in the same rack, or perhaps even further afield.
+We don’t want to say that’s impossible, because we can envisage server setups where you might just about be able to pull off that sort of caper in a pre-boot environment, but we think it’s unlikely.
+Generally speaking, an attacker will almost certainly need to have superuser (root) access to your computer up front in order to exploit this vulnerability.
+If you need to be logged in as root to start with, there’s no unauthenticated remote code execution (RCE) hole, which we assume is why Linux vendor Red Hat has given this bug a severity impact of Medium rather than High or Critical, even though it affects the boot process and could give attackers a way to implant malware that manipulates the operating system itself.
+In the early days of PCs, the bootup process was almost totally unprotected.
+When the power was turned on, the CPU ran a small program called the BIOS, short for Basic Input Output System, out of ROM, short for read-only memory. (This part was pretty secure, because the ROM firmware could only be changed by opening up the case and swapping out a special chip on the motherboard.)
+The BIOS then blindly read 512 bytes from the first physical sector of the hard disk into a known location in RAM – memory addresses 0x07C00 to 0x07DFF, if you are interested – to act as the bootloader program.
+If the last two bytes of that 512-byte sector were 0x55AA (chosen because it’s 01010101 10101010 in binary), known as the boot signature, it was assumed to be a legitimate bootloader and the BIOS then jumped directly to address 0x07C00 (0000:7C00 in 16-bit segment notation), and the bootup sequence commenced.
+And that was that – the master bootloader code was supposed to locate the bootable partition, load a secondary boot sector from there, perform some basic verification of its own and hand over control in turn, whereupon the secondary boot sector would find the operating system kernel and load it, and so the process would continue.
+This process is known as bootstrapping to this day, from the idea of “pulling yourself up by your bootstraps” – an impossibility in real life, thanks to Newton’s Laws of Motion, but nevertheless a metaphor in the English language for working yourself up into an influential position from humble beginnings.
+Of course, in the old days, the boot sector could contain anything, and frequently did.
+Corruption caused by writing to sector zero by mistake would typically leave your PC unbootable, while deliberate infection of the boot sector by viruses led to years’ worth of trouble caused by boot sector viruses with redolent names such as Stoned, Angelina and Michelangelo.
+Notably, because the boot sector runs before your operating system – indeed, the operating system relies on the boot sector to load in the first place – it runs before any operating system protections are in place. 
+There’s no memory protection, no idea of privileged processes, no concept of user and superuser (also known as the root or administrator account), no access control lists on files or directories, nothing.
+So crooks often used the boot sector to hide away hacking tools such as rootkits, malware programs that are specifically devised to disguise or conceal other malware by interfering with the operating system “from underneath”. 
+To protect the bootup process, most modern computers – whether they’re laptops, servers, NUCs or whatever – have a feature called Secure Boot, and on most devices it’s turned on by default.
+The BIOS is replaced by a system called UEFI, short for universal extensible firmware interface, which isn’t blindly trusting like the BIOS process was. (Actually the BIOS still is there: you can turn most computers back into BIOS mode, also called legacy mode, if you want, but you typically need physical access to the computer to make the switch.)
+In Secure Boot mode, the various stages of the bootstrap process are verified using digital signatures, based on cryptographic keys stored on the motherboard before the device is shipped. (On most computers you can replace these keys with your own to take control of the signing process, but once again you need physical access to do so.)
+When you boot with GRUB, the process usually involves a chain of loading and digital signature checking that works a bit like this:
+The digital signatures make it hard for crooks to replace any of the bootloader programs, which helps to keep boot sector viruses and rootkits out of your system – it’s difficult for the crooks to insert low-level code that runs before the operating system and might therefore be able to subvert it right from the start.
+You can guess where this is going, can’t you?
+That text-based configuration file we mentioned above isn’t digitally signed – at least, it isn’t checked by GRUB itself, and in most Linux distros there is apparently no additional process for validating the file before the operating system loads.
+And the BootHole vulnerability is a parsing error in the GRUB bootloader that leads to a buffer overflow while the configuration file is being read in.
+Oh no!
+Text files are supposed to be pure data, but by feeding the GRUB bootloader a line that’s far too long, it seems that you can not only crash the bootloader code, but also wrangle control back from it, causing code execution to continue inside the data that just got read in from the text file. 
+Eclypsium, the company that found this vulnerability, reports that it’s the sort of bug that you might call a “comedy of errors”.
+GRUB correctly detects that the line is too long for the buffer, catches the error, faithfully reports it where you might just about notice it pop up on the console if you were looking at the screen at exactly the right instant…
+…and then ignores the error and carries on anyway.
+Simply put: anyone who has root-level access to your computer, and can write text into the GRUB.CFG file, can sneak in bootloader code – what’s known as shellcode in the jargon – via that text file.
+But because the text file is considered “mostly harmless”, in the words of the HHGttG, it is not subjected to the same digital signature controls as the other files that are part of the secure bootstrap process.
+In other words, crooks can implant arbitrary bootloader code that will run next time you restart your computer, before the operating system starts up, without bothering about digital signatures.
+Unfortunately, buffer overflows of this sort in bootloader code are almost always exploitable by attackers, because the comparative simplicity of the UEFI environment means that a lot of the exploit prevention mechanisms that modern operating system provide simply don’t exist.
+During the bootstrap process, there are no protections such as Data Execution Prevention (which helps to stop data in an overflowed buffer from being executed at all) and Address Space Layout Randomisation (which makes it hard to grab control successfully even if you can reliably provoke a program crash).
+If you’re a programmer then, in the world of bootloaders, it’s like 1984 all over again.
+Apparently, Eclypsium’s bug report prompted not just a bug fix in GRUB but a code review looking for other smilar coding errors, given the extra severity of buffer overflows in the bootloader world.
+So the GRUB team has removed not only this bug (CVE-2020-10713) but also seven more, denoted CVE-2020-14308, CVE-2020-14309, CVE-2020-14310, CVE-2020-14311 CVE-2020-15705,CVE-2020-15706 and CVE-2020-15707.
+With this in mind:
+Note that if you aren’t using Secure Boot, then your bootloader code isn’t protected by digital signature checking anyway, but it’s still worth considering all these tips, because it’s probably easier for crooks to mess with your bootloader via GRUB.CFG than by using low-level techniques to write to the bootloader files and disk sectors directly.
+We suspect that there won’t be many computers out there that are pure-play Windows or Mac devices – ones that don’t have a Linux partition at all – running GRUB, but even if you aren’t affected directly by this bug…
+…take heed of tips 3 and 4 anyway, because they’re good advice for everyone!
+As a commenter  pointed out (see @Gabriel’s comment below), an attacker with physical access to your laptops or servers could, if booting from external devices is enabled, use a “pre-infected” Linux USB drive – one rigged out with a booby-trapped GRUB setup – as a way to run unsigned bootloader code on, say, a Windows computer.
+This isn’t a big deal if anyone with physical access is already able to access your computer’s setup screen at power-up time, because if that were the case they could almost certainly just turn Secure Boot off temporarily anyway, and wouldn’t need to make use of the vulnerability.
+But on work computers where access to the setup screen is turned off (so that only IT can tweak the system configuration) but booting from USB is turned on (for example, to allow remote users to assist with troubleshooting in emergencies), the BootHole bug could indeed be used as a Secure Boot bypass trick.
+This means that an attacker with physical access might be able to access your computer as though Secure Boot were turned off, without opening up the device and extracting the hard disk or using any other intrusive or time-consuming techniques.
+There are two mitigations we can think of here:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Ahhhhhh, I only just figured it out. That creature peeking out of the boot is probably meant to be…
+….a GRUB!
+And apparently grubs aren’t worms, though they are often spoken of as if they were. They’re beetles, it seems, in their larval stage. 
+It jolly well looks like a worm (if you ignore the antennae, which I only just noticed :-)
+Good catch!
+You’ll probably find the clue is that worms don’t have antennae…
+Yes, I saw that but didn’t notice it at first, if you get my meaning. I suspect it’s from talking about “worms in apples” (what’s worse that finding a worm in an apple? finding half a worm?) in casual speech that my first thought was “worm”, not “grub”.
+Grubs have destroyed my grass but never my server.
+Grubs go after apples, too :-)
+It’s probably meant to be a grub, but it looks like a caterpillar.
+They’re not that dissimilar, are they? Both are insect larvae, but one becomes a beetle and the other becomes a lepidopteron. When I was a kid my Dad used to say, “What’s worse than finding a worm in an apple?” (Finding half a worm in an apple.) I think he meant “grub” but everyone called them “worms” in that context – I never heard anyone call them grubs.
+is this for iMac’s too?
+As far as I know it’s possible to install GRUB and boot Linux on a modern or modernish Intel-based iMac, so in theory the answer is “Maybe.” (TBH I have never done it myself. I’ve installed Linux on a MacBook Pro using rEFInd, an alternative bootloader to GRUB, but I don’t think I’ve ever used, let alone owned, an iMac :-)
+If you have an iMac and it’s running a regular installation of macOS, you won’t have Linux or GRUB and there won’t be a GRUB.CFG file to overwrite with anything, let alone shellcode, so you can treat the answer as “No.”
+I read in another security blog that this BootHole also affects Windows in that someone can use a Linux on USB to make modifications to the boot process and have it effect Windows.
+When I saw this comment, I thought, “Ha, I thought of that but ignored it because it means the attacker already has physical access. So they could just reconfigure the startup settings anyway.” But there is indeed a bit more to it than that… it’s possible to have the system settings configured to allow the user of the computer (who might not be the owner if it’s a work laptop) to boot from removable drives as an emergency measure, yet not to access the pre-boot system setup screen to turn Secure Boot off altogether. This gives the user a bit of freedom but not an infinite amount, and in such cases the Boothole bug would indeed give a crook who doesn’t have the time or skill to open up your computer and graft the hard disk into another device (for example, one where Secure Boot is already off) a way to run an unauthorised bootstrap code on your laptops or servers.
+Of course, if the system setup isn’t locked and the attacker with a USB device can access the setup screen, they could probably turn off Secure Boot anyway, because they’d have physical access.
+Some business laptops – Lenovo springs to mind – allow IT staff to lock users ouf of the system setup entirely, and to force booting from the internal drive only. That would prevent this and many other “Linux boot” attacks, as far as I can see. The downside is that if the user ever needs to boot from USB, for example to do an emergency recovery, IT would need to read out their setup password (and could not secretly change it afterwards, at least not without having the latop shipped back to the office later). And if you forget a Lenovo setup password, you are truly stuck. Not even Lenovo can change it – it’s like putting in 10 wrong reset codes on a mobile phone SIM card. Poof! New motherboard time!
+BTW, thanks a lot for this observation, I appreciate the comment. I’ve added a new section at the end of the article to discuss this very issue. I admit that I decided that the deal here was all about shell access – that BootHole would allow a crook to do with a login shell what would usually require physical access. So I didn’t think about the idea that if you did have physical access you might be able to use this one as a sort of “bring your own vulnerability” trick too. Ha!
+Why this affect Windows too?
+If anypoint you have malware in your system with high privilege, it can install hidden rootki and left no other trace. Even if you have secure boot enabled, next time you restart your system, there is GRUP first (and rootkit) and only after that Windows. And Windows will trust 100% for GRUP. There is no trace or little trace left.
+Isn’t this attack mitigated by using FDE with a TPM? In that setup if anything in the boot process is changed the keys to unlock the disk won’t be released from the TPM. And IMO if you are running Secure Boot then you should also be running FDE with a TPM, protecting the UEFI console with a password, and disabling boot from USB. Even if you allow boot from USB you still would not be able to access the disk without the recovery key (again due to change in boot process and the TPM). Am I missing something here?
+Hmmm, root access though! I could think of other ways which would be easier than potentially bricking a laptop bootloader (hiding executable code in empty space at the end of a drive which is unlikely to be overwritten / inside “bad” sectors / hidden partitions etc.)
+I’m not entirely sure that BIOS passwords can’t be removed with Lenovo’s – in most cases it’s as simple as shorting two contacts on the motherboard to bypass or you could use jumpers and reflash.
+LUKS isn’t exactly bullet proof either (remember press return 30 times?) / hot swap bypass. TPM was also cracked in the past… Just how random is that generator?
+My understanding is that contemporary Lenovo configuration protection is quite different from the old days of “remove the battery and wait for the password to become blank”. Modern tamper-resistant chips are a lot harder just to “reflash” with a clipped on connector. (Consider the SIM card in your phone, to which you can write a PIN but not read it out or rewrite it without entering it or a longer PUK code first.) But I take your point that this bug is interesting more on account of being interesting than broadly dangerous.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

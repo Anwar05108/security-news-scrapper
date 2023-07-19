@@ -1,0 +1,57 @@
+Sophos Home protects every Mac and PC in your home 
+You’ve probably heard terms like “spray-and-pray” and “fire-and-forget” applied to cybercriminality, especially if your involvement in cybersecurity goes back to the early days of spamming and scamming.
+Those phrases recognise that sending unsolicited email is annoyingly cheap and easy for cybercrooks, who generally don’t bother running servers of their own – they often just rent email bandwidth from other crooks.
+And those crooks, in turn, don’t bother running servers of their own – they just use bots, or zombie malware, implanted on the users of unsuspecting computers to send email for them.
+Six years ago, when home networks were generally a lot slower than they are today, SophosLabs researchers measured a real-life bot sending more than 5 million emails a week from a single consumer ADSL connection, distributing 11 different malware campaigns as well as links to nearly 4000 different fake domains that redirected via 58 different hacked servers to peddle phoney pharmaceutical products. Best, or worst, of all – because outbound emails are mostly uploaded network packets – the bot barely affected the usability of the connection, making it unlikely that the legitimate user of the ADSL account would notice from traffic alone.
+The theory was simple: the cost of failure was so low that the crooks could pretty much dial-a-yield by setting their spamming rates as high as needed to suit the campaign they were running.
+So the “spray-and-pray” equation was simple: to get 100 people interested with a click-rate of one in a million, the crooks had to send 100 million emails.
+And with a zombie network capable of doing more than 5 million emails per computer per week, you could spam out those 100 million emails in the course of a single hour with a 3000-strong botnet. 
+(Some notorious zombie networks have given their botmasters remote control over hundreds of thousands or millions of devices at the same time.)
+What has all this got to do with contemporary targeted ransomware like Maze?
+Well, it reminds us that cybercriminals can make off with vast amounts of money, even though by some metrics their success rate sounds terrible.
+Simply put, online crooks are no strangers to the upbeat verse that tells us:
+Ransomare attacks are one especially destructive part of the cybercriminal underground where the crooks don’t mind failing, and where they are perfectly willing to try again.
+In fact, it’s almost become part of their game plan: a sort of “third time lucky” approach.
+The crooks are usually already inside your network by the time they unleash the ransomware part of their attack, and they usually spend the early part of their attack mapping out your network and acquiring similar (or perhaps even superior) access powers to your own sysadmins.
+So they can afford to take the time to perform experiments, and if at first they don’t succeed, they’re more than ready to spend their time finding another way.
+And with ransom demands getting into eight-figure territory these days – by which we mean extortion demands of $10,000,000 or more – you can see why.
+For a fascinating insight into the minds of these money-grabbing blackmailers and their “try, try again” techniques”, we recommend the latest SophosLabs report, entitled Maze attackers adopt Ragnar Locker virtual machine technique.
+
+The report is the result of an investigation by indefatigable Sophos Managed Threat Response expert (and occasional Naked Security writer) Peter Mackenzie and his colleagues, who were called in to deal with a network attack by the infamous Maze ransomware gang.
+After two failed attempts to launch their ransomware files directly, the crooks resorted to a technique that we first wrote about when the the Ragnar Locker crooks used it: setting up a virtual machine (VM), and running the malware in that.
+Intriguingly, this represents a complete turnaround in the attitude of cybercriminals to VM software such as VMWare, VirtualBox and Parallels.
+Some crooks go out of their way to avoid infecting virtual machines altogether, mainly to prevent their malware running inside a research lab or sandbox system, where VMs are usually used for scalablity and convenience. (VMs are much quicker and easier to reset to a known clean condition than re-imaging a physical hard disk.)
+But ransomware crooks have realised that introducing a VM of their own to run their file scrambling malware gives them a chance to run it in a software environment of their choice – the Ragnar Locker gang decided to use Windows XP, presumably because it’s compact and doesn’t do any pesky licensing checks.
+In this latest Maze attack, the crooks delivered their own VM containing Windows 7 and all the operating system components needed to launch a full-blown virtual Windows desktop that they knew was compatible with their malware – a whopping 700MB disk image, all to run just 2.5MB of malware code.
+Like many ransomware gangs, the Maze crew don’t just scramble your files these days – they take the time to steal some or all of your critical data first before bringing your network to a halt, thus giving them a double reason to extort money from you.
+A year ago, you might have expected a Maze attack to leave behind a pre-recorded threat like this:
+Listen to the audio message that plays after a Maze attack
+Note how the crooks focused on the decryption of your precious files as the reason to pay up.
+Today, the threat is two-pronged:
+
+These days, you’re paying hush money for the crooks to keep quiet about the data breach aspect of the attack, as well as paying to get your business running again.
+In case you’re wondering, the crooks demanded $15,000,000 this time, but the victim said, “No,” to which we say, “Good on you.”
+Those who refuse to do deals with the criminals deserve our respect, even if we might also feel critical because the victim suffered a data breach in the first place.
+It’s easy to say that you’d do the same and refuse to pay, because of the moral princples involved, but it’s a different matter when it’s your business and your staff looking straight into the barrel that the crooks have shoved in your faces.
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Burn All Computers!
+Back in the ’60s, when I was a TV tech, my co-workers and I became disgusted with the programming then available, and began advocating Burn All TVs!  (This sentiment largely still applies.)
+But this latter problem had only to do with people’s minds; now the consequences concern their pocketbooks.
+Do we now need a re-imagined internet, if not computers as well, to combat all this expensive hacking?
+we should never judge victoms of ransomware or any other crime, they are the victem. We SHOULD always judge the criminals that perform these discraseful acts.
+those of us who have never made a mistake, have never had to make a decision.
+Chapeau 🧢
+The comment about mailservers operating on DSL is germane
+I operated one of the earliest DNSBLs (ORBS) and was telling ISPs back in 1996 to firewall outbound port 25 traffic from customer equipment due to the problems being observed (Sanford Wallace and Krazy Kevin were using stolen network bandwidth even that far back)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

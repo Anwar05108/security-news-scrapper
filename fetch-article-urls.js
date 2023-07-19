@@ -16,7 +16,7 @@ const main = async () => {
     else
         successURL = []
 
-    for (let year = 2022; year <= 2023; year++) {
+    for (let year = 2020; year <= 2021; year++) {
         for (let month = 1; month <= 12; month++) {
             for (let day = 1; day <= getDaysInMonth(month, year); day++) {
 

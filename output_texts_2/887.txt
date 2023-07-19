@@ -1,0 +1,24 @@
+Sophos Home protects every Mac and PC in your home 
+Whoosh. You hear that? It’s the sound of Microsoft’s security fire hose spraying out a river of CVE fixes. That’s right – Patch Tuesday was this week and the software giant released patches to fix 129 CVEs.
+The lion’s share of the bugs are rated important, but there are 11 CVEs rated critical. They are remote code execution flaws, enabling attackers to execute their code on victims’ systems. These bugs require user interaction, though, meaning that the bad guys would have to persuade the victim to do something like opening a file or visiting a website. They’re very serious, but don’t quite reach the klaxon-sounding, flashing-red-light level of the wormable Bluekeep bug.
+CVE-2020-1286 is a Windows shell RCE triggered by improper file path validation, while CVE-2020-1299 is an RCE bug that an attacker could exploit using a malicious .LNK file and associated binary. They’d put it in a removable drive or network share, warns Microsoft, adding that clicking on the .LNK file would run the binary’s malicious code.
+CVE-2020-1281 is a vulnerability in the Windows Object Linking and Embedding (OLE) code stemming from poor input validation and it’s exploitable via a malicious website, file, or email message. CVE-2020-1248 is a memory object handling bug in the Graphics Device Interface (GDI), deliverable via a website, instant message, or document file.
+These are all bugs affecting Windows 10, and many also affected the latest 2004 build. Internet Explorer had its own gaggle of critical vulnerabilities too. Versions 9 and 11 were susceptible to the RCE bug in CVE-2020-1216, which is another memory handling error affecting VBScript, as were CVE-2020-1213 and CVE-2020-1260.
+Edge had a critical vulnerability too in the form of CVE-2020-1073, which is a memory handling bug in its underlying ChakraCore scripting engine. CVE-2020-1219 affects both IE and EdgeHTML, and again involves memory handling issues.
+CVE-2020-1181 is a SharePoint Server bug, triggered by unsafe ASP.Net controls that it doesn’t filter properly. Attackers can upload a malicious page to the server for pwnage. Admins managing SharePoint Enterprise Server 2016, Foundation 2010 SP2 and 2013 SP1, or SharePoint Server 2019 should patch now.
+CVE-2020-1300 affects most versions of Windows from version 7 through to the latest Windows 10 2004 build, and also Windows Server. It’s a bug in the OS’s handling of cabinet files.
+So, those were all the critical CVEs that the company released patches for. There were also some other non-critical CVEs that it didn’t release separate security updates for, including the batch’s only bug rated with moderate severity: CVE-2020-1195. This affects the Chromium-based version of Microsoft Edge, which the company released in February. CVE-2020-1163 details how MpCmdRun.exe, which is a binary in Windows Defender, allows for arbitrary file deletion. Instead of patches, Microsoft fixed these bugs with product updates.
+Compared to Microsoft’s patchnami, Adobe trickled out just 11 CVE fixes across three advisories: APSB20-30, for Flash Player, addresses a critical use after free vulnerability (CVE-2020-9633) that could lead to arbitrary code execution. APSB20-32 fixes three critical bugs in its Framemaker product for Windows: a memory corruption issue (CVE-2020-9636) and two out-of-bounds write bugs (CVE-2020-9634 and CVE-2020-9635). APSB20-31 fixes six vulnerabilities in the company’s Experience Manager product rated important. They render it vulnerable to server-side request forgery, cross-site scripting, and blind server-side request forgery attacks.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

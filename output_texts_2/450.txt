@@ -1,0 +1,26 @@
+Sophos Home protects every Mac and PC in your home 
+Researchers have discovered password bypass vulnerabilities affecting two WordPress plugins from a publisher called Revmakx.
+The first vulnerable plugin is RevMakx’s InfiniteWP Client, a tool that allows admins to manage multiple WordPress sites from the same interface.
+The second is WP Time Capsule, a site backup and staging tool. 
+The urgency is the number of sites using these tools – between 300,000 and 500,000 for InfiniteWP, and 20,000 or more for WP Time Capsule – so if you have either of these plugins, patch as soon as possible.
+According to security company WebARX, who reported the vulnerabilities 7 January 2020, both bugs make it possible for attackers to login to admin accounts without a password.
+The InfiniteWP bypass was found in the iwp_mmb_set_request function, used to check whether the user is attempting an authorised action.
+Two actions that do that are readd_site and add_site, but neither implements an authorisation check which means that an attacker can craft a malicious request:
+All we need to know is the username of an administrator on the site. After the request has been sent, you will automatically be logged in as the user.
+An even simpler logic error in WP Time Capsule produces a similar result – this time, all you need to do is include the  text string IWP_JSON_PREFIX in the request submitted to the WordPress server.
+The good news is the developer patched the issue within a day of being told of it, although many of the sites using InfiniteWP have yet to implement the update.
+For InfiniteWP, the version that fixes the flaw is v1.9.4.5, which means all versions up to and including v1.9.4.4 are vulnerable.
+For WP Time Capsule, the fix is in v1.21.16, with all versions up to and including v1.21.15 being vulnerable.
+Updating is most easily achieved from the Plugins tab in the WordPress dashboard. There you can see which plugins have updates available, after which it’s a matter of hitting Update now to install the new versions.
+Advice for managing WordPress plugins:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

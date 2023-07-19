@@ -1,0 +1,42 @@
+Sophos Home protects every Mac and PC in your home 
+Mozilla’s own “patch Tuesday” for Firefox happened this week.
+Rather than patching once a calendar month, Mozilla goes for every sixth Tuesday – or every 42 days, which we call Fortytwosday in a hat-tip to HHGttG.
+This update takes the regular build of Firefox to 73.0, while the long-term release, which includes security fixes but not feature updates, goes to 68.5.0esr.
+ESR is short for Extended Support Release, and if you want to know which regular release it matches up to for security patches, just add the leftmost two numbers together, and notice that 68+5 = 73.
+The good news is that none of the security holes fixed in this update seem to be what are known as zero-day vulnerabilities, which is the industry term for bugs that the crooks figure out first.
+(The name zero day reflects the fact that even if you are the sort of person who patches as soon as you can, there would have been zero days on which you could have been ahead of the crooks.)
+Six official bug numbers have been assigned to this round of fixes, numbered sequentially from CVE-2020-6796 to CVE-2020-6801.
+For what it’s worth, CVE-2020-6801 is reserved for software changes that only apply to the 73.0 version of Firefox, presumably meaning that they are security flaws in new program code that was only introduced in features added into versions after 68.0.
+Otherwise, those bugs would almost certainly have been present in 68.4esr too, given that the “code history” of the ESR and mainline releases branched (to use the jargon word) after 68.0.
+The bugs denoted CVE-2020-6800 and -6801 are those that the Mozilla team themselves found as a side-effect of their ongoing, always-running tests that try to identify possible security holes known as memory safety bugs.
+That’s where the software is spotted making changes in memory that aren’t supposed to happen – behaviour that is always wrong, and needs to be fixed even if those unexpected changes turn out to be harmless.
+In other words, all memory safety errors count as vulnerabilities, because they represent bugs that might threaten security, rather than just affecting functionality.
+Fortunately, most vulnerabilities can’t actually be turned into what are known as exploits – the self-explanatory jargon term for vulnerabilities that can actively and predictably be abused in real life, but as the Mozilla security advisory notes with refreshing candour:
+Some of these bugs showed evidence of memory corruption and we presume that with enough effort some of these could have been exploited to run arbitrary code.
+Only one other bug, CVE-2020-6796, gets a “high” rating, because it too can lead to memory corruption.
+Amusingly (something we can say now the bug is closed), the flaw relates to Firefox’s crash reporting system, whereby a sub-process could modify memory that it shouldn’t have been able to access, but that wouldn’t be used unless that sub-process itself later crashed.
+As the coders wryly report:
+A content process could have modified shared memory relating to crash reporting information, crash itself, and cause an out-of-bound write. This could have caused memory corruption and a potentially exploitable crash.
+Simply put, a sub-process could deliberately trigger a bug that was placed in the code on purpose, in order to trigger a bug later on in data that was supposed to be preserved in case the sub-process were to crash by accident.
+The other three bugs are rated moderate; one applies to Mac users only and another only to Windows.
+Get the fixes now, or if your Firefox is configured to update automatically (that’s the default), go and check that you have the update.
+Go to the Help > About > About Firefox option, which pops up a dialog box that will tell you what version you currently have, and get the update for you if you haven’t received it yet.
+The Tor browser, which is based on Firefox ESR, has also been updated. Tor Browser 9.0.5 arrived on 2020-02-12 and includes Firefox 68.5.0esr. You can use the dialog box that pops up via Help > About > About Tor Browser to make sure your Tor is up-to-date.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+68.5.0esr/strong>.  ?
+Probably should be  68.5.0esr.
+It is now :-) Thanks!
+Firefox announced back in September that they would be moving from a 6-8 week release cycle to a 4 week release cycle starting Q1 2020.
+Darn. Twentyeightsday doesn’t have the same ring to it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

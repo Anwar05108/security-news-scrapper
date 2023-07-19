@@ -1,0 +1,40 @@
+Sophos Home protects every Mac and PC in your home 
+Details are hazy but the overall story is clear: if you use IBM’s Maximo Asset Management, make sure you’re patched.
+As you can imagine, an asset management tools called Maximo isn’t aimed at small businesses such as local bike shops or at parochial bodies such as parish councils.
+Those organisations definitely have assets to keep track of, such as tools and spare parts, but Maximo’s aim is much bigger than that.
+As IBM’s own web page proudly exclaims, the Maximo product is used by 10 of the top 13 pharmaceutical companies, 16 of the top 24 automotive companies and 14 of the top 20 power generation companies.
+Researchers at cybersecurity and penetration testing company Positive Technologies found and responsibly disclosed the bug, which was patched two weeks ago but only announced by Positive Technologies yesterday.
+The vulnerability was of a sort known as SSRF, short for Server Side Request Forgery, a jargon name that doesn’t tell you much unless you already know what it means.
+So, to explain: SSRF is a way that someone with possibly very limited access to your network can send a legitimate looking query to one of your servers…
+…but in doing so can trick that server in turn into making a follow-on query of its own that it shouldn’t.
+As an analogy, imagine that you want to trick an employee into giving away their sales figures for the quarter so far.
+You can’t phone them up and say, “Hey, it’s Cecilia from the tax department, can you tell me what the sales numbers are?”, because they’ll be wise to your social engineering treachery and tell you to get lost.
+But what if you phoned them up and said, “The tax team needs the sales figures – I know you can’t give them to me, but can you send them to Cecilia? If you don’t have her email address you can get it from her at [REDACTED PHONE NUMBER].”
+One outcome is that the person you’ve just left the message with might trustingly call the number you provided, hear a fake recorded message saying “Sorry, I’m out, try emailing me at…” and blindly send through the very data you want.
+But even if they don’t fall for the fake recorded message, you’ll still learn something if they call your bogus number at all – notably, you can infer that they probably do have access to the sales figures, and that Cecilia probably is the right contact person in the tax department.
+At the very least, you’ll know that their work phone isn’t blocked from making calls to the area code or network that you used for the decoy number – and, if you’re lucky, you’ll probably get hold of their direct dial number via their caller ID, too.
+In other words, if you can find an internal company resource that you can instruct to reach out to servers or data that you can’t get at yourself, then even if you don’t ultimately get the data you wanted, you may nevertheless be able to use the replies to learn a lot about the network.
+For example, something as simple as the error message you get back from a server that is vulnerable to SSRF could help you come up with a list of valid internal network names and IP numbers.
+Imagine that you ask the vulnerable server to fetch, say, stock levels from 10,000 different internal server names you’ve guessed at. Now imagine that you get back a 403 Forbidden for server names that actually exist and are on the same part of the network, 503 Service Unavailable for server names that don’t exist anywhere in the network, and 502 Bad Gateway if that server does exist but is on another part of the internal network.
+Alternatively, if you can trick the vulnerable server into calling outside its own network by sending it an otherwise legimitate request, you may be able to capture server data such as secret authentication tokens or special HTTP headers that are usually only visible if you are already inside the network.
+These leaked headers could help you to compromise other servers on network by revealing internal-only network secrets.
+As IBM’s own security bulletin puts it:
+
+This may allow an authenticated attacker to send unauthorized requests from the system, potentially leading to network enumeration or facilitating other attacks.
+
+As you can imagine, in a giant company with a huge asset database, most users on the network will probably have some asset-related queries they’re allowed to make – looking up stock levels, delivery times, service schedules and so forth – and will therefore be authenticated users, albeit with very little data they’re allowed to see legitimately.
+So an information disclosure bug of this sort almost certainly won’t let crooks directly implant malware or instantly steal trophy data, but it could be just the foothold a determined attacker needs to get there in the end.
+If you are using the vulnerable versions, patch as soon as you can.
+Affected Maximo versions are those that start with 7.6.0 and 7.6.1.
+If you have an affected version but don’t have an change window right now to apply the update, IBM has a server configuration workaround that will prevent the bug from being triggered, although this turns off some of the printing options provided by the system.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

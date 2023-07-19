@@ -1,0 +1,32 @@
+Sophos Home protects every Mac and PC in your home 
+No need to wait until you’ve gurgled out of your mother’s womb to experience the joys of having your privacy breached, thanks to a mobile app called Peekaboo Moments.
+Bithouse Inc. – the developer of the mobile app, which is designed to capture photos, audio, weight, length, video and diaries of tots starting as early as their zygote days – has left an Elasticsearch database flapping wide open, leaving thousands of infants’ videos and images exposed, unsecured and up for babbling its contents to any internet busybody who knows where to look.
+The database was discovered by Dan Ehrlich, who runs the Texas-based cybersec startup Twelve Security. Ehrlich told Information Security Media Group (ISMG) that the 100GB database contains more than 70 million log files, with data going back as far as March 2019. The logs record when someone uses the Peekaboo app, what actions they took and when.
+And my oh my, what actions you can take! As the Peekaboo Moment developer croons on the app’s Google Play listing, users can…
+Take photos, videos for your little ones! Starting from pregnancy, newborn to every first ‘papa’ & ‘mama’, these memories will be auto-organized by age of child.
+Users can also record the weight, length and birth dates of their babies, as well as their location data, in latitude and longitude, down to four decimal points: an accuracy that translates to within about 30 feet. In other words, this could be Baby’s First PII Breach.
+The open database has exposed at least 800,000 email addresses, detailed device data, and links to photos and videos. The frosting on the cupcake: Ehrlich found that the Peekaboo Moments’ API keys for Facebook – which enable users to take content they’ve uploaded to Facebook and post it in the Peekaboo app – have also been exposed, potentially enabling an attacker to get access to content on users’ Facebook pages.
+One more thing: Ehrlich says that Peekaboo Moments exposed its own API endpoint, which could allow an attacker to upload their own code or exfiltrate all of the data that the API can get at: a “pretty standard ‘hacking’ thing to do,” he said.
+Ehrlich told Facebook about the API on Wednesday, but as of Tuesday, it hadn’t responded to questions about whether it would revoke the developer’s API keys.
+Ehrlich’s response to the gruesomely botched setup: My eyes!!!!
+I’ve never seen a server so blatantly open. Everything about the server, the company’s website and the iOS/Android app was both bizarrely done and grossly insecure.
+Ehrlich says the data is stored on servers hosted by Singapore-based Alibaba Cloud.
+As ISMG points out, the 👶SECURED SPACE, SHARING FRIENDLY category of the app’s listing makes promises it hasn’t kept, such as that it will safeguard the data and information it stores.
+“We completely understand how these moments [are] important to you,” croons the Peekaboo Moments app.
+Data privacy and security come as our priority. Every Baby’s photos, audios & videos or diaries will be stored in secured space. Only families & friends can have access to baby’s moments at your control.
+It’s not clear how long Bithouse has been flubbing that promise or who’s gotten into its open Elasticsearch database, if anybody. The company, apparently based in China, hasn’t responded to ISMG’s queries.
+ISMG’s Jeremy Kirk did, however, manage to get in touch with a Peekaboo user who said that the idea of strangers being able to access her children’s personal pictures is creepy. The user, Michelle Smith, told ISMB that this is the first she’s heard of the breach, and that she’s been using the app for seven years for three of her children.
+This is very concerning as I believed it to be a secure app and don’t feel comfortable at the thought of strangers being able to access personal pictures.
+As we’ve noted a whole lot more than once, improperly configured Elasticsearch databases are a common cause of inappropriate data disclosures. Like, say, the millions of SMS messages leaked by enterprise texting services provider TrueDialog last month, the Elasticsearch database with customer data for 7.5 million Creative Cloud accounts found gaping wide open in October, or the leaky database full of Groupon emails (which, for what it’s worth, turned out to belong to crooks!).
+These databases sometimes get manually set up for remote access, even though the database isn’t designed to be accessible via a URL: that was the glitch that caused the TrueDialog spill last month.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

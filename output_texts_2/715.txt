@@ -1,0 +1,36 @@
+Sophos Home protects every Mac and PC in your home 
+A researcher has stumbled on a big security flaw affecting OpenWrt, an open source operating system used by millions of home and small business routers and embedded devices.
+OpenWrt has become a popular Linux alternative to the stock software that vendors ship with home routers. Other examples of this type of router software include DD-WRT and Tomato.
+It can used to replace the factory firmware on any router product with the correct hardware, for example, models from NetGear, Linksys, Zyxel and others.
+Discovered by Guido Vranken of ForAllSecure, the OpenWrt flaw is in the OPKG package manager, a program used to install or update OpenWrt.
+To ensure these files aren’t corrupted or tampered with before being applied, their integrity is verified against an SHA-256 hash. If the two checksums don’t match, the file should be discarded.
+Although served over an insecure HTTP connection, OpenWrt’s files are digitally signed, which implicitly guarantees that the listed hash is correct.
+The bug arises when installation starts, during which Vranken discovered that the SHA256sum field is not read correctly due to a simple programming error, something which fails invisibly.
+This means that as long as an attacker can create a file that matches the stated size, they can sneak malicious software on to the user’s router or device instead of the correct OpenWrt software.
+Vranken suggests that attackers could either hijack the OpenWrt server or interfere with the domain’s DNS to redirect users to a rogue server.
+Neither attack would be easy to pull off but if achieved, the user’s router and its traffic would be invisibly compromised by what had looked like legitimate software.
+Compromising a legitimate download source is the equivalent of battering down the front door. Because many attackers will never use more effort than they have to, it seems more likely that anyone targeting OpenWrt would try their luck with a brute force attack on its management credentials first.
+But it’s still a tempting flaw to aim for and one that deserves immediate attention.
+OpenWrt recommends upgrading to the latest version. The bug (CVE-2020-7982) was introduced in early 2017 and affects OpenWrt versions 18.06.0 through 18.06.6 and 19.07.0, and separately LEDE (an OpenWrt fork) 17.01.0 through 17.01.7.
+The fix was applied to versions 18.06.7 and 19.07.1, released at the beginning of February.
+OpenWRT’s full advisory can be viewed on the maintainers’ website.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Scary to an extent. In reading the article where “To ensure these files aren’t corrupted or tampered with before being applied, their integrity is verified against an SHA-256 hash. If the two checksums don’t tarry, the file should be discarded.” I could not help but wonder how checksums get tarred?
+Darned speiol chequeres!
+Fixed, thanks!
+I updated my own device. It was a straightforward thing, similar to previous OpenWRT upgrades most other home router firmware upgrades I’ve done. But I had one odd result. Before, I could administer the device with either Chrome or Firefox over HTTPS. The upgrade forced it back to plaintext HTTP, so I have to re-figure out how to handle that. Not that big of a deal for now. The odd result is that Firefox now keeps coming back that I have a bad password, whereas Chrome lets me in. At least I have a fun puzzle to troubleshoot during the lock down.
+I used OpenWRT a year or three ago and IIRC back then there was no TLS support (not really enough flash on Linksys devices) so you were advised to make uhttpd listen on localhost only and then tunnel in via SSH. (The SSH server used to be ‘dropbear’ on OpenWRT, probably still is.)
+This was not a matter of anyone advising me. It was a while back, so I might have a detail or two off. I do most of my management on this device through web browsing rather than SSH, largely because I do not do very much that is all that sophisticated on my home firewalls. I flashed my device from the factory firmware to OpenWRT, then web browsed and set it up for basic outbound web browsing. After I had it setup, I tried test browsing HTTPS to the gateway, and got a response. It used a self signed cert from the OpenWRT device. So, I installed that in my Firefox cert store, setup a hostname in the OpenWRT DNS resolver component, and went to town with HTTPS. 
+I’m a network person who has been doing firewall stuff professionally since I first touched a Cisco Pix in 1998. I currently take care of Juniper ScreenOS, JunOS, and Sophos Astaro firewalls at work. Home firewalls are normally childs play for me.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

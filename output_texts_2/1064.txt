@@ -1,0 +1,60 @@
+Sophos Home protects every Mac and PC in your home 
+Apple, rather unusually in today’s cybersecurity world, rarely announces that security fixes are on the way.
+There’s no equivalent of Microsoft’s Patch Tuesday, which is a regular and predictable fixture in anyone’s cybersecurity calendar; there’s no “new version every fourth Tuesday” as there is with Firefox; there’s no predetermined quarterly schedule for patches as you get with Oracle’s products.
+Apple’s approach is to keep everything under wraps until a working update is ready, and then to announce its patches at the same time that they are available for download:
+Apple doesn’t disclose, discuss or confirm security issues until an investigation has occurred and patches or releases are generally available.
+Interestingly, Apple says that the official reason for doing it this way, rather than having a more regular process that you can plan around, is: “For the protection of our customers“.
+We understand the theory. 
+The idea behind security patches that “just show up” is that as soon as any update is announced or published, crooks and legitimate researchers alike start trying to work backwards from the fix in order to figure out the details of the underlying vulnerability and how it might be exploited.
+Generally speaking, finding vulnerabilities in a complex software bundle is much easier if you know roughly where to start looking, in the same way that it’s a lot easier to solve a crossword puzzle clue if you know the first letter of the answer.
+(Bear in mind that, although all security vulnerabilities are exploitable in theory, many or most bugs that get patched are close to impossible to exploit effectively in real life – you might be able to figure out how to crash a program, for example, but not actually to take it over and implant malware or steal data.)
+So why give anyone, especially the crooks, advance warning of what’s coming?
+Why not play your cards close to your chest so you don’t inadvertently give the crooks a head start?
+The flipside of this approach, of course, is that all Apple security updates – even comparatively unimportant ones that close off minor vulnerabilities that Apple itself discovered privately – feel like emergency updates, because they always arrive so suddenly and unexpectedly.
+So you need to read carefully through Apple update notifications if you are interested in knowing whether they are “patches-as-usual” patches, or “OMG-patch-right-now-and-make-double-sure-it-worked” patches.
+Amusingly, one rule of thumb is that the shorter the update notification email, the more urgent it is.
+Short emails from the Apple Product Security mailing list imply that the patches you are looking at were so important all on their own that they couldn’t wait to be bundled into an update together with the other patches Apple was already working on. 
+(Of course, thanks to Apple’s update secrecy, you can never be sure what patches the company is working on at any moment, and that inevitable uncertainty is another weakness in Apple’s approach.)
+Going by email length, the latest iOS and iPadOS updates, which take you to version 14.4, are ultra-critical, because there are just two items in the list, covering three vulnerabilities numbered CVE-2021-1870, -1871 and -1872:
+The real giveway above, of course, is the pair of statements saying that “this issue may have been actively exploited“, which you can translate as “this is a zero-day bug that attackers already know how to abuse“.
+Zero-days, as you know, are working attacks that the Bad Guys found first, so that even the best-informed sysdmins in the world had zero days during which they could have patched ahead of the crooks.
+In other words, patch right now!
+(Interestingly, there’s no update to the iOS 12.x series that’s still officially supported on some older iDevices such as the iPhone 6 and iPhone 5 – those devices are still on 12.5.1. Apple TVs do get an update, also to 14.4, and Apple Watches go to 7.3.)
+The other giveaway of urgency in Apple’s notification is the presence of the telltale words below information we quoted above, namely: “Additional details available soon,” which you can translate as “this one took us by surprise“.
+As you probably know, actively exploited vulnerabilities such as the ones listed above often appear in the wild in pairs because they’re more dangerous when combined.
+A kernel elevation of privilege bug (EoP) is dangerous on its own, because it could give an attacker access to absolutely everything on your device, not just to the data that belongs to an individual app.
+But a local EoP bug is no use to an attacker who wants to implant malware on your phone remotely, for example via a booby-trapped web page, because the attacker needs to have a foothold on your device already.
+Likewise, a remote code execution bug (RCE) in a single app is dangerous, because it could allow an attacker to dig into everything you do or have done with that app.
+But a compromised photo app, for example, is no use to an attacker who is after your emails or your browsing history, because mobile phone apps are typically insulated from one another, meaning that one app can’t peek at another app’s files.
+However, if crooks can combine an RCE and an EoP bug into a hybrid attack, they can use the RCE to get their initial foothold, immediately followed by the EoP to take over your device entirely.
+In other words, patch right now!
+Even if you’ve got automatic updates turned on, go and check whether you have received the update yet.
+If you check and you already have 14.4, you are done for now; if you don’t have 14.4 then your phone will offer to get it for you right away (do it!).
+The screen to go to is: Settings > General > Software Update.
+LISTEN NOW: UNDERSTANDING VULNERABILITIES
+Learn more about vulnerabilities, how they work, and how to defend against them.Recorded in 2013, this podcast is still an excellent and jargon-free explainer of this vital topic.
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Is there any indication if these particular vulnerabilities apply to the latest version of IOS 13, 13.6?
+No, but as far as I am aware there is no currently supported flavour of iOS 13. 
+There is still an iOS 12 (currently at 12.5.1) for phones that cannot run iOS 14 but are still officially supported by Apple. (My own iPhone 6+ is one of them.)
+Simply put, the “latest version” of iOS 13 is not 13.6 but 14.4. So you should assume that this security update does indeed apply to your now quite out-of-date device, given that Apple is not saying what version introduced these bugs in the first place.
+Paul, thank you for the info, update being applied (very very slow this one). I find it interesting that I get to hear of this first from NakedSecurity, but I can’t see any way of getting my phone/iPad to notify me of a new update. I have automatic updates on but that doesn’t always get things updated with any urgency. It would be really useful if Apple put a message on the wakeup screen, like with Messenger! Or have I missed something? (It took over 10 mins to ‘Prepare’ not including the download!)
+I was under the impression you should get a general sort of notification to tell you it’s there (I think it will appear after the update has downloaded in the background to your device, i.e. when it’s ready to install right away).
+I must admit I never see the notifications on my phone because I signed up to Apple’s mailing list and as soon as I see the email I go and force an update manually. (My understanding is that there’s a random delay for each users if you let the updates come down automatically, which helps to spread the load on Apple’s servers. But if you force an update you essentially jump the queue, as it were.)
+The Sophos Intercept X app for I Phone does let you know ironically (I don’t work for Sophos by the way!). I have the free app on my phone (although I have the family home version on the laptops).
+Hahahaha, it’s not irony, it’s a feature :-)
+From memory, back before I started tracking Apple’s security emails so tightly and updating in a self-competitive way, I think that once the update is downloaded and ready on your device, the button for the Settings app (that weird double cog/sprocket icon) shows up with a red blob, just like you get for a missed call or text message.
+My wife and I use the iPhone 6S.  Both iPhones are stuck at 12.4.1 with the only upgrade option being 14.4. I assume this happened because I neglected to upgrade our iPhones earlier.
+The last time I check upgrading to iOS 14 there were reports of serious problems with the iPhone 6S battery life. The 6S already has battery life issues without making the problem worse via a major iOS upgrade.  I’ll be checking the latest update to see if the issue has been addressed.
+It’s a crazy system that arbitrarily limits important security upgrades.  Fortunately, we limit how we use our iPhones so that important personally identifiable data is not stored on them.  The only financial app is Apple’s Wallet and we only have 2 credit cards enabled.  (We’ve stopped using debit cards.)  I hope that our trust in Wallet’s vaunted security features is not based on misinformation.  Our experience with American Express and Chase account security measures along with the credit card user protections when a number is stolen provides us with some measure of comfort.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,82 @@
+Sophos Home protects every Mac and PC in your home 
+Last year, we wrote about an conference paper from Google’s Project Zero with the catchy title Look, no hands! – The remote, interaction-less attack surface of the iPhone.
+One of the researchers involved in that project has just published an interesting follow-up article on the Project Zero blog,
+This article doesn’t have the intriguing, PR-friendly title of the conference paper, because it’s written in just two words of jargon: Fuzzing ImageIO.
+But for cybersecurity researchers interested in how and why apps misbehave, those two words definitely are attention-grabbing.
+Fuzzing is a bug-hunting technique that you might call 60% science, 30% art, 25% alchemy and a lot of patience.
+In its simplest form, you take well-constructed input files and mutate them thousands, millions, even billions of times each in deliberate and systematic ways before feeding them into software that is supposed to make sense of them.
+The idea is that as well as trying to construct a small but representative sample of test files by hand that you know will carefully exercise the error-checking capabilities of your code…
+…you automatically create a truly enormous and widely varied sea of test files, and then keep an eye on your program to see if any of these (it doesn’t really matter whether they are well-formed or not) cause weird or dangerous behaviour in your code.
+And ImageIO, as its name suggests, is Apple’s built-in programming library that anyone writing an app that handles images is urged to use:
+Image I/O provides the definitive way to access image data because it is highly efficient, allows easy access to metadata, and provides color management. […] Any developer currently using image importers or other image handling libraries should read this document to see how to use the Image I/O framework instead.
+In other words, instead of laboriously adding support for dozens of different image formats to your app by writing code for each new filetype one-by-one, you can just use ImageIO functions and let the operating system take care of figuring out what image type it is, whether it’s supported, and how to read it in.
+You don’t need to worry, or even care, whether it’s JPEG, GIF, PNG, BMP, TIFF or even a file format you’ve never heard off such as KTX (they’re graphics texture files, apparently).
+So the drawcard here for a security researcher is the juxtaposition of the word fuzzing, which means going all-out to find weirdly-corrupted files that reveal bugs in the underlying code, and the word ImageIO, which refers to the core code that gets triggered pretty much any time any iPhone app encounters an image file.
+Image files, even those considered unsophicaticated such as BMPs, are notoriously tricky to read and digest reliably.
+For example, many BMP files have a header near the start that tells you about the size of the image and how it’s organised.
+The header starts with 4 bytes denoting the size of the header – but what if that size is wrong and the header gets misread?
+There’s a 2-byte value to denote the number of bits per pixel, often 24 (RGB) or 32 (RGBA) – but what if it claims something bizarre such as that there are 32,000 bits per pixel?
+There are two 4-byte values for the image width and height – but what if they are negative, or don’t quite match the contents further on in the file?
+Programmers can and should check for these anomalies to avoid their app choking or crashing, but how can you be sure they checked for all possible mismatches or corruptions?
+In his article, Google’s Stefan Groß describes how he enumerated a list of image file formats that ImageIO supports, and then how he set about “fuzzing” the code in the ImageIO libraries.
+Groß started with just 700 representative files, which he calls “seed images”, for the image formats supported.
+He then ran his fuzzer for several weeks to see whether any of the fuzzer inputs would cause problems for the ImageIO code.
+He ended up finding six bugs that caused incorrect access to memory, allowing a mixture of “read where you aren’t supposed to” holes and “write where you aren’t allowed to” errors.
+Out-of-bounds memory reads could allow an attacker to leech data that was supposed to be kept secret, including getting at information such as what system components are where in memory.
+Memory layout information is usually and deliberately randomised by the operating system so that crooks who already know how to crash your phone nevertheless don’t know enough that they can crash it and then reliably control happens next.
+Out-of-bounds memory writes could allow attackers not only to alter the data that a program is relying on, but also to inject changes to the code in order to implant malware.
+All of those bugs were fixed some time ago by Apple, as you might expect.
+Interestingly, one of the bugs turned out to be in Apple’s code for handling OpenEXR (high dynamic range image) files.
+Groß noticed that Apple was using an open source library here, and for good measure, he “decided to fuzz it separately as well.”
+That led to eight more bugs serious enough to get CVE numbers, all of which were fixed in the next release of the relevant library.
+One tricky problem with image handling bugs, especially on mobile devices, is that there are numerous apps in which you expect to see images automatically, without having to click anything first.
+As Groß points out, obvious examples are messaging apps, where the message might be indecipherable without at least some indication – a preview or thumbnail – of what the images in it look like.
+This leads to the same irony that exists in the attack known as Bluejacking, where a creepy stranger close by – in a train carriage or on a bus, for example – anonymously sends you an offensive image.
+Naturally, they know you’ll reject the image, but they also know that the popup that lets you decide includes a tiny thumbnail – how else to know if you want it or not? – so that you basically have to see the image in order to choose not to see it.
+In so-called zero-click image attacks, it’s not your eyes that have to deal with a nasty image in order to protect your eyes from it, but the code that handles images, which on iPhones almost certainly means ImageIO.
+So even messages that you yourself would delete without opening because you can see they’re going to be risky and could crash your phone or worse…
+…may get processed first, images included, and could crash your phone or worse before you get a chance to decide.
+Unfortunately, there isn’t a lot you can do, although you can probably reduce your risk slightly from some apps if you turn off notifications, because those often necessitate processing the messages first to present decent-looking popups.
+If you’re an app developer, of course, you can help like Groß did by fuzzing your own code to look for bugs.
+Even though it generally takes a long time, most of the fuzzing process can run unattended in the background while you get on with other programming tasks.
+The other solution, for app and operating system developers, is to dial back the range of supported image formats a bit, or at least to allow well-informed users to turn off image formats they don’t absolutely need.
+In Groß’s own words:
+On the messenger side, one recommendation is to reduce the attack surface by restricting the receiver to a small number of supported image formats (at least for message previews that don’t require interaction). In that case, the sender would then re-encode any unsupported image format prior to sending it to the receiver. In the case of ImageIO, that would reduce the attack surface from around 25 image formats down to just a handful or less.
+As programmers often find, less can very definitely be more.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Fuzzing is a bug-hunting technique that you might call 60% science, 30% art, 25% alchemy and a lot of patience. 
+“lot of patience” = -15% of bug-hunting technique?
+Surely not!
+OK, maybe the amount of alchemy is more than 25%. 
+(The sum of the parts being more than 100% is just a figure of speech to reflect that fuzzing is, as the name itself metaphorically suggests, quite an interesting mix of trial and error, aim and luck, art and science.)
+If the creepy stranger on the train sends you an offensive picture that will crash your phone, why doesnt it crash his phone when he tries to send it?
+In Bluejacking, the picture doesn’t crash the phone, it offends you. (The reason it doesn’t offend the other person is that they’re a creep.) The problem is that you get shown the thumbnail of, ahem, whatever is in the picture in order to decide whether you want to accept the real image, so you’ve been confronted by it anyway.
+Duck wrote
+“Even though it generally takes a long time, most of the fuzzing process can run largely unattended in the background and doesn’t require the full-time intellectual engagement of a programmer.”
+Funny grammar? Maybe “doesn’t” –> “don’t”
+The thing that doesn’t require engagement is “most of the fuzzing process”.  (You wouldn’t write “the process don’t require”.)
+Correct grammar, actually. Remove anything you can and see how it sounds…
+“most of the […] process […] doesn’t require […]”
+So the question becomes whether “most of …” is plural or singular, and it turns out that it depends on what the state of the following noun is, which in this case is singular (process). If there were multiple processes, then it would be “most of the processes are…”.
+I thought it was fairly obvious that the subject of the sentence was the word “it”, but in hindsight I decided that whole construction was a bit wordy. So I changed it anyway :-)
+Very helpful article. Thank you.
+How likely is it that we will be caught by something like this? It sounds as though it could be challenging to turn it into an exploit that will achieve anything, since the overflow(?) may not end up anywhere useful…. Is that a fair characterisation, or have I missed the point? No need to answer this in any detail, as I don’t know too much about the topic.
+These days, many if not most workable attacks based on memory overflow errors do indeed end up combining multiple vulnerabilities to get the control they need to implant unwanted code remotely. (Turning one or more theoretical attack vectors into a working exploit is known in the jargon by the rather dramatic metaphor “weaponisation”.)
+There’s an interesting link in Groß’s post about figuring out an iMessage exploit based on image parsing bugs of this sort – it’s actually a link to part 1 of a 3-blog-post series, which gives a hint about how many moving parts are often needed.
+That’s all the more reason to fix bugs of this sort early, of course, and a good indication of the value of what is variously known as “defence in depth” or “ layered protection”.
+I am surprised that fuzzers are still finding bugs in image handling code, as it probably the easiest type of code to test with fuzzing. I was doing it nearly 20 years ago for a smartphone OS vendor that sank without trace.
+Also, in your list of percentages, you missed out the 110% luck. Any reasonable fuzzer cannot do an exhaustive search, so you need a random number generator to decide which bits to flip. If you are unlucky your random source will not trip over the right pattern of bits that generates the bug you are looking for.
+One problem with image files is that there are more of them than there were 20 years ago, even those that exist often have all sort of additions and “improvements”, and they’re usually a lot larger with more bits pre pixel, and even multiple images per image (think HEIC; think how modern cameras do High Dynamic Range, which is basically taking two images with different settings as close together as possible; and think burst mode).
+I guess the truism is that you never get all the bugs out, you just make the ones that are left harder to find…
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

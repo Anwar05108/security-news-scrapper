@@ -1,0 +1,90 @@
+Sophos Home protects every Mac and PC in your home 
+Renowned bug-hunter Tavis Ormandy of Google’s Project Zero team recently found a critical security flaw in Mozilla’s cryptographic code.
+Many software vendors rely on third-party open source cryptographic tools, such as OpenSSL, or simply hook up with the cryptographic libraries built into the operating system itself, such as Microsoft’s Secure Channel (Schannel) on Windows or Apple’s Secure Transport on macOS and iOS.
+But Mozilla has always used its own cryptographic library, known as NSS, short for Network Security Services, instead of relying on third-party or system-level code.
+Ironically, this bug is exposed when affected applications set out to test the cryptographic veracity of digital signatures provided by the senders of content such as emails, PDF documents or web pages.
+In other words, the very act of protecting you, by checking up front whether a user or website you’re dealing with is an imposter…
+…could, in theory, lead to you getting hacked by said user or website.
+As Ormandy shows in his bug report, it’s trivial to crash an application outright by exploiting this bug, and not significantly more difficult to perform what you might call a “controlled crash”, which can typically be wrangled into an RCE, short for remote code execution.
+The vulnerability is officially known as CVE-2021-43527, but Ormandy has jokingly dubbed it BigSig, because it involves a buffer overflow provoked by submitting a digital signature signed with a cryptographic key that is bigger than the largest key NSS is programmed to expect.
+A buffer overflow is triggered when a memory area that only has space for X bytes is inadvertently stuffed with Y bytes of data, where Y > X.
+Those superfluous extra (Y-X) bytes of “overflow” typically end up overwriting an adjacent block of memory that is already in use for something else, like a surfeit of ill-behaved guests at a hotel room party who end up spilling out into the corridor, barging into neighouring rooms, and generally making a nuisance of themselves.
+Typically, this sort of memory corruption causes the vulnerable application to veer off course into some unchartered and unknown memory region where the operating system has no choice but to shut it down right away, causing a simple crash.
+But in an RCE, the attackers orchestrate the crash in such a way as to misdirect the application into code they’ve supplied themselves.
+An RCE is like a rogue hotel partygoer who not only barges into your room and creates a disturbance that wakes you up, but also deliberately takes advantage of your temporary confusion by stealing your laptop and your wallet under cover of pretending to apologise while you chase them out.
+The bad news is that any application that uses the NSS library could be affected by this bug, including most Mozilla apps and several other popular open source programs.
+Mozilla explicitly lists the following as impacted:
+The good news, if you like to think of it that way, is that this bug can’t be triggered in Firefox, so Mozilla’s popular browser is not affected.
+Of course, there many be other apps that are vulnerable too – for example, we’re not sure whether the still-active Seamonkey project, which is essentially a Firefox-like browser and a Thunderbird-like email client packaged into a single app, is at risk.
+The bug is down to code that made the infamous, and so often dangerous, assumption that “this is so unlikely that it it almost certain never to happen, therefore it will never happen, therefore there is no need to check if it has”.
+When verifying a digital signature, NSS allocates a chunk of memory to store all the data relevant to the calculations, including the cryptographic public key required for the validation.
+The space reserved for the public key is chosen by working out the size of the largest possible DSA key supported by NSS, the largest possible Elliptic Curve (EC) key supported by NSS, and the largest RSA key, and then using the largest of those values to ensure a buffer that is “always big enough”.
+RSA keys are notoriously much larger that those of other cryptographic algorithms (this is one reason why EC cryptography is taking over from RSA), typically reaching 2048 or even 4096 bits, instead of the 256 or 512 bits typically required for EC keys.
+But RSA keys bigger than 4096 bits are astonishingly rare, not only because they would be much larger than is strictly needed to resist today’s cracking tools, but also because they’re much slower to create and use than smaller keys, even on fast computers.
+We’ve never seen, or even heard of, RSA keys of 16384 bits in real-life use, given that they’re typically between 500 and 1000 times slower to generate than 2048 bit keys, which are still currently considered acceptably large to resist attack.
+Indeed, the public key buffer allocated for NSS signature verification is 16384 bits long, a size that ought to be more than enough for many years to come…
+…and the code that copies an incoming public key into that buffer therefore assumes that no one would go to the trouble of generating a larger RSA key, so it doesn’t bother checking that the key it just received actually fits.
+The bug fix was to add in the size-checking code that ought to have been there all along.
+TIPS FOR FINDING AND VERSIONING NSS FILES
+On Linux, you can search for copies of the NSS library code with the find command. The output from our system is shown as an example.
+We have Firefox, Tor and LibreOffice installed, so we conclude from this output that Firefox and Tor have their own NSS library copies, while LibreOffice is relying on the one provided by our distro in /usr/lib64:
+On Windows, try the DIR command shown below, from a regular command prompt window (i.e. run CMD.EXE, not PowerShell). 
+We have installed Firefox and LibreOffice, both of which contain their own copy of the NSS3 library file, and will therefore need updating via their own download sources. Remember that Firefox is not affected by this bug, but LibreOffice is.
+Identifying the internal version numbers of the NSS files that turn up in tour search can be tricky, given that the only reliable way to do so is to load the library and ask it to report on itself.
+The code below worked for us on Linux. Save as nsschk.c, compile with gcc -o nsschk nsschk.c -ldl, and run ./nsschk with the NSS library file you wish to check on the command line:
+Our NSS files (see above) showed up as follows:
+Our distro-managed version, as used by the vulnerable LibreOffice, is up to date. Firefox and Tor will presumably be updated soon by Mozilla and the Tor Project respectively, but as they are both apparently immune to this bug, we consider them safe.
+On a Mac, you can use the same code, but you will explicitly need to tell macOS what directory to use for the NSS library files, or change the current directory to the location of the libnss3 file first. Also, search for both libnss3.so and libnss3.dylib, because both extensions are used in macOS builds. 
+On our test Mac, for example, we searched the /Applications folder for NSS libraries:
+A few modifications produced code that worked for us on Windows. To ensure that Windows finds all the additional DLLs that the NSS3.DLL library needs, change directory to where the NSS3.DLL version resides, and run the NSSCHK.EXE command in that directory.
+Our results were as follows:
+We infer from the output above that LibreOffice on Windows is currently vulnerable (we downloaded the latest version to do this test), so watch out for an update notification and grab the new version as soon as a patched build is avilable.
+Go to the Options > LibreOffice > Online Update dialog and click [Check Now] to see if a new version is available.
+Update. Shortly after writing this article, LibreOffice 7.2.4 was released. This includes an NSS3.DLL file dated 2012-12-03 that our code above (and the Explorer Properties dialog) reports as NSS 3.73.
+You can also right-click on the NSS3.DLL file in Windows Explorer and choose Properties > Details, but the version string seems to depend on how the application package was built, so it may not reveal the actual NSS version number. 
+For example, on our Windows computer, the NSS3.DLL delivered as part of the Firefox app was labelled with the top-level Firefox version details; the LibreOffice DLL revealed the NSS-specific version string:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+So the TL;DR advice for naïve Windows / Mac users is: if you have LibreOffice installed, wait for the next version of LibreOffice and grab it as soon as possible.  Thunderbird (if you have that) should take care of its own updates.
+You can check for updates on Thunderbird the same way as you do in Tor or Firefox: go to the About menu, and you will see an update check happening then and there. If there’s an update, a button will appear to start the process right away. (Note that once you have finished an update, you should go back into About and click the [Restart] button if needed, in order to apply the update. Additionally, you should go back to the About menu after an update and check a second time, in case you were so far behind that the previous update didn’t make it all the way. I am reluctant to admit how I know that, but I will say that my test Mac had an ancient version of T-bird I’d forgotten about, and it took about three iterations to leapfrog my way to the latest -)
+LibreOffice can also be configured to take care of updates by itself. IIRC the default setting is to check once a week, but you can change that to daily in the same dialog as described in the article.
+I wish I could describe a way to update the NSS files in a LibreOffice install “by hand” temporarily, to close this hole right away until LibreOffice itself catches up, but I am not aware of an official, pre-built version of the NSS library files that you could download and use even if this sort of “self-update” were plausible and reliable.
+HtH.
+Excellent write-up as always, Duck.
+For what it’s worth, I discovered NSS3.DLL under “C:\Program Files\Fortinet\FortiClient” using DIR as described above, so it’s definitely worth a quick search.
+Thanks for your kind words. Glad you found it useful!
+Did you figure out what version that NSS3.DLL was? If you don’t have a C compiler handy you could try using Explorer and just doing right-click > Properties on the file. The version strings, however, don’t always seem to match the NSS version. For example, in my Firefox directory, all the EXEs and DLLs seem to be labelled with the Firefox release number (which makes sense because it shows that they belong in the same overall product build). In my LibreOffice directory, the version string in Properties is the same as the one retrieved via NSS_GetVersion(). This inconsistency is what led me to hack up the code in the article.
+So YMMV. I’d be interested to know what the version shows up as, and whether the Properties dialog shows the NSS version or the top-level app version.
+That file from the FortiClient was v3.12, according to the file properties approach.
+Thanks!
+A little typo here…Search for “where the NSS3.DDL version resides” and change it to DLL.
+Fixed, thanks!
+I found it in Inkscape …
+ Directory of C:\Program Files\Inkscape
+13/11/2017  07:33         1,252,976 nss3.dll
+               1 File(s)      1,252,976 bytes
+I can’t tell you if it uses the relevant features.
+The date suggests it’s a long way old!
+Thank you for the write up and explanation. I found a copy apparently from 2002.
+ Directory of C:\Windows\SysWOW64
+27/02/2002  09:41           475,136 nss3.dll
+               1 File(s)        475,136 bytes
+The copyright notice is for ‘1994-2001 Netscape Communication Corporation’, It’s existence and location are a concern. I didn’t expect it to be there. I wonder what put it there. I am tempted to delete it and see what, if anything breaks. Any thoughts or suggestions?
+Cheers Ian
+PS My PC was built in April.
+You could try renaming instead of deleting it…
+Have you installed any old network utilities since building the PC? (I guess in is Win 10)? An old email client, RSS reader, PDF viewer, media player?
+Hard to figure out at this stage where it came from (or how it came to be installed there)…
+Also found one in the Tor Browser browser folder. The latest LibreOffice has a nss3.dll version 3.73.0.0 signed Friday December 3, 2021.
+Thanks for checking. LibreOffice has been updated since I wrote the article  – it was 7.2.3 when I downloaded it last week; it’s 7.2.4 now. 
+Annoyingly, the offical LibreOffice Release Notes don’t mention NSS at all, but I am assuming that the 7.2.4 update was at least in part driven by this issue.
+Updated the article to include this info. I updated LO on my Windows test machine and the NSS3.DLL shows up as you say. My code and Explorer > Properties now both say NSS 3.73.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

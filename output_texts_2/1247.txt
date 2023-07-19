@@ -1,0 +1,48 @@
+Sophos Home protects every Mac and PC in your home 
+It’s been a wild few weeks for Apple, or perhaps an “in-the-wild” few weeks, with several zero-day bugs necessitating emergency updates.
+We were going to say “unexpected updates”, but all (or almost all) Apple security patches are, of course, unexpected by design. 
+Apple deliberately announces security fixes only after they’ve been published, so you couldn’t plan for them even if you wanted.
+Apple claims that this is for “customers’ protection”, because it prevents crooks who may have heard rumours about a security hole but haven’t figured it our for themselves from working out where to start looking for it. 
+On the other hand, it also means that you will hardly ever hear about official workarounds or threat mitigations from Apple, even if those workarounds might keep you safe during the gap between the zero-day hole appearing and the patch being created, tested and released.
+Remember that zero-day vulnerabilities refer to bugs that cybercriminals know how to exploit before a patch is available, with the result that even a well-informed user or sysadmin would have had zero days to get officially ahead of the Bad Guys.
+Apple’s clipped-as-ever prose [2021-10-11T23:55Z] says simply:
+As we’ve mentioned before, memory corruption bugs that affect the kernel itself are usually much more serious than bugs that only affect regular apps.
+Apps in iOS and iPadOS are insulated from each other to the point that even if you can crash an app and take it over, you usually can’t get access to anything other than the files and saved data that belong to the app.
+Each app effectively runs as if it were a separate user, with its own account and access control settings, so apps can only interact or read each others’ files in carefully regulated ways. 
+This contrasts with typical laptop and desktop apps, where your email software can typically read your documents, your document processing app can typically read your spreadsheets, your spreadsheets can peek at your accounting databases, and so on.
+But the app separation on iPhones and iPads is set up and regulated by the kernel, making the kernel itself into a kind of “ueberapp” that is a trophy target for any jailbreaker, threat researcher or cybercriminal.
+In other words, a remote code execution bug in the kernel could allow an attacker to trick an otherwise legitimate and harmless app into compromising the very core of the operating system.
+When the kernel is exploited, the side-effects may blow away iOS’s inter-app protection entirely and allow a single rogue app to snoop on and take control over everything.
+In several previous emergency update situations where Apple has witheld its official email security bulletins, the reason seems to have been  that related updates were also needed for other operating system in Apple’s menagerie, including macOS and older flavours of iOS.
+As a result, Apple said nothing much about anything until all the updates were ready.
+Does this mean, in this case, that iOS 14, iOS 12, macOS Big Sur and macOS Catalina are vulnerable too, and will be receiving patches in due course?
+As usual, we can’t say, but we advise you to keep your eye on Apple’s core security page, numbered HT20122, in case there’s any additional news you need to keep up with over the next few days.
+Update. We received an Apple security bulletin for iOS 15.0.2 and iPadOS 15.0.2 by email shortly after writing this article. However, the HT201222 security update portal page has not yet been updated [2021-10-12T12:00Z].
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I think that apple is not producing their software products
+Ironically, I think that’s a criticism that is more appropriate to Android devices, which use a licensed-in (and variously modified) software stack supplied by Google, and to IoT (internet-of-things) devices, which are often just rebranded “finished products” licensed from an original equipment manufacturer (OEM) who provides the hardware, software and firmware as a part of the licensed whole. In fact, many people criticise Apple for what is effectively the *inverse* of what you claim, namely that Apple *only* sells full-and-finished products, and won’t let anyone else use Apple hardware with non-Apple operating system software, or vice versa.
+Of course, even if you do outsource or license in the development, sales, support, updates and so on for “your” software product… the responsibility still stops with you, in the same way that if you contract someone else to do your marketing, collect your debts or store your data, their breach of youtr data becomes your breach.
+“ueberapp” ? What’s that?
+The “app that rules all the other apps”. (Ueber being the German word for “over” in the sense of “above” or “overarching”, given than the sounds for B and V are sufficiently similar that the Ancient Greek letter B has retained its shape in Modern Greek, but is pronounced “veta”, not “beta”. Germans would usually write “Über”, because it is a four-letter word in the German alphavet, but you are allowed to write “ueber” on the understanding that the first two ASCII characters indivisibly represent one letter. You see the spelling “uber” a lot in North American English, but that’s a typo.)
+I was not impressed with all the ‘selections’ that have to be made before you can access your phone after the update. Other than that, it didn’t seam to break anything work related.
+I am not crazy about those either… but lots of OSes are doing that now, re-asking you about choices you already made. (Android 11 is the most annoying in this regard – it has a “why not add a credit card to your Google Pay account” [which I don’t have and thus rather obviously don’t want] on the *shutdown* page. So every time I turn it off, it’s badgering me for a credit card at bed-time so I won’t lose a moment tomorrow morning when I turn my phone back on and urgently need to start buying stuff.
+“Hey, we know you have chosen not to enable location by default for the last 15 updates, BUT PERHAPS YOU FINALLY WANT TO CHANGE YOUR MIND THIS TIME BECAUSE YOUR PREVIOUS CHOICES TO TURN IT OFF WERE ALL ILL-INFORMED, OR FAILING THAT PERHAPS WE HAVE SIMPLY WORN DOWN YOUR REMAINING RESISTANCE, either way is fine by us?”
+PS. I am a big believer in “shut down” rather than lock screen (or suspend/hibernate on a laptop) when I don’t *need* the device to be awake at all. My Android doesn’t have a SIM card in it (too many junk calls these days) for any old-school telephony purpose, why not power it off overnight?
+Note that CVE-2021-30883 which was the basis of the security part of this update has been withdrawn: https://nvd.nist.gov/vuln/detail/CVE-2021-30883
+Well, it really *is* a bug and it really can be abused, because someone already reverse engineered Apple’s patch and helpfully developed proof-of-concept code to help you on the path to exploiting it, too :-)
+Seems like the ball is in NIST’s court to tell us all what it means that this bug was “rejected” and “withdrawn by the candidate team*, and how it would like us to refer to it instead. Or for Apple to check that it didn’t make a typo in its security bulletin.
+Unless and until either NIST or Apple does that, I propose that the text string “CVE-2021-30883” is a sastifactory abbreviated name for this bug, given that it wont’t ever be used for anything else (according to my reading of NIST’s site), there is a genuine security hole here, and everyone seems to be using that name anyway.
+(I guess if I were NIST I would simply rescind the original “rejection” of the bug, and adopt 2021-30883 as the identifier for “this very bug”. Interestingly, the candidate number was withdrawn on the very same day it was originally allocated, according to NIST’s change log, and that was nearly two months ago. But we can only guess why… perhaps it had already been reported or logged with a different number?)
+On 10/28/2021, Mitre changed the description of the CVE from “Rejected” to: 
+“A memory corruption issue was addressed with improved memory handling. This issue is fixed in iOS 15.0.2 and iPadOS 15.0.2, macOS Monterey 12.0.1, iOS 14.8.1 and iPadOS 14.8.1, tvOS 15.1, watchOS 8.1, macOS Big Sur 11.6.1. An application may be able to execute arbitrary code with kernel privileges. Apple is aware of a report that this issue may have been actively exploited..”
+So the rejection was changed to the above description. CVE-2021-30883 is alive and well. It could be that previous rejection was for an entirely different vulnerability which was assigned the same number, or else they reversed the rejection of this one after a second look.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

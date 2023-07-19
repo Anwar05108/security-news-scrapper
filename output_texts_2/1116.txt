@@ -1,0 +1,97 @@
+Sophos Home protects every Mac and PC in your home 
+It’s three weeks since the word HAFNIUM hit the news.
+The word Hafnium refers to a cybergang who are said to focus on stealing data from pretty much anyone and everyone they can infiltrate, across an eclectic range of industry sectors, and this time they hit a sort-of cybercrime jackpot.
+The Hafnium crew, it turned out, not only knew about four zero-day vulnerabilities in Microsoft Exchange, but also knew how to exploit these bugs reliably in order to walk into unprotected networks almost at will.
+The Exchange bugs didn’t include a remote code exeution (RCE) hole to give the crooks the direct and immediate access to a compromised server, but the bugs did allow the crooks to rig up RCE using a trick known as a webshell.
+Greatly simplified, the attack goes like this:
+Unfortunately, as we explained when this news first broke, the name Hafnium caused fourfold confusion:
+It’s the last of these issues that concerns us here, because the Sophos Managed Threat Response team recently investigated a number of cases in which networks that hadn’t been patched against the abovementioned Exchange bugs had been infiltrated and attacked by a strain of ransomware going by the dramatic name of BlackKingdom.
+In case you’re wondering, the crooks variously refer to their own ransomware using two words, weirdly written Black KingDom, as well using one word, as we’ve written it here. (We’ll stick to BlackKingdom in order to make it clear that we are talking about a specific threat, in the same way that we might write WannaCry or TeslaCrypt.)
+The bugs exploited in this case are now widely referred to as ProxyLogon, which is the popular name used to refer to attacks that start off by using the Exchange bug CVE-2021-26855, typically followed by using CVE-2021-27065 and perhaps CVE-2021-26857 and CVE-2021-26858. The name ProxyLogin is a better word to use than Hafnium if you’re specifically talking about an intrusion initiated by those bugs, because the name isn’t tied to any criminal gang, and doesn’t imply any specific reason for the attack.
+If you’re after the low-level details of BlackKingdom, you’ll be glad to know that SophosLabs has published a technical analysis of the malware program that does the dirty work.
+Read the Labs report if you want to find out exactly how the malware works, and to get indicators of compromise you can look for on your network and in your own logs.
+Although BlackKingdom is not technically sophisticated, that’s cold comfort if it’s just scrambled all your files.
+As SophosLabs put it:
+[O]ur early analysis reveals that it is somewhat rudimentary and amateurish in its composition, but it can still cause a great deal of damage.
+Black Kingdom ransomware begins appearing on Exchange servers
+
+
+Like many families of ransomware, this one:
+The blackmail demand starts like this:
+The amount demanded is $10,000 in Bitcoin for each computer attacked:
+Whether or not the criminals behind this attack really are routinely stealing their victims’ files before scrambling them, we aren’t sure.
+However, as you will see from the SophosLabs analysis, the ransomware program that produces this message was installed and executed using the ProxyLogon exploits, which allow remote crooks to implant and run almost any program they want.
+So even if they didn’t steal all your data first, they almost certainly could have…
+…and so could any other crooks who came across your unpatched servers before, during or after the BlackKingdom attack.
+By the way, there are a few peculiarities about the BlackKingdom malware that give you a small (though it may admittedly only be a very small) chance of recovering your data, even if you don’t have a backup, without paying the criminals for the decryption key.
+So if you do end up as a victim of this attack, talk to someone you know and trust for advice before you rush into any ill-considered response.
+If you have suffered any sort of cybercrime attack, including but not limited to ransomware, and you don’t have an IT partner of your own to turn to, the Sophos Managed Threat Response or Sophos Rapid Response team would be happy to hear from you.
+LEARN MORE: HAFNIUM EXPLAINED IN PLAIN ENGLISH
+
+Original video here: https://www.youtube.com/watch?v=xVasO4k-mMQ
+Click the cog icon to speed up playback or show live subtitles.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“unlocking up your database files” should be “locking up your database files”.
+Fixed, thanks! (Actually, it was supposed to be simply “unlocking” :-)
+Peruse your logs. Crooks don’t always succeed at their first attempt, so keep your eye open for signs that an attack may be under way.
+All very well to say if you are a trained IT Security specialist – but then if you are, you will already be doing this?
+But if you are not? Either because you are a small firm “relying” on an IT partner whose “offering” in terms of cybersecurity you don’t really understand or because you are an individual possibly with hosted webspace/email or even with a single PC? Reading log files would be like reading a thesaurus not just in a language we don’t understand but in a script so foreign that we are not even sure whether it reads left to right!
+So for those of us say running a PC or two (Windows/Mac/Linux) connected via a modem-router (with presumably its own logfiles) to third party hosted email-servers and webspace, what does “Peruse your logs” actually mean in practice? Presumably part of your daily IT hygiene activities, but what should we be looking for, where and how? (“find”/”grep”?)
+Good question, and strangely both easy and hard to answer :-)
+That advice was largely aimed at the sort of company that *could* (and has a fairly good ides of how to) “peruse its logs”. Sadly, your rhetorical question does have an answer, namely that many companies, of all sizes, struggle to make the time to work through their logs, because, well, life’s like that. My point here, therefore, is simply to say, “Because your network’s worth it.”
+For home users, however, “how to do it” really is a tough question to answer, especially where your router is concerned, because every manufacturer/vendor/ISP/firmware flavout seems to do it differently.
+As a starting point, I recommend logging into your router’s web interface (hopefully it’s on;ly accesible from inside!) and learning your way around, just so you know what information you can get out of it when needed. 
+Whenever I get a new router I spend an hour or so trying all the options on every menu on every screen, and I jot down the location of useful-looking settings or info pages so I can find them easily next time, e.g. how to review which inbound connections are allowed and edit them, how to generate a list of all devices that are (or have been) on the network since last time I looked, and what sort of text-based logfiles I can download (and what settings exist to discard info I think I am simply never going to use, to keep the logs more manageable). Sometimes, uaeful information gets hidden away N levels deep in tabs+menus+options, and unless you go spelunking you may never find it.
+Then I download sample logfiles and pore over them for a while, and (as you suggest) practise searching them for useful-looking strings with simle tools like find/grep. If I can, I will try probing my own router from outside first in order to see what the log entries look like for known-good and known-bad connection attempts. 
+If nothing else, make sure you review your connection list from time to time – not so much to catch out any nosy neighbours, but to make sure that old devices you thought you had disconnected, like the “old” smart TV that is no longer getting Android security updates, really *did* get removed from your network.
+Also, remember to go in and download/clean old log entries regularly, given that your router probably doesn’t have much storage.
+PS. If you have port 22 (SSH) open, be prepared for a *lot* (hundreds? thousands? millions?) of failed login attempts. Automated scanners typically find you within a few minutes of your modem connecting. Moving SSH to another randimly chosen port will not improve security, but you might want to do it anyway because it will almost certainly reduce the SSH “log spam” you get.
+Thanks for your detailed reply – which prompted me to revisit my router logs (which I do not examine as much as the server logs on my (external) webhost – which has previously been attacked).
+My router (Linksys – piggybacked on an old netgear modem/router) does not have extensive logs (I expect that it also dumps logs after a given period – the logs are pretty short, but I cannot find in the documentation any reference to them being “rolling x hours” logs)
+No unexpected “active” devices under the “Status” page – although the DHCP client list does list more devices (but again no surprises – includes inactive devices)
+“Incoming Log” is empty – presumably it means “nothing coming in other than in response to web requests and email polling” from me – so good – I think!
+“Outgoing Log” is sparse; a short list without timestamps of (for the last 24 hours):
+Lan IP Address – constant 192.168. etc – OK
+Destination URL – remarkably few unique hosts when I manually(!) do a WhoIs? check on each one: My web/email host, my ISP, Google LLC, Amazon technologies, Amazon, Automattic (WordPress), Fastly, Akamai Technologies, Canonical Group, (I have visited far more websites during this time – including Sophos – but presumably they are hidden behind my ISP)
+Service* – imap, pop3s, www, “domain” (to my ISP), https, pop3, ntp
+“Security Log” – empty (LAN IP address | MAC address | Timestamp | Authentication result)
+“DHCP Log” – empty (LAN IP address | MAC address | Timestamp | Message Type)
+* Service
+No SSH – which is good although I see no setting on the router to turn it off / prohibit it
+So the pop3 should not be there, I have tracked down the relevant email account and changed it to Port 995.
+Not sure why Amazon technologies should attempt to use ntp – presumably an Amazon AWS client (but who and what are they doing? Canonical doing an Ubuntu update?).
+Also, strangely no “http” even though a lot of abbreviated links in (trusted) emails (typically news briefings from well known publications e.g. Scientific American ) are http – triggering a “no https” warning in Firefox; I have to continue with http and they then resolve to an https link.
+So the review raises a few questions that I do not know how to resolve and leaves me feeling “other than that everything looks OK” – but with an uncomfortable feeling that perhaps the logs are not telling me enough? I suspect that this is typical of many home / home office users?
+Time to flash my router with third party router software that might tell me more?
+Linksys was the brand that inspired OpenWRT in the first place… just make sure your model is properly supported. If you have a separate modem then you are in a good position.
+If you’re feeling adventurous (by which I mean if you have a spare computer, e.g. laptop) you could try the Sophos Firewall Home Edition. You get everything for free (including malware scanning, email filtering, web filtering, IPS, VPN and so on):
+https://www.sophos.com/en-us/products/free-tools/sophos-xg-firewall-home-edition.aspx
+Thanks again – I have been toying with Sophos Firewall Home Edition. You are right to say “if you are feeling adventurous”:
+– I am happy about installing a specialist OS (it is how I set up my laptops with Linux), so that is not too adventurous
+– “What you need: Intel compatible computer with dual network interfaces.” How many laptops have dual network interfaces (or are they virtual?)? If so I struggle to visualise the physical set-up; presumably not an ethernet chain [modem/router ->- firewall laptop ->- main router]?
+– I have an old but 64bit Intel laptop (Intel Celeron Dual-Core T3100 2 x 1.9 GHz) with a dead graphics chip (but the HDMI interface works) with a single Ethernet port which might be OK, but what happens to the throughput if you try and use an old USB port on an already oldish laptop as a network port?
+(The Sophos support forums require me to register, but when I attempt to do so I find that all the “registration fields” are actually images, so I seem excluded?)
+I have previously wondered about getting a mini-PC with a couple of ethernet adaptors (were about £350); if Sophos recommended such hardware I would go for it with more confidence.
+On the other hand my Linksys router is compatible with OpenWRT! (Presumably your reference to being in a good position with a modem router is referring to having a backup provision should I brick my router?)
+You could try just setting up your Sophos Home appliance in a VM with two virtual interfaces, one set up to NAT its way onto the internet and the other set up to map onto the host adapter so that the appliance is bridged (is that the right word?) onto your LAN.
+If you run the VM “headless” then you won’t need a screen on the laptop. (And laptops with even a bit of battery life left have a built-in UPS!)
+Or you could try plugging in a $5 USB-to-Ethernet dongle that you know Linux will readily recognise. (Our Firewall appliance is Linux based.) I haven’t tried this myself but I am assuming it will work…
+There is also an official way (more precisely, there was the last time I tried it :-) to get a console login to your appliance so in theory I suspect you could set up two interfaces on one physical port, using different IP subnets, but that approach would be more of a science project than usual.
+Given that you have a spare computer you might as well try it – the appliance licence costs $0 so you can have your money back if it doesn’t work, hahahahaha.
+Great article and another eye-opener, thanks Paul.  Due to its severity, it’s good to see that Sophos’ knowledge of this particular threat and mitigation is continuously driven.
+“What to do?
+Patch early, patch often. If you’re genuinely think uou are at risk…” doesn’t read quite right 🙂
+However, the message is very clear.  Patching this threat (and in general) should be a priority for us all.
+Fixed, thanks!
+It’s the wild west out here. We’re in Dodge City and we have no sheriff.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

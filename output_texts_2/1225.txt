@@ -1,0 +1,60 @@
+Sophos Home protects every Mac and PC in your home 
+Details are scarce so far, but Microsoft is warning Office users about a bug that’s dubbed CVE-2021-40444, and described as Microsoft MSHTML Remote Code Execution Vulnerability.
+The bug doesn’t have a patch yet, so it’s what’s known as a zero-day, shorthand for “the Good Guys were zero days ahead of the Bad Guys with a patch for this vulnerability.”
+In other words: the crooks got there first.
+As far as we can tell, the treachery works like this:
+MSHTML isn’t a full-on browser itself, but it forms the core “web engine” of Internet Explorer, and can be used on its own to create browsers or browser-like applications that need or want to display HTML files.
+Even though HTML is most closely associated with web browsing, many apps other than browsers find it useful to be able to render and display web content, for example as a convenient and good-looking way to present documentation and help files, or to let users fill in and submit support tickets.
+This “stripped down minibrowser” concept can be found not only on Windows but also on Google’s Android and Apple’s iOS, where the components Blink and WebKit respectively provide the same sort of functionality as MSHTML on Microsoft platforms. Mozilla products such as Firefox and Thunderbird are based on a similar idea, known as Gecko. On iOS, interestingly, Apple not only uses WebKit as the core of its own browser, Safari, but also mandates the use of WebKit in browsers or browser-like apps from all other vendors. That’s why Firefox on iOS is the only version of that product that doesn’t include Gecko – it has no choice but to use WebKit instead.
+What this means is that HTML rendering bugs don’t just affect your browser and your browsing activity.
+There are often many different ways for cybercriminals to poke a virtual stick into vulnerabilities in your operating system’s web rendering code, and thereby to probe for exploits, without needing your browser to be open at all.
+Even if there’s a bug that they can’t control closely enough to take over your browser, they may be able to find other applications in which the vulnerability can be abused not only to crash the app, but also to exploit it in order to grab control from it and implant malware.
+That’s what CVE-2021-40444 seems to do, with the attack being delivered via Office files loaded into Word, Excel and so on, rather than by web pages viewed directly in your browser.
+Although Microsoft no longer recommends the use of Internet Explorer, saying instead that “customers are encouraged to move to Microsoft Edge”, the features and the flaws of the MSHTML web rendering engine at the heart of Internet Explorer remain part of the operating system itself.
+GROUP POLICY SETTINGS AND REGISTRY ENTRIES YOU MAY FIND USEFUL
+1. To neutralise ActiveX inside Internet Explorer (of which MSHTML forms the core, as explained above), follow the registry modification instructions in Microsoft’s own Security Update Guide for CVE-2021-40444.
+Sophos customers who have applied these modifications can use the Sophos Live Discover tool to search their network for computers that missed out on the mitigation with a query like this:
+2. In the Windows Group Policy Editor, look for the settings listed below. 
+You can use the gpedit.msc app to edit the local Group Policy on a standalone computer, or the Group Policy Management Console app if you are managing a Windows domain.
+Note that the VBA settings below (VBA is short for Visual Basic for Applications, also known as “Office macro code”) don’t directly help with the CVE-2021-40444 zero-day hole, which relies on ActiveX, but are worth considering as an additional part of your Microsoft Office security posture.
+To administer the Office settings above via the Group Policy editor, you will need to install the Administrative Templates for Office 365, Office 2019 and Office 2016 files from Microsoft, which aren’t installed by default on Windows desktops or servers, even if you have already installed Office itself. 
+Download the above file, extract the contents to your desktop or some other convenient folder, and then copy the contents of the admx directory and its subdirectories into C:\Windows\Policy Definitions.
+3. If you want to turn on the Disable All ActiveX option on your own computer directly without using gpedit, and you are comfortable with editing the Windows registry yourself, you can create the following entry:
+4. From CMD.EXE (a regular command prompt window), you can use these commands to check and set the relevant registry entry:
+SOPHOS DETECTION NAMES
+Sophos products, including email, firewall and endpoint protection products, can detect and block this exploit and the malware we’ve seen delivered with it.
+You can search for the following names in your product logs:
+Note that the final malware delivered by the crooks may differ from attack to attack, and note also that the specific Troj/Agent-* zombie malware variants listed could be delivered in other ways.
+In other words, an attack with Exp/2140444-A wouldn’t inevitably lead to Troj/Agent-BHRO or Troj/Agent-BHPO on your network, while the presence of Troj/Agent-BHRO or Troj/Agent-BHPO on their own wouldn’t inevitably imply that the cause was Exp/2140444-A.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Is there a sample Office doc with embedded ActiveX available from a trusted source, so that we can test our defences?
+Hmmmm…. I was wondering if I could hack one together myself, until I figured that I wouldn’t be able to publish it reliable without freaking people out :-)
+I’ll ask our Labs people if they can describe a way to do this for yourself, so you *know* you can trust it!
+Are there any instructions for installing the admin templates? The MS site just says “extract to a folder of your choosing”. Extracting to the “Policy Definitions” folder doesn’t make the policies available in gpedit.msc.
+Yes, I did this myself and realised that Microsoft’s instructions at the download link are inadequate – the directory structure inside the self-expanding EXE file doesn’t seem to suit what you need in the Policy Definitions folder. (I have updated the article to reflect what worked for me.)
+In particular, the Microsoft archive contains an Excel file (which handily lists ALL the GPO options, more than 3000 of them!) plus two subdirectories called admx and admin. As far as I can see, you need to extract the archive somewhere handy, and then copy *just what’s in the admx subdirectory* (inlcuding its own subdirectories) into the Policy Definitions folder. When I did this, exited from gpedit and launched it again, there they were!
+Microsoft claim that their Defender Antivirus provides protection for the known vulnerability. Does Sophos Endpoint Advanced with Intercept-X protect against this exploit?
+Yes, we can detect and block this stuff. I will add the Sophos detection names to the article for those who want to know what to look out for!
+Can this bug be exploited when we open a HTML email in Outlook?
+I don’t think so. As I understand the bug so far: [a] an Office file is involved, and you need to open that file in Office somehow (Outlook on its own is not enough) and [b] once the file opens up, you then have to tell Office that you want to abandon Protected View (the default setting) by clicking in the yellow security warning bar that comes up.
+As far as I know, this exploit can’t be triggered automatically by Outlook alone, whether you’re using HTML mode or plain text mode, so simply reading an email in Outlook is not enough. 
+Thanks for posting the group policy settings. Had not seen any other article mention them. Was happy to see I already had set these setting years ago.
+Glad you found them useful. Those settings are neither necessary nor sufficient (as a mathematicican might say) to suppress CVE-2021-40444, but if you’re about to review your Office security settings because this particular vulnerability has got you thinking about such things…
+…then why not consider the many other safety valves available at the same time? You may find them surprisingly effective and not as intrusive on day-to-day business as you first thought.
+For example, this exploit doesn’t rely on VBA, so blocking macros outright for internet documents won’t stop this attack… but it will stop 1000s of others!
+Ahh interesting, I did read that too quickly and missed disclaimer in article. Thanks for reiterating. 
+I wouId think though that “Disable All ActiveX” in User Configuration > Administrative Templates >
+   Microsoft Office 2016 > Security Settings  would inherently block it? Is noteworthy I suppose that  Microsoft did not mention as a mitigation.
+I wondered that myself. I suspect that either or both of these apply: [a] blocking all ActiveX in Office alone won’t stop the MSHTML part of this bug, and [b] blocking all ActiveX in Office is likely to be considered “too intrusive” by many syadmins (who might love the idea of blocking it yet be concerned about complaints from their users :-)
+Thank you. Very useful article.
+Glad you liked it!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

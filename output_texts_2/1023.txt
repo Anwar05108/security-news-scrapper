@@ -1,0 +1,53 @@
+Sophos Home protects every Mac and PC in your home 
+Modern telephony is full of anachronisms.
+For example, we still “dial” calls, and many phone apps still display the word “dialling” while they’re waiting for the person at the other end to pick up.
+But when was the last time you saw, let alone used, a phone that actually had a dial? 
+And we still use idioms such as “ringing off the hook” to describe a day where we never seem to stop receiving calls, even though household phones haven’t actually had hooks since about 1912 and you’d probably have to go to a museum to see one.
+Hooks weren’t a necessary part of the early telephone system, of course – in the exchange, calls were switched using jack plugs – but a gravity-operated switch that activated when the receiver was replaced or removed was a clever user interface choice.
+You needed somewhere to store the receiver when you were no longer using it at the end of a call, so providing a place to hang it up that simultaneously disconnected the receiver from the circuit was a smart design decision – on the hook automatically meant out of circuit.
+Actually disconnecting the receiver electrically from the circuit when not in use was important. On a single line connection, leaving the receiver off-hook prevented the circuit being used by anyone else, and therefore tied up a line in the exchange. On a party line, where several homes were wired to a single connection, if too many households had their phones off the hook (i.e. in the circuit) at the same time, the additional electrical load on the shared circuit would prevent everyone’s ringers working and the exchange would not be able to put calls through to anyone.
+As you probably know, mobile voice messaging doesn’t rely on this “circuit switched” approach any more.
+When you make a Messenger call, for example, the app on your device – which could be a mobile phone, a laptop or even something like a smart TV – asks the Messenger cloud to locate the recipient’s device, and the apps at each end start negotiating to set up a call.
+Once the call is accepted by the recipient – typically after the app has played a ringtone, popped up a message or both, and the recipient has opted in to the call – then the apps start exchanging network packets of audio data.
+The app at each end samples audio data from its own microphone and sends it off in chunks to the other end; at the same time it takes the audio chunks received from the other end, stitches them back together and plays them out of its own headset or speaker.
+If the network is slow or unreliable, the app typically won’t drop the call, but will do its best to carry on anyway, either by leaving silent gaps in the audio, or by guessing in the case of short outages (that’s typically what is happening on an internet voice call when you hear a sound rrrrrrrepee-ee-ee-eated unnaturally), or by falling back to lower, scratchier quality.
+In other words, there is no actual circuit that gets switched on or off between two internet phones, like there is between two old-school landlines connected to the same exchange.
+Likewise, if the app has a mute button, it doesn’t work by disconnecting the microphone in your device electrically.
+The apps at each end decide, based on data sent and received in chunks over the network, when to initiate a connection with a view to establishing a call; when to ring to signal an incoming call; when it’s OK to start recording and relaying sound; when to mute the call; and when to stop exchanging data and therefore “hang up” the call and to disconnect the virtual voice circuit.
+As you can probably imagine, there’s a lot that can go wrong here.
+For example, a malicious voice app could deliberately record and transmit sound while purposefully pretending that it wasn’t, such as while waiting for you to start dialling.
+Or a legitimate but buggy app might start transmitting sound before you expected it to, innocently but no less leakily.
+After all, there’s no receiver to take off any hook, and no physical switch that literally wires you into a dedicated electrical circuit connected to the other end.
+Indeed, while the call is ringing, the apps at each end are already communicating with one other, so they are technically capable of exchanging voice data at that point.
+You’re just assuming that neither end will start transmitting until both ends have exchanged and acknowledged control messages to confirm that each party has agreed to the call.
+Typically, the caller agrees to the call implicitly and proactively by “dialling” it in the first place; and the recipient agrees to the call explicitly and reactively by tapping [Answer] (or by clicking an icon showing an imaginary receiver being lifted from an imaginary hook).
+Until that point, both parties have to assume that the apps at each end are in “no mutual call consent yet” mode and are therefore neither collecting nor transmitting any audio data.
+But what if there’s a bug? 
+What if a voice call app were to assume consent from both ends too soon?
+Unfortunately, a bug of that sort was just fixed by Facebook in its Messenger app on Android.
+The bug was found about a month ago and responsibly disclosed by Google’s Project Zero.
+The flaw was revealed by Google this week after Facebook had fixed and updated the vulnerability.
+To be quite clear: there is no suggestion that this was anything other than a software bug; it seems that the bug was known only to Google and Facebook while it was being fixed; and there is no evidence that the flaw has ever been exploited or even known to attackers in real life.
+In other words, this isn’t a zero day hole, where the crooks found it first, and so if you make sure you already have the latest version of Messenger on your Android, you should be ahead of any cybercriminals out there who might be scrambling to figure out the bug now.
+We don’t know which older versions of the app were vulnerable, but the date on which Google opened up its bug report to the public coincides with the publication of the latest version [at 2020-11-20T15:00Z], which appears to be numbered 291.0.0.20.114, released 2020-11-17.
+Google’s original bug report included PoC (proof of concept) code to demonstrate that the bug could be exploited, which Google stated as working on version 284.0.0.16.119 of the app.
+Greatly simplified, the bug involves an attacker sneaking through an unexpected, additional control message to the app on your phone while the call is still ringing at your end.
+This control message essentially says “user has consented to the call”, thus tricking the app on your phone into thinking you have answered the call before you do (or even if you don’t).
+In other words, the bug effectively allows the caller to pretend that you have clicked to accept the call while your phone’s display is still asking you if you want to accept it.
+So, in those fateful few seconds while you are looking at your phone and deciding whether to accept the call – and who hasn’t let slip a few choice words to brace themselves before talking to a fearsome aunt or confronting a former friend? – you might already be coming through loud and clear at the other end.
+The good news, as far as we can make out from Google’s report, is that:
+Nevertheless…
+…patch early, patch often, eh?
+(And if in doubt, don’t blurt it out!)
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+It bothers me that Google, and not Facebook, discovered it.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

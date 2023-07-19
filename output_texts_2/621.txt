@@ -1,0 +1,28 @@
+Sophos Home protects every Mac and PC in your home 
+Google published patches for over 70 software vulnerabilities in its Android security bulletin this month, finally fixing a security exploit for MediaTek chipsets said to have been in the wild for months, affecting millions of devices.
+The vulnerability, CVE-2020-0069, still hasn’t been updated on the MITRE CVE database at the time of writing, but Android software modification site XDA-Developers said that details have been openly available on its forums since early 2019. The flaw began as a workaround for rooting Android Fire tablets, it said this week.
+Google classifies CVE-2020-0069 as an elevation of privilege bug in MediaTek’s command queue driver, and only gives it a high severity ranking in its bulletin. However, XDA-Developers classes it as a critical vulnerability with a score of 9.3, labelling it ‘MediaTek-su’.
+The bug allows an attacker to get root access to an Android device without unlocking the bootloader, XDA-Developers said, by copying a script to their device and executing it in a shell. It warns that any app on an affected phone could copy the script to its private directory and execute it to root the system.
+The forum also quotes MediaTek saying that it had patched the issue in May 2019. The problem is that many manufacturers haven’t applied those patches, XDA-Developers warned:
+MediaTek chips power hundreds of budget and mid-range smartphone models, cheap tablets, and off-brand set-top boxes, most of which are sold without the expectation of timely updates from the manufacturer. Many devices still affected by MediaTek-su are thus unlikely to get a fix for weeks or months after today’s disclosure, if they get one at all.
+By turning to Google for help, MediaTek can take advantage of the Android creator’s muscle, according to XDA-Developers, because Google can force OEMs to update their devices using licence agreements.
+Google did not respond to a request for comment yesterday. We will update this story if it does so.
+This may be the most controversial bug in the bunch, but it is far from the only severe one. The bulletin features two sets of patches (2020-03-01 and 2020-03-05), grouped so that Android OEMs can patch them more easily.
+The most serious bug in the first set exists in the media framework. This framework, which is part of Android system services, handles services like the camera and playing audio and video files. This remote code execution (RCE) bug (CVE-2020-0032) affects the operating system’s media codecs. Android versions 8, 8.1, 9, and 10 are susceptible.
+The company also published details of two other bugs in the media framework, both ranked with high severity. One, CVE-2020-0033, was an elevation of privilege flaw, while the other was an information disclosure bug.
+There were seven bugs in the system framework, which handles services like search and activity management. All of these were high-severity bugs, comprising two elevation of privilege flaws and five information disclosure vulnerabilities.
+The only critical flaws in the 2020-03-05 patch group were in closed source components from chip vendor Qualcomm, which accounted for 48 of the bugs in the Android bulletin overall. These 16 critical bugs included several buffer overflow errors. Several of these critical bugs were remotely exploitable flaws in WLAN firmware (CVE-2019-10546, 14031, 14083, 14086, 14097, and 14098), while another five (CVE-2019-10586, 10587, 10593, 10594, and 2317) affected the Qualcomm chip’s data modem.
+An untrusted pointer dereference bug (CVE-2019-10612) in the kernel was also remotely exploitable, while a buffer overflow also cropped up in Qualcomm’s core power software. This bug, CVE-2019-14030, was only exploitable locally, though, as was CVE-2019-14071, a critical flaw in the company’s system debug component. A buffer overflow bug in Qualcomm’s video processing (CVE-2019-14045) is remotely exploitable, as is a Bluetooth bug (CVE-2019-14095).
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

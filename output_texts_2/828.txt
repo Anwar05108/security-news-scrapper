@@ -1,0 +1,46 @@
+Sophos Home protects every Mac and PC in your home 
+The latest research report from SophosLabs deals with the fascinating case of the RATicate gang.
+This reports make for intriguing reading because it unravels the recent operation and evolution of a bunch of cybercriminals, whom we’ve dubbed RATicate, who seem to have their money-grabbing fingers in a number of malware-related pies.
+Indeed, these crooks have been attacking a wide range of companies in numerous industry sectors in at least Europe, the Middle East and Asia.
+RAT, if you haven’t seen the word used in cybersecurity articles before, is short for Remote Access Trojan, a type of malware that’s designed to set up your computer so that cybercriminals can send it rogue commands across the internet.
+A RAT infection means that crooks can quietly instruct your computer to carry out a troublesome range of activities, including:
+In media stories, the term RAT has often been used to refer to remote control malware used with the primary purpose of abusing your webcam, typically for pervily prurient purposes – where the word RAT is use metaphorically to refer to the creepiness of the crook who deployed it.
+Here on Naked Security, we’ve recounted numerous cases of prurient RAT attacks, including several that involved the Blackshades Trojan, infamously abused by a US college student who pleaded guilty back in 2014 to spying on some 150 young women via their webcams.
+As the list above reveals, however, RATs can be used for any number of other purposes – you’ll often hear them referred to as “bots” or “zombies” because they turn your computer into surreptitious servants of cybercriminal sleazebags who could be just about anywhere in the world.
+Worse still, RATs aren’t stopped by a conventional home router that blocks incoming connections by default.
+As we’ve explained before on Naked Security, early RATs, dating to the turn of the millennium, often took the simplest possible approach to opening up your computer to the outside – they basically turned themselves into servers and listened out for incoming connections from their criminal controllers.
+If you’ve heard of notorious early remote access tools such as Back Orifice, from the erstwhile hacking group Cult of the Dead Cow, you’ll know that this toolkit typically opened up a TCP network socket, on a computer inside your network, that listened on port 31337 (which is read as elite in hacker speak).
+But few home networks allow inbound connections by default any more, because few computers are directly connected to the internet these days – home connections are almost always shared by a router between multiple devices including laptops and mobile phones.
+The router therefore requires a specific computer inside the network to connect outwards first, in order to figure out where the replies on that connection should be sent.
+However, incoming connections can only connect to the router itself, so that by default the router has no idea which internal computer they were meant for, and simply discards them.
+(This process, known as NAT, short for Network Address Translation, was devised so that networks could share a single IP number to make this scarce resource go further, rather than for security purposes, but had the fortuitous side-effect of automatically blocking many types of attack.)
+Today’s RATs get around this problem simply by turning the client-server process around.
+Instead of the crooks running RAT clients that connect inwards to RAT servers implanted on infected computers on your network…
+…the crooks set up their own distributed network of so-called Command-and-Control servers (also known as C&Cs or C2s) somewhere on the internet, and infected computers act as RAT clients that connect outwards, often using innocent-looking traffic such as HTTP (web) requests, to call home.
+If a call-home succeeds, then the RAT client downloads a set of commands that tells it what to do next, so the incoming data is just the reply part of what started as an outbound request.
+In the SophosLabs report, you can read just how many different campaigns, using many different C&C servers, the RAticate gang has worked through in recent months.
+You will also learn how the gang disguises its attacks by wrapping up the malware into an unexceptionable-looking software installer using the popular and widely-used open source toolkit NSIS (Nullsoft Scriptable Install System).
+Instead of minimising the size of their malware, the RATicate crew deliberately pad out their installers with innocent files including text documents, source code, Python scripts, images, XML data and legitimate program files (EXEs and DLLs) that aren’t malicious and might reasonably be expected in a genuine installer.
+In the sample above, for example, the files in $TEMP/careers are a curious mixture of non-malicious files of many types; the files in $PLUGINSDIR are legitimate addons for NSIS itself; the curiously named file $TEMP/Cluck is a scrambled BLOB of malware that looks like random data; and $TEMP/aventailes.dll is the actual malware that will run during “installation”.
+The report shows you the trail of tricks that the malicious installer uses to activate itself, where the installer itself loads aventailes.dll, which reads in Cluck and decrypts from it a small chunk of code…
+…that then decrypts the rest of Cluck using a different scrambling algorithm and injects it into memory, which kicks off the RATtiness.
+SophosLabs tracked five different RATicate malware campaigns delivering a wide range of different RATs, each using a wide range of different C&C servers to download their malevolent instructions.
+The RAT variants delivered by this group of crooks included the zombie malware families Betabot, Lokibot, Formbook, AgentTesla, Netwire, Bladibindi and more.
+The rogue installers were spammed out in emails where they were sometimes attached directly in archive files using the well-known ZIP format, as well as lesser known archive types UDF and IMG formats; and sometimes delivered as Excel or RTF files that included links to download the “installer” from a booby-trapped server.
+Interestingly, SophosLabs found that some victims received a mix of the two delivery types during the same campaign, as though the crooks were purposefully targeting victims with malware delivered in multiple ways, suggesting what you might call an “attack in depth” or “layered attack” strategy.
+If you’ve ever wondered why it’s hard to figure out these days exactly what might happen next after the first indication of a cyberattack, this report will put you in the picture.
+As you’ll see, the crooks can deliver completely different malware samples in the same guise and can adjust the behaviour of their C&C servers at any time depending on who you are and where you are connecting from.
+Worse still, almost every RAT you’ll find these days includes its own “upgrade yourself to something new” command, whatever else it’s programmed to do.
+What looked like a keylogger yesterday might morph into a spambot tomorrow, and into a ransomware attack the day after that.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

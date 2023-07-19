@@ -1,0 +1,77 @@
+Sophos Home protects every Mac and PC in your home 
+It’s happened again!
+A weird combination of Unicode characters that make up a nonsense word can crash your iPhone, apparently by confusing the iOS operating system when it tries to figure out how to display the “word”.
+(We say apparently because we have an iPhone 6+, which is stuck back on iOS 12, and we couldn’t get our phone to crash, although we’ve seen one person on Twitter claiming that their iOS 12 device was affected.)
+If you’re a regular Naked Security reader, you’ll have a feeling not just of having read this before but of having read it before before, because we covered similar troubles for iOS back in 2013 and in 2018.
+And it’s not only Apple that has been in the firing line here, with the WhatsApp software having similar issues in the past dealing with legal-but-unusual character code combinations, and leading to what was described at the time as a “text bomb“.
+The good news is that although all these flaws can cause serious annoyance and make your phone unresponsive, possibly requiring a hard reboot…
+…there’s no permanent damage, no malware installed, no data stolen and no other nasty cybsersecurity side-effects to go with it.
+But it does sound like a pretty annoying problem.
+Back in 2013, Apple’s “text to crash them all” relied on unusually laid out writing in Arabic; the 2018 Apple bug was caused by the complicated character-combining rules of the Telugu language; and WhatsApp’s 2018 problem was a long sequence of special codes that told the software to switch over and over again between writing left-to-right and writing right-to-left.
+This time, as far as we can tell, it’s Arabic characters that have again been used to provoke the processing bug that causes iPhones to get bogged down.
+We don’t know how to read Arabic writing, or indeed the text of any Semitic language, but we do know that the writing systems of these languages generally differ from most European languages.
+For example, Semitic languages are usually written from right-to-left, and they often don’t bother writing vowels, assuming that the reader can supply the missing sounds from experience, in much the same way that we know instinctively what is meant when we see English pseudo-words such as RSPCT, XCLLNT and NKD SCRTY.
+Of course, there are some words that even a well-read student of Arabic might not be sure how to say aloud, such as the names of foreign people and places, or phrases for which correct pronuniciation is considered important, such as names and words of religious significance, or words that are confusingly ambiguous without some extra help.
+The orthographic answer is to provide so-called diacritical marks to denote missing vowels where needed. (The equivalent in European languages are symbols such as accents, cedillas and other top-or-bottom squiggles that clarify punctuation or adjust the sound of a syllable.)
+However, the way diacritics are encoded into the Unicode character set differs greatly between languages such as French or English, and languages such as Hebrew and Arabic.
+French, for example, has a separate character encoding for each of, say,  E, E-with-an-acute-accent, A, A-grave, and so on.
+But if the French language allowed every character from A to Z to take any or all accents in varying mixtures, there would be far too many possible combinations to list them all as unique code points in the Unicode set.
+Indeed, that’s the problem you would have if you tried to create a distinct character code for every possible combination of letter-and-diacritic in every possible layout in a language such as Arabic, so the answer is to use so-called “combining characters” instead.
+Unfortunately, that can lead to algorithmic complications for computerised text-management, because the computer can’t just set one character at a time and move onto the next.
+The next character, or the one after that, or the one after that when taken into account with the one before it (or some other complex permutation), might affect how the current character, or glyph, is to be constructed and displayed.
+As far as we can tell, then, the dubious “word” in the current iPhone “message-of-death – shown recently on Twitter in a video by popular Apple fan EverthingApplePro – is constructed by taking a simple word that no-one would have trouble with…
+The craziest iOS crash text bug 💀 pic.twitter.com/29LJPb67WP
+…and jamming it full of repeated, redundant and contradictory vowel markings that can’t usefully be turned into a real word at all. 
+(If someone said to you, “Please write the word BAD,” and then demanded you to spell it with three Es, two Us, a few Is and five carets squeezed in tightly somehow between the A and the D, you wouldn’t spend hours trying to find a layout that could fit all the little characters in given that the outcome would be a kind of illegible nonsense anyway – you’d assume the instructions were garbage and ignore them.)
+In fact, if Google Translate is to be believed, the “word” that we have seen offered online to provoke this crash, when shorn of its confusing and contradictory vowel and syllable diacritics and written normally, is apparently the Urdu word for bad, roughly pronounced bura.
+As close as we can get in English, the crash-me version of the word is confusingly padded out to be something more like this:
+(The diacritic denoted above as * is SUKUN, used to clarify that there isn’t actually a vowel sound at all, despite numerous and repetitious vowel markers having preceded it in this case.)
+So, in making sense of a ludicrously bad encoding of the word bad, it seems that Apple apps that try to print it on screen get locked up in a processing loop that eventually makes the phone dysfunctional for a while.
+Simply put, it’s a low-level Denial of Service (DoS) problem.
+According to EverythingApplePro on Twitter, you can stand down from red alert if someone who thinks they’re being funny sends you a message notification with this “word of death” in it.
+Eventually, the app trying to process the character will crash and you can start again (though deleting the message before it shows up again might be a challenge).
+Or you can simply do a hard reboot of your iPhone and get control back by turning it off and back on.
+To force a shutdown, hold one of the volume keys and then press the wake/sleep button on the right for a few seconds (or just hold the wake/sleep button on older devices) until the power off slider pops up on the screen.
+Apparently, the next release of iOS, currently at iOS 13.4.5 Beta and due soon, has a fix for this bug so you won’t have to worry about it for too long.
+In the meantime, as tempting as it might be and as “mostly harmless” as it might feel, don’t send messages of this sort to your friends as a misguided attempt at a joke.
+We suspect there may be many other similar Unicode character combinations that might trigger this text-munging flaw, so we suggest you simply assume that rather than trying to find out new ones that online messaging services won’t yet know how to [REDACT] for safety.
+In short, enjoy this story, but don’t use it as a reason to go bad yourself.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I Speak Arabic, have iPhone 6S, iOS 13.4.1, w/latest updates of all apps. I tried copying the text from twitter & from online and pasting it in Messages, WhatsApp, email, etc. No issues!!!
+This is what I have pasted with and without the Flag of Italy.
+[REDACTED]   
+Damned if I could make it crash!!!
+The “crazy word” in your text (I have deleted it for obvious reasons – we are assuming it might cause trouble for readers using iPhones or iPads) is the same as the one I tried. It consists of 37 characters from the Arabic Unicode block (U+0600 to U+06FF inclusive) that encode as 74 bytes in UTF-8, and starts with the letter B before going all weird.
+But who knows if that really is tha same text string used in the Twitter video? The video was too blurry to be sure it even *looks* the same, and even if it did there’s no easy way to say whether exactly the same starting text was used, given that you could probably get exactly the same output even after swapping around lots of the characters in the “crazy word”, e.g. including the many vowel marks in a different order.
+So I think that both of us have done as much as we can for now… I guess that for us, the mystery deepens but we seem immune! 
+However, people replying to the several tweets containing the “crazy word” seem to be complaining strongly enough about that text causing crashes that I was willing to accept that crashes did indeed happen.
+Is there a way to disable processing of Semitic languages? I have absolutely zero use for them. All they are is an extra attack surface for me. There is no reason for my devices to ever bother trying to properly construct a message in these languages as I won’t be able to read it anyways.
+I doubt it. What would you turn off? Where would you stop? If you go back to plain old ASCII then plenty of content just simply won’t display correctly these days – it’s not just Semitic languages, it’s ligatures for English; mathematical expressions; names written correctly for reference purposes; quotations of things like book titles; and more.
+For example, if I’m reading an article in English about something archaelogical from the Middle East, I want to be able to see the Hieroglyphs/Hebrew/Aramaic/Arabic/Whateveritmightbe of the originals as well as the translations, and having them in text I can copy and paste to do further searches…
+…I don’t understand it but with guidance the source texts are useful even though I can’t read Middle Eastern languages at all, ancient or modern.
+Solid points. I guess I would say that I don’t want any of that so I would be fine with ASCII. I have no need for right-to-left text, mathematical expressions, smart quotes, accents, Telugu, or any Hieroglyphs/Hebrew/Aramaic/Arabic/Whateveritmightbe in my text messages and would love to be able to turn all that junk off.
+Interpreters are really hard to write properly so attempting to interpret characters and languages that I have no use for is a huge negative for my security and provides me absolutely no benefit.
+The problem is that even plain English texts these days often include characters that aren’t in ASCII, which is a mere 127 characters, 33 of which are for largely defunct session control purposes. Remember when computers couldn’t even do lower case letters? Well, life moves on and no one wants to go back to ALL TEXT SHOUTING. Modern documents look way better and more legible precisely they aren’t all monospaced A to Z. Even if we don’t need ideographs or vowel markings in English, we benefit in visual clarity from things like typographic quote marks, properly positioned decimal points, ligatures for annoying letter combos such as ffl and fi.
+Also, the internet has moved on from writing off everything non-Anglo as “junk” and companies – including those that make messaging apps and operating systems – are expected to take into account multilingualism, accessibility and so on. So my gut feeling is that if you blocked every web page that had any character code in it that was outside the ASCII set (which would be the only reliable thing to do if you had turned off the ability to recognise those characters at all)…
+…you wouldn’t have a lot of content left to view, even for sites that were entirely Anglophone. (Just one em-dash, one typographic quote mark, one ellipsis, one copyright symbol or one word borrowed into English from a language with accents and the site would be unrenderable for you – remember that you can’t simply “fall back” on ASCII conversions such as three periods instead of an ellipsis, or (c) for a copyright, because you won’t have the needed text processing support to recognise the non-ASCII codes to work out how to convert them.)
+(To be fair to Apple and to WhatsApp, none of the examples of character layout bugs listed here were particularly dangerous.)
+Again all solid points and I wouldn’t necessarily want to disable it for web browsing, just for text messaging which is where most of these problems seem to occur. The big difference to me is that I have to do something interactive to go to a website but I can’t stop a random attacker from texting me a word of death. So I would be very happy with just having ASCII for messaging apps and the full character set for browsers. Thanks for all your info.
+my friend tried to prank me (i have iphone 6s ios 13) and my phone completly broken
+i cant open my phone hard reset wont work
+This sounds like something other than this “word of death” bug to me. The process of powering down your phone should not be blocked by this bug, and I’ve not seen any reports that reliably connect the act reading one of these messages to being unable to shut down.
+Did you just make a Hitchhiker’s reference? I see you
+It was almost, but not quite, entirely unlike such a reference.
+the word bad is pronounced in urdu as bura not as bara
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

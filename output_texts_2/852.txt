@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+Make room, WhatsApp, iMessage, Signal, Telegram and all you other end-to-end encrypted messaging services – Google’s getting closer to elbowing its way onto the stage with its Google Messages. 
+Heaven knows when or even if it will happen, but 9to5Google has analyzed the source code of the latest update to Google Messages and found a slew of clues that strongly suggest that Google’s finally planning to add e2ee to the chat app’s rich communication services (RCS). 
+The RCS protocol – popularly known as Chat – is the successor to SMS messaging and does what most other texting services do, but without the end-to-end encryption of apps like Signal, et al. In December 2019, Digital Trends did a nice, deep dive into the protocol, explaining why it’s been developed by mobile phone manufacturers, carriers and the cell phone industry’s governing agencies, as well as why we’re all going to love it way more than the blah SMS texting we now have. 
+Here’s Digital Trend’s pithy explanation of the blah we’ve been putting up with since texting debuted:
+Let’s face it: Text messages as we’ve known them throughout history (i.e., since the 1990s) are tired. They don’t support read receipts, group messaging, or the animated stickers your pals trade on apps like Facebook Messenger, WhatsApp, and WeChat. They rely on a cellular connection—which is restricted to places with a signal—and they stop you at 160 characters.
+RCS, or Chat, on the other hand, allows group chats, video, audio, and high-resolution images. It already has much of the look, feel and functionality of rich messaging apps, such as iMessage. It also offers read receipts and enables users to see, in real-time, when somebody’s typing a reply to your message. You might already have it in the phone you’re now using. 
+Google Messages, for one, has Chat. It enables you to chat over Wi-Fi, without a cellular connection, to share higher quality photos (that are far easier to attach), and more – if, that is, whoever you’re chatting with also has Chat features. 
+So close to feature-rich messaging apps, but so far away from the ability to know your messages are secured with end-to-end encryption. … Or then again, maybe it’s not that far away at all, given the lines of source code that 9to5Google found when it picked apart the latest Google Messages update. 
+As the publication explains, it  decompiled the latest version of Messages that Google uploaded to the Play Store. When it did, the outlet was able to see various lines of code that hint at possible future features. Just because there are suggestive  lines of code doesn’t mean that a given feature will ever see the light of day, of course. 
+In this case, 9to5Google got its hands on a “dogfood” build of Google Messages version 6.2. Dogfood, as in, eat it/use it in-house before you dish it out to the masses. 
+In that code, the news outlet found a dozen strings of code that referred to encryption or used the acronym e2ee. Some of the examples it found:
+<string name=”encrypted_rcs_message”>End-to-End Encrypted Rich Communication Service message</string>
+<string name=”send_encrypted_button_content_description”>Send end-to-end encrypted message</string>
+<string name=”e2ee_conversation_tombstone”>Chatting end-to-end encrypted with %s</string>
+<string name=”metadata_encryption_status”>End-to-end encrypted message</string>
+9to5 Google’s sleuthing didn’t uncover all of the details, such as whether both parties in a conversation have to be using Google Messages. What it did find out: both parties have to have strong internet connections, lest they be booted out of e2ee and onto the encryption-bare, naked-messaging services of SMS or MMS as fallback methods. Before it boots you off encrypted Chat, though, it will give you a heads-up. Here’s just one of the code strings that 9to5Google provided that showed how Google might tell us we’re being shunted:
+<string name=”encryption_sent_fallback_body”>”SMS/MMS texts aren’t end-to-end encrypted.\n\nTo send with end-to-end encryption, wait until %1$s has data connection or send messages now as SMS/MMS.”</string>
+As well, the dogfood version shows that Google is considering letting users choose to allow other Android apps that have permission to see their messages also see their encrypted messages. It looks like Google Messages a la dogfood is also set to remind users that their messages are encrypted when sharing their location.
+It certainly wouldn’t be surprising were Google to give us end-to-end encryption Chat, and soon. As it is, RCS – which has been long, slow, messy years in the making – got a whole lot closer to being a widely usable protocol on Tuesday. That’s when T-Mobile and Google announced that T-Mobile subscribers now have the ability to send RCS messages to people on other phone networks – that is, as long as they’re all using an Android phone with support for the new messaging standard.
+RCS won’t really take over until the other big carriers in the US – Verizon and AT&T – likewise enable cross-carrier RCS support. 
+Be that as it may, the more moves toward encrypted messaging we see, the better. At least, it’s welcome to privacy enthusiasts and to those who don’t embrace a surveillance state. 
+How any of this is going to play with the US government, its multiple legislative attacks on unbreakable encryption, and its wrath over the companies that make that encryption remains to be seen. 
+Watch this space: we’ll keep you updated as the sparks fly. 
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I would expect all of googles chat to proxy through their data centers, like they do for analytics with their browser.
+I will be shocked and impressed if they implement encryption that is truly End to End, without them standing in the middle.
+A conversation coming soon, brought to you by Google Messages…
+Mahhn: Hey Bry, you know they listen in, right?
+Bryan: Naw, I doubt they go that far.
+Mahhn: Don’t get too confident buddy.
+Bryan: They scrape contacts and crawl the web, but they don’t eavesdrop EVERYthing.
+gh0st:  yeah, we don’t!
+Mahhn:
+Bryan:
+gh0st: oops.  wait…
+Mahhn: told ya :,)
+Bryan:  😯
+lol, nice!
+if/when they add this feature i hope they remember they have an app called Google Voice waiting for the same features!!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

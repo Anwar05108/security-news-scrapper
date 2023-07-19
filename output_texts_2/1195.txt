@@ -1,0 +1,90 @@
+Sophos Home protects every Mac and PC in your home 
+“It never rains but that it pours,” as the old weather adage goes.
+That’s certainly how Microsoft must be seeing things right now, following the official announcement of yet another unpatched vulnerability in the Windows Print Spooler service.
+Dubbed CVE-2021-34481, this one isn’t quite as bad as the previous PrintNightmare problems, because it’s an elevation of privilege bug (EoP), not a remote code execution hole (RCE).
+As you will remember from last time, an EoP means that someone who is already logged onto your computer as a regular, unprivileged user can silently and unlawfully boost themselves to Admin or SYSTEM level.
+If you’re logged in, say, as RegularUser, you can do yourself plenty of harm by deleting your own files, messing with your own applications, downloading inappropriate files, and so on.
+But if you can wrangle access to the SYSTEM account, you will find yourself on a similar footing to Windows itself, and you can wreak much more havoc.
+You can stop, start and even install new system services, mess with firewall settings, alter files in the Windows folder, change boot-time security settings, and generally do all the things that IT has spent ages trying to make sure that you can’t, whether deliberately or by mistake.
+That’s not quite as bad as an RCE, which means that someone who isn’t logged onto your computer at all can get unauthorised access in the first place, giving them a beachhead for further cybercrime.
+But an EoP on its own is bad enough, not least because an RCE exploit that only just gets a cybercriminal in, perhaps with no more powers than a guest user, can often be combined with an EoP to achieve what a crook would consider “complete compromise”.
+VULNERABILITY JARGON EXPLAINED – DEMYSTIFYING ‘EOP’, ‘RCE’ AND FRIENDS
+Learn more about vulnerabilities, how they work, and how to defend against them.Recorded in 2013, this podcast is still an excellent and jargon-free explainer of this vital topic.
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.
+To recap rapidly on the PrintNightmare story so far [2021-07-16T15:00Z]:
+What Microsoft said.
+Turn off the Print Spooler and disable the service so it can’t start again, whether by accident or design.
+If you have the Print Spooler service shut down on your network from before, then you are ahead of the game – but you might as well make sure, just in case someone, somewhere, has turned theirs back on.
+More advice as we have it!
+HOW TO CONTROL AND CONFIGURE THE PRINT SPOOLER SERVICE
+Here’s a quick summary of the tips and tricks for controlling the Print Spooler that you can find in our earlier articles:
+If you are a Sophos customer you can use the Sophos Live Discover feature to check the status of the Spooler service across your network with a simple query like this one:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Do home users of W10 need to disable PS or is this a threat to enterprises?
+Thanks
+You don’t *need* to, and the primary risk is indeed to company networks, but if you can do without your printer (the trees will love you for it!) then you might as well. The whole world+dog is hacking away on the Print Spooler right now, some for good but many for bad.
+With multiple recent bugs, including the new one and the new-new one, at various levels of enpatchment…
+…you might as well use what I call the Mr Miyagi Defence, from the famous line in one of the Karate Kid movies: “Best way to avoid punch, no be there.”
+Paul, glad to know that home users don’t have a burning need to shut down the Spooler. And let me throw in another martial arts quote for you. This comes from my Sensei Master Willie Chan, who taught me Tai Chi and other things years ago. Regarding the best way to avoid a punch;” Run away Fast!”
+Why not stop it and only start it temporarily when you need to print, then stop it again? 
+It’s 2021 – when was the last time you printed more than two documents inside a single calendar month :-)
+Despite Apple’s most recent (and stereotypically insulting) commercials that imply that the only piece of equipment a person ever needs is an iPhone, people need to print things for all kinds of reasons: things for kids to draw on, large print items for the elderly, templates for crafts, forms that require a wet signature (that happens sometimes even in 2021, DocuSign notwithstanding) etc.  I’m not implying that the Duck insulting us, but the fact is that some people have good reason to print fairly frequently in 2021.
+I suspect that a lot of us could print less than we do (it’s a nice convenience when you have the option), and even if you print in a couple of batches a week, you could do the on-print-off dance each time if you’re keen.
+As for Apple implying through its marketing that you will only ever need an iPhone… if it’s true, it doesn’t seem to have hurt Mac sales that much! (Ironically, Apple macOS isn’t affected by this so if you do have a Mac you can keep printing all you like in safety… for now, at any rate.)
+Have you seen the commercials to which I’m referring?
+No. The only ads I have seen lately are ones on YouTube. I had about a month of why Chromebooks were safe because they had “built in virus protection”, then a month of Peloton every day and now I am getting wall to wall eBay ads. I have never used any of those products and don’t ever intend to but someone seems to think I am worth spending good and money on anyway…
+The ones I’m referring to are like a musical where someone has a roomful of equipment singing and looking outside at someone having a picnic with just their iphone.  Pretty mental.
+I just came back here to inquire about why one couldn’t just stop the service and start it when required, and found your latest comment.  Thanks!
+As to your closing question, I have an answer: “when you’re struggling through the process of applying for retirement benefits!”  🙂
+Well, I often use “Microsoft print to PDF” or another PDF “printer”, which require the print spooler.
+Thank you!
+We’ve confirmed that the MS PrintNighmare patch won’t install on Windows 10 1809 Enterprise nor on Windows 10 1909 Professional.  It installs, the computer reboots, the patch gets to 98%, and then rolls back.  MS provided a Windows 7 patch for this but no working patch for 1909 Pro?  Blech.
+Thanks,
+Richard
+Neither of those versions are supported so there’s no reason to expect MS to release a patch. The patch for Windows 7 works on systems on paid Extended Support. It won’t install on Windows 7 systems that are no longer supported. People need to bite the bullet and upgrade or accept that the risk that comes with running vulnerable systems.
+Always interesting to read you. I am a Mac user since 1984. To say that the Mac don’t have any threats is wrong. But a good way to protect my computer and those of my family, I installed Sophos Home and thanks to you I avoid all those publicity coming from nowhere at 99%. You should try it… 😉
+Well, at the moment the computers I use all the time are a Linux laptop for work purposes, a MacBook 12” (most beautiful computer ever made, but an awful keyboard) that I use for graphics and video work and a Windows 10 VM for everything else that needs Windows. So I have the best of all of them and the worst of each. In my own opinion they are all much more similar than they are different. They can all be set with care up to be pretty secure… or misconfigured by mistake to be a security nightmare. So I treat all of them with great care!
+What good are the millions of printers we all have… if they can’t be used???
+Those millions of printers aren’t permanently worthless any more that the millions of outdoor barbecues in temperate climates are pointless just because winter comes round every year and renders them temporarily unusable.
+You *can* use your printer if you need to or wish to – it’s just a bit of a hassle to print on Windows at the moment if you also want to keep your Spooler out of harm’s way.
+Not to make excuses for Microsoft – this is an embarrassing look for them even amongst users like me who rarely print and use Windows only lightly anyway. But it’s not like having a broken space bar or a screen that doesn’t work. 
+If you really can’t live with the workaround, then you either have to leave the Spooler on all the time and manage the risk some other way (or ignore it), or switch to a different operating system with a different way of handling printers, e.g. macOS or some Linux distro (which probably uses CUPS, the Common UNIX Printing System, of which Apple is primary custodian these days).
+Is having the print spooler enabled still a threat if printing directly to the printer is selected?
+Yes, it is. 
+Being able to interact with the Spooler is what enables the bug, so stopping the spooler denies a crook the opportunity to poke your Spooler with an attack-shaped pointy stick in the first place.
+So when an update that fixes all of this comes out and I apply it, what is the normal state setting of the spooler so I can undo that temporary safety fix?  Is it “start=demand” ?
+start= auto (note: no space between ‘start’ and equals; space between equals and ‘auto’).
+There’s a screenshot and description of the various states (and how they are encoded in the registry) in our first article linked to above:
+https://nakedsecurity.sophos.com/2021/06/30/printnightmare-the-zero-day-hole-in-windows-heres-what-to-do/
+Is anyone able to clear up the confusion over whether clients are vulnerable to PrintNightmare if they use Point and Print to get their drivers from the server? Different people are saying different things – Jisc Cyber Security are saying they are, Microsoft’s PrintNightmare page says they aren’t because clients fetching drivers from a server uses a different code path. Which is correct?
+IIRC, researcher B Delpy has published a screenshot on Twitter of the middle bug (CVE-2021-34527) being exploited due to Point and Print. However, if you follow Microsoft’s additional mitigation advice (see various links in our various articles) via registry tweaks you may be OK. Or not. I haven’t been able to verify for myself – I don’t have an actual print server running on an actual server – and, as you say, no one seems to know exactly which “additional mitigations” really keep you safe.
+However, it’s a moot point as long as this new-new bug (CVE-2021-34481) is unpatched because “turn the Spooler off entirely” is Microsoft’s official advice anyway…
+Paul, this may have been asked or answered, but it’s still not clear to me two weeks later.  /Exactly/ how would a remote user gain access to a PC on my network for RCE?  I’m on a PC with spooler running, I click on a malicious web link or email link which maybe tries to install a RAT for local access?  Wouldn’t Sophos catch this? I have no RDP firewall ports open inbound, and I trust our users not to do anything nefarious (attempt EoP).  We are FDA regulated, and _everything_ needs to be printed, by most of the 80 users on our network.  Our DC hands everyone two print devices by group policy, but the local port is an IP address so the DC is not acting like a print spooler.  Many of us also have USB or IP printers near our desks.  I can’t have 60 non-admin users start/stop the spooler service locally every time they want to print.
+I can’t say how an attacker might get in but it might only takes one mistake on one computer by one user for a crook to create a beachhead…
+Having said that, if you simply have to print all the time then you can’t just do the “Spooler off” trick, so make sure you follow all your other precautions carefully (as it seems you are). In particular, ensure you do have all current patches installed and apply the registry-based protections advised by Microsoft to do with the Point and Print part of the Spooler system.
+How would a home user of W10 get infected?
+What is the vector, email attachments, phishing etc.?
+Thanks
+Any or all of the above… I’d say that phishing (whether by dodgy web link or via booby-trapped attachment) are the big two for home users. An anti-virus with built-in web filter can help here. Unpatched bugs in home routers sometimes let crooks in too, so don’t forget to patch!
+I’ll print those commands…. 😉
+As always, good information. Thank you!
+I was scanning through to see if this question has been asked but didn’t see any directly related to the PrintNightmare emergency temp fix and how it affects MacBooks?  I am seeing where Windows OS printing is working with the latest patch release now has stopped Macs from printing?  Has anyone run into this and if so, have you found a way to restore printing for Macs?
+Print Servers are on a separate VLAN. Any support would be great. Thanks
+Had the Mac issue as well, seems Aplpple need to release a patch for MacOSx, woudl imagine they don’t care that much.
+There is a work around that involve turning off one of the things that MS turned on, but could be the leser of two evils if you are between an unpatch server since June or turning off one thing as we were.
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print]
+“RpcAuthnLevelPrivacyEnabled”=dword:00000000
+It would be nice if all these excited jurnos could do a round up of where we are after the November patches and if it is all fixed now rather than its old news and no one is interested anymore.
+There is no real current info out there so be the first!
+I wish that the Naked Security team were sufficiently big to re-investigate all of this… but given that you say that this seems to be something Apple needs to patch (and you don’t say which macOS version, or what sort of setup you have), tracking it down is beyond Naked Security’s budget, I’m afraid.
+(I do need [a synonym for “would really rather like”] a new Mac, however, now my beloved 12″ MacBook is suffering from a defective input device, a distinct lack of CPU power, and no support for Monterey. Best looking computer ever made, by a country mile, pity about the terrrribl btttttttttterfly kkkkkkeeeeeoard. I might just use your comment as a simultaneous argument to my {1,2,3}-up bosses to justify a new one… but which model? What configuration? Answers on a postcard, please! I currently have a Lenovo laptop running Linux [coronavirus world means you only have to *be* cool these days, you no longer need to *look* cool as well], and I must admit that it has by far the best keyboard of any laptop I’ve ever used. How do the 2021 Mac keyboards compare – does anyone have first hand experience with both?)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

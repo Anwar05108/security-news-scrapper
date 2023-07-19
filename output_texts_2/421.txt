@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+Just two days after releasing Firefox 72, Mozilla has issued an update to patch a critical zero-day flaw.
+According to an advisory on Mozilla’s website, the issue identified as CVE-2019-17026 is a type confusion bug affecting Firefox’s IonMonkey JavaScript Just-in-Time (JIT) compiler.
+Simply put, a JIT compiler takes JavaScript source code, as you’ll find in most web pages these days, and converts it to executable computer code, so that the JavaScript runs directly inside Firefox as if it were a built-in part of the app.
+This typically improves performance, often noticeably.
+Ironically, most modern apps implement what’s called DEP, short for Data Execution Prevention, a threat mitigation that helps stop crooks from sending over what looks like innocent data but then tricking the app into running that data as if it were an already-trusted program. 
+(Code that’s disguised as data is known in the jargon as shellcode.)
+DEP means that once a program is running, the data it consumes – especially if it originates from an untrusted source – can’t be turned into executing code, whether accidentally or otherwise.
+But JIT compilers have to exempt themselves from DEP controls, because converting data to code and running it is precisely what they do – and that’s why crooks love to probe for flaws in JIT systems.
+This bug was reported to Mozilla by Chinese security company Qihoo 360, but the bad news is that attackers were one step ahead of Mozilla, which said:
+We are aware of targeted attacks in the wild abusing this flaw.
+Nothing has yet been revealed about the nature of the attacks beyond that remark.
+The word targeted is often used to imply a campaign run by so-called state-sponsored actors, but it’s safer to assume that anyone and everyone could be at risk – what starts as a limited campaign against specific targets can quickly be picked up by more mainstream attackers.
+The last time Mozilla had to patch a zero day was last June when it fixed two in a single week that were being used to target cryptocurrency exchanges.
+If you use the regular version of Firefox, make sure you have version 72.0.1.
+Your Firefox may well have updated automatically, but it’s worth checking.
+Go to Help → About Firefox (or Firefox → About Firefox on a Mac), where you will see the current version number and be offered an update if you’re still behind.
+Some Linux distros and many businesses stick to Firefox’s Extended Support Release (ESR) because it gets security fixes at the same pace as the regular version, but doesn’t force you to take on new features at every update.
+So if you are an ESR user, you need to update to 68.4.1esr to get this patch. (Note that 68+4=72, which is a general way of telling which ESR release corresponds in security updates to the current bleeding-edge version.)
+Importantly, the browser that comes with Tor, the privacy-enhancing software bundle that helps you browse without being tracked, is a special build of Firefox ESR.
+Unfortunately, Tor only updated within the last 24 hours to the 68.4.0esr version of Firefox’s code, and hasn’t got its 68.4.1esr update out yet.
+The Tor site currently [2020-01-09T12:00Z]  says, “we are planning to release version 9.0.4 of Tor Browser picking up this fix soon,” so keep your eyes out for an update – a zero-day attack that works against the browser in Tor could undo the anonmyity and privacy that made you choose Tor in the first place.
+In the meantime, we think you can mitigate the risk in Tor by turning the IonMonkey JIT system off altogether – put about:config in the address bar, find the entry javascript.options.ion and change it from true (the default) to false. 
+This may slow down some of your browsing slightly, but as far as we can tell, it skips the IonMonkey JIT compilation process and therefore sidesteps this bug.
+Note. The Tor project tweeted the availability of its own update at 2020-01-10T15:00Z.The updated Tor version is 9.0.4, based on Firefox 68.4.1esr.
+WATCH US ON NAKED SECURITY LIVE
+Here’s a video from the Naked Security Live playlist on our new YouTube channel:
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Seems for me that the auto patch of modern browsers is not always great.  I just checked my FF and it was v70.x and needing a restart.  There’s been no pop-up to tell me a restart is pending.  I restarted and checked again – now at v71 and downloading 50 odd MB.  Restart…..now at v72 and downloading 4MB….restart and finally we’re up-to date.
+I think I prefer the old way of checking manually every so often – obviously I’ve gotten complacent in the thought it’s doing it all itself and will prompt to restart as required.
+If I’m missing something, or there’s some setting I may have inadvertently switched off….do let me know
+FWIW – my PC stays on for days/weeks at a time with many tabs and windows open on both FF and chrome.
+I also just checked Chrome – it was at Version 79.0.3945.88 and also wanting a restart to update to Version 79.0.3945.117
+Reading comments on recent articles and then this article itself:, in the interest of readers who may not understand, Duck, could you do one of your excellent explainers for your timestamps?
+Ha, I can do better (better for me, anyway, hehehe, by linking to another item I wrote) than just explain here, I can offer related material on timestamps:
+https://nakedsecurity.sophos.com/2019/03/14/serious-security-what-we-can-all-learn-from-piday/
+https://tools.ietf.org/html/rfc3339
+Simply put:
+YYYY-MM-DDThh:mm:ssZ
+Where YYYY is the Christian Era year in four digits, MM is the month of the current year in two digits and DD is the day in the current month in two digits. 
+T is just the letter T used as a visual separator (but not a space character, thus keeping the date as a single string of text). 
+hh:mm:ss is the current time using the 24-hour clock. 
+Z is the letter Z meaning Zulu time, short for UTC (Universal Time Co-ordinated), which is more or less Greenwich Mean Time (technically, within one second of GMT). In other words, we’ve got rid of the complication of timezones and daylight savings – you can adjust for your own timezone as you choose.
+Omit the :ss (seconds) if they aren’t important. Or put as many as nine decimal places on the seconds if you actally want nanosecond accuracy.
+Easy-peasy!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

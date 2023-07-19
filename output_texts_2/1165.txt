@@ -1,0 +1,74 @@
+Sophos Home protects every Mac and PC in your home 
+It’s all over the news!
+Apple’s brand new Mac has a security hole, right inside the processor itself!
+The official name for the bug is CVE-2021-30747, but the developer who discovered it prefers to call it M1RACLES, all in caps.
+Like every BWAIN (our own impressive name for bugs with impressive names, short for Bug With An Impressive Name), it has a personalised domain, a logo and a website where you can learn all about it.
+The finder of the bug, Hector Martin, writes on the website that:
+The vulnerability is baked into Apple Silicon chips, and cannot be fixed without a new silicon revision.
+As you’ve probably realised, the M1 at the start of the word M1RACLES specifically denotes the M1 processor chip, Apple’s brand new Intel replacement that’s the brain of the latest Mac hardware.
+For many years, Apple’s handheld devices ran on ARM-based CPUs, the choice of almost all mobile phones on the market these days, while its Mac laptops and desktops used Intel chips, like most other laptops.
+(Actually, some laptops use AMD processors, but from the point of view of programming and of the operating system, AMD64 and Intel x64 chips can be considered equivalent, albeit not actually identical.)
+But in November 2020, Apple announced with great fanfare that it would be ditching Intel and switching its Macs over to a customised ARM chip unique to its own hardware, ultimately putting ARM processors into all Apple products.
+The iPhone and iPad series have processors denoted simply by the letter A followed by a generation number, currently at A14. (We’ve never been sure, but we assume that A stands for both Apple and ARM.)
+Dubbing the Mac chips the B-series would have been logical, but might have implied that they were inferior in power or performance, so they got the letter M instead, which we’re guessing stands for Mac.
+Because the latest MacBook laptops, iMac desktops and recently introduced iPad Pro tablets are the first in the new series, their CPU is known, unsurprisingly, as the M1.
+Modern computers and operating systems rely very heavily on hardware features implemented in the CPU to provide the computer security protection they need.
+Notably, most contemporary processors have a number of different internal states in which they can operate, known on Intel chips as privilege levels.
+This makes it possible to protect software components in a running system from each other by means of the CPU hardware itself.
+Simply put, the higher the privilege level of a running program, the greater the control it has over the hardware, including the processor and memory.
+The operating system typically runs at a high privilege, so it can start and stop other programs, initialise the contents of their memory in advance, and physically limit their access to devices in the system such as USB ports and network cards.
+You will often hear software at this privilege level described as running “in kernel land”.
+When starting up a regular program, however, the kernel will typically give it the lowest possible hardware privilege, relegating it to what’s known as “userland”.
+The idea is that if a userland program tries to perform an operation that should only be allowed in kernel land, such as snooping on another program’s memory or trying to change the configuration of the CPU itself, the processor will intervene.
+The CPU will not only block the operation, but report the access violation back to privileged code running in kernel land, so that the operating system can report it and figure out what to do about it.
+Intel x64 CPUs have four privilege levels, known in the jargon as rings, numbered from 0 at the top to 3 at the bottom.
+(If you have ever heard techies talking about Ring 0, they’re not talking about the orbital motorway around Brussels, but about kernel land, which runs at the highest privilege; in contrast, userland typically lives down in Ring 3.)
+ARM chips also have four privileges, or exception levels, but they’re numbered the other way around, so that regular applications run at EL0, in what’s called user mode.
+Only programs at EL3, known as monitor mode, are supposed to have full control over everything, including access to the internal setup of the CPU itself.
+In particular, userland applications aren’t supposed to be able to modify any of the special data storage areas in the CPU known as system registers, which are dedicated internal memory locations whose contents configure how the chip itself will behave.
+For example, a program with write access to the system control register (SCLTR) on an ARM chip could instantly turn off vital security settings such as “no execute” protection (the ability to denote writeable memory as non-executable, which makes attacks such as buffer overflows very much harder to exploit).
+At this point, you’re ready to guess why the bug name M1RACLES expands, rather tortuously, as:
+M1ssing Register Access Controls Leak EL0 State
+It turns out that Apple’s M1 chip includes a CPU system register known, ineffably, as s3_5_c15_c10_1.
+According to Hector Martin, this register can be read from by userland programs running at EL0, though he doesn’t know what the register is actually used for, if anything.
+However, userland programs aren’t supposed to be able to write into it, given that it’s a system register and supposedly off-limits to EL0 programs.
+But Martin discovered that userland code can write to just two individual bits inside this register – bits that are apparently otherwise unused and therefore might be considered unimportant or even irrelevant…
+…and those bits can then be read out from any other userland program.
+And that’s it!
+That, in a nutshell, is the entirety of the “baked-in” security vulnerability CVE-2021-30747, also known as M1RACLES.
+Apparently, the bug also exists on the A14 processor, as used in the latest iPhone and iPad models, presumably because the two chips share a lot of design details.
+For the most part, it doesn’t.
+It won’t allow malware to get onto your system, for example, or allow malware already on your system to jailbreak your device without you realising, or allow one program to spy uninvited on another.
+But it does represent a tiny, two-bit wide hole through which programs that aren’t supposed to exchange data can co-operate to do so, without getting noticed. (Martin has produced 20 lines of proof-of-concept code written in C that shows how.)
+And it is a reminder that it’s not just software that has bugs: hardware can have bugs too, and although those can typically be fixed by “upgrading”…
+…it’s a lot more complex, and time-consuming, and expensive to upgrade hardware.
+There’s nothing that you can do, but fortunately there’s nothing you need to do, so you can relax.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+One additional bit of info — in addition to the new Mac computers, the two new iPad Pro models also use the M1 chip.
+Good point. I added that detail into the article, thanks!
+Why not just call it a backdoor for any 3 letter agency that can access function thru it?
+Because it isn’t a backdoor.
+Any threats resulting from this bug can be mitigated by a simple software patch until a hardware fix is implemented. Whenever process scheduler switches the context from one user  mode process to another, it can clear those bits. The extra overhead will be negligible.
+I don’t think that mitigation is enough, because IIRC data written into the “two-bit porthole” is immediately visible to code running *on every core at that moment*. So if two processes that want to share data through the “porthole” they can do so whenever they happen to be executing at the same time in different cores, because each can instantly monitor the modifications made the by other. The scheduler intervention might interfere enough to slow down the data rate enormously, but not to stop it entirely.
+You are right, provided two malicious processes run simultaneously on two different cores and they are aware of each other. However, there are a few factors that make this situation virtually impossible to exploit:
+  – Thousands of threads run at any given time on a multi-core machine. Granted, only a fraction of them are competing for CPU at any given moment but their number is still much larger than the number of available cores.
+  – There is no way for a user mode process to determine which other process is using another core at the exact same time.
+  – Every time the OS switches a core from one thread to another, it sets those bits to zero or some other meaningless pattern. When the malicious process looks at those bits, it cannot determine if they contain data or junk. And this is true for every two-bit piece of the chunk of data it expects to receive.
+If it is designed in a way where each individual system register needs to separately enforce access from user mode, the design is idiotic.
+I think it’s just a slip-up that those two bits of that specific register somehow remained writeable in the final silicon. 
+Apparently the glitch exists in the A14 chip, to which the M1 is closely related, so this error could have been around for some time, unnoticed until now.
+Alternate headline; Two Bit Bug useless without inside help to make M1RACLES happen.
+I think your comment just won the Internet today!
+Read the whole article after such a sensationalised headline just to read “Why does it matter? For the most part, it doesn’t.”  Get back in your box!
+Seriously, the quotes in the headline and the description of the bug as a BWAIN right at the start didn’t give you a clue that this was a discursive and explanatory article that aimed to inform and educate, not primarily to provoke you to patch?
+Chip design is hard. Correct chip design is harder. And correct chip implementation is harder still. I think that’s worth a few minutes of reading to reinforce.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

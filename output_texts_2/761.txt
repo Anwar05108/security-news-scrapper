@@ -1,0 +1,30 @@
+Sophos Home protects every Mac and PC in your home 
+GitHub users beware: online criminals have launched a phishing campaign to try and gain access to your accounts.
+The Microsoft-owned source code collaboration and version control service reported the campaign, which it calls Sawfish, on Tuesday 14 April. Users were reporting emails that tried to lure them into entering their GitHub credentials on fake sites for a week before, it said.
+The phishing campaign lures victims to domains that look similar to GitHub’s at first glance but which the company doesn’t own, such as git-hub.co, sso-github.com, and corp-github.com, the company said. Other domains misspell the ‘i’ in GitHub with an ‘l’, like glthub.info. The attacker also tried domains that look like those owned by other tech companies, such as aws-update.net and slack-app.net. Most of these domains are already down and the phisher has been swapping them out quickly, GitHub warned.
+The phishing emails – which aren’t always well-written – try to raise the recipient’s alarm by suggesting that there’s something fishy going on with their account. One example, received on 4 April, asked a user to review their account activity:
+
+It then took the user to this fake site, with a domain that GitHub says is associated with the Sawfish campaign:
+
+The phishers appear to be targeting people based on the addresses used for public Git commits. These are updates to source code that are publicly viewable. That could explain one Redditor’s report of a phishing email sent to an address used exclusively for GitHub.
+Attackers use several techniques to hide the real link destination, including URL shorteners, sometimes strung together to make it even more difficult to see the ultimate destination. They also use redirectors on compromised sites that have a legitimate-looking URL but which then send the victim to another malicious site.
+Once the attacker gains access, they can download the contents of private repositories, which may be owned by the organizations they work for. They can also use GitHub OAuth tokens which authorize them to access the site for a predefined period even if the user changes their password. Alternatively, they could create a GitHub personal access token, which allows the user to access their GitHub account using the Security Assertion Markup Language (SAML). This is an open authentication standard often used for single sign-on (SSO) access. Setting up an SSH certificate to access a logged-in account is also trivial. If the victim of a phishing attack didn’t review their SSH certs, the attacker could continue accessing the account covertly for a long time.
+The phishing attack even works against some kinds of two-factor authentication (2FA) attack. One 2FA option that GitHub offers is a time-based one-time password (TOTP). This is a step up from SMS-based authentication which attackers have subverted with SIM-jacking attacks. TOTP applications generate an authentication code that is valid for a certain time period, but the user still has to enter those codes into the authenticating website. The phishing site relays the TOTP code to the attacker, who then performs a man-in-the-middle attack and enters the TOTP code into GitHub.
+The attack doesn’t work against hardware-based authentication systems based on WebAuthn, which GitHub began using in August 2019 as a second layer of authentication to complement TOTP codes. This includes a physical token that the attacker won’t have.
+Why is this phishing campaign so important? Any phishing attack is a problem, but getting access to a GitHub user’s private repository could yield not only source code but keys to access online applications and SSH keys, along with login credentials for other online services. That’s bad enough for a private personal project, but could be devastating if the victim happens to have access to sensitive assets connected with a popular online app. That’s how hacker Kyle Milliken pwned Disqus.
+Protect yourself by double-checking the destination site you end up at when following any emails, warned GitHub.
+Use a password manager that will only enter your credentials into a domain that it recognizes, and get yourself a hardware security key that supports WebAuthn to access the site, it adds (which automatically means enabling 2FA).
+Review the SSH keys used to access your GitHub account, verify your email addresses, and review your account’s security log to check for any phishy behaviour.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

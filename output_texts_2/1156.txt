@@ -1,0 +1,98 @@
+Sophos Home protects every Mac and PC in your home 
+Earlier this week we wrote about a jailbreak hack against Apple’s newly introduced AirTag product.
+In that story, the researcher @ghidraninja was able to modify the firmware on the AirTag itself, despite the anti-tampering protection implemented by Apple’s own AirTag firmware programming.
+But this “attack” (if that is the right word) is different, because it doesn’t involve modifying or cracking the AirTag itself.
+Instead, it involves using the AirTag protocol on a Bluetooth device that doesn’t have internet connectivity in order to “trick” (if that is the right word) nearby Apple devices into sending data over the internet on its behalf.
+Very loosely put: free internet access! 
+(But with some spectacular limitations on bandwidth and latency,as we shall see below.)
+In the paper describing the hack, the device used was a cheap and easily programmable ESP32 Bluetooth/Wi-Fi chip commonly used in IoT devices and readily available from hobby electronics websites. 
+Fabian Bräunlein, the researcher who came up with this proof of concept. has dubbed it Send My.
+That’s a pun on Apple’s own Find My service by which AirTags “call home” when they’re lost, even though they don’t have internet connections of their own.
+Given that AirTags can call home all the way to Apple even though the AirTag has no internet connectivity of its own…
+…Bräunlein wondered if the process could be subverted by a Bluetooth-based non-Apple chip, using Apple Find My reports as Send My transmissions instead.
+Greatly simplified, AirTags let themselves get tracked something like this:
+That’s all the AirTag does: spray-and-pray.
+If any internet connected Apple device such as an iPhone or MacBook is in range and just happens to receive AirTag HERE-I-AM messages, it acts as a relay and completes the delivery of each message as follows.
+The Apple device:
+Bräunlein describes this as an “elegant design” with some useful privacy and security properties.
+Firstly, AirTags don’t need unique identifiers that get transmitted every time, because the ID they use is simply one half of an ever-changing cryptographic public-private keypair. 
+Secondly, neither the Apple device that relays the message for free on the AirTag’s behalf nor Apple itself ever know any of the private keys used.
+In other words:
+At this point, you are probably wondering how you query Apple’s service to track down a lost AirTag, given that all Apple keeps is a giant and anonymous list of location messages encrypted by randomly generated public keys.
+The answer is that you, as the owner of the AirTag, know the secret cryptographic seed from which your AirTag generates its public-private keypairs every 15 minutes. 
+So if you want to track down your AirTag over, say, a two-hour period, you simply calculate the list of eight public keys that your AirTag would have used during that period (one x 2 hour window = 8 x 15 minute windows), hash them up with SHA256, and ask Apple, “Are any of these hashes on your list?”
+In theory, you might be able to retrieve messages from other AirTags simply by lying about the hashes you send in, but there’s not really much point.
+Firstly, the chance that you’ll guess a valid hash (out of 2256 possible choices) is vanishingly small; and secondly, if you did get a reply you wouldn’t be able to do anything with it because you couldn’t decrypt it or tell which AirTag sent it.
+Now, the question is, “Can you use these public keys not as cryptographic objects used to scramble the data you want to send, but to encode the data you want to send instead?”
+Bräunlein came up with an effective way to do just that.
+He programmed a Bluetooth device to transmit AirTag public keys that weren’t actually keys at all: his “public keys” were in fact a series of encoded message packets that contained his hidden data.
+Sure, many or even most of the messages would probably get lost in the Bluetooth ether, and those Bluetooth broadcasts that did get picked up by nearby iDevices and Macs might never get forwarded onwards to Apple, or might take ages to arrive…
+…but by limiting the length of the hidden message and repeating the same Bluetooth “public keys” over and over again, Bräunlein’s hope was that eventually a complete copy of all the data packets containing the hidden data might make it to Apple.
+At this point, the recipient, knowing what to expect, could query Apple’s Find My servers to see which messages had arrived, and thus decode the message.
+Intriguingly, the location data encrypted in the actual Find My message by the relaying device is completely irrelevant to Bräunlein’s system – in fact, it’s useless for his purpose because he has no control of what that location data is going to be given that it is injected by the intermediate relay device.
+In the end, it’s simply the list of Find My message “public keys” that arrives at Apple that tells the recipient what hidden data got sent.
+Right now, you are no doubt wondering how these “public keys” convey any data if the recipient needs to know the hash of each “public key” in order to retrieve it.
+For example, if you send a fake “public key” that consists of the bytes THE DATA IS 42, then in order to recover that message, surely I would need to know the text THE DATA IS 42 in advance, in order to calculate the hash I’d need to see the message had been delivered?
+Actiually, you can be a bit trickier than that.
+Imagine that you want to send me a two-digit number, and we agree that you will do so by using one, and only one, of these possible “public keys”:
+If you mock up AirTag broadcasts using one and only one of those messages as a public key, and you send it many times to improve its chance of getting through, I can figure out which hidden message you sent by working out the SHA256 hashes of all possible 100 messages…
+…and asking Apple about all of them.
+Bingo!
+Apple would know nothing about 99 of the 100 messages (the ones that didn’t get transmitted), but the one that did show up in Apple’s database would uniquely identify the hidden data you sent in the first place.
+Bräunlein’s system was rather more sophisticated and generalised that the process above: he used longer “public keys” for encoding his data and followed a predetermined pattern.
+Each “public key” included a message ID, a message index, and a single “hidden data” bit that was either set or clear. (There was a bit more to it that: we have simplified things slightly here to save space, but the principle is the same.)
+For example, if the recipient were expecting a 16-bit message with, say, an ID of 0xCAFEF00D, the “public keys” might look like this:
+16 different “public keys” would be transmitted, typically repeated many times each to improve the chance of them being picked up and delivered.
+The recipient would then query Apple’s Find My servers for 32 different “public keys”, like this:
+Half of these “public keys” would be missing from Apple’s list, corresponding to the messages that never got sent; the other half would be reported as “found”, corresponding to the individual bits in the hidden data.
+Simply put, I will only ever receive one of the two messages CA FE F0 0D  00 00 00 0E  00 and CA FE F0 0D  00 00 00 0E  01, and the one that does arrive will surreptitiously tell me the value of bit 14 (0x0E) in the hidden data.
+The counter field in each “public key” message means that the bits can be stitched back together in the right order no matter when they arrive, and also that partial data can be reconstructed even if some of the bits never make it through.
+Free (and stealthy) internet access!
+However, as you’ve probably already figured out, this system may be “free”, but it’s not fast or efficient.
+Bräunlein reported that he could send at about 20 bits/second and receive at about 25 bits/second, but that his hidden data “messages” took anywhere from a minute to an hour to arrive.
+Is this a risk? 
+Not really.
+As Bräunlein points out, Apple may not easily be able to prevent this sort of misuse of its Find My system, and may not even want to, given that it designed the system to be anonymous and private. 
+(We suspect that Apple will introduce some sort of rate limiting to reduce the already limited send-and-receive bandwidth of Send My even further, but that would reduce rather than eliminate this technique.)
+Bräunlein speculates, however, that his Send My technique could be used for exfiltrating data from semi-secure environments in which trusted mobile phones containing only trusted apps are allowed, and all internet-connected devices are monitored and controlled.
+That’s because this trick (we’ve decided that, yes, that is the right word!) gives untrusted, anonymous Bluetooth devices a way to transmit data over the internet via nearby trusted phones without ever authenticating to those phones or any of their apps.
+The hidden Send My data gets exfiltrated as an apparently anonymous an unimportant part of Apple’s own system software.
+If you’re worried about that sort of risk, then you probably shouldn’t be allowing users to take their mobile phones into your secure areas anyway, or you should be insisting that they are switched into Airplane Mode first.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I’ve been mulling over how to put a small buoy with a thermometer into a local swimming pond to send water temp data, but no good wifi options. This might be a solution. On any given day there will be folks on the beach or even in the water with iphones (swimmers use floating dry bags). I have a number of esp32’s hanging around – thanks for the idea!
+The airtag has a speaker which starts beeping after 3 days away from his mother phone. But you can cut the coil to disable the speaker and prevent energy from flowing through the coil. You could also solder a bigger battery to the Airtag if it still uses more energy than usual.
+I am currently testing if all the tracking functions still works after disabling the speaker by cutting the coil and how long the airtag will keep sending his position after it is removed from his mother phone.
+I fear the airtag is not brodcasting its position indefenetly at least thats what my first test sbowed after 6 days away from my phone I did not recive any position data anymore, but I am not sure why maybe a bug in my first test. So I dontt know for sure buts a bad sign for people thi king about long time tracking the airtag.
+Rob you may be able to use lora too, much longer range, too…
+Oh MAN, that’s an exciting prospect right there! Can you imagine? Internet via random iDevices, then add LORAWAN into the equation, my goodness, that’s an impressively awesome prospect!
+Good job you’re joking :-)
+lost me. not geek enough.
+Hey!  Quit stealing my carrier pigeons!
+Perhaps they were retired due to non-compliance with RFC 2549?
+If someone has an airtag on their purse while on a plane, and someone connects their iPad or whatever to the planes internet, can you track the location of the purse (plane)?
+It depends on who you mean by “you”. Only the person who originally set up the AirTag can track it because they are the only person who can generate the needed private keys to  decrypt the location data in the messages that get through.
+Apple’s software notifies the user if it is used as a landmark in this way as far as I’m aware. yes, you could track the plane, but devices that heard the signal will notify their owners. According to Apple: “AirTag is designed to discourage unwanted tracking. If someone else’s AirTag finds its way into your stuff, your iPhone will notice it’s traveling with you and send you an alert.”
+Of course, this presumably means that if a fellow-traveller steals your bag and runs off with it, *their* iPhone will warn them that they are being “tracked” so they know to go rootling through to find the tag and remove it, possibly then cunningly attaching it to some other object going somewhere else, probably in the opposite direction. 
+Good job I am only joking :-)
+I’m thinking this could be useful as a test in those environments where everyone is *supposed* to turn their phone onto airplane mode.  If one of these messages gets through, it means a phone was not on airplane mode.
+I guess it depends on why you want Airplane Mode activated in the first place. 
+If your main reason is to stop live connections to the outside being made, this test could indeed be useful. But if your main reason is either to stop devices emitting electromagnetic radiation at all  (or to stop them talking to each other, even locally) then this test could give you a false sense of security, because it only shows that someone was able to connect to the internet, not that no one was able to connect anywhere.
+The other problem is that the latency in the researcher’s tests was as high as an hour, so you might get your “someone called home” warning too late, after your unwanted devices have left…
+Using a detector that listened for broadcasts *from* devices in the vicinity to look for leaking radio communications might be useful.
+Would Apple be able to check how often an AppleID is querying messages that can’t be read? Using this modem approach would surely have users looking up a lot more messages that can’t be read than regular users. Would profiling this type of use indicate a potential instance of such a modem… because a regular user will be looking up messages that are not found ‘less’ per tag on average. As in, would the modem approach be say having a user query Apple with 100 bad messages, where a regular user may not query so many?
+And even query of 100 messages, if the message changes each 15 mins, and Apple has a limit of 16 tags per user, isn’t this a way to check for bad actors? Because to query 100 messages, one assumes this is 100 x 15 min slots in a say 2hr period. But at the limit of 16 tags, is this not 16 x 4 messages (per hour) x 2 (Hours for a reasonable lookup window) = 128 messages. So maybe 100 messages is ok, but already highly extreme… (Who has 16 Airtags!), but 1000 messages means either more than 16 tags used, or more than 2hr window used.
+How’s my logic then, on:
+A) Profiling modem users by the ratio of bad messages – being more than regular
+B) Detecting more than 16 tags per Apple ID? (Though I still can’t understand why this isn’t checked at the device on tag registration?)
+My own thinking went down those lines… but I suspect we will never know for sure [a] if Apple is thinking of this (because it doesn’t announce security changes until they are done and dusted, as a matter of policy) [b] if Apple ends up doing it (because publishing precise rate limits gives crooks something to aim at).
+As for “who has 16 AirTags?”, I’m guessing that Apple won’t complain if you do. Presumably if Apple fans start hitting that limit in sufficient numbers, Apple might raise the limit; if the market suggests that 99% of AirTag fans end up with 4 or fewer (they’re sold individuall or in 4-for-the-price-of-3 packs) then perhaps the limit will go down, or you will be able to buy extra entitlements. Early days, so I suspect there will be a fair bit of watch-and-see.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Here’s a SophosLabs technical paper that should tick all your jargon boxes!
+Our experts have deconstructed a strain of malware called Glupteba that uses just about every cybercrime trick you’ve heard of, and probably several more besides.
+Like a lot of malware these days. Glupteba is what’s known a zombie or bot (short for software robot) that can be controlled from afar by the crooks who wrote it.
+But it’s more than just a remote control tool for criminals, because Glupteba also includes a range of components that let it serve as all of the following:
+
+But that’s not all.
+The most interesting feature that we learned about in the report (and we think you’ll be fascinated too) is how Glupteba uses the Bitcoin blockchain as a communication channel for receiving updated configuration information.
+As you probably know, zombies or bots aren’t much use to the crooks if they can’t call home to get their next wave of instructions.
+Glupteba has a long list of built-in malicious commands that the crooks can trigger, including the self-explanatory update-data and upload-file commands that are detailed in the report. But it also includes, as with most bots, generic commands to download and run new malware, meaning that even if you know everything about Glupteba itself, you can’t predict what it might morph into next because the crooks can update the running malware at will.
+The current command-and-control servers used by the crooks, known as C2 servers or C&Cs, might get found out and blocked or killed off at any moment, so zombie malware often includes a method for using an otherwise innocent source of data for updates.
+After all, to tell a bot to switch from one C&C server to another, you typically don’t need to send out much more than new domain name or IP number, and there are lots of public messaging systems that make it easy to share short snippets of data like that.
+For example, bots have used services such as Twitter, Reddit, Pastebin and other public websites as temporary storage for secret messages, in the same way that spies from the Cold War era might have communicated using the “Personals” section in a print newspaper.
+Glupteba uses the fact that the Bitcoin transactions are recorded on the Bitcoin blockchain, which is a public record of transactions available from a multitude of sources that are unexceptionably accessible from most networks.
+Bitcoin “transactions” don’t actually have to be about money – they can include a field called RETURN, also known as OP_RETURN, that is effectively a comment of up to 80 characters.
+Let’s start with a list of all the Bitcoin transaction hashes (lightly redacted) associated with one of the Bitcoin wallets used as a covert source of messages by Glupteba.
+The wallet ID shown here was extracted from the malware by SophosLabs.
+The command line program bx below is a popular and useful Bitcoin blockchain explorer tool:
+If we fetch the details of each of these transactions, we can see which ones include OP_RETURN data.
+Here’s a transaction dump for one that does, truncated to save space:
+The bytes in the OP_RETURN data shown above are the secret message. 
+To decrypt it, you need a 256-bit AES decryption key that’s coded into the the Glupteba malware program (you can find the keys in the SophosLabs paper), and you need to know that the data returned in the blockchain consists of:
+Decrypt the data from the blockcode to reverse the AES-256-GCM encryption, and you’ll reveal the hidden message.
+This sort of “hiding in plain sight” is often referred to as steganography.
+Here’s some pseudocode to give you the idea:
+And that’s how Glupteba hides its command-and-control server names in plain sight!
+
+The bad news about Glupteba is that its many self-protection components mean that it has many tricks available to stop itself showing up in your security logs.
+The good news is that this complexity makes the malware less reliable, and ironically more prone to triggering security alarms at some point.
+Indeed, some of the low-level programming tricks it uses, including the kernel-level rootkits, not only don’t work on recent versions of Windows, but also often draw attention to themselves by the way they misbehave, up to and including crashing your computer with a giveaway blue screen of death.
+Also, Glupteba relies on numerous exploits that were patched many months or years ago – including the attacks it uses against routers – so a patched system is much less likely to get infected in the first place.
+Lastly, the main delivery mechanism we’re aware of so far that brings infections of Glupteba into a network (assuming you are patched against ETERNALBLUE and can’t get infected by its viral component), seems to be via “software cracks” on well-known piracy sites.
+Like this one:
+LEARN MORE ABOUT STEGANOGRAPHY
+If you enjoyed this article, why not watch one of our Naked Security Live videos in which we discuss the weird and wonderful world of steganography?
+
+You can watch directly on YouTube if the video won’t play here. 
+The articles referenced in the video are: 
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+So, if you don’t have a crypto wallet….  Are you saf(er)???
+Makes no difference. The crooks are just using blockchain entries – that can never be deleted and are easy to retrieve – as message carriers.
+You don’t need cryptocoins or Bitcoin addresses of your own to be able to retrieve Bitcoin transaction data related other people’s Bitcoin addresses, because the Bitcoin transaction record is entirely public by design. You just need an internet connection and a knowledge of how to construct the relevant queries and intepret the replies. 
+In that sense it’s similar to sending messages via Twitter. The *sender* needs an account in order to post messages under a specific name, but anyone on a computer with access to twitter.com can read those messages without logging in or even having a Twitter account of their own, as long as they know what username to look under. Or it’s like placing a “personals” ad in the newspaper – the sender has to pay a fee to submit the message (which they can do largely anonymously) and get it published, but once it’s published anyone who has access to a copy of the newspaper can read it (and the message can never be deleted from newspapers that have been sent out already).
+Will the Sophie downloadable malware detector detect and remove this threat?
+As far as I know, we detect the directly dangerous files that show up in Glupteba attacks. (Sometimes threats bring along files that are harmless on their own, and whether to detect those is an open question.)
+PS. I presume “Sophie” is automiscorrect for “Sophos”.
+Very interesting read, thank you!  P.S.: where’s the “Glupteba is detected by Sophos as #####” at the end of the article?  I look forward to seeing that at the end of every malware article 🙂
+In my tests, the malware names I encountered were:
+Troj/Glupteba-M (the main communicator part, cloudnet)
+Torj/Agent-BCQM (the browser stealer – AFAIK this is a malware item that could be used on its own)
+Mal/Kryptik-BG
+For articles about a large malware family, the detection names for the samples that are specific to the article aren’t always as helpful as you might think – they end up being like those police reports that say “the alleged offender was wearing a blue or black jumper but that was weeks ago and we think they may possibly have changed their clothes by now”. You know that the information is there for completeness but it’s not a huge help any more.
+Having said that… if you want a text string to search for in your logfiles, “Glupteba” itself looks to be a good one in this case :-)
+(We do try to include the threat names in articles where relevant. It seems obvious to try “Glupteba” in this case, but the common names than malware sample end up with don’t always line up with the names that researchers used for detection or taxonomic purposes. For example, we often end up with detection names for ransomware such as “Troj/Ransom-XYX”, on the grounds that the name pretty much speaks for the nature of the threat and tells an immediate and useful story. But if that particular sample ends up becoming widespread, it will probably end up with a name like “Byteburner” or “Cryptoevil”, by which time it may be a bit late – and might increase the confusion – to go back and change it. Computer virus naming was a troublesome issue as far back as the early 1990s, when there were fewer than 1000 viruses all told. The “obvious solution”, we were told, was to pick an alphabetical list at the start of the year like meteorologists do for serious storms – but even back then the flow of malware had reached a level that made that approach utterly impractical because there were already about 10 new malware samples a day. I think we all had an inkling where that figure of 10-a-day was going, and it wasn’t downwards. Interesting times, as the proverb says, then and now.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

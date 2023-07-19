@@ -1,0 +1,124 @@
+Sophos Home protects every Mac and PC in your home 
+In case you’ve never heard of it, Have I Been Pwned, or HIBP as it is widely known, is an online service run out of Queensland in Australia by a data breach researcher called Troy Hunt.
+The idea behind HIBP is straightforward: to give you a quick way of checking your own online accounts against data breaches that are already known to be public.
+Of course, you’d hope that a company that suffered a data breach would let you know itself, so you wouldn’t need a third party website like HIBP to find out.
+But there are numerous problems with relying on the combined goodwill and ability of a company that’s just suffered a breach, not least that the scale of the breach might not be obvious at first, if the company even realises at all.
+And even if the company does do its best to identify the victims of the breach, it may not have up-to-date contact data for you; its warning emails might get lost in transit; or it might not be sure which users were affected.
+In case you’re unusure, the word pwned is pronounced to rhyme with owned, and it’s what you might call doubleslang – a new jargon word created by deliberately misspelling the existing jargon word “owned”, used to describe a database or a computer system that has been breached by an attacker.
+Ironically, perhaps, the fact that it’s hard for a company to be certain how many records were stolen during an attack can have two different outcomes:
+Indeed, Hunt’s HIBP database started back in 2013, when Adobe suffered a massive data breach that proved just how hard it can be even for a large and well-established company to figure out what happened after a cyberattack.
+The art-and-design software giant admitted in October 2013 that its network had been breached, with its Chief Security Officer claiming that “certain information relating to 2.9 million Adobe customers” had been stolen.
+That estimate was soon increased to 38 million, but the breach utltimately turned out to have exposed the encrypted-but-highly-crackable passwords of about 150 million accounts, making the breach 50 times bigger that first thought.
+Hunt therefore set out to collect and collate personal information from data breaches that had already become public and make it securely searchable via his HIBP service.
+After all, this was stolen data that was as good as available to anyone with enough patience to hunt it down for themselves for evil purposes, so why not try to use it for good instead?
+The first 10 breach data dumps that he processed were as follows [link gives JSON data]:
+Astonishingly, his service now includes billions of records from 538 breaches over the past eight years.
+Fortunately, not every breached data record directly exposes the victim’s password, even if password data was amongst the information stolen.
+Organisations that care about cybersecurity avoid storing actual passwords at all, typically saving a one-way hashed representation of your password instead. 
+This hashed version of the password can be quickly computed from the real password, which only ever needs to be stored temporarily in memory, but a cryptographic hash can’t be wrangled backwards to extract the original password, or indeed to learn anything about it.
+Serious Security: How to store your users’ passwords safely
+
+
+Hashing stored passwords doesn’t absolve you from keeping the hashes secure, of course, because stolen hashes can be “cracked” one-at-a-time by trying passwords one after the other, based on a list of likely choices known as a dictionary. 
+The hashing process is a second layer of defence: the more unusual your choice of password, and the longer it is, the less likely it is that a crook will be able to find a hash to match it in a stolen database, and therefore the less useful a database of stolen hashes will be.
+Note that properly-stored authentication databases don’t just store a hash of your password, they also store a unique random string of characters colloquially known as a salt that is combined with your password before it’s hashed. This ensures that if two users choose the same password, their hashes are nevertheless completely different, so every possible password needs to be tried separately for every possible user. If salts are used, there’s no way to compute a general-purpose lookup table that converts hashes directly back to passwords, because you’d need a new lookup table for each user.
+But what about passwords that were acquired by crooks in their raw, unhashed form?
+That’s not supposed to happen, but:
+Google notoriously admitted in 2019 that it had inadvertently, albeit only occasionally, been logging unencrypted passwords for 14 years. 
+Facebook admitted, at about the same time, to  a similar blunder affecting millions of Facebook and Instagram accounts.
+In that sort of situation, you probably wouldn’t expect your password to show up in a public dump that might end up on HIBP, given that your password probably wasn’t exposed due to any specific hacking incident at any particular company.
+Worse still, if your password gets sniffed out and collected in its raw form, then the crooks can simply start using it right away without doing any hash cracking first, and neither the randomness nor the length of your password would help to protect it better.
+Sure, you’re much more likely to guess the password iloveyou2 than the password P6GZ54EN5OTV, but if you acquire the password in its original form then you don’t need to guess at all, so that even C5eblGt­r35fDn3­TW$/"eeX is no safer than 123456.
+Hunt therefore also offers a public service called Pwned Passwords, where you can look up your own password in a database of just over 600 million already-recovered passwords, whether those passwords were stolen due to a large-scale corporate data breach, a carefully planned ransomware attack, a long-running malware infestation, or any other cause.
+Assuming that you use a password manager, or choose long and complex passwords of your own that don’t follow any obvious pattern, it’s reasonable to assume that each of your passwords is globally unique…
+…so that if you find your password on Hunt’s Pwned Passwords list (which is a whopping 10GB download) then it’s equally reasonable to assume that it’s not there by chance.
+It’s there because it’s no longer a secret: someone else already stole it, stored it for later, and then either leaked it themsevles, got hacked, sold it on, or dumped it publicly for nuisance value.
+In short, you’d jolly well better change it right away!
+If you don’t have the time or energy to download 10GB or more of of Pwned Passwords data, you can look up your password without giving it away directly. 
+Hunt stores the 600 million passwords as SHA-1 hashes, so they all come out as 20-byte numbers, each represented as 40 hex digits. (Two hex digits of 4 bits each make up one byte of 8 bits.)
+You simply hash your own password and look up the hash in two stages, as shown below, so you never directly reveal what password you were interested in.
+Let’s assume your password is ucanttouchthis. (Don’t choose this one – as you will see below, numerous others have thought of it already!)
+Take the first five hex bytes of your SHA-1 password hash and visit a special URL that ends with those bytes, denoting a 20-bit number from 0 to just over a million. (220 = 1,048,576).
+That brings up a page of approximately 600 password hashes for each 5-byte prefix, and you search through that much more manageable list for the final 35 hex bytes of your hash, like this:
+You can even add a header to the web request to say “pad out the number of replies”, so that between 800 and 1000 hashes are included every time (some of them bogus), so that the length of the reply doesn’t identify which prefix you searched for.
+If you aren’t comfortable using command line tools such as curl or wget, you can just paste the link with the 5-digit prefix into your browser and then search with Ctrl-F in the single page that comes back.
+If you download the raw Pwned Password data and divide it into the same 220 sections as Hunt himself, you will know exactly how many hashes end up in each of the one million sections, a number that will vary randomly from section to section. You will therefore be able to predict how long the reply for each section will be, even if it’s encrypted, and therefore to infer which prefix was used simply from the length of the reply. Adding fake data so the the replies have randomised, variable lengths makes this sort of prediction impossible.
+And that brings us to the headline, right here at the end.
+HIBP is going to start receiving password hashes for its database from none other than the US Federal Bureau of Investigation (FBI)!
+As Hunt himself explains:
+[FBI investigators] play integral roles in combatting everything from ransomware to child abuse to terrorism and in the course of their investigations, they regularly come across compromised passwords. Often, these passwords are being used by criminal enterprises to exploit the online assets of the people who created them. Wouldn’t it be great if we could do something meaningful to combat that?
+And so, the FBI reached out and we began a discussion about what it might look like to provide them with an avenue to feed compromised passwords into HIBP and surface them via the Pwned Passwords feature.
+In other words, if your password ends up in the hands of a crook in a way that neither you nor any of your service providers are likely to have noticed, you are unlikely ever to receive a breach notification warning about any sort of “compromise”…
+…but there’s now a place that you can check securely for breached passwords anyway, even if you can never be sure exactly how the crooks acquired those passwords in the first place.
+SOME FUN TO FINISH
+As shown above, the Pwned Passwords database includes a count of the number of times each password hash appears in the database. Loosely speaking, any hashes that appear more than once stand for poorly chosen passwords. After all, if you choose randomly enough then the chance of anyone else picking the same password as you can be considered vanishingly small. 
+So we took the 20 most prevalent password hashes in the database, and set out to see how quickly we could guess them right off the top of our head. It took us less than two minutes to guess 17 of them:
+We managed to figure out the last three (#16, #19 and #20) in a couple of minutes more by looking back at old Naked Security articles about “the worst passwords ever” and using those as inspiration.
+See how long it takes you to fill the gaps… let us know how you got on in the comments below!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Great article Duck! I’m curious, I’ve heard that its safer to make your passwords 4 or 5 random words instead of the typical format of upper and lowercase characters with symbols etc… Is this true? Although I’d assume that a password manager is the best line of defense, if that wasn’t an option, is this a viable alternative?
+The “pick 4 random words” option was popularised by the famous XKCD cartoon depicting a password of “correcthorsebatterystaple”, which you use a system of “memory pictures” to visualise and recall. 
+According to XKCD, this pictures-and-word system is way better than mnemonic phrases such as “IWLaac/that’sFP4u”, which you might bring to mind with the ditty “I wandered lonely as a cloud – that’s famous poetry for you”.
+But I always found XKCD’s arguments, based on entropy and ease o fuse, to be both misleading and arrogant. 
+Firstly, people don’t and won’t pick four truly random words from a 100,000 wird dictionary and combine them, so the entropy isn’t proportional to 100,000 to the power 4, as XKCD implies. They tend to pick words from their regular vocabulary (say, 10,000 words in total), and they are not likely to choose a truly random word each time, anyway. So the number of password permutations is probably closer to 1500 to the power 4, a degree of variety that is 10 million times smaller than XKCD claims. 
+Secondly, not everyone finds the “memory picture” approach easier than the mnemonic one, so XKCD’s implication that the four-word approach is “easier” is IMO false. 
+Thirdly, and I admit that this is not XKCD’s fault but is down the venality of many user interface programmers (or “user experience experts” as they prefer to be known now), there’s the problem that many apps and websites have crazy password regulations. Some sites not only impose artificial “complexity rules”, so that a phrase consisting entirely of letters is never allowed even if you choose them with a hardware random generator, but also insist on irrational length limits such as 16 characters, so that you would need to choose four 4-letter words to make an XKCD password fit at all, as well as changing some of the letters to numbers or punctuations.
+(If you want to raise my stress levels, send me to a website where “Pa55word!” is warmly welcomed as a STRONG {big green checkmark!) PASSWORD, but where 32 hex digits acquired from /dev/urandom is not merely considered weak but is denounced as DANGEROUSLY UNACCEPTABLE.)
+In case you are wondering, “Pa55word!” is about the 406,988th most prevalent password in the Pwned Passwords list, seen 554 times altogether. (The proverbial “correcthorsebatterystaple” comes in at 1,718,214th position, seen 130 times, but that is not the fault of XKCD’s algorithm!)
+I just generated 20 8-byte (64-bit) random numbers and converted them to hex digits, and as you can imagine, none of them showed up in the list. Ironically, 64-bit passwords would be considered below par in real life, according to various official guidelines.
+This will raise your stress levels, the bank that my girlfriend uses doesn’t have case sensitivity on their passwords. Like you could set PA55WORD!” as your account password and it would accept “pa55word!” when you log in. I couldn’t believe it. This is a legitimate Australian bank too.  This was about 3 years ago so hopefully they have fixed it since then, ill have to check.
+What would be even funnier, for an unfunny meaning of the word funny, is if the password entry dialog box were coded by a different team, and DEMANDED that you have a robust mix of uppers, lowers, digits and punctuations, and would therefore REFUSE to accept pa55word… without considering that the back end coding team was going to convert all uppers to lowers, or lowers to uppers anyway (and who knows what else – if they LIKE ALL CAPS then I might well consider giving odds that they quietly discard various punctuations, too, but not all of them, JUST THE ONES THAT SQL DOESN’T LIKE, making it hard to test).
+The most worrying thing is that if you are hashing the password and storing the hash in a database, where you can convert it to HEXADECIMAL ALL CAPS if you like… why do you care what characters are in there when it arrives at the web portal? The mainframe-era back end system, or whatever it is THAT STILL THINKS ENTIRELY IN UPPER CASE, surely shouldn’t come into contact with the password at all, because, hey, the plaintext password never, ever gets stored anywhere. Right?
+The password description I hate is not stating the maximum number of characters! Worse, accepting say 32 characters and truncating to 12 and not telling the user that your algorithm does that! I have had to work backward by removing 2 characters at a time (assuming I started with an even number of characters) to take a password down to whatever arbitrary and undocumented maximum the site used.
+Silently truncating (or otherwise altering, e.g. by accepting but ignoring “tricky” punctuations) is IMO unacceptable.
+The idea, after you have typed in your password and had it accepted, that there may actually be dozens? hundreds? thousands? millions? an unknown quantity? of other text strings that would also be accepted as “your password” beggars belief.
+If they’re limiting the input to something like 16 characters, they are probably stating the passwords in plain text. The resulting message suggest being a hashing function of the same size regardless of the length of the input. So if a site is limiting you that way, it’s because they don’t know what they’re doing.
+I used to think like you: anyone who hashes passwords shouldn’t care how long they are because the hash is always exactly the same length. Therefore the only reason a company would care about the length of your password is if they are planning on storing it verbatim. 
+But Android has a 16-character limit. (Or it used to until quite recently – I haven’t checked lately.) And yet Google doesn’t store Android passwords in plaintext, so why on earth they ever decided on that limit I have no idea.
+I can understand (for anti-DoS reasons) not allowing passwords that are 1,000,000 characters long, or perhaps even 128 characters long, but I can’t see why 17 is “too much”. I can think of lots of bogus reasons, such as “it stops people overdoing it and therefore forgetting their passwords simply by trying too hard”, or “we want to ensure that the password entry dialog will never scroll, even on the device with the smallest screen we support”, or “we only have that limit at a ‘user experience’ point where you will need to type it in by hand on a tiny keyboard every time, e.g. on bootup”, but I still don’t get it.
+Thank you for a very interesting article and subsequent discussion, thanks to all the other contributors to.
+Complying with NIST 800-171 is a requirement for many companies working directly or indirectly with the US Government. A few years ago, the advice from NIST was to follow the XKCD route. Their premise was that ‘complexity leads to bad practice’.  They also recommended not periodically forcing a password change, What are you thoughts on password resetting? Also, does limiting login attempts reduce the requirement for strong passwords? Thanks again.
+Also:
+ – #16: [REDACTED]
+ – #19: [REDACTED]
+ – #20: [REDACTED]
+Correct! 
+Hints for others: #16 is a keybord pattern. #19 and #19 are 6-letter words commonly seen in password lists but I am not sure why.
+#19 and #20 might be popular as they are Chinese years?
+#16 hint – zigzag
+Of course – that’s got to be the explanation for #19 and #20, thanks!
+Hey Paul, do you think it wise for a system to check either an existing or new password against the HIPB dataset and reject/require changing any given password whose SHA-1 appears there? 
+It sounds to me like a good idea if done internally but there are subtleties that I may be missing. 
+Thanks as always for your great reads!
+I think that’s one use case for the HIBP service. Personally, I would prefer *not* to have my password checked out this way, given that it leaks the first 5 bytes of the SHA-1 hash, for what that’s worth.
+I suspect that 98% of the “bad password” problem that most services face relates to passwords that are bad just because they’re bad. Many of those will be in HIBP because they’re so widely used and poorly chosen that the crooks already have them on their lists. One downside, in that case, of relying entirely on HIBP is that although it has *many* bad passwords and variants, it doesn’t have *all* the variants you might easily and more comprehensively check up on locally. 
+An example is that password, pa55word, p455word, Pa55word! and many other bad choices are all there in HIBP waiting to be caught. But HIBP, by design, only has passwords that have already shown up in known hacks and leaks, so many but by no means all permutations of the word “password” are present. From memory and for example, PassWORD is not on the HIBP list. Yet you could easily check all permutations locally, simply by generating a list of likely variations.
+Where HIBP might help is detecting when someone with a complex password is reusing it because they think it’s OK to share a password across many sites as long as it’s long. Of course, you know what will probably happen: the person will just add “-1” or “-facebook” to the end and pass the test, because HIBP includes, as mentioned, only what it has seen already. OTOH, the crooks who have cracked that user’s password (and can identity the user’s other accounts) do not have that limitation, and password stuffing attacks can easily try likely variants of an already-known password, as long as they are careful not to blow up any rate limits…
+Great article. Thank you. Paul!
+Reminds me a bit of “the password interviews”: https://www.youtube.com/watch?v=RfAdux3XidM
+If you have a list of passwords you might check this out. https://github.com/surbo/ABC
+I showed how to do it “by hand” in the article, using curl, as a sort-of incentive for readers to code up a script for themselves for fun 🙂
+FWIW, I preferred to download the whole file (I know it’s 10GB to get and close to 30GB uncompressed, but I found some space for it on an external drive) and check entirely locally. 
+A naive coding approach that reads through the whole file linearly, taking no advantage of its order, checking N passwords against each line, takes just a couple of minutes using a single core. Most of the time goes into reading the file line by line. I only needed to do it once. I included a password I knew was in the Pwned Passwords list – ucantouchthis, in fact as shown above, to increase my trust that the code probably would have reported my passwords if any current ones were there :-) Fortunately, they were not.
+If you truncate the SHA-1 hashes a bit, say to 16 bytes, store them in binary and not hex, and do away with the appearance count, then you can fit the whole uncompressed, sorted database into under 10GB. A simple binary search on 600 million sorted entries would complete in 30 probes or fewer.
+PS. You might as well add the -H ‘Add-Padding: true’ option to the curl command in the script in that GitHub repo. See article for what it looks like.
+https://www.useapassphrase.com/
+There is nothing wrong with using a mnemonic phrase if that sort of thing suits you better. (T15nwwUAMP-ifitsuitzu)
+The problem with multiword phrases is that if you do them properly, they are *not* memorable at all, and can’t reliably be related to the account without ruining the randomness.
+The password bibelot­passepartout­undercurrent­nowed is what I just got from a random dip into my Oxford Dictionary of English. I suspect few people would be that strict and are more likely to choose myweekendwasbad or thebicycleisblue instead, which defeats the “entropy” explanation given in the cartoon.
+(I think the XKCD method is popular because the cartoon is famously popular, not because the method is undeniably superior.)
+Better yet, get a decent password manager and let it choose pseudorandomly. It can remember 16 hard-random base64 characters as easily as the string 1234.
+A strong master password for the PWM is still needed, as well as a login password for a computer, etc. It’s still important to know how to make good, complex passwords for the few places you need them.
+This might help – bit of phun that covers XKCD-style and mnemonic-style password creation:
+https://nakedsecurity.sophos.com/2014/10/01/how-to-pick-a-proper-password/
+Catchy headline
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

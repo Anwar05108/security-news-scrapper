@@ -1,0 +1,34 @@
+Sophos Home protects every Mac and PC in your home 
+In a rare find, a researcher has unveiled dozens of related bugs in a core Windows API that could enable attackers to elevate their privileges in the operating system.
+A year ago, Gil Dabah promised that he would find over 15 bugs related to the Windows win32k component:
+This month I am going to submit around 15 0ds to msft. Wooot
+This week, he released a report detailing 25 of them:
+Guys & girls!Exactly a year ago I promised over 15 bugs in win32k.You're welcome to read and find out about my biggest research so far: #win32k #SmashTheRef bug class - https://t.co/niPACKBBLdCheck out the paper and the POCs, there are some crazy stuff going on. Promise!
+The bugs take advantage of a long-understood problem with win32k, which is the user interface kernel component in Windows. This software originally ran in user mode, which is where regular Windows applications run. User mode is a less privileged part of the system that can’t access system hardware directly. Instead, it has to send that request to the kernel, which is part of the core OS that handles low-level operating system functions.
+Microsoft eventually moved win32k to the kernel, but because thousands of pieces of software rely on it, it must often reach back into user mode to do its job. That bridge between kernel and user mode is potentially dangerous if something operating in user mode figures out a way to compromise the kernel mode component. They could gain low-level access to the system.
+A common mistake among developers in the past was to forget to lock a kernel-mode object in memory before it used win32k to call back to user mode. The attacker could then destroy the calling object from user mode. When the program returns control to the kernel object, it isn’t there anymore. This created a use-after-free (UAF) error where the attacker could then exploit the empty memory spot.
+Microsoft fixed a lot of bugs in that class, but Dabah discovered a new and related class of bug. An attacker can link a kernel object (like a window) to a child object that it creates (say, a child window). The attacker, working in user mode, asks Windows to destroy the parent window that’s running in kernel mode. Windows can’t do that until the parent window has finished everything it was doing in kernel mode, so instead it marks the parent for destruction when it’s ready. This turns it into what Windows programmers sometimes call a zombie object.
+The bug uses a concept called zombie reloading to make changes to the zombie object before Windows removes it. This causes a UAF error on the child window that it created.
+Dabah found numerous bugs in this class, he explained in the report, adding that he exploited 11 of them with proof of concept code (now up to 13 on his GitHub site). He had kind words for Microsoft, though, which has already begun fixing some of the bugs:
+Thanks to MSRC for doing their great work and fixing this. BTW a wide mitigation isn’t deployed yet and there are many more bugs like this. Hurry up and patch them Microsoft! 🙂
+He added that the company is working on a wide mitigation to cover all bugs in this class which is currently in the Windows Insider Preview. Microsoft has also been busy patching these bugs on a one-off basis, and you can see it acknowledge Dabah and link to several CVEs in its February 2020 acknowledgements section.
+Let’s not underestimate what’s involved in fixing decades-old code on which thousands of programs rely. This kind of technical debt is daunting. Who’d want to be a Microsoft developer handling this code change?
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“user-after-free (UAF) error”
+*Use-after-free
+The former is when my children turn their parent into an actual zombie when I’m free after putting them to bed 😉
+Fixed, thanks.
+well written and clear, thanks.
+Thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

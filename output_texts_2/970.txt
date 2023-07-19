@@ -1,0 +1,79 @@
+Sophos Home protects every Mac and PC in your home 
+Here’s a phishing email we received recently that ticks all the cybercriminal trick-to-click boxes.
+From BEC, through cloud storage, via an innocent-sounding One Note document, and right into harm’s way.
+Instead of simply spamming out a clickable link to as many people as possible, the crooks used more labyrinthine techniques, presumably in the hope of avoiding being just one more “unexpected email that goes directly to an unlikely login page” scam.
+Ironically, while mainstream websites concentrate on what they call frictionlessness, aiming to get you from A to B as clicklessly as possible, some cybercrooks deliberately add extra complexity into their phishing campaigns.
+The idea is to require a few extra steps, taking you on a more roundabout journey before you arrive at a website that demands your password, so that you don’t leap directly and suspiciously from an email link to a login page.
+Here’s the phish unravelled so you can see how it works.
+First, we received an innocent looking email:
+
+This one actually came from where it claimed – the proprietor of a perfectly legitimate UK engineering business, whose email account had evidently been hacked.
+We didn’t know the sender personally, but we’re guessing he was a Naked Security reader and had corresponded with us in the past, so we appeared in his address book along with hundreds of other people.
+We assume that many of the recipients corresponded with the sender regularly and would not only be inclined to trust his messages but also to expect attachments relating to business and projects they’d been discussing.
+Taking over someone else’s email account for criminal purposes is often referred to as BEC, short for business email compromise, and it’s often associated with so-called CEO or CFO fraud.
+That’s where the crooks deliberately target the CEO’s or the CFO’s account so they can issue fake payment instructions, apparently from the most senior level.
+In this case, however, the crooks had clearly set out to use one compromised account as a starting point to compromise as many more as they could.
+We’re guessing that the criminals intended either to use the new passwords for a follow-on wave of BEC crimes of their own, or to sell on the passwords for other crooks to abuse.
+Opening the attachment takes you to a secondary message that looks legitimate enough at first sight, especially for recipients who communicate regularly with the sender:
+
+The Sharepoint link you’re expected to click to access the One Note file does look suspicious because there’s no clear connection between the sender’s company and the location of the One Note lure.
+But the sender’s business relates to construction, and the domain name in the Sharepoint link apparently refers to a building company, so the link is at plausible, at least.
+The One Note file itself is very simple:
+
+It’s only at this stage that the crooks present their call-to-action link – the click that they didn’t want to put directly ino the original email, where it would have stood out more obviously as a phishing scam.
+You’d be forgiven for assuming that the Review Document button here simply opens up or jumps to a part of the One Note file that you’ve already got open…
+…but, of course, there is no New Project PDF file, and the “link” that’s apparently there for you to review the document takes you to the bogus login page that the criminals have been luring you towards all along.
+The fake login page is hidden away (or was – the site is offline now [2020-09-02T14:00Z]) on a hacked WordPress site belonging to an events company.
+Fortunately, the crooks gave themselves away doubly at this point.
+First, they got the name of the sender’s company wrong in this part of the scam (that’s the text redacted just before the word “Ltd”, which is the UK abbreviation for a limited liability company).
+The sender’s company name ends in the word Structural, given that he’s in the construction business, but the criminals blundered and typed in the word Surgical – a small but obvious red flag to anyone who does business with the sender.
+Second, the hacked events company where the crooks hid their phishing pages is in based Kyiv in Ukraine, and has a domain name that is neither related to the construction industry nor located in the UK, where the original email came from. (We redacted the site name in the image below.)
+If you do click through, despite the unexpected link and the unlikely domain name, then you’ll finally reach a login form, three steps removed from the original email, complete with animated imagery suggestive of Office 365:
+
+The login is apparently necessary in order to access what is supposed to be an Excel file.
+However, the unexplained switch to Excel jars with the previous page, where you were promised a PDF file, and you will notice that the criminals have written Microsoft, Excel and Small Business incorrectly.
+You also ought to be suspicious at a Microsoft login page that offers you so many alternative authentication choices.
+That’s something smaller websites do in order to capitalise on the fact that you probably already have accounts with the big players, but you wouldn’t expect Microsoft to use any of its competitors as an authentication service.
+Of course, if you do put in a password, it goes straight to the crooks, who then present you with a fake error message, perhaps in the hope you might try another account and give them a second password.
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+As just a normal guy who has worked for/with various engineering companies this is somewhat worrying.
+One advantage I have is that I usually know who is sending me stuff so if I am at all suspicious I will reach for something called a telephone and call them. ‘Did you send me something regarding…?’
+I usually do not get requests like this, I am usually advised beforehand, but I suppose I could.
+The phone call, regardless of long distance charges, would be a bargain if I got away from this trap.
+As carpenters say, “Measure twice, cut once.” (Apparently there’s a German saying that does it the other way round, “I cut it twice but it’s still too short.”)
+Look carefully for anything that looks wrong… and if you need to check back with the sender, *don’t* ask for confirmation by email, for obvious reasons. Don’t phone numbers in the email. Use contact data you can trust from a source you can vouch for.
+I go for “hope for the best; plan for the worse” but I like your expression as well. 
+I do want to add: as a company with global presence (overlapping time zones) it is much harder to make that call. As information security officer i am running an indepth security awareness program and STILL get clicks (yes we do have Sophos Phish Test 😉 ) Awareness Programs are not about how much detail you can put in the pudding, but on how many people actually fall to phishing. 
+Eminus
+Had a user fall for this yesterday, interestingly they actually replied to the sender first (who was someone they has corresponded with in the past) to check if it was genuine – the sender replied confirming so the user went ahead and did it. So the hijacker was even monitoring for replies and responding. Luckily caught quick enough to take action on – a far out of area login detected on 365 and we locked down the account.
+Rule #1 of email verification: don’t reply to an email asking if it is bogus!
+Either it isn’t bogus and the genuine owner of the account will say, “It’s valid.”
+Or it is bogus and the crook will say, “It’s valid.”
+Rule #0: back yourself.
+If you have considered the evidence for yourself and you are thinking of asking someone if it’s bogus, you have probably answered your own question. “It’s bogus.”
+We were also hit that morning. Only difference was the phishing site itself looked identical to a normal Microsoft login page.
+We did find that the scammers first emailed the phishing email to our compromised account, before sending that to email all contacts. The email originated from [REDACTED]
+The email address got redacted, lets try again.
+[REDACTED]
+I [REDACTED] it on purpose. It is highly unlikely that the owner of that account – if there is such an account – had anything at all to do with the scam you received other than being victimised themselves by having their name “borrowed” by a crook. So it would be deeply unfair to publish anything that invited readers to infer that the email account and the criminality were somehow connected.
+(The internet even has RFC 2606 and RFC 6761 to reserve server names and IP numbers for use in documentation, lest someone should type in an example given in a book and cause unwanted traffic to an innocent third party’s systems. See https://www.iana.org/domains/reserved for details.)
+Thats fair enough. The email address does read like something a hacker group would come up with. And I doubt any official government operatives would be using hotmail.
+Thanks for the article Paul. Its interesting that it hit enough companies to make its way to yourselves all by itself. They were working pretty fast from what we could see.
+Thanks for the article, Paul.
+I wonder if you should add in the “What to do” section, not to email them back?  And an explanation as to why not (please).
+I didn’t read that bit in the comments until after I already had.  It was a company known to me.
+I then received a reply with a sharepoint link.  
+Did you notify the company when you received the attack email?
+I would be interested to send you the full address, to see if it is the same as the one I just received.  It was from paul@XXX, just like yours.
+The obvious problem with replying about a possible hack via the account you think has been hacked is that the real recipient will only see your warning if it doesn’t matter because they *weren’t* hacked in the first place :-)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

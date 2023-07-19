@@ -1,0 +1,81 @@
+Sophos Home protects every Mac and PC in your home 
+How many vulnerabilities lurk inside the bazillions of open source libraries that today’s developers happily borrow to build their applications?
+Predictably, the answer is a lot, at least according to application security company Veracode which decided to scan 85,000 applications to see how many flaws it could turn up in the 351,000 libraries used by them.
+All told, around seven in ten applications had a security vulnerability traceable to one or more of those libraries, which might come as a shock to the developers who thought they were getting something for free.
+But as the company’s State of Software Security (SOSS): Open Source Edition aptly puts it:
+That free puppy that you adopt still needs to be fed, walked, and taken to the vet.
+However, how much ‘walking’ application users will end up doing varies considerably depending on the language used to create it, with JavaScript software using the most open source libraries – over 1,000 in some cases.
+At the other end of the scale was Python, using a hundredth the number of libraries as JavaScript applications, with .NET, Java, and Ruby somewhere in between.
+When it came to flaws in the libraries themselves, the greatest density was found in PHP and Swift, the latter a specialised language used in Apple development. Again, despite the size of .NET, it had the lowest percentage of flaws of any library.
+Nearly 30% of flaws were Cross-Site Scripting (XSS), with PHP (27.1%), Java (15.7%), and .NET (14.2%) manifesting the highest number of public proof-of-concept exploits. The equivalent figure for JavaScript was only 6.5%.
+Importantly, many flaws are never assigned a Common Vulnerabilities and Exposures (CVE) ID, with six out of ten JavaScript vulnerabilities falling into this category.
+That means developers can’t just add up CVEs to get some idea of which libraries and languages represent the biggest risk.
+Nevertheless, this analysis suggests that if a generalisation can be made it’s that Java, JavaScript and Python are the library languages that cause flaw counts in applications to rise.
+So how might developers counter flaws in libraries?
+The good news is that three quarters can be fixed with a minor “non-breaking” update that can be implemented to the library without causing wider disruption to the application – this held true even for almost all the most concerning one percent of flaws that might be being actively exploited.
+Veracode chief research officer Chris Eng commented:
+Open source software has a surprising variety of flaws. An application’s attack surface is not limited to its own code and the code of explicitly included libraries, because those libraries have their own dependencies.
+But as long as developers realise this and apply fixes, they can reduce the risk.
+There’s also the issue of how many people are out there looking for flaws on everyone else’s behalf. Right now, that’s become a popular pastime, with at least one recent report finding that the number of flaws in open source software reached a record 6,000 in 2019.
+Open source libraries have become a ubiquitous part of software development. Flushed by the success of this, the next battle is to make sure that doesn’t create problems for the near future.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+We use a product (not naming them yet) that builds network monitoring equipment, that is completely dependent on Open Source software as you mention. One of the updates broke it, so it has become useless and a risk to our environment. The vendor has been (apparently) trying to fix it for months, but they seem clueless as to the working of the components (or it would have been fixed by now). By failing to understand the tools they use, they have failed us. I expect they will be underwater by the end of this year. Which is a real shame, it was a great product up until last year… or at least we thought it was….
+I could not recognize source of your problem: is it Open Source software or vendor?
+If Open Source is problem, why don’t you pay someone to solve your problem.
+You earn money from doing your work. Don’t you?
+Marko, although I think you are trolling, I’ll reply. You misunderstood. Vendor product = example: cisco firewall. We pay the vendor for the product, if we made it, we wouldn’t need the vendor. Vendor uses lots of opensource software that is not doing what they expected and they don’t understand where the problem is – they are the programmer/people we pay to solve the problem. The problem is like they say in the article – people/companies are dependent on software that they don’t understand.
+Yes I earn money doing my work, or I wouldn’t do it.
+Yes, closed source is way better for hiding all the buggy code / blatantly copied open source code. Adobe Flash is a prime example of security and closed source…. Perhaps if we all switched to Rust a lot of these problems would disappear?
+This is a very flawed argument (aka blatantly false). The security of software does not depend on the commercial model. It depends on the developers understanding application/software security.
+Conversely, closed source is not a guarantee software security. Dragonblood is a perfect example of a closed source vulnerability with WPA3. If only the WiFi Alliance was open source then perhaps we would have better router security? Hmmm?
+In respect of websites should they provide a link to tell us what libraries they are using and what functionality they support, so we can choose which to enable?
+I run uMatrix which allows me to control which scripts etc can run in MY browser. But it can be a bit “hit and miss” deciding what to permit. Looking at this page:
+sophos.com is by definition rather essential, but what about:
+wp.com? Presumably powering the blogging software
+soundcloud.com is presumably required for playing audio
+sndcdn.com? Is this also sound cloud and only needed for audio components?
+google.com is required for “an image” – is this tracking?
+gravatar.com is associated with commenting?
+polldaddy.com is presumably unnecessary except for polls?
+wikipedia.org for creative commons images?
+youtube.com is presumably for embedded videos
+google-analytics.com is for tracking us?
+en25.com has a script, but the website seems to run OK without it.
+And sophos.com is relatively conservative in what it expects browser users let run on their browsers!
+It would be good if “internet publishers” were to consider being a bit more open about what open or closed source stuff has to run. Arguably it is good if a website relies heavily on a trusted and widely used set of javascript utilities rather than lots of in-house code, but surely there has to be a trade off between number of third party sources that have to be run to achieve certain functionality and what functionality is actually required?
+Our list of the domains you can expect to see us using can be found here:
+https://nakedsecurity.sophos.com/cookies-and-scripts/
+HtH
+Paul
+Thanks, that is very much what I was looking for.
+1) Perhaps the link to “Cookies” at the foot of the page could be to “Cookies and Scripts”?
+2) It is not as complete as I would like. For example in the list in my first post, I found en25.com and sndcdn.com which are not in the Cookies and Scripts page. Some might say that sndcdn is “obviously” to do with soundcloud – but we have read about being wary of “sound-a-like” domains!
+thanks again
+I’ll pass your feedback back, thanks! 
+You are right about sndcdn – AKAIK it is short for Soundcloud Content Delivery Network (where the actual podcast audio gets gets streamed from). I’ll also ask to get en25 added – I think that is to do with the Eloqua tracking service that we use.
+Open Source libraries are a boon to developers, but let’s not forget the fact that most of these libraries, especially the free ones, do not undergo rigorous quality checks. 
+Apart from unintended bugs, the crowd-sourcing nature of these libraries makes them very palatable to certain governments. It’s much easier and cheaper to plant an obscure backdoor in a popular library than to shop at the underground Vulnerability Market.
+If my memory serves me right (not all the time)
+Didn’t MS take over GitHub on the premise they would improve security on the projects?
+“That free puppy that you adopt still needs to be fed, walked, and taken to the vet.”
+I think in this context, it would be appropriate to add something like the following to that statement:
+“…and you should expect to be cleaning up an awful lot of puppy poop!”
+It’s all  about fame (popularity). Last +15 years Open Source software is on a rise and it is logical that many flows are noticed.
+Same is with Microsoft Windows – it is mainstream PC platform and that is a reason why we have so much malware made for it. Same problem is with Android nowadays.
+This article is absolutely shitty. Criticises the open source software as unsafe but do not tell anything about the safety of closed source software that by the way is as shitty as the article. Moreover there are a big list of closed source software vendors that knowing a risk tried to hide it. So you can have many times free shitty software that at least you can modify and is “gratis” or shitty privative software that don’t and you have to pay. Easy choose most of the times.
+Given that all software has flaws it seems reasonable to point out those in open source software in the same way one would for closed source software.  I’m confident most developers would rather know than not.
+Also, when we write about closed source software bugs, we don’t feel compelled to add in comparisons with open source software every time, so the fact that we talk about one without inevitably delving into the other seems perfectly reasonable. (If you are writing about how smoking can harm your health, you can do so independently of mentioning all the other habits that might harm your health too.)
+While open source software does lead people to use more of it, I wouldn’t blame it on OSS. To me this article sounds like OSS os the cause of all the problems. The main thing is that in OSS, it’s fairly easy to find security flaws if you know what you’re looking for while in closed source, since you don’t have the code, it’s a lot harder to find security flaws and thus it appears that closed source is better while in reality it does a lot worse since the people working on it are pretty much always the same, no one else can verify the code and security flaws stay unnoticed for years that would have been found if it was open source.
+I agree that because of the nature of open source people use it more which makes software more dependent on it and harder to understand and keep an overview. Despite of the problems they have caused we should be grateful or all the free software and open source software that we have available to our hands as that is and will always the way to go.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

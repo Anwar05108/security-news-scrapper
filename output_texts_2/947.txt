@@ -1,0 +1,52 @@
+Sophos Home protects every Mac and PC in your home 
+SophosLabs has just published a new report on a ransomware strain known as ProLock, which is interesting not so much for its implementation as for its evolution.
+
+Let’s start at the very top of the ransomware dilemma.
+Should you ever pay blackmail money to ransomware crooks?
+As you can imagine, law enforcement and government bodies around the world reguarly say, “No! Please don’t, because it’s the regular payments that make the whole ransomware ecosystem work in the first place.”
+Sure, in the 1990s, before anyone figured out how to make any real money out of malware, there were plenty of deeply destructive computer viruses that circulated widely and did huge amounts of damage.
+It was often hard to figure out why anyone would write and deliberately disseminate malware back then, because those who were caught very often ended up serving prison sentences.
+There were lots of possible reasons, of course: because virus writers had some sort of axe to grind with the world; because they wanted to make some sort of social or political statement; or simply because they could, and wanted to show off to their buddies in the cyberunderground.
+Money didn’t really come into it at all back then, not least because there wasn’t a reliable way to extort money online and remain anonymous.
+But malware in general, and ransomware in particular, doesn’t much follow that “anger at the world” path any more.
+It’s almost all about money now – and as you are no doubt aware in the case of ransomware, the money demanded can be several million dollars per network attack.
+So, if no one ever paid up, contemporary theory says that crooks would be much less inclined to bother attacking networks with ransomware in the first place.
+That’s because most attacks require quite a lot of time and effort on the part of the crooks – this isn’t an after-hours hobby where hackers compare notes with underground chums, but a competitive cybercrime arena. 
+Ransomware gangs may take days or weeks to get their attack ready, for example by:
+Our own threat response team has even dealt with a ransomware victim where the criminals appear to have dug around in the IT department’s own email to find out what cyberinsurance arrangements the company had in place, and to gauge how high to pitch their ransom demand.
+These crooks also downloaded personal contact data for key members in the IT team, and then placed a voice call (using a voice changer) to the IT manager to threaten him directly, reading out some of his personally identifiable information (PII) as proof that they had already exfiltrated corporate data.
+We’ve also seen ransomware attacks where the criminals have emailed staff across the company to warn them that their own PII would be exposed to the world if the company didn’t pay up, urging the staff to contact their IT team to demand that payment be made – basically, turning the organisation against itself.
+As you can see, the reaction of the crooks to the ever-louder advice, “Don’t pay!” has been to adjust their approach to make their demands more compelling, even against companies that feel sure they’d never pay up.
+As a result, we’ve always taken a conciliatory approach that says, “We urge you to avoid paying up if there is any way you can. But if it’s legal to pay in your country, and you end up doing so, we’re not going to judge you for it, because it’s not the future of our business that’s looking into the barrel of a ransomware criminal’s gun.”
+After all, if you genuinely have been caught out with inadequate backup, if every single computer in your company is essentially frozen and useless, if your business is almost certain to go down the tubes if you don’t pay up, and if paying up is likely to save the company…
+…then it would be rather self-indulgent for anyone to insist, “You still shouldn’t pay up, even if it means that everyone loses their job.”
+But what if paying up won’t work, no matter how stuck you are, and might even make your position worse?
+That’s a problem that faced the ProLock ransomware gang earlier this year.
+Last year, as far as we can tell, these crooks were behind ransomware called PwndLocker that – fortunately for the rest of us – could sometimes be decrypted without paying.
+The crooks had apparently made a cryptographic blunder that sometimes allowed victims to recover the decryption key even after the encryption was finished.
+Next came the ProLock ransomware strain, which ended up provoking a more-urgent-than-ever warning from the FBI that said:
+The decryption key or “decryptor” provided by the attackers upon paying the ransom has not routinely executed correctly. The decryptor can potentially corrupt files that are larger than 64MB and may result in file integrity loss of approximately 1 byte per 1KB over 100MB. Added coding may be necessary for the decryptor to function.
+Interestingly, ProLock doesn’t actually scramble every byte of every file it attacks.
+In the ProLock sample analysed by SophosLabs, the first 8KB (8192 bytes, or 0x2000 in hex) of every file are left untouched.
+As a result, files of 8KB or below are unmodified, while files bigger than 8192 bytes are encrypted but with the first 8KB intact.
+ProLock isn’t the first ransomware to use this trick – leaving the start of files alone – and there are three likely reasons why ransomware crooks do it:
+We checked our own home directory and found that about two-thirds of our files were smaller than 8KB, which led us to think that a ProLock attack might not be that bad after all…
+…except that the one-third of files that would get scrambled included almost everything of real importance, including all audio and podcast files and every video file, as well as most images, PDFs, documents, databases and presentations.
+Only in the case of our Naked Security article archive would we have been “lucky” enough to retain just over half of our files, for the simple reason that we save the originals as plain text files, half of which are just under 8KB. (If saved as DOC or DOCX files, they would all come out well over 8192 bytes.)
+ProLock also has some other interesting tricks to learn about, including obscuring the ransomware executable itself by hiding it inside a BMP (bitmap image) file that displays as an almost-uniform and apparently uninteresting black rectangle if you open it for inspection.
+In a real-life ProLock attack, however, a PowerShell script that does not itself contain any ransomware code is used to unravel the EXE from the innocent-looking BMP file in order to launch it.
+ProLock also contains a list of more than 150 different software products that it tries to spot in memory and kill off automatically, including enterprise applications (which typically keep files such as databases locked open, with the result that ransomware can’t get write access to those files), security software and backup tools.
+For the full and fascinating details of the ProLock ransomware, please visit the SophosLabs report.
+You will learn:
+
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

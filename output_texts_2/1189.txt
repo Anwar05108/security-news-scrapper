@@ -1,0 +1,145 @@
+Sophos Home protects every Mac and PC in your home 
+Here’s the good news: Microsoft has released an emergency patch for the infamous PrintNightmare bug that was revealed in the Windows Print Spooler just over a week ago.
+The patch is what Redmond refers to as an OOB Security Update, where OOB is short for out-of-band.
+OOB is a jargon term that refers to communications that are kept separate from the usual channel you use, notably for safety reasons in case the main channel should fail or need overriding in an emergency. 
+In Windows update parlance, OOB refers to patches that are deemed so important that they can’t wait until the next official Patch Tuesday, which is always the second Tuesday in each calendar month. (This month, that’s 2021-07-13, which is still almost a week away.)
+Here’s the bad news: early reports suggest that the patch doesn’t protect against all aspects of the PrintNightmare bug, and that it may be possible to bypass the patch entirely, depending on the version of Windows involved and the Print Spooler configuration on the targeted computer.
+ICYMI, PrintNightmare is an aptly named bug that became a public danger for the unfortunate reason that a team of security researchers jumped to an incorrect conclusion:
+PrintNightmare, the zero-day hole in Windows –  here’s what to do
+
+
+Briefly put, Microsoft published a Windows Print Spooler patch for a bug dubbed CVE-2021-1675, as part of the June 2021 Patch Tuesday update that came out on 2021-06-08.
+Originally, the bug was reported as an elevation of privilege (EoP) vulnerability, meaning that although attackers already on your computer could exploit the bug to promote themselves from a regular user to a system account, they couldn’t use it to break into your computer in the first place.
+In the meantime, Chinese researchers preparing a paper for the 2021 Black Hat conference were working on their own bug in the Windows Print Spooler.
+Theirs sounded very similar, except that it was an RCE bug, short for remote code execution, meaning that it could be used for breaking in, not merely for elevating privilege.
+Given that the Chinese researchers’ bug was apparently different, they hadn’t disclosed it yet.
+Later in the month, however, Microsoft admitted that CVE-2021-1675 could also be used for RCE, and updated its public advisory to say so.
+Even though that meant the bug was more serious in theory, no one worried too much in practice.
+After all, a patch was already available, and anyone who had installed the patch to close the EoP hole was, ipso facto, protected against the newly announced RCE hole as well.
+At this point, the researchers then apparently assumed that their bug was not original, as they had first thought.
+Because it had already been patched, they assumed that it would therefore not be untimely to publish their existing proof-of-concept exploit code to explain how the vulnerability worked.
+“What’s the chance,” we guess they asked themselves, “that two different RCE bugs, working in what sounds like exactly the same way, would be found at exactly the same time in exactly the same Windows component, namely the Print Spooler?”
+With hindsight, which is a wonderful thing indeed, we can compute that chance precisely: 100 percent.
+Their bug was not CVE-2021-1675 at all; it was CVE-2021-34527, although no one knew that at the time, because that additional bug number was only issued later on.
+Even worse, this new RCE hole wasn’t blocked by Microsoft’s Patch Tuesday update, making the published code into a publicly available, fully functional, break-and-enter exploit.
+In the jargon of the cybersecurity industry, the researchers had unwittingly dropped an 0-day. 
+(“Zero-day” is the jargon for a previously unknown and unpatched security hole, because it means that the Good Guys were zero days ahead when the Bad Guys first got to hear about it.)
+The researchers removed the zero-day code from the internet pretty quickly, but not quickly enough.
+As Pandora found when she opened her proverbial Jar , there’s no point in trying to put secrets back in the box once they’ve escaped.
+The PrintNightmare exploit code had already been copied and republished in many places, and almost every known version of Windows was at risk.
+Most notably, even Domain Controllers generally have the Print Spooler running by default, so that the PrintNightmare exploit code theoretically gives anyone who already has a foothold inside your network a way to take over the very computer that acts as your network’s “security HQ”.
+Fortunately, there is a 2-minute workaround for any and all Windows systems: turn off the Print Spooler and set it into disabled mode so it can’t start up again, either by accident or by design.
+No Print Spooler, no attack surface; no attack surface, no security hole; no security hole, no break-and-enter point.
+Unfortunately, without the Print Spooler running, you can’t print, so anyone who needed a working  printer somewhere on their network working was on the horns of a dilemma: leave the Spooler running only on carefully selected servers, and watch them really carefully; or continually re-enable/print/disable the Spooler every time output was required.
+As mentioned above, the good news is that there’s a patch for the RCE hole available now in the form of Microsoft’s Out-of-Band (OOB) Security Update available for CVE-2021-34527.
+Use Settings > Update & Security > Windows Update and install the latest update (KB5004945)
+
+Microsoft has also published some additional precautions that Windows administrators can follow to lock down their printers more thoroughly than before.
+But as we also pointed out above, there’s some bad news as well.
+Reports currently circulating on Twitter say that this patch only covers the RCE (“breaking in across the network”) part of the bug, not the EoP (“increasing account privilege after you’re in”) part.
+Other reports suggest that if a feature known as Point and Print is allowed to run without User Account Control (UAC) on your computer, then it’s almost certainly possible to bypass the RCE protection in the patch as well.
+In short, we recommend that you apply this patch, on the grounds that it doesn’t seem to make anything worse, and it does shut the door on some, if not all, existing attacks.
+But we also recommend that you stick to our earlier advice to turn the Print Spooler off, as well as setting its status to disabled so it can’t start back up unexpectedly. 
+Unless and until a patch comes out that both Microsoft and the community can’t easily bypass, go for defence in depth, where you use multiple layers of protection to keep attackers out, including:
+Oh, before we go: don’t make the same mistake as the security researchers who unleashed this zero-day code by mistake.
+When it comes to cybersecurity… NEVER ASSUME!
+CHECKING FOR PRINTNIGHTMARE PATCHES
+If you have Sophos Central, you can use the Live Discover feature with a query we’ve published to check your whole network for PrintNightmare patches.
+On your own computer, you can view your recent updates using Settings > Update & Security > Windows Update > View update history.
+Below, we’re running the latest Enterprise Edition of Windows 10 (21H1), and we’ve highlighted the June 2021 Patch Tuesday update, which covers CVE-2021-1675, and the 06 July 2021 Emergency update described in this article, which covers CVE-2021-34527:
+
+You can also list the official hotfixes on your computer from a command prompt (CMD.EXE) using the SystemInfo or WMIC commands, like this:
+From a PowerShell prompt, you can simply use the Get-HotFix command:
+To find out the KB number for your version of Windows, you can consult the list on Microsoft’s CVE-2021-34527 Security Update Guide.
+NB. The list has 52 entries and covers 10 different hotfix numbers, from KB5004945 to KB5004959. You can download the complete list in Excel or CSV format from the relevant Security Update page.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Does this patch require a reboot?
+Yes. 
+(Let me be more precise: when I installed it as shown in the screenshot above, it required me to reboot after the download and pre-install phase, which I did. I didn’t use a stopwatch, but it didn’t take long. After rebooting I took the second screenshot you see above and ran the scripts listed. I assume that a reboot will be required on all Windows versions, but I ran it myself only on a Windows 10 Enterpise (21H1) English (US) VM that already had all previous “quality updates” installed.)
+Your mileage may vary but I bet it doesn’t vary by much :-)
+I believe it does require a reboot.
+As mentioned above, my update rebooted, and I expected no less (or more)…
+I’m getting from all the reports that if you have a stand alone PC, no remote access, are not installing suspicious printer drivers, that there is zero risk of this?
+That the main concern is one exploited system on a network, compromises all systems on that network.
+Just trying to confirm that for a home PC there is nothing to panic over. but should be patched anyways incase someone does get access
+Yes, I think the main risk is across-your-LAN exploitation, notably onto a server but also onto other laptops. after an attacker has already gained a low-user-privilege foothold somewhere on your network.
+So on a home network the risk is much lower but not (as you say) entirely zero.
+As an aside, if you have a home LAN with a printer that is *directly* visible from the internet…
+…then I suspect you have a bigger problem than just PrintNightmware to worry about. (FWIW, why not check your router anyway to make sure good old Universal Plug-and-Play (uPNP) is turned OFF. Just in case!)
+The good news on most home networks is that living without a printer is pretty easy, and the inconvenience of turning the Spooler on-and-off especially for printing is not an enormous hassle. (If you turn off printing for long enough, you quickly forget why you really needed it after all.)
+Paul,
+Don’t you mean “to make sure good old Universal Plug-and-Play (uPNP) is turned OFF”?
+Fixed, thanks! I copied you and wrote it in BIG LETTERS this time…
+Although Microsoft appear to make the patch available for Windows 7 systems, and it can be downloaded, installing it requires the standalone Windows Modules Installer to be updated. Following the link to update the installer takes you to a page that links to an updated installer – where Microsoft tells you  the download is no longer available.
+About par for the course, I’d say…
+To be fair, Windows 7 has been out of support for more than a year, and there was a free upgrade path to Windows 10 along the way (which *is* more secure).
+Not sure what else to say.
+You don’t think it’s incongruous to go to the trouble of creating a patch for Windows 7 and then make it impossible to install? I checked out both the standalone security and the monthly rollup versions, with the same result. Windows Update saw nothing that needed to be installed. It’s possible that by next Patch Tuesday there might be an opportunity to benefit from the patch, but I’m not optimistic. In the meantime I have the spooler disabled, and I can print to my HP via email attachment – a service that HP made available a few years ago when Android had problems printing to HP products.
+I appreciate that Windows 7 isn’t supported for non-commercial folks like me (or only partially so – I still get monthly security updates), but I have no choice – my hardware is not compatible with Windows 10 (Microsoft’s own verdict) and on a fixed income I can’t readily shell out hundreds for new hardware (and software). VMware allowed me to check out Windows 10 Preview on an XP box some years ago (Microsoft’s own VM product wasn’t able to do what VMware’s player did with ’10) and I learned that my custom legacy software wasn’t able to run even in compatibility mode, so ’10 has always been a non-starter for me. I get the feeling that Windows 11 is shaping up to place many people in my long-held position, even diehard ’10 users…
+I was going to suggest Linux (which is supported on hardware going way back) if performance on a low-powered computer is an issue, but if you are stuck with old and unsupported Windows software as well, you might be stuck.
+I was able to download the security update MSU file for Windows 7 SP 1, like you.
+AFAIK, Windows 7 SP1 1 is supposed to come with the Windows Update Standalone Installer (WUSA.EXE) preinstalled, and opening CMD.EXE and simply running “wusa windows6.1-kb5004951-x64_2fcf9eaa66615884884cc1cb9f75fc96294cbf2a.msu” ought to do the trick. 
+If your wusa.exe is incompatible with the MSU file, then I have no idea where to update it, given that it ought to be as up-to-date as it can be, from the last full-on update you received when Windows 7 was fully supported. I’m afraid I don’t have a Windows 7 VM left around to check it for you.
+To get the Windows installer update go to https://www.catalog.update.microsoft.com/Home.aspx and use kb4592510 in the search.
+That’s worth a try but the OP’s problem seems to be not having a recent enough MSU installer tool (WUSA.EXE) to process the 2021-format MSU update file. (From memory, MSUs contain CABs, and new CAB compression formats have come along over the years, so it’s not surprising that an old installer tool might be unable to unravel new update packages, in the same way that old decopression programs can’t unpack modern .7z files.)
+The update you have found is itself an MSU file, so the OP’s “old” WUSA.EXE might not be recent enough to install that update either, given how recent it is… in which case, he’ll need to find the earliest possible WUSA update MSU that his current WUSA.EXE will handle, and then go through the needed sequence of update-the-updater until he gets to a WUSA.EXE that aligns with current MSU files. 
+Peter, please let us know how you get along! (And if anyone else has gone through this process, please tell us how you did it… but using official Microsoft downloads only, if you can.)
+That is the installer tool update needed to install the printer patch. It is the servicing stack update, then you can install the Monthly Rollup KB5004953 or Security only KB5004951 which you can download  from the same site which is the printer patch.
+Let’s see if it works for Peter. Seems like you had a version of WUSA.EXE (let’s call it version X-1) that would unpack the “servicing stack” update and thereby update WUSA.EXE to a version (let’s call it X, the latest version) that would install the latest “PrintNightmare” MSU. 
+But if you had WUSA.EXE version X-2 (say), then you might need to do *two* “servicing stack” updates to get to the point that you can install the very latest update… one update to get to version X-1 in order to do a second update to get to version X in order do do the final security update.
+I suspect that what worked for you will work for Peter, but for all we know, you may have been closer to the current version of everything before you started out.
+Some progress – thanks @zeus_dog – but not a successful result. KB4592510 does appear to be installed successfully, but whatever happens, it doesn’t change the properties of the wusa executable (or of the related PkgMgr), so I have yet to determine what change is made.
+Something does change – either double-clicking on the PrintNightmare patch .msu or running wusa from an Admin command prompt does appear to install the patch successfully.
+Until you reboot. At which point that wonderful paragraph “Failure configuring Windows updates. Reverting changes. Do not turn off your computer” appears, and it takes two reboots by the system to get back to stability, sans patch.
+I wondered whether ZoneAlarm was preventing successful implementation, but exiting before trying the process yields no different result.
+So there is something different. I also tried my Windows 7 Enterprise system, with exactly the same result as for Windows 7 Professional. Haven’t tried the 8.1 machine yet, but I will. I’m a sucker for punishment.
+Currently I’m examining the CBS.log for Enterprise (the last system I tried) for clues. I guess I’ll respond again once I’ve either given up, or managed to get a result (in which case: Microsoft, consume my coulottes! :))
+I’ve been exploring various flavours of Linux over the last several years, so WINE might help, but at present that’s on the back burner (I have well over 12 years of R&D stored on the XP and 7 machines and it’s going to be a long process to migrate, as I have discovered). 
+I am grateful for the helpful suggestions though – wusa is present on the 7 machine but launching it from an admin command prompt yields the same result as double-clicking the .msu, so no luck there. 
+In the meantime I am looking (with great care) for a possible safe source of an updated version (if there is one – this could of course be a red herring caused by yet another MS bug – sorry, feature), so I still have options. I have an 8.1 machine that I have yet to try patching, so there may be some useful intel to be gained from that exercise. 
+This all takes me back to the early 90s and trying to provide computing support to a research unit at Oxford. I discovered a new form of Hell there: trying to explain to around twenty highly qualified hyperintelligent academics why OUCS and I couldn’t fix *any* of the issues they were encountering with MS Office…
+You could have made your point about responsibility and possibility by saying, “I’ll fix Word for you single-handedly once you’ve fixed the problems caused by traffic in St Giles and Broad Street.” 
+(Still not sorted, I am sad to say, but Broad Street is at least semi-pedestrianised right now to help people meet outdoors, presumably for coronavirus reasons. What could surely be two of Europe’s most glorious and historically famous piazza-type frontages, used primarily for on-street paid parking and therefore plugged up with stationary vehicles all day long. But I digress.)
+This is way OT but I’m old enough to remember the April Fool’s prank pulled by someone who noticed that a single judiciously-placed Right Turn Only sign (or was it Left?) could gridlock traffic in that area, so they manufactured a very realistic-looking faker and placed it during the night when traffic was extremely scarce…
+It wasn’t me. I’m just tripping down Memory Lane (No Right Turns).
+There are a few reports of BSOD after installing the patch and also inability to print to some printers.  Some of those are appearing on Brian Krebs’ report on this.
+https://krebsonsecurity.com/2021/07/microsoft-issues-emergency-patch-for-windows-flaw/
+I installed the update yesterday and I cannot print to my HP8600 today, I cannot find a way to fix it?
+One possible route is to use HP’s web print service:
+https://www.hpsmart.com/us/en/cms/HPC/ePrint
+You obtain an email address that HP will provide. Using it with an attachment (or content in the email body) sends the material to your printer. It can take some time if the network or HP are loaded.
+I use mine whenever I can’t get the PRINT option to work on one of my numerous devices on my internal network (we have AT&T as a provider of phone/Internet/TV via DSL). In theory you ought to be able to print to your home network printer when you’re away from home. Just make sure there’s enough paper, and that the dog doesn’t beat you to the printout…
+HTH,
+Peter
+I’ve installed the KB5004945 through the normal windows updates and oooo boy… All I got is BSOD just after reboot takes place. This happens like al the time so there was no way that I could uninstall the update patch. I have to restore a clone to my IOS Drive. Please do not install the KB5004945 update that was release on the 6 July 2021.
+Did you try booting into Recovery or one of the various “Safe” modes? Is it possible to remove the update that way? Just wondering for other people.
+Important to note – the new CVE-2021-34527 patch is *not yet* available for Server 2016 (or the older Windows 10 R1607 counterpart to Server 2016 – which is still supported and also used by Windows 10 LTSB), nor is it available yet for the original Server 2012 (non-R2).
+While we’re still in testing for this patch the very first system I tested BSOD as soon as I attempted to print to a Kyocera printer.
+For reasons unknown almost all updates affecting Windows printing seem to cause BSODs relating to Kyocera drivers. I don’t know who’s at fault but now its one of the first things I check. it does my head in though
+What protection is offered by intercept X Advanced? While I’ll be patching as soon as it doesn’t break everything, I just thought I’d check. Seems the PoC code is detected and possibly some of the events but I wasn’t too sure, some details would be great
+Yes, Sophos will block a wide range of known PoC code, which obviously prevents an exploit from starting in the first place. But this doesn’t stop an exploit attempt being triggered from a deliberately unprotected computer. So, in order to provide active protection on vulnerable servers, Intercept X also detects and blocks the server-side exploitation attempt itself by preventing the launch of rogue DLLs via the vulnerability. 
+As far as the BSoD goes, if this “always” happens with the printer drivers you have, is there a generic driver (even if it doesn’t support as many of the printer’s special functions as the dedicated driver) that you could use temporarily instead? 
+Windows 10 2004
+Run “2021-07 Cumulative Update for Windows 10 Version 2004 for x64-based Systems (KB5004945)”
+Windows Update standalone installer, do you want to install the following…. click Yes.
+Copying to Windows Update Cache – Initializing Installation – Failed. No codes. Updates were not installed box. Close.
+Dialog – “The Windows Modules Installer must be updated before you can install this package.”
+It was my understanding the above message does not apply to Windows 10. There are no updates for the Windows Modules Installer for Windows 10. Running Windows update does not find or update the Windows Modules Installer. My version of wusa.exe is 10.0.19041.1 (WinBuild.160101.0800).
+I guess all I can do is disable the print spooler service.
+This sucks.
+I don’t seem to be able to get the patch to install on my Windows 7 computer ( and yes, I know I should not be using it, but I use it for some programs that are not available for my Linux PC). I assume I can write a batch file to turn the print spooler on and off when I need it. Is that a viable option? Thanks for the command line method of dealing with the spooler.
+Yes, you can use a BAT file, or a PS1 file if you are a PowerSheller, though you will need to run the scripts elevated to alter the Spooler settings. See the previous article (link above, click on article banner than shows an image of someone bashing their head against a printer :-) for more details.
+In brief, from an old-school command prompt, sc config Spooler start= disabled stops anyone turning it on again after you next stop it (including by rebooting); sc config Spooler start= demand means it will respond to net start Spooler and net stop Spooler commands (though it won’t start automatically after a reboot). And sc config Spooler start= auto is what you can do to go back to “normal” (if that is what you want) if and when you ever do get a full and working patch installed.
+In Powershell, configure the service with Set-Service -Name Spooler -StartupType Disabled and Set-Service -Name Spooler -StartupType Manual, with the command Set-Service -Name Spooler -StartupType Automatic if you want to go back to restarting automatically after every reboot once the patch is done.
+HtH.
+Thanks Paul!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

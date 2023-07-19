@@ -1,0 +1,58 @@
+Sophos Home protects every Mac and PC in your home 
+What might some Android apps be quietly doing behind the backs of their users?
+The answer, according to a succession of studies, is quite a lot, probably more than some users would be comfortable with if they knew about it.
+This isn’t necessarily about outright malicious apps so much as legitimate apps taking liberties or installing with capabilities users wouldn’t expect to exist.
+For example, in March researchers reported that some apps pay a lot of attention to other apps installed on a device, which in theory could be used to gather data on a user’s behaviour and inclinations.
+But a recently published study from researchers at Ohio State University, New York University, and the Helmholtz Center for Information Security (CISPA) offers hard evidence that undocumented and hidden behaviours often extend far beyond mere nosy snooping.
+Using a sophisticated static analysis tool called InputScope developed for the purpose, the team analysed the behaviour of 150,000 apps, comprising the 100,000 most popular on Google Play in April 2019, plus 30,000 apps pre-installed on Samsung devices, and 20,000 taken from the alternative Chinese market Baidu.
+The study examined two issues – what proportion of apps exhibited secret behaviours and how these might be used or abused.
+Of the 150,000, 12,706 exhibited a range of behaviours indicating the presence of backdoors (secret access keys, master passwords, and secret commands) plus another 4,028 that seemed to be checking user input against blacklisted words such as political leaders’ names, incidents in the news, and racial discrimination.
+Looking at backdoors, both Google Play and apps from alternative app stores such as Baidu showed roughly the same percentage of apps falling into this category, 6.8% and 5.3% respectively.
+Interestingly, for pre-installed ‘bloatware’ apps, the percentage showing this behaviour was double the other sources at around 16%.
+This finding chimes with a public letter sent to Google CEO Sundar Pichai in January by Privacy International that criticised the way that pre-installed apps are often not scrutinised for privacy and security problems, creating a tempting workaround for surveillance.
+As a separate 2019 Spanish study documented, the provenance of pre-installed apps is often shadowy, based on commercial tie-ups between phone makers that the end user would not be aware of.
+The latest results would seem to confirm this, not only for behaviours that can be described as backdoors but for secret blacklisting.
+That behaviour was uncovered in nearly 4.5% of apps from Baidu but also nearly 3.9% of pre-installed apps. The figure for Google apps was around 2%.
+The important question is what dangers backdoor and blacklists access might result in, beyond the fact they sound like a bad thing.
+The team took a closer look at 30 apps, picked at random from apps with more than a million installs, finding that one installed with the ability for someone to remotely log into its admin interface.
+Others could reset user passwords, bypass payment interfaces, initiate hidden behaviours using secret commands, or just stop users from accessing specific, sometimes political content.
+Backdoor is an emotive term that covers almost any secret, remote feature users don’t know about, some of which might be legitimate in some circumstances, for example remotely resetting a lost device. Others looked downright deceptive.
+But even if some were legitimate, the fact they exist creates a potential security hazard should these interfaces become known about. It’s the simple reason why backdoors put there for programming convenience are never a good idea, period.
+But perhaps the biggest consequence from the study is simply how many Google Play apps exhibit these behaviours. While the Play Store is large, the fact that several thousand apps have hidden backdoors hardly inspires confidence.
+Worse, there is currently no easy way, short of the sort of weeks-long analysis carried out by the researchers using a dedicated tool, to know which apps operate in this way.
+That’s not so much a backdoor as a blind spot, another problem Google’s sometimes chaotic Android platform could do without.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+the link to the study does not work:
+http://a%20recently%20published%20study%20from%20researchers%20at%20ohio%20state%20university/
+Oops, fixing now, thanks!
+from: https://cse.osu.edu/news/2020/04/some-mobile-phone-apps-may-contain-hidden-behaviors-users-never-see
+“The team developed an open source tool, named InputScope, to help developers understand weaknesses in their apps and to demonstrate that the reverse engineering process can be fully automated.”
+So, since the study doesn’t name names of suspect apps, and, since ‘INPUTSCOPE’ is said to be an open source tool, is it available for download (FYI – other than the referenced article, no other search hits for ‘INPUTSCOPE’ occur at: https://cse.osu.edu), and, even if so, would it likely prove too complex for a non-developer to use?
+Bottom line, I’d like to do a self-audit of my device to see if I have apps installed that mis-behave … to put it extremely politely.
+The paper mentions a GitHub repository – but the link in the article is slightly broken so clicking it directly won’t work (it’s relative, not absolute), and when you do get there the repository is still empty [2020-04-07T22:00Z]. I guess they haven’t uploaded the code yet.
+The main GitHub page for the OSU Security Lab is https://github.com/OSUSecLab so that’s where to check back to see if and when the InputScope code gets published.
+… awesome … thanks Paul … I’ll check GitHub again as the day progresses … as to that ‘INPUTSCOPE’ tool being too complex for a non-developer to use, what do you think … I was an MCSE back in the day, however, the Android thing has been a bit of an uphill learning curve … do you think the tool would be something loaded on the device itself or on an attached PC?
+Ah, I think I unravelled things a bit. 
+It doesn’t sound as though the code is ready for public scrutiny yet given that the report says: “We have implemented a prototype of INPUTSCOPE atop Soot and LeakScope, with borrowed code from FlowDroid to statically detect the user-input validation, reveal its contexts, and extract its compared content. In total, INPUTSCOPE consists of around 5500 lines of our own code.”
+Getting code to work as you need for your own research is one thing, but preparing it for GitHub and getting ready for questions from other users is quite another (and if you are a student then finishing the research is almost certainly what you need to do first).
+The tools they’ve based their system on require a regular computer (not Android) and are themselves quite complex and presumably need building/installing first. They’re all written in Java and they definitely don’t run on the device. FlowDroid, which is pretty much a PhD (literally!) in its own right, warns: “For some apps, FlowDroid will take very long.” 
+I guess you could try getting the other parts first, like FlowDroid, and seeing how you get along. That way you might get an idea up front whether it feels as though it would take too much time (or would need need more computing power than you are willing to pay for) for a hobby project. I suspect that the question is not “is it too hard” but “howe much will it cost to do the work I would like”.
+(If you need an excuse for a new laptop, of course, you might be looking for computational complexity!)
+what a shocker right ? Oh no wait, this actually comes as no surprise at all given the wide forest that Android becomes and how lax is the Google Play store in its standards, specially when it is convenient for Google.
+Can we the say the same for Apple Store ? Probably not exactly but wouldn’t surprise me to find some numbers there… but Apple usually takes care of that quite quickly.
+… ahhh … I see … thanks Paul … that helps me in making my determination as to whether I’d be up to the task of pursuing this matter on my own … my best laptop is a Lenovo ThinkPad P70 i7-6700HQ CPU @ 2.60GHz w. 32.0 GB RAM purchased 02DEC16 … it’s running Win 10 Pro 1909 64-bit and is noticably slower than this old i7-4770K CPU @ 3.50GHz w. 32.0 GB RAM tower PC loaded w. Win 7 Pro SP1 64-bit I’m working on now, so, the P70 doesn’t impress me much … with Win 10 on it … I think I’ll wait to see if you / Sophos Naked Security or the Ohio State U. folks follows up and publishes a list of the offending Android apps they’ve identified … it seems to me that anyone using  an Android smartphone would want to know those specifics …
+It is not at all helpful to post articles like this without providing a list of apps that are suspect.
+If you are demanding a list you will need to apply to the authors of the paper. It would be a long list. And lists of apps names aren’t terribly helpful anyway – by tomorrow the list would be different.
+As I see it, the point of this article is not to serve up a blocklist but to highlight some of the shortcomings of the process by which Google tapproves apps for Google Play, and to provoke discussion about whether it should be stricter/slower/more conservative, and if so, how.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

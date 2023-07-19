@@ -1,0 +1,38 @@
+Sophos Home protects every Mac and PC in your home 
+Open source web programming language PHP narrowly avoided a potentially dangerous supply chain attack over the weekend.
+Technically, in fact, you could say that the “attack” was successful, given that imposters were apparently able to make to make the same source code change on two separate occasions:
+Fortunately, however, the changes were noticed and reverted within hours, so they didn’t make it into any official PHP release.
+In theory, anyone who downloaded the very latest “still in development” version of PHP on Sunday 2021-03-28, compiled it, and installed it on a real-life, internet facing web server could have been at risk…
+…but we think the total number of people who did that is probably zero, with the possible exception of the crooks themselves proving a point.
+The modifications above introduce a nasty remote code execution backdoor to any server that uses PHP’s  Zlib compression for content it sends out. 
+(These days, many, if not most, web pages are compressed before they’re transmitted, unless they are files such as images or download archives that are already compressed and so won’t compress much more, if at all.)
+The backdoor is triggered when PHP output compression starts, and it:
+This backdoors turns PHP itself into what’s known as a webshell – an implanted malicious file on the server that can not only be triggered by an external attacker, but also instructed to run any system command the attacker wants at any time.
+In other words, a remote shell of this sort doesn’t just let cybercriminals run some commands, it lets them run any commands, and therefore to adapt and alter their attack as they go along.
+The unauthorised code changes were tagged with the names of Rasmus Lerdorf (creator of PHP) and Nikita Popov (a major PHP contributor).
+PHP development is managed using the well-known Git source code control system, on a server operated by the PHP team itself.
+According to Popov:
+We don’t yet know how exactly this happened, but everything points towards a compromise of the git.php.net server (rather than a compromise of an individual git account).
+Until now, the team has used Microsoft’s cloud-based GitHub service as a mirror (secondary copy) of its codebase, but says that “the repositories on GitHub […] will become canonical,” which is the jargon term for the primary copy, and says “we have decided that maintaining our own git infrastructure is an unnecessary security risk, and that we will discontinue the git.php.net server.”
+Popov also said:
+We’re reviewing the repositories for any corruption beyond the two referenced commits. Please contact security@php.net if you notice anything.
+The good news, as we mentioned above, is that this backdoor didn’t make it into any official PHP releases, so it’s highly unlikely that this Trojan Horse code made it into any real-world servers.
+In particular, if you didn’t download PHP and rebuild it from source code over the past weekend, you’re unlikely to have come anywhere near this.
+If you’re worried, check the file etc/zlib/zlib.c in your PHP source code tree for signs of the added lines shown above.
+In particular, the text string zend_eval should not appear anywhere in the /etc/zlib/* files, so if you run this command from the top of your PHP tree, you shouldn’t see any matches:
+If the above backdoor code has somehow made it into your PHP tree, you would see something like this instead…
+In the unlikely event that your code includes the backdoor, you need to refresh your PHP source from the new repository as well as looking for any other unexplained modifications in your code, or unexpected commands in your logs..
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“…anyone who downloaded the very latest “still in development” version of PHP…”
+I can’t think of any reason to do this, other than pure excitement of exploring development builds 🙂 And this should only be performed on internal only/non public facing development servers.  Good to see that the PHP team are reviewing & improving.  Oh and thanks for detailing the steps to make our own checks
+You are most welcome. Thanks for your kind words – glad you found the tips useful.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

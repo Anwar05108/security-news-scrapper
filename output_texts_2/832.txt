@@ -1,0 +1,55 @@
+Sophos Home protects every Mac and PC in your home 
+Some technologies attract a “love it or hate it” response.
+Bluetooth doesn’t seem to be one of those, because many of us have a love and hate relationship with it.
+It’s incredibly useful when it works well, but at other times it makes you wonder why you didn’t just use a simple, old-fashioned cable instead – when your keyboard stops typing in the middle of a vital message, for example, or every time your headphones demand to be paired yet again.
+Bluetooth has had its fair share of security scares, too, not least because one end of a Bluetooth connection is often a low-cost, low-power, low-budget device that doesn’t have a lot of budget or processing power available for cryptography and security.
+As you can imagine, for a device such as a wireless headset, which may end up sending and receiving a complete record of all your phone calls, Zoom meetings and online chats, strong encryption is important.
+Otherwise, anyone who could sniff out your Bluetooth signals (or set up a rogue Bluetooth receiver in a cupboard or under the table to record your data for later) could listen in to your business and personal life.
+Bluetooth does support encrypted connections, but by default the encryption process doesn’t provide what’s known as “forward secrecy”.
+Forwards secrecy is perhaps better understood as “backward secrecy” – in a system that offers it, there’s no point in someone who hasn’t yet hacked your master password – the one that you chose on day one – keeping recordings of your messages.
+But if you don’t have forward secrecy, then an attacker who has a recording of your last year’s worth of encrypted phone calls might as well hold onto them indefinitely.
+If ever they manage to get hold of your original master password, any time in the future, they can go back to the start of their recorded data and roll forward through all of your scrambled data, decrypting every message or conversation in their stash.
+In other words, without forward secrecy you can never truly leave your cryptographic past behind, which is considered a serious issue these days for voice systems and instant messaging services.
+Loosely speaking, Bluetooth’s regular encryption relies on a cryptographic key generated and shared when you pair a device, called the Link Key or Long Term Key (LTK).
+Every time a new connection is established, the two devices that are connecting up exchange random numbers that are combined with the LTK to produce a session key (SK) that’s unique to that connection.
+However, a Bluetooth sniffer that records an entire conversation will end up with the random numbers and the encrypted data, so the LTK can be used later to reconstruct the SK for that conversation and thus to unscramble the data.
+Only by regularly unpairing a device and then pairing it up again can you reliably discard the old LTK and replace it with a new one, thus starting a fresh sequence of session keys.
+Apple’s efforts to overcome this limitation is a proprietary system called MagicPairing, which uses your iCloud account for secure storage of cryptographic material for a more sophisticated session key system than the one used in regular Bluetooth connections.
+In particular, MagicPairing doesn’t rely on an LTK that’s stored when you first set a device up, and used over and over until you delete and pair them again.
+The Bluetooth chip in the device you’re connecting up asks for an LTK as usual (so this system is backwards-compatible with most Bluetooth chipsets), which is normally supplied directly from a local database by the host system it’s connecting to, typically your phone or laptop.
+MagicPairing, however, via your iCloud account, essentially generates a new LTK for every connection, not merely every time you pair a device.
+Simply put, it turns the LTK into a short-term key to provide forward secrecy.
+The one-time LTK then generates a session key for that connection, as usual – this makes it compatible with existing Bluetooth devices – so that the cryptographic security of each connection stands on its own.
+There’s no LTK that a crook can steal from your laptop or your mobile phone later on that will unlock the secrets of everything you’ve ever said.
+The bad news is that researchers at the Technical University of Darmstadt in Germany have come up with a pair of open source tools called InternalBlue (geddit?) and ToothPicker that have revealed a number of flaws in Apple’s MagicPairing software code.
+Ten different bugs were found and reported to Apple over a six-month period from October 2019 to March 2020:
+The report and proof-of-concept (PoC) code for these flaws has now been made public, even though Apple hasn’t patched them yet.
+The good news, however, is that none of the bugs are exploitable for attacks such as implanting malware, or even for giving an existing malware program additional powers.
+(Those exploit classes are known as Remote Code Execution, or RCE, and Elevation of Privilege, or EoP, respectively.)
+Fortunately, this pre-patch disclosure isn’t that big of a deal, because the only attacks known so far are Denial of Service (DoS) problems.
+The researchers were only able to cause three issues, namely: crashing the Bluetooth software, thus killing all Bluetooth connections and forcing it to restart; hogging all the CPU power to make the device unresponsive; or making a device disassociate so that it needed to be paired up all over again.
+Three of the ten vulnerabilities were disclosed less than 90 days ago – the time limit that Google’s Project Zero has established as a “reasonable period” to give a vendor to get a patch out.
+This might seem a little abrupt for researchers keen on practising responsible disclosure, but the researchers told online tech publication The Register that:
+[We] were surprised that Apple did not fix the rather simple bugs that could be fixed by adding a few checks. However, we are also a bit ahead of the originally planned timeline, as the conference [where we are presenting this work] is virtual this year [due to coronavirus precautions] and authors were asked to pre-publish their papers. Nonetheless, we informed Apple about the changed timeline and they did not disallow publication. And as even the oldest bugs are not fixed, this probably does not have [anything to do] with the changed timeline.
+At the moment, there aren’t any patches you can fetch from Apple, but also there’s no immediate cause for concern.
+The researchers haven’t yet figured out how to exploit any of the Bluetooth crashes they were able to provoke, or even if exploitation is technically feasible.
+(We’re assuming that if Apple felt that exploitation were likely then it would quite reasonably have asked for publication of the relevant vulnerabilities to be delayed and that the researchers would happily have obliged.)
+Nevertheless, it does mean that even MagicPairing hasn’t yet turned Bluetooth into a love-or-hate proposition – it’s still love-and-hate until further notice.
+Presumably, when Apple does complete its patches for these bugs they will quietly appear in an update for macOS, iOS and RTKit, which is the mini-operating system that Apple Bluetooth devices such as AirPods use.
+Watch this space!
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+So… with MagicPairing only apple can have all the keys???
+I don’t think you can assume that. The Apple servers don’t actually need the keys to make a system like this work, any more than that a password database needs to store your plaintext password to be able to confirm that the password you supply is correct.
+Me so in love with 3.5mm Jack. 🙂
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

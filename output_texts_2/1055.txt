@@ -1,0 +1,76 @@
+Sophos Home protects every Mac and PC in your home 
+You probably don’t need to be told what sort of products were on offer at an online retail site called DarkMarket.
+As you can imagine, it operated on the so-called dark web, and you’d have needed the Tor browser to access it, using a special web address ending in .onion.
+Onion addresses can only be reached via Tor – you don’t, and indeed can’t, look up the IP numbers where they can be reached on the internet, as you can with regular sites like nakedsecurity.sophos.com (192.0.66.200 at the time of writing, if you were wondering).
+Instead, you need to connect to the Tor network and ask it to locate and connect to onion sites for you, assuming you know what onion address to use in the first place.
+Using a special anonymising protocol, Tor arranges for the “other end” of your anonymised connection into Tor to be paired up with the “other end” of the relevant onion site’s connection into Tor, after which you can talk to each other.
+Your traffic gets all the way to the onion site, but you have no idea where that site is because you can only trace your packets until they first enter the Tor network.
+Similarly, the server’s replies get back to you, but the server has no idea where you are, for the same reason in reverse.
+As it happens, the epithet dark in the word dark web isn’t a metaphorical reference implying that everything on the dark web is evil and dystopian.
+Instead, it refers to the fact that the back-and-forth network traffic of dark web users is dark in the more literal sense of being unilluminated.
+Your traffic is shielded by multiple layers of encryption and randomised redirection, which not only prevents it being snooped on but also stops it being tracked and traced.
+That makes it surprisingly difficult for anyone, notably including governments and law enforcement, to tell who’s using which sites on the dark web.
+It also means it’s hard to locate and shut down servers that fall foul of the law.
+As a result, some dark web sites are pretty much operated in plain sight – their onion addresses are widely known and publicised on the regular web, along with descriptions of what the site is for and what you can buy if you visit.
+So it’s no surprise that some dark web sites are dark in both the literal and metaphorical sense.
+Sites that knowingly peddle illegal (sometimes seriously illegal) products and services can take advantage of the unilluminated nature of the dark web to make it hard for the authorities to put them under surveillance or shut them down.
+Prohibited recreational drugs, perhaps unsurprisingly, are probably the products with which the dark web is most notoriously associated.
+Despite all the encryption and redirection, however, Tor’s anonymity and unilluminated invisibility only go so far, meaning that dark web operators sometimes do get caught and servers do get taken offline.
+The best-known example is probably Silk Road, best known for drug sales, which was run by a man called Ross Ulbricht, whom law enforcement took nearly three years to track down.
+It didn’t end well for Ulbricht, who is currently serving a life sentence in prison with no possibility of parole. (Technically, he’s serving two life sentences plus additional sentences of 5, 10, 15 and 20 years.)
+Well, it’s happened again – yesterday, Europol announced another dark web takedown, shuttering the abovementioned DarkMarket site and replacing its online content with a warning page:
+As you can see from the logos in the takedown page above, the operation required multinational co-operation from law enforcement teams in Germany, Australia, Denmark, Moldova, Ukraine, the UK and the USA.
+According to Europol, the servers that were taken down were located in Moldova and Ukraine; additionally, the man alleged to have operated the service was an Australian citizen who was arrested in Germany, close to the Danish border.
+Now that the servers behind the operation have been seized (more than 20 altogether, apparently), Europol says it’s confident that data pulled from those servers will “give investigators new leads to further investigate moderators, sellers, and buyers.”
+Of course, those servers won’t have the real IP numbers and network locations of DarkMarket visitors recorded in its logs.
+Thanks to the Tor network, visits made via Tor will show up as coming from one of Tor’s several thousand active nodes, rather than from the IP numbers of the visitors themselves.
+Tor always sends traffic through at least three randomly chosen nodes in its system. There are just over 6000 nodes altogether at the time of writing, run by volunteers. The first node knows your IP number, beacause you connect directly to it, but has no way of telling what you are browsing for or where you want to end up. The last node knows where your traffic ended up, but has no direct way of telling who you are (and no way, if the destination server is itself part of the Tor network, of knowing where you were going or what you were looking for). The middle node effectively serves to keep the “entry” and “exit” nodes apart, which greatly reduces the chance for entry and exit nodes to collude and try to match up exits with entries in order to figure out who went where.
+Despite Tor’s help in keeping users anonymous, however, we suspect that anyone with more than just a passing association with DarkMarket is probably pretty worried right now that their identity or location might somehow be revealed by the seized server data.
+There is almost certainly a huge amount of data for authorities to analyse.
+According to Europol: “At the current [exchange rates, purchasing on the site] corresponds to a sum of more than €140 million [$170M/£125M]. The vendors on the marketplace mainly traded all kinds of drugs and sold counterfeit money, stolen or counterfeit credit card details, anonymous SIM cards and malware.”
+Logged cookies and browser metadata (including data leaked due to browser bugs); “private” messages shared with operators or administrators on the site with personal giveways in them; metadata left behind in uploaded files; or information derived from products traded on the site…
+…any or all of those might be clues that could help law enforcement follow a few more links in the chain.
+LEARN MORE ABOUT THE DARK WEB
+
+If you enjoyed this video, please visit the Naked Security YouTube channel and subscribe!
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+“192.0.66.200 at the time of writing, if you were wondering).”
+192.x.x.x are private ips so, no, that’s wrong.
+sorry, 192.168.x.x is the correct private range. my bad.
+Yep, the private IPv4 ranges are specified in RFC 1918 (https://tools.ietf.org/html/rfc1918), updated in RFC 6761:
+Address Allocation for Private Internets
+10.0.0.0 to 10.255.255.255  (10.0.0.0/8)
+172.16.0.0 to 172.31.255.255  (172.16.0.0/12)
+192.168.0.0 to 192.168.255.255 (192.168.0.0/16)
+By the way, never use private IP numbers for documentation or in training material. Although they are private, they are nevertheless valid IP addresses in real networks. You need to use IP numbers that, by definition, can never be valid (and therefore can never cause disruption) in a properly operated network. There are three old-school “Class C” (/24) ranges for just that purpose set out in RFC 5737 (https://tools.ietf.org/html/rfc5737):
+IPv4 Address Blocks Reserved for Documentation
+192.0.2.0 to 192.0.2.255 (192.0.2.0/24, dubbed TEST-NET-1)
+198.51.100.0 to 198.51.100.255 (198.51.100.0/24, dubbed TEST-NET-2)
+203.0.113.0 to 203.0.113.255 (203.0.113.0/24, dubbed TEST-NET-3)
+You lost me when you posted your site’s IP address as 192.0.66.200.
+I mentioned it as a light-hearted way of pointing out that, for a regular server name, looking up the IP number (by which it can be traced and located on the internet) is a trivial process.
+For example, if you run standard IP lookup tools such as dig and host (Linux/Unix) or nslookup (Windows) against the name nakedsecurity.sophos.com, you will instantly get what is known as the “resolved” IP number that denotes how to connect to our service using regular TCP/IP network programming, like this:
+$ host nakedsecurity.sophos.com
+nakedsecurity.sophos.com is an alias for news-sophos.go-vip.net.
+news-sophos.go-vip.net has address 192.0.66.200
+news-sophos.go-vip.net has IPv6 address 2a04:fa87:fffd::c000:42c8
+
+But dot-onion addresses don’t have IP numbers associated with them in this way – they can only be reached using the Tor protocol to talk to the Tor network, which isn’t based on IP numbering.
+Why?
+Nice article, I like they way you write and are able to communicate ideas for people that don’t know much about Onion and the Dark Web.
+I thought The Onion was America’s Finest News Source.
+I think Tor was an onion first.
+“…teams in Germany, Australia, Denmark, Moldova, Ukraine, the UK and the USA.”
+Just goes to show what good teamwork can do.
+And for anyone that may be sceptical about ‘online anonymity & privacy’ (in the sense of claiming that its sole purpose is for crime) then here’s an example where the criminals still got caught, so there should be less faff about that 🙂
++1
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

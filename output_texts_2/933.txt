@@ -1,0 +1,59 @@
+Sophos Home protects every Mac and PC in your home 
+US security researcher Zach Edwards recently tweeted about finding 250 company website names that had been taken over by cybercriminals.
+He didn’t name the brands, but insists that the organisations affected include banks, healthcare companies, restaurant chains, civil rights groups and more:
+I reported ~250 enterprise subdomains I've found compromised over the last ~7 days // some of these orgs are MASSIVE (banks, tons of healthcare orgs, critical infrastructure, huge restaurant chains, power companies, insurance, civil rights groups). This story needs to be written.
+The issue here is that the websites themselves haven’t been hacked, but their DNS entries have.
+These attacks, known as DNS hijacks, happen when crooks don’t actually break into and take over a site itself, but instead simply change the “internet signposts” that point to it.
+As you probably know, DNS, short for domain name system, is the distributed, global name-to-number database that automatically turns human-friendly server names such as nakedsecurity DOT sophos DOT com into computer-friendly IP numbers that are needed to send and receive network packets on the internet.
+In the case of this site [as at 2020-07-07T11:15Z from the UK], DNS tells us:
+In other words, if I type nakedsecurity.sophos.com into my browser’s address bar, the browser will be told that our “friendly” name is an alias for a server whose real name (CNAME, or canonical name, in the DNS jargon) is a server operated by our hosting provider, WordPress VIP.
+The browser then looks up news-sophos.go-vip.net and finds its IP number (what DNS calls an A record, where the letter A is short for IP address), which the browser will then use as the destination IP in its network traffic.
+The cache times tell my browser, or my local DNS server, that it can keep using those results for a while, without looking them up again for every image, script or style file that might be needed when viewing one of our web pages.
+The cache times are long enough to reduce the number of full-blown DNS lookups enormously, but not so long that readers will be left high and dry for ages if one of the links in the chain should go down.
+Any changes to the alias for our site will propagate to everyone within five minutes at the most, making it possible to redirect traffic quickly even in the face of severe network problems.
+Of course, this means that if criminals are able to hijack your site via DNS, for example by altering your site CNAME or A records, they’ll start receiving all your traffic pretty quickly.
+New visitors will wind up on the imposter site right away, and even regular users will get redirected after no longer than the cache times specified in the DNS entries.
+Most cloud services keep their DNS cache times, known in the jargon as TTLs (pronounced “tee-tee-ells”) or time-to-live entries, pretty small these days in order to help their services adapt more quickly to changes in network load.
+Hacking your DNS entries is not quite as good a result for the crooks as taking over your actual web server – they won’t have your web certificate to authenticate HTTPS traffic, and they’d need to clone a huge amount of your site to make a realistic facsimile – but it’s still extremely dangerous, and potentially very damaging for your brand.
+In fact, DNS hijacks can be more troublesome than old-school server hacks because nothing on your server gets changed, so your intrusion detection systems and your system logs won’t show any signs of unauthorised access – yet visitors will suddenly stop arriving at your site and start seeing someone else’s content instead.
+In the cases claimed by Zach Edwards, the problem wasn’t so much that any DNS records got hacked, but rather that old ones got forgotten when they were no longer required, leaving them vulnerable to being invisibly and maliciously revived by crooks later on.
+In particular, the sites he referred to in the latest warning all seem to have been temporary Azure sites.
+Companies often set up subdomains for short-term use by what’s known as a “microsite” – a marketing campaign that uses the official company domain name for its branding, but a short-term subdomain to link you through to a short-term website that hosted on a temporary server.
+For example, if your company is example DOT com and your main website is www DOT example DOT com, you might use a subdomain such as julyoffer DOT example DOT com for a short-term “microsite” that gives visitors a way to buy products at a special discount.
+Presumably, you don’t expect the julyoffer web pages to be needed for long, so you might not add them to your main website – instead, you might set up a short-term web server at a hosting provider and end up with a short-term DNS entry something like this:
+The problem with some hosting providers, apparently including Azure, is that when you’re done with the temp-1234 server name and stop paying for it, the name becomes available for someone else to use – including cybercriminals who are on the lookout for cloud server names that have been retired and forgotten about, but never properly purged from the DNS.
+You can think of this like a pre-paid mobile phone SIM card – when you run out of credit, the number stops working and no one you gave the number to can reach you any more…
+…until the mobile phone company recycles the number and issues it to a new pre-paid customer, whereupon your contacts suddenly start getting through to someone else.
+Indeed, if you’ve ever taken out a new pre-paid phone number, you’ll no doubt have had the annoyance of getting someone else’s calls, possibly for months or even years, notably from people such as cold callers and scammers who didn’t actually know the previous subscriber but had got the number “from somewhere”.
+With website names, so-called dangling DNS records are much more dangerous to both parties than recycled phone numbers.
+Unlike phone numbers, where the digits themselves are largely meaningless, subdomains are intimately associated with your brand, and have a direct influence on persuading visitors to trust them.
+In the cases tracked by Edwards, it seems that a bunch of crooks have been keeping their eyes on unused Azure server names that still have trusted DNS records referring to them, and reviving those defunct server names to produce believable URLs for scams and malware campaigns.
+Apparently, the crooks hide their tracks by making the main page return a 404 error (page not found), or a “coming soon” message, thus making the domain look harmlessly defunct or not yet active.
+The crooks can then put as much scam and malware content as they like in subdirectories on the same server, where they won’t show up to researchers or search engines, but will nevertheless have URLs that start with a trusted brand name that is liable to lull victims of spam campaigns and malware attacks into a false sense of security.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+First couple paragraphs had me envisioning hacked GoDaddy accounts, where a crook surreptitiously creates
+theft.example.com
+…and then hosts elsewhere as long as it lasts.  Nice prepaid phone analogy–Jimmy McGill might try this in BCS season 5.
+I am still surprised that this occurs more often than very occasionally.†  If I were tasked with a JulyOffer site, I’d likely use the same server, resolving to a subdirectory,
+example.com/JulyOffer/ 
+Once it was officially retired, it’d either be historical reference or merely redirect to / 
+Then again, I’m micro potatoes compared to Netflix or Google, where hundreds (thousands?) of servers respond to a single subdomain.
+*Then again*, those orgs are more than just one guy, and they should have a well-established process for busing 20 kids to the bowling alley and not realizing only 19 returned to the school.
+† maybe among millions of domain names, these 250 collectively qualify as “pretty darn rare”
+Check also to see if your cloud provider is running DNSSEC?
+Cheers
+g.
+Another good way of protecting yourself against DNS redirects is to change your default DNS server. By default, computers and routers will connect to the global DNS service based on your local internet service provider (ISP). For example, if you subscribe to a Comcast internet package, then you have access to Comcast’s version of the DNS database, which will typically route your traffic in the most efficient manner.
+That won’t help against this sort of trick – the crooks aren’t redirecting victims by running a dishonest DNS server to give them bogus results. 
+The crooks are relying on honest DNS servers telling the truth and sending victims to a server that you say belongs to you…
+…except that when they get there they find that you’ve moved out without telling anyone and an imposter has taken up residence instead.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

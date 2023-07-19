@@ -1,0 +1,33 @@
+Sophos Home protects every Mac and PC in your home 
+Those wacky researchers at Ben-Gurion University of the Negev are at it again. The Israeli scientists, best known for dreaming up ways to transmit software from computers that aren’t networked, have figured out a way to do it using the vibrations in computer fans.
+Mordechai Guri, professor at the University’s Cyber-Security Research Center, revealed the technique on 13 April in his latest paper, AiR-ViBeR: Exfiltrating Data from Air-Gapped Computers via Covert Surface ViBrAtIoNs.
+Most computers have at least one fan, which they use to cool their internal components by introducing air to them. Some higher-end components like graphics cards come with their own dedicated fans to keep their silicon from overheating. Guri realised that these fans create vibrations in any structure supporting the computer (like a table).
+This attack focuses on changing the speed of the chassis fan. It generates the most vibration, points out the paper, presumably because it’s embedded right into the case that sits on the table, unlike say a GPU fan that typically sits inside the machine.
+Malware running on the computer changes the speed of the fan, which makes the table vibrate at different frequencies. A device that could pick up those vibrations could interpret them as data, Guri deduced. He also figured out the perfect device to make this work: a smartphone.
+Smartphones these days ship with accelerometers that are great at recognizing vibrations. They also offer some advantages for attackers, he points out. First, Android and iOS consider these sensors safe, so they don’t ask for user permissions to access them. Second, there’s no visual indication that a smartphone is using a sensor. Third, you can access the sensor using JavaScript in a web browser, meaning that you don’t technically have to infect the smartphone with a malicious app to pick up the vibrations.
+The attacker still has to get malware onto the airgapped computer that’s going to transmit the data, but as Guri points out, this has been done before in incidents such as the Stuxnet attack. The malware must then gather the data that the attacker wants, and this would have to be coded in advance as there’s no command and control capability in an airgapped environment.
+The malware then vibrates the fans at set frequencies, creating the appropriate vibration in the underlying table which can be picked up by the malicious code running on the smartphone. From there, the phone can communicate the data to the attacker over the internet.
+Don’t expect great transmission speeds if you decide to try this attack at home. Guri demonstrated a communication speed of about half a bit per second in an average workplace scenario. Assuming all the stars aligned, you could still score some SSH keys in decent time, though.
+Researchers at Ben-Gurion University have used fans to transmit data before, but they concentrated on the noise that they made. They have also used screen brightness, keyboard LEDs, speakers, and infra-red cameras, among others. Other researchers have also created attacks that used accelerometers to listen to your calls instead of getting microphone permission.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+I wonder how long they’ve been at this project.  If it’s all been quite recent, they could be enjoying greater success because of the current “quiet earth”, a result of the vastly reduced activity around the globe.
+I removed all fans from my computer after first reading about this. My phone doesn’t have a fan so why should my computer need one.
+Because phones (and most tablets and some laptops) take a different approach to cooling – they lift off the performance pedal if the temperature creeps up, and speed up again when things return to normal, thus running both quieter and longer on the modest battery charge available. Ironically, of course, that means that the more performance you try to extract from them (e.g. gaming, rendering videos, doing your daily recompile of the entire Linux kernel), the less performance you get. 
+So desktops and more powerful laptops have generally gone in for active cooling instead, which typically means one or more heat radiators with fans to force-cool them. Simply put: your desktop computer has fans because it has both the necessary space in its case and the needed power from the wall socket to do so.
+I gave you a thumbs-up Duck because of your good explanation, even though I think the original poster should have had a trailing /s (sarcasm) in his post.
+Hmmmm. On consideration… the OP’s name is not only unusual but also has a suspicious typographic similarity to what passes for a school-yard joke – what is, I think, known as single entendre. (The problem with techie jokes is that they often aren’t and there is a small but non-negligible risk that someone might see and believe unless they are signalled conspicuously, which kind of defeats the purpose.)
+I suspect I have, indeed, been trolled.
+Yours with a quizzical expression,
+S.O. Meone
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

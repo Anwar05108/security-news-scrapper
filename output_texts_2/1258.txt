@@ -1,0 +1,226 @@
+Sophos Home protects every Mac and PC in your home 
+Article 4 of Week 4 of Cybersecurity Awareness month!
+To access all four presentations on one page, please go to:https://nakedsecurity.sophos.com/tag/sos-2021
+We sign off from this article series with a fascinating interview with Michelle Farenci, Information Security Engineer at Sophos.
+Michelle knows her stuff – she’s a cybersecurity practitioner inside a cybersecurity company! 
+Learn why thinking like an attacker makes you a better defender:
+LISTEN TO THE AUDIO
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+READ THE TRANSCRIPT
+[FX: MORSE CODE GREETING AND SYNTH VOICE]
+PD. Hello, everybody, welcome to the Security SOS 2021 webinar series. 
+I’m Paul Ducklin, and today my guest is Michelle Farenci. 
+Hello, Michelle.
+MF. Hello!
+PD. And our topic today is all about “Purple Teaming”.
+So, let’s start right at the beginning with, “What are we talking about here?” 
+Then we’re going to look at, “Why is this important?” 
+Even if you have a very small business, how can this help you?
+And then, importantly, we’re going to finish by looking at how you do it.
+So, Michelle, it sounds very mysterious: “Purple Teaming”. 
+I think a lot of people would have heard of Red Teams and Blue Teams, these synthetic opponents… 
+But why don’t you kick us off by telling us, firstly, a little bit about yourself, and what you do for a living at Sophos, and then tell us, “What is a red team? What is a blue team?”
+And, most importantly, “What is this perhaps slightly more modern concept of purple team”?
+MF. So, I actually got my start over in network security originally, when I got into information security. 
+And from there, I moved around, mostly doing security engineering threat detection blue team work, which I’ll be explaining shortly, as you mentioned. 
+And I spent a little bit of time getting to see the audit side, but I’ve almost entirely lived in this blue team sphere: looking at the alerts, threats, anything that comes up. 
+And if we go onto the concept of red team and blue team, I am definitely a blue teamer… it goes back to military war games where you have attackers and defenders. Attacking, offensive, is red side or Red Team, and defensive side is Blue Team.
+PD. So in that context, in the military context, it was actually all your own people, but they were just pretending to attack each other so that they could practice various scenarios of attack and defense, right?
+MF. This is a massively important distinction you’re making.
+Because the nature of this concept of purple teaming, where you have your attackers and defenders, is they come together and they use the red and blue sides against each other, and play against one another, to suss out where the weaknesses are, the gaps, and try to get one over on the other guy.
+And most often, you’re not going to see this within your own people, because most companies are not large enough to support staffing both a red team and blue team.
+PD. Right.
+MF. But, in a broader sense, the purple teaming that we’re talking about also refers to the ability to be on one team and understand the mindset and think like the other team.
+This is something that’s much easier to learn how to do if you’ve had this purple team experience and can understand and see how the other side works.
+PD. So the idea, simply put, is: purple (or is it magenta?) is basically what you get when you mix red and blue together…
+MF. When you tell the two siloed-off teams to get together, and not play nice, but don’t break anything… this is what happens! [LAUGHS]
+PD. I imagine if you didn’t sit down and talk to the other side – because you can when they’re not actually the enemy… 
+Then you’d end up with people that are quite good at reading each other, but it wouldn’t give them much of a start against what might happen when some attacker they’ve never met before came along and maybe mixed things up a little bit differently?
+MF. I mean, training against the same… if you’ll excuse my terminology, training against the same “target dummy” repeatedly just teaches you how to keep attacking that target dummy. 
+So, if your targets are always the same, you might learn what they particularly are bad at identifying and will miss, and play to that, as opposed to a much more realistic example where you don’t know what you’re going to get, because the entire point of these more sophisticated attacks… you want it to mimic reality, attackers don’t want to be noticed.
+Purple team, you’re training people up or you’re identifying gaps. 
+You’re really finding where the weaknesses are on both sides. 
+And defenders are also used to working within really strict controls and parameters so that they don’t break things.
+PD. Yes, of course.
+MF. It’s a totally opposite mindset, which was pointed out to me by a red teamer, where the red team doesn’t have to live within these constraints. 
+What they’re trying to do is get in and get the data, ideally without being noticed. 
+They have many ways that they can do that, and they’re not too worried about the controls that the blue team has to operate within for their detections. 
+So, they can use any method to get around this detection, or multiple detections, that have been set up.
+But the blue team… they would have to set up another detection to catch the new red team going around their controls.
+PD. Now, in last year’s SOS Week, when we actually had Craig [Jones] from our blue team and Luke [Grove] from our red team, and we sort of played them off against one another in the webinar, which was quite fun…
+One thing that we thought it was important to mention, so maybe you can just say something about that, is that even if you get the luxury, or the fun, or the hacking experience of working in a red team, like, “Hey, you have to pretend you’re the hacker and you have to try and break into the company,” it’s not still a free for all, is it? 
+For example, you can’t break the law like a crook could.
+You couldn’t go, “Well, I want to get into the server room – I’ll just smash the door down with a sledgehammer.” 
+And there are going to be some things where you know, if you tried that attack, you might break something, so you might’ve been told that’s off limits.
+But most importantly, you may never, ever do anything like that without formal permission, in advance, from the person who owns and operates the network, whether that’s your employer or somebody who’s hired you in from outside…
+MF. So, most commonly that permission that’s been given comes in the form of more or less a permission slip called the “Scope of Work”, where the person who is having the penetration testing or red team work put against their infrastructure… they are telling the red team what they can hit. 
+And there might be certain hosts they can hit, but not with all attacks. 
+Password spraying in certain areas is usually one of the common ones, so users aren’t locked out and unable to do their job during the day.
+PD. So this is very much a similar idea, I guess, to what you see in a lot of so-called bug bounty programs, where companies say:
+“We don’t mind you hacking on our services, our servers, our products, and these things are in scope. 
+But there are some things we already know that there’s a problem there; we don’t need you to prove it again.
+So for example, running a distributed denial of service attack against our servers to crash them? 
+No thank you, that’s off limits.”
+MF. Even the researchers have to act within the social contract that the red teamers have to act within.
+So, if a researcher submits a bounty through the established bounty program, but they’re holding a sub-domain or domain hostage, or holding something hostage from the company until they get their payout, or doing anything that just seems really immoral and unethical, they can be disqualified from the bounty in some of these programs, for sure.
+PD. Yes, I remember there was a case… I think it was in the UK recently, where a company was very proud of itself for a phishing simulation they did, where they wanted to teach their users that crooks might send them emails that were very, very tempting. 
+So they sent one saying, “Hello, all staff. We know it’s been a tough year because of coronavirus, but everyone’s getting a bonus. Click here.” 
+And, of course, those who reported it as a phish didn’t get a bonus, but they just got a little sticker from teacher. 
+And those who did click, thinking they were getting a bonus, got into trouble.
+Although it was very clever from a phishing point of view, from a social contract point of view, it was pretty poor for morale, pretty low ebb. 
+So I guess the moral of the story is, “Don’t do that.”
+MF. Yes! 
+Generally speaking, being decent to each other is even more important when you’re breaking into somebody else’s estate and rifling around. [LAUGHS]
+PD. And I remember last year… Craig and Luke were talking about this: occasionally, the red team might be asked to mount an attack in a particular way.
+In other words, the blue team actually know what’s coming, but they won’t necessarily know when. 
+So, it’s not as realistic as if crooks tried it, because the crooks can do whatever they want, but the motivation there was they put some mitigations, some detections, some alerts, some sensors, whatever you might call them, in place…
+And they wanted to verify that if someone came in with that sort of attack, that the defenses that they had put in place would actually work. 
+It’s not all just newfangled “hack-it-and-see”, is it?
+There is a sense of intellectual order, even if you work in a red team.
+MF. Yes. 
+And I think that leads rather nicely to the benefit for red teamers in thinking more like the blue team.
+Especially the fact that they’re being given a specific attack to test against a detection; especially because red teamers generally don’t have to worry about an environment that looks the same day after day. 
+Most red teamers that you’ll hear talked about are penetration testers. 
+They go on various engagements; they’re not looking at the same environment even every week. 
+So they don’t have to worry about what the network looks like, or what can be detected, what’s a noisy move.
+PD. Michelle, just to finish up this sidea of “What is purple teaming?”… is it just a case that it’s a cheap way of having a red team and a blue team because you can actually get by maybe with one or two people and they do a bit of both? 
+And that, if you’re a big rich company, you wouldn’t do such a thing, and you’d have, say, four red teamers and four blue teamers and never they’d mix…
+Or is there a bit more to purple teaming than that?
+MF. Trying to hire a purple team isn’t really something you can do. 
+If you can find someone who has the skills to be an effective red teamer and blue teamer in the same person, they are probably extremely expensive.
+So purple teaming is really more to get experience – either with spinning up your own blue team, and helping to get them trained up and think like attackers, so that they can then go and build better detections and learn from that…
+Or you’re using purple teaming to keep everybody on their toes and fresh, and working on something that they might not see every single day or even rarely.
+It gives them practice.
+PD. Now, I know this came up last year and I’ll ask you again…
+There seems to be a sense, when you talk to people who are thinking of getting into cybersecurity, that the red team is the glamorous side, and the blue team… well, that’s just boring, running the reports and dumping the log files.
+But nothing could really be further from the truth, could it? 
+Both sides have their challenges, and the need to think on your feet. 
+And both sides, for better or for worse (and get used to this if you want to get into cybersecurity) have plenty of report writing and explaining things, hopefully in plain English, as part of the job. 
+It’s not just that if you get a red team gig, all you have to do is get out of bed, hack a bit and nothing else…
+MF. It’s really not! 
+Both sides, as you mentioned, have to write reports. 
+Red Team, it’s penetration test engagements, where it’s all of their findings in a sizable report, hopefully explained well and in a way that’s easy to understand. 
+On the Blue Team side, you are also writing reports, but they’re probably incident or analysis type reports, which it would also be behoove you to write so other people can understand – and it’s not as easy as it sounds!
+PD. No, you’re not wrong there! 
+Because IT and cybersecurity love their jargon, perhaps as much as any other field you can think of off the top of your head. 
+What you need to be able to do is to explain things in simple enough terms that it’s obvious what the benefit to the business would be of doing some things, and what the risk, the quantifiable risk, would be of not doing certain other things.
+MF. Yes. 
+And it’s definitely important, because security defenses are generally not money-making purchases. 
+They are reputation and money saving purchases. 
+As someone put to me once: defensive purchases are an investment and insurance policy: the staff, and your EDR, and your SIEM, is going to be cheaper than fines, legal fees and business loss from reputation damage.
+PD. Yes. 
+It’s like, “The only backup you will ever regret is the one you didn’t make” type of argument…
+MF. Exactly!
+PD. OK, Michelle, so it sounds like, particularly being on the red team, “Hey, you get to hack for money and you don’t go to prison for it as long, as he keeps to the rules.” 
+So, that sounds like fun. 
+There is an unglamorous side, but which is actually the really important side… the new things you’ve learned to do, can you quantify those in a way that are easily understandable to other people?
+I think it’s obvious why that is important, given that today’s cybercrooks: [A] have a lot of money at their disposal, [B] have plenty of time, and [C] they don’t have to play by any rules at all.
+But the burning question, particularly for a small or medium-sized business that relies very heavily on IT, is: how do you get into this aspect of cybersecurity if you are a small business? 
+Do you have to say, “I’m going to go and try and get some security hacker types,” or can you actually do it with partnerships with other people if you want?
+MF. So, the best way to go about it is going to almost invariably come down to your available budget, because security teams are, by their very nature, expensive. 
+As I’ve previously mentioned, they are not generally your moneymaker – they’re investments.
+PD. On the other hand, as you said, if it means that you don’t have to pay a $4 million fine to the regulator for leaking your customers’ data, and then spend three years trying to rebuild your business… [LAUGHS] maybe they do pay for themselves?
+MF. In a sense, yes, maybe they do pay for themselves.
+But similar to how you can hire penetration testing services, you can effectively hire blue team services. 
+You can hire other organizations to be a remote security operation center for your organization, and handover as much or as little of that as you’d like, depending on the vendor.
+PD. That’s largely the idea behind the Sophos Managed Threat Response service, isn’t it? 
+We’re not saying, “Well, we want to take over your operations,” we’re just saying, “We’re quite good at cybersecurity. We’re good at noticing the signs of certain sorts of attack like ransomware’s coming in two days, believe us,” and you can get us to help you a little, medium, a lot, either reactively or proactively… 
+It’s a service that you can buy as much or as little of as you want, to fit the needs of your business at any moment.
+MF. And one of the brilliant things about purchasing the service for this is that you benefit from an organization that *did* have the budget to hire someone who already has the expertise of being able to, in theory, think like the other team, as well as do their own job.
+MTR casebook: Uncovering a backdoor implant in a SolarWinds Orion server
+
+PD. And may indeed have dealt with similar sorts of attacks in other networks.
+So they have (I hate the paramilitary jargon of cybersecurity, sometimes)… in a way, they’re kind of “battle hardened”, right? 
+Which is quite valuable when the pressure’s on!
+MF. They’ve had the benefit of this, as we’ve been calling it, purple teaming.
+Really, it’s the benefit of understanding the other side’s mindset, and applying that to protecting you.
+Or, in the case of hiring for penetration testing, red teaming, then they’ve seen so many environments that they have a really good idea of what they think will go undetected in your own network, and what may work as an exploit, because they’ve seen it however many times before.
+PD. That’s not something that a company could just learn instantaneously. 
+So, I imagine that by outsourcing your red teaming, blue teaming, purple teaming, even if only for a while…
+It’s actually a great way not just to get started, but if you want to build that expertise yourself, to get those people essentially trained on the job, “learn while doing.” 
+Is that right?
+MF. For purple team exercises, that would definitely help. 
+You’d probably have to do a decent amount of looking to determine what is the right fit in terms of where you would hire for the correct experience for the level that your team is at, and what can be provided for them in terms of support if it’s needed.
+PD. Now, Michelle, another thing – certainly we hear this a lot in comments on Naked Security… 
+There is this sense that, if you need to build a blue team of your own, some people feel that that’s like an admission of defeat.
+MF. I mean, I would say that it’s really an insurance policy. 
+Sure, they might get in, but at least you insured yourself against dumber ways they could have gotten in that would be even worse for your company’s reputation if it got out that that was what had happened…
+What you sound like after a data breach
+
+PD. Or more importantly, they might get in, but only be able to achieve 10% of their results. 
+For example, they might be able to set up some accounts where they think they’re going to get back in later… but if you get them in time, before they get around to scrambling your files and trashing your backups, then you’ve headed off that demand, “Hey, you have to pay us $4 million or we won’t give you your data back.”
+MF. I mean, there’s always going to be something bigger and worse…
+But the problem we’re now running into, as an industry, and as technology improves, is the malware can become so much more complicated to try to avoid detection. 
+The only way to pick something up like that is that you’re looking for behavior-based detections. 
+These are extremely difficult to code for, because human behavior doesn’t translate directly into the data logs, and usually your data logs from the detections is how you then build your alerting.
+PD. Where the attackers are bringing malware, it’s not as though once they’ve released one bit of malware, that’s the only attack they’re going to try. 
+They might have been in your network for hours, or days, or weeks for all you know… they may even be equal to your own syadmins. 
+The crooks may even have mapped your own network out better than you have. 
+Therefore, the fact that you see any sign of anomalous behavior… it’s not just, “Oh, we stopped it. We did a good job.” 
+If you stopped it, that’s great.. but you really need to be answering the question, “Where did that come from, and what might happen next time?”
+MF. I would say, generally speaking, the most common human element that you’re going to see is in phishing, which is never going to die. 
+It’s a low effort, low time-sink for potential high bonus if it’s successful, and that is purely down to human behavior. 
+It’s all social engineering.
+Phishing tricks that really work – and how to avoid them
+
+PD. Yes!
+My understanding is that a lot of the phishing services sellers these days are offering what are essentially human-backed services.
+They won’t just offer you, who knows nothing about technology but would like to get into cyber crime… they’re not just saying, “Oh, we’ll write you an email and we’ll put some logos in, and then we’ll run a little website for you.” 
+They’re offering a whole package where, when someone lands on the phishing page that they’ve made for you, you’ll get an alert. 
+You can even have a help button where you go in and help the person “phish themselves”, or where, when they give you their two-factor authentication code, you’re actually right there looking at the screen, ready to try it yourself in the 30 second window.
+The crooks have learned a lot of patience, it seems, that perhaps they didn’t have when it was all about those super-extra fast-spreading Code Red/SQL Slammer viruses, where the volume was the exciting part. 
+So, I guess if you want to defend against that, you have to be thinking about more than just, “Oh, well, I’ve got some scanning technology and I’ll look at the reports tomorrow.” [LAUGHS]
+MF. Well, part of why phishing isn’t going away is because it’s one of the easiest ways to gain a foothold.
+And gaining a foothold is that much harder with most organizations that do have security monitoring, and engage in penetration testing and red team engagements, or have a blue team, and they have had a purple team engagement so that blue teamers can learn to think like red teamers or attackers.
+PD. Michelle, I’d like to finish off by giving advice of a slightly different sort. 
+To those of our listeners who might be interested in getting into this sort of career in cybersecurity, there’s obviously a crying demand for active cybersecurity practitioners. 
+If you don’t know much about it, but you’d like to get going, where would you recommend that people start?
+MF. I recommend the best place to start is with some online research, and looking into free open source training tools. 
+From there, you can also join online communities and, coronavirus notwithstanding, things may open up into in-person groups in the future again. 
+If not, there are always the online groups and security communities in every major city for sure, even a lot of the larger towns. 
+And just meet up with folks there! 
+You can connect and network, and even find mentors, and learn more about the different areas of the field to find what you’re really wanting to do in it.
+PD. Yes, I think you will find that that part of the cybersecurity industry is surprisingly co-operative.
+Because our competition in cybersecurity is really the crooks, it’s not each other!
+MF. No, it is definitely not each other!
+PD. You don’t have to go to the million dollar conferences, do you?
+There are lots of events that are fairly low cost. 
+And, like you say, there are loads of free tools and free training materials online that mean that you don’t have to decide in advance, “Oh, I’m going to spend four years at college or university getting a diploma or a degree,” and then find out that you don’t like it. 
+You can actually learn as you go… and the community would love to have you, I’d say.
+MF. I’ve found that people in cybersecurity are more than happy to share the knowledge they’ve accumulated with anybody who will listen…
+To prevent them from making the same newbie mistakes that they did!
+Cybersecurity Awareness Month: Building your career
+
+PD. Great point!
+And lastly, if I may say so, if you are determined to get into cybersecurity and you do want to try things like offensive security, hacking, penetration testing…
+*Never* fall into the temptation of doing it on somebody else’s network without their full, express permission in advance.
+Or you may never get that job in cybersecurity because nobody’s going to trust you again.
+MF. [PRETENDING TO BE FURTIVE] Isn’t that also a crime?
+PD. [LAUGHS] Well, yes, there is that, now that you mention it.
+MF. [LAUGHS] It may be hard to be hired anywhere else, if you also committed a crime.
+PD. Michelle is quite right there, folks! 
+Digging around in other people’s networks without permission, in most countries of the world, is a criminal offense. 
+And even just looking is not allowed. 
+So even if you say, “Oh, I didn’t change anything,” or, “I was doing it with the best will in the world”… unless they said you could, you can’t!
+Michelle, thank you so much for your time.
+MF. Thank you for having me.
+PD. It’s great to hear your passion for building this sort of security expertise that is absolutely real-world.
+Particularly hearing it from someone who doesn’t just have a security role, but has a cybersecurity role *inside a cybersecurity company*! 
+It doesn’t get much more difficult than that. 
+So, thank you very much for your time, and thanks to everybody who attended this webinar. 
+And it remains only for me to say…
+Until next time, stay secure.
+MF. Stay secure.
+[FX: MORSE CODE SIGNOFF]
+Learn more about Sophos Managed Threat Response:Sophos MTR – Expert Led Response  ▶24/7 threat hunting, detection, and response  ▶
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

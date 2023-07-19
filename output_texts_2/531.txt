@@ -1,0 +1,44 @@
+Sophos Home protects every Mac and PC in your home 
+Google has announced a timetable for phasing out insecure file downloads in the Chrome browser, starting with desktop version 81 due out next month.
+Known in jargon as ‘mixed content downloads’, these are files such as software executables, documents and media files offered from secure HTTPS websites over insecure HTTP connections.
+This is a worry because a user seeing the HTTPS padlock on a site visited using Chrome might assume that any downloads it offers are also secure (HTTP sites offering downloads are already marked ‘not secure’).
+That, of course, is a risky assumption, as Google’s announcement points out:
+Insecurely-downloaded files are a risk to users’ security and privacy. For instance, insecurely downloaded programs can be swapped out for malware by attackers, and eavesdroppers can read users’ insecurely-downloaded bank statements.
+Google will introduce this change gradually rather than all at once, at first offering warnings about executable downloads via HTTP in versions 81 and 82 of the desktop browser.
+From version 83, due in June, these will be blocked outright and Chrome will start offering warnings for archives files such as .zip.
+In subsequent versions, the same warn-and-block process will start to apply for downloads such as .doc and PDFs, images, videos and music files until, by Chrome version 86 in October, all downloads via HTTP will be blocked.
+Mobile versions of Chrome will use the same timetable except that each milestone will apply one version later than for the desktop version.
+Enterprise and education customers will be able to disable the policy on a per-site basis using the InsecureContentAllowedForUrls policy, Google said.
+The latest plan underlines how Google’s promotion of HTTPS everywhere in Chrome has turned into a long haul.
+The biggest part of this was to persuade websites to use HTTPS rather than insecure HTTP. That’s taken years but the effort has paid off – every website worth visiting is now secured in this way.
+More recently, Chrome took aim at mixed content such as images, audio and videos allowed to load insecurely over HTTP. Apart from creating security issues, this could also be confusing for users who were confronted with ‘insecure content’ warnings despite the visited site using HTTPS.
+That initiative is still ongoing with blocking of images that don’t load over HTTPS due to start from Chrome version 81, due later this month.
+Developers who want to test their sites can enable a warning message in Chrome Canary (or v81 when that is released) by enabling the Treat risky downloads over insecure connections as active mixed content flag at using chrome://flags/#treat-unsafe-downloads-as-active-content.
+Restricting downloads to HTTPS connections doesn’t guarantee that the download isn’t malicious – it simply means that the download hasn’t been tampered with as it travels from the server to your computer.
+But it will have the important effect of tightening the final screws on sites that still believe HTTP is something they can get away with.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+This will just encourage bad guys to host malware on HTTPS sites, and make threat hunting and cyber defence harder for the good guys.  Currently the vast majority of commodity malware like emotet, driex, trickbot, etc are hosted on http sites.  This is great for web filters and threat hunting as it provides a fairly high fidelity indicator of badness.  Most ‘goodware’ is hosted on https sites from trusted domains.  Of course, with services like LetsEncrypt it’s not difficult to get an SSL certificate.
+So many organisations don’t perform SSL decryption and analysis on their web gateway traffic (they should!), and web filters on many VPN and endpoint protection suites don’t analyse encrypted traffic.  This means malware could slip through!
+The risk of malware evading countless organisations web filters and users endpoint web protection would be a greater risk than that posed by MITM attacks serving up badness rather than legitimate downloads.
+I think the “badware tends not to use HTTPS” days are long gone. After all, almost all malware and phishing hosted on hacked sites is HTTPS, because most sites are HTTPS, and have been for years. And free certificates make it trivial to serve up self-hosted sites via HTTPS, as you say. I don’t have any provable stats of my own handy, but I’d be surprised if cybercrime web links were a majority at all any more, let alone a vast majority…
+“customers will be able to disable the policy”….  some site may take longer than to reconfigure to HTTPS. Options should always be available to users.
+Also is the same true for the base Chromium?
+There are many older sites on the internet that don’t get a lot of maintenance. Some of these sites provide value to people and do not have significant security implications. They will be excluded moving forward unless someone goes back to fix them. Many will disappear never to be seen again.
+I think mostly because people conflate security with privacy – and do not really understand the difference.
+In this case, security and privacy go together. Firstly, being able to snoop on the precise interactions that someone has with a site *does* impact their privacy, for all that you say the site “doesn’t have security implications”. And learning private stuff about people *does* impact their security, because private information is a gold mine for identity thieves. Secondly, being able to tamper with the content that comes back from a site that someone values and trusts really impacts their security, because it means you can foist pretty much any sort of snoopy, ad-foisting, privacy-sapping, data-stealing, fake-news-peddling, malware-carrying content on them under cover of a webpage they consider trustworthy.
+Securing everything is generally bad, bad idea. We stream FM radio online, and now we must encrypt it, otherwise Chrome won’t play it. Lot of CPU power waster for encrypting live radio stream individually for every listener. Oh yeah,  really clever idea, thank you Chrome..
+Google, along with Facebook and others, was one of the early adopters of “HTTPS everywhere”, and reported at the time, along with the others, that the extra effort involved was very much less than they expected. Once you’ve set up the connection, you’re pretty much just doing AES encryption of the data, and almost every recent CPU includes built-in instructions to make AES both safe and quick, especially at the sort of data rates needed for audio bandwidth. 
+So your complaint in this format doesn’t seem any more reasonable than an internet end user saying, “Streaming FM radio over the internet that you’ve already broadcast in a send-once transmission to your designated region . Lots of bandwidth wasted for retransmitting a broadcast signal over a point-to-point link for every listener. Oy yeah, really clever idea, thank you radio station.”
+(The difference between listening to an FM broadcast and listening online is that, loosely speaking, no one can tell, just by sniffing the ether, who’s listening to which transmissions when they are FM broadcasts. That’s because they are, qute literally, broadcasts. When you do point-to-point streaming, though, pretty much anyone listening in to any unencrypted connection can not only tell who’s listening, but also probably mess individually with what each recipient gets, even from a distance. So you aren’t actually “streaming FM radio” once you transmit it over the interet, because when you stream it, it *isn’t* an FM radio broadcast any more. And the widely-accepted rules of ewb delivery these days say, “thou shalt encrypt end-to-end because it benefitteth people’s privacy”. So, yes, it *is* a clever idea.)
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

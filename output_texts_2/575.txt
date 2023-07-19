@@ -1,0 +1,72 @@
+Sophos Home protects every Mac and PC in your home 
+Earlier this week, we received a moderately believable Amazon Prime phish via email.
+The scam had an Account Locked subject line, with a warning that we wouldn’t be able to buy or sell anything via Amazon’s services until we verified our account.
+To add a bit more fear and urgency, the crooks went on to warn us that if we didn’t complete the verification process within 24 hours, then our account would be deactivated, not merely suspended.
+The “good” news, of course, is that verifying our account was as easy as clicking a link in the email:
+
+Your Prime Membership Account Has Been Suspended Due To The Following Problems Below:
+    Invalid Card Number
+    Your Billing Address Does Not Match Our Records
+    Unverified Email Address
+You will not be able to Buy and Sell on amazon until you have click the link below to confirm your account details before 24hrs of receiving this message.
+We will be forced to deactivate your account automatically if you do not verify your identity.
+
+We don’t think that Naked Security readers would fall for this one, for several reasons:
+Nevertheless, we thought we’d follow the phishing link ourselves, just to see how convincing the final result would be – most phishing sites have some sort of “teachable moment” that we can learn from, no matter how smart we think we are already.
+Our first steps were simply to check where the link went, rather than downloading the actual content it linked to. 
+We found that the first hop was to an otherwise-invisible URL on a legitimate business WordPress site that had obviously been hacked and “borrowed” by the crooks to hide their trail.
+The main page of the site was still working normally, promoting a PR business with a (rather ironic) tagline in Spanish saying, “It’s the first impression that counts”:
+
+From here the crooks quietly redirected us to a second hacked site, this time a Middle Eastern company selling awnings, canopies and sun-shades:
+
+Once again, the crooks didn’t take us to the front door, but instead pointed us at a usually-invisible URL that even the site operator probably wouldn’t notice unless they carefully went looking for files that shouldn’t be there.
+And that’s where we got a surprise!
+We don’t know whether the crook who sent us the phishing email made a mistake, and used the wrong URL, or whether a second crook had arrived in the interim and then taken over the hacked server from the original hackers…
+…but instead of reaching a page that demanded our Amazon password, which is what we expected, we ended up at the crooks’ very own remote access backdoor:
+
+Pirate skull? Check.
+Comic Sans font? Check.
+Haxor bragging (including the word haxor)? Check.
+Emoticons and needless EXCLAMATION POINTS? Check.
+Full remote access with no username or password needed? Check.
+In this case, by implanting just one PHP file – a scrambled and obfuscated remote access toolkit – at a known URL they could visit later, the crooks gave themselves an unaudited, unsecured, unlimited remote console to the raw files on the WordPress server.
+In other words, the crooks have set things up so they can sidestep the WordPress administration console entirely: they don’t need a password; they won’t get logged by the WordPress system; and they can add and modify files that WordPress wouldn’t normally allow, essentially allowing them to hide content such as phishing pages and malware downloads in plain sight.
+Worse still, because their access isn’t mediated by the WordPress administration tools, they can also snoop around on the site where even a WordPress administrator might not be able to go, and upload or edit files that WordPress itself would probably prevent.
+In the end, this turned into a website insecurity story rather than a phishing alert, and it’s a good reminder of several important facts:
+You could also consider investing in a network firewall with web filtering capabilities – web protection isn’t just for users inside your network browsing to the outside.
+Security products such as the Sophos XG firewall can also guard you from rogue probes and connections from the outside, adding an extra layer of defence against crooks trying to break in.
+Lastly, if you are running your own website, whether it’s on a server that belongs to you or via a cloud service at a hosting company, make sure you pick proper passwords, and turn on 2FA for added login protection if you can.
+Remember that crooks who get your password and login just once could leave behind a backdoor, like the one shown here, that gives them unfettered, unaudited and almost undetectable access from then on, even if you change your password.
+By the way, if you ever do find yourself wandering in through a crook’s backdoor, like we did here, resist the urge, no matter how tempting, to take a look around “for the sake of research” – you could attract the sort of attention you don’t want.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+> “There are numerous grammatical and spelling mistakes in the message.”
+I couldn’t see any grammatical or spelling errors, but the extraneous capitalization certainly caught my eye.
+Was the Hax0r an L337 Hax0r? You’ve masked it out so I can’t tell.
+“until you have click the link”
+“before 24hrs of receiving this”
+And many orthographic errors – weird and incorrect Capital Ization throughout.
+(The masked word before Haxor was not 1337 or any variation on that theme. And the page is down now, so you may never know :-)
+“You will not be able to Buy and Sell on amazon until you have click the link below to confirm your account details before 24hrs of receiving this message.”
+Three clear errors.
+“Pirate skull? Check. Comic Sans font? Check. Haxor bragging (including the word haxor)? Check.” – Love it!
+The pirate skull is the Straw Hat’s Jolly Roger. I guess the hackers wanted to decorate their playground with a One Piece reference, you know, make it feel more pirate-like.
+Rrrrrrrrr.
+Thanks for the heads-up. If I ever need a website I will definitely consult Sophos *thumbs up*. Were you able to do anything about the pirates? It would be nice to see justice served, or at least karma.
+Well, our products will block access to the “invisible” URLs used in the original phishing link and in the redirect. (When I checked, Firefox warned me about them, too.) 
+Also, as far as I can tell, both sites seem to have got rid of the dodgy content so that the redirector no longer works and the backdoor is no longer there. 
+Whether the sites have figured out how the crooks got in and closed any holes that were exploited is hard to say – let’s assume they are trying to do that given that they’ve already taken some corrective action.
+Can the sort of evidence left behind in cases like this (which are sadly rather common) ever help to catch and bust the crooks? I think the answer to that is, “Very often not but occasionally yes,” so I’d say it’s worth reporting this kind of attack if you can, even if you’re a tiny business. If you don’t report it then [a] it’s as though it never happened and [b] the only way to be certain the crooks never get bust is not to have any evidence at all.
+🎶 No – Nooo No! more 🎶👺 BaackDooorrr  Man!🎶 Theeee Geeeks doonn’t know but Sènnoor Duckling….
+     Whooo?🎵💎He understaaaaa- aaa -aand!!👍
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

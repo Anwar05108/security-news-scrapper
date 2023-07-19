@@ -1,0 +1,64 @@
+Sophos Home protects every Mac and PC in your home 
+Apple has just pushed out an emergency “one-bug” security update for its mobile devices, including iPhones, iPads and Apple Watches.
+Even users of older iPhones and iPads who are still on the officially-supported iOS 12 version need to patch, so the versions you should be updating to are as follows:
+To check whether you have the latest version, and to install it right away if you don’t, go to Settings > General > Software Update.
+If you are wondering why there is no iPadOS update numbered 12.5.2, that’s because there was no separately named product called “iPadOS” until version 13 came out.
+Up to and including version 12, both iPads and iPhones used the version called “iOS”.
+All that Apple is saying about the vulnerability so far is that:
+Processing maliciously crafted web content may lead to universal cross site scripting. Apple is aware of a report that this issue may have been actively exploited.
+The TL;DR version is: “Crooks have found a way to trick your browser into giving them access to private data they aren’t supposed to see, and as far as we know they are already abusing this bug to do bad things.”
+Just like the last emergency Apple patch, this vulnerability affects WebKit, Apple’s core web browser code.
+Although WebKit itself isn’t a fully-fledged browser, it is nevertheless the heart of every browser you’ve ever used on your iPhone, not just Apple’s own built-in Safari browser.
+That’s because Apple won’t allow apps onto your device if they don’t come from the App Store, and won’t allow browsers into its App Store if they don’t use WebKit.
+(OK, there are official ways of installing non-Apple corporate apps onto managed devices, but for most users, and on most iPhones, all apps come via Apple.)
+As a result, even browsers such as Firefox (which usually uses Mozilla’s browser engine), as well as Google Chrome and Microsoft Edge (which usually use the Chromium browser engine), are forced to rely internally on WebKit when they run on Apple devices.
+Also, WebKit is the software that runs whenever any app pops up even the most basic web content in a window, for example to show you its About screen or to give you instructions on how to use the app.
+In other words, a security flaw in WebKit affects any browser you have installed, including Apple’s built-in Safari app, and could affect many other apps if they have any program options that pop up a web window to show you information.
+Last time Apple did an emergency update, back in January 2012, the company fixed two bugs that allowed crooks to perform what are known as RCE and EoP attacks, short for remote code execution and elevation of privilege.
+Loosely speaking, RCE lets you break in as a regular user, and EoP lets you promote yourself to an all-powerful system user after you’re in – a sort of double-play attack that is obviously very serious and could lead to complete compromise.
+This time, the update patches what’s known as a UXSS vulnerability, short for universal cross site scripting.
+Although UXSS doesn’t sound as serious as RCE (which implies that a crook could directly implant malware at will), UXSS bugs can nevertheless be devastating to your privacy, your security, and your wallet.
+Simply put, a UXSS flaw means that WebKit itself can be tricked into violating one of the most important principles of browser security, known as the Same Origin Policy (SOP).
+The Same Origin Policy dictates that only web content served up by website X is allowed to access stored data, such as web cookies, that relate to site X.
+As you probably know, web cookies and local web storage exist so that websites can keep track of you between visits.
+Cookies, for example, can be used to store the preferences you choose; to remember whether you already accepted a licence agreement or not; and to determine whether you’ve already logged in, and if so as which user.
+As intrusive as web tracking can sometimes be, especially when it is used for aggressive marketing purposes, it’s nevertheless a vital part of the modern web.
+If websites couldn’t set cookies to store some sort of authentication token (typically a long, random string of characters unique to your current session) to indicate that you recently entered your username and the correct password, then there would be no concept of being “logged in” to a website at all.
+You would need to enter your username and password every time you looked at any page on the site; you wouldn’t be able to tell the website “please show me the Spanish language version instead of the English one next time I visit”; and there wouldn’t be any way of keeping track of things like shopping carts.
+Clearly, it’s vital that cookies set for one website can’t be snooped on by another.
+As you can imagine, if website X could send out JavaScript code to access the cookies and local web data of website Y, that would be a security disaster.
+Without the SOP, an innocent-looking site of cat videos could, if it wanted, read in the authentication cookies for your social media accounts and rifle through them in the background, pretending to be you, even after you’d finished watching the distracting videos.
+Without the SOP, you could end up spending money you didn’t mean to, or signing up for services you didn’t want, or giving cybercriminals access to your most personal data from your online profiles.
+XSS bugs, where XSS means cross-site scripting, are the most common way that cybercrooks violate the Same Origin Policy in order to get unlawful access to private data in your online accounts.
+Usually, XSS attacks exist because of bugs on a specific website, meaning that crooks can attack users of that website only.
+For example, if I can trick your website in returning a search result page that includes not only the text I just searched for but also a chunk of executable JavaScript, then I have a way of pulling off an XSS attack against your site.
+That’s because, when your site returns my sneakily-supplied JavaScript inside one of its own web pages, my JavaScript suddenly get access to all your cookies and local web data, which I’m not supposed to have.
+That’s bad enough, but server-side XSS tricks typically only affect one website at a time, and the operator of that site can fix the security hole for everyone by patching the server.
+A Universal XSS bug, which is what we have here, is much more serious, and it gets the name “universal” because it’s not limited to a specific website.
+Simply put, a UXSS bug typically means that attackers can pull off XSS tricks right inside your browser, so that:
+We already said it: update now!
+As stated at the top of the article, go to Settings > General > Software Update to make sure you have the update – doing this will either tell you that you are OK, or offer to install the update if you aren’t.
+Further information is available from Apple’s official security pages for iOS and iPadOS 14.4.2, for iOS 12.5.2, and for watchOS 7.3.3.
+However, at the time of writing [2021-03-27T13:00Z] these pages tell you nothing more than: there is a UXSS vulnerability in WebKit; attackers may already be exploiting this bug; it was reported by researchers from Google; and the bug is officially known as CVE-2021-1879.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Yes! I’ve done it today.
+Note that the updates also apply to iPods, 14.4.2 for 7th generation iPods and 12.5.2 for 6th generation ones.
+Oooh, I forgot all about iPods.
+What’s an iPod?
+Ironically, it’s the device that gave us the word “podcast” :-)
+CVE-2021-1879 any exploits/ payloads seen in the wild? Or should we just treat it as PoC available?
+https://support.apple.com/en-us/HT212256
+This document describes the security content of iOS 14.4.2 and iPadOS 14.4.2.
+The words in the document you quote are: “Apple is aware of a report that this issue may have been actively exploited.”
+That is clear as mud to me, but it does IMO mean more than just “a PoC is available” :-)
+Enjoyed reading the article and agree with the comments.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

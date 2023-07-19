@@ -1,0 +1,59 @@
+Sophos Home protects every Mac and PC in your home 
+A bit of a brouhaha erupted at the end of last week – it wasn’t quite an argument between Twitter and Firefox, but it did get confusing pretty quickly.
+The issue had to do with how long your browser might hang on to local copies of private data such as direct messages, even after they’d actually been posted.
+Twitter published an blog article tagged “Privacy” that stated:
+We recently learned that the way Mozilla Firefox stores cached data may have resulted in non-public information being inadvertently stored in the browser’s cache. This means that if you accessed Twitter from a shared or public computer via Mozilla Firefox and took actions like downloading your Twitter data archive or sending or receiving media via Direct Message, this information may have been stored in the browser’s cache even after you logged out of Twitter.
+We’re guessing that this problem was submitted to Twitter as a bug report, presumably by someone who just happened to look through their Firefox cache files and was surprised to see what showed up there.
+In computer science jargon, the word cache means rather the opposite of what it means in the military or to pirates.
+In the piratical context, a cache might a secret store of important supplies that the pirates could get at if they were stranded or encountered an emergency, such as gold coins and weapons buried in an unlikely location in case armed attackers took them unawares.
+In computing, a cache is a place to store items you expect to need again soon in a place that’s easy and quick to access – precisely so that you don’t need to go and find your hiding place and dig out the data from last time you stashed it.
+For example CPUs (processors) have a small amount of super-high-speed internal data storage to cache the values in memory (RAM) that you’ve used most recently, because CPUs are faster than RAM chips; disk drives have RAM chips to cache recently used disk sectors, because RAM is faster than disk, even if it’s solid state flash storage…
+…and browsers have a cache of local disk files to hold onto recently used web content, because reading from disk is generally much faster than going out across the internet all over again.
+So you would expect your browser’s cache to contain plenty of hints about what you’ve been up to lately, but not everything you’ve seen or sent.
+We started Firefox with a totally empty cache, browsed to twitter.com, and then grabbed a copy of the files Firefox had chosen to keep for later in its cache directory. (We used Linux, where the files can generally be found in the directory /home/[yourname]/.cache/mozilla/firefox/[uniqueID]-default/cache2/entries)
+After loading just one page, we already had 42 web items cached, including images, JavaScript files, web certificate checks and Twitter data.
+A sample of filename and types is shown here, where the filenames are computer-generated 20-byte numbers turned into hexadecimal characters:
+The JSON file looks like a list of more than 1700 Twitter ad campaigns, judging by the first few entries:
+Sometimes, browsers know implicitly not to cache pages – for example, because they are one-offs and therefore won’t be needed again – but the only way that they can know explicitly not to cache content is if the website serving up the data says so.
+A server can inform a browser what sort of caching it may do by including the HTTP header Cache-Control in its reply along with the data, for example like this:
+Here, nakedsecurity.sophos.com is telling the program downloading our main page that for the next five minutes (max-age=300 seconds), it can re-use the content of this reply before checking back to see if it’s changed (must-revalidate).
+But if a reply should not be cached, either because to do so would be waste of time or a needless risk to privacy, the server should state:
+Why did Firefox cache data that Twitter surely didn’t want it to, as stated by Twitter in the blog post quoted above?
+The answer is a curious one – according to Firefox, Twitter forgot to send the no-store instruction to forbid caching explicitly:
+In this case, Twitter did not include a ‘no-store’ directive for direct messages. The content of direct messages is sensitive and so should not have been stored in the browser cache.
+Apparently, having set an old-fashioned header to say Pragma: no-cache, which doesn’t quite mean the same thing, Twitter observed that other browsers didn’t save the replies anyway.
+From this, Twitter seems to have inferred – understandably if incorrectly – that it had done enough to prevent any web client from holding onto data such as private messages.
+This inference was not, however, correct for Firefox (and, we assume, derived products such as Tor Browser).
+Inquisitive users might indeed trip over old copies of private messages in the cache that they’d reasonably have assumed wouldn’t be there.
+As far as we can tell, the issue has been sorted out amicably, with Twitter now unambiguously telling Firefox to no-store the offending data, and Firefox accordingly not storing it.
+There’s not a big risk here, unless perhaps you share your computer account and your browser with someone else to manage two different Twitter accounts.
+But if you’re sharing a computer account and your browser with someone else, what’s left in your Firefox cache by mistake is probably the least of your worries.
+We recommend creating separate accounts with different passwords to keep your digital lives apart – not because you don’t trust the other person but simply to prevent accidents and misunderstandings.
+There’s also a tiny risk that if you were infected by malware or hacked after using Twitter, a crook might, just might, be able to recover data from your Firefox cache that Twitter ought to have suppressed from being there.
+But any data left in your browser cache increases the risk of malware figuring out what you’ve been up to do even after you did it, so regularly clearing the data your browser keeps about you is a great idea.
+If you don’t mind logging back into all your websites every time you exit and reload Firefox (it’s a small hassle for a big security reward), we recommend telling Firefox to clean up every time you exit.
+Go to Preferences > Privacy & Security > History > Clear history when Firefox closes > [Settings…] to decide what to clear every time:
+Lastly, if you’re a web developer, and you are serving up data you know you don’t want the recipient to hang onto, don’t leave them to guess – use the Cache-Control: no-store header and make your requirements crystal clear.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Tor does not save cache to disk (at least not when it’s behaving properly).
+In “regular” Firefox, Private Browsing should achieve the same result, FWIW.
+Presumably, doing as you say, Paul, means that the tabs, open when you close Firefox and empty the cache, are lost and you have a clean copy when you restart? Is there any way to keep them when emptying the cache, as I’m a huge tab hoarder,  (typing that suggests to me that the answer is no ) but , as ever, I live in hope.
+Thanks.
+I don’t know what happens if you turn off the option to zap “Browsing & Download History” but leave the others turned on. I presume you have Settings > General > Startup > Restore previous session turned on…
+…never tried it myself. I find having lots of tabs open just ends up at indecision (or a 2-minute search for the right one). It’s a bit like command line history – we’ve all had “doh!” moments where we went back and forth with dozens of keystrokes, only to end up issuing a command such as ‘ls -l’ or ‘make’ that we could have typed in a quarter of the time.
+As you suggest, “Restore previous session” is enabled.  So thanks  for replying, I’ll try various combinations, and hopefully not be compromised.
+I use open tabs to remind me to look up various things, so that I don’t have to list them, but perhaps my nerdish nature allows me to rapidly scan them.
+“There’s an extension for that”, of course, but if you’re worried about controlling how much data your browser retains between tabs/runs/sessions, adding an extensions seems a bit back to front :-)
+Maybe time for some bookmarks? 🙂 Have your favourite tabs in a bookmark folder and then you can Open All In Folder to get them back quickly, with the bonus of fresh content.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

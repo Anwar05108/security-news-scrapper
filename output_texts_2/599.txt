@@ -1,0 +1,50 @@
+Sophos Home protects every Mac and PC in your home 
+Users looking for a privacy-focused browser might want to consider Brave first, according to a study published this week.
+Douglas Leith, professor of computer systems at Trinity University, examined six browsers for his report – Web Browser Privacy: What Do Browsers Say When They Phone Home? He found that Brave’s Chromium-based browser is the least likely to reveal unique identifying information about the computer using it.
+The study examined six browsers: Chrome, Firefox, Safari, Brave, Edge, and Yandex. It used several tests to deduce whether the browser can track the user’s IP address over time, and whether it leaks details of web page visits. To do this, it looked at the data shared on startup after a fresh install, on a restart, and after both pasting and typing a URL into the address bar. It also explored what the browser did when it was idle.
+Even though Mozilla makes a talking point of privacy in Firefox, it was Brave, developed by Mozilla’s founder (and creator of JavaScript) Brendan Eich, that won out. Brave, which has accused Google of privacy violations, is “by far the most private of the browsers studied” when used with its out of the box settings, according to the paper.
+The study placed browsers in one of three privacy classes, based on the time span over which they retain identifiers. Brave gets the top class all to itself because it uses what the study calls ‘ephemeral’ identifiers that link a handful of transmissions and then reset. This means it doesn’t remember your identifier across browser restarts.
+The paper lumps Safari, Firefox, and Chrome together in the second band. These browsers share some privacy issues, the paper warns, including auto-tagging each browser instance with unique session and browser instance identifiers that can persist across restarts. These behaviours can be disabled but they’re turned on silently by default, the paper claims.
+The research picks out four identifiers that Firefox uses. Two created by the browser persist across browser restarts, while the third changes between browser sessions but could be linked together because old and new values are sent together in a telemetry message, the paper said. The fourth identifier, created by the server, is associated with an open web socket used for Firefox’s push services. Firefox also sends user IP addresses with these identifiers.
+Leith’s paper acknowledges that Mozilla deletes the IP addresses sent with these identifiers after 30 days, but frets that the company is “silent on the uses to which the IP data is put.” He worries that this could be used to track the user’s location, adding:
+That does not mean such linking actually takes place, only that the potential exists for it to be done.
+Leith had asked Mozilla whether it used IP addresses for location tracking, and also asked for the company’s IP address usage policy as part of its push service. He received no response. Mozilla spokesperson Justin O’Kelly didn’t address those issues specifically with us, but responded:
+Firefox does collect some technical data about how users interact with our product, but that does not include the user’s browsing history. This data is transmitted along with a unique randomly generated identifier. IP addresses are retained for a short period for security and fraud detection and then deleted. They are stripped from telemetry data and are not used to correlate user activity across browsing sessions.
+Leith’s paper also calls out Safari, which it said allows all the third-party sites listed on its start page to set cookies without user consent. It also phones home to icloud.com even from machines that aren’t registered with that Apple service, the paper warns, calling this connection “spurious”.
+Apple was also the most aggressive browser when it came to sending data that users typed into the address bar back to Apple servers for autocomplete purposes, the paper warned:
+The requests to Apple include identifiers that persist across browser restarts and so can be used to link requests together and so reconstruct browsing history.
+Apple didn’t respond to our request for comment.
+Google’s Chrome phones home almost every letter typed into the search bar for autocomplete purposes, the paper said. Even after unticking the ‘allow telemetry’ box, the browser sets up a cookie with Google’s server that it then communicates each time the browser is opened, Leith found, and this happens even if the user isn’t logged into Google. Google declined to comment for our article but pointed us to its Chrome Privacy White Paper.
+The issue for many of these browsers seems to be not so much what they’re doing, as the fact that they do it by default, leaving non-techie or unaware users open to more information gathering. From Leith’s paper:
+In summary, Chrome, Firefox and Safari can all be configured to be much more private but this requires user knowledge (since intrusive settings are silently enabled) and active intervention to adjust settings.
+The paper reserves the gravest concerns for the third, least private group that it identified, containing Edge and Yandex. These use identifiers linked to the device hardware, it said, persisting across fresh browser installs. They can also be used to link different apps running on the same device.
+Edge also contacts a Microsoft advertising server, the paper said, which sends back several identifiers that Edge then echoes in subsequent requests to that server. It added:
+Loading of the Edge welcome page sets a number of cookies. In particular, this includes a cookie for vortex.data.microsoft.com, which appears to be a data logging server, and allows data transmitted to this server to be linked to the same browser instance.
+Even pasting (rather than typing) a URL into the address bar contains what the paper calls “unwanted consequences”, including leaking user browsing history to Bing via the search engine’s autocomplete API, and once again contacting vortext.data.microsoft.com.
+Microsoft’s Edge privacy page says that it sends device identifiers as part of a diagnostics reporting service that users can turn off. Users can also delete this data on the server. According to its Edge privacy white paper, people can turn off Search Suggestions to stop it sending your search terms to Bing, which otherwise keeps them for six months.
+Yandex didn’t respond to the paper’s allegations that its browser, popular among Russian speakers, sends user browsing data to Yandex servers as part of its autocomplete API, along with the text of web pages to its translation service. It also sends the SHA-1 hashed MAC address of a machine to Yandex, along with browser identifiers, enabling them to be tied together, Leith’s paper said.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Great research,  and good of NS to pick up on this paper.
+It’s troubling about Edge, as people were saying good things about the default privacy settings  of the new Chromium version.    The authors definitely seem aware of Microsoft’s recent revamping:
+“B. Chrome Extension (CRX) Update API
+Chrome, and other browsers based on Chromium such as Brave, Edge and Yandex, use the Autoupdate API [7] to check for and install updates to browser extensions.
+What an analysis! Thanks
+Really about the only reason I haven’t switched from Firefox to Brave is the lack of Master password functionality. I keep looking on the community forum, and I keep seeing people ask for it, and I keep seeing Brave completely ignore the request. No “we’re working on it” or “it won’t be there and this is why,” nothing.  Does anyone who has anybody’s ear at Brave have any idea when or if they’ll actually add that functionality?  It’s been in Firefox nearly from the get-go… it can’t be that difficult.
+It’s difficult to get a response from Brave. I have enough trouble with press queries. I think they’re just under-resourced like many startups. I’ve seen Eich and the other Brave execs respond on Reddit in the past. Might be worth posting in r/brave_browser. Alternatively have you thought about using a trustworthy third-party password manager?
+If you’re open to a 3rd party password manager, 1Password has an extension available on Brave.
+Has Vivaldi been tested? How does it compare?
+Afraid not – only the six browsers mentioned. It’s a shame that they ignored Vivaldi in favour of Yandex, which I don’t think is that popular among English speakers.
+If it still helps: the German magazine “c’t”, pretty trustworthy if you ask me, tested Vivaldi, Brave, Chrome and a few other browsers end of 2020. It turned out that Vivaldi is behind Brave in fingerprinting-protection, adblocker, and VPN (Brave got Tor), but for the rest they are comparable. Still, no great results for Vivaldi. In benchmarking it was by far the slowest of the tested browsers (1630 MByte for 10 selected Tabs in comparison to 1080 MB with Brave).
+Just use Tor.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

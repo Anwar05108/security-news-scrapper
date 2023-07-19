@@ -1,0 +1,28 @@
+Sophos Home protects every Mac and PC in your home 
+The Tor browser has fixed a bug that could have allowed JavaScript to execute on websites even when users think they’ve disabled it for maximum anonymity.
+The Tor Project revealed the issue in the release notes for version 9.0.6, initially suggesting users manually disable JavaScript for the time being if the issue bothered them.
+That was subsequently revised after the NoScript extension – used by Tor to control the execution of JavaScript, Java, Flash and other plugins – was updated to version 11.0.17.
+Whether the issue matters depends on how users have configured Tor to treat JavaScript.
+Tor’s ‘standard’ setting enabled JavaScript by default, which users can upgrade to either ‘safer’, which disables JavaScript on non-HTTPS sites, or ‘safest’, which disables JavaScript completely.
+Each setting has its pros and cons. Leaving JavaScript enabled opens users to the hypothetical risk that their anonymity might be compromised, for example using a vulnerability in the underlying Firefox browser.
+
+There have been a small number of reports of this happening, for example in 2013, and again in 2016 when Mozilla issued a patch to fix a real-world JavaScript attack aimed at Tor by a government. On the other hand, many websites rely on JavaScript and disabling it can cause them to break, or at least work less well.
+The new upgrade alert is urgent for anyone using Tor in the ‘safest’ setting. In short, the bug might in some circumstances allow JavaScript to continue to function even though this setting disallows that. Tor release notes advise that the extension will normally update automatically:
+Noscript 11.0.17 should solve this issue. Automatic updates of Noscript are enabled by default, so you should get this fix automatically.
+Why not just use NoScript to whitelist JavaScript on trusted sites, as is the case when used with non-Tor browsers?
+Users can’t do this in Tor because doing so might make things even less secure – the act of enabling JavaScript only on some websites could itself become an inadvertent cookie used to fingerprint users as they pop up around the web.
+That means that for everyone using Tor, JavaScript is either on or off with no ambiguous ‘on sometimes’ halfway house.
+Things could be worse. Last year, a problem with digital signatures caused Firefox and Tor to temporarily stop trusting lots of add-ons, including NoScript. Unsure of what was going on, cautious users who understood NoScript’s importance had stopped using Tor until the problem was fixed.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

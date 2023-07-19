@@ -1,0 +1,118 @@
+Sophos Home protects every Mac and PC in your home 
+Until a few years ago, received wisdom for passwords included advice to change them all on a regular and frequent basis, just because you could.
+The laudable idea was that this reduced the length of time you’d be exposed if your password were breached, and you’d therefore “obviously” be safer as a reult.
+Ironically, this became known in the jargon as password rotation, which is exactly what it turned into, where users simply cycled through a list of passwords they’d used before.
+Most apps checked that your new password wasn’t the same as the old one, but few went back very far, and users quickly learned how few different passwords they could get away with for each app or service.
+Users also learned how tiny those differences could be and still count as changes rather than merely minor adjustments.
+There was another serious problem with password rotation on a company network, namely that IT departments often imposed forced changes in a very predictable way, such as on the first Monday of each month.
+And anything that introduces predictability into a process that’s supposed to be awash in randomness is asking for trouble.
+Firstly, you’re as good as encouraging users to make changes in an algorithmic way to suite a doctrine rather than to address a genuine need – such as adding the digits of the current month to a core password that always stays the same.
+Secondly, you’re crowding the vast majority of each month’s worth of “Oops, I forgot my password” helpdesk calls into a short and predictable period.
+That means you’re giving social engineers – cybercrooks who are masters, basically speaking, at talking other people into doing insecure things – a believable pretext for calling up to provoke bogus password resets.
+LISTEN NOW
+Recorded back in 2012, this podcast is still relevant in 2020.
+If you’ve listened to the podcast above, you’ll already know that we’re not suggesting that password changes are an irrelevancy.
+By all means, change your passwords whenever you like if you want to – and if you use a password manager, it’s easy to do just that.
+But the only time you should feel compelled to change a password is when there is a clear and obvious reason to do so, and that’s if you think – or, worse still, know – that it might have been compromised.
+Fortunately, in many or most recent data breaches (though, sadly, not all) where authentication data gets stolen, the crooks don’t end up with your actual password along with your login name.
+Passwords usually are – or certainly should be! – stored in a hashed form, where the hash can be used to verify that a supplied password is correct, but can’t be wrangled backwards to reveal what the password was.
+As a result, most password exposures that arise from data breaches require that the crooks first crack your password by trying a long list of guesses until they find one that matches your password hash.
+Simply put, the longer and more complex your password, the longer it will take for the crooks to crack it.
+They try the most obvious passwords first, so 123456 will probably be the very first one they try for each user; Pa55word! might be the 100,000th on their list; but they are unlikely to get round to trying VFRHFMNOLR5LAIVGDOW5UZRT for days, or months, or even years.
+In other words, if a service provider notifies you that your password hash was acquired by crooks, you’ll nevertheless remain safe if you change your password before the crooks get round to cracking it.
+Even if the breach happened weeks or months ago, you’ve probably still in a good position to beat the crooks to it, assuming you chose wisely in the first place – and if you use a password manager, it’s easy to do just that.
+So, if we’re not changing our passwords every month “just in case” any more, how quick are we at changing them when there’s a clear and present reason?
+Sadly, a paper that came out recently from Carnegie Mellon University in the US suggests that a worrying number of us aren’t quick at all.
+The paper, entitled (How) Do People Change Their Passwords After a Breach?, says that the researchers:
+
+…found that very few of their participants in an online study reported intentions to change passwords after being notified that their passwordswere compromised or reused, including because they believedin the “invincibility” of their passwords.
+
+Admittedly, the significance of the findings in the paper is limited somewhat by the age of the data (it was collected in 2017 and 2018), by the small sample size of 63 breach victims from 249 participants, and by the fact that only users putting in passwords via Chrome or Firefox were monitored.
+Nevertheless, the study found that 42 of the 63 participants (two-thirds) who were notified about a data breach didn’t change any of their passwords at all.
+Disappointingly, even for the one-third who did change the relevant password, most took more than three months to get around to it, and many of those replaced their old passwords with weaker ones.
+Even more intriguingly – though perhaps, with hindsight, not surprisingly – the researchers claim that those who did change passwords tended, on average, to pick a replacement that was more similar than before (measured by substring similarities) to all their other passwords.
+In other words, if you aren’t using a password manager to generate truly random passwords for you, the research invites you to infer that your password choices will tend to influence each other, and thus that your passwords will become less varied over time.
+That might not benefit the crooks very much, but it doesn’t exactly do you any entropy favours, either. (Entropy is the jargon word for how “disordered” your password is – where, in general, higher disorder means harder to guess.)
+In short, humans really aren’t good at randomness – but then, they aren’t very good at reacting to data breach advice either, it seems.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+You almost don’t need to change your password after a breach.  The first time you login, the site will ask you to change your password before you can get any further.  It’ll send the request to your email so unless it’s your email that’s been hacked, you should be fine.  I now have my password manager alerting me of several sites that had breaches where I haven’t updated my password.  These are mostly sites I don’t use anymore and would rather just delete the accounts.  It would take half a day to reset the password on all them but again, probably pointless because the account is basically locked out anyway.
+Why can’t we have the option of creating an account on a website or service with a ‘regular’ password, then adding the public part of an SSH private/public key pair to the remote service – and then delete the ‘regular’ login password?
+Maybe similar to the way Github allows you to upload the public key that matches your own private SSH key?
+That way the crooks will not have the private part of the key pair to allow them to login, and using a regular password authenticating method would not be an option they could use.
+As you say, some sites and services do exactly that. (I use password + public-key authentication over SSH for my personal SSH shell server.)
+I don’t know of any mainstream non-developer oriented websites, e.g. social networks, that use SSH, but an increasing number of services support technologies like WebAuthn and other public-key based login authentication systems.
+This is an example password generator I use on Linux:
+$ ./generate-password.sh
+b43ffc5b04588e1c4c4f32fbe
+$ cat ./generate-password.sh
+# script to automatically generate a random password -c nn digits long
+#!/bin/bash
+date +%s | md5sum | head -c 25 ; echo
+exit 0
+Please don’t do that! It’s not random at all. Your script takes the current data and time in seconds, so if I know or can guess the day on which you created that password, there are only 86,4000 different possible passwords you can have.
+If you want a hex password, just read from /dev/urandom instead so it’s unpredictably different each time, e.g.
+$ dd if=/dev/urandom bs=1 count=16 status=none | xxd -ps
+b26bc2c25eef73e130c4090b3921a59a
+$ dd if=/dev/urandom bs=1 count=14 status=none | xxd -ps
+dd95e9a804300d27c95ecf85964a
+Incidentally, I concocted those 24-character passwords in the article (base32 converts every 5 bytes into 8, so 15 random bytes come out as 24 base32 characters and give you a password entropy of 120 bits) like this:
+$ dd if=/dev/urandom bs=1 count=15 status=none | base32
+E5IM5XMWHWAL5GCQAE4DCFR6
+$ dd if=/dev/urandom bs=1 count=15 status=none | base32
+7P2YE7AD2EOAL4PLGDVFAAJ6
+Or you can pack 15 bytes into 20 base64 characters (base64 needs 4 characters for every 3 bytes) thus:
+$ dd if=/dev/urandom bs=1 count=15 status=none | base64
+mQUax/GRDTm2OJhV/jKU
+$ dd if=/dev/urandom bs=1 count=15 status=none | base64
+lMX00bewKj2S6R8X2a+y
+The pic of the post-it notes are apt. Probably one of the safest ways to store passwords these days.
+No! Worst idea ever. As an IT tech covering approximately 400 machines in a previous job I saw at least 20 hacks of peoples accounts because of using post it notes or similar near the machine. If you want your IT tech to have access to your machine great! But do you trust them or your other workers?
+Today, as a manager, I have made it a firing offense to publicly display a password. The cost of fixing hacks on the corporate network is far too expensive and dangerous. In the case of a data breach involving personal data you would be also opening yourself (personally and corporately) to prosecution. I think you need to get with the times on this. Social engineering is still alive and well when it comes to password hacking. In one company I worked with, there was a cleaner who was prosecuted for selling ‘post it note’ passwords.
+There is plenty of literature out there – read up on it!
+I think OHS was being ironic :-) Especially if you’re living where there’s a lockdown in force… the only cleaner who’s been near my computer for the past few months is me, and even if I were in the habit of putting PostIt notes on monitor they would be invisible to my colleagues because my webcam doesn’t have a wide enough field of view to capture objects in the same plane as it. (I’ve also got a neat little square of gaffer tape over tbe webcam anyway, but that is a separate issue.)
+What?  Duck uses gaffer tape for his webcam?  He’s not using one of the snappy Sophos webcam covers that they had on shop.sophos.com?
+Actually, I think “gaffer tape” was the wrong jargon – technically it’s insulation tape, a.k.a electrical tape. When I used a Mac it was the 12″ model, the best-looking laptop ever made (what a pity about the keyboard) so there was no way I was sticking /anything/ on that, front or back, top or bottom. Now I have a matt black laptop, and a neatly cut 1cm square of matt black tape is as good as invisible when applied over the webcam. 
+I am prepared to spend ages cutting back the paint and polishing the maker’s logos and lettering off a new bicycle frame to keep it looking lean and clean, so the 60 seconds it takes to cut out a square of not-actually-gaffer-tape-after-all is a minute well spent. As for Sophos logos – most of my shirts have S O P H O S on the back in huge letters, where I can’t see it (because I am already familiar with the company and its products) but everyone else can :-)
+Thanks for this Duck.
+If one is properly using unique random passwords via a good password manager, how does that change your recommendations?  I do, and I got an alert recently through Have I Been Pwned? which identifies my email address (used as the “username” for at least 95% of my accounts) but I don’t know which of dozens or hundreds of accounts was breached.  I could spend “half a day” (as Kurt above said) changing all my passwords that use that email address as the identifier, but that seems wasteful overkill when it is going to be a password used on the breached site only.
+Thoughts?
+That’s tricky – it means that the Have I Been Pwned? report is pretty useless if you can’t tie it to an account or even a date (you may have changed the password on the affected account, if there was one, anyway). Given that all your passwords are going to be strongly different (I assume) then I think this is a low-risk situation for you.
+I would say you are OK, given that your password is unlikely to be cracked soon if at all, and given that you don’t actually have evidence of the sort of breach that might affect your password anyway. I hadn’t thought of the problem that a very vague report such as “your email address showed up somewhere dodgy” might cause. When I was thinking of “breach report” I had in mind something more specific than what you are experiencing, e.g. an email from a company that tells you “we got breached and you are on the list.”
+HtH.
+2 factor authentication makes passwords useless dont it? Correct me if I am wrong. I can’t even get into my account with my phone.
+If it’s *two* factor authentication then it’s typically a password plus a one-time code. Does’t have to be those two factors, of course, but if it’s an account that had a password only to login until you turned on 2FA, I recommend having both a good password and the second factor – don’t slip back to the password “password” after turning on 2FA. It’s meant to make it harder for the crooks, not merely “differently difficult”, if you get my drift.
+HtH.
+I do try to make people understand that SAFER passwords are important..
+That is why I try to learn them to use the: WinGuider-method:
+CREATE A SENTENCE OF AT LEAST 8 WORDS, THEN TYPE THE 1:t LETTER OF EACH WORD AS THE PASSWORD..
+Thus the sentence: “My cat Mjau has black and White fur”
+will create the safer password: McMhbawf or McMhb&wf
+In this supersimple way you create passwords that are safer than the usual: familymembers name, pets name, etc.
+And is EVER SO SIMPLE TO REMEMBER AND TO TYPE..
+(and YES! teching this method to you kids will learn them to create stronger password from the start…)
+Just be careful: don’t use obvious phrases (avoid book titles, popular sayings; songs etc.); don’t use short phrases (I aim for 14 characters, not 8); make sure they’re all quite different (so don’t follow a predictable pattern).
+Here’s a video we made with some dos and don’ts:
+https://nakedsecurity.sophos.com/2014/10/01/how-to-pick-a-proper-password/
+I see you did not read what i wrote!
+First the WinGuider-method creates passwords that are NOT found in any dictinary..
+Second.. I wrote: AT LEAST 8 CHARACTERS.. 
+And the idéa is that people begin by getting MORE SECURE PASSWORDS THAN BEFORE..
+People with the simplest passwords simply will NOT accept any 14 character password..
+If they did, they would all be using one right now.. and they dont!
+And its those with the simplest passwords (Children, elderly etc.) that really need to improve their passwords.. Thus the idéa of usin a simple method to create SAFER passwords without making them harder to remember or to type.. 🙂
+I read exactly what you wrote, and I added some additional advice to make this method stronger. The problem with your method is that it’s easy to fall into bad habits with it, such as using phrases that are easy to remember because they’re common, or obviously associated with you (e.g. a song you sing all the time), or too easy to guess, or obviously related to each other.
+or just use a passphrase like 
+my Mjau.has black-fur Tuxedo! 
+which is 29 characters, easy to remember, and harder for hackers
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

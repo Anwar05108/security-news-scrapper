@@ -1,0 +1,56 @@
+Sophos Home protects every Mac and PC in your home 
+Do you browse with Google Chrome or a related product such as Chromium?
+If so, please check that your auto-updater is working and that you have the latest version.
+A trip to the About Chrome or About Chromium dialog should give the version identifier 86.0.4240.111.
+That’s the version that was released yesterday as Chrome’s “stable” version, available to all users on Windows, Linux and Mac, not just to opted-in early adopters.
+If you see 86.0.4240.75, you’re close – but still on the previous version, so your system hasn’t updated yet.
+As Google explains, you can spot a pending update by the presence of an upward arrow in a circle at the far right of the address bar.
+At this point, closing and re-opening Chrome will apply the fix.
+If you’re in the habit of rarely shutting down your computer, or even of rarely exiting from your browser, now would be a good “rare moment” to give Chrome a chance to ingest the update.
+If you’re a Chromium user (that’s the open-source version of Chrome with no proprietary parts), follow your usual update procedure, which depends on the operating system that you’re using and where you got Chromium in the first place.
+The reason for making sure you’ve got this particular update is not only that five security bugs have been patched, including one buffer overflow and three use-after-free vulnerabilities, but also that one of these bugs, designated CVE-2020-15999, is already known to attackers.
+As the update notification states, “Google is aware of reports that an exploit for CVE-2020-15999 exists in the wild.”
+The bug is described as a heap buffer overflow in Freetype, where Freetype is an open source font rendering software toolkit that allows programmers to support the use of all sorts of modern font files and formats in their applications.
+Many web pages these days include special versions of the fonts they need – a corporate typeface, for instance – and these files, known as WOFFs, short for Web Open Font Format, are downloaded into your browser to use as required.
+WOFF files are used not only so that websites can rely on fonts that a user is unlikely already to have installed, but also so that they can depend access to specific version of a font that supports particular characters or character sets that might otherwise be missing or display incorrectly.
+We’re guessing, therefore, that this bug could be exploited by luring you to a web page that contained an innocent-looking but booby-trapped font file that deliberately triggered the bug, either when the font was loaded or when specific text was displayed.
+On Windows, Mac and Linux, the solution is easy: get the update! 
+However, even though an attack is already known in the wild, Google has included its customary notification that the update will “roll out over the coming days/weeks”, presumably because some Chrome users are dependent on their vendor to push out fixes.
+Worse still, for Chrome on Android, Google Play says simply that the current version number “varies with device.” 
+So we don’t know how you can work out whether you need an update on Android, are already up-to-date, or weren’t affected by this bug in the first place.
+If in doubt, ask the maker of your device for advice.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+Now that Chromium is running in most browsers these days. This has become an issue because the market share is so big that it’s a very attractive target.  At least Google is pretty good at pushing out security updates. But some Chrome clones lag behind when it comes to updating their browsers. Not much you can do if your device is remotely managed, but in some cases even those devices are allowed to get browser updates.
+Not sure I understand this. According to netmarketshare.com, Chromium has 0.06% of the market share for the period 2019-10 to 2020-09.
+Since Chromium is the open source version of Chrome, I’m not including Chrome as it already gets it’s updates rolled out by Google.
+I assume that the OP doesn’t mean “Chromium the browser program” but “Chromium the open source browser project that forms the core of many contemporary browser apps including Chrome, the latest version of Edge, Opera, Vivaldi, Brave and many other browsers that run on laptops and on Android. 
+(Mozilla has its own browser core, used in Firefox and derived products. Apple has WebKit, used in Safari and – by Apple’s edict – in every browser permitted into the App Store.)
+Updating is easier than you think.
+I was reading this article in the midst of a research project and happened to have three Chrome instances open, with about 50 tabs total. I was not looking forward to closing the browsers, even with tabs saved, but decided to check my version to see what I had.
+Sure enough, I had the .75  version. But before my eyes it began to update. When the download finished, I received the message: Click to relaunch Chrome. And Chrome closed and then reopened with the same configuration I started with.
+What about Edge based on Chromium?
+Here’s the thing…
+…I just don’t know :-( 
+I use Linux on my work laptop and Edge for Linux isn’t out yet. I do have Edge on my iPhone (I really like it) but iOS browsers are required to use Apple’s WebKit at their core, so that’s not Chromium-based. So I have exactly the wrong choice of OSes to check right now.
+I assume that if an update is required it will be available already or soon… any New Edge on Windows or New Edge on Mac users out there able to take a look at whether they’ve had an update in the past 24 hours [time now is 2010-10-21T20:00Z]?
+This is from their website (Release notes for Microsoft Edge Stable Channel):
+Version 86.0.622.48: October 20
+Fixed various bugs and performance issues.
+Thanks! Alas, what that doesn’t clear up is whether the Microsoft Chromium code includes the buggy part at all – this bug might not even exist in the MS build.
+A kindly reader just pointed out to me that Microsoft Edge for Linux Dev Channel version arrived yesterday (!), so my statement that “Edge for Linux isn’t out yet” is now only partly true. There isn’t a generic tarball version, but manually extracting the RPM on slackware-current seems to work, and I get the Dev Channel version 88.0.673.0, not an 86.x version. Whether the Edge build was ever vulnerable to this bug, however, I can’t tell you.
+PS. Edge for Linux is pretty nice IMO. It takes pages and pages of clicking through Settings to set up so that you get a blank New Tab and to turn off all the “features” such as autosaving everything (passwords, addresses, payment cards). But it’s quick and it does have a “clear everything automatically on exit” feature, which Chromium does not.
+What about just blocking web fonts, period?
+That [a] might not solve this problem (which is already patched anyway), as the exploit might not need a newly-fetched font (that’s only a guess) [b] would probably ruin the layout of quite a few sites.
+And for those that work in tech, remind your users that Windows 8/8.1/10 require a “Restart” and not a shutdown to “reboot” in most cases (when Fast Start is enabled).  Not that the advice here is to reboot, but many people will hear things and think that a reboot will fix everything and that a shutdown is even better like in the old days.
+When I worked in tech it was policy to reboot after ***every*** update or software install/uninstall.
+Made things a bit of a pain but we never had any issues afterwards. But that was XP/Server2003 days.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

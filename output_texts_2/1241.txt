@@ -1,0 +1,65 @@
+Sophos Home protects every Mac and PC in your home 
+As you probably know (or, at least, as you know now!), October is Cybersecurity Awareness Month, which means it’s a great opportunity to do three things: Stop. Think. Connect.
+Those three words were chosen many years ago by the US public service as a short and simple motto for cybersecurity awareness.
+5 tips for you and your family on Safer Internet Day
+
+
+As we’ve said many times before on Sophos Naked Security, the only thing worse than being hacked is realising, after you’ve been hacked, that you could have spotted the attack before it unfolded – if only you’d taken the time to look.
+That’s why the theme of the opening week of the 2021 Cybersecurity Awareness Month focuses on what we can all do to help: Do your part. #BeCyberSmart.
+To start with, take a look at our Top Ten security misperceptions, written by Peter Mackenzie, who leads the Sophos Incident Response Team:
+Top 10 security misperceptions
+
+
+Then, read through our short-and-sharp series of Cybersecurity Hindsight tips by Rob Collins of the Sophos Systems Engineering team.
+There are still plenty of obvious preventative cybersecurity measures that we are all perfectly well aware of, but still haven’t implemented for all of our users.
+That’s a bit like going to the trouble of locking the front door of your house whenever you go out, but leaving the back door wide open.
+Unfortunately, a typical computer network has plenty of entranceways, and cybercriminals have dozens of different TTPs at their disposal – that’s contemporary cybersecurity jargon that refers to tools, techniques and procedures.
+We need not only to apply hindsight security to stop threats that we’ve known about for years, but also to keep abreast of new cybercrime TTPs and defend against them, too.
+Read our Active Adversary Playbook to understand your enemies, and how to protect against them proactively:
+The Active Adversary Playbook 2021
+
+
+And once you know what to look out for, and how to defend against it proactively, take a listen to one of our own in-house cybersecurity experts explaining how to build an effective cybersecurity team of your own:
+Remember that Cybersecurity Awareness Month isn’t a special month for throwing more time and money than usual into defending against cybercriminality in the hope of tiding yourself over until next year…
+…but rather a month to look at what you’re already doing, and how you can improve it for the whole year ahead.
+Do your part. #BeCyberSmart.
+DEFENDING AGAINST RANSOMWARE: WHAT WORKED (AND WHAT DIDN’T)
+We also recommend our State of Ransomware 2021 report, where last year’s ransomware victims talk publicly but anonymously about what worked when they landed in trouble, and what didn’t:
+
+In case you’re wondering, paying the blackmail generally doesn’t work out as well as you might think:
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+AGAIN: You still have SSL errors
+nakedsecurity.sophos.com
+“The issuer certificate of a locally looked up certificate could not be found”
+Expiration date 30 September
+The error mentions ISRG
+I’m accessing the RSS feed at
+http://feeds.feedburner.com/nakedsecurity?format=xml
+Last time you said this, I asked what software (browser or web client) you were using to fetch the web page. 
+Without knowing which software is producing the error, I can’t advise you why this is happening, but (as I explained before) the most likely explanation is that your software doesn’t trust the ISRG “root certificate” certificate that is used to validate our website. 
+Every browser and OS combination I have tried (a mix of Firefox, Edge, Chromium and Safari on Linux, Apple and Android systems) works fine, because all those combinations have an up-to-date list of trusted “root” certificates that they use to validate websites. In other words, I suspect that the SSL errors are happening due to outdated “trusted certificate” data in your RSS feed reader software. Operating systems and mainstream browsers typically update their trusted certificate lists regularly and automatically.
+I assume you can access our web pages directly in a browser. Therefore I am guessing that you are using some RSS feed reader service that tries to fetch and preview web pages itself, and that this software has an outdated list of “root” certificates that it uses to make its trust judgements.
+Try this:
+1. Install the latest version of Firefox.
+2. Visit this page directly (https://nakedsecurity.sophos.com/2021/10/04/becybersmart-2021-week1/).
+Does it work? If so, then you have some evidence that a mainstream browser finds nothing suspicious or untrustworthy about our certificate and thus that the problem isn’t caused by this site.
+Then try this:
+3. Visit the RSS feed in the browser (https://feeds.feedburner.com/nakedsecurity?format=xml)
+4. Click on the link to this article in the feed (http://feedproxy.google.com/~r/nakedsecurity/~3/Edj_H3rgVCw/)
+The URL shown in step 4 should redirect you to this very page, and if the browser accepted it in step 2 then it should accept it in step 4.
+If you can see the page correctly at step 2 and step 4 then I would conclude that your RSS feed reader software is the source of the error, because it doesn’t have a recent list of SSL certificates to verify ours against. 
+You can find more information on certificates, certifcate chains and “root” certificates here:
+https://nakedsecurity.sophos.com/2021/09/28/serious-security-lets-encrypt-gets-ready-to-go-it-alone-in-a-good-way/
+From the error message you mention, I am guessing that the software producing the error is powered by its own copy of OpenSSL that has its own copy of the official root certificate list. If so, then updating your operating system won’t help, and neither will updating your browser. 
+Without more information about exactly which software is generating that error message, I can’t advise you what is causing the error, or how to update it. (No mainstream browsers that I know of use OpenSSL, none of them report certificate errors with the message you are seeing, and none of them consider our certificate untrusted.)
+HtH.
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ

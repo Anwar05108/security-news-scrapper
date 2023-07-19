@@ -1,0 +1,70 @@
+Sophos Home protects every Mac and PC in your home 
+Amidst the ongoing brouhaha created by the apparently omnipresent Log4Shell insecurity featuresecurity vulnerability, it’s easy to lose track of all the other things that you should, and normally would, be working on anyway.
+Indeed, the UK’s National Cyber Security Centre (NCSC) is warning that:
+Remediating [the Log4Shell] issue is likely to take weeks, or months for larger organisations.
+As it happens, the above quote comes from the NSCS’s guide for company boards-of-directors, in a section that warns top management to take steps to avoid burnout in cybersecurity teams. 
+But we’ve already needed to write this week about Apple’s latest security updates, which apply to all the company’s products, and include fixes for almost every sort of security risk you can think of.
+Apple’s patches don’t deal with Log4Shell, but they do close other holes all the way from kernel compromise (think: spyware implants) to privacy bypasses (think: configuration hacks and data leakage):
+Apple security updates are out – and not a Log4Shell mention in sight
+
+
+And on our sister site, Sophos News, we’ve written about Patch Tuesday, with Microsoft fixing numerous operating system and application bugs that include 26 remote code execution (RCE) flaws.
+Again, Log4Shell doesn’t come into the picture, but there were eight ironic RCEs in Microsoft’s own software tool that aims to improve security in the notoriously vulnerable world of IoT devices:
+Microsoft wraps up 2021 with 64 patched vulnerabilities—including Windows 7 fixes
+
+
+Well, in case you missed it, the renowned OpenSSL cryptographic toolkit – a free and open source software product that we’re guessing is installed much more widely than Log4J – also published updates this week.
+OpenSSL 1.1.1m replaces 1.1.1l (those last characters are M-for-Mike and  L-for-Lima), and OpenSSL 3.0.1 replaces 3.0.0.
+In case you were wondering, the popular X.Y.Z versioning scheme used by OpenSSL 3 was introduced at least in part to avoid the confusion caused by the trailing letter in the earlier version “numbering” system. As for OpenSSL 2, there wasn’t one. Only the 1.1.1 and the 3.0 series are currently supported, so updating versions such as OpenSSL 1.0.x means jumping to 1.1.1m, or directly to the OpenSSL 3 series.
+The good news is that the OpenSSL 1.1.1m release notes don’t list any CVE-numbered bugs, suggesting that although this update is both desirable and important (OpenSSL releases are infrequent enough that you can assume they arrive with purpose), you probably don’t need to consider it critical just yet.
+But those of you who have already moved forwards to OpenSSL 3 – and, like your tax return, it’s ultimately inevitable, and somehow a lot easier if you start sooner – should note that OpenSSL 3.0.1 patches a security risk dubbed CVE-2021-4044.
+As far as we’re aware, there are no viable known exploits for this bug, but as the OpenSSL release notes point out:
+[The error code that may be returned due to the bug] will be totally unexpected and applications may not behave correctly as a result. The exact behaviour will depend on the application but it could result in crashes, infinite loops or other similar incorrect responses.
+In theory, a precisely written application ought not to be dangerously vulnerable to this bug, which is caused by what we referred to in the headline as error conflation, which is really just a fancy way of saying, “We gave you the wrong result.”
+Simply put, some internal errors in OpenSSL –  a genuine but unlikely error, for example, such as running out of memory, or a flaw elsewhere in OpenSSL that provokes an error where there wasn’t one – don’t get reported correctly.
+Instead of percolating back to your application precisely, these errors get “remapped” as they are passed back up the call chain in OpenSSL, where they ultimately show up as a completely different sort of error.
+You can see a contrived but explanatory example of bugs of this sort in this code:
+Don’t worry if you aren’t a programmer or don’t know C – the story is easily told.
+The main() function above tries to read the first four bytes of the file specified on the command line, which is often enough to guess the type of the file, and then prints out this four-byte ‘magic’ number in ASCII, in big-endian hexadecimal, and in signed decimal:
+Sidenote. The MZ in EXE files is Mark Zbikowski, who invented the file format decades ago. The PK in ZIP, DOCX and JAR files is the late Phil Katz, founder of PK-ZIP and inventor of the file format used by all ot these. The hexadecimal magic numbers CAFEBABE and D0CF11E0 (read the first 1 as I and the second as L) for compiled Java class files and old-style Office DOC files are what passes for programmatic humour.
+As run above, the program seems to work just fine.
+But all errors that the program might encounter get converted to a single, convenient error code of -1 (0xFFFFFFFF in hexadecimal), and any errors that do occur get reported as you see below (this time, we used Windows):
+The code reports some sort of error each time, but the programmer has tried to simplify error handling by assuming that any file from which four bytes can’t be read, and that therefore doesn’t have a ‘magic’ number as far as this program’s definition is concerned, is somehow ‘corrupt’.
+You’d be forgiven for thinking, faced with the output above, that something dreadful just happened to your hard disk or your operating system, when in fact three of the errors are unexceptionable and undramatic, and one of them isn’t an error at all.
+If the lower-level functions openfile() and readmagic() had been structured to allow them to return helpful and realistic error codes all the way back to the top-level main() function, the output could have been laid out like this:
+In fact, the programmer has made another type of blunder here, by choosing an error value (-1) that overlaps with a possible, albeit unlikely, genuine answer.
+The file ffffffff.raw consists of the hexadecimal byte 0xFF repeated many times, so the file does exist, is not a directory, is at least four bytes long, and should be reported as having a magic number of 0xFFFFFFFF, not as being corrupt.
+By conflating a wide range of errors, and by provoking an error when there isn’t one, the readmagic() function is liable to send higher-level parts of any app that uses it on wild goose chases, as well as turning up errors that might mislead higher-level code into misbehaving.
+Well-written code should never ignore “errors that can never occur at this point”, because that sort of error has a nasty habit of occurring after all.
+Well-written code should never return errors when it has documented in its “contract” with the outside world that it cannot do so. (If code insists that “an error cannot occur”, but something does go wrong, the code should either repair the error fully and properly, or terminate abnormally.)
+And well-written code should never pretend there isn’t an error when there is.
+It’s worth noting that both Unix/Linux and Windows provide an official way for higher-level code to zoom in more precisely on a lower-level error that couldn’t be reported precisely by the function that detected it.
+For example, C functions that return a memory address have little choice but to use NULL (usually a value of zero) to denote an error, and anything else to denote success, given that the NULL value is the only pointer considered inaccessible and invalid by definition.
+Generally speaking, NULL is the only value that is guaranteed by the C standard not to clash with any legitimate memory address that might be returned.
+To solve this problem, you can examine the special variable errno (Unix/Linux), or call the Windows function GetLastError().
+But neither of these techniques can recover error codes that happened before the last one: there’s no GetSecondLastError() function, and the errno variable is not an ever-shifting array of historical error codes.
+So, if handling an error requires calling another system function – for example if failing to read() a file means you close() it before you return – then you may find that by the time you return to the part of the app that called you, GetLastError() or errno will happily tell the caller that nothing went wrong..
+As Microsoft explains:
+You should call the GetLastError function immediately when a function’s return value indicates that such a call will return useful data. That is because some functions [set the error code back to zero] when they succeed, wiping out the error code set by the most recently failed function.
+Ironically, perhaps, the OpenSSL 3.0.0 “error percolation” bug can only be triggered when OpenSSL is trying to improve security by verifying a digital certificate supplied by a remote server.
+As the OpenSSL advisory explains, the first way this bug may be triggered is when one sort of error, such as a memory error, inadvertently comes back to you as a “you need to try this again” type of error.
+In general, you should assume that you can’t reliably recover from memory errors, and your software should shut down as leanly and cleanly as it can to avoid crashes or corruption, so “trying this again” is almost certainly the wrong thing to do.
+The second way is if a separate and just-fixed OpenSSL bug, not worthy of a CVE on its own, triggers the bogus “you need to try this again” error even though no error occurred. 
+As you can imagine, saying “you need to try this again” when all that will happen is that yet another identically erroneous error will occur is a recipe for trouble.
+LISTEN TO OUR LATEST PODCAST – LOG4SHELL ADVICE
+Click-and-drag on the soundwaves below to skip to any point. You can also listen directly on Soundcloud.
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
+2 typos:
+the code shoould either repair
+If you are on Open SSS 3.0.0
+Fixed, thanks!
+Comment * 
+Name 
+Email 
+Website 
+ 
+
+
+
+Δ
