@@ -8,10 +8,14 @@ def extract_text_from_url(url):
         response.raise_for_status()  # Check for any request errors
 
         soup = BeautifulSoup(response.text, 'html.parser')
-        paragraphs = soup.find_all('p')
-        text = '\n'.join(paragraph.get_text() for paragraph in paragraphs)
-
-        return text
+        entry_content_div = soup.find('div', class_='entry-content')
+        if entry_content_div :
+            paragraphs = entry_content_div.find_all('p')
+            text = '\n'.join(paragraph.get_text() for paragraph in paragraphs)
+            return text
+        else:
+            return None  # Return None if no div with class "entry-content" is found
+        
     except requests.exceptions.RequestException as e:
         print(f"Error occurred while fetching data from {url}: {e}")
         return None
@@ -25,9 +29,9 @@ def save_text_to_file(text, filename):
 
 if __name__ == "__main__":
     # Assuming you have a text file named "urls.txt" containing one URL per line
-    input_file = "urls-2.txt"
-    output_folder = "output_texts_2"
-    i = 408
+    input_file = "urls-3.txt"
+    output_folder = "output_text_3_refined"
+    i = 1303
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
