@@ -1,0 +1,31 @@
+Adobe just published a foursome of very tight-lipped security notifications about new patches.
+By new we mean that they’ve come out since Patch Tuesday’s updates showed up last week.
+In other words, if you are in the habit of only patching monthly, this is one of those times you need to break that habit.
+In common parlance, unexpected updates to products that usually stick to a consistent pattern for publishing fixes are known as out-of-band patches, and that’s what we have here.
+(That’s not a very precise use of the term “out of band”, by the way – the term usually refers to a special data or control signal that is delivered via a completely separate channel to the main data stream so that the two can’t accidentally be confused – but it’s become an unexceptionable usage in the world of patch labelling.)
+The affected products are : Character Animator (CVE-2020-9586), Premiere Pro (CVE-2020-9616), Audition (CVE-2020-9618), and Premiere Rush (CVE-2020-9617).
+The bulletins are numbered APSB20-25 and then -27, -28 and -29, with a gap at -26.
+The bulletin APSB20-26 actually came out last week, on Patch Tuesday, leaving a gap at -25, suggesting that at least the patch in bulletin APSB20-15 was prepared in time for Patch Tuesday but didn’t make the final cut, perhaps to give it time for additional testing or tweaking.
+We mentioned at the start that these notifications are tight-lipped, and by that we mean that Adobe isn’t giving away much about them except that they exist, and isn’t saying whether exploits against them are known or even likely.
+Fortunately, only the Character Animator bug is of the “crooks on the outside could implant malware on your computer” sort.
+Adobe has released an update for Adobe Character Animator for Windows and macOS. This update resolves a stack-based buffer overflow vulnerability that could lead to remote code execution.
+Buffer overflows happen when a programmer doesn’t leave enough space in memory for data that might later arrive and therefore creates the possibility for one chunk of malformed data to overwrite other data that’s used elsewhere in the program.
+Often, buffer overflows that happen by mistake end up confusing the app that’s had its data mangled and cause a crash.
+That’s bad enough because you typically lose unsaved work or end up with messed-up data after a crash, and a buffer overflow that can be abused to trigger crashes at will is the sort of security bug that’s aptly named Denial of Service, or DoS for short.
+But with careful attention to detail, attackers can sometimes exploit buffer overflows not only to crash the offending program but also to cause it to fail in a way that lets them take over during the crash.
+The data that’s fed in via the buffer overflow can sometimes sneakily be crafted to divert the flow of execution in the crashing software in a predictable but dangerous way.
+If that’s possible, attackers can often trick the vulnerable software into performing various rogue actions instead of having its errant behaviour caught and gracefully shut down by the operating system.
+If the cunningly-crafted data can be fed in from outside, for example embedded in an image file that’s been downloaded from the internet, then crooks can not only take control of your computer but also do so from outside your network.
+In other words, they can use the vulnerability to break into your computer remotely and run some command of their choice – and that command usually ends up implanting malware on your computer without any warning messages or “are you sure” popups.
+That’s the most serious sort of exploit, known as RCE, short for remote code execution – the very words you see in Adobe’s brief-as-can-be notification.
+The bugs in the other apps are designated with the words “[these updates resolve] an out-of-bounds read vulnerability that could lead to information disclosure.”
+An out-of-bounds read is a bit like lifting up a report that you’ve been invited to take from your boss’s desk (back when we used to visit each other’s desks at work, that is) and noticing that there’s something revealed underneath you weren’t supposed to see but now can’t help staring at.
+Interestingly, buffer overflows are often hard to exploit these days because most operating systems try to load programs and their data at randomly varying memory addresses – what’s known as ASLR or Address Space Layout Randomisation.
+This makes it hard for attackers to crash buggy programs in an exploitable way, because they can’t predict what’s where and therefore can’t reliably control the flow of program execution in the crashing code – a hack that works on the attacker’s own computer will go haywire on anyone else’s.
+This makes information disclosure bugs much more valuable than you might think – crooks often use them not to steal personal data such as passwords but to learn how memory is laid out on the target computer.
+So modern attacks often use an information disclosure bug first to make ASLR useless – once the crooks figure out the memory layout, it’s no longer random or unpredictable! – and thereby make any accompanying RCE exploits work reliably.
+Make sure you’re up to date.
+Adobe Creative Suite users can see what software they have installed and whether it’s been updated by clicking on the Creative Cloud icon in the menu bar (macOS) or toolbar (Windows).
+If the Creative Cloud icon isn’t there, go to Applications or Program Files and launch the Creative Cloud app in Adobe Creative Cloud folder, which will activate the icon the relevant icon bar.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

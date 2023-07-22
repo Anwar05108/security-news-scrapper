@@ -1,0 +1,23 @@
+Converting websites from HTTP to HTTPS over the last decade must count as one of the most successful quiet security upgrades ever to affect web browsing.
+Using an HTTPS site means that your browser and the site establish an encrypted connection which can’t be snooped on by ISPs, rogue Wi-Fi access points, or anyone else trying to monitor the content of that traffic with bad intent.
+It’s not universal yet, but with search engines such as Google downgrading sites that stick with HTTP, and popular browsers marking them as ‘not secure’, unencrypted web connections are surely heading for extinction.
+There are some HTTPS security caveats worth mentioning, but before getting to them we’ll start with the news that that Mozilla’s Firefox will, from May’s version 76, offer the option to browse in an HTTPS-only mode.
+It won’t be the default for now, only an option that can be turned on, but if the past is any guide it will eventually become something that has to be turned off in future releases.
+This presumably is how the industry plans to force the final few percent of HTTP sites offline, making it hard for users to browse to them in the first place.
+That said, according to the brief description offered, when a user visits a site not offering HTTPS, they’ll be given the option to continue if they choose to. That will probably also disappear in time because it’s an obvious point of failure should users get used to overriding the setting for the sake of convenience.
+Given the decline of plain HTTP, you might be wondering why any of this is necessary. The short answer is to block the browser from reaching the small number of sites that cling to HTTP, closing the small but still plausible security risk they pose in some circumstances.
+Another objection is that users could just type HTTPS into their address bar for themselves. While true, there are going to be times (clicking on malicious HTTP links for instance) it would be easy to overlook. HTTPS shouldn’t be something users have to remember to pay attention to.
+This is where a site uses HTTPS at domain level but fills its pages with things like images, JavaScript, audio, and video that are fetched via HTTP. This creates new man-in-the-middle security risks that undo good work done by HTTPS.
+It’s an ancient problem – browsers have been throwing up warnings about mixed content for years (in Firefox it’s currently a gray padlock with a diagonal red line through it) with Internet Explorer’s baffling notifications dating back as far as version 3.0.2 in 1997.
+Firefox 76’s answer is to attempt to upgrade mixed content to HTTPS or simply block them from loading at all. On sites that still have this issue, that could cause gaps that would normally be filled by such content, which at least makes it easy for website owners to see the problem.
+Of course, users can already do the above in Firefox, including controlling mixed content, by installing the HTTPS Everywhere plugin. Integrating it into Firefox just turns this function into something that is updated and maintained as part of the browser rather than as a separate feature, which follows the path taken by many once-optional browser security and privacy functions.
+It also needs to be reiterated that while making HTTPS connections the default is a good thing, it is not a magic forcefield against bad actors.
+There are still misconceptions around this point, including in official advice where you’d least expect it. For example, security blogger Brian Krebs recently discovered the following message buried on the website of the US Census Bureau:
+The HTTPS:// ensures that you are connecting to the official website and that any information you provide is encrypted and secure.
+The bit about information being encrypted is true but HTTPS does not ensure that you’re connecting to the official website.
+As a recent Naked Security article explained, HTTPS is also very popular with crooks running fake websites. Just because a site uses HTTPS does not mean it is a good site.
+The minor irony in Mozilla’s enthusiasm for HTTPS security is that after announcing earlier this month that Firefox 74 had finally abandoned support for the TLS 1.0 and 1.1, older versions of the protocol which underpins HTTPS, the company later decided to reinstate support. The company explained at the time:
+We reverted the change for an undetermined amount of time to better enable access to critical government sites sharing COVID19 information.
+Even privacy and security can be limited by real-world events.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

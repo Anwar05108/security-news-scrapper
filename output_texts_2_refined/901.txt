@@ -1,0 +1,32 @@
+A decade or so ago, many Mac users used to claim very confidently that anti-virus software would be wasted on them, “because Macs don’t get malware.”
+They’d admit that Mac malware was theoretically possible, but point out that because they’d never run into any problems themselves – problems that they knew of, anyway – and had never heard a fellow Mac user asking for help with a malware attack, they’d decided to ignore the issue of rogue software entirely.
+A few Mac fans went further than that, saying that Macs were immune to malware because they’re based on Unix – Unix, they’d say, couldn’t get viruses because the operating system was completely different from Windows internally, and was secure against malware by design.
+The problem with definitive claims of this sort is that you only need a single example of Unix malware – what you might call an existence proof – to debunk the theory, such as the infamous Morris Worm that downed the internet back in November 1988.
+Of course, we’ve written about Mac malware – including zombies, data stealers, ransomware and many other sorts of badware – many times since 1988.
+Even Apple itself came to the anti-virus party back in 2009 when it introduced a rudimentary malware blocking tool called XProtect right into into OS X (now macOS).
+Whether you called it malware or not, there have long been “software actors” out there ready to go after Mac users in the same way that they’ve been going after Windows users for years.
+Well, nothing has changed: altough you’re probably more likely to get hit up with malicious or unwanted software on Windows, you aren’t free and clear just because you’re using a Mac.
+In fact, SophosLabs has just published a fascinating new report about an adware threat known as Bundlore that has Mac users very clearly in its sights.
+
+Bundlore itself isn’t new – Sophos products have been detecting an adware family by that name on both Windows and Mac since about 2015 – but the operators behind it are certainly keeping up with the times.
+As the name suggests, Bundlore isn’t really one item of adware, but what SophosLabs likes to call bundleware – a software installer that lures you in, for example with promises of enabling you to “download, play and organise third party files, video, audio and other content.”
+
+As you can see, the Mac version of the Bundlore installer, which arrives as a Mac DMG (disk image) file and presents itself an app called WebTools, goes through a legitimate-looking licence acceptance process.
+The licence explains that a lot of what happens next will depend on what various un-named “third parties” might get up to, in much the same way that a search engine warns you that it can’t vouch for the content of the pages it thinks you might be interested in.
+For that reason, Bundlore isn’t detected by Sophos products as outright malware, but Bundlore installers are nevertheless blocked by default as PUAs, short for potentially unwanted applications, so that you won’t be taken by surprise.
+For example, in the installation screen above, SophosLabs notes that if you decide to avoid the “Express install” above and go for a “Custom installation” – the presence of which sounds reassuring, as though you aren’t being forced into anything – then you don’t really end up opting out, after all:
+
+As the report explains:
+PUAs are among the most common privacy and security threats to macOS. Since they can potentially steal personal data and act as a pathway for malvertising and other malware, Sophos (and other endpoint protection products) block PUAs as a rule. Apple’s XProtect feature in MacOS also blocks known Bundlore payloads, and Apple revokes the developer signatures associated with them as well – blocking them from execution on […] macOS.
+To learn just how risky this sort of innocent-on-the-surface bundleware can be, we urge you to read through the report, which deconstructs the techniques used by the Bundlore adware to alter your browsing experience in subtle and insecure ways.
+Notably, recent versions of Bundlore for Mac simultaneously support both older and newer versions of Safari on the Mac, including browser plugins that work across all recent versions of macOS.
+(Safari 13, which arrived with macOS 13, better known as Catalina, requires a different format for its browser plugins that Safari on older macOS versions.)
+Remember that browser plugins work right inside the browser itself, so they get to see web requests before they go out, and web replies before they are processed for display.
+That means they can snoop on and modify your web traffic despite the use of TLS encryption (what’s known as HTTPS, short for secure HTTP), because plugins operate before the encryption is applied to outbound traffic, and after the encryption has been stripped off from inbound traffic.
+SophosLabs digs into the detail of two of these Bundlore plugins, called AnySearch and MyCouponSmart – the report unravels how these plugins work, written in a style that is technical enough to be insightful but not so technical that you need to be a web developer to understand the risks.
+In particular, these plugins can hijack search results to earn affiliate credit for the Bundlore crew, alter search replies entirely to skew the results, and rewrite download links to fetch rogue content:
+[A]dware operators are diversifying their sources of revenue. And, as demonstrated by the download link replacement behavior of these scripts, adware operators are ﬁnding new ways to leverage their control over web browsers’ content— and the result could be new privacy and security risks.
+
+Be careful out there, folks!
+
+(While you’re here, we’re happy to say that Sophos Home can block malware, PUAs and dodgy web downloads on Windows and Mac alike, for free.)

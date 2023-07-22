@@ -1,0 +1,47 @@
+As if one Windows Nightmare dogging all our printers were not enough…
+…here’s another bug, disclosed by Microsoft on 2021-07-20, that could expose critical secrets from the Windows registry.
+Denoted CVE-2021-36934, this one has variously been nicknamed HiveNightmare and SeriousSAM.
+The moniker HiveNightmare comes from the fact that Windows stores its registry data in a small number of proprietary database files, known in Microsoft jargon as hives or hive files.
+These hive files include a trio called SAM, SECURITY and SYSTEM, which between them include secret data including passwords and security tokens that regular users aren’t supposed to be able to access.
+They’re kept in a special, and supposedly secure, folder under the Windows directory called C:\Windows\System32\config, as you see here:
+The moniker SeriousSAM comes from the filename SAM, which is short for Security Account Manager, a name that sounds as serious as the file’s content’s are.
+If you have ever used password cracking or hacking tools (or found evidence of them on your network after detecting an active attack), you’ll know that the SAM database is where many cybercriminals start digging in order to try to get hold of administrator credentials to move around your network.
+Fortunately, you need to have Administrator access already in order to get at the SAM data in memory, and you can’t get at the SAM registry hive on disk while Windows is running even if you are an Administrator, because the SAM file shown above is locked for the exclusive use of the operating system.
+So far, so good.
+We wrote a tiny C program that you can use to get an “accessibility indicator” for any file on the system – it simply tries to open the filename or filenames you put on the command line, and reports the Windows error code if the file couldn’t be opened up for read access. 
+(The code below is in the public domain so you can do what you like with it, but you use it at your own risk.)
+You don’t even need the Windows header files to compile it;  you just need to tell your compiler or linker that it needs kernel32.dll and msvcrt.dll:
+From an elevated command prompt (one that is running with Administrator privilege), we get the following result:
+Error 0x20 stands for ERROR_SHARING_VIOLATION, described officially by Microsoft as “The process cannot access the file because it is being used by another process.”
+So far, still good.
+Let’s try again from a non-elevated command prompt, where we’re running as a regular user:
+Ooooer! That can’t be right!
+We should have received Error 0x05, short for the self-explanatory ERROR_ACCESS_DENIED, right away.
+Seeing Error 0x20 means that the program was allowed to have a go at opening the file, and failed at that point, instead of being blocked from even trying to access the file in the first place.
+And if we look at the ACL (access control list) for the SAM hive file, for instance, using the ICACLS utility, we see that this behaviour is down to a security blunder:
+In other words, the SAM registry data (and the SECURITY and SYSTEM hive files, too) are protected at runtime against access by regular users because the files are in use elsewhere, not because the files are off-limits to regular users from the outset.
+We need to fix that vulnerability, and Microsoft’s official workaround is to restrict the access control lists (ACLs) on everything in and below the CONFIG directory.
+You need to be Administrator, and to make the following security change:
+Now, the ACL for the SAM file that we checked above looks much healthier:
+Also, if we try to open the live SAM registry hive file again from a non-Administrator command prompt, we no longer get Error 0x20.
+We now get the more security-conscious Error 0x05, telling us ACCESS_DENIED:
+But that alone is not enough.
+If you have any system restore points (also known as Volume Shadow Copies) on your computer, those restore points include copies of your original SAM, SECURITY and SYSTEM registry hive file with the old and insecure access control settings.
+In other words, any unprivileged user could just read out data such as your Windows access control secrets or password hashes from the shadow copies instead.
+By the way, you may have one or more shadow copies on your computer even if you didn’t go to the System Protection menu yourself and click the [Create] button to generate one.
+(A restore point is like an online snapshot or temporary backup that you can use to “rewind” your hard disk’s contents and recover an older version of your system if something breaks, for example after an update that didn’t work out.)
+Restore points may have been made by IT at various times; also, system upgrades and even some security software may create restore points automatically for their own use.
+You can check for the presence of shadow copies on your computer using the Volume Shadow Copy Service administrative command-line tool, vssadmin.
+We’ve got one shadow copy (we created it on purpose for this article), as you can see here:
+What this output tells us is that copies of the registry hive files, at the moment we created the restore point/shadow copy, can be found in this shadow directory:
+You simply take the root directory name of the shadow copy volume and add the original Windows filename to it, minus the drive letter, of course.
+(In case you were wondering, the weird-looking prefix \\?\ above tells Windows to treat this as a “wide” filename, by using two bytes for each character, even though it’s written as a regular ASCII text string with one byte per character. This allows filenames up to 32KB long instead of the usual ASCII filename limit of 260 characters.)
+So, let’s try the chkit program on the shadow copies of the registry hive files, instead of on the live copies that gave us SHARING_VIOLATION and then ACCESS_DENIED errors above.
+Using a non-Administrator command prompt, we get:
+Simply put, we were able to get access to the SAM file (and likewise to other registry hive backups in the shadow copy directory) even though [a] the system was running and [b] we didn’t have Administrator powers.
+Microsoft’s official workaround is fairly easy:
+Of course, as Microsoft wryly notes, “Deleting shadow copies could impact restore operations, including the ability to restore data with third-party backup applications.”
+That’s one reason why ransomware crooks almost always delete all your restore points just before they trash your network, to make recovery slower and harder.
+In case you’re wondering, the quick way to zap all your restore points is to use the following command as an Administrator:
+In theory, we suspect that you could write a script or program to locate any insecure registry hive backups inside any of your shadow copy directories, and then set the ACLs on those individual files, thus leaving the rest of the restore point intact.
+But we’ve not tried doing that, and we’re not sure if a restore point would still work properly if you modified its contents “unofficially” in this way, so we’re not going to recommend it.

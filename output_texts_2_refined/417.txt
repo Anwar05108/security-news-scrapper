@@ -1,0 +1,18 @@
+Researchers report flaws, vendors issue patches, organisations apply them – and everyone lives happily ever after. Right?
+Not always. Sometimes, the middle element of that chain – the bit where organisations apply patches – can takes months to happen. Sometimes it doesn’t happen at all.
+It’s a relaxed patching cycle that has become security’s unaffordable luxury.
+Take, for instance, this week’s revelation by researcher Kevin Beaumont that serious vulnerabilities in Pulse Secure’s Zero Trust business VPN (virtual private network) system are being exploited to break into company networks to install the REvil (Sodinokibi) ransomware.
+His evidence comprises anecdotal reports from victims mentioning unpatched Pulse Secure VPN systems being used as a way in by REvil. Something he has since seen for himself:
+I’ve now seen an incident where they can prove Pulse Secure was used to gain access to the network.
+As Beaumont points out, the patches for the vulnerabilities in some versions of the Pulse Connect Secure (PCS) and Pulse Policy Secure (PPS) were first made public in an advisory published by the company on 24 April 2019.
+This covered 10 CVEs, including one critical rated a maximum 10 on the CVSS scale (CVE-2019-11510), a second (CVE-2019-11508) rated 9.9, plus six additional CVEs affecting the Ghostscript PDF interpreter.
+A week before that, as we reported, a more general warning was issued by US-CERT regarding weaknesses in several companies’ VPN clients, including Pulse Secure’s Connect Secure.
+So, for up to eight months before the latest REvil attacks, it was public knowledge that Pulse Secure’s VPN systems had severe weaknesses that needed urgent attention.
+As Beaumont describes:
+It allows people without valid usernames and passwords to remotely connect to the corporate network the device is supposed to protect, turn off multi-factor authentication controls, remotely view logs and cached passwords in plain text (including Active Directory account passwords).
+On 14 August, someone posted an exploit for CVE-2019-11510 on OpenSecurity.global, after which it was only days before criminals started scanning for the vulnerability (Beaumont used threat intelligence from BinaryEdge.io to confirm this).
+Bad Packets even posted a warning that it had detected a mass scanning for the Pulse Secure flaws. The bad news – according to scans, in late August 2019, 14,528 servers out of 41,850 running the software had not been patched for the vulnerability.
+Logically, the companies caught out in REvil’s latest attacks were on the ‘failed to patch’ list. Or perhaps, as Beaumont mentions, the attackers were able to install backdoors that overcame any subsequent patching.
+Somehow, Pulse Secure’s patches were missed, ignored, or not applied for reasons unknown. Whatever the cause, getting to the bottom of why these flaws were left to fester is in everyone’s interest.
+The latest count of vulnerable Pulse Secure servers? According to Bad Packets…
+On Friday, January 3, 2020, we conducted our nineteenth round of vulnerability scans and found 3,826 Pulse Secure VPN servers worldwide remain vulnerable to compromise.

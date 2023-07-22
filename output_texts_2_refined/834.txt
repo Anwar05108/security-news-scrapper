@@ -1,0 +1,21 @@
+A tweak to the next version of Mozilla Firefox should fix the longstanding problem of generating a password that exceeds the maximum length allowed by a website without being alerted that this has happened.
+It sounds like an obscure issue, but anyone who regularly uses a password manager to generate passwords or passphrases longer than the 16 or 20-character limits imposed by many websites will have encountered this issue at some point.
+The user generates a long password (or upgrades an existing one), pastes it into the website, which automatically truncates it according to the max length attribute.
+Except that websites often offer no warning that this has happened, which means that the original and now incorrect non-truncated password is saved by the password manager.
+Spotted by the security blogger Martin Brinkmann, it now seems that Firefox 77, due on 2 June, will warn users when this is happening using a red border and the following message:
+Please shorten this text to x characters or less (you are currently using y characters).
+Importantly, this happens before the password is saved to the website which allows the user to adjust its length until a site’s maximum is matched.
+As a thread on Bugzilla makes clear, this complaint is far from new.
+Ultimately, it’s the responsibility of websites, which impose limits on passwords without always stating what these are, coping with divergence using the blunt force of truncation.
+But solving the problem in the browser has the advantage that it will work for all websites quickly.
+All things being equal, yes. However, where the law of diminishing returns sets in is open to debate.
+In 2016, NIST’s Special Publication 800-63-3: Digital Authentication Guidelines recommended abandoning arbitrary character limits, raising maximums to at least 64.
+But it also recommended a lot of other things too, such as disallowing common bad password choices and not forcing users to change passwords at arbitrary intervals.
+The message a lot of big internet companies such as Google, Facebook and Twitter extracted from that document, as well as their own learning, was to make this layer of security as easy for people to understand as possible.
+Rules were streamlined, and the focus shifted from simply encouraging longer passwords to avoiding short ones using minimum lengths, discouraging re-use, and trying to persuade users to sign up for additional checks such as two-factor authentication.
+In fact, it’s been possible to use passwords between 60 and 128 characters in length with many services for some time, but not all companies flag or even encourage that.
+It’s not that much longer passwords are a bad idea so much that services would rather focus on raising minimum standards.
+Perhaps, behind the curtain, big Internet companies are also a bit sick of passwords. That might explain their enthusiasm for alternative technologies such as WebAuthn, which has been supported in Firefox since version 60 in 2018, and promises to do away with passwords for good.
+However enthusiastically techies cling to their long passwords, it’s clear the debate about their importance is slowly being eroded by new technologies.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

@@ -1,0 +1,29 @@
+Here at Naked Security, we receive our fair share of phishing scams.
+It means we see a good cross-section of the phishes going around, which gives us a way to keep tabs on just how realistic scams are becoming.
+“Show-and-tell” phishing stories are a handy way to document just how undramatic and unsuspicious, and therefore just how believable, modern phishing attacks can be.
+The crooks are simply copying – in most cases, quite literally copying and pasting – the same messages, warnings, advisories and promotional paragraphs that mainstream companies are using.
+Here’s this week’s surprisingly believable example:
+We don’t recognize the device that was just used to sign in to your Stripe account. If this was you, you don’t need to do anything. If you don’t recognize it, please update your password.
+If you aren’t a Stripe customer (it’s a popular online payment company, if you aren’t familiar with it), you wouldn’t be fooled for a moment.
+But for anyone who is a Stripe user – even (or perhaps especially) if they haven’t logged in for a while – the email seems pretty genuine.
+If you ignore the admittedly weird-looking email address of the sender (we’ve redacted it here), there’s not a lot of obvious bogosity to go on – the spelling is correct; the English is written in a natural and fluent way; there’s a little bit of urgency but not too much; and the crooks are asking politely: “Please update your password.”
+OK, the [Update Password Now] button didn’t head to a Stripe domain, but the link didn’t look particularly out of place, either – it was an HTTPS (secure) link to a regular-looking .com domain. There were no weirdnesses to suggest that the URL had been carved out of someone else’s hacked website; it wasn’t hosted on a freebie server that obviously didn’t belong to the sender; and was an encrypted link, exactly as you would expect.
+The crooks did make one mistake, but you almost certainly wouldn’t spot it from the email text alone.
+In the screenshot above, the crooks were claiming that someone had connected to “our” Stripe account from Tbilisi, Georgia, but the IP database we used (and others we’ve cross-checked with) tells us that the IP this imaginary person came from is allocated to the UK:
+GeoIP data is often wrong, so even if you did check up like we did, you might not trust the result. How often have you had mainstream, legitimate websites “pinpoint” you in a town hundreds of kilometres away, or even across the border in another state or country?
+What was most interesting in this case is the speed that the crooks had orchestrated the campaign.
+We received the email at 04:46, even though the domain they were using for capturing the clicks had been freshly registered less than 40 minutes before, at 04:07:
+The HTTPS certificate had been acquired that same day, too:
+Under an hour, from start to finish.
+Fortunately, the rush seems to have stopped the crooks from doing their homework properly, because the fake login page wasn’t quite right and might well have acted as a telltale warning to regular users – a mistake that the crooks could easily have avoided:
+
+We’ll stick to one tip here, namely:
+This is an easy way to sidestep this sort of phishing attack, and you can do it without even looking at the content of the email.
+From the subject line alone, you know that this message claims to relate to your Stripe account.
+So you already know where to go – either using your regular browser bookmark, or via the Stripe app – to check up on your account.
+In other words, you don’t need to click the [Update Password Now] button to check whether there is any truth to this email…
+…so simply don’t click it!
+That way, it doesn’t matter whether the email is true or false – if you deliberately do nothing with any “call to action” links in the message, you won’t get phished, and that’s that.
+We don’t know if you spotted it, but if you look really closely at the subject line, you’ll notice that the letter i in the words signed and Stripe isn’t actually an i at all. Technically, it’s a Unicode character called Latin Small Letter I with dot below, used in some languages – Vietnamese, for instance – to denote the tone to use when saying the i. We assume that the crooks were attempting some sort of really basic anti-text-matching trick here. In theory, this sort of trick in the subject line is an obvious clue; in practice, of course, it isn’t obvious at all because the two types of i look so similar.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

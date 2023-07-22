@@ -1,0 +1,39 @@
+Thanks to Bill Kearney of Sophos Rapid Response for his work on this article.
+If you’ve read the recent Sophos 2021 Threat Report, you’ll know that we deliberately included a section about all the malware out there that isn’t ransomware.
+Sure, ransomware understandably hogs the media headlines these days, but cybercriminality goes way beyond ransomware attacks.
+Indeed, as we’ve noted before, many ransomware incidents happen due to other malware that infiltrated your network first and brought in the ransomware later on.
+In fact, many network intrusions don’t involve malware at all, because cybercriminals have plenty of other ways of bleeding money out of your users, your company, or both.
+Here’s an example that the Sophos Rapid Response team came across recently – a opportunistic network intrusion that was much less sophisticated than a typical ransomware or data stealing attack, but dangerous and disconcerting nevertheless.
+Worse still for the employees of the business, these crooks weren’t specifically after the company as a whole, but seemed to attack the network simply because it represented a convenient way of hacking away at lots of individuals at the same time.
+Very simply put, the crooks were after as many accounts as they could access to buy as many gift cards as they could as quickly as possible.
+As you probably know, gift cards that you purchase online are typically delivered by email to a recipient of your choosing as a secret code and a registration link.
+So, receiving a gift card code is a bit like getting hold of the number, expiry date and security code from a prepaid credit card – loosely speaking, whoever has the code can spend it.
+Although gift cards are meant to be used by the intended recipient only – they’re not supposed to be transferable – there’s not much to stop the recipient allowing someone else to use them if they choose, and that means they can be sold on the cybercrime underweb.
+And for all that a $200 gift voucher, sold illegally online for, say, half its face value, doesn’t sound like much…
+…crooks with access to a whole company’s worth of users – in this story, the company’s VPN supported about 200 people – can try to acquire not just one but potentially hundreds of pre-paid gift cards in short order.
+The criminals in this case didn’t care whether the victims left out of pocket were the individual employees, the company itself, or both.
+The good news here is that the crooks only got as far as spending $800 of other people’s money before the Rapid Response team were able to kick them out of the network, and as far as we know, the fraudulent purchases were detected and reversed in time so that no one ended up out of pocket.
+As you’ll see, the main reason that the crooks were rumbled and repelled early was because a sysadmin at the affected company acted as soon as they spotted that something was wrong.
+If you watched last week’s Naked Security Live video, entitled “Beat the Threat“, you’ll know that in our tips at the end of the video, we said:
+Any tipoff you can get that suggests a crook might be in your network is a tip worth looking at. [… Just] because you are looking at something that […] you can’t quite justify, but that you saw before and it was OK last time – don’t assume it’s OK this time. […] That’s a bit like hearing your smoke alarm going off in the kitchen and thinking, ‘You know what, last time it was steam from the kettle that triggered it by mistake, so I’m just going to assume that’s what’s happening [again].’ This time, it could be something on the stovetop that’s already set on fire.
+For all that we’re proud that the Sophos Rapid Response team was able to react quickly and deal with the attack, the vital part was that the victim triggered a proper response quickly in the first place.
+These crooks didn’t have time to clean up after themselves – or perhaps they weren’t intending to anyway – but as far as we can tell, the attack unfolded simply and quickly.
+We can’t be sure exactly how the crooks got in to start with, but what we do know is:
+Fortunately, it seems that only a few of the users attacked in this way had saved their credit card details for automatic re-use when making purchases, which is probably why the crooks only managed a few hundred dollars of gift card purchases before being spotted.
+Apparently, numerous users who needed to re-reset their altered passwords to get back into their accounts noticed that there were gift cards queued up for purchase in their online shopping carts, but that the crooks had not been able to finalise those purchases.
+(We can’t tell whether the crooks left the unsuccessful purchases behind because they were caught before they could clean up, because they hoped that they’d be overlooked and purchased by mistake by the legitimate account holder later on, or because they were focused on speed and didn’t care what happened afterwards.)
+As with many attacks, this one didn’t have just a single purpose, although getting hold of “money for sale” seems to have been the primary motivator here.
+The crooks also downloaded and installed a popular free file search tool to help them look for interesting files across the network.
+This tool left behind a logfile that reveals that the criminals were actively hunting for personal and confidential data relating to both the company and to its staff.
+We don’t know how much the criminals were able to acquire from the files they were hunting for, if anything, but we do know what they were interested in, which included:
+As far as we can tell, the file searching seems to have been a secondary interest to these criminals, who were but determined and persistent in their attempts to make fraudulent purchases against as many users of the network as they could.
+Nevertheless, secondary interest or not, the crooks weren’t after gift cards only. 
+After all, personal and corporate data that’s supposed to be private also has value on the cybercrime underground – not just for resale to other criminals, but as a vehicle for helping further criminal activity.
+Fortunately, these crooks seem to have got bogged down early on in their attack.
+Presumably frustrated because they couldn’t get into as many user’s email accounts as they wanted, they reset passwords on various company-related accounts to extend their access.
+That had the side-effect of locking users, including one of the sysadmins, out of various company systems…
+…and the sysadmin didn’t just remedy the immediate problem in order to fix the what , but also triggered a response to find out the why.
+That reaction very quickly led to the crooks getting kicked out of the network.
+As we said above, any tipoff is a good tipoff!
+The speed and determination of these crooks, speculatively logging into email account after email account, is an excellent reminder of why defence in depth is important.
+All of these tips would have helped here:

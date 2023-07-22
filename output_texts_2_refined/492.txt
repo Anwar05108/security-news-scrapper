@@ -1,0 +1,20 @@
+Forget the infamous Meltdown and Spectre chip flaws from 2018, the problem that’s tying down Intel’s patching team these days is a more recent class of side channel vulnerabilities known collectively as ZombieLoad.
+These relate to a data leakage problem called Microarchitectural Data Sampling (MDS) affecting Intel’s speculative execution technology introduced in the late 1990s to improve chip performance.
+ZombieLoad is also what Naked Security likes to call a BWAIN, or Bug With an Impressive Name.
+BWAINs are everywhere with side-channel issues in microprocessor hardware proving particularly good at generating new ones.
+ZombieLoad was originally made public by researchers last May (although Intel says it knew about them) as part of a triplet of hypothetical issues which included two others, Fallout and Rogue In-Flight Data Load (RIDL), affecting post-2011 Intel processors.
+That generated four CVEs – CVE-2018-12126, CVE-2018-12130, CVE-2018-12127, and CVE-2019-11091 – which Intel and others addressed with OS-level mitigations.
+Then in November, ZombieLoad got a version 2 in the form of Transactional Asynchronous Abort (TAA) affecting the most recent Cascade Lake microprocessor generation (CVE-2019-11135). Intel patched this by updating microcode.
+This week the researchers announced they’d dug up more CPU data-extraction holes.
+The new attacks showed that the original May 2019 mitigations hadn’t been sufficient, with the first and most serious, CVE-2020-0549 (aka ‘CacheOut’ or what Intel calls L1D Eviction Sampling), first being reported to Intel at the time of the original ZombieLoad disclosure.
+There are no fixes for these yet although Intel has said it will offer these “in the near future.”
+Intel microprocessors are inside a lot of computers, so should users be worried?
+MDS is a generic weakness through which an attacker might be able to access small amounts of data buffered as part of the speculative execution process (essentially a way of getting a microprocessor to do calculations ahead of time on the basis they might be needed later).
+CacheOut concerns where this data is temporarily stored as part of this process, specifically when it’s in Level 1 chip caches.
+This is theoretically significant because the data that might be in one of those buffers could be almost anything, including data normally protected by Intel’s SGX enclaves.
+These enclaves are locked-down areas of memory that are typically used for storing sensitive data values – such as temporary cryptographic keys and the internal state of cryptographic calculations – where even the kernel itself can’t read them out.
+To date, exploiting ZombieLoad weaknesses has been viewed as a complex undertaking that had only been shown to work under unusual lab conditions – no attacks exploiting these methods has ever been detected.
+That’s still true for CacheOut although it lowers the bar somewhat. Nevertheless, an attack would still be difficult under real-world conditions because cybercriminals would need local access and would not be able to target a vulnerable cache with any precision.
+Less clear is which Intel chips might be affected. The list provided on its website includes a wide range of Intel chips that might “potentially” be affected but it appears this has only been confirmed in ones released since 2017.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.

@@ -1,0 +1,20 @@
+“It never rains but that it pours,” as the old weather adage goes.
+That’s certainly how Microsoft must be seeing things right now, following the official announcement of yet another unpatched vulnerability in the Windows Print Spooler service.
+Dubbed CVE-2021-34481, this one isn’t quite as bad as the previous PrintNightmare problems, because it’s an elevation of privilege bug (EoP), not a remote code execution hole (RCE).
+As you will remember from last time, an EoP means that someone who is already logged onto your computer as a regular, unprivileged user can silently and unlawfully boost themselves to Admin or SYSTEM level.
+If you’re logged in, say, as RegularUser, you can do yourself plenty of harm by deleting your own files, messing with your own applications, downloading inappropriate files, and so on.
+But if you can wrangle access to the SYSTEM account, you will find yourself on a similar footing to Windows itself, and you can wreak much more havoc.
+You can stop, start and even install new system services, mess with firewall settings, alter files in the Windows folder, change boot-time security settings, and generally do all the things that IT has spent ages trying to make sure that you can’t, whether deliberately or by mistake.
+That’s not quite as bad as an RCE, which means that someone who isn’t logged onto your computer at all can get unauthorised access in the first place, giving them a beachhead for further cybercrime.
+But an EoP on its own is bad enough, not least because an RCE exploit that only just gets a cybercriminal in, perhaps with no more powers than a guest user, can often be combined with an EoP to achieve what a crook would consider “complete compromise”.
+VULNERABILITY JARGON EXPLAINED – DEMYSTIFYING ‘EOP’, ‘RCE’ AND FRIENDS
+Learn more about vulnerabilities, how they work, and how to defend against them.Recorded in 2013, this podcast is still an excellent and jargon-free explainer of this vital topic.
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.
+To recap rapidly on the PrintNightmare story so far [2021-07-16T15:00Z]:
+What Microsoft said.
+Turn off the Print Spooler and disable the service so it can’t start again, whether by accident or design.
+If you have the Print Spooler service shut down on your network from before, then you are ahead of the game – but you might as well make sure, just in case someone, somewhere, has turned theirs back on.
+More advice as we have it!
+HOW TO CONTROL AND CONFIGURE THE PRINT SPOOLER SERVICE
+Here’s a quick summary of the tips and tricks for controlling the Print Spooler that you can find in our earlier articles:
+If you are a Sophos customer you can use the Sophos Live Discover feature to check the status of the Spooler service across your network with a simple query like this one:

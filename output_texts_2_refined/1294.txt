@@ -1,0 +1,20 @@
+Amongst all the brouhaha about Log4Shell, it’s easy to forget all the other updates that surround us.
+Not only is it Patch Tuesday (keep your eye on our sister site news.sophos.com for the latest on that score later in the day)…
+…but it’s also time to check your Apple devices, because Apple just pushed out a slew of its they-arrive-when-they’re-ready-and-don’t-expect-any-warning security patches.
+The updated versions you’re looking for are:
+As for iOS 14 and iOS 12, which are the official previous and pre-previous iPhone operating systems (in the same way that Big Sur and Catalina are the previous incarnations of macOS), there’s no sign of any updates for them.
+Observant readers will notice that the URLs in the list above form an unbroken numeric sequence except for a gap at HT212977, so whether that’s a space left open for a delayed update for iOS 14 or not we can’t tell you…
+…but we did notice that Apple’s main security noticeboard page, HT201222, still [2021-12-14T12:00Z] doesn’t mention the updates listed above.
+In the past, we’ve noticed an apparent correlation between delayed updates for individual platforms and delayed listings on HT201222, but we have no idea whether that is coincidence rather that true correlation, or a desire on Apple’s part to hold off updating the central listing until all the new versions can be displayed in one go.
+(Apple, as you know, has an official policy of saying as little as possible about updates and update cycles, so we shall have to wait and see.)
+As you can imagine, given the timing of this update, our first thought was to jump straight to the bulletins above and search for CVE-2021-44228, better known as Log4Shell, to see if the cybersecurity crisis currently circulating the globe was behind these patches.
+The good news, if you want to think of it that way, is that it isn’t: we didn’t see mention of the text CVE-2021-44228, Log4Shell or Log4j anywhere in any of the abovementioned bulletins.
+The bad news, perhaps, is that there are plenty of other vulnerabilities that were patched by Apple.
+The patches include many that don’t immediately sound as serious as Log4Shell (because they aren’t actively and aggressively being abused already), but that could in theory have been even worse (because they involve more serious side-effects, such as potential full kernel compromise).
+The security fixes in this round of updates close off holes that include:
+As always:
+As for the infamous Log4Shell hole: yes, this bug can in thoery affect Macs, because the flaw exists in a Java programming library, and Java is a cross-platform environment that runs equally well on Windows, Linux, macOS, xBSD and many other operating systems.
+On Macs and iDevices the risk is generally lower than on computers offering online services that are available to, and proddable by, millions of external users.
+But if you want advice on how to hunt down applications that include the buggy Log4j library, please read our latest Log4Shell explainer-and-advice article:
+Log4Shell explained – how it works, why you need to know, and how to fix it
+

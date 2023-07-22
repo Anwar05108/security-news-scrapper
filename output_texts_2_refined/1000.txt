@@ -1,0 +1,20 @@
+Do you browse with Google Chrome or a related product such as Chromium?
+If so, please check that your auto-updater is working and that you have the latest version.
+A trip to the About Chrome or About Chromium dialog should give the version identifier 86.0.4240.111.
+That’s the version that was released yesterday as Chrome’s “stable” version, available to all users on Windows, Linux and Mac, not just to opted-in early adopters.
+If you see 86.0.4240.75, you’re close – but still on the previous version, so your system hasn’t updated yet.
+As Google explains, you can spot a pending update by the presence of an upward arrow in a circle at the far right of the address bar.
+At this point, closing and re-opening Chrome will apply the fix.
+If you’re in the habit of rarely shutting down your computer, or even of rarely exiting from your browser, now would be a good “rare moment” to give Chrome a chance to ingest the update.
+If you’re a Chromium user (that’s the open-source version of Chrome with no proprietary parts), follow your usual update procedure, which depends on the operating system that you’re using and where you got Chromium in the first place.
+The reason for making sure you’ve got this particular update is not only that five security bugs have been patched, including one buffer overflow and three use-after-free vulnerabilities, but also that one of these bugs, designated CVE-2020-15999, is already known to attackers.
+As the update notification states, “Google is aware of reports that an exploit for CVE-2020-15999 exists in the wild.”
+The bug is described as a heap buffer overflow in Freetype, where Freetype is an open source font rendering software toolkit that allows programmers to support the use of all sorts of modern font files and formats in their applications.
+Many web pages these days include special versions of the fonts they need – a corporate typeface, for instance – and these files, known as WOFFs, short for Web Open Font Format, are downloaded into your browser to use as required.
+WOFF files are used not only so that websites can rely on fonts that a user is unlikely already to have installed, but also so that they can depend access to specific version of a font that supports particular characters or character sets that might otherwise be missing or display incorrectly.
+We’re guessing, therefore, that this bug could be exploited by luring you to a web page that contained an innocent-looking but booby-trapped font file that deliberately triggered the bug, either when the font was loaded or when specific text was displayed.
+On Windows, Mac and Linux, the solution is easy: get the update! 
+However, even though an attack is already known in the wild, Google has included its customary notification that the update will “roll out over the coming days/weeks”, presumably because some Chrome users are dependent on their vendor to push out fixes.
+Worse still, for Chrome on Android, Google Play says simply that the current version number “varies with device.” 
+So we don’t know how you can work out whether you need an update on Android, are already up-to-date, or weren’t affected by this bug in the first place.
+If in doubt, ask the maker of your device for advice.

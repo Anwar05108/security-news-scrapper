@@ -1,0 +1,21 @@
+Barely noticed by web users, the life expectancy of SSL/TLS leaf certificates has lowered dramatically over the last decade.
+Used as the foundation of HTTPS authentication, just over a decade ago domain registrars were selling SSL/TLS certificates that were valid for between 8 and 10 years.
+In 2011, a new body called the Certification Authority Browser Forum (CA/Browser Forum), which included all the big browser makers, decided this was too long and imposed a limit of five years.
+Then, in 2015 the time limit was dropped to three years, followed by a further drop in 2018 to only two years.
+How low could this go?
+This week, we learned that the latest answer is one year, or 398 days including the renewal grace period, a change that will apply from 1 September 2020.
+What makes this new limit noteworthy, however, is that it was reportedly announced at a CA/Browser Forum meeting by a single member, Apple, in relation to one browser, Safari.
+Although not yet officially confirmed, it’s a bold move that presumably prefigures similar announcements by other big browser makers, especially Google, which has assiduously promoted the idea of a one-year limit in recent CA/Browser Forum ballots.
+That browser makers were voted down might explain why Apple has decided to enforce the change unilaterally, apparently against the wishes of the Certificate Authorities (CAs) which issue certificates as a business.
+The browser makers are adamant that reducing validity is good for security because it reduces the time period in which compromised or bogus certificates can be exploited.
+In theory, it also makes it less likely that in future, certificates using retired encryption (certificates based on SHA-1 being a prime example) will be able to soldier on when everyone knows they are vulnerable.
+In the real world, it’s a lot more complicated. CAs fear their customers will struggle to cope with the practical difficulties of renewing certificates – and changing the private keys used to authenticate them – more often.
+Renewals can be done using automated tools, but it seems that many organisations still manage the process manually. Considering that some will have thousands of certificates to look after, doubling the frequency of renewals may well create problems that the CAs will need to take care of.
+What, in practical terms, does all this mean for certificate admins and browser users?
+For current certificates, not much. These will still be valid until their stated expiry date, even if that’s after 1 September 2020. After that, assuming CAs don’t stop selling the old two-year certificates, Safari users (plus users of other browsers adopting the same policy) visiting a site on which one was issued will see off-putting ‘website not secure’ warning messages.
+That isn’t going to happen, of course, because the CAs know perfectly well that browser makers, the web’s gatekeepers, hold all the cards.
+More likely, they’ll start offering automation of their own, multi-year plans, and discounts for organisations that sign up for longer time periods. A solution will be found that lightens the burden and stops alarming messages appearing for otherwise genuine certificates.
+The question is where things go from here. If certificates are a security risk, why not move to even shorter renewal time periods that reduce the window of opportunity?
+With increasing automation and adjusted business models that reduce the financial burden, it’s possible that even one year might one day sound like a long time for a certificate to remain valid. Watch that padlock.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.

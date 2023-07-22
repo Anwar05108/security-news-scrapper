@@ -1,0 +1,77 @@
+In March, researchers Talal Haj Bakry and Tommy Mysk revealed that Android and iOS apps – including the mind-bogglingly popular, China-owned, video-sharing/often in privacy hot water TikTok – could silently, automatically read anything you copy into your mobile device’s clipboard. 
+Sexy selfies? Passwords copied from your password manager? Bank account information? Bitcoin addresses? Yes, yes, scary yes, yes. Anything you’ve copied recently, they’ll paste it into themselves. Such data is typically used for advertising and tracking purposes. 
+The covert content copying is possible not only for a device’s local data, but also on nearby devices, as long as the devices share the same Apple ID and are within about 10 feet of each other. That’s enabled by  Apple’s universal clipboard: a clipboard that enables content to be copied on one device and then pasted into an app running on a separate device.
+It’s “very, very dangerous,” Mysk told Ars Technica on Friday, after the discovery had bubbled to the surface yet again. The findings hit the headlines anew as Apple released the developer beta of iOS 14 – a release that flags this behavior. 
+Mysk said that the ability for apps to read content of off nearby devices means that an app on an iPhone could possibly read sensitive data on the clipboards of other connected iOS devices, be they cryptocurrency addresses, passwords, or email messages, even if the iOS apps are running on a separate device.
+The iOS 14 developer beta release – which you can download and install now to get an eyeful of this behavior – comes with a feature that’s custom-tailored to spotlight this kind of thing: namely, a banner warning that pops up every time an app reads clipboard contents. 
+While there are good reasons for some apps to access your clipboard, the apps that Mysk and Bakry found have no clear reason to do so. Here’s Mysk:
+These apps are reading clipboards, and there’s no reason to do this. An app that doesn’t have a text field to enter text has no reason to read clipboard text.
+How many apps snoop on clipboards, and how often? A whole lot, and quite frequently, as was discovered by many of the people who began testing the beta release. A video, posted on 23 June, had been viewed by over 118,000 people as of Tuesday, 30th June and demonstrates apps getting flagged by iOS 14 as they read content. 
+There are some big names on the list of apps that are doing this. The developers of 10% Happier: Meditation, Hotel Tonight and TikTok have been quick to promise that they’ll knock it off, but according to Ars, as of Monday evening, the developers behind the rest of these apps hadn’t commented yet:
+News
+– ABC News
+– Al Jazeera English
+– CBC News
+– CBS News
+– CNBC
+– Fox News
+– News Break
+– New York Times
+– NPR
+– ntv Nachricten
+– Reuters
+– Russia Today
+– Stern Nachrichten
+– The Economist
+– The Huffington Post
+– The Wall Street Journal
+– Vice News
+Games
+– 8 Ball Pool
+– AMAZE!!!
+– Bejeweled
+– Block Puzzle
+– Classic Bejeweled
+– Classic Bejeweled HD
+– FlipTheGun
+– Fruit Ninja
+– Golfmasters
+– Letter Soup
+– Love Nikki
+– My Emma
+– Plants vs Zombies Heroes
+– Pooking – Billiards City
+– PUBG Mobile
+– Tomb of the Mask
+– Tomb of the Mask: Color
+– Total Party Killer
+– Watermarbling
+Social
+– TikTok
+– ToTalk
+– Truecaller
+– Viber
+– Weibo
+– Zoosk
+Other
+– 10% Happier: Meditation
+– 5-0 Radio Police Scanner
+– Accuweather
+– AliExpress Shopping App
+– Bed Bath & Beyond
+– Dazn
+– Hotels.com
+– Hotel Tonight
+– Overstock
+– Pigment – Adult Coloring Book to Color
+– Sky Ticket
+– The Weather Network
+… and, Mysk said, TikTok has failed to stop, in spite of having promised that it would. 
+TikTok, the video-sharing social media phenomenon that young people love and their parents love to haul into court over child privacy law violations, has shelled out a changing story about this to media outlets, including Forbes. 
+First, TikTok owner Bytedance said the problem wasn’t its fault. Rather, it blamed an outdated Google Ads software development kit (SDK) that was due to be replaced.  
+But as the clipboard warning in iOS 14 has made clear, ByteDance didn’t stop the invasive practice back in April, as it had promised. Now, the iOS 14 warning has caught the company “red-handed,” Zak Doffman writes, “still doing something they shouldn’t.” 
+Here’s  TikTok’s most recent story: the issue is now “triggered by a feature designed to identify repetitive, spammy behavior,” and it’s “already submitted an updated version of the app to the App Store removing the anti-spam feature to eliminate any potential confusion.” 
+All these apps copying clipboard content have been doing so surreptitiously. They’ve been tough to spot. The issue underscores what an important update the new warning in iOS 14 is, and Apple plans to credit the researchers for being the impetus for the new notification. 
+Having said that, we’re not out of the woods yet. Now that Apple’s flagging the behavior, Apple users will benefit from the TikTok update as soon as it ships, but until then, please do keep in mind that the app is reading your clipboard data. To stay on the safe side, you can flush your clipboard by copying an innocuous piece of data. 
+Android is another issue entirely. Mysk told Ars that the scenario is worse on Android than it is on iOS, given that Android APIs are far more lenient. For example, Android allowed apps running in the background to read the clipboard up until Version 10, as opposed to iOS apps, which can do so only when they’re active, as in, running in the foreground. 
+Be careful of what you copy on your mobile device. Unfortunately, as the researchers said, we don’t really know what these apps are doing with our content. 

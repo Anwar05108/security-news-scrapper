@@ -1,0 +1,49 @@
+Pick a random person, right now in late December 2021, and ask them these two questions:
+Q1. Have you heard of Apache?
+Q2. If so, can you name an Apache product?
+We’re willing to wager that you will get one of two replies:
+A1. No. A2. (Not applicable.)
+A1. Yes. A2. Log4j.
+Two weeks ago, however, we’d suggest that very few people had heard of Log4j, and even amongst those cognoscenti, few would have been particularly interested in it.
+Until a cluster of potentially catastrophic bugs were revealed under the bug-brand Log4Shell, the Log4j programming library was merely one of many components that get sucked into and used by thousands, perhaps even hundreds of thousands, of Java applications and utilities.
+Log4j was just “part of the supply chain”, and it had been bundled into more back-end servers and cloud-based services than anyone actually realised until now.
+Many sysdamins, IT staff and cybersecurity teams have spent the past two weeks eradicating this programmatic plague from their demesnes. (Yes, that’s a real word. It’s pronounced domains, but the archaic spelling avoids implying a Windows network.)
+Rewind to the oh-so-recent pre-Log4j era and we suggest that you’d get a different pair of answers, namely:
+A1. Yes. A2. Apache’s a web server, isn’t it? (Actually, it’s a software foundation that makes a web server, amongst much else.)
+A1. Yes. A2. Apache makes httpd, probably still the world’s most prevalent web server.
+With more than 3000 files totalling close to a million lines of source code, Apache httpd is a large and capable server, with myriad combinations of modules and options making it both powerful and dangerous at the same time.
+Fortunately, the open source httpd product receives constant attention from its developers, getting regular updates that bring new features along with critical security patches.
+So, in all the excitement about Apache Log4j, don’t forget that:
+The two CVE-numbered flaws are listed in Apache’s own changelog as follows:
+The good news about the first bug is that Apache itself warns that the mod_lua server extension (which allows you to adapt the behaviour of httpd using Lua scripts instead of having to write modules in C):
+…holds a great deal of power over httpd, which is both a strength and a potential security risk. It is not recommended that you use this module on a server that is shared with users you do not trust, as it can be abused to change the internal workings of httpd.
+However, as Log4j has taught us, potentially exploitable bugs even on non-public servers can be troublesome if those bugs can be triggered by untrusted user data passed along by other internet-facing servers at your network edge.
+And CVE-2021-44790 doesn’t involve sneaking any untrusted add-on Lua scripts into the configuration. 
+Instead, it involves simply tricking the “preprocessor” that prepares untrusted user content to be passed to trusted Lua scripts, so the attack does not depend on bugs or flaws in any of the add-on scripts you may have written yourself.
+Simply put, the CVE-2021-44790 bug exists in the code that deconstructs multipart messages, common in web form uploads, that typically look something like this:
+Technically, each multipart component consists of the data after the end of each fully blank line (see above), and before each boundary line, which consists of two dashes (hyphens) followed by the unique boundary marker text. 
+(In case you are wondering, the extra double-dash at the end of the very last line above signals the final item in the list.)
+A blank line in the raw data appears as two consecutive CRLF (carriage return plus line feed) pairs, or the ASCII codes (13,10,13,10), denoted in C by the text string "\r\n\r\n".
+This parsing is handled very crudely by code that we’ve simplified like this:
+Don’t worry if you don’t know C – this code is impenetrable and poorly-documented even if you do. (The original is yet more complex and harder to follow; we have stripped it to its basics here.)
+Loosely speaking, it looks for a double-CRLF string, denoting the next blank line.
+From there, it finds the next occurrence of the boundary marker text (VILC2R2IHFHLZZ in our example above).
+It then assumes that the data it needs to extract consists of everything between those two marker points, denoted by the memory addresses (pointers in C jargon) crlf and end, minus 8 bytes.
+The code makes no effort to explain the meaning of that “minus 8” in the code, nor yet the “plus 4” two lines later, though it’s a good immediate guess that crlf+4 is there to skip past the 4 bytes that make up the data in the CRLFCRLF string itself. (The blank line is a separator, and isn’t part of the data to be used.)
+Here’s where the “8” comes from:
+As you can see, the code allocates enough memory for the data between the exact start of the line after the CRLFCRLF separator and the exact end of the line before the boundary marker…
+…plus an extra 1 byte (len+1) to ensure a NUL character (a zero byte) at the end of the buffer to act as the terminator that text strings require in C.
+The code then uses memcpy() to copy the relevant data out of the incoming message into that new memory buffer, in which it will be presented to the Lua script that is about to run.
+You’ve probably figured out the problem: What if there aren’t 8 extra bytes to remove? What if the CRLF at the end of the last line of data, or the -- at the start of the next line, aren’t there at all?
+What if there aren’t 8 bytes altogether between the CRLFCRLF and the boundary text?
+This bug would have been much more obvious if the code were more clearly constructed or commented, and would almost certainly have been avoided if the CRLF-- separator between the blank line and the boundary text had been explicitly verified by the programmer. and tested for explicitly.
+This bug was patched by adding a check to make sure that the final buffer size calculation doesn’t come out too small, by adding one line before the memory allocation attempt:
+This verifies that the buffer length can’t end up negative, though we still think that an explicit check for a correct data terminator, in the same way that there’s an explicit check for CRLFCRLF, would make for clearer code.
+We’d also insert a helful comment referring the reader to one of the internet RFCs about multipart messages, e.g. RFC 2045.
+Dealing with CVE-2021-44224 involved numerous code changes, the most obvious being a correction in a file full of utility code used by the  httpd proxy module. 
+The fact that there are more than 5000 lines of C in proxy_util.c alone, which is support code for just one of many httpd modules, is testament to the overall size and complexity of the Apache HTTP Server.
+The code we’re referring to above was changed from this…
+…to code that verifies that the function called actually did find a URL string to work with:
+Before the “if no url” error-check forced the code to give up early, the program would plough on even if url were NULL, and try to access the memory via the NULL address. 
+But reading from or writing to a NULL pointer is “undefined” according to the C standard, which means you must take care never do either.
+Indeed, on almost all modern operating systems, the value used for NULL, usually zero, is chosen so that any attempt to access the NULL address, whether by reading or writing, will not only fail but be trapped by the operating system, which will then typically kill off the offending process to prevent dangerous or unintended side effects.

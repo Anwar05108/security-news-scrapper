@@ -1,0 +1,45 @@
+Younghoo Lee is a Senior Data Scientist at Sophos. Together with Joshua Saxe, Sophos Chief Scientist, he recently presented these findings at DEFCON 28 AI Village.
+Business Email Compromise (BEC), is a form of targeted phishing where attackers disguise themselves as senior executives to dupe employees into doing something they absolutely shouldn’t, like wire money.
+It started out as an evolution of the fraudulent international money transfer scams, and the messages were often riddled with poor punctuation and grammar, misspelt names and more that made them relatively easy to identify. Yet they still made money.
+When more sophisticated cybercriminals realized this, the quality of the emails quickly ramped up.
+The most convincing BEC scams are based on detailed research about a business, its key senior executives and the employees responsible for financial activity. This enables the attackers to hand craft messages that look authentic and convincing.
+BEC emails can be difficult to detect using security solutions because no malware is involved. There are no embedded links to questionable URLs or booby-trapped attachments. They often abuse the company’s own email addresses.
+Detecting hand crafted BEC emails is even harder because each one is unique, and skilled attackers can be very good at mimicking the style and tone of their targets.
+We set out to see if we could catch the attackers out by using natural language models to spot this sort of fraud.
+Detecting phishing and BEC is hard because language is hard.
+Language is made up of complex components. Our brains can process these naturally because they have vast reserves of context and experience to draw on and awesome computational power.
+These components include:
+Creating a computational model that can process all of this quickly and accurately enough to differentiate between a benign and a convincing but fraudulent email is a significant challenge for cybersecurity.
+We started by adapting a deep learning model developed by Google and used in natural language processing (NLP).
+NLP is about building computer programs that can process and analyze natural language data. Long term applications of this technology could include enhanced social robotics and human-computer interaction; real-time translations; and being able to ask computers complex open-ended questions.
+The model we used is called BERT (for Bidirectional Encoder Representations from Transformers). BERT has shown impressive results in NLP tasks like story comprehension and identifying emotions. However, applying a complex BERT model to real-time security systems is difficult because they are computationally complex, and this makes them quite slow.
+We decided to compress and fine-tune BERT as well as a lighter version, rather aptly named DistilBERT to create our very own cybersecurity ready model.
+The cybersecurity ready model needed some important additional capability.  First, it had to be as light (fast) as possible for real-time predictions and response.
+Second, it needed to be able to capture the valuable clues hiding in the email’s context information, such as sender and header details.
+We called our model Context-Aware Tiny BERT, or CATBERT.
+BERT is based on something called a Transformer. Introduced in 2017, Transformers are blocks of intelligent computing power that can take natural language and then numerically encode and decode it to classify content and make predictions about meaning.
+Transformers can be extensively pre-trained to understand word context and relationships and work with partial words (to allow for misspellings).
+To predict both accurately and quickly whether an email was potentially malicious, we architected CATBERT with as few Transformer layers as possible.
+We also enabled the model to extract and process contextual information like the email header and sender details as well as the main body copy.
+We set up a series of tests for CATBERT as well as DistilBERT and others.  The tests were run using a dataset of over four million emails and meta data from a threat intelligence feed and the email system at Sophos.
+Of these, 70% of samples were used for training and 30% were used for validation. The malicious samples included both BEC and phishing emails.
+Most of the emails were in English, but a quarter were in other languages to reflect what is seen in the real world.
+The tests showed that the CATBERT model can detect malicious phishing and BEC emails with a high degree of accuracy while also being 30% smaller and twice as fast as the lightest existing model, DistilBERT (which is itself 40% lighter than the original BERT).
+
+The ‘Context-Aware’ architecture that takes the content features from the email text and the contextual elements from header fields further improves the model’s detection performance.
+Last but not least, CATBERT was also able to pick up on subtleties in terms of email topic, tone and style, which allowed it to accurately detect new, targeted phishing attacks.
+Overall, CATBERT achieved an 82% and 90% detection rate on phishing and BEC attacks respectively, with a 0.1% false positive rate.
+Two emails successfully detected as malicious by CATBERT:
+
+As this research shows, advanced machine learning technology can help in the battle against BEC.
+Nevertheless, BEC is more about social engineering and human manipulation than it is about technology and hacking.
+So when it comes to protecting your organization against BEC, the most important thing you can do is to educate and continue to educate employees on what BEC is all about, the red flags to look out for and what to do if they receive a potentially suspicious message.
+It’s vital to create a culture where employees feel able to question and verify a request from a colleague, however senior. These attacks deliberately exploit the fact that many employees will be too afraid to do so.
+Naked Security has published a number of articles with information and advice on dealing with BEC scams, including:
+You might also like to watch the recent Would you spot it video:
+
+ 
+If you’d like to learn more about our model, watch our DEFCON presentation. Further technical information can also be found in our Sophos AI blog.
+Sophos Artificial Intelligence was formed in 2017 to produce breakthrough technologies in data science and machine learning for information security.
+We’re currently focused on machine learning, large scale scientific computing architecture, human-AI interaction, and information visualization.
+Further information on current projects, team, conference talks and publications can be found at ai.sophos.com

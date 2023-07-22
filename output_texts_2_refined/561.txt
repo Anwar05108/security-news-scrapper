@@ -1,0 +1,35 @@
+If you’re a regular Naked Security reader, you’ll know that we’ve been fans of HTTPS for years.
+In fact, it’s nearly nine years since we published an open letter to Facebook urging the social networking giant to adopt HTTPS everywhere.
+HTTPS is short for HTTP-with-Security, and it means that your browser, which uses HTTP (hypertext transport prototol) for fetching web pages,  doesn’t simply hook up directly to a web server to exchange data.
+Instead, the HTTP information that flows between your browser and the server is wrapped inside a data stream that is encrypted using TLS, which stands for Transport Layer Security.
+In other words, your browser first sets up a secure connection to-and-from the server, and only then starts sending requests and receiving replies inside this secure data tunnel.
+As a result, anyone in a position to snoop on your connection – another user in the coffee shop, for example, or the Wi-Fi router in the coffee shop, or the ISP that the coffee shop is connected to, or indeed almost anyone in the network path between you and the other end – just sees shredded cabbage instead of the information you’re sending and receiving.
+But why HTTPS everywhere?
+Nine years ago, Facebook was already using HTTPS at the point where you logged in, thus keeping your username and password unsnoopable, and so were many other online services.
+The theory was that it would be too slow to encrypt everything, because HTTPS adds a layer of encryption and decryption at each end, and therefore just encrypting the “important” stuff would be good enough.
+We disagreed.
+Even if you didn’t have an account on the service you were visiting, and therefore never needed to login, eavesdroppers could track what you looked at, and when.
+As a result, they’d end up knowing an awful lot about you – just the sort of stuff, in fact, that makes phishing attacks more convincing and identity theft easier.
+Even worse, without any encryption, eavesdroppers can not only see what you’re looking at, but also tamper with some or all of your traffic, both outbound and inbound.
+If you were downloading a new app, for example, they could sneakily modify the download in transit, and thereby infect you with malware.
+Anyway, all those years ago, we were pleasantly surprised to find that many of the giant cloud companies of the day – including Facebook, and others such as Google – seemed to agree with our disagreement.
+The big players ended up switching all their web traffic from HTTP to HTTPS, even when you were uploading content that you intended to publish for the whole world to see anyway.
+Fast forward to 2020, and you’ll hardly see any HTTP websites left at all.
+Search engines now rate unencrypted sites lower than encrypted equivalents, and browsers do their best to warn you away from sites that won’t talk HTTP.
+Even the modest costs associated with acquiring the cryptographic certificates needed to convert your webserver from HTTP to HTTPS have dwindled to nothing.
+These days, many hosting providers will set up encryption at no extra charge, and services such as Let’s Encrypt will issue web certificates for free for web servers you’ve set up yourself.
+HTTP is no longer a good look, even for simple websites that don’t have user accounts, logins, passwords or any important secrets to keep.
+Of course, HTTPS only applies to the network traffic – it doesn’t provide any sort of warranty for the truth, accuracy or correctness of what you ultimately see or download. An HTTPS server with malware on it, or with phishing pages, won’t be prevented from committing cybercrimes by the presence of HTTPS. Nevertheless, we urge you to avoid websites that don’t do HTTPS, if only to reduce the number of danger-points between the server and you. In an HTTP world, any and all downloads could be poisoned after they leave an otherwise safe site, a risk that HTTPS helps to minimise.
+Sadly, what’s good for the goose is good for the gander.
+As you can probably imagine, the crooks are following where Google and Facebook led, by adopting HTTPS for their cybercriminality, too.
+In fact, SophosLabs set out to measure just how much the crooks are adopting it, and over the past six months have kept track of the extent to which malware uses HTTPS.
+Well, the results are out, and it makes for interesting – and useful! – reading.
+In the paper, we didn’t look at how many download sites or phishing pages are now using HTTPS, but instead at how widely malware itself is using HTTPS encryption.
+Ironically, perhaps, as fewer and fewer legitimate sites are left behind to talk plain old HTTP (usually done on TCP port 80), the more and more suspicious that traffic starts to look.
+Indeed, the time might not be far off where blocking plain HTTP entirely at your firewall will be a reliable and unexceptionable way of improving cybersecurity.
+The good news is that by comparing malware traffic via port 80 (usually allowed through firewalls and almost entirely used for HTTP connections) and port 443 (the TCP port that’s commonly used for HTTPS traffic), SophosLabs found that the crooks are still behind the curve when it comes to HTTPS adoption…
+…but the bad news is they’re already using HTTPS for nearly one-fourth of their malware-related traffic.
+Malware often uses standard-looking web connections for many reasons, including:
+
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

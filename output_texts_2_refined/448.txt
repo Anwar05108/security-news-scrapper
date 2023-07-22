@@ -1,0 +1,46 @@
+On Monday this week, the big cybersecurity news was speculative.
+Was there a big, bad security bug in Microsoft Windows waiting to be announced the next day?
+On Tuesday, the big news was the announcement that everyone had been guessing about.
+Yes, there was a big bad bug, and it was in the Windows CryptoAPI.
+It wasn’t a wormable remote code execution hole, so it wasn’t quite a WannaCry virus waiting to break out…
+…but it was the first Patch Tuesday bug ever credited to the NSA.
+That’s the US National Security Agency, ironically the very same the organisation that originally came up with the ETERNALBLUE exploit that ended up in the WannaCry virus after somehow escaping from the NSA’s control.
+This time, the NSA gave the bug to Microsoft to patch the hole proactively, and here we are!
+The vulnerability, denoted CVE-2020-0601, is a way by which crooks can mint themselves cryptographic certificates with other people’s names on them.
+The simplest way of thinking about this bug is that it’s like a magic machine that lets you crank out fake IDs that not only look good when you show them to a cop, but also stand up to scrutiny even when the cop runs them through the ID scanner that checks back with headquarters.
+Back on Tuesday, when the vulnerability was officially announced, we said:
+We don’t yet know how hard it is to produce rogue certificates that will pass muster, and Microsoft understandably isn’t offering any instructions on how to do it. 
+All we know is that Microsoft has said it can be done, and that’s why the patch for CVE-2020-0601 has been issued.
+So you should assume that someone will find out how to do it pretty soon, and will probably tell the world how to do it, too.
+We don’t know whether to be happy or sad that we were correct.
+The first proof-of-concept “fake ID generators” are out – we’ve already seen a Python program of 53 lines, and a Ruby script of just 21 – and they really are sitting there for anyone to use for free.
+What we didn’t predict, though we probably should have, is exactly what the first widely-publicised “live attack” would do to prove its point.
+(We say “live attack” – but, just to be clear, the researcher who did the work and tweeted about it didn’t actually attack anyone else’s server, or tell anyone else how to do so, so we don’t mean that in a negative or critical sense.)
+Rickroll!
+UK cybersecurity researcher Saleem Rashid filmed himself browsing with Edge to a rickroll page that not only claims to be Microsoft’s github.com but also shows up with a nice little checkmark saying “valid certificate”:
+CVE-2020-0601 pic.twitter.com/8tJsJqvnHj
+In a later photo in the same Twitter thread, he shows Chrome visiting the rickroll on a a webpage that identifies itself as nsa.gov, with a popup saying “Connection is secure” and “Certificate (Valid)”:
+thanks to @CiPHPerCoder's hint 🙂the biggest constraints are Chrome's tight certificate policies and that the root CA must be cached, which you can trigger by visiting a legitimate site that uses the certificate pic.twitter.com/GgftwVvpY8
+Rickrolling, in case you’ve never heard of it, is a sort-of humorous tradition beloved amongst techies and internet witticists where you unexpectedly take someone to a video of Rick Astley singing his 1987 hit Never gonna give you up.
+Why Rick Astley, and why that song, we simply cannot tell you, but the rickrolling craze started in 2007.
+Perhaps its most infamous appearance in the cybersecurity scene was in 2009, when an Australian youngster set loose the world’s first-ever Apple iPhone virus…
+…which let you know you’d become a victim by changing your phone’s wallpaper to a photo of the aforementioned Rick Astley.
+Rashid’s tweet is great fun, but with a serious side, because it shows how the CryptoAPI bug could, indeed, be used to lull you into a dangerously false sense of security:
+Never gonna git your hub
+Never gonna let you down
+Never gonna hack your site and fake-cert you.
+
+An important thing to remember about this bug is that exploiting it isn’t just about what you might see if you browsed to a site with a fake certificate, or how you might be deceived by a program you downloaded in good faith.
+The reason you might be deceived by this bug is because the program you were using at that moment was deceived by it, because it used the buggy part of the Windows CryptoAPI. 
+(You will also hear this vulnerability called “the crypt32 bug” because programs that make use of the CryptoAPI generally do so via a file called crypt32.dll.)
+In other words, a rogue certificate doesn’t need to be visible to be deceptive – and, ironically, the obvious example of software that does digitial certificate validation behind the scenes for safety’s sake…
+…is auto-updating code that’s there to fetch security fixes for you automatically in the background so you don’t have to keep your eye on the process yourself.
+As we pointed out in this week’s Naked Security Live video:
+If you patch this hole, then it instantly become useless [against you] to the crooks.
+So getting this month’s patches – 2020-01 Cumulative Update for Windows 10 if you’re patching a laptop rather than a server – is your primary defence, which also, as it happens, fixes some 49 other holes.
+By the way, those other 49 holes closed in this month’s Patch Tuesday include several remote code execution vulnerabilities in Microsoft’s remote access tools.
+Those vulnerabilities haven’t had the media attention that CVE-2020-0601 has received, yet could let attackers log right into your network or your computer without needing a password.
+And if crooks can log straight into your network, they reduce the Windows CryptoAPI Spoofing Vulnerability to a minor worry, because they no longer need to trick anyone into running malware with bogus certificates – they can just launch the malware for themselves.
+So, if the CryptoAPI bug gets you to embrace our advice to “patch early, patch often”…
+…then perhaps we can write it up as a silver lining, not a dark cloud on the horizon.
+LEARN MORE ABOUT THE VULNERABILITY AND HOW TO PATCH

@@ -1,0 +1,38 @@
+Don’t panic.
+This isn’t a case of secretive nation-state phone interception methodologies (or spying, as it is often called).
+It’s not a tale of cybercriminals deliberately trying to listen in to your business discussions so they can divert massive invoice payments or implant ransomware with multi-million dollar blackmail demands.
+That’s the good news.
+The bug in this case, discovered by Indian cybersecurity researcher Anand Prakash, was merely a matter of poor programming.
+The bad news is that the side-effects of the bug could pretty much have been exploited by anyone, anywhere, any time.
+The type of vulnerability that Prakash found often gets the fancy-sounding name IDOR, short for Insecure Direct Object Reference.
+An IDOR vulnerability usually boils down to a website or service that makes it easy for someone who has watched the app in action when it’s retrieving data that they’re supposed to be able to access…
+…to figure out how to retreive other people’s data in future, without logging in or authenticating at all.
+Typically, you’ll spot that an app or service is using a URL or a web form that includes your own user ID, or serial number, or some other not-very-secret identifier, but no other way of being sure that it’s you.
+You might then try mocking up a request with someone else’s ID in it, or the next number in sequence, or some other likely guess at a valid reference, and find that the system retrieves it directly for you, even though it’s not your record and you shouldn’t be viewing it.
+In theory, many exploitable IDOR bugs can be found purely analytically, by reverse engineering the suspect app, without ever actually creating a fake account and running the app itself. In practice, however, it’s often much easier and quicker just to do some basic reversing to give you an idea of what to look for, and then to run the suspect app while you watch it in action. There’s no need to spend days analysing an app statically in a decompiler if you can deduce its bugs directly from its own behaviour – you simply give the app a chance to cook its own cybersecurity goose while you take notes.
+In this case, the app was called Acr call recorder – for iPhon‪e, and like many App Store apps, it is (or was when we looked) awash with hundreds, nay thousands, of glowing 5-star reviews.
+You can probably guess where this is going, given that many of these 5-star reviews rather curiously recommend a completely different app in their text, or praise the app using peculiar turns of phrase that put forward unlikely and even worrying reasons.
+For example, someone called Earnest assures you that “it’s definitely wasteful if you haven’t tried this application“, while Christopher.1966 says that he has “used this small thing almost since they boarded the train“, and Brenda somewhat creepily if redundantly expresses delight that she can now “record what I and my girl friend said.” (A call recorder that couldn’t record your calls would simply be misnamed.)
+Even though it turns out that Brenda is referring to a completely different app that includes a voice changer feature, making you wonder if Brenda’s girlfriend realised who she was talking to when she was being recorded, Brenda’s 5-star review still counts towards the abovementioned call recorder app’s attractive average review rating of 4.2/5.
+There are plenty of 1-star reviews in there, however, warning you that this is one of those “free trial” apps that bills you automatically if you don’t cancel within three days – a type of free that Elizafisch described very succinctly in her review as “FREE ????? Ridiculous.” 
+But perhaps the most apposite review, at least until the app was updated after the developer received Anand Prakash’s bug report, was Leanne’s 5-star review saying “in addition to managing recordings, I can also share them easily when needed. So convenient for me!”
+What Leanne left out, however, was that the cloud-based storage feature of the app was convenient not only for her but for everyone else in the world, including those without a copy of the app or even an iPhone.
+Sharing her calls with other people, it seems, was way easier that she thought.
+Prakash decompiled the app to look for likely URLs it might connect to, monitored the app while it was running, and noticed that one of its call-home requests was a block of JSON data looking something like this:
+‍
+With nothing to tie this request to a specific user who has already authenticated, and no way for the server to decide whether the submitter of the request has any right to be asking for data belonging to the user designated by UserID…
+…someone can put anyone’s UserID into a concocted request, and therefore everyone’s data is safe from no one.
+You can see how this type of bug gets the name IDOR, given that it allows attackers to specify their victims insecurely and directly, simply by pasting a new UserID directly into the request.
+Here’s our advice.
+As Naked Security writer Sally Adam recommended in her advice to parents on tightening up home security during the coronavirus pandemic:
+We suggest that you ignore the reviews and star ratings on the app stores themselves. You have no idea who gave those ratings or left the reviews, or even if they ever used the app at all.
+Fake ratings and official-looking app store reviews can be bought online at a price that’s almost literally ten-a-penny. Look for reviews in independent user forums or for discussions in online cybersecurity groups.
+Both Apple and Google operate their own online stores that contain vetted and approved apps, but those walled gardens are far from perfect – there are just too many developers and too many apps for each one to be scrutinised in detail by an expert.
+Sophos Intercept X for Mobile is free (Android and iOS versions available) and gives you an extra layer of security to help you look for risky apps and to warn you if you have inadvertently enabled any insecure settings in the operating system itself.
+Guidelines from Apple, Google and others on how to program securely on their platforms are not enough on their own.
+But if there is any advice from the vendor that you have ignored, or worse still aren’t even aware of, your cybersecurity probably isn’t up to scratch, so treat the vendor’s own guidelines as “necessary but not sufficient”, to borrow a turn of phrase from mathematical logic. 
+Apple, for instance, has a wide range of security advice for progammers that covers authentication (is the right person doing the right thing?), confidentiality (is data safe from snooping when stored or when moving across the network?) and validity (is the right code doing the right thing?).
+One of the reasons that Sophos Naked Security exists is to help you to understand and fight back against cybercriminality and to avoid the sort of mistakes that make life easier for the crooks.
+(We don’t see this as a one-way website – we read all the comments and advice that you, our readers, leave here, and make sure that our developers and product managers hear you, too!)
+If you’re just starting out in cloud or web development and you want to know the best things to learn first, a good place to start is probably the OWASP Top Ten.
+Yes, that’s a truism – but the thing about truisms is that they only get called truisms because they’re true!

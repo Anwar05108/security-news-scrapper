@@ -1,0 +1,35 @@
+The US government just announced its plans for HTTPS on all dot-gov sites.
+HTTPS, of course, is short for for “secure HTTP”, and it’s the system that puts the padlock in your browser’s address bar.
+Actually, the government is going one step further than that.
+As well as saying all dot-gov sites should be available over HTTPS, the government wants to get to the point that all of its web servers are publicly committed to use HTTPS by default.
+That paves the way to retiring HTTP altogether and preventing web users from making unencrypted connection to government sites at all.
+HTTPS relies on an internet protocol called Transport Layer Security, or TLS, which uses a combination of strong encryption and digital signatures to help to keep your browsing private.
+(You may still hear TLS referred to by the name SSL, short for Secure Sockets Layer, which is its less-secure precursor. Ironically, three of the most popular programming tools used for TLS support have clung to old-school names: OpenSSL, LibreSSL and BoringSSL.)
+As recently as 10 years ago, HTTPS was thought of as something you only needed occasionally, either for browsing to super-sensitive content, or when performing a security-specific action such as changing your password or logging in.
+Even mainstream sites used HTTPS only when you were putting in a password or a credit card number, but happily reverted to plain old HTTP for all your other interactions.
+Small business and hobby sites often ignored HTTPS altogether, because getting the necessary web certificates to make TLS work correctly took both time and money.
+Worse still, web certificates typically expired every year and cost anywhere from $10 to $100 each to renew, making them an ongoing expense that many website owners couldn’t afford.
+Until fairly recently, website operators who published information that they wanted to make public anyway, such as news stories or price lists, simply couldn’t see the need for HTTPS at all.
+Why encrypt data that wasn’t confidential? 
+More importantly, why pay a fee every year to a digital certificate signing company, known as a CA or Certificate Authority, just to encrypt something you wanted to tell the world about anyway?
+But there are two compelling reasons for using TLS while you are browsing, even if you are looking at information that is already in the public domain, or downloading software that’s 100% free anyway:
+As a result, HTTPS has steadily been winning out over plain old HTTP, with Google estimating that about 95% of users visiting its sites and services now “talk” HTTPS.
+Website operators don’t even need to pay for web certificates any more – certificate authorities such as Let’s Encrypt let you acquire certificates for free, and with almost none of the bureaucratic hassle that used to be involved.
+If it’s really that easy both to support TLS (e.g. using Let’s Encrypt for your certificates) and to use it (e.g. by using any browser built in the last few years), how come the web community doesn’t just drop HTTP altogether?
+Why is the US government’s announcment that it plans to embrace HTTPS anything but stating the obvious?
+Ideally, the US government would already have set a date after which all dot-gov websites would effectively be HTTPS only.
+In fact, there’s a surprisingly easy way to do that, called Strict Transport Security, also known as HSTS (the H is for HTTP, as you probably guessed).
+That’s a way that websites can tell your browser, “Next time you visit, use HTTPS even if the user wants to connect using HTTP.” 
+Additionally, all modern browsers support something called an HSTS Preload List that tells the browser up front not to wait for a website to announce its preference for HTTPS, but to talk HTTPS to it anyway.
+(There’s a master preload list of about 100,000 domains, curated by Google, that most browser vendors use as the core of their own lists.)
+In theory, then, the US government could add one single entry to the global preload list, proclaming to every brower in the world, “For any domain that ends in .GOV, use HTTPS, with no exceptions.”
+Every browser would stop making HTTP connections to .GOV sites, so any government site that didn’t support HTTPS, or that dodn’t support it correctly, would basically stop working overnight, which would flush out any sites that had been forgotten about pretty quickly.
+But, as the government’s own report Making .gov More Secure by Default points out:
+ If we did that, some government websites that don’t offer HTTPS would become inaccessible to users, and we don’t want to negatively impact services on our way to enhancing them! […G]etting there will require concerted effort among the federal, state, local and tribal government organizations that use a common resource, but don’t often work together in this area.
+In other words, even if 95% of the government’s websites, and 95% of their users, are happily talking HTTPS, the 5% that aren’t still adds up to a lot of users, and a lot of sites.
+Sadly, closing that 5% gap is a long and winding road.
+As a result, the US government has in fact only announced its intention to add .GOV to the global browser preload list at some undisclosed time, and it admits that the process might take “a few years” yet.
+However, from 2020-09-01, the government says that it will individually add any new .GOV domains to the preload list, come what may.
+In other words, anyone setting up a new server for the US government after that date will have to get HTTPS right, or their server will basically be useless.
+The good news is that there are already more than 800 US government websites on Mozilla’s always-use-HTTPS list (all the way from from 18F.GOV to ZEROWASTESONOMA.GOV).
+But only after all, or sufficiently close to all, government sites are on the list can the government take the simplifying step of replacing all of those individual sites with one overarching entry, which will look something like this when encoded into JSON:

@@ -1,0 +1,24 @@
+You might be forgiven for thinking that July 2021 was Microsoft’s month for cybersecurity vulnerabilities.
+First there was PrintNightmare in several guises, followed by HiveNightmare (an entirely unrelated bug that nevertheless attracted the “Nightmare” moniker), followed by PetitPotam (which went down the cute aquatic mammal naming path).
+Now, however, it’s Apple’s turn to be in the patch-right-now spotlight, with a somewhat under-announced emergency zero-day fix, just a few days after the company’s last, and much broader, security update.
+This one doesn’t have a fancy name, but instead goes simply by CVE-2021-30807, and was reported, according to Apple “by an anonymous researcher”.
+Indeed, all we know about it, and all Apple has said so far, is that:
+An application may be able to execute arbitrary code with kernel privileges. Apple is aware of a report that this issue may have been actively exploited.
+If the crooks knew about it first, that makes it a zero-day bug, the jargon term used when the patch came out after the Bad Guys had a head start, rather than before the Bad Guys figured it out for themselves.
+(The name zero-day or 0-day denotes that there were zero days during which even the keenest and earliest adopters of official updates could have patched in advance.)
+The vulnerability was apparently found in the IOMobileFrameBuffer kernel code, a component that helps userland applications (in other words, unprivileged software) to configure and use your device’s or computer’s display.
+The functions supported by IOMobileFrameBuffer help with the management of settings such as video power saving, as well as colour and brightness correction.
+We’re guessing that there’s a function in there that could be called in an unexpected and erroneous way that caused some sort of buffer overflow or buffer misdirection, where the kernel failed to check the parameters it was passed and therefore allowed an unprivileged program to shovel data into privileged memory where it wasn’t supposed to be.
+That sort of bug frequently leads to DoS, or denial of service attacks, where a malicious program can deliberately crash the device at will.
+Memory corruption bugs sometimes lead to information leakage holes, where a malicious program can read out other people’s data that is supposed to secret.
+In the worst cases, however, the ability to make controlled but unauthorised modifications to kernel memory may cause even more serious kernel bugs.
+These include elevation of privilege (EoP), where an otherwise uninteresting app suddenly gets the same sort of power as the operating system itself, or even remote code execution (RCE), where an otherwise innocent operation, such as viewing a web page or opening up an image, could trick the kernel into running completely untrusted code that didn’t come from Apple itself.
+In particular, when Apple notes that “an application may be able to execute arbitrary code with kernel privileges”, you should assume that an attacker could not only steal your personal data without any visible warnings, but also effectively “jailbreak” your device, thereby bypassing Apple’s protective security boundaries entirely, without so much as a by-your-leave.
+Patch early, patch often!
+Annoyingly, you won’t yet find mention of this update on Apple’s main security update portal, the well-known HT201222 web page.
+Similarly, the company has not yet [2021-07-27T13:00Z] issued any of its customary email alerts about the issue.
+You can read Apple’s very thin description of the update to iOS 14.7.1 and iPadOS 14.7.1 at HT212623, and of the macOS 11.5.1 update at HT212622.
+As far as we can tell, those are the only updates available at the moment, but we can’t tell you if iOS 12 and older-but-supported versions of macOS don’t have updates because they aren’t vulnerable, or simply because Apple hasn’t got around to patching them yet.
+Watch this space for additional information!
+As a reminder, you can check for updates and automatically jump to the head of the queue to fetch them (assuming you are not yet up-to-date) as follows:
+Update. Apple’s security portal page has now been updated to list these fixes. An additional patch, watchOS 7.6.1, has been issued to extend this fix to that platform. [2021-07-30T12:58Z]

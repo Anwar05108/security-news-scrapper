@@ -1,0 +1,34 @@
+Researchers at SentinelLabs say that they found various exploitable bugs in one of Dell’s Windows kernel drivers, which they reported back in December 2020.
+There were five related bugs, now collectively dubbed CVE-2021-21551.
+Dell has now issued a patch for these vulnerabilities (the official update is dated 2021-05-04), noting that:
+Dell dbutil_2_3.sys driver contains an insufficient access control vulnerability which may lead to escalation of privileges, denial of service, or information disclosure. Local authenticated user access is required.
+The good news, therefore, is that even though these bugs are dangerous, they don’t let cybercriminals break into your network in the first place, and they’ve now been fixed.
+The bad news, however, is that the bugs seem to go all the way back to 2009, with the result that Dell’s official list of affected products stretches for pages and pages.
+Dell’s documentation is split into two lists of devices that need updating:
+Dell has included instructions for manually removing the buggy kernel driver, which it says will be found in one of two places:
+If you are nervous about removing system files by hand, the company has published a download page with an automatic driver remover with the remarkable name of Dell-Security-Advisory-Update-DSA-2021-088_7PR57_WIN_1.0.0_A00.EXE.
+Unfortunately, just removing the old driver is not enough on its own, because the old firmare update utility left behind on your computer may inadvertently reinstall the buggy driver, thus reintroducing the bug.
+According to Dell, you also need to download and install an updated firmware update program that knows about and includes a patched version of the flawed dbutil_2_3.sys kernel module.
+Updated firmware updaters are available right now for Windows 10, but for earlier Windows versions (Dell still supports both Windows 8.1 and Windows 7, it seems), the update-to-the-updater will only be available “by 31 July 2021.”
+In other words (and although this sounds tricky, it’s more a question of fuss than complexity):
+The researchers who investigated the flawed driver found a number of problems with it, starting with the fact that any user, whether an administrator or not, could issue low-level configuration commands to the driver itself.
+That’s not automatically a bug, as long as the scope of those configuration commands is carefully limited.
+As an example, a security program with a driver that allowed unprivileged users to issue a command to opt in to increased protection would probably be considered OK, but one that allowed anyone to opt out of protection whenever they felt like it would clearly be no good at all.
+However, in this case, the researchers discovered driver coding flaws that could allow unprivileged driver commands either to crash the driver and bring down the system (denial of service) or to promote the user issuing the commands to a local administrator (elevation of privilege).
+Although those coding bugs would have needed fixing anyway, their impact would have been much less serious if attackers who wanted to exploit them needed to have administrator privileges already.
+After all, if you already have sysadmin powers, you don’t need an elevation of privilege bug because you already have elevated privileges.
+Interestingly, the researchers also noted that it might be possible to abuse one of the bugs in dbutil_2_3.sys to write to the hard disk in undocumented, low-level ways, bypassing the usual Windows system calls for disk access.
+Given that a user with administrator powers could probably write pretty much anywhere on your hard disk anyway, this issue doesn’t add much extra danger over and above the elevation of privilege bug that already exists.
+In theory, however, this flaw could be abused by attackers who were already administrators in order to access or manipulate data without using a conventional sequence of system commands, thus potentially bypassing various logging or security settings that might otherwise catch them out.
+LISTEN NOW: UNDERSTANDING VULNERABILITIES
+Learn more about vulnerabilities, how they work, and how to defend against them.Recorded in 2013, this podcast is still an excellent and jargon-free explainer of this vital topic.
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Another obvious problem with this driver is that it lives either in your own or the system’s TEMP directory, where an attacker who is already in your network could easily overwrite it with an older, buggier version in order to force what’s known as a downgrade or a BYOB (bring your own bug) attack.
+Remember that attackers can’t easily install their own malicious kernel drivers these days, because those drivers would need to be submitted to Microsoft first to be digitally signed. 
+(Not even sysadmins can load unsigned kernel drivers any more on 64-bit versions of Windows without rebooting into a special startup mode used for driver testing; on the next reboot after that, signed driver enforcement is automatically re-enabled.)
+However, canny cybercrimimals sometimes try to install old-but-signed drivers quite deliberately in order to reintroduce old vulnerabilities, notably elevation of privilege or other security bypass bugs that you thought you’d patched long ago.
+In other words, if you remove the vulnerable driver without also updating the firmware update utility that is coded to look for  the driver in the TEMP folder, you run a risk not only that the firmware utility itself might reinstall an old version of the driver, but also that an attacker already inside your network might do so, too.
+We assume that Dell’s updated firmare update tool (see step 2 above) not only includes a patched driver but also installs that driver in a safer place.
+As mentioned above, however, you can’t update Dell’s firmware utility yet if you have Windows earlier than version 10.
+We therefore recommend that you keep your eye out for the reappearance of a file called dbutil_2_3.sys in either of the TEMP locations listed above, in case your system gets downgraded, either by accident or by design.
+If you have the Sophos Endpoint Detection and Response (EDR) product, we have created a system query you can use to hunt for buggy Dell drivers on your network. Head to our article on Sophos News to find out how to use it.

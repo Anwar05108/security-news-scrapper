@@ -1,0 +1,32 @@
+Right at the end of 2019, we wrote about the “decade-ending Y2K bug that wasn’t” in a serious article with a humorous side.
+In that article, we described a perennial “gotcha” facing Java programmers faced with the simple task of printing out the year.
+If you tell Java to treat the date as four digits by using the abbreviation YYYY, which is a very common way of denoting the year in all sorts of other apps, you will get the right answer most of the time…
+…but in some years, the answer comes out exactly one year off for just a few days at the start or the end of the calendar year.
+Memories of the Y2K bug!
+Y2K, or the millennium bug, was where programs that tried to save memory by storing dates as “99” instead of “1999” got confused at the end of 1999, because the sum 99+1 rolls back to 00 when you only have two digits to play with.
+But it turns out that the Java bug that people were comparing to Y2K was a completely different beast.
+The bug in the Java case is that Java’s shorthand to denote the current year in four digits is yyyy, and not YYYY – it really matters whether you use capital letters or not.
+Confusingly, and for many people, surprisingly, the text YYYY in a Java program denotes the year in which at least half of the current week lies, as used for things like payroll and weekly accounts.
+So if there are an odd few days at the start or end of a year, they’re transferred to the previous or following year when you count in weeks to do your accounts.
+Phew.
+Because, when you think about it, the idea of a Y2K-style bug resurfacing at the end of 2019 seems pretty unlikely.
+Programs that only used two digits for the year instead of four would surely have been found out on New Year’s Day 2000, and would have been off by 100 years ever since, and would therefore quickly have been patched or replaced?
+Perhaps not.
+Because one way to patch the Y2K problem was to move it, rather than actually to fix it.
+In other words, instead of reworking your program so it could correctly calculate that 1999+1 = 2000 (and so on for any four-digit year), you could take a shortcut and just tell your program to treat the 00 as AD 2000, instead of AD 1900, thus giving you an extra year to deal with the problem properly.
+There was a downside there, namely that you no longer had any way of denoting the year 1900, but that was often much less of a problem than not being able to recognise 2000 – you accepted the risk of very occasional bugs that might never show up, instead of facing certain disaster at the stroke of midnight on New Year’s Day in Y2K.
+Of course, this trick could be used to give you more than one extra year – at the end of 2000, for example, if you still hadn’t managed to fix your software with four-digit years, you could push the cutover point to the end of 2001 instead – you’d lose 1900 and 1901 but gain 2000 and 2001 instead.
+You can guess where this is going, namely that what works for one or two years can work for 10 years…
+…or for 20 years.
+We’ve seen numerous stories in the media recently alleging that various computer systems around the world seem to have done just that, effectively putting Y2K off until 2020 by deferring the flipover point until 2019-12-31.
+A notable case is that of parking meters in New York, where, according to the New York City’s Department of Transport:
+[T]he credit card payment system software was configured to end on January 1, 2020, and officials say […] the company that makes the meters, never changed the date. Card payments stopped working last Thursday, January 2, 2020.
+Behold – a Y2.02K bug!
+Actually, we don’t know whether this was a bug of the Y2K sort, or just an operational issue with a different cause.
+After all, if the devices suffered a 100-year calculation error at the transition from 2019 to 2020, then you might reasonably expect the system to have failed on New Year’s Day, rather than on the second day of the month.
+But the moral of the story is simple, and it goes well beyond just getting the year right.
+If there’s any sort of this-stops-working-abruptly-for-some-reason setting in your software – and there are many good reasons for building one in, whether it’s to force the retirement of long-superseded code, or to comply with regulatory terms, or for some other purpose – then don’t let it take you by surprise.
+By the way, Windows 7 support, including the publication of security updates and patches, ends next week after 2020-01-14.
+Don’t let it take you by surprise!
+Although Windows 7 won’t abruptly stop working, there are probably many IT managers and staff who secretly wish it would.
+That would at least bring all those unknown and unreported Windows 7 computers out of the shadows and turn them into the devil you know, rather that the devil you don’t…

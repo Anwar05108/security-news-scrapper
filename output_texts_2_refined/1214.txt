@@ -1,0 +1,35 @@
+Researchers at security company Mandiant have written up a report about a device-hijack bug in a video sharing and surveillance network called Kalay.
+Operated by Chinese smart device company ThroughTek, Kalay (which apparently means “handshake” in the Dawu language) is pitched as a cloud-based solution for vendors of home automation devices, including security cameras, smart locks, video doorphones, smart power plugs, and even personal cloud storage hardware such as NAS devices.
+According to ThroughTek:
+[Kalay c]onnects numerous home automation devices, enabling users to monitor and control their systems based on usage scenarios and daily habits.
+More generally, the company says:
+[Kalay] enables integration of video surveillance equipment, smart consumer products, and a variety of sensors to allow brand name manufacturers, telecoms providers, system integrators, hardware manufacturers, and other service providers to offer smart solutions that are safer, more convenient, and more flexible for users to enjoy.
+As you can see, the idea is that instead of creating their own protocol, setting up their own servers and building their own home automation service, home device makers can build the Kalay software into their own firmware, and use the existing Kalay network so their customers can manage and access the devices.
+Unfortunately, Mandiant researchers found what amounts to a sort of Manipulator-in-the-Middle (MiTM) attack against the Kalay protocol that could give an attacker a way to hack into devices in someone’s home, including remotely watching video from the victim’s webcams.
+Fortunately, the vulnerability, dubbed CVE-2021-28372, can’t be exploited arbitrarily against any product that uses the Kalay system – the attackers first need to know the 20-byte unique identifier assigned to the device they want to snoop on.
+According to Mandiant, those UIDs are “provided to a Kalay-enabled client (such as a mobile application) from a web API hosted by the company that markets and sells a device model.”
+We’re assuming that the 20 bytes are not entirely random, in the same way that network MAC addresses consist of 3 bytes that are always the same for each device maker plus three bytes that are effectively random.
+Nevertheless, with 20 bytes to play with instead of just 6 bytes in a MAC address, there’s plenty of room to have a few bytes that are unique to each vendor followed by far too much randomness to guess at.
+Indeed, Mandiant admitted that it “investigated the viability of brute forcing ThroughTek UIDs and found it to be infeasible due to the necessary time and resources.”
+However, if an attacker does know the UID of one of your devices – sniffed off your home network by malware and sold on the underweb, perhaps, or inadvertently disclosed in some other way – then a crook can take over simply by pretending to be your device temporarily, and re-registering itself with the Kalay network.
+This attack works because a genuine device registers itself with the Kalay network when it’s first set up, using its UID, and gets back authentication credentials that can subsequently be used to access data from that device remotely.
+For example, the owner of the device can use those credentials in a mobile app to tell the Kalay network to:
+Apparently, say Mandiant researchers, if you know the UID of that device, you can fraudulenty re-register it with the Kalay network, and instead of getting an error, you’ll receive a new set of authentication credentials.
+If you then use those new credentials to authenticate your own software to the targeted device in order to request live video, the Kalay network will reach out on its network to locate the UID you specified…
+…and the original device will respond and begin transmitting its video feed.
+Because you have the right credentials, given that you set them via with your bogus re-registration, then the feed comes back to you, and you can spy on the victim. 
+(We’re assuming that many other device types can be hacked, hijacked or reconfigured in this way, but stealing a live video feed is perhaps the most dramatically intrusive example.)
+Loosely speaking, the bug exists because just knowing the UID of any device – something that’s not meant to be public, but is certainly not sufficient on its own for cryptographic security – allows you to do what amouts to a fraudulent password reset, without knowing the previous password.
+That’s a bit like being able to reset a user’s email password automatically by knowing some personal information unique to that person, such as their  home phone number or the expiry date of their driving licence – not enough to attack everyone, but more than enough to attack someone.
+The first bit of good news, as we’ve mentioned, is that an attacker needs to figure out the UIDs of the devices on your network first.
+The bad news, however, is that it’s hard to know just how widely known your own UIDs might be, given that if an earlier attacker has figured them out, you’ll typically have no way to tell until an attack kicks off.
+The second bit of good news is that this bug doesn’t exist in the latest version of ThroughTek’s client-side software development kit (SDK) library, so any device firmware that’s up to date oughtn’t to be at risk, as far as we can tell.
+(The buggy software libraries are any versions before 3.1.10. Current versions are 3.3.1.0 and 3.4.2.0.)
+The bad news, however, is that it’s hard to know which version of the ThroughTek code is compiled into which versions of each vendor’s firmware, and which firmware version is installed in which devices.
+Worse still, it can hard to tell whether a device uses ThroughTek code or not.
+Even Mandiant noted that it “was not able to create a comprehensive list of devices using the Kalay platform”, despite reporting this vulnerability to ThroughTek and liaising directly with the company to investigate the issue.
+In short, we recommend that:
+What we can’t tell you, given that we don’t have any Kalay-based home devices ourselves, is whether it’s possible to reallocate a UID to devices that you have already bought and installed. (That wouldn’t solve this issue, but would mitigate the extent of your exposure somewhat.)
+ThroughTek, according to Mandiant, has more than 80 million connected devices, each making an average of more than 10 connections a month, for a monthly figure of 1.1 billion connections…
+…so if you own a device on the Kalay network, please let us know in the comments below if you have any additional advice that might help!
+To remain anonymous, just leave the form fields blank.

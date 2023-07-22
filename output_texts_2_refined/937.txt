@@ -1,0 +1,44 @@
+Here’s a bureaucratic nightmare that unfolded over the weekend
+Digicert is one of the Big Five commercial CAs, short for certificate authorities – companies that sign and vouch for the digital certificates that put the the S in HTTPS and the padlock in your browser’s address bar.
+As we’ve mentioned before, web certificates and HTTPS (secure HTTP) aren’t just about protecting you from surveillance by encrypting the data that flows between your browser and the websites you visit.
+They’re refered to as certificates rather than just encryption keys because they provide some sort of assurance that the people running the site you’re reading have some sort of authority – for various interpretations of the word “authority” – to do so. 
+Note that the certificate doesn’t vouch for the safety or the accuracy of the content on the site, so cybercriminals who set up their own sites can acquire certificates for those sites. But the web certificate system does make it harder for crooks to set up imposter sites using existing website names.
+The simplest form of web certificate is called self-signed, and anyone can create a self-signed certificate in seconds that claims to represent any web property they like.
+Here, we’ve used OpenSSL, via a simple series of Lua script commands, to produce a public/private keypair, put the public key into a web certificate, make the certificate valid for 7200 seconds (two hours), and set the certificate to be authoritative.
+In the last line, we self-signed it with the private key we generated up front:
+
+We ended up with a private key that we can use to set up HTTPS connections, plus a certificate to send to the other end to vouch for our website, tied cryptographically to our own private key:
+
+As you can imagine, no browser accepts self-signed certificates directly from websites by default – by replacing the text string example.test in the code above, we can generate a self-signed certificate in any name we want, valid for as long as we like, so self-signed certificates provide no authentication at all.
+Using the code above, running in a loop on a single core of a five-year-old laptop, we generated more than 800 256-bit elliptic curve private keys and web certificates per second. 3072-bit RSA keys, which provide similar security levels to 256-bit elliptic curve keys, are much slower to create, limiting us to about three certificates per second per CPU core.
+In real life, you can’t rely on self-signed certificates, because there’s no one to vouch for them except the self-signer, who could be anyone.
+To acquire a certificate to use on your own website, you create your own certificate, as we did above, but then get someone else to sign it rather than just vouching for it yourself.
+That means getting a certificate authority to vouch for you in some way, typically using:
+For reason of scale, CAs don’t generally sign website certificates directly, but sign them using an intermediate certificate that is signed by a root certificate that does belong directly to the CA itself.
+Website certificates are generally known as leaf certificates, because they’re at the very end of a chain of signatures, and the chain of trust goes like this:
+This three-level system reduces the number of root certificates that browsers need to keep track of (Firefox’s own database currently [2020-07-13T12:00Z] contains just 138 root certificates.)
+It also means that if a CA devolves signing powers to numerous different offices or to business partners around the world, it doesn’t need to share its master signing key (the aptly named private key) with any of them.
+Also, if one of those offices or partners makes a blunder or goes rogue, the CA can revoke just one intermediate certificate instead of being forced to invalidate its own root certificate, which would typically cause a much bigger disruption than the “divide and conquer” approach of the leaf-intermediate-root three-level system.
+Unfortunately, Digicert was faced over the weekend with the task of revoking a whole raft of certificates – ironically because of a bureaucratic blunder that went unnoticed until now, rather than because of any sort of active attack.
+Digicert describes the problem as follows:
+DigiCert has identified an issue where some of our intermediate CAs (ICAs) were not listed as part of our most recent WebTrust EV audit.
+To explain: as part of a regular community auditing process, CAs are supposed to submit a list of subsidiaries and business partners that are authorised to sign extended validation certificates as intermediaries on the CA’s behalf.
+In other words, if any company X has an EV certifcate that is vouched for by intermediate company Y that is in turn vouched for by a trusted root CA certificate from company Z, then Z has to make sure company Y is listed whenever it submits its extended validation audit documents – in the understandable interests of transparency .
+Because Digicert just realised that it hadn’t been reliably submitting its “company Y” list, it was faced with two choices, mandated by the WebTrust EV audit specifications.
+Either…
+Or…
+Digicert opted for the latter approach to minimise disruption to browser users, though apparently it meant revoking 50,000 individual EV certificates instead of just six intermediate certificates.
+If you run a website and your certificate has been revoked, you’ll probably realise when you or any of your customers try to visit it, because you will see a security warning.
+But you may as well check the validation chain on your certificate anyway, and one easy visual way to do this is with the Firefox browser.
+Visit your own site and click the padlock icon:
+
+If you see a line that says Certificate issued to, followed by the name of your company or the company that does your web hosting, then you have an extended validation certificate. (DV certificates aren’t issued to any specific company, so this line will not appear.)
+If you have an EV certificate, click the Right arrow icon, then More Information, then View Certificate, which shows you, from left to right, the validation chain of your certificate:
+
+The middle entry at the top is the name of the issuer of the intermediate certificate, and if it is one of these six then you are affected:
+(Above you can see that the www.sophos.com site doesn’t have a root CA of Digicert, and was therefore unaffected.)
+All EV certificates signed by the above intermediate CAs have now been revoked, but any regular domain validation certificates will remain valid until they expire naturally.
+Those above six CA names will not be used to sign any more certificates at all, so if you have a revoked EV certificate that needs reissuing, it will come from one of these new intermediates instead:
+If your Digicert EV certificate is already signed by one of these three then it’s already been renewed and you are done.
+How to renew and replace revoked ceritificates is described in Digicert’s ICA Replacement knowledgebase article.
+By the way, if you’re a website visitor and you see a certificate revocation warning over the next few days, please don’t ignore and bypass the warning just because you’ve heard about a mass revocation and assume “that’ll be the reason” – just steer clear of the site until the owner reissues and replaces the certificate.

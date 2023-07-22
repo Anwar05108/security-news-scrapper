@@ -1,0 +1,62 @@
+Have you ever had an angry customer bellow the dreaded words, “Just you wait, I’m going to report you to your manager”, or something along those lines?
+We’re willing to bet that you have, and word on the street in the UK is that customer complaints, supposedly intensified by coronavirus-related frustrations, are at worryingly high levels right now.
+And when someone does say, “I’m going to escalate this”, which is a confrontational, war-like expression at the best of times, it immediately becomes an uncertain, and often unpleasant, waiting game.
+Will the blustery behaviour of ranting at you over the phone (or via IM, or on the support forum, or in a webchat session) provide the cathartic release the customer wanted, and bring their frustration to an end?
+Or will you wake up tomorrow to a flurry of emails from your manager, or from HR, or from both, telling you about a formal complaint that’s just come in?
+Well, over the past 24 hours, we, and many of our colleagues, have been on the receiving end of an email scam that preys on exactly these fears.
+(At Naked Security, we receive emails for several different mail aliases along with our own personal addresses, so these bogus “Customer Complaints” have really been pouring in to our mailbox!)
+The goal of these cybercriminals is to make you feel guilty, and to convince you that through inaction on your part, you have caused serious inconvenience not only to the company as a whole, but also to someone more important than you in the organisation:
+
+Technically, this is a targeted attack, known in the jargon as spear-phishing, because it does its best to greet you by name and to pretend to come from a manager in your company.
+That makes it much more believable that an impersonal “Dear Colleague” or just a plain old “Hello”.
+Yet this sort of targeting is technically trivial to do for anyone who has ever received (or acquired a copy of) an email sent by you at any time in the past.
+For example, my emails almost always contain a line of text in the headers that looks like this:
+From that text alone, it’s a fair guess that:
+After all, once you’ve filtered out outlook.com, gmail.com, yahoo.com and other domains associated with well-known webmail services, the email addresses left behind are quite likely to be company-related email identities.
+As you can see, spear-phishing doesn’t have to be a high-tech cybercrime that only ever targets high-fliers and individuals worth spending lots of time researching, stalking, pretexting and socially engineering for personal details.
+Even if all the crooks had was a text string of the form $YOURNAME <$YOU@$BIZNAME.example>, it would be easy for crooks to fit it to a template like this:
+That alone would be enough to make it into the sort of message you might be inclined to take seriously, especially if you work for an outsourced part of your company, and don’t usually liaise directly with higher-ups in the main company itself.
+Worse, of course, is that junior staff in commonly outsourced jobs such as first-line support, where time pressure is always high, are the most likely to have been threatened with complaints by aggressive callers determined to get their way.
+And, let’s be perfectly honest, if you’ve ever worked in support, you’ll rarely ever have “reported yourself to management” when a caller shouted at you and complained, unless the call was so aggressive or threatening that you wanted to ensure it was placed on the record for your own safety.
+You just assume that the complaints that they threatened to send won’t materalise, although you also know that sometimes they do.
+In other words, receiving an email from a “colleague” whom you don’t know, and who doesn’t know you, but who seems to have been dragged into a customer “dispute” that you weren’t even aware of yet…
+…well, it’s pretty much par for the course if you work in front-line support or a busy call centre.
+In fact, one of the variants of this scam we received early on took exactly that approach, signing off as someone in the outsourcing team. 
+We aren’t sure whether the word cpomplaint in the subject line was a simple typo, because it was never repeated, or a deliberate response to some recipients temporarily blocklisting the word complaint in their email filters:
+
+The good news in this case is that the crooks weren’t on top of their game in the first of these emails we received, because the link took us here:
+
+It looks as though they’d mixed up the emails and the web links of two different spear-phishing campaigns, one to do with customer complaints, and the other to do with accounts receivable or finance.
+Also, the website was hosted on a Microsoft cloud service, as was obvious from the URL, but had Google Drive branding on the page.
+But the criminals soon got their act back together, sending several more emails with a similarly threatening tone but with rather more believable links.
+The next few phishing messages ripped off Adobe’s logo, presumably knowing that it’s a good visual match with the PDF file extension, and offered us a copy of the alleged “complaint”:
+
+If you download the file, it turns out not to be a PDF, but it isn’t the usual sort of well-known suspicious substitute that the crooks often use, such as a VBS file (Visual Basic Script) or a JS file (JavaScript) file.
+This one is a Microsoft App Bundle.
+Like .apk files for Android or .pkg files for macOS, .appxbundle files are Microsoft’s answer to providing a single download for all sorts of platforms and devices.
+You need to remember that these files are really just good old .EXE files in disguise, but many Windows users may not be familiar with them yet, especially if they’ve never had reason to download work apps from the Microsoft Store.
+There are numerous file formats used by so-called Univeral Windows Platform (UWP) apps. UWP packages are a bit like Apple’s “fat binaries” or Android’s multi-platform APK files, built and provided by vendors so that you don’t need to remember whether you are 32-bit or 64-bit, or if you have an Intel/AMD or ARM processor, every time you install the same program to a new device. File extensions to watch out for include: .msix, .appx, .msixbundle and .appxbundle. If you aren’t familiar with these, think of them as wolf-in-sheep’s-clothing files and avoid them unless they come from a known and trusted source.
+The App Bundle itself, if you allow it to download and run, continues hijacking Adobe’s brand by claiming to be a needed component:
+
+As you can see, the file is reported as a Trusted App, with a vendor name given as Adobe Inc., but that’s as bogus as the original email.
+If you click on [Trusted App], you’ll see that what purports to be a software bundle from Adobe in the USA has an unlikely digital signature from an accounting firm in South-East England.
+We’re guessing that the crooks acquired a copy of this company’s signing key, or bought it on the dark web, as the after-effect of a cyberintrusion at that company. Many cyberattacks these days include a stage where the crooks steal as many useful-looking files as they can along the way. Often, those stolen files are used by ransomware criminals as extra leverage to blackmail you into paying “hush money”. But data from thefts of this sort has many more uses than just extortion, and files such as signing keys or password lists have value of their own when sold individually for further cybercriminality.
+We won’t describe the technical details of the malware here – for the step-by-step details of how it performs its treachery in multiple stages, see this Twitter thread from @SophosLabs:
+Hey everyone. @threatresearch here with a little news about how my day's been going.
+Seems a lot of people are dealing with an outbreak of #BazarBackdoor that starts with an email that sounds like it's coming from someone who is annoyed you didn't report a complaint about you. pic.twitter.com/EYrQHBAiXO
+— SophosLabs (@SophosLabs) November 4, 2021
+
+Amongst the actions that the malware performed immediately were:
+Like most backdoor programs of this sort, also known as bots or zombies, this malware also includes a “feature” to download and install yet more malware.
+In other words, if you are unfortunate enough to get infected, this may look and feel like the end of an attack chain…
+…when in fact it is merely the begining of the next one.
+And as pedestrian as some of the data that this zombie malware steals at the start, such as how much RAM you’ve got, it’s an excellent and simple hint to the criminals of the type of tasks your now-backdoored computer is best suited to. 
+For example, some cryptocurrency mining processes (and various types of password cracking operation) work best with lots of free disk space, but don’t need a lot of CPU power or RAM; some want as much processing power as they can take; and others run faster the more memory they can use. 
+Often, zombies also try to estimate your network speed, so that the crooks who control the malware know which parts of their botnet are best suited to leasing ourtfor DDoS (distributed denial of service) attacks, or for sending spam emails containing the next wave of malware.
+By the way, you can extend the last warning above to all interactions in your digital life.
+In particular, when you get a message from a social media friend, via a private group that you belong to, and that you are therefore inclined to trust straight off the bat… 
+…remember that you don’t actually know that the message came from your friend, merely that it came from your friend’s account.
+If in doubt, don’t give it out!
+Sophos products detect and block the malware in this attack as Troj/MSIL-RXW (on-demand and on-access scanning on all laptop, desktop and server platforms), and as Mem/BazarLd-C (behavioural detection on Windows), if you would like to check your logs.Sophos web filtering components also identify the download pages and the command-and-control (callhome) servers as high risk sites in the SPYWARE_AND_MALWARE/​MALWARE_REPOSITORY and COMMAND_AND_CONTROL/​MALWARE_CALLHOME categories respectively.
+“Is it you in the video?” – don’t fall for this Messenger scam
+

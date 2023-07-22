@@ -1,0 +1,24 @@
+French researcher Gilles Lionel, who goes by @topotam77, recently published proof-of-concept code that attackers could use to take over a Windows network.
+The hack, which he has dubbed PetitPotam (a nod to the endangered Pygmy Hippopotamus, as far as we can tell), involves what’s known as an NTLM relay attack, which is a form of manipulator-in-the-middle (MitM) attack against Microsoft’s NTLM authentication system.
+Microsoft has been advising everyone to avoid NTLM, short for NT LAN Manager, for more than a decade, because it doesn’t meet modern cryptographic security standards.
+Way back in 2012, for example, password researcher Jeremi Gosney, who describes himself as “your friendly neighborhood password cracker”, described and built a standalone password cracking computer, using 25 graphics cards, that could brute-force any eight-character Windows password from its NTLM hash in just six hours.
+Windows passwords: “Dead in Six Hours” – paper from Oslo password hacking conference
+
+
+Unfortunately, NTLM authentication has proved hard to shake off altogether, with many network administrators keeping it alive because of legacy applications that can’t use the network without it.
+Microsoft has added several NTLM mitigations over the years to try to close off various NTLM relay attack loopholes that remain.
+This has steadily made it harder for attackers to trick Windows clients into talking to imposter authentication servers (the so-called “relays” in the attack) that could allow password hashes to be sniffed out, stolen and abused by attackers.
+Ironically, one popular NTLM relay trick used in the past was to abuse the Microsoft Print System Remote Protocol (MS-RPRN) – what you could call a PrintNightmare of yesteryear.
+As Lionel himself points out, however, “[using] MS-RPRN to coerce machine authentication is great but the service is often disabled nowadays by admins [in] most [organisations].”
+His new proof-of-concept uses a similar attack (indeed, Lionel credits his code as “inspired by the previous work on MS-RPRN”), but abuses a different remote access protocol called MS-EFSRPC, short for Encrypting File System Remote Protocol.
+Annoyingly, according to Lionel, turning off the underlying Encrypting Filing System service doesn’t seem to help, so the obvious mitigation that worked for old-school MS-RPRN attacks (namely, turning off the service that supported the at-risk protocol) won’t work here.
+According to Microsoft, the PetitPotam code relies on abusing system functions that are enabled if all of these conditions apply:
+Microsoft’s Advisory 210003 describing what makes a system vulnerable.
+Microsoft’s primary mitigation, which is probably the least intimidating system change to make, is to turn on an IIS feature known as Extended Protection for Authentication (EPA).
+EPA protects the abovementioned Certificate Authority Web Enrollment and Certificate Enrollment Web Service features from relay attacks.
+However, the most robust defence is to stop using NTLM anywhere in your network.
+If you genuinely don’t need it (and it’s been deprecated for more than a decade) you can turn it off entirely on your domain controller to improve security for your whole network.
+There’s also a middle ground of mitigation, if you do use NTLM but you don’t need it for Active Directory Certificate Services (AD CS), which involves turning NTLM authentication off specifically for the system components related to AD CS.
+Microsoft’s official mitigation advice, which applies to Windows Server 2008, 2008 R2, 2016, 2019 and  2022, is listed in its Knowledgebase article 5005413:
+
+Note. Sophos Central customers can use the Sophos Live Discover tool to search for indicators of risk and possible attack. Our EDR/XDR team has published sample queries to look for PetitPotam conditions, as well as for PetitPotam events.

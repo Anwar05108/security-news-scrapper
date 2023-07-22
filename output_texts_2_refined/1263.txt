@@ -1,0 +1,33 @@
+We’ve been using Edge on Linux for quite some time, first in Dev Build  form, then in its Beta flavour…
+…but when we went to check Microsoft’s repository tonight, we were surprised to see a build package that had arrived just an hour earlier with the name microsoft-edge-stable-95.0.1020.38-1.x86_64.rpm.
+So, the Eagle, or whatever you want to call it, has finally landed!
+
+As you probably know, Edge no longer has Microsoft’s in-house HTML and JavaScript engines at its core, but is based, like many other contemporary browsers, on the Google-derived open source Chromium project.
+Chromium also also powers browsers such as Brave, Opera, Vivaldi and, of course, Google’s own Chrome, which is Google’s closed-source product built on Chromium.
+That leaves just three other mainstream browser engines these days, one of which we’d all love to put behind us forever, but it just keeps hanging around semi-invisibly in the background.
+Alongside all the Chromium browsers out there, we’ve also got: Apple’s Safari, based on a core known as WebKit; Mozilla’s Firefox; and Microsoft’s Internet Explorer core, often referred to as MSHTML after the program file mshtml.dll that is the heart of its executable code (and still the source of the sort of vulnerabilities we all hoped we’d left behind).
+Windows zero-day MSHTML attack – how not to get booby trapped!
+
+
+By the way, even if you’re using a non-Safari browser such as Firefox or Chrome on your iPhone or iPad, you’re nevertheless running the WebKit engine, with the browser itself essentially being a “skin” on top of Apple’s core code.
+That’s one of Apple’s rules: any app that handles web content must use WebKit, or else it will be excluded from the App Store – and (unless you use a trick involving Enterprise Provisioning, normally reserved for companies to install proprietary corporate apps), that’s the only way to distribute your software.
+Romance scams with a cryptocurrency twist – new research from SophosLabs
+
+
+We’re happy to see Edge for Linux finally make Stable and Official status, because we find it handy to have two distinct browsers on any operating system platform we use.
+If nothing else, running two different browsers that share no code or configuration data means that you can use one for logged-in sessions and the other to see what the same websites look like when you aren’t logged in. 
+That’s especially handy if you’re a content creator, because it makes it easy to check exactly what your readers are seeing out there in the real world – which often looks completely different to the “idealised” view of things you get while you’re logged in.
+Many Linux users probably already use Chrome (or Chromium if they prefer to stay away from closed-source browsers), but those products aren’t available for all distros…
+…and if you don’t have any Google accounts, or you’re not a Google fan, then the Google-centricity of Chrome might be something you neither need nor really want.
+We use the rolling-release version of Slackware Linux, or Slackware GNU/Linux if you absolutely insist, a distro that Chrome doesn’t support at all.
+However, simply extracting the /opt/microsoft/edge directory tree from the the Yum repository shown above works a treat. (Yum and RPM files are usually associated with RedHat’s commercially oriented Linux distros, but the distro contents worked agnostically on our laptop.)
+
+Things to like about Edge for Linux. It’s fast; it looks good; it may work for you where Chrome builds won’t; and it’s really easy to configure it to delete all its cookies, web data, authentication tokens and other historical baggage automatically every time you exit the browser.
+(We can’t figure out how to clear browsing data automatically on Chrome, and therefore prefer Firefox and Edge, where it’s easy to do this without plugins or scripted hacks.)
+What’s not to like. You need to take care to review all the default settings before first use, because there are some privacy settings that security conscious users will want to change.
+In fact, taking a trip round Edge’s privacy options on Linux – there are lots of them – is worth doing, so that you can learn to do it on Windows as well.
+In particular, we recommend visiting the following sub-options under Settings:
+Five years ago, we’d have laughed if you’d suggested that by 2021 our Top Two “workflow” apps on Linux would not only be from Microsoft but also be open source, or based on open source code…
+…but they are.
+We wrote this article in the Visual Studio Code editor for Linux, and uploaded it into WordPress using the landed-two-hours-ago-in-Stable-form Microsoft Edge for Linux.
+Didn’t see that coming.

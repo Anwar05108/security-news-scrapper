@@ -1,0 +1,36 @@
+Earlier this month, we reported on a phishing scam in which the lure was “safety measures” against the Coronavirus (Covid-19).
+In that attack, the crooks took you to a facsimile of the website of the World Health Organization (WHO), where the information was originally published.
+On the ripped-off copy of the site, however, the crooks had added the devious extra step of popping up an email password box on the main page.
+Of course, the WHO website wouldn’t ask for your email password – it’s a public information website, after all, not a webmail service, so it has no need for your email details.
+The crooks were hoping that because their website looked exactly like the real thing – in fact, it contained the real website, running in a background browser frame with the illicit popup on top – you might just put in your email details out of habit.
+Well, here’s another way that the crooks are using concerns over the Coronavirus outbreak, combined with the WHO’s name, to trick you into clicking buttons and opening files you’d usually ignore:
+
+SophosLabs tracked this particular spam campaign in Italy, where the crooks have made it believable and clickworthy by:
+In other words, the crooks haven’t just pushed out a blanket message trying to capitalise on global fears, but have given their scam email a regionalised flavour, and therefore a specific reason to act:
+coronavirus: informazioni importanti su precauzioni
+A causa del fatto che nello Sua zona sono documentati casi di infezione […] [l]e consigliamo vivamente di leggere il documento allegato a questo messaggio!
+—
+coronavirus: important information on precautions
+Because there are documented infections in your area […] we strongly recommend that you read the document attached to this message!
+This time, there isn’t a link to a fraudulent website, but an attachment you are urged to read instead.
+By now you ought to be suspicious, given that Word documents can contain so-called macros – embedded software modules that are often used to spread malware, and that are an obvious risk to accept from outside your company.
+Indeed, Word macros – often used legitimately inside companies for managing internal business workflow – are sufficiently risky when they arrive from outside that Microsoft has, for many years, blocked them by default.
+As you probably know, however, the crooks have learned how to turn Microsoft’s security warnings into “features”, as you see here:
+
+The actual document – the part that isn’t dangerous, and doesn’t harbour the macro code – is the text with the blue background you see above, and it has been deliberately created by the crooks to look like a message from Microsoft Office itself:
+Your application activated
+This document was created in an earlier version of Microsoft Office Word. To view full content, please click “Enable Editing” and then click “Enable Content”
+© Microsoft 2020
+As reasonable as this sounds, DON’T ENABLE CONTENT!
+The “content” you will activate by clicking the [Enable Content] button is not the document itself – you’re already looking at the document part, after all – but the macros hidden in it.
+And the macros in this document aren’t anything to do with your company’s workflow – they make up the malicious software code that the crooks want to run.
+SophosLabs has published a technical report on what happens if you run this macro malware, which involves a series of stages that ultimately result in infection by a well-known strain of Windows malware called Trickbot.
+We recommend you read the Labs report to learn how a modern malware infestation unfolds, with each step downloading or unscrambling the next part, usually in the hope of breaking the attack into a series of operations that are less suspicious, one-at-a-time, than running the final malware right away.
+If you’re wondering where you’ve heard the name Trickbot before, it might very well have been on the Naked Security Podcast, where our resident Threat Response expert Peter Mackenzie has mentioned it more than once. (In the episode below, Peter’s section about malware attacks starts at 19’10”.)
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+Trickbot is dangerous in its own right – it started life as a so-called banking Trojan, a type of malware that tries to hijack access to your bank account.
+These days, Trickbot is also very commonly a precursor to a full-blown ransomware attack.
+By implanting Trickbot on your computer, the crooks get a foothold inside your network where they can harvest passwords and data and much more, as well as mapping out what resources you have.
+Once they’ve squeezed all the criminal value they can out of the Trickbot part, the crooks often use the bot as a launch pad for their final act: a ransomware attack.
+One ransomware family that commonly follows unchecked Trickbot infections is the malware strain known as Ryuk, whose criminal operators are notorious for asking for six- and even seven-figure ransom payments.

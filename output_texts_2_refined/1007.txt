@@ -1,0 +1,35 @@
+If you’ve followed the inglorious history of malware in recent years, you’ll almost certainly have heard the name Emotet.
+That’s a long-lived and extensive family of malware that we’ve had the unfortunate necessity to warn you about on many occasions, 
+Emotet is what’s known as a bot or zombie – malware that regularly and quietly calls home to one or more C&C servers operated by the crooks. (C&C and its synonym C2 are short for Command-and-Control.)
+Zombies of this sort generally upload details of each system that they successfully infect, and download instructions on what dastardly deed to do next.
+Any collection of zombified computers that is hooked up to the same set of C&C servers is known as a botnet, short for robot network, because the crooks that control those C&Cs can send commands to some, many or all of those infected computers at the same time.
+How bots and zombies work, and why you should care
+
+
+As you can imagine, that gives so-called botmasters an awful lot of unlawful computing power and network bandwidth that they can unleash in parallel.
+Example large-scale attacks that can be automated in this way include: mass spam-sending from hundreds of thousands of innocent-looking computers at the same time; distributed denial of service (DDoS) attacks against companies or service providers; click fraud involving millions of legitimate-looking ad clicks; and more.
+The Emotet gang, however, have typically used their own botnets in a very service-oriented way: as a pay-as-you-go malware delivery network for other cybercriminals.
+In other words, an Emotet infection, if not prevented or remediated quickly, typically morphs into infection by some other malware, or chain of malware infections.
+A common malware chain might involve an Emotet infection to act as a malware delivery beachhead, followed by the Trickbot malware to scrape through your system and go after details such as on-line banking credentials, followed by an attack by ransomare such as Ryuk.
+Even though Emotet seems to go quiet on an irregular basis, sometimes vanishing from sight for months at a time, it nevertheless always reappears from hiatus – almost as though the gang behind the malware decided to take an extended vacation to blow some of their ill-gotten gains.
+Fighting Emotet: lessons from the front line
+
+
+Unfortunately, Emotet isn’t the only game in town, because what works for one gang of crooks is typically embraced enthusiastically by other criminals determined to compete in the underground marketplace.
+One example of an up-and-coming malware delivery network is Buer Loader, profiled this week in a detailed report from SophosLabs:
+Hacks for sale: inside the Buer Loader malware-as-a-service
+
+
+
+As SophosLabs writer Sean Gallagher explains:
+First introduced in August of 2019, Buer is a malware-as-a-service offering that is used to deliver whatever package the service customer desires, providing initial compromise of targets’ Windows PCs and allowing them to establish a digital beachhead for further malicious activity. Buer has previously been tied to banking trojan attacks and other malware deployments—and now, apparently, has been embraced by ransomware operators. In many ways, Buer is positioned as an alternative to Emotet and Trickbot’s emerging Bazar loader.
+Briefly summarised, Buer is a way to create a self-managed zombie network of your own, for example to launch remote attacks with your latest ransomware – which you could, of course, buy in from someone else in the cybercrime ecosystem.
+After all, this sort of delivery model works well in the world of legitimate business.
+If you’ve recorded an album in your garage, or produced a bunch of educational videos, you probably aren’t going to spend the time to set up your own multimedia server and content delivery system to publish them.
+If you can master video editing or audio post-production, you’re definitely technical enough to set up a Linux server with a content managment system like WordPress and a file streaming server…
+…but if making videos or music is actually your core interest, you’re likely to turn to a hosting provider who can provide you with a ready-to-go control panel by means of which can upload your material, hit [Publish] and then check back in regularly to monitor your stats and keep up with your listeners or viewers.
+Sadly, that sort of approach is available to budding ransomware crooks, too.
+For as little as $350, the Buer crew will provide you with a customised malware loader hooked up to a C&C server that “just works”.
+As Sean Gallagher explains:
+The Sophos Rapid Response team discovered a sample of Buer at the root cause of a September Ryuk attack. The loader was delivered by a malicious document stored on Google Docs, which required the victim to enable scripted content to activate—a behavior similar to Emotet and other loader attacks via malicious spam emails but leveraging cloud storage to make forensic analysis more difficult.
+So, the infamous Ryuk ransomware crew are using the Buer Loader distribution – and that’s only part of the answer, because you can bet your bo(o)ts that they’re not the only crooks trying out this up-and-coming malware delivery network.

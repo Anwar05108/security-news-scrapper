@@ -1,0 +1,25 @@
+Yesterday was both a Tuesday and four weeks since the last major Firefox update, making it the official release date for the latest version.
+There are now three mainstream flavours of Firefox to choose from: 68.10ESR, 78.0ESR and 78.0.
+ESR is short for Extended Support Release, often preferred by IT departments because it gets security fixes at the same rate as the regular version, but only takes on new features in a staggered fashion – in other words, users of the ESR versions are shielded from sudden switches in appearance, user interface and workflow.
+This time you can choose from 68.10ESR (the numbers to the left and right of the dot add up to the current major version number, in this case 78), which is Firefox with the look-and-feel of about a year ago plus 10 updates’ worth of security fixes, or 78.0ESR, which is largely the same as the regular version, as the numbers reveal.
+Every time the ESR version “catches up” with the regular version’s features, Mozilla releases old-style and the new-style ESR versions in parallel so there’s always an overlap period in which to try out both before switching over.
+The new Firefox 78.0 does have some visible changes, notably the addition of a special web page called the Protections Dashboard, accessible by putting about:protections in the address bar.
+This gives you a summary of any trackers blocked recently, a button to entice you to sign up for Firefox’s breach alerts, and a link to the Firefox password manager.
+We were underwhelmed by this feature, given that we couldn’t figure out how to drill down into the list of trackers that the browser had blocked – all we could see was a count of how many social media trackers, cross-site tracking cookies, tracking code (we presume this refers to JavaScript), fingerprinters and cryptominers had shown up each day over the past week.
+Also, Firefox 78 no longer supports TLS 1.0 or TLS 1.1, which are older versions of the TLS security protocol that is now de rigueur for web servers.
+Those older flavours of TLS were due to be retired earlier this year by all the major browser makers, on the grounds that TLS 1.2 offers better security using newer cryptographic algorithms, and has already been out for more than a decade.
+The demise of these outdated TLS versions was deferred, however, when it became obvious that some US government sites that were considered useful and reliable sources of coronavirus information still hadn’t been upgraded and would therefore suddenly become inaccessible.
+Well, Firefox has now killed off both TLS 1.0 and TLS 1.1, so that if you visit a site that doesn’t support TLS 1.2 or later, you will be blocked with an error like this:
+
+You can opt back into TLS 1.1 and TLS 1.0 by pressing the blue button, but this isn’t a one-off setting for the site you are currently visiting and will leave the old TLS versions enabled for all your browsing, which might be more liberal than you really want.
+We couldn’t find an obvious way to turn TLS 1.1 and TLS 1.0 back off after clicking the blue button above, but it can be done using Firefox’s advanced about:config page, which gives you direct access to all the many Firefox settings in a text-style list.
+If you browse to about:config and search for the options with names that start security.tls, you’ll see the option you use to turn TLS 1.0 and TLS 1.1 back off:
+
+Clicking on the line that says security.tls.version.enable_deprecated will flip the setting from true, which means that the old and less secure TLS flavours are allowed, back to the default setting of false, which causes the old versions to be blocked.
+At the moment [2020-07-01T11:00Z], the security fixes in the new version are a mystery!
+The release notes directed us to the official security fixes page, but there wasn’t any entry for Firefox 78. 
+That could mean that there weren’t any major bugs fixed, or simply that current security advisory isn’t out yet.
+We’re assuming the latter – otherwise we think there would be a list with zero items on it, which isn’t the same as no list at all – and so we fetched the update anyway.
+We suggest you do the same: go to the Hamburger (three lines) icon at the top right of the Firefox winow, then Help > About Firefox to check for the latest version and download it if needed.
+(Note that on some Linux distros, Firefox updates are provided by the distro itself, not downloaded directly by Firefox, so you may need to do a system update to find and fetch the latest version.)
+Update 1. [2020-07-01T21:40Z] Security Advisory MFSA2020-24 was issued after this article was published. The advisory lists 14 CVEs, of which eight are classed as “high” risk, but none as “critical”. Update 2. [2020-07-02T0:15Z] Firefox 78.0.1 quickly followed 78.0, apparently to fix a non-security bug that “could cause installed search engines to not be visible when upgrading from a previous release.”

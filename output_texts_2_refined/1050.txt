@@ -1,0 +1,36 @@
+Towards the end of 2020, a researcher at Dutch cybersecurity company EYE was taking a look at the firmware of a Zyxel network router.
+He examined the password database that shipped in the firmware and noticed an unusual username of zyfwp.
+That name didn’t show up in the official list of usernames shown in the router’s user interface…
+…yet it did have a password hash in the database itself, which was interesting all on its own.
+To explain.
+Zyxel products are Linux-based, and Linux usernames and passwords are typically split between two files for security reasons. 
+The file /etc/passwd is usually world-readable and contains a list of known users, e.g.
+For reference: the first field on each line is the username; the third is the user’s numeric ID or UID (the root account is always UID zero); the sixth field is the user’s home directory; and the last one denotes the program to run when the user logs in, typically a command shell for regular accounts and /bin/false, a program that exits immediately with an error code, for other accounts.
+The second field, intriguingly, is the user’s password.
+Or, to be more precise, it used to be where Unix passwords were stored, thus keeping usernames and passwords together in one file for consistency and convenience.
+But storing passwords, hashed or not, in a world-readable file was quickly found to be a terrible idea.
+Even in the 1970s, hackers would routinely collect /etc/password files so they could crack them offline.
+The early passwords of several Unix pioneers were cracked for fun in 2019 based on ancient password files embedded in the BSD-3 source code. Ken Thompson’s password, for example, turned out to be the chess move p/q2-q4!. Thompson himself rather nicely chimed in with congratulations to the finder.
+So the “passwords” in /etc/passwd are now set to the letter x, acting merely as a placeholder, and the hashed passwords themselves are stored elsewhere, typically in a locked-down file called /etc/shadow, which might look like this:
+Accounts with “passwords” starting with a * character don’t have a password, so you can’t login interactively to those accounts (after all, there is no valid reply you could give at the password prompt that would hash to an asterisk character).
+In the example above, the root and duck accounts do have passwords set, using hashing method $1$ (the no-longer-fit-for-purpose md5crypt algorithm – never use this in real life!), with salts trymemow and trymetoo respectively.
+If, for instance, you can find the input that hashes via md5crypt to r0NTYRppwVIrSnk6OjqPI0 with salt trymenow (and why not try it now?), you just cracked the root password.
+However, even if you can’t crack the password, the presence of a password hash in /etc/shadow nevertheless gives you a hint that the account concerned is intended for remote logins.
+In this case, the researcher didn’t have to crack the password hash in the firmware, a process that might have taken years or even longer, assuming that a recent Linux password hashing scheme was used. (Methods $5$ or $6$ use 5000 iterations by default of SHA-256 or SHA-512 respectively.)
+By looking through the firmware for program files, known as binaries in Unix jargon, and searching them for strings of printable characters , he soon came across what looked like the likely text of the the password for the zyfwp account.
+So, with SSH listening on the device, he simply connected up, tried to login…
+…and right away got access to the Zyxel command prompt with admin privilege.
+The good news is that he reported the problem to Zyxel, who went to work right away and quickly came up with patches plus an official advisory.
+According to Zyxel, the zyfwp account “was designed to deliver automatic firmware updates to connected access points through FTP.”
+We’re guessing that the plan was for wireless access points on the network to call home on a regular basis to their local router and check for updates.
+That sounds harmless enough, assuming that anything downloaded via FTP included a digital signature of its own, given that FTP connections themselves are unencrypted and therefore easily tampered with.
+Somehow, however – let’s assume that the code was still in development – the account intended for updating access points (zyfwp might stands for “Zyxel firmware patch” or something similar) got shipped in an update build that was inadvertently still set up for development rather than for release.
+After all, an account used merely for fetching firmware updates needs neither login rights nor admin access, though giving it those powers temporarily may have been very convenient during development and testing.
+(Actually, we’re not sure why fetching updates via FTP requires a special account at all, for the same reasons that you don’t need a WordPress account of any sort just to be able to read Naked Security articles via HTTPS, but that’s an issue for another time.)
+And so an active, easily abusable admin-level account that we assume – or, at least, we hope – was only supposed to be there during development work “in the lab” ended up shipped into the field.
+If you’re a Zyxel user, check the company’s advisory for a list of affected devices, and then make sure you’re patched. 
+Affected firewall models apparently include those designated ATP, USG, USG FLEX and VPN.
+Note that patches will also be coming out for two models of Zyxel Access Point controllers (NXC2500 and NXC550) on Friday 2021-01-08, so if you are reading this article before that date, be sure to check back with Zyxel at the end of the week.
+According to reports, cybercriminals have now recovered the hardcoded password themselves (the report from EYE deliberately didn’t reveal it), so you should assume that the offending username/password combination is now being used routinely by the various automated attack scanning tools used by crooks.
+Active attack scanning tools not only probe for open ports and insecure devices, but also follow up their probes by automatically attempting to break in using tricks that are likely to work, including trying out well-known username/password combinations for specific vendors, devices and models.
+If you’re a programmer, our advice is:

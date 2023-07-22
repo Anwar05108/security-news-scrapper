@@ -1,0 +1,70 @@
+There’s a famous and very catchy song that starts, “It was 20 years ago today…”
+But can you remember where you were and what you were doing 20 years ago, if you’re old enough to have well-formed memories of that period?
+If you were in IT or cybersecurity 20 years ago this week, the answer to that question is almost certainly a big fat “Yes.”
+That’s because July 2001 is when the infamous Code Red computer worm showed up, spread fast, and all but consumed the internet for several days.
+I can certainly remember where I was, because I had just – only just! – relocated from Sophos UK to Sophos Australia, where we were in the process of opening up a new threat research lab.
+I’d had just enough time to figure out how to use Sydney’s buses and trains (there were no Opal cards back then – bus travel was based on magnetic strips and unintiutive “zone numbers” that turned out to be old British miles in disguise).
+On Code Red day, I got to the office nice and early, ready for the sort of problems often left behind on purpose handed over carefully by those of our colleagues in North America who been the last to leave their office.
+I was the second person into work that day, and I was greeted by a early-bird colleague who was wearing one of those conflicted excitement/fear/resignation expressions that, in the late 1990s and early 2000s world of IT, could only mean one thing.
+WILDCAT VIRUS OUTBREAK!
+He very calmly advised me to attend to all my bodily needs right away: get coffee and any needed snacks; take a toilet break (at that office, the bathrooms were out in the fire escape and down the stairs a fair way, for some reason); adjust desk and chair for long-term comfort; find most ergonomic alignment of keyboard; optimise colour settings for screen (computer displays really weren’t that good 20 years ago).
+“I think we might be here for a while,” he said. (We were. I can’t remember if the pub next door had already closed by the time I went home, but it might as well have, and I am pretty sure I was the only passenger on the bus.)
+Code Red wasn’t a new idea.
+Indeed, it used one of the tricks of the notorious Internet Worm from way back in 1988: a stack buffer overflow in server software that was almost certainly open to the internet on purpose.
+In Code Red’s case, the vulnerable service was IIS, Microsoft’s unfunkily but informatively named web server, Internet Information Services.
+By sending in an innocent-ish HTTP GET request, which is the unexceptionable way that almost every browser asks for almost every page on almost every website, the Code Red malware was able to distribute itself…
+…all in a single HTTP request.
+The malicious malware “probe” that drove the Code Red infection process consisted of:
+The malware didn’t need to bother about whether the connection failed, or whether the computer really was a web server, or even if there was a computer at the other end at all.
+It didn’t need to download or install any additional files, make any registry changes, wait for a user to open or click anything (or even for any user to be logged in), write anything to disk, or take any notice of what the server sent back if the connection succeeded.
+In modern jargon, this was a truly fileless 0-click remote code execution exploit in action.
+In case you’re wondering, the long string NNNN[...]NNNN in the GET> request was sized up to be just too big for the buffer awaiting it in the IIS server.
+The resulting buffer overflow lined up the hexadecimal-encoded data in the fake URL with the return address on the CPU stack to which IIS would jump back after receiving the request.
+A return address overwrite of this sort misdirects the flow of execution at the end of the current code subroutine (or function, in C jargon) to a memory location of the attacker’s choice.
+The important hex digits above are %ucbd3%u7801, two 16-bit numbers that decode in memory to the little-endian binary string D3 CB 01 78, which represents the 32-bit number 0x7801CBD3. 
+(In little-endian format, numbers are stored with least significant byte at the lowest address, so that they come out in the opposite order to our usual numeric notation, as though they were written right-to-left while everything else goes left-to-right.)
+Back in 2001, Windows didn’t support ASLR, short for Address Space Layout Randomisation, so any DLLs loaded on your computer would show up at the same address as they did on mine, and indeed on everyone else’s.
+This predictability in memory arrangement made remote code exploits based on stack buffer overflows almost trivial to figure out in those days.
+You just had to pick a return address for your stack overwrite that corresponded to a useful sequence of instructions anywhere in any Windows DLL that you would expect to be in memory already. 
+In this case, the attackers knew (or, more precisely, could assume with high probability) that memory address 0x7801CBD3 would be somewhere safely inside MSVCRT.DLL, the Microsoft Visual C Runtime library.
+This DLL is used by many Windows programs, including IIS, so the virus writers could predict that the binary data at the given address would be the machine instruction CALL [EBX].
+The crooks also knew, at that point, that the EBX register just happened to hold the address of another memory location on the stack that had also been modified in the buffer overflow, so that the CPU diverted execution directly back into the bytes submitted in the GET request.
+Those bytes contained code that located the address in memory of the HTTP request body, which contained yet more attacker-supplied shellcode, and jumped there.
+Back in 2001, Windows didn’t support DEP, short for Data Execution Prevention, so that any code shoved onto the stack could blindly be executed, even though the stack is intended to store data, not code.
+This lack of execution prevention on the stack meant that remote code exploits didn’t need to find sneaky places in memory to locate themselves, and were therefore trivial to figure out.
+Also, few if any programs in those days bothered to use what’s known as a Stack Canary, or a stack-smashing protector, which acts as an early warning that a stack overflow has just occurred. 
+A stack canary is a randomly chosen value placed onto the stack when a subroutine gets called, so it occupies the memory bytes just in front of the return address.
+This canary is checked by the called subroutine in the last line of code before it executes the RET instruction to return to the caller.
+This helps to spot buffer overflows, because an attacker has to overwrite all the bytes leading up to the return address in order to overflow far enough to reach the return address.
+The attacker can’t easily guess what value to put in the buffer overflow data at the point where the canary lives, so the canary will probably get overwritten by incorrect data and the canary check will therefore fail.
+At this point, with very little additional code added to each protected function, the operating system can instantly terminate the offending program before the return address hijack takes place.
+All this predictability made stack overflow exploits really easy to figure out 20 years ago:
+As we said in this week’s podcast:
+In the Code Red days, […] if you could find a stack buffer overflow, it was often very, very little work, maybe half an afternoon’s work, to weaponise it, to use the paramilitary terminology that cybersecurity seems to like, and turn it into a workable exploit that could basically break in on any similar Windows system.
+The silver lining, if there was one, is that Code Red wasn’t programmed to do much damage to the computers it infected.
+The direct damage was limited to an attempt to deface your website with a “Hacked by Chinese” message, although there was no evidence that the malware itself came from China.
+But Code Red didn’t go after anything else of yours, such as searching for your passwords or your trophy data, or scrambling all your files and demanding money to unlock them again, as you might expect from today’s cybercrooks.
+Once running, Code Red dedicated 99 parallel threads of execution to generating a list of new victim computers and spewing out HTTP requests to all of them.
+That network-based aggression alone was how it came to cause as much disruption as it did.
+Amusingly (well, it’s worth a smile with hindsight), Microsoft had patched against the Code Red buffer overflow exploit about a month before the attack.
+But with many companies struggling to get patches done within a month even in 2021, you can imagine how few people had installed the vital patch in time back in 2001.
+And anyway, even if you were patched, or weren’t running IIS at all, sooner or later you’d end up facing a barrage of infection attempts from servers that hadn’t been patched and were now actively infected (or, of course, re-infected).
+That’s an important reminder that, in cybersecurity, an injury to one is an injury to all.
+To mix a metaphor, one rotten apple really can spoil the barrel, 
+You need to patch not only for yourself, but also for everyone else as well:
+
+If nothing else, just in terms of network traffic, [Code Red] was quite disastrous. […] A huge percentage of network traffic in the world was this jolly thing trying to spread from anyone who’d got infected to thousands, millions, of other computers. […] Even if you’d patched, you’d still get these packets battering on your web server, like a built in DDoS.
+
+Another important lesson to remember is that uncontrolled cybersecurity “experiments” and irresponsible disclosure are something that we can all do without.
+Again, from the podcast:
+
+Q. So, when you’re analysing this, when it’s breaking out, what’s your mindset? Are you [thinking], “This is unique”? […] Are you impressed by it?
+A. You have to have a little bit of grudging respect. “My gosh, they packed so much into so little.” At the same time, when you look at the code, you think, “You knew! When you said, ‘Let’s have 99 threads,’ when you said, ‘Let’s try and spread everywhere, all the time,’ you’d made your point already.” 
+To go and make it an extra 20 times is excessive. To make it another 1000 times is really going over the top. To go and do it another 1000,000,000 times? Well, it’s hard to have much respect for that. And that’s all I’m saying.
+
+.
+By the way, despite their simplicity and effectiveness, it took years for the protections mentioned above to become ubiquitous in Windows software products. 
+Don’t be slow to seek out improvements that push back even further against the crooks, even if it means revisiting legacy code you thought was “feature complete” by now.
+LISTEN NOW: CODE RED IN THE NAKED SECURITY PODCAST
+Code Red section starts at 12’50”.
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.

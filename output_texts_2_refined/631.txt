@@ -1,0 +1,22 @@
+Years after it was first identified as a possibility, researchers have found it’s still child’s play to hijack subdomains from companies such as Microsoft to use in phishing and malware attacks.
+Researchers at Vullnerability.com were able to grab more than 670 subdomains that had previously been used by Microsoft but subsequently forgotten about, including:
+And many others, all of which look like the sort of legitimate subdomains users (including Microsoft employees), would be inclined to trust if lured to them by a phishing attack.
+Why wouldn’t someone trust these? They’re subdomain prefixes of big and important domains such as microsoft.com and skype.com that are under the control of those companies.
+Imagine the potential power that grabbing and abusing one of these would give an attacker, particularly ones targeting enterprises.
+The researchers offer examples that include persuading a visitor to install a spying extension in their browser, phishing enterprise credentials with a fake login page, or asking visitors to upload sensitive documents to data.teams.microsoft.com with the Teams App. They could even deface a subdomain linked to from a larger domain.
+All hypothetical exploits of course, but still an appealing alternative to the other domain ruse of typosquatting domains and hoping nobody notices.
+The underlying problem here is weak DNS management, in this case by Microsoft, a problem that’s been magnified by the huge proliferation of subdomains used in cloud services.
+First, the attackers look for orphaned subdomains by navigating to one they guess might be up for grabs using a scanning tool. If they receive a 404 page-not-found error, they have a candidate.
+Let’s say an attacker gets a 404 error for an abandoned shop at shop.example.org.
+The attackers can’t edit the DNS records for that site because they don’t own the example.org domain. Instead, they check if the subdomain is an alias for a different domain or subdomain that they might be able to take control of, indicated by a CNAME record.
+If the CNAME points to a domain name whose ownership has lapsed, they can try to buy that domain and use it to host a malicious website.
+Often though, the CNAME points to a subdomain on a hosting service like Azure, which allows users to create websites using subdomains of .azurewebsites.net.
+If the Azure subdomain in the CNAME record is no longer in use the attacker can try to claim it. They can configure a virtual machine on a Microsoft Azure account, install a web server that throws up a clone of a target site, and add the Azure subdomain as a custom domain that points to it.
+No verification, no alert to Microsoft that one of their old subdomains has been taken over, and no easy way for enterprise security systems to detect that this apparently legit domain is anything but.
+The defence against this is to cleanse the DNS records for the subdomain, but the sheer number that are set up and then fall into disuse means that doesn’t always happen.
+Vullnerability says in their blog:
+Our team claimed some of those critical subdomains before attackers and reported them ethically to Microsoft.
+The issue of subdomain takeover has been around for years and can affect subdomains belonging to any company on any cloud platform and not only Microsoft’s.
+However, the issue of vulnerable Microsoft subdomains is becoming an ongoing theme with a separate researcher, Michel Gaschet, finding and reporting another 280 in this state between 2017 and 2019. Microsoft only fixed a few of these, he claimed.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

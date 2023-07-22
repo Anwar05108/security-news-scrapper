@@ -1,0 +1,35 @@
+Apple’s iOS 15 is now out – the very latest software version for iPhones, just in time for the official launch of the new iPhone 13 later in the week.
+(Yes, you can buy an iPhone 13 today, but only by placing what modern sales and marketing jargon refers to as a pre-order, which is known simply as an order in plain English: pay now, and collect it or get it delivered in the near future when it’s ready.)
+Most of the articles you’ll read about iOS 15 understandably focus on new features in the operating system and the built-in apps, such as improvements to Notifications, Messages, Safari and even how your local weather gets displayed.
+What you might not realise, however, is that even though iOS 15 is brand new to most of the world, it’s been baking in the oven in its pre-release form for many months…
+…which means that the official initial release nevertheless comes with its own security advisory, detailing 22 vulnerabilities that have been patched, including ten bugs that could lead to what’s known as remote code execution, or RCE.
+RCE vulnerabilities mean that, in theory, simply viewing, opening or otherwise using a booby-trapped file of some sort could allow an attacker to secretly launch malware such as spyware on your device.
+Two of the code execution flaws could even give crooks the access they need to implant rogue code in the kernel itself, essentially allowing them to take over the whole device, for example to “jailbreak” it in order to escape from Apple’s walled garden of security controls altogether.
+But the iOS security notification that most caught our eye was CVE-2021-30863, fixing a bug in Face ID that’s excitingly described as:
+A 3D model constructed to look like the enrolled user may be able to authenticate via Face ID.
+Fake heads! (Cue dystopian scifi movie music.)
+Bypass attacks against Face ID have been announced before, notably by a Vietnamese researcher who claimed in 2017 to be able to get past Face ID using a mask, and by Chinese researchers from cybersecurity company Tencent in 2019, who were able to get around Face ID’s “are you awake?” detection and unlock the device of someone who was asleep.
+Neither of those attacks were very practical, if ever they would have worked in real life.
+As far as we know, the Vietnamese result was never successfully replicated, and the Tencent researchers relied on the unlikely scenario of the victim “looking” at the camera without noticing that they were wearing spectacles (eyeglasses) deliberately doctored with black tape and a reflective spot, so they couldn’t see the phone at all.
+Sadly, there aren’t any details of how this new Face ID hack was carried out, so we don’t know how effective and reliable it was.
+Perhaps more importantly, we can’t estimate how likely it is that the technique could be adapted to get past Apple’s latest security update, which states merely that “this issue was addressed by improving Face ID anti-spoofing models.”
+Along with updates for the otherwise brand-new iOS 15, iPadOS 15, tvOS 15 and watchOS 8 (for some reason, watchOS version numbers have not been aligned with the rest of Apple’s mobile range), the latest security announcements also cover iTunes, macOS, Safari and Apple’s Xcode developer tools, as well as iOS 14.8 and iPadOS 14.8.
+Confusingly, the iOS 14.8 and iPadOS 14.8 updates were actually released more than a week ago, apparently as emergency patches to close off a hole that was allegedly being exploited in the wild for government surveillance against an activist.
+The iOS 14.8 patch became widely known as the FORCEDENTRY update.
+(The 14.8 update actually fixed two in-the-wild security exploits, but the better-known of the two was the the one allegedly found on the activist’s phone, dubbed FORCEDENTRY by the organisation that investigated the attack and reported it to Apple.)
+Apple products vulnerable to FORCEDENTRY zero-day attack – patch now!
+
+
+It turns out, however, that the iOS 14.8 update fixed a number of other security holes as well, including many that were also fixed in iOS 15.
+We’re guessing these are bugs that iOS 15 inherited from its predecessor.
+There’s also an update called Safari 15, available for macOS 10.15 (Catalina) and 11.6 (Big Sur).
+This is additional to the security updates for Big Sur and Catalina that came out last week to patch the FORCEDENTRY hole.
+Although there are no new patches specifically for macOS itself, we’re assuming that the Safari 15 update brings the macOS version of the Safari browser in line with its mobile counterpart on iOS and iPadOS.
+The security advisories for which we received notifications are as follows:
+Once again, poor old iOS 12 is a victim of Apple’s doctrine that prohibits the company from telling you what’s going on from a security perspective “until an investigation has occurred and patches or releases are available.”
+Unfortunately, the fact that you won’t be told about the patch situation unless and until there is a patch means that if there isn’t going to be a patch, you’ll never know.
+In other words, the logical conjunction investigate() AND dopatch() means that “no patch available” could be the consequence of any of these scenarios:
+Our suspicion is that iOS 12 has finally reached the end of the line.
+With iOS 15 out, and iOS 14 still officially supported (given that it just received its own security update and advisory), we’re assuming that iOS 12, now the pre-previous version, is no longer going to get any more updates, in the same way that Apple is calling out just Big Sur (current) and Catalina (previous) by name for macOS updates.
+So it’s Catch-22 for iOS 12: if there aren’t going to be any more security patches, then we won’t find out until there’s a security advisory to say so; but there won’t be a security advisory to say so until there’s another security patch.
+Note. Sophos mobile security products already support iOS 15,and will therefore continue working seamlessly after you update from iOS 14.

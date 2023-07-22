@@ -1,0 +1,52 @@
+A trio of researchers from Singapore just published a paper detailing a number of security holes they discovered in Bluetooth chips from several different vendors.
+The good news is that they disclosed the holes responsibly back in 2019 and waited 90 days – a sort-of industry standard period popularised by Google’s Project Zero team – before releasing the paper.
+The bad news is that not all of the affected devices have received patches yet, and even for chips where the vendor has provided new firmware, it’s hard to be sure:
+The researchers name seven different Bluetooth chip manufacturers as having buggy chips, though they insist that their list is “By no means […] exhaustive in terms of being affected.”
+We assume they’re saying that out of a sense of fairness to the vendors they did name, which just happen to be the major Bluetooth chip makers whose chips appeared in the products they tried.
+In other words, they’re not claiming that they tested a long list of chips and found all the other vendors to be safer, or suggesting that by avoiding the named vendors you’ll immediately be more secure.
+The researchers also say that they were quickly able to find about 480 different products using the affected Bluetooth chips they’d identified, including fitness trackers, digital locks, remotely controllable plugs and more.
+This family of bugs has been dubbed Sweyntooth. (The -W- should be pronounced as a -V- in English.) We’re usually a bit cynical about BWAINs – bugs with an impressive name, as we call them – that go in for dedicated websites, logos and so on for PR purposes. But we did smile at this name – Bluetooth itself is named after Harald Bluetooth, a Danish ruler from the 10th century. Harald was deposed and driven into exile by his own son, Sweyn Forkbeard. Incidentally, Sweyn was the first Danish king of England, and the father of Cnut, who famously proved to his unbelieving followers that he was not omnipotent by showing them that there were forces that even a king could not control, no matter how hard he tried. (Cnut used the tide to prove his point.)
+Fortunately, most of the Sweyntooth bugs aren’t too serious, and all of them require the attacker to be within Bluetooth Low Energy (BLE) range.
+Nine of the ten bugs can so far only be exploited to force an affected device either to reboot or to hang; only one can potentially be abused by crooks to access your device without needing you to let them pair with it first.
+Because it’s the most serious, we’ll start with the pairing bypass bug, dubbed CVE-2019-19194 and denoted in the researchers’ paper as 6.10 because it’s explained in the tenth section of part 6 in the document.
+(Only one vendor’s Bluetooth chip was found vulnerable to this attack – if you are worried, please check the paper for suggestions on what sort of products under which brand names might be affected.)
+According to the researchers, the firmware in the affected chip fails to handle the Bluetooth pairing process properly.
+In theory, an app that wants to connect to a device is supposed to go through pairing first.
+Typically, this can’t be completed without the owner of the device taking a voluntary step, such as pressing a button or acknowledging a prompt, so that you can’t easily pair with a device without some sort of consent.
+During the pairing process, a cryptographic dance is done by both sides to agree on a 16-byte LTK, short for “long-term key”.
+Each side remembers the LTK associated with the other device, and with that LTK they can connect securely in future.
+But to avoid using the LTK itself on every future occasion they connect, they use an SK, short for “session key”, computed from the LTK.
+To ensure that the SK is different every time, the two devices connecting first agree on 16 random bytes called the “session key diversifier”, or SKD.
+It doesn’t matter if an eavesdropper gets the SKD, because it’s converted to the session key independently at each end, using the algorithm:
+So, to get the right SK, you need to know not only the random data, which can be considered public, but also the LTK, which you can only acquire privately during the original by-consent pairing process.
+No pairing, no LTK; no LTK, no session key; no session key, no connection.
+But the researchers found they could trick the buggy chip firmware into short-circuiting the pairing process.
+They sent a request to start pairing, and waited for the other end to say, “Go ahead”.
+But then they skipped straight to making a session connection, without pairing at all, and without getting an LTK.
+The other end ought to say, “No! I don’t know you and I don’t have an LTK for you, so go away until you have completed the pairing process.”
+Instead, the buggy firmware went ahead with the connection process anyway and calculated the session key like this:
+In other words, by simply pretending to pair but never actually doing so, you effectively “autopair” with a known LTK consisting of all zeros.
+Because you “know” the LTK, you can calculate SK, and with SK, you can complete your connection without ever going through the pairing process.
+The other bugs are somewhat milder – at the moment, all the researchers have been able to do with them is reboot or freeze a device.
+Most of the bugs are buffer overflows, meaning that the vulnerable device can be sent N bytes of data that it then tries to store into M bytes of memory, where M < N.
+There isn’t a lot of spare memory in a Bluetooth Low Energy chip, so the chances are that if you write past the end of the memory block reserved for storing, say, a device name, you’ll stray straight into an important memory that comes next, say, the number of seconds to wait for the network to settle after an error.
+You don’t have to know what data you’re overwriting – what matters is that you’re messing something up that might later be important, and by trial and error you can probably find a data pattern that will crash or lock the device.
+In the example above, imagine that your buffer overflow ends up corrupting a memory area that usually says, “Wait 0x0001 seconds after an error” so that it now says, “Wait 0x4141 seconds after an error”.
+We chose 0x4141 because it just happens to be the hexadecimal bytes you get from the two ASCII characters AA. Bug hunters often use the text AAA...AAA in varying lengths in the early stages of probing for buffer overflows – it’s handy to type in, and it’s easy to recognise in mangled data because of the 0x4141...4141 pattern in hexadecimal.
+Well, 0x4141 seconds is 16,705 seconds in decimal notation, which is close to five hours, so the next error will tie up the device for all that time instead of just one second – essentially a Denial of Service (DoS) attack.
+Some of the bugs were astonishingly simple to trigger: CVE-2019-19192, for example, just required the researchers to send an innocent, well-formed packet to the other end, and then to send exactly the same packet again immediately.
+The other end would freeze up and the device had to be rebooted before it would work again – an instant DoS.
+The connecting-without-pairing bug is the most serious, for obvious reasons.
+The authors don’t give any advice themselves, but we suspect that some devices – assuming they are vulnerable – may offer a workaround by setting them into “undiscoverable” mode, if they have such an option.
+Devices that are undiscoverable aren’t closed to authorised connections, but they don’t advertise themselves for the pairing process.
+Therefore, if your device can be made to ignore pairing requests altogether, we suspect that the pre-conditions for CVE-2019-19194 can’t be met and therefore the attack won’t be possible.
+NB. We don’t have a vulnerable device to test this, which is why we’re saying we suspect this will help.
+As for the bugs that could crash or freeze your devices: make a habit of checking up on your devices regularly if you rely on them being up and running.
+Some devices reboot themselves automatically after a crash or an error; others may fail into a state you didn’t want (the researchers found a power plug that could be crashed so that it turned itself off and stayed off, presumably for electrical safety).
+And the researchers were able to crash one device that couldn’t easily be rebooted because it didn’t have a power button, so they had to remove and replace the battery to get it to restart.
+You implicitly check that the fridge is still working every time you go in it – did the interior light come on? Is the lettuce looking limp?
+So, make a habit of doing the same sort of checks on your Internet of Things (IoT) devices – it only takes a moment and will help you spot all sorts of problems, including fading batteries, misconfigured settings… and devices that have crashed unexpectedly.
+Oh – and get any available patches, assuming the manufacturer of your device provides them!
+By the way, whether you think you’re vulnerable to Sweyntooth or not, get those patches anyway, because it never pays to be behind in cybersecurity.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

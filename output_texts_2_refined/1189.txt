@@ -1,0 +1,53 @@
+Here’s the good news: Microsoft has released an emergency patch for the infamous PrintNightmare bug that was revealed in the Windows Print Spooler just over a week ago.
+The patch is what Redmond refers to as an OOB Security Update, where OOB is short for out-of-band.
+OOB is a jargon term that refers to communications that are kept separate from the usual channel you use, notably for safety reasons in case the main channel should fail or need overriding in an emergency. 
+In Windows update parlance, OOB refers to patches that are deemed so important that they can’t wait until the next official Patch Tuesday, which is always the second Tuesday in each calendar month. (This month, that’s 2021-07-13, which is still almost a week away.)
+Here’s the bad news: early reports suggest that the patch doesn’t protect against all aspects of the PrintNightmare bug, and that it may be possible to bypass the patch entirely, depending on the version of Windows involved and the Print Spooler configuration on the targeted computer.
+ICYMI, PrintNightmare is an aptly named bug that became a public danger for the unfortunate reason that a team of security researchers jumped to an incorrect conclusion:
+PrintNightmare, the zero-day hole in Windows –  here’s what to do
+
+
+Briefly put, Microsoft published a Windows Print Spooler patch for a bug dubbed CVE-2021-1675, as part of the June 2021 Patch Tuesday update that came out on 2021-06-08.
+Originally, the bug was reported as an elevation of privilege (EoP) vulnerability, meaning that although attackers already on your computer could exploit the bug to promote themselves from a regular user to a system account, they couldn’t use it to break into your computer in the first place.
+In the meantime, Chinese researchers preparing a paper for the 2021 Black Hat conference were working on their own bug in the Windows Print Spooler.
+Theirs sounded very similar, except that it was an RCE bug, short for remote code execution, meaning that it could be used for breaking in, not merely for elevating privilege.
+Given that the Chinese researchers’ bug was apparently different, they hadn’t disclosed it yet.
+Later in the month, however, Microsoft admitted that CVE-2021-1675 could also be used for RCE, and updated its public advisory to say so.
+Even though that meant the bug was more serious in theory, no one worried too much in practice.
+After all, a patch was already available, and anyone who had installed the patch to close the EoP hole was, ipso facto, protected against the newly announced RCE hole as well.
+At this point, the researchers then apparently assumed that their bug was not original, as they had first thought.
+Because it had already been patched, they assumed that it would therefore not be untimely to publish their existing proof-of-concept exploit code to explain how the vulnerability worked.
+“What’s the chance,” we guess they asked themselves, “that two different RCE bugs, working in what sounds like exactly the same way, would be found at exactly the same time in exactly the same Windows component, namely the Print Spooler?”
+With hindsight, which is a wonderful thing indeed, we can compute that chance precisely: 100 percent.
+Their bug was not CVE-2021-1675 at all; it was CVE-2021-34527, although no one knew that at the time, because that additional bug number was only issued later on.
+Even worse, this new RCE hole wasn’t blocked by Microsoft’s Patch Tuesday update, making the published code into a publicly available, fully functional, break-and-enter exploit.
+In the jargon of the cybersecurity industry, the researchers had unwittingly dropped an 0-day. 
+(“Zero-day” is the jargon for a previously unknown and unpatched security hole, because it means that the Good Guys were zero days ahead when the Bad Guys first got to hear about it.)
+The researchers removed the zero-day code from the internet pretty quickly, but not quickly enough.
+As Pandora found when she opened her proverbial Jar , there’s no point in trying to put secrets back in the box once they’ve escaped.
+The PrintNightmare exploit code had already been copied and republished in many places, and almost every known version of Windows was at risk.
+Most notably, even Domain Controllers generally have the Print Spooler running by default, so that the PrintNightmare exploit code theoretically gives anyone who already has a foothold inside your network a way to take over the very computer that acts as your network’s “security HQ”.
+Fortunately, there is a 2-minute workaround for any and all Windows systems: turn off the Print Spooler and set it into disabled mode so it can’t start up again, either by accident or by design.
+No Print Spooler, no attack surface; no attack surface, no security hole; no security hole, no break-and-enter point.
+Unfortunately, without the Print Spooler running, you can’t print, so anyone who needed a working  printer somewhere on their network working was on the horns of a dilemma: leave the Spooler running only on carefully selected servers, and watch them really carefully; or continually re-enable/print/disable the Spooler every time output was required.
+As mentioned above, the good news is that there’s a patch for the RCE hole available now in the form of Microsoft’s Out-of-Band (OOB) Security Update available for CVE-2021-34527.
+Use Settings > Update & Security > Windows Update and install the latest update (KB5004945)
+
+Microsoft has also published some additional precautions that Windows administrators can follow to lock down their printers more thoroughly than before.
+But as we also pointed out above, there’s some bad news as well.
+Reports currently circulating on Twitter say that this patch only covers the RCE (“breaking in across the network”) part of the bug, not the EoP (“increasing account privilege after you’re in”) part.
+Other reports suggest that if a feature known as Point and Print is allowed to run without User Account Control (UAC) on your computer, then it’s almost certainly possible to bypass the RCE protection in the patch as well.
+In short, we recommend that you apply this patch, on the grounds that it doesn’t seem to make anything worse, and it does shut the door on some, if not all, existing attacks.
+But we also recommend that you stick to our earlier advice to turn the Print Spooler off, as well as setting its status to disabled so it can’t start back up unexpectedly. 
+Unless and until a patch comes out that both Microsoft and the community can’t easily bypass, go for defence in depth, where you use multiple layers of protection to keep attackers out, including:
+Oh, before we go: don’t make the same mistake as the security researchers who unleashed this zero-day code by mistake.
+When it comes to cybersecurity… NEVER ASSUME!
+CHECKING FOR PRINTNIGHTMARE PATCHES
+If you have Sophos Central, you can use the Live Discover feature with a query we’ve published to check your whole network for PrintNightmare patches.
+On your own computer, you can view your recent updates using Settings > Update & Security > Windows Update > View update history.
+Below, we’re running the latest Enterprise Edition of Windows 10 (21H1), and we’ve highlighted the June 2021 Patch Tuesday update, which covers CVE-2021-1675, and the 06 July 2021 Emergency update described in this article, which covers CVE-2021-34527:
+
+You can also list the official hotfixes on your computer from a command prompt (CMD.EXE) using the SystemInfo or WMIC commands, like this:
+From a PowerShell prompt, you can simply use the Get-HotFix command:
+To find out the KB number for your version of Windows, you can consult the list on Microsoft’s CVE-2021-34527 Security Update Guide.
+NB. The list has 52 entries and covers 10 different hotfix numbers, from KB5004945 to KB5004959. You can download the complete list in Excel or CSV format from the relevant Security Update page.

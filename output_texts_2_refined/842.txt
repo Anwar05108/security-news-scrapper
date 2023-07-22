@@ -1,0 +1,19 @@
+Yesterday, SophosLabs published details of a sophisticated new ransomware attack that takes the popular tactic of “living off the land” to a new level.
+To ensure their 49 kB Ragnar Locker ransomware ran undisturbed, the crooks behind the attack bought along a 280 MB Windows XP virtual machine to run it in (and a copy of Oracle VirtualBox to run that).
+It’s almost funny, but it’s no joke.
+The attack was carried out by the gang behind Ragnar Locker, who break into company networks, make themselves admins, conduct reconnaissance, delete backups and deploy ransomware manually, before demanding multi-million dollar ransoms.
+Like a lot criminals who conduct similar “targeted” or “big game” ransomware attacks, the Ragnar Locker gang try to avoid detection as they operate inside a victim’s network with a tactic dubbed “living off the land”.
+Living off the land entails using legitimate software administration tools that either already exist on the network the crooks have broken into, or that don’t look suspicious or out of place (PowerShell is a particular favourite).
+SophosLabs reports that in the attack, the gang used a Windows GPO (Group Policy Object) task to execute the Microsoft Installer, which downloaded an MSI containing a number of files, including a copy of VirtualBox and a Windows XP virtual machine with the Ragnar Locker executable inside.
+VirtualBox is hypervisor software that can run and administer one or more virtual guest computers inside a host computer. Typically, guests are sealed off from the host, and processes running inside the guest are unable to interact with the host’s operating system. This is to prevent hostile processes, like malware, from attacking the host or taking it over, in what’s known as a virtual machine escape.
+However, the protections that separate the guests from their host assume a hostile guest inside a friendly host, and that wasn’t the case here, because the attackers had access to both guest and host.
+In fact, from the attackers’ perspective they were trying to create the reverse of the normal situation – a friendly (to them) guest environment protected from a hostile host.
+To the attackers, the victim’s network is a hostile environment. Living off the land is designed to allow them to work as stealthily as possible, without triggering any alarms in the network’s security software. When they start running malware they’ve broken cover and are at much greater risk of detection.
+Running their malware inside a virtual machine allowed them to hide it from the prying eyes of security software on the host.
+And because the attackers controlled the host they were easily able to weaken the wall between the host and the guest.
+They did this by installing VirtualBox add-ons that allow files on the host to be shared with the guest, and then making every local disk, removable storage and mapped network drive on the host accessible to the guest virtual machine. With those drives mounted inside the guest, the ransomware could encrypt the files on them from inside the protective cocoon of the virtual machine.
+Meanwhile, as far as the security software on the host was concerned, data on the local network was being encrypted by legitimate software: VirtualBox’s VboxHeadless.exe process.
+So, from the perspective of the host, the attackers never broke cover and continued to “live off the land”, using legitimate software, until they dropped the ransom note.
+For the technical details of this attack, read Mark Loman’s in-depth article on Ragnar Locker over on our sister site, Sophos News.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

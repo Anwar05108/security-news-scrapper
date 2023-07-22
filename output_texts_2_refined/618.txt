@@ -1,0 +1,40 @@
+Let’s Encrypt was all over the news recently – the cybersecurity news, at any rate – for the laudable reason that it just issued its 1,000,000,000th TLS certificate.
+TLS certificates are the cryptographic sauce that puts the S in HTTPS, and the padlock in your browser’s address bar.
+The padlock doesn’t vouch for the actual content of the website you visit, of course – it doesn’t prove that the content it presents is correct, or that its downloads are malware free – but it nevertheless provides several benefits that you don’t get with an unencrypted, no-padlock connection:
+With this in mind, you may wonder why we have HTTP (unencrypted web traffic) at all.
+In the same way that modern train doors lock automatically as you leave the station so you can’t fling them open by mistake at 225 km/hr, why not simply “define” the World Wide Web to be encrypted-only, and be done with it?
+In the past, there were two main reasons: TLS certificates were complicated and time-consuming to acquire and use; and they cost money that sites such as charities, hobbyists and small businesses resented having to pay, especially given that certificates need renewing regularly.
+Let’s Encrypt changed that not only by offering certificates for free, but also by automating and therefore greatly simplifying the process of acquiring and renewing them.
+(Let’s Encrypt wasn’t the first project to do free certificates, but it has been by far the most successful at making its free certificates widely-accepted and easy to use.)
+As you can imagine, automating the certificate issuing process that much is a bit of a double-edged sword.
+A flaw in the issuing protocol, or a bug in the software that implements the protocol, could have serious side-effects.
+Unfortunately, something along those lines – a bug in Let’s Encrypt’s auto-validation system – has just been discovered…
+…with the outcome that Let’s Encrypt will abruptly be revoking (today, in fact!) more than 3,000,000 web certificates, covering more than 12 million server names, that were still supposed to be valid for weeks or months more.
+At first glance, 3,000,000 out of hundreds of millions of currently-active certificates (Let’s Encrypt claims to secure 190 million websites) doesn’t sound like an enormous proportion.
+But companies with affected certificates need to renew them right now, instead of waiting until their server renews them automatically.
+That’s because carrying on using a revoked certificate will cause visitors to your website to see security warnings, and may ultimately prevent them doing business with you online at all.
+A really tiny bug – tiny in code size, not in impact – seems to have caused the problem.
+Let’s Encrypt certificates are valid for 90 days, and autorenew for most users when there are 30 days or fewer left on their current certificates.
+Many Let’s Encrypt users have multiple certificates covering multiple websites and domains – for example, you might want a separate site for each of: billing DOT example, community DOT example and downloads DOT example.
+For reasons of efficiency and reliability, you can renew a whole batch of domains at the same time, and that’s what most multi-certificate users will do – or, at least, it’s what their auto-renewal software will do for them.
+Now, as a security precaution during renewal, in addition to any other checks that are carried out, Let’s Encrypt is required to look up what’s called a CAA, or Certificate Authority Authorization, for every domain you’re renewing.
+A CAA check involves doing a DNS (domain name system) database lookup on the relevant domain to see if the owner of the domain – who might not be the person requesting the website certificate – has placed any restrictions on certificate renewal.
+For example, the domain owner might not use Let’s Encrypt themselves, and might therefore publish a DNS entry saying, “Only accept XYZ Corporation to issue certificates for this domain,” as a way of making it harder for unauthorised third parties to get bogus certificates to impersonate their site.
+This is a simple precaution that’s supposed to make it harder for crooks to take over your online identity – if you insist that they stick to one certificate issuing company, then you force the crooks to follow a certificate renewal path that makes it more likely you will catch them at their deception.
+In fact, the rules of certificate signing say that an issuer must check a server’s CAA record no more than eight hours before issuing a certificate – to make the checks as current as possible.
+And here comes the bug: when Let’s Encrypt went to check the CAA records for a list of, say, 10 certificate renewals, it didn’t check each domain in the list once.
+Instead, it inadvertently picked one of the domains and then redundantly checked it 10 times over, leaving the other nine domains unchecked.
+In pseudo-code, the checking was supposed to work like this:
+But it ended up working something like this:
+In truth, the number of domains that would have been rejected if they’d been checked properly is almost certainly very tiny, so the overall risk of crooks using this bug to hijack domains on purpose is quite small.
+But in real life, the Rules Of The Game say that certificate issuing organisations – known as CAs, short for Certificate Authorities – can’t make that sort of assumption.
+So Let’s Encrypt has to make a disclosure of what happened, and how, and what it has done to prevent the problem happening again. (It has already started that process.)
+And it has to revoke any certificates that weren’t renewed in strict accordance with the rules, which require that the server name for any certificate must be CAA-checked.
+It doesn’t matter if you are 99% certain than the CAA check would have passed – what matters is that the check has to be carried out, as a way of keeping the process objective and honest.
+So: three million suddenly-revoked certificates.
+If you have certificates that are being revoked, Let’s Encrypt will try to email you. Affected customers ought to have received warning emails by now – Let’s Encrypt has a web page showing what the emails look like, and how get further advice – that page also has links showing you how to download a full list of serial numbers of affected certificates (0.3GByte download) plus the domain names that each certificate covers.
+Checking if any of your certificates or domains are affected is as easy as downloading the list file, gunzipping it (takes up 1.3GByte) and then using your favourite text-searching tool to look for domain names of interest – we used grep on Linux; on Windows, findstr should do the job.
+If you have an affected Let’s Encrypt certificate and you don’t renew it, it will suddenly stop working because it will be revoked at 2020-03-04T20:00Z. (That’s 8pm in the UK, 3pm on the US East Coast, noon on the West Coast.)
+So you need to run your certificate renewal process manually – this is typically as easy as running a command-line script – instead of waiting for the next automatic renewal.
+You can check Let’s Encrypt’s website for more advice – the fix isn’t difficult, but if you don’t do it you will find visitors unable to access your site.
+(As far as we can see, if you have one and only one Let’s Encrypt certificate, this bug doesn’t apply to you – because you wont ever have tried to renew more than one certificate at a time.)

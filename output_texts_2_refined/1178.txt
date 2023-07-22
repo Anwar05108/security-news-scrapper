@@ -1,0 +1,41 @@
+We don’t often put out programming appeals on Naked Security, especially when the code that we’re looking for is dangerous and destructive.
+But this time we’re prepared to make an exception, given that it’s a rainy Friday afternoon where we are, and that this issue is now in its fifteenth consecutive year.
+Our attention was drawn to the problem by a tweet from well-known Google cybersecurity researcher Tavis Ormandy, who tweeted today to say:
+The legend continues, the question was posted for the 15th consecutive year today! 👻 https://t.co/NkTngOopoY
+— Tavis Ormandy (@taviso) June 17, 2021
+
+With just one exception that I know of (an email that appeared in July in 2008), the same person has emailed the Linux Kernel Mailing List (LKML) sometime in the month of June, ever since 2007, to ask the same question
+Every year for 15 years in a row, including 2021, the mysterious R.F. Burns (yes, we think it’s a pun, too) has wanted to know:
+Despite many helpful and not-so-helpful answers each year, the mysterious questioner still doesn’t seem to have figured out how to do the job.
+A tongue-in-cheek exchange at the very first time of asking explains the reason for the potential cybervandalism as follows:
+Ironically, modern laptops don’t really have PC speakers any more.
+Sure, they have speakers built in, but they’re connected up to the sound card that’s also build in, so they merely provide a low-quality version of the same sound output you’d hear if you plugged in headphones.
+But those are just speakers, not specifically a PC speaker, which wasn’t connected to a sound circuit at all.
+The original PC speaker was only ever intended to be used to make beeps to alert you to some sort of error, notably during startup  when the screen might not be working and you wouldn’t be able to see any error messages that might have been displayed.
+Back in the day, most PC components ran at 5 volts DC, and the speaker was no different: it was connected to a 5V supply on its positive terminal and earthed (grounded) on the other.
+The 5V input wire could be turned on and off via an otherwise unused bit in the keyboard controller (bit 1 of port 0x61, in case you want to try writing your own PC speaker code).
+If you wrote a value of 1 into the speaker control bit, the speaker magnet would actuate and the speaker would jump to its “energised” position. 
+Set the bit back to zero and the speaker cone would move back to its “silent” position.
+Flip that magic bit on and off at a suitable frequency and you would effectively create a square wave of constant pitch and volume.
+Vary the frequency every so often, and you could vary the pitch to play rudimentary tunes, and when we say rudimentary, we really mean it.
+But rudimentary wasn’t good enough for gaming hackers.
+As well as controlling the speaker directly via what’s known as bit-banging (where you directly program a control wire by writing a timed stream of 1s and 0s to it yourself), you could also connect the speaker’s voltage wire up to the PC’s programmable interval timer (PIT).
+Then, you could vary the pitch of the sound that came out by reprogramming the PIT every so often, meaning that you had more precise control of the speaker’s frequency, and you didn’t need to have code running in a tight loop just to generate the bit-flips needed for a specific note.
+Instead, you could dedicate what little CPU power you had at your disposal to tweak the PIT continuously to drive the speaker at varying frequencies, including ones faster than it could actually handle, given that PC speakers were both tiny and tinny and could reproduce only a narrow frequency band.
+Instead of producing a very high frequency at a constant volume, the electromechanical limitations of the speaker – basically, its inertia, or lag in starting to move when energised – meant that it wouldn’t have time to describe a full square wave at all.
+In this way, you could produce controlled sounds at a lower volume that normal, so you could simulate a sound card that supported, say, 6-bit (64 different sound levels) or even 8-bit (256 different levels), instead of having a speaker that could only reproduce 1-bit sound (playing at full volume or totally silent).
+By this method, a crude form of pulse width modulation, early PC games achieved astonishing results without sound cards.
+Many games of the DOS era could not only play back music that sounded way better than the mere sequence of square-wave beeps that the speaker was designed to produce, but even reproduce human speech, though it was often hard to understand or sounded as if the narrator had a really weird and nasal accent.
+So, could you actually blow a PC speaker if you had the sort of precise control over it that you would get at Linux kernel level?
+As our legendary questioner keeps asking, could you blow a PC speaker with a kernel driver?
+Volume alone, the means by which many a cheaply powerful-but-clippy amp turned too high for too long in student digs has ruined many a set of not-quite-as-highly-rated-for-power-as-you-thought-they-were speakers, isn’t going to do the trick.
+The PC speaker is supposed to run at a constant volume, based on that on-or-off 5V input wire, so it’s intended to operate in a “turned up to 10” state all the time.
+There’s no way to turn that 5V input to 5.5V, which would be the same percentage increase as turning it up from 10 to 11, and blow the speaker that way.
+You can trick the speaker into running at a lower volume that it thinks, and therefore to produce better sounding output by effectively turning it down below 10, but you can’t turn it up above 10.
+You could try to freak out the speaker by running it through a carefully-constructed cascade of frequencies that would tax its physical resilience, except that the PC speaker almost certainly isn’t good enough to notice, let alone to reproduce reliably enough, the complex and chaotic physical motion you had in mind.
+One tongue-in-cheek but helpful responder to R.F. Burns (we’re now as good as certain that the name is part of the joke), in the first year of asking, suggested that it might be possible to find a specific frequency for each speaker at which you would cause resonance, and get it to shake itself to bits.
+Resonance is the sort constructive interference that old vehicles tended to experience at certain speeds, when body panels or window glass would start to vibrate in exagerated and ever-increasing and brain-jarring sympathy with the engine until you sped up or slowed down a tiny bit.
+Is it possible? Can it be done?
+We’re pretty sure it can’t, or else R.F. Burns (now we know it’s a joke it’s not really funny any more) would surely have figured out the magic frequency in the past 14 years, and stopped asking how to do it.
+So, if it can’t be done, this question must, surely, have a hidden meaning…
+…but what is that hidden meaning? Answers below, please!

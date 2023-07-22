@@ -1,0 +1,32 @@
+The burning question of the moment is, “What about CVE-2020-0601?”
+That’s the bug number assigned to one of the security holes fixed in Microsoft’s January 2020 Patch Tuesday updates.
+Of the 50 bugs patched this month, that’s the Big One, officially described by Microsoft as a “Windows CryptoAPI Spoofing Vulnerability“.
+To explain.
+The CryptoAPI, partly implemented in a Windows file called crypt32.dll (you’ll also hear that filename used to describe this bug), is the way that many, if not most, Windows programmers add encryption functionality into their software.
+Instead of writing their own encryption routines – something Naked Security regularly urges you not to do, because it’s easy to make dangerous mistakes! – many programmers use the CryptoAPI built into Windows itself.
+One of the functions that the CryptoAPI offers is to check and validate so-called digital certificates, which are blocks of cryptographic data that are used to vouch for online services you use (such as websites) or files you load (such as programs).
+Digital certificates are the cryptographic sauce that puts the S into HTTPS, and the padlock into your browser’s address bar.
+They are also the cryptographic mechanism that vouches for the vendor of any digitally signed software you use, and makes sure that the software hasn’t been tampered with.
+The idea is that you create a certificate to vouch for your website or your software; you get a so-called Certificate Authority (CA) to sign your certificate to vouch for you; and your browser or operating system – in this case, Microsoft’s CryptoAPI, vouches for the CA.
+The digital certificate system isn’t perfect – you will find numerous articles on Naked Security about incorrectly signed certificates; CAs who were so sloppy that their certificates were invalidated; and company certificates stolen by crooks so that they could give their own apps or web pages someone else’s imprimatur. 
+And digital signatures, on their own, don’t assure you that a web page itself is truthful or accurate, or that a software program is well-written and malware free.
+Nevertheless, digital certificates are important – very important, in fact – in giving you a better-than-average chance of deciding that you are at least on the right website, or that you have downloaded the software you intended.
+In other words, if you were a crook and you could forge digital certificates in other people’s names, then you would have a head start in trying to trick even well-informed users into visiting fake websites, filling in bogus forms, or downloading and then running imposter software.
+You might also be able to trick them into visiting your website instead of the one they intended to visit, fetching the content they expected to see from the genuine website, and then passing that data on without any visible sign that it had been intercepted and snooped upon.
+That’s called a man-in-the-middle attack and it means that an attacker can spy on your web browsing, even on encrypted sites, as well as altering the content you get back or modifying the data you upload.
+Well, that’s apparently just what this bug could allow an attacker to do.
+The phrase “spooofing vulnerability” in Microsoft’s bug description is shorthand for “a crook could create a forged certificate for signing software or network traffic, and the CryptoAPI wouldn’t spot the fakery.”
+In other words, a crook who could figure out how to create a correctly-spoofed certificate would be like a bogus traveller with access to a printer that could produce fake passports so good that they wouldn’t just look right, they’d actually get through the screening point at the border post.
+In Microsoft’s own, more technical, words:
+An attacker could [use] a spoofed code-signing certificate to sign a malicious executable, making it appear the file was from a trusted, legitimate source. The user would have no way of knowing the file was malicious, because the digital signature would appear to be from a trusted provider. [Or] the attacker [could] conduct man-in-the-middle attacks and decrypt confidential information on user connections […].
+We don’t yet know how hard it is to produce rogue certificates that will pass muster, and Microsoft understandably isn’t offering any instructions on how to do it. 
+All we know is that Microsoft has said it can be done, and that’s why the patch for CVE-2020-0601 has been issued.
+So you should assume that someone will find out how to do it pretty soon, and will probably tell the world how to do it, too.
+(Update: they did find out, and some of them did tell the world how [2020-01-16T18:40Z].)
+So, very briefly put, we urge you to…
+…patch your Windows 10 computers and your Windows 2016/2019 servers right now.
+Don’t delay – patch today!
+If your computer won’t accept rogue certificates, then you’re not only protecting yourself from being tricked, you’re helping to stop your computer accidentally tricking other people, too.
+Your Windows version number may vary, but this is the update you want – go to Settings > Update & Security > Windows Update:
+
+LEARN MORE ABOUT THE VULNERABILITY AND HOW TO PATCH

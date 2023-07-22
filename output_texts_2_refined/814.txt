@@ -1,0 +1,41 @@
+This month’s Bug With An Impressive Name, or BWAIN for short, is Thunderspy.
+As well as a cool name, Thunderspy also has its own logo, its own domain name, its own website and a “recorded live” video showing a Thunderspy attack in action.
+There’s also a technical paper that’s detailed but nevertheless readable, by security researcher Björn Ruytenberg from Eindhoven University of Technology in The Netherlands.
+As you’ve probably guessed, Thunderspy gets its name from Thunderbolt, a type of hardware interconnection system for plugging high-performance external devices into your computer.
+You might wonder why Thunderbolt ever came along in a world that already has USB, Display Port, HDMI and other methods of connecting almost any peripheral to your computer that you might want, including microphones, webcams, headphones, screens, keyboards, mobile phones, scanners, printers, memory sticks and hard disks.
+The answer, as with so many features in modern devices, is performance.
+Thunderbolt doesn’t just let you plug devices into your computers so they can communicate with one another – it pretty much lets you hook up devices directly to the internal memory bus of the computer, as if you had taken the lid off your gaming desktop and plugged a PCI card directly into one of the slots on the motherboard.
+Whatever you can do with USB (and these days, that is plenty) you can do even faster with Thunderbolt, all without needing to open up your computer and find a free bus slot – which also means you can use Thunderbolt on laptops that aren’t meant to be opened up and don’t have internal expansion slots anyway.
+Interestingly, Thunderbolt was originally designed to use fibre optics to improve data throughput, and was known as Light Peak. 
+During development, however, it was adapted to run over regular copper wires, which meant that Thunderbolt ports could easily carry both data and power, making them more convenient for use in portable devices such as high-speed hard disks or video capture cards.
+To avoid introducing yet another connector, the first two incarnations of Thunderbolt use Display Port connectors, while the latest Thunderbolt 3 connectors are the same as USB-C – those thin, round-ended USB cables that have identical, symmetrical connectors on each end and can therefore very conveniently be plugged in either way up and either way around.
+The major difference between Thunderbolt and USB is that Thunderbolt ports support what’s called DMA, short for direct memory access, which means that a Thunderbolt device, if suitably configured and authorised, can read data straight out of system memory at blindingly fast speeds, without having to defer to the computer’s own processor or operating system.
+Data can flow in the other direction too, so Thunderbolt devices, in theory at least, can poke blocks of data straight into system memory for the operating system to consume later on. 
+That’s immensely powerful, and gives astonishing data throughput results…
+…but it comes with a security risk, namely that an untrusted device that was accepted by your computer might be able to bypass pretty much all the security enforced by your operating system.
+Indeed, DMA has also been a boon to law enforcement over the years, right back to the risky old days when computers were electrically less resilient that they are now, and before Thunderbolt brought direct-to-RAM connectivity out to a small and convenient external port.
+Forensic investigators who could get access to computers while the power was still on could plunge PCI cards right into a bus slots on live motherboards to grab data from the running system for subsequent analysis.
+But in regular life, you don’t want just anyone to be able to sneakily plug a Thunderbolt cable into your laptop while your back is turned and quietly suck out the memory contents of all your running apps onto a storage device in their pocket.
+As a result, Thunderbolt-equipped computers come with numerous hardware-level protections that let you limit the ease with which external devices can get access to the computer’s RAM.
+Ruytenberg describes in his paper, however, how an attacker with physical access to your computer could work around several of these hardware protections.
+This means that even if you have set your Thunderbolt security to prevent unauthorised passers-by from plugging in memory-scraping hardware tools…
+…then a crook might, admittedly with some difficulty and a few minutes of hard-to-disguise fiddling, be able to turn off the security settings and attack your computer via the Thunderbolt port anyway.
+The attack shown in his video relies on a series of steps something like this:
+In particular, Ruytenberg’s proof-of-concept video shows a rogue Thunderbolt device being used on a laptop that, when woken from sleep, was stuck (apparently safely) at the Windows lock screen.
+The rogue hardware device, which would normally have been ignored by the computer thanks to the Thunderbolt hardware settings, was given direct access to system memory, at which point it implanted a rogue software driver directly into the Windows operating system kernel that skipped past the lockscreen without needing a the password.
+Bingo, passwordless access to a locked computer!
+Interestingly, as Ruytenberg points out in his paper, this sort of attack really shouldn’t work, not least because the Thunderbolt system includes cryptographic protection that is supposed to stop unauthorised firmware from being accepted by the motherboard.
+After tweaking the firmware in step 5 above, which invalidated its digital signature, Ruytenberg couldn’t re-authorise it because he would have needed a private signing key known only to Intel.
+However, he found that the firmware certificates are apparently verified only when the firmware is updated via official means, e.g. via the computer’s BIOS.
+The certificates aren’t re-validated every time the computer wakes up from sleep mode, or even every time it’s booted up, so that when the computer woke up with the Thunderbolt ports less secure than when it shut down, it didn’t notice.
+Ruytenberg’s article also details numerous other related weaknesses that could allow unauthorised tampering with the Thunderbolt system.
+The Thunderspy name makes this situation sound pretty dramatic, but it’s important to remember that the attacks that Ruytenberg describes can’t be pulled off remotely, so phishing attacks and rogue websites can’t use them – unless a website could persuade you to open up your own laptop and hack it yourself.
+Intel has written about this issue on its blog, and contacted us with the following comment:
+This attack could not be successfully demonstrated on systems with Kernel DMA protection enabled. As always, we encourage everyone to follow good security practices, including preventing unauthorized physical access to computers.
+Indeed, if you’re worried about how vulnerable you might be when coronavirus lockdown ends and you are back on the road with your laptop, there is one simple change you can make to your digital lifestyle: shut your computer down when you travel instead of just putting it into sleep mode. 
+It’s less convenient, to be sure, but it’s much more secure – and with a bit of effort, you should be able to get a modern laptop’s boot-up-from-cold time down to a few seconds rather than a few minutes.
+After all, Ruytenberg’s lock screen bypass only makes sense if the hard disk decryption password has already been entered, the operating system is already running, and there is a lock screen to bypass in the first place.
+Thunderspy or no Thunderspy, a powered-on computer that can be woken from sleep just by touching a key inevitably has its RAM chips packed full of juicy secrets.
+Secrets in your laptop’s RAM can’t be read out, by fair means or foul, if they aren’t there in the first place.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

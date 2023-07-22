@@ -1,0 +1,21 @@
+Microsoft’s Patch Tuesday announcement was bad enough, with six in-the-wild vulnerabilities patched, including one buried in the vestiges of Internet Explorer’s MSHTML web rendering code…
+…and it’s been followed by Google’s latest Chrome security advisory, which includes a zero-day patch (CVE-2021-30551) to Chrome’s JavaScript engine amongst its 14 officially listed security fixes. 
+Like Mozilla, Google also lumps together other potential bugs it has found using generic bug-hunting techniques, listed as “Various fixes from internal audits, fuzzing and other initiatives.”
+Fuzzing, in case you aren’t familiar with the concept, is an automated technique that probes for bugs by repeatedly confronting the software under test with input that has deliberately been modified to see whether the program chokes on it.
+For example, a fuzzer might start with a known-good input file that you would expect to be processed correctly, without triggering any bugs, and progressively make a series of unusual or otherwise unlikely changes in the file, thus testing a program’s error-checking code much more broadly and deeply than hand-crafted files could manage.
+Imagine that you had a compressed archive file, for instance, and you wanted to see how safely your decompression code would behave if the file were corrupted during a download, such as if a line-break character were accidentally inserted at some point.
+With a fuzzer you could not only test for line-breaks at some points in the file, but at every possible point – and, better yet, you wouldn’t need to store all these slightly-modified input files for later, because you could automatically regenerate them on the fly every time you wanted to repeat the test.
+Fuzzers may produce millions or even hundreds of millions of test inputs during a proving run, but only need to store the inputs that cause the program to misbehave, or more importantly to crash, so they can be used later on as time-saving starting points for human bug hunters.
+Google writes, of the zero-day bug, simply that “[we are] aware that an exploit for CVE-2021-30551 exists in the wild.” 
+This bug is listed as a “type confusion in V8“, where V8 is the part of Chrome that runs JavaScript code, and type confusion means that you can feed V8 one sort of data item but trick JavaScript into handling it as if it were something else, possibly bypassing security checks or running unauthorised code as a result.
+For example, if your code is doing JavaScript calculations on a data object that has a memory block of 16 bytes allocated to it, but you can trick the JavaScript interpreter into thinking that you are working on an object that uses 1024 bytes of memory, you can probably end up sneakily writing data outside the official 16-byte allocation, thus pulling off a buffer overflow attack.
+And, as you probably know, JavaScript security holes that can be triggered by JavaScript code embedded in a web page often result in RCE exploits, or remote code execution.
+That’s because you’re relying on your browser’s JavaScript engine to keep control over what is essentially unknown and untrusted programming downloaded and executed automatically from an external source.
+Google isn’t saying whether the CVE-2021-30551 bug can be used for full-on remote code execution – which, in the context of a browser, usually means that you are vulnerable to a drive-by download.
+A drive-by means that merely viewing a website, without clicking on any popups or seeing any “Are you sure?” warnings, could allow crooks to run rogue code invisibly and implant malware on your computer.
+However, CVE-2021-30551 only gets a High rating, with just one bug that isn’t in the wild (CVE-2021-30544) denoted Critical.
+We’re guessing that the CVE-2021-30544 bug has been given a Critical rating because it could be exploited for RCE, but there’s no suggestion that anyone other than Google and the researchers that reported it know how to do that right now.
+Check your Chrome or Chromium version.
+On Windows, Mac and Linux you should have 91.0.4472.101.
+Click the three-dots icon, then go to Help > About Google Chrome – this will show you the version you have now, and check for an update while you’re about it.
+For further information on updating Chrome, check the official Update Google Chrome page.

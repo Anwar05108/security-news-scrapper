@@ -1,0 +1,46 @@
+The US Department of Justice (DOJ), together with government representatives from six other countries, has recently re-ignited the perennial Battle to Break Encryption.
+Last weekend, the DOJ put out a press release co-signed by the governments of the UK, Australia, New Zealand, Canada, India and Japan, entitled International Statement: End-To-End Encryption and Public Safety.
+You might not have seen the press release (it was put out on Sunday, an unusual day for news releases in the West), but you can almost certainly guess what it says.
+Two things, mainly: “think of the children,” and “something needs to be done”.
+If you’re a regular reader of Naked Security, you’ll be familiar with the long-running tension that exists in many countries over the use of encryption.
+Very often, one part of the public service – the data protection regulator, for instance – will be tasked with encouraging companies to adopt strong encryption in order to protect their customers, guard our privacy, and make life harder for cybercriminals.
+Indeed, without strong encryption, technologies that we have come to rely upon, such as e-commerce and teleconferencing, would be unsafe and unusable.
+Criminals would be trivially able to hijack financial transactions, for example, and hostile countries would be able to eavesdrop on our business and run off with our trade secrets at will.
+Even worse, without a cryptographic property known as “forward secrecy”, determined adversaries can intercept your communications today, even if they aren’t crackable now, and realistically hope to crack them in the future.
+Without forward secrecy, a later compromise of your master encryption key might grant the attackers instant retrospective access to their stash of scrambled documents, allowing them to rewind the clock and decrypt old communications at will.
+So, modern encryption schemes don’t just encrypt network traffic with your long-term encryption keys, but add in what are known as ephemeral keys into the mix – one-time encryption secrets for each communication session that are discarded after use.
+The theory is that if you didn’t decrypt the communication at the time it was sent, you won’t be able to go back and do so later on.
+Unfortunately, forward secrecy still isn’t as widely supported by websites, or as widely enforced, as you might expect. Many servers still accept connections that reuse long-term encryption keys, presumably because a significant minority of their visitors are using old browsers that don’t support forward secrecy, or don’t ask to use it.
+Similarly, we increasingly rely upon what is known as “end-to-end encryption”, where data is encrypted for the sole use of its final recipient and is only ever passed along its journey in a fully scrambled and tamper-proof form.
+Even if the message is created by a proprietary app that sends it through a specific provider’s cloud service, the company that operates the service doesn’t get the decryption key for the message.
+That means that the service provider can’t decrypt the message as it passes through their servers, or if it is stored there for later – not for their own reasons; not if they’re told to; and not even if you yourself beg them to recover it for you because you’ve lost the original copy.
+Without end-to-end encryption, a determined adversary could eavesdrop on your messages by doing the digital equivalent of steaming them open along the way, copying the contents, and then resealing them in an identical-looking envelope before passing them along the line.
+They’d still be encrypted when they got to you, but you wouldn’t be sure whether they’d been decrypted and re-encrypted along the way.
+At the same time, another part of the government will be arguing that strong encryption plays into the hands of terrorists and criminals – especially child abusers – because, well, because strong encryption is too strong, and gets in the way even of reasonable, lawful, court-approved surveillance and evidence collection.
+As a result, justice departments, law enforcement agencies and politicians often come out swinging, demanding that we switch to encryption systems that are weak enough that they can crack into the communications and the stored data of cybercriminals if they really need to.
+After all, if crooks and terrorists can communicate and exchange data in a way that is essentially uncrackable, say law enforcers, how will we ever be able to get enough evidence to investigate criminals and convict them after something bad has taken place?
+Even worse, we won’t be able to collect enough proactive evidence – intelligence, in the jargon – to stop criminals while they are still at the conspiracy stage, and therefore crimes will become easier and easier to plan, and harder and harder to prevent.
+These are, of course, reasonable concerns, and can’t simply be dismissed out of hand.
+As the DOJ press release puts it:
+[T]here is increasing consensus across governments and international institutions that action must be taken: while encryption is vital and privacy and cyber security must be protected, that should not come at the expense of wholly precluding law enforcement, and the tech industry itself, from being able to act against the most serious illegal content and activity online.
+After all, in countries such as the UK and the US,  the criminal justice system is largely based on an adversarial process that starts with the presumption of a defendant’s innocence, and convictions depend not merely on evidence that is credible and highly likely to be correct, but on being sure “beyond reasonable doubt”.
+But how can you come up with the required level of proof if criminals can routinely and easily hide the evidence in plain sight, and laugh in the face of court warrants that allow that evidence to be seized and searched?
+How can you ever establish that X said Y to Z, or that A planned to meet B at C, if every popular messaging system implements end-to-end encryption, so that service providers simply cannot intercept or decode any messages, even if a court warrant issued in a scrupulously fair way demands them to do so?
+Impasse.
+We can’t weaken our current encryption systems if we want to stay ahead of cybercriminals and nation-state enemies; in fact, we need to keep strengthening and improving the encryption we have, because (as cryptographers like to say), “attacks only ever get better.”
+But we’re also told that we need to weaken our encryption systems if we want to be able to detect and prevent the criminals and nation-state enemies in our midst.
+The dilemma here should be obvious: if we weaken our encryption systems on purpose to make it easier and easier to catch someone, we simultaneously make it easier and easier for anyone to prey successfully on everyone.
+O, what a tangled web we weave!
+
+There’s an additional issue here caused by the fact that “uncrackable” end-to-end encryption is now freely available to anyone who cares to use it – for example, in the form of globally available open source software. Therefore, compelling law-abiding citizens to use weakened encryption would make things even better for the crooks, who are not law-abiding citizens in the first place and are unlikely to comply with any “weak crypto” laws anyway.
+Governments typically propose a range of systems to “solve” the strong encryption problem, such as:
+The problem with all these solutions is that they can all be considered variations on the “master key” theme.
+Endpoint interception only when it’s needed is just a specialised, once-in-a-while case of general message escrow; message escrow is just a specialised case of a master key; and a deliberate cryptographic flaw is just a complicated sort of master key wrapped up in the algorithm itself.
+They all open up a glaring threat, namely, “What happens when the Bad Guys uncover the secrets behind the message cracking system?”
+Simply put: how on earth do you keep the master key safe, and how do you decide who gets to use it anyway?
+The DOJ seems to think that it can find a Holy Grail for lawful interception, or at least expects the private sector to come up with one:
+We challenge the assertion that public safety cannot be protected without compromising privacy or cyber security. We strongly believe that approaches protecting each of these important values are possible and strive to work with industry to collaborate on mutually agreeable solutions.
+We’d love to think that this is possible, but – in case you were wondering – we’re sticking to what we call our #nobackdoors principles:
+[At Sophos,] our ethos and development practices prohibit “backdoors” or any other means of compromising the strength of any of our products – network, endpoint or cloud security – for any purpose, and we vigorously oppose any law that would compel Sophos (or any other technology supplier) to intentionally weaken the security of its products.
+Where you do stand in this perennial debate? 
+Have your say in the comments below. (If you omit your name, you will default to being “Anonymous”.)

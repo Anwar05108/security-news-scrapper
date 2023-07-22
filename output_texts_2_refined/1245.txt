@@ -1,0 +1,25 @@
+Software patches are sometimes a bit like buses.
+You don’t get one for a while, and then three come at once.
+For buses on busy urban routes, at least, the explanation of the phenomenon goes something like this.
+If three buses start out travelling the same route together in a nicely spaced sequence, then the first one is most likely to be the slowest, because it will be stopping to scoop up most of the waiting passengers, while the ones behind will tend to travel faster because they need to stop less often or for shorter periods.
+So buses naturally tend to bunch up and arrive in bursts. 
+When it comes to software patches, however, the problem often works the other way around.
+If the first patch arrives too quickly, then it may not have been reviewed or tested quite as much as you might like.
+So it’s not so much that the next patch in the queue catches up because the first one is too slow, but that the next one has to be rushed out in order to keep up…
+…and, if you aren’t careful, then that second patch might itself beget a third patch, needed to patch the patch that patched the first patch.
+And thus with Apache: just two days ago, we reported a path validation bug dubbed CVE-2021-41773 that was introduced in Apache 2.4.49:
+Apache web server zero-day bug is easy to exploit – patch now!
+
+
+We advised you to update to 2.4.50, which would indeed have protected you against at least some of the known exploits already circulating on Twitter.
+But the 2.4.50 update itself was incomplete, having been put together in something of a hurry, so that although it blocked some ways of exploiting the bug, it didn’t reliably block all of them.
+The bottom line is that if you have Apache 2.4.49 (released 2021-09-15) or Apache 2.4.50 (released 2021-10-04) then you now need to update to Apache 2.4.51 (released 2021-10-07).
+We haven’t investigated this in detail, but a quick look at the three versions listed above suggests that the vulnerability progressed like this:
+Will the sudden arrival of the third bus in this burst of patches mean that we’ll soon have 2.4.52 to follow?
+We don’t know.
+But at least the patch-for-the-patch came out within two days of the 2.4.50 update, which, though imperfect, would have stopped a range of already-known attacks that were widely circulated in the wild.
+So we don’t regret having urged you to update to Apache 2.4.50 earlier this week, even though it now means updating once again. 
+(Our Linux distro took care of both of these updates for us quickly and automatically, but if you’re using an Apache version you built yourself, don’t forget that you need to recompile it.)
+Our earlier article about this CVE-2021-41773 bug includes an explanation of the jargon terms path validation and path traversal, and provides some suggestions on how to find Apache servers that you might not realise are in use on your network:
+Apache web server zero-day bug is easy to exploit – patch now!
+

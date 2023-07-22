@@ -1,0 +1,41 @@
+We all know a sysadmin or two (or three, or four) who are seriously into gaming, and have the cool hardware to prove it…
+…perhaps including a special chair, dedicated headphones, an ultra-hackable mouse, and an indestructible, mechanically triggered, 6-key-rollover, touch-typist’s keyboard (with multicoloured blank keycaps, configured in COLEMAK format, rather than QWERTY or even DVORAK, natch).
+But what if you want to go the other way around?
+What if you’re a gamer who wants to be a sysadmin? On someone else’s computer?
+Well, apparently, until last week at least, gamer-centric mice and keyboards from popular vendor Razer could help you to do just that.
+The problem, it seems, was a Helpful Feature that turned out also to be a bug, as noted on Twitter by a researcher going by @j0nh4t, or jonhat in full:
+Need local admin and have physical access?– Plug a Razer mouse (or the dongle)– Windows Update will download and execute RazerInstaller as SYSTEM– Abuse elevated Explorer to open Powershell with Shift+Right click
+Tried contacting @Razer, but no answers. So here's a freebie pic.twitter.com/xDkl87RCmz
+— jonhat (@j0nh4t) August 21, 2021
+
+At first viewing, the video above might seem a bit overwhelming, if not actually confusing, but the bug goes something like this:
+As risky as this sounds at first, you can argue that it’s better than leaving you to your own devices, literally and figuratively, as early versions of Windows did, casting around on the internet for a download that looks like a driver that might work…
+…and then downloading it from a site that might be the real one, or might not…
+…and then running it with Admin powers yourself, only to find it’s the wrong driver, and your device now doesn’t work at all, and that you can’t figure out how to revert the installation…
+…and then wondering why your computer is slowing to a crawl and uploading hundreds of megabytes of data to a weirdly named server in [REDACTED] while at the same time sending thousands of weird emails to people throughout [REDACTED].
+With that in mind, automatically getting and running an official copy of the official drivers and app from an official Microsoft server sounds not only much more more convenient but also much less likely to end badly.
+The problem in this case is the point at which Razer’s app helpfully displays the name of the software installation directory at the end, even though it doesn’t need to.
+That’s an active link in Razer’s app, so you can right-click on it and view the directory in File Explorer.
+Then, once you’re in Explorer, you can do a Shift-and-right-click and use the handy option Open PowerShell window here, giving you a command-line alternative to the existing Explorer window.
+But that PowerShell prompt was spawned from the Explorer process, which was spawned from Razer’s installer, which was spawned by the automatic device installer process in Windows itself…
+…which was running under the all-powerful NT AUTHORITY\SYSTEM account, usually referred to as NTSYSTEM or just System for short.
+So the PowerShell window is now running as System too, which means you have almost complete control over the files, memory, processes, devices, services, kernel drivers and configuration of the computer.
+In other words, if you’re a penetration tester given access to unlocked company laptops to see how long it takes you to promote yourself to get Admin superpowers via a regular user’s account, and if you have a Razer mouse with you, the answer is probably, “Not very long”.
+Technically, you don’t need to take a wired mouse with you – if you have a Razer wireless mouse, plugging in just the dongle ought to be enough, whether the mouse is present or not, because the dongle is what interacts with the USB subsystem on Windows and identifies the device.
+And if you have a hacker-friendly tool such as a Raspberry Pi Zero, which has two-way USB hardware configurability, you can either set it up as a USB host and plug other devices into it, or you can set it up as a USB device and plug it into other computers.
+When you pretend via software to be a USB device such as a mouse or a keyboard (Razer makes keyboards, too, that come with added drivers to make them perform Even Better for avid gamers), you can pretend you are almost any sort of device made by almost any known vendor.
+We tried tricking Windows 11 into thinking our Pi Zero was a Razer keyboard, a subterfuge that Windows accepted, happily taking fake keystrokes from our bogus device. However, we ran out of time to create a configuration with enough verisimilitude to convince Windows that it needed to fetch additional drivers to support the device fully. We assume that with more time, knowledge, or both, it could be done easily.
+If you’re a home user who’s an Admin on your own computer already, you don’t have anything to worry about. 
+For self-admins, the Elevation of Privilege (EoP) trick described here is just an expensive and roundabout way of using the regular “Run as administrator” Windows option that would give you a PowerShell or an command prompt with superpowers anyway.
+But if you are looking after a computer for another family member who doesn’t have Admin powers, or you are running a corporate network where users aren’t supposed to fiddle with the underlying operating systems on their laptops, you probably want a way to stop this sort of trick.
+To lock down an individual computer (we tested this on both Windows 10 and Windows 11), go to Settings > System > About, and click on the Advanced system settings option:
+
+This should bring up the System Properties window:
+
+Click on Hardware > Device Installation Settings and choose No for the setting Do you want to automatically download manufacturers’ apps and custom icons available for your devices?
+
+Without additional drivers, many new devices will work anyway (albeit without added features such as extra buttons on a gaming mouse, or special zoom-and-pan features on a webcam); others, however, may not work at all if Windows doesn’t already have a generic driver that supports the core functionality of the device.
+To get the device to work fully, the user will need to ask a designated Admin to enable the installation of the new drivers and software for them.
+On a corporate network, you may also want to look at taking broader control over who’s allowed to add what sort of device, and where.
+For Windows networks in general, you might want to review Microsoft’s own advice for regulating device installation with Group Policy.
+If you are a Sophos customer, please take a look at Sophos Central Peripheral Control, for additional security and control.

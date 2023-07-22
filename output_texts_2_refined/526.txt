@@ -1,0 +1,37 @@
+Ransomware is one of the most feared cybercrime problems of the modern era.
+The idea of malware that scrambles your files and demands money to get them back is not new – the first widespread attack happened back in 1989 – but the scale of the threat has changed dramatically in the last few years.
+Up to about 2010 or 2011, ransomware was little more than a lab curiosity…
+…until the crooks finally figured out how to extract money from their desperate victims, thanks to the anonymity (more or less) afforded by the Dark Web and the untraceable (more or less) payments offered through the use of cryptocurrencies.
+Crooks such as the gang behind the Cryptolocker ransomware were able to make millions, perhaps even hundreds of millions, of dollars by infecting hundreds of thousands of users and businesses, and then demanding $300 a time to unlock each user’s files.
+But that approach has changed recently, with the big-money ransomware criminals carrying out fewer but much bigger attacks.
+These days, ransomware operations are very often aimed at whole networks, or even at centrally-managed collections of networks.
+The idea is that the crooks are still planning to scramble hundreds or thousands of computers in an attack, but instead of blackmailing the owner of each computer to pay a few hundred dollars, they blackmail the operators of the entire network to pay a huge lump sum.
+Those sums typically run from $50,000 to $5,000,000, with the victims sometimes left with little choice but to pay up because their whole business has ground to a halt, not just a few computers here and there.
+The good news is that to mount a network-wide attack, the crooks need to break into your network first. 
+They also typically need full control over one or more computers to use for their reconnaissance; they need to promote themselves to system administrators to attack all your devices; and they need to spend time mapping out your network and setting up for the final assault.
+In other words, in the process of getting ready for a possible million-dollar payday, the crooks have to take the risk of being spotted, rebuffed, and leaving with nothing at all. (The $300-a-time crooks still stand to make some money even if they only succeed against a tiny fraction of their targets.)
+The bad news is that if the crooks do get in and make themselves sysamins, they’ve pretty much turned themselves into what you might call “an alternative IT department”, so they can take steps to reduce their risk of being found.
+The crooks can also try to deactivate any system-wide anti-invasion protections that you’ve put in place – they’re administrators, after all, so in theory they can turn off, reset or reconfigure anything and everything you’ve previously done to lock down your network.
+However, even with domain administration powers, it’s not easy to take over everything. 
+For example, many security products include tamper-protection that makes it difficult to deactivate the software, at least without leaving a fairly visible trail.
+Proper patching makes it harder for the crooks to sneak around security protections, because you get rid of software vulnerabilities they might otherwise exploit.
+Likewise, system services often keep critical files in permanent use, meaning that they can’t easily be deleted or modified, which stops the crooks from scrambling them in a ransomware attack.
+That could be the difference between a ransom demand that you can’t avoid paying, because everything got scrambled, and a demand you’re comfortable to ignore because your important data didn’t get touched and so your business continuity wasn’t affected.
+Enter the aptly named RobbinHood malware:
+(Click on the image to see the full text of the demand in the report.)
+The crooks have come up with a shortcut that makes it much easier for them to bypass your tamper protection and to get access even to locked files.
+Instead of hunting for unpatched vulnerabilities on your computers…
+…the crooks simply bring their own bug!
+The way this works is a fascinating story, told in easy-to-follow detail in a recent research report from SophosLabs, and we urge you to learn more about the way the crooks went about their attack by reading the paper.
+Briefly put, the crooks have included an old-but-buggy Windows kernel driver along with their malware.
+The driver itself isn’t malware, but it is an official software component from motherboard maker Gigabyte, so it’s digitally signed by the vendor and the signature is attested as official by Microsoft itself.
+So, Windows will load the driver because of the signature…
+…after which the crooks can exploit a bug in the signed driver to trick Windows into letting them load their own, unsigned and malicious kernel driver!
+And their driver gives them low-level kernel-land access to system processes and files, which means they can kill off programs they’re not supposed to, and delete files that would usually be locked.
+For what it’s worth, bodging the behaviour of the kernel like that may cause problems, such as programs that stop working properly, or data that gets corrupted, or even – possibly a while later – a Blue Screen of Death.
+But the crooks don’t care!
+By the time you notice any transient problems caused by their malicious driver, you’ll almost certainly be facing a very much bigger problem anyway, namely that most – or perhaps all – of your data files, on most – or perhaps all – of the computers on your network will be scrambled.
+And only the crooks will have the decryption key to unlock the scrambled files.
+Fortunately, the modus operandi of loading a buggy kernel driver to load a malicious kernel driver can’t just be carried out at will, so this attack trick of “bring your own bug” doesn’t give any old crook a way to implant any old malware on your computer at any old time.
+The crooks do need to be administrators on your network already to use this kernel driver treachery.
+So:

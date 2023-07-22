@@ -1,0 +1,25 @@
+If you use the venerable Samba open source tool anywhere on your network, you’ll want to read up on the latest update, version 4.15.2.
+Samba is the closest pronounceable word to SMB that Andrew Tridgell, who created the project back in the 1990s, could come up with.
+SMB, short for Server Message Block is (or, more precisely, used to be) the general name for Microsoft’s once-proprietary networking protocol, inherited from IBM.
+Tridge, as Dr Andrew Tridgell OAM is better known, wanted a way for his Linux computers to be able to join Windows networks, without which the job of exchanging data between Windows and Unix networks required a bunch of messy workarounds. 
+(There weren’t even USB drives in those days to help with getting data across an airgap – and a typical floppy disk could hold just 1.44MB or even less. Plus, networks were supposed to connect computers, not to segregate them.)
+Microsoft eventually allowed SMB to become an open standard, which you may know as CIFS, short for Common Internet File System, but the name Samba stuck for the open source implementation.
+As you can imagine, SMB, and therefore CIFS, and therefore Samba, have evolved enormously over the years, and some early aspects of SMB have been retired, mainly for security reasons.
+More precisely, they’ve been junked by default by everyone, including Microsoft, for insecurity reasons, namely that they were designed and first coded long before we became as serious about cybersecurity as we are today, or at least before cybersecurity became something we are rightly expected to take seriously whether we want to or not.
+Microsoft itself notably published an article back in 2019 with the unequivocal title of Stop using SMB1, the first version of the file sharing protocol.
+The SMB2 and SMB3 flavours of the protocol are not only much faster and more scalable, but also get rid of a bunch of insecure operating “features” permitted by the ancient SMB1.
+In fact, right back in 2017, Microsoft stopped installing SMB1 support by default in Windows 10 v1709 and Windows Server v1709.
+If you desperately need SMB1 for legacy reasons (and if you do, why not use this article as the impetus to figure out how to get rid of it at last?), you can add it as a Windows component later on, but by default, it’s not installed and you therefore cannot turn it on, whether by accident or design.
+One significant reason for making sure you don’t have SMB1 is that it’s  vulnerable to manipulator-in-the-middle (MiTM) and downgrade attacks.
+That’s where someone monitors the SMB1 traffic on your network, and replies to new users on your network to say, “Oh, really sorry, we’re very old fashioned here. Please don’t send encrypted passwords to log in, use plaintext passwords instead.”
+Even if your clients and your servers don’t normally support SMB1, a rogue reply of this sort can trick an otherwise secure client (one that hasn’t been instructed never to comply with requests of this sort) into communicating insecurely…
+…and thus allow the attackers to sniff out the plaintext password for later. 
+Of course, once the interlopers know your password, they no longer need to bother with SMB1 at all.
+They can use the now-purloined password to login themselves using SMB2, and thereby connect uncontroverially, without raising any anomalies in your security logs.
+Well, one of the bugs fixed in Samba 4.15.2 is dubbed CVE-2016-2124, and it’s described as follows:
+An attacker can downgrade a negotiated SMB1 client connection and its capabitilities.  […] The attacker is able to get the plaintext password sent over the wire even if Kerberos authentication was required.
+Before you blame Samba for having had this bug, however, stop to think that you shouldn’t still be using SMB1 at all, and that Samba, like Windows, doesn’t enable it by default.
+So you would need a very backward-looking and unusual smb.conf file (Samba’s configuration files for clients and servers) for this bug to have been exploitable in the first place.
+In particular, the Samba team note that you would need all of these Samba options set at the same time:
+The defaults (if you don’t have any entries with these names in your /etc/samba/smb.conf file) are all different, as follows:
+Notably, plaintext authentication is suppressed by default, meaning that Samba clients won’t generate sniffable network packets containing plaintext passwords in the first place.

@@ -1,0 +1,40 @@
+If you run a website or a blog, you probably use a cloud provider or a dedicated hosting company to manage your server and deliver the content to your readers, viewers and listeners.
+We certainly do – both Naked Security and our sister site Sophos News are hosted by WordPress VIP.
+That’s not a secret (nor is it meant to be), not least because most providers identify themselves in the HTTP headers they send back in their web replies, if only as a matter of courtesy:
+Because your choice of hosting provider is usually easy enough for anyone to figure out, you probably already receive your fair share of spam from companies saying, “Hey, I see you use web provider X, and we just happen to have enormous expertise in that area, so why not contact us…”
+…and we’re willing to bet that you have lots of reasons why not, including that you don’t much like receiving unsolicited emails trying to drum up business.
+We certainly get our fair share of spams of that sort, typically saying they can help us switch providers, optimise our content, boost our Google ranking and so on.
+But over the weekend we received a message that was a bit more believable than the rest.
+This scam pretended to come from WordPress itself, and claimed that DNS security features would soon be added for our domain:
+
+
+From: WordPress
+Subject: nakedsecurity.sophos.com DNS Update
+We’re upgrading your domain DNS for something even better, freely!
+We care about your privacy and the protection of your domains, so we will soon be upgrading them, from basic Domain Name System (DNS) to Domain Name System Security Extensions (DNSSEC).
+
+As you probably know, DNS is short for domain name system, and it’s the globally distributed database that turns server names that humans can remember, such as nakedsecurity.sophos.com, into network numbers that computers can use, such as 203.0.113.171.
+And DNSSEC really exists – it’s a protocol that adds authentication to DNS data transfers to help stop cybercriminals filling the DNS database with bogus entries and thereby hijacking web traffic.
+In fact, you’ve probably heard of DNSSEC, short for domain name system security extensions, because it’s been around for more than 20 years.
+On the other hand, you’ve probably never set up DNSSEC or used it directly youself, because it has typically been a feature used by service providers to help to keep their own DNS databases intact when they exchange data with other DNS servers.
+In other words, activating DNSSEC for the server names that your hosting provider looks after for you certainly sounds like a good idea.
+So we can understand why some recipients of this scam might click through in order to learn more.
+The landing page of this scam is surprisingly believable, as you see here, which is what we received when we clicked through for our “free” DNSSEC upgrade:
+
+The page claims to be an “Update Assistant”, with logos and icons that match your service provider, and it even has a How to use this assistant button that actually works:
+
+Of course, the advice here is to put in your usual WordPress password – which is exactly the opposite of what you ought to be doing.
+Any data you enter here goes straight to the crooks, and if you don’t have two-factor authentication enabled on your account, the crooks may very well be able to log on to your website or blog right away and take it over completely.
+The scam then shows you some fake but believable progress messages to make you think that a genuine “site upgrade” has kicked off, including pretending to perform some sort of digital “file signing” at the end.
+Here’s what we saw when we entered a bogus username and passwords on the phishing page:
+
+As you can see, the crooks claim that you’ll be redirected to your own site at the end of the process, but instead you end up at a URL that includes the name of your site preceded by the name of the fake site set up by the crooks.
+This produces a 404 error – what we can’t tell you is whether the crooks made a programming blunder and accidentally redirected you to https://[THEIRDOMAIN/your.example instead of directly to https://your.example…
+…or whether they intended this all along, to avoid redirecting to you directly to your own login page, which might seem suspicious given that you put in your username and password already. 
+The clickable links in the emails sent out in this spam campaign include all the data that crooks need to tailor the login page automatically.
+The link we received looked like this:
+If you decode the base64 text used for banner and url, you get the following:
+By simply encoding new banner names and new URLs, we were able to auto-customise the scam page, like this:
+
+We didn’t even need to guess at the banner names that we could use, because the crooks had left the image directory browsable on their phishing site:
+In total, the crooks had 98 different ripped-off brand images ready to go, all the way from Akamai to Zen Cart.

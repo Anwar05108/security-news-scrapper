@@ -1,0 +1,50 @@
+HTTPS, as you probably know, stands for secure HTTP, and it’s a cryptographic process – a cybersecurity dance, if you like – that your browser performs with a web server when it connects, improving privacy and security by agreeing to encrypt the data that goes back and forth.
+Encrypting HTTP traffic end-to-end between your browser and the server means that:
+Without HTTPS, there are many places along the way between your browser and the other end where not-so-innocent third parties could easily eavesdrop on (and falsify) your web browsing.
+Those eavesdroppers could be nosy neighbours who have figured out your Wi-Fi password, other users in the coffee shop you’re visiting, curious colleagues on your work LAN, your ISP, cybercriminals, or even your government.
+This raises the question: if snooping and falsifying web traffic is so easy when plain old HTTP is used, why do we still have HTTP at all?
+LISTEN NOW: UNDERSTANDING HTTPS/SSL/TLS
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.(Note that we recorded this podcast back in July 2012. Since then, the number of Certificate Authorities trusted in most browsers has been energetically and deliberately reduced from about 650 to about 150; and Internet Explorer has been replaced by Edge.)
+It’s now more than 10 years since a Firefox plugin called Firesheep hit the news – if you were interested in cybersecurity back in 2010, you will almost certainly remember that name.
+Firesheep author takes backhanded pot-shot at free speech
+
+
+Back then, many websites where security and privacy were important – examples include social networks, car rental firms, online support forums and even banks – paid only lip service to HTTPS.
+They would use encrypted connections when it would very clearly have been dangerous to do otherwise, such as on the login page where you entered your actual password, or on the payment page where you put in your credit card details.
+But they would drop back to HTTP for everything else because it was a bit faster and easier – you didn’t need to spend extra time and CPU power at each end encrypting and decrypting every data packet that you sent and received.
+What Firesheep did was to turn the Firefox browser into an easy-to-use network sniffer – that’s the jargon term for a network surveillance tool – that just about anyone could use, regardless of their technical skill.
+Firesheep would automatically sniff out other people’s social networking connections, wait until after the secure login part that couldn’t be eavesdropped because of HTTPS encryption, and then target the insecure HTTP traffic that followed.
+Firesheep would read in the headers from those unencrypted HTTP web requests, extract the session cookies or authentication tokens that denoted the user’s identity, use the stolen authentication data to impersonate the unfortunate user, and hijack their account.
+All of this was done automatically, right inside a browser where an attacker could point-and-click to exploit any hacked accounts at once.
+In theory, anyone in the coffee shop around you could have been running Firesheep, digging around in your Facebook account or posting on your Twitter feed, and you wouldn’t have realised until it was too late.
+Firesheep certainly put the cryptographic cat amongst the pigeons, if you will pardon the mixed faunal metaphor.
+Indeed, the Firesheep story was an important catalyst in persuading most of the major players in search, social media and online services to bite the bullet and use HTTPS all the time.
+Facebook, for example, made “HTTPS always” an option in 2011, turned it on for everyone in North America in 2012, and by 2013 had pretty much abandoned HTTP altogether.
+Apple’s App Store moved over to HTTPS in 2013; Microsoft pledged to encrypt almost everything back in 2013; and Google made Gmail HTTPS-only in 2014. 
+By 2015, Google’s search ranking algorithms were downvoting sites that didn’t offer HTTPS versions; in 2017, the search giant started publicly shaming login and credit card pages that still used HTTP by labelling them “not secure“; and by 2018, Google was applying that label to any website that hadn’t upgraded to HTTPS.
+HTTP, in other words, has been inexorably waning for the past decade.
+Well, it’s 2021, and the vast majority of websites now support HTTPS.
+Think of how long it’s been since you found a mainstream website – indeed, any website – that didn’t offer HTTPS if you insisted…
+…and you will arrive back at the question we posed above: why do we still have HTTP at all?
+More importantly, why is HTTP still the default choice of your browser if you type an URL into the address bar and don’t explicitly put https:// at the start?
+Why don’t browsers these days assume we mean HTTPS unless we go out of our way to type in http:// instead?
+The simple answer is that there are still enough non-HTTPS websites left out there that switching to HTTPS by default would cause sufficiently many transitory technical hassles to be disruptive.
+Sadly, inadvertent disruptions caused by well-meaning efforts to improve cybersecurity often have the undesirable and paradoxical consequence of luring less well-informed users into deliberately reducing the security they already have, as a “workaround” to bypass the “problem”. 
+Nevertheless, it really does look as though HTTP finally is on the way out, based on the evidence of a code change that was added to the Chromium browser project on the very last day of 2020.
+Chromium, of course, is the Google open source project that forms the core of many modern browsers, including Chrome, Edge, Vivaldi, Brave, Opera and many others (the only mainstream browsers not based on Chromium are Firefox and Safari).
+The change is documented as follows:
+
+(What Google calls the omnibox is just a fancy name for what most of us still call the address bar – “omni” because you can use it for searching as well as navigating.)
+Unfortunately, we’re still a long way off this being a default, because the above change notification also points out:
+In plain English, this means that the final goal is not going to be quite as dramatic as banning HTTP altogether.
+The Chromium developers currently seem to be aiming for a system where HTTPS will be preferred by default, but that the system will not only fall back automatically and quickly back to HTTP if needed, but also remember which sites “prefer” HTTP, thus helping to keep HTTP alive that little bit longer.
+Intriguingly, changes of this sort often end up becoming curiously controversial, as you can see from the range of Naked Security comments on the articles we’ve linked to above.
+A small but vocal minority seems convinced that Google, Microsoft, Firefox, Apple and others are promoting HTTPS simply to inconvenience small businesses and community websites, even though HTTPS certificates can now be acquired for free and kept up-to-date easily.
+But we think that railing against HTTPS is a bit like refusing to wear a seatbelt when you are in a car, and telling your friends that you won’t give them lifts any more if they inisist on wearing theirs…
+…with the likely outcome that your friends will quietly stop going anywhere with you at all.
+So, if you still haven’t upgraded your website to support HTTPS, we suggest that you make it your own New Year’s Resolution for 2021!
+HOW TO ENABLE HTTPS-ONLY IF YOU’RE A FIREFOX USER
+Interestingly, Mozilla started out on the road to banishing HTTP in a slightly different way.
+If you’re a Firefox user, you already have access to “HTTP-Only” mode on the Settings > Preferences > Privacy & Security page:
+
+Note that this option is stricter than what Chromium is proposing, which is why it’s not on by default: if you enable HTTPS-only mode in Firefox, you will be faced with a warning page every time you reach a site that doesn’t accept HTTPS connections.

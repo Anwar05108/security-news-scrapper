@@ -1,0 +1,26 @@
+We don’t know whether lockdown has anything to do with it, but how time flies!
+We couldn’t believe it either – it’s four weeks since Firefox’s last regular security update.
+If you want to check your version numbers, Firefox 76.0 is now replaced by 77.0; Firefox 68.8.0ESR is now 68.9.0ESR, and the Tor Browser, based on Firefox ESR, is now at version 9.5 and based on 68.9.0ESR.
+As we’ve explained before but we’ll mention again because it’s useful to know, the first two numbers in the ESR version should add up to the leftmost number in the regular release.
+So the current ESR is based on the feature set of Firefox 68, but with 9 updates’ worth of regular security fixes in there, so it is at 68+9=77 in security terms.
+For organisational users of Firefox who are conservative about new software features but aggressive about installing security patches, the ESR version is an excellent compromise.
+Indeed, the extent to which new features bring new bugs of their own can be inferred from the fact that the Security Advisory for this update (MFSA2020-20) has two separate items for “memory mananagment bugs fixed in 77 and in 68.9ESR” and for “memory management bugs fixed in 77 only”.
+Those fixes are denoted CVE-2020-12410 and CVE-2020-12411 respectively, and cover various memory management problems that were found by Mozilla itself as part of its internal bug hunting process.
+The bug lists are still not public, presumably to give people time to get their updates before hints on how to exploit them are published for the world to see.
+Understandably, given that these bugs are now fixed, the Mozilla team doesn’t take time to find out how to convert them from vulnerabilities into exploits – a process rather grimly known, when cybercriminals do it, as weaponising a bug.
+The security advisory notes merely that “[s]ome of these bugs showed evidence of memory corruption and we presume that with enough effort some of these could have been exploited to run arbitrary code. that any bug by means of which memory can be corrupted.”
+As you often find in monthly bug-fix lists, one vulnerability provides a fascinating mix of both excitement and danger: CVE-2020-12399, described with the words Timing attack on DSA signatures in NSS library.
+NSS, short for Network Security Services (the name dates right back to the age of the Netscape browser, which is presumably what the letter N originally stood for), is Mozilla’s own core cryptographic library.
+Firefox uses NSS instead of OpenSSL or any of its other widely-known open source variants such as OpenBSD’s LibreSSL or Google’s BoringSSL.
+DSA is short for Digital Signature Algorithm, a cryptographic process used as part of the security in  many TLS connections.
+The hard part in implementing a cryptographic algorithm securely is that the arithmetic calculations needed, notably when multiplication is involved, are both extensive and time-consuming, so it’s important to write code that is fast enough to be useful.
+At the same time, you have to be careful that you don’t try to make the algorithm as fast as you possibly can, because that means the time taken will almost certainly be affected by the numbers it’s crunching.
+If that happens, an attacker can use the running time of the algorithm itself, measured with enough precision, to guess at or even to determine the values of some of the numbers being used internally, including data that’s part of the encryption key itself.
+In the Firefox case, it sounds as though, by repeatedly pushing cunningly crafted data into the digital signature algorithm at the start of very many encrypted connections, you can make inferences about the private key used at the other end, based on how long the calculations take.
+This is a called a “timing attack”, and they’re tricky to defend against.
+To get a glimpse of how this sort of problem might arise, imagine that someone asks you to multiply two 5-digit numbers together, using pen and paper, behind a screen where they can’t see what you are doing, but can tell when you’ve finished. You can easily see that time alone might give them some intuition about the numbers you were given – for example by allowing them to guess how many zeros were present. That’s because 98765×45678 is harder to work out by hand that 98765×10000. The latter you can do instantly in your head, but the other requires the hassle of long multiplication, where you need to fetch from memory the values 5×8, 6×8, 7×8, 9×8, 5×7, 6×7 and so on for 25 different multiplications. Likewise, 98765×10011 is it bit easier than 98765×45678 (though not as quick as 98765×10000), given that the 1-times table is the easiest to remember. Time often is, as the adage says, of the essence.
+Check you have the update by going to Help > About Firefox or Help > About Tor Browser. (Use the menu item Firefox or Tor Browser instead of Help if you are on a Mac.)
+If you already have the update, the About box will tell you; if not, it will offer to fetch the update and install it for you.
+(Some Linux and BSD distros will be configured to deliver Firefox with their own package manager – if yours is one of them, use the operating system’s own update checker instead.)
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

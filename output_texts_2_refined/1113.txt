@@ -1,0 +1,55 @@
+Remember XcodeGhost?
+It was a pirated and malware-tainted version of Apple’s XCode development app that worked in a devious way.
+You may be wondering, as we did back in 2015, why anyone would download and use a pirated version of Xcode.app when the official version is available as a free download anyway.
+Nevertheless, this redistributed version of Xcode seems to have been popular in China at the time – perhaps simply because it was easier to acquire the “product”, which is a multi-gigabyte download, directly from fast servers inside China.
+The hacked version of Xcode would add malware into iOS apps when they were compiled on an infected system, without infecting the source code of the app itself.
+The implanted malware was buried in places that looked like Apple-supplied library code, with the result that Apple let many of these booby-trapped apps into the App Store, presumably because the components compiled from the vendor’s own source code were fine.
+As we said at the time, “developers with sloppy security practices, such as using illegally-acquired software of unvetted origin for production builds, turned into iOS malware generation factories for the crooks behind XcodeGhost.”
+As you probably know, this sort of security problem is now commonly known as a supply chain attack, in which a product or service that you assumed you could trust turned out to have had malware inserted along the way.
+Apple’s App Store hit by the XcodeGhost of malware present
+
+
+Well, researchers at SentinelOne have just written up another supply chain attack they’ve discovered that is directly targeting incautious Xcode developers, and they’re calling this one XcodeSpy.
+It’s much smaller and simpler than XcodeGhost, and this time it doesn’t infect programs that you compile, although it still does its dirty work at compile time.
+The malware is delivered in the form of a booby-trapped version of a legitimate Xcode project that the crooks used as a cover name for their malware.
+The “donor” project that was ripped off to act as a carrier was an open-source library called TabBarInteraction created by a GitHub user going by the name of Potato04.
+We don’t know why the unfortunate Potato04 was chosen by the crooks, and we don’t know if any other projects were targeted – for all we know, this may have been some sort of test-run using a project that the attackers guessed their victims were using at the time.
+Interestingly, the crooks stripped out all the useful code in the project, but inserted executable script code into the PBXShellScriptBuildPhase part of the project.pbxpoject file:
+
+As the name suggests, this script gets called as a side-effect of building the project, so the malicious code doesn’t end up in the software that is supposed to be created by the build.
+However, the rogue shell script runs alongside all the other tasks such as compiling and linking that happen when developers click the [Build] button, effectively giving it a chance to hide in plain sight.
+That’s because most project builds involve reading, creating, writing and manipulating dozens, hundreds or even thousands of files, as anyone who has ever compiled their own Linux kernel will know, so it’s a handy time for unexpected code to run unnoticed in the melee of system activity.
+Most build logs get searched for things that were supposed to work but didn’t. Commands that weren’t supposed to happen at all but worked just fine are easily overlooked, meaning that build-time malware that doesn’t draw any attention to itself could go unnoticed for ages.
+The script code that the crooks added into the project file was inserted as follows:
+
+Extracting the executable script code from the project file, we can see that it first sets a series of Bash shell variables, each of which contributes a few characters to the final malware string:
+
+Next, the malicious script stitches the above short fragments together in a different order, and runs them as a new command, using the Bash function eval, short for evaluate-and-execute:
+
+In the code above, you need to know that the Bash code odb would mean “use the raw text odb at this point”, whereas $odb means “replace this text with the value of the variable odb instead”.
+The ultimate outcome of this unscrambling process is that the eval above acts as though you typed in the following two lines at a Bash command prompt:
+
+The second command line shown above is one of the most compact ways of getting what’s called a reverse shell on a Linux or Unix system.
+Simply put, it runs a new copy of the Bash shell, but instead of connecting its input and output to the console so you can type in commands on the keyboard and see the output in your terminal window…
+…it connects outwards to the server name given, using TCP port 443, and hooks up the TCP network connection to the input and output of the Bash shell.
+Outbound connections to port 443 are typically secure web connections, such as when you browse to a URL starting https://, so they are often considered unexceptionable by firewalls.
+The result of this outward connection attempt is that if there’s a suitable program listening on port 443 at the specified remote location, that program will accept the connection and instantly get remote access to a Bash command prompt on your computer.
+In the example below, we set up a listening process using ncat on a Linux laptop, and made a reverse shell connection outwards from a Mac:
+Here, we added the option -i after the command bash to get a visible prompt to appear, but that’s a detail that the crooks don’t need to worry about.
+When a reverse shell connection arrives at the crook’s computer, it’s  as though they just logged into your computer, except that the connection came outwards, so there was in fact no “logging in”, no inbound firewall connection rules to bypass, no username needed, and no password required.
+At this point, the crooks can pretty much do to your Mac anything that you could do yourself, given that they have a remote shell running under your account. (You can see this in the animation above when we run the command whoami after the Mac’s reverse shell has called home.)
+Even if the remote shell is only open briefly, that’s almost always enough time for the crooks to upload and launch yet more malware on your computer, giving them a beachhead to get back into your system at will, even after the initial remote shell has exited.
+According to SentinelOne, the call-home server used in the script above isn’t actively listening for reverse shell connections any more, although we found that the domain itself is still online, currently advertising itself as a forthcoming site for “fulls”:
+
+Fulls, also written fullz, is cybercrime argot for stolen records of personally identifiable information that are considered complete. For an individual, this might include name, address, telephone number, bank account details, SSN, DOB, employment details, and more. For a credit card, it would typically include everything needed to make an online payment, including expiry date and CVV. 
+Credit card fraud – want to join the party?
+
+
+As you saw above, the first line in the implanted shell script created a file called .tag in the Mac’s temporary folder. 
+That hidden file (on Unix and Linux systems, filenames that start with a dot are not visible by default) is dedicated to the single task of running a mysteriously named command mdbcmd, which we’re assuming the crooks would have uploaded automatically as soon a remote shell connection arrived.
+At this point, we can only guess at what the crooks had in mind here, although SentinelOne has made an educated conjecture, based on finding two other malware files from other sources that contained the same string /private/tmp/.tag that appears in the XcodeSpy script.
+Both were samples of a notorious Mac backdoor known as EggShell. (These samples, along with this malicious project file, are detected by Sophos as OSX/EggShell-A.)
+The original EggShell code is an open source project that describes itself as a “post exploitation surveillance tool [that] gives you a command line session with extra functionality between you and a target machine,” so an attacker using EggShell doesn’t need to run a whole series of complex commands by hand:
+EggShell gives you the power and convenience of uploading/downloading files, tab completion, taking pictures, location tracking, shell command execution, persistence, escalating privileges, password retrieval, and much more.
+As the original author wrly notes, EggShell is “a proof of concept, intended for use on machines you own,” though there are plenty of cybercriminals who have not adhered to that advice.
+Sophos products report the malicious project file described here, as well the EggShell backdoors listed in SentinelOne’s report, as OSX/EggShell-A, if you would like to check your logs. The call-home sites in this case are identified by Sophos web filtering products at connection time under the general category PROD_COMMAND­_AND_CONTROL and under the security category SEC_MALWARE­_CALLHOME.If you are interested in real-time malware and web filtering and how you can build it into your own products and services, you might like to look at the SophosLabs Intelix APIs.

@@ -1,0 +1,43 @@
+Tommy Mysk and Talal Haj Bakry describe themselves as “two iOS developers and occasional security researchers on two continents.”
+In other words, although cybersecurity isn’t their core business, they’re doing what we wish all programmers would do: not taking application or operating system security features for granted, but keeping their own eyes on how those features work in real life, in order to avoid tripping over other people’s mistakes and assumptions.
+We’ve written about their findings before, such as when they presented a well-made argument that persuaded TikTok to embrace HTTPS for everything, and now we’re writing about what you might call a nano-article…
+…a security finding that Tommy Mysk compressed elegantly into a single tweet:
+Heads-up: The mail privacy protection introduced in iOS 15 doesn't apply to the Mail app on the Apple Watch. Both the Mail app and the notification preview on the Apple Watch download remote content using your real IP address.#Cybersecurity #iOS pic.twitter.com/o0lh9rPQTd
+— Mysk 🇨🇦🇩🇪 (@mysk_co) November 15, 2021
+
+
+This is an interesting reminder of how difficult it can be to ensure that general-purpose security features really do work as intended across the board, or at least that they work as any reasonable user might infer.
+To explain.
+Apple’s iOS 15 introduced a neat anti-tracking feature for your email, dubbed Mail Privacy Protection:
+
+The idea is quite neat and simple: to shield you from annoying marketing tricks such as tracking pixels, you can ask Apple to fetch your remote email content first, and then relay it to to you indirectly, thus using Apple as a proxy for images and links in your messages.
+This acts as a sort of pseudo-VPN (virtual private network) that shows up at the other end of the connection as “some server at Apple came calling”, rather than “a specific user on home network X paid us a visit”, thus providing you with a modest privacy boost.
+In an ideal world, this wouldn’t be necessary, because everyone who sent you emails would package images such as logos into the message itself, or just send messages in plain text, without any images at all.
+But many marketing departments like to link to uniquely-named images in each individual email in a campaign, often using images that don’t actually serve any visual purpose (e.g. that are 1×1 pixel in size), as well as using uniquely identifiable clickable links in messages.
+This means that when your email client fetches the image, or if you visit any links in it, the web server at the other end can create a log entry that records your IP number against the unique URL used, thus tracking you, possibly quite accurately, by the time and the place that you read the email.
+Of course, marketing deparments generally don’t host those images and tracking links themselves – they typically rely on a third-party tracking and analytics company, and that’s where the tracking database ends up. 
+As minor and as inoffensive as this sort of tracking data might sound, considered one email at a time, it all adds up over time, especially if several different online services happen to use the same analytics company, which then gets a chance to track you across multiple services and websites if it wants to.
+As a result, modern browsers and email clients generally offer built-in anti-tracking features to help limit the precision of online tracking and therefore to improve your privacy somewhat.
+These features reduce the casual but considerable collection of this sort of information as you browse or read your emails.
+Apple’s Mail Privacy Protection is another mild level of anonymisation that helps to reduce your trackability, even when you genuinely want to see the external images in an email (you might actually be interested in the product being advertised), or are willing to click the embedded links for further information.
+Everyone who views the images of the latest and greatest products gets to see what they look like, which means that the advertising process works as intended.
+But all those potential customers show up as generic visitors from “somewhere in Apple’s server empire”, rather than as “the family at 72 Acacia Avenue, next to the post office, just before you get to Church Lane,” so the tracking process that is sneaked in along with the ads no longer works as intended.
+Well, not everyone, it turns out, and not all potential customers.
+The Tommy Mysk/Talal Haj Bakry cyberduo noticed that this IP anonymisation doesn’t work on the Apple Watch.
+Ironically, the device that you’d think would most benefit from having remote content pre-fetched by a proxy server, and perhaps scaled down or otherwise minimised or simplified to improve its appearance, if nothing else…
+…doesn’t seem to honour the setting of the Protect Mail Activity option.
+So tracking pixels embedded in emails you view on your iPhone will be shielded by this feature, but will give away your real IP number if the same email is viewed via your Watch.
+We don’t know why this discrepancy exists, but our buest guess is that Apple’s watchOS doesn’t have what you might call “feature parity” with iOS 15. 
+After all, iOS 12 for iPhones and iPads is still (as far as we know) supported by Apple, but there’s no Protect Mail Activity option available there.
+So, even though you set up your Apple Watch by pairing it with your iPhone, and then configure it via the iOS 15 menus, it’s not actually running iOS 15 itself.
+Indeed, the latest version of watchOS at the time or writing is numbered 8.1, compared to iOS and iPadOS, which are both at 15.1.
+For those with Apple Watches who would like to have at least some of the privacy shielding offered by the Mail Privacy Protection feature, we asked Tommy Mysk if there was a workaround.
+He replied to say that you can explicitly set the following options on the Settings > Mail > Mail Privacy Protection page:
+
+This blocks remote content, including tracking images, by default on both your phone and your watch, thus preventing you from giving away by mistake the “when and where” history of your email reading habits. (Apparently, tne Hide IP Address option, which is part of a feature called iCloud Private Relay, is not yet available to all users.)
+But you still need to remember not to tap on Load All Images when you’re reading emails on your Watch, because if you authorise those images to be fetched, your IP number won’t be hidden as you might expect.
+Tommy also notes that this IP non-shielding problem also applies to the Messages app, where tapping links in instant messages or text messages (SMSes) on your Watch takes you directly to the server in the URL, straight from your Watch’s IP number,  even if Hide IP Address is turned on.
+Is this is bug, an oversight, or merely an expected side-effect of the fact that watchOS simply isn’t iOS, even if you think of your Watch as a sort of “paired extension” of your iPhone?
+We don’t know.
+And we doubt that Apple will issue any sort of notification to explain the situation, given its restrictive attitude to security bulletins…
+…so until watchOS and iOS reach “feature parity”, and someone such as Tommy or Talal notices and points that out, you’ll need to steer your own way around this issue if email tracking protection is important to you.

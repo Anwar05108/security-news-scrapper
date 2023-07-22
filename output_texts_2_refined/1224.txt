@@ -1,0 +1,45 @@
+Not long ago, independent software developer Tim Perry, creator of the HTTP Toolkit for intercepting and debugging web traffic…
+…decided to add proxy support to his product, which, like lots of software these days, is written using Node.js.
+ICYMI, Node.js is the project that took the JavaScript language out of your browser and turned it into a full-blown application development system in its own right, a bit like Java (which is unrelated to JavaScript, by the way, for all that the names sound similar).
+As well as the JavaScript core, which uses the V8 JavaScript engine from Google’s Chromium project, Node.js sofware typically also relies on NPM, the Node package manager, and the NPM registry, a truly enormous repository of open-source Node tools and programming libraries.
+The NPM registry runs from basic text formatting to full-on facial recognition, and almost everything in between.
+Instead of writing all, of the code in your project yourself, or even most of it, you simply reference the add-on packages you want to use, and NPM will fetch them for you, along with any additional packages that your chosen package needs… 
+…and all the packages that those packages need, following the turtles packages all the way down until every piece of add-on code needed to complete the jigsaw has been located and installed automatically.
+As you can imagine, this is a potential security nightmare.
+Adding just one package to your own project may required a slew of additional packages, each of which may have been written by a different person whom you don’t know, have never met, and probably never will.
+This alphabet soup is known as your software’s dependency tree, and we have written about the risky side-effects of this approach to software construction before, noting that:
+You may find you can write a five-line JavaScript program that is elegantly simple, but only if your Node Package Manager drags in tens or even hundreds of thousands of lines of other people’s software. Automatically. From all over the internet. And keeps it updated. Automatically, from all over the internet.
+NPM update changes critical Linux filesystem permissions, breaks everything
+
+
+Perry rediscovered this risk recently, when he decided to use a popular NPM package called Proxy-Agent to provide the proxy support he wanted in his HTTP Toolkit product.
+Fortunately, Perry didn’t just blindly fetch, install and start using Proxy-Agent and its entire dependency tree without doing a review of the newly-acquired components in his project.
+Thus he came across a security flaw, now dubbed CVE-2021-23406, in a Proxy-Agent dependency called Pac-Resolver, which is a subcomponent that helps your code deal with the process of PAC, or proxy auto-configuration (see sidebar below).
+A proxy server is one that makes outgoing connections on your behalf, typically for security (e.g. to filter web traffic), for performance (e.g. to keep local copies of files that get downloaded often, or to regulate bandwidth usage during busy periods), or for both. You connect to the proxy and tell it where you want to go; it makes the onward connection for you, collects the replies, and returns them to you . Many corporate networks are configured so that certain outbound connections, notably HTTP requests, are only possible from a designated proxy server. This ensures that everyone inside the network sends their traffic via the proxy, instead of going directly to external sites. Numerous corporate-style tools exist to help computers on a network locate their official internal proxies automatically, including PAC, short for proxy auto-configuration, and WPAD, short for web proxy auto-discovery.
+PAC files, believe it or not, aren’t just data-only lists of IP numbers or server names where your network’s official proxy servers are located.
+Because they were intended to be ingested and used inside your browser, PAC files were deliberately designed to be more flexible than just a static data list.
+Indeed, a PAC file consists of JavaScript that can dynamically determine whether a proxy is needed, and if so where to find it on the network.
+As Perry notes, the PAC file format dates back a quarter of a century, and first appeared as a “feature” in the Netscape browser:
+PAC files provide a way to distribute complex proxy rules, as a single file that maps a variety of URLs to different proxies. They’re widely used in enterprise environments, and so often need to be supported in any software that might run in an enterprise environment. [… A PAC file is] a JavaScript file you have to execute to connect to the internet, which is loaded remotely, often insecurely and/or from a location that can be silently decided by your local network. 1996 was truly a simpler time. What could go wrong?
+Of course, Perry wasn’t planning on running PAC files inside the somewhat limited strictures of a browser, but as part of his HTTP Toolkit software, which runs as a regular application, potentially giving the JavaScript it launches much more reach and power than script code would enjoy inside a browser.
+He therefore decided to take a look at how the programmers of the proxy configuration code he’d chosen had addressed the security implications of fetching and running external JavaScript. 
+He discovered that the code used a Node component called vm, short for virtual machine, which lets you set up a new JavaScript instance, or state, where you won’t interfere with code running in other Node instances in your application.
+This is a handy precaution if you want to have two parts of your code doing separate things in such a way that they can’t trample on each other by mistake.
+In the words of the vm library documentation:
+The vm module enables compiling and running code within V8 Virtual Machine contexts. […] JavaScript code can be compiled and run immediately or compiled, saved, and run later. A common use case is to run the code in a different V8 Context. This means invoked code has a different global object than the invoking code.
+Perry realised that the original programmer, whose code he had now adopted, was using the vm library as much for programmatic security as for safety, apparently assuming that a new vm instance was not only separate from other vm instances in the application, but also strictly sandboxed in its own little secluded JavaScript world.
+However, as the vm documentation makes clear, in loud, boldfaced type:
+The vm module is not a security mechanism. Do not use it to run untrusted code.
+Perry quickly worked out how to use a regular JavaScript programming technique to run code inside the new vm instance that had full access to the external data of his main Node.js application.
+Technically, that constitutes an RCE bug in the proxy configuration process, where RCE is short for remote code execution.
+Loosely speaking, RCE means that untrusted content fetched from an untrusted source can deliberately do something treacherous that isn’t supposed to be allowed, without any warnings or popup dialogs showing up first.
+As some commenters on Perry’s discovery pointed out, exploiting this bug typically means altering a private network’s official proxy PAC file to include booby-trapped JavaScript.
+But if you already have the power to alter an organisation’s proxy setup, then you can simply redirect everyone on the network to a fake proxy anyway, with or without any JavaScript bugs in the equation…
+…and if you can silently redirect every browser on the network, then surely you already have more than enough cybercriminal control to wreak havoc on the organisation?
+Therefore, some commenters argued, CVE-2021-23406 is little more than a storm in a teacup.
+Except that redirecting everyone’s browsers via a fake proxy, as risky as this might ultimately be, simply isn’t as dangerous as having the power to run an arbitrary program on every computer on the network as a side-effect of the proxy configuration…
+…while leaving the original proxy configuration unchanged, so that everything else still seems to be working as usual
+Hacking a network by overtly reconfiguring every computer to start using a different proxy server is much more likely to produce troublesome side-effects that will get noticed, reported and investigated.
+Contemporary cybercrooks like to stay “under the radar” by avoiding changes that regular users might notice even if they weren’t being watchful for cybersecurity incidents.
+For what it’s worth, Perry notes that the packages in this story receive about 3,000,000 downloads a week, so popularity alone is no guarantee of correctness.
+Never forget, when it comes to so-called supply chain bugs of this sort, that you can outsource the coding, but you can’t outsource the responsibility.

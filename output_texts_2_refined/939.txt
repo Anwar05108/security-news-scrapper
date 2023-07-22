@@ -1,0 +1,26 @@
+Two months ago, we wrote about a malware gang that we dubbed RATicate.
+These criminals have been actively disseminating a range of remote access Trojans – thus the letters RAT in their nickname – aimed at giving them almost complete control over infected computers, all from a distance.
+As we explained earlier in the year, the jargon term RAT is very commonly associated with malware that gives criminals remote access to your webcam, usually for sleazy, voyeuristic purposes.
+Indeed, the name RAT was originally coined as a metaphor that referred as much to the criminals that deployed the malware as to the malware itself.
+But few RATs were ever just about surreptitious access to webcams and screenshots.
+Remote access tools of this sort are more generally known as bots, short for software robots, or zombies, because they lie in wait for commands to arise and wreak havoc.
+And almost every zombie out there supports, in addition to any built-in features such as file stealing, screen capturing and webcam snooping, a generic command by which it can update and replace itself with completely new malware, or download and install new malware to run alongside itself.
+As we wrote back in May 2020:
+The RAT variants delivered by this group of crooks included the zombie malware families Betabot, Lokibot, Formbook, AgentTesla, Netwire, Bladibindi and more.
+
+SophosLabs has been tracking the RATicate crew since its last report, and has just published a follow-up article detailing new findings about the way the gang operates.
+RATicate is what we call a MaaS group, short for malware-as-a-service, a play on legitimate offerings such as SaaS (software-as-a-service) and IaaS (infrastructure as a service).
+The new report gives an intriguing insight into what you might call the artisan economy in the cyberunderground, where different groups of crooks focus on different cybercrime services.
+The RATicate operators even seem to have given their “customers” nicknames that we dubbed actor_tags, such as lanre, bill, aus, h0ly and pope.
+
+Two months ago, we described how RATIcate’s malware delivery tool of choice was the NSIS installer, a legitimate and widely-used toolkit for packaging applications into single-file bundles that can be double-clicked to install.
+NSIS installers have the upside, for criminals at least, of having an air of legitimacy – many software products use NSIS, so using it for wrapping up malware is, in effect, hiding in plain sight.
+But the downside is that NSIS installers aren’t meant to be devious or obfuscated – by design, they’re meant to follow a well-defined format, making them comparatively easy for security researchers to extract and analyse.
+The RATicaters worked around this by packing their installers full of decoy files, including text documents, source code, Python scripts, images, XML data and legitimate program files (EXEs and DLLs) that weren’t malicious and might reasonably be expected in a genuine installer.
+Guess what? 
+The RATicate crew recently switched to a more devious sort of software packer that went out of its way to make analysis and extraction of the embedded contents difficult.
+Unfortunately, the packer they chose – originally dubbed GuLoader – itself turned out to be a commercial software obfuscation tool known as CloudEyE.
+You might imagine that any sort of software obfuscation system that is clearly designed to make a program’s behaviour hard to test and analyse would be worthy of blocking by default. But legitimate software vendors often use software-shrouding tools as a way of keeping hackers and pirates out, so banning all “packed” programs outright would prevent many mainstream applications from working, too.
+Read the SophosLabs report to learn what happened next – with the operators of CloudEyE as good as forced by industry pressure to shut down about a month ago…
+…only to reopen their code-crypting service last weekend with a brand new promise of greater accountability and faster shutdown of rogue accounts.
+How that turns out, only time will tell.

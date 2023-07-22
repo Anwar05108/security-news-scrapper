@@ -1,0 +1,28 @@
+Microsoft just issued Security Advisory ADV200004, entitled Availability of updates for Microsoft software utilizing the Autodesk FBX library.
+At first glance, you might be inclined to read just the headline and skip on by because you don’t use FBX files or you don’t have any Autodesk software products.
+We’ll be honest and admit we hadn’t even heard of FBX files until now, let alone created one – the abbreviation is short for Filmbox, and it’s a proprietary format owned by Autodesk that is used to save motion capture data along with audio and video streams.
+Autodesk is probably still best-known for its AutoCAD computer aided drawing software, but it has a huge range of products for video rendering, game creation and more, where the FBX file format is right at home.
+Well, Autodesk just published its own Security Advisory ADSK-SA-2000-0002, “Vulnerabilities in the Autodesk FBX Software Development Kit“.
+This advisory announces fixes for six different security bugs denoted CVE-2020-7080 to CVE-2020-7085 consecutively.
+Announced as they are at the same time, these vulnerabilities sound like the sort of multi-bug fix that sometimes emerges after a concerted burst of reviewing and testing existing code to improve it, and if so it sounds as though the review was both extensive and worthwhile.
+These vulnerabilities are due to a range of different programming errors that often creep into code that handles complex data objects, namely: buffer overflow, type confusion, use after free, integer overflow and null pointer dereference.
+Well, here’s the thing: it seems that the Microsoft Office 2019 and Office 365 ProPlus products from Microsoft include support for FBX files – whether you use FBXes yourself or not – and that the code to process those files comes from Autodesk.
+Therefore these versions of Office inherited the six CVE-tagged vulnerabilities from Autodesk, and five out of six of them are listed as allowing RCE, short for remote code execution.
+Microsoft also lists the Windows 10 components 3D Viewer and Paint 3D as affected by these bugs, so those products have been updated too.
+As you probably know, an RCE bug that is present when a vulnerable application processes a booby-trapped file often means that simply opening up or previewing that file could allow crooks to implant malware on your computer.
+You typically won’t see any of the usual “do you want to download?” or “this file wants to run a program, are you sure?” warnings, so opening the file will not only feel innocent – as opening up a data file is supposed to be – but also appear innocent, too.
+In other words, a crook could email you an FBX file – a file that isn’t a program and isn’t supposed to be a program – that puts you at risk.
+A bug requiring you to click on and open up a rogue file isn’t as dangerous as a security hole that can be exploited remotely even when no one’s logged in, because you have to be tempted at least to look at the offending item.
+But a “click-to-own” attack like this is much more dangerous than, say, a document file containing macros that have to be authorised as a second step after the document is opened.
+And even if you think you’d never open an FBX file because it sounds unimportant or irrelevant, remember that:
+Microsoft’s advisory states that it has “not identified any mitigating factors [or] workarounds for [these vulnerabilities]”.
+So you know what we’re going to say, so we’ll say it quickly: Patch early, patch often.
+And if you are an Autodesk customer, don’t forget to check for updates to affected Autodesk products.
+The Autodesk list includes various verisons of: the FBX Software Development Kit (which is presumably how these bugs ended up in Office), Maya, Motion Builder, Mudbox, 3ds Max, Fusion, Revit, Flame, Infraworks, Navisworks and Autodesk AutoCAD.
+While you’re about it – because you can! – we recommend telling Windows not to suppress file extensions.
+You might not yet know that files ending .JS (JavaScript) are actually programs rather than data files, and are generally very risky to open up directly on your computer.
+But there’s a irony that once you do know what .JS files are, Windows doesn’t make it easy for you to use that knowledge to protect yourself.
+Type file explorer in the search bar and launch the Windows File Explorer app; go to the View menu and check the box labelled File Name Extensions.
+If you’re a syadmin, you can make this change for all your users via Windows Group Policy.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

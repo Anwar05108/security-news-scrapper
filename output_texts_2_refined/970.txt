@@ -1,0 +1,36 @@
+Here’s a phishing email we received recently that ticks all the cybercriminal trick-to-click boxes.
+From BEC, through cloud storage, via an innocent-sounding One Note document, and right into harm’s way.
+Instead of simply spamming out a clickable link to as many people as possible, the crooks used more labyrinthine techniques, presumably in the hope of avoiding being just one more “unexpected email that goes directly to an unlikely login page” scam.
+Ironically, while mainstream websites concentrate on what they call frictionlessness, aiming to get you from A to B as clicklessly as possible, some cybercrooks deliberately add extra complexity into their phishing campaigns.
+The idea is to require a few extra steps, taking you on a more roundabout journey before you arrive at a website that demands your password, so that you don’t leap directly and suspiciously from an email link to a login page.
+Here’s the phish unravelled so you can see how it works.
+First, we received an innocent looking email:
+
+This one actually came from where it claimed – the proprietor of a perfectly legitimate UK engineering business, whose email account had evidently been hacked.
+We didn’t know the sender personally, but we’re guessing he was a Naked Security reader and had corresponded with us in the past, so we appeared in his address book along with hundreds of other people.
+We assume that many of the recipients corresponded with the sender regularly and would not only be inclined to trust his messages but also to expect attachments relating to business and projects they’d been discussing.
+Taking over someone else’s email account for criminal purposes is often referred to as BEC, short for business email compromise, and it’s often associated with so-called CEO or CFO fraud.
+That’s where the crooks deliberately target the CEO’s or the CFO’s account so they can issue fake payment instructions, apparently from the most senior level.
+In this case, however, the crooks had clearly set out to use one compromised account as a starting point to compromise as many more as they could.
+We’re guessing that the criminals intended either to use the new passwords for a follow-on wave of BEC crimes of their own, or to sell on the passwords for other crooks to abuse.
+Opening the attachment takes you to a secondary message that looks legitimate enough at first sight, especially for recipients who communicate regularly with the sender:
+
+The Sharepoint link you’re expected to click to access the One Note file does look suspicious because there’s no clear connection between the sender’s company and the location of the One Note lure.
+But the sender’s business relates to construction, and the domain name in the Sharepoint link apparently refers to a building company, so the link is at plausible, at least.
+The One Note file itself is very simple:
+
+It’s only at this stage that the crooks present their call-to-action link – the click that they didn’t want to put directly ino the original email, where it would have stood out more obviously as a phishing scam.
+You’d be forgiven for assuming that the Review Document button here simply opens up or jumps to a part of the One Note file that you’ve already got open…
+…but, of course, there is no New Project PDF file, and the “link” that’s apparently there for you to review the document takes you to the bogus login page that the criminals have been luring you towards all along.
+The fake login page is hidden away (or was – the site is offline now [2020-09-02T14:00Z]) on a hacked WordPress site belonging to an events company.
+Fortunately, the crooks gave themselves away doubly at this point.
+First, they got the name of the sender’s company wrong in this part of the scam (that’s the text redacted just before the word “Ltd”, which is the UK abbreviation for a limited liability company).
+The sender’s company name ends in the word Structural, given that he’s in the construction business, but the criminals blundered and typed in the word Surgical – a small but obvious red flag to anyone who does business with the sender.
+Second, the hacked events company where the crooks hid their phishing pages is in based Kyiv in Ukraine, and has a domain name that is neither related to the construction industry nor located in the UK, where the original email came from. (We redacted the site name in the image below.)
+If you do click through, despite the unexpected link and the unlikely domain name, then you’ll finally reach a login form, three steps removed from the original email, complete with animated imagery suggestive of Office 365:
+
+The login is apparently necessary in order to access what is supposed to be an Excel file.
+However, the unexplained switch to Excel jars with the previous page, where you were promised a PDF file, and you will notice that the criminals have written Microsoft, Excel and Small Business incorrectly.
+You also ought to be suspicious at a Microsoft login page that offers you so many alternative authentication choices.
+That’s something smaller websites do in order to capitalise on the fact that you probably already have accounts with the big players, but you wouldn’t expect Microsoft to use any of its competitors as an authentication service.
+Of course, if you do put in a password, it goes straight to the crooks, who then present you with a fake error message, perhaps in the hope you might try another account and give them a second password.

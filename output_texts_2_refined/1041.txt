@@ -1,0 +1,39 @@
+The first thing people want to know when there’s a new ransomware story going around is: How much are the crooks asking for this time?
+Sadly, that is one question that victims themselves don’t need to ask, because the blackmailers who just attacked them will make jolly sure they know the “price”. 
+In one recent and confronting story, an educational establishment in Scotland was confronted with an extortion demand for a surprisingly specific sum of money. 
+This turned out to be the crooks boasting just how much they knew about the college they were attacking – it exactly matched the amount in the college’s bank account, which was the entire budget for the next 12 months. (The college refused to do a deal, so the crooks ended up with £0.)
+But a much more important question, for ransomware victims and wide-eyed bystanders alike, is: How did the ransomware get in?
+Indeed, that is probably the most important question of all, on the grounds that the crooks already know how they did it, having done it once already, so if you don’t figure it out, the crooks can come back and do it all over again.
+Or a second bunch of crooks might figure it out for themselves, or buy the information from the crooks who were there before, and get in that way.
+In 2020, we conducted a survey of IT managers in 5000 companies in 26 different countries and asked about ransomware attacks. Just over half of them (51%) revealed that they had been the victims of ransomware in the previous year. As if that weren’t dramatic enough, 40% of those victims admitted they had been hit twice or more – in other words, where crooks had got in once, either those same crooks or others had got back in later to repeat the crime. (A tiny silver lining in this survey was that of the 94% of the victims who recovered their data, about three-quarters managed to do so without paying extortion money to the criminals. Interestingly, those who paid up spent an average of just under $1.5M each, including the ransom, to get going again. Those who recovered on their own spent an average of just under $750k.)
+As regular readers will know, many network intrusions start with crooks logging in as if they were genuine users.
+Sometimes, the crooks find a legitimate remote access server (e.g. RDP, short for Remote Desktop Protocol) with badly-chosen passwords or an insecure configuration, and guess or barge their way in.
+Sometimes, the crooks entice genuine users onto a fake login page, typically by means of a cunningly worded phishing email, and purloin their passwords.
+Phishing tricks – the Top Ten Treacheries of 2020
+
+
+But in a surprising number of ransomware incidents, the immediate delivery mechanism in the attack turns out to be existing malware inside the network.
+Simply put, a zombie malware infection inside your network, also known as a bot (short for software robot), can act as a secret remote access Trojan (RAT) for criminals.
+Importantly, bots work even on computers where strict firewall rules prevent inbound network connections – which includes most home networks, where inbound connections are typically blocked by default, either by your router or your ISP, or by both.
+Early RATs, such as the notorious Back Orifice toolkit from the late 1990s, relied on incoming connections. (Back Orifice famously listened on TCP port 31337 by default, an elite hacker witticism.)
+Back then, many if not most home computers were hooked up directly to the internet via a dedicated dialup modem, without a router or firewall to regulate incoming connections, and inbound connections to listening network ports on home PCs were almost always permitted by default.
+But the demise of dialup, the prevalence of “one-way traffic” home routers, and an on-by-default connection firewall in Windows quickly made the Back Orifice technique obsolete.
+These days, therefore, RATs and bots initiate outbound network connections themselves instead of listening for connections.
+They connect outwards to a server operated by the crooks who control the bot, known colloquially as the botherders, and download their commands from there.
+These criminal-controlled computers are known in the jargon as CnC, C&C or C2 servers, where the two Cs stand for command and control.
+As you can imagine, a general-purpose remote access zombie would be a ideal toolkit for a cybercriminal gang – and so it should come as no surprise to find that tools of just this sort can be bought in underground forums, assuming you know where to look.
+One such tool, which we’ve seen going for just $200, is a small but sneaky “product” known as SystemBC, which is compact, quiet and persistent. 
+Where possible, SystemBC installs itself as a Windows system service so it can run automatically in the background even if no one logs on.
+SophosLabs just published a technical analysis of this malware, which members of the Sophos Rapid Response team have found at the heart of several recent high-profile ransomware campains they have been called in to investigate.
+Ransomware operators use SystemBC RAT as off-the-shelf Tor backdoor
+
+
+As Sean Gallagher of SophosLabs explains:
+While SystemBC has been around for over a year, we’ve seen both its use and its features continue to evolve. […] Over the past few months, we have continued to detect hundreds of attempted SystemBC deployments worldwide. SystemBC was used in recent Ryuk and Egregor attacks investigated by [the Sophos Rapid Response team]. […] In some cases, the SystemBC RAT was deployed to servers after the attackers had gained administrative credentials and moved deep into the targeted network.
+As you’ll learn from the report, SystemBC is compact and self-contained, and it not only encrypts its C&C traffic but also uses the Tor network for anonymity and disguise:
+Most of the CnC communications with the SystemBC RAT are over a Tor connection. The Tor communications element of SystemBC appears to be based on mini-tor, an open-source library for lightweight connectivity to the Tor anonymized network. [..T]e bot’s implementation of the Tor client closely resembles the implementation used in the open-source program, including its extensive use of the Windows Crypto Next Gen (CNG) API.
+SystemBC accepts commands that consist of complete programs, including VBS scripts, BAT and CMD command files, PowerShell scripts, and Windows executables (EXE and DLL files).
+When a script or BAT file is sent to the bot, it gets written into the TEMP folder and run from there, but when an EXE or DLL is received, it’s loaded directly into memory and launched without writing a copy of the executable to disk. 
+In other words, a cybercriminal criminal who operates, or who can purchase access to, a network full of SystemBC remote access zombies…
+…can quietly and easily tell them all to run the same ransomware program at the same time, without even leaving a copy of the ransomware behind afterwards.
+We’re not sure where the name SystemBC comes from. BC could be short for backdoor connection, botnet client or  backdoor controller, or it could be a reference to Base Crypto, the Windows cryptographic functions used by the malware so it doesn’t need to have a third-party encryption library such as mbedTLS or OpenSSL compiled into it. Sophos products report this malware with the name HPMal/SysBRat-A.

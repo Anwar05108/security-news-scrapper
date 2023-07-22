@@ -1,0 +1,27 @@
+Bug hunter Tavis Ormandy of Google’s Project Zero just discovered a dangerous bug in the GNU Privacy Guard team’s libgcrypt encryption software.
+The libgcrypt library is an open-source toolkit that anyone can use, but it’s probably best known as the encryption library used by the GNU Privacy Guard team’s own widely deployed GnuPG software (that’s the package you are using when you run the command gpg or gpg2).
+GnuPG is included and used for digital security in many Linux distributions:
+gpg is the OpenPGP-only version of the GNU Privacy Guard (GnuPG). It is a tool to provide digital encryption and signing services using the OpenPGP standard. gpg features complete key management and all bells and whistles you can expect from a decent OpenPGP  implementation.
+In theory, this vulnerability could lead to what’s known as RCE, short for Remote code Execution, because the bug can be triggered simply by sending libgcrypt a block of booby-trapped data to decrypt.
+In other words, a program that used libgcrypt to decrypt and check the integrity of data submitted from outside the network – ironically, something you might do to see if you should trust the data in the first place – could be tricked into running an arbitrary fragment of malware code hidden away inside that data. 
+Ormandy didn’t come up with a working RCE proof-of-concept exploit for this bug, because he didn’t need to on this occasion.
+As he pointed out in his bug report:
+There is a heap buffer overflow in libgcrypt due to an incorrect assumption in the block buffer management code. Just decrypting some data can overflow a heap buffer with attacker controlled data, no verification or signature is validated before the vulnerability occurs. […]
+I believe this is easily exploitable, the overflowed buffer is immediately adjacent to a function pointer that is immediately called after the overflow.
+Just showing that he could provoke a crash was enough to prove his point, and Ormandy was able to do this via the gpg program, which relies on the libgcrypt library for its cryptographic functions.
+In C programming terminology, function pointer is a jargon term for “a stored memory address that tells the software where to go next”.
+A bug that can be abused to overflow a designated memory buffer and thereby modify a nearby function pointer will almost inevitably affect the future behaviour of the running program and divert its execution, typically causing it to crash.
+With sufficient trial and error, however, attackers may be able to figure out how to alter the flow of execution in the buggy program so that instead of crashing uncontrollably, the code gets tricked into running machine code instructions provided by the attackers themselves.
+Booby-trapped data that diverts a buggy program into treating some of that data as code to be executed is known as shellcode, a jargon word that means “malicious program code that’s infiltrated under the disguise of being harmless data”.
+Think of the function pointer like a CHANCE card in a game of Monopoly that instructs you to Advance to GO, collect $200. Imagine that you pick up the card and are happily preparing to make the specified move, but that when you show the card to your fellow players, it has inexplicably been swapped out by some sleight-of-hand. To your astonishment, it now says Go directly to Jail – Do not pass Go, do not collect $200, and that’s what happens instead.
+Ironically, perhaps, operating systems, products and sysadmin teams that are slow off the mark when it comes to updates may very well have missed out on this bug entirely.
+The vulnerability was introduced in version 1.9.0 of the library, which only came out on 2021-01-19, less than two weeks before Ormandy filed his bug report.
+But the good news for those of us who did get 1.9.0 within the last few days is that the GNU Privacy Guard team fixed this bug almost immediately, releasing version 1.9.1.
+If your Linux distribution was sufficiently on the ball to have upgraded to 1.9.0 within the past two weeks, it’s likely that it will also already have updated to 1.9.1 – check your distro’s changelog for details.
+Our distro, for example, has this recent entry:
+The second piece of good news is that libgcrypt isn’t as widely used as other open-source cryptographic libraries such as OpenSSL and LibreSSL, so fewer third-party programs rely on it.
+The third piece of good news is that most third-party software that uses libgcrypt seems to use the shared library (what Windows would call a DLL) that’s provided by your distro, rather than compiling a copy of the libgcrypt code into the product itself.
+In other words, even if you have affected software on your computer, just upgrading the central copy of libgcrypt in your distro’s system directories may well be enough to be enough to neutralise the bug.
+Nevertheless, the average Linux system almost certainly includes numerous apps that are potentially affected by this bug.
+A brief though incomplete list of software on our own system that uses libgcrypt includes: Akonadi, Audacity, FFmpeg, Geeqie, the GPG suite itself, numerous KDE tools, Qemu, the RPM Package Manager and Wireshark. (Most of these rely on the libgcrypt shared library, and can therefore now implicitly be considered patched on our computer.)
+Assuming that you have the GPG tools installed , including gpg2 and libgcrypt, try this:

@@ -1,0 +1,80 @@
+Our cybersecurity antennae always start vibrating when we see warnings about attacks that involve a new type of file.
+We’re sure you have the same sort of reaction.
+After all, if a file type that you’ve treated for years as mostly harmless suddenly turns out to be  possibly very dangerous, you’re faced with a double dilemma:
+We’re all aware of the risks posed by unknown EXE files, for example, because EXE is the extension for native Windows programs – even the operating system itself is implemented as a collection of EXEs.
+Most of us also know to be wary of DLLs, which are actually just a special type of EXE file with a different extension to denote that they’re usually used in combination with other programs, rather than loaded on their own.
+We’ve learned to be wary of DOCs and DOCXs and all the other Office filetypes, too, because they can include embedded programs called macros.
+We’re also aware of a range of risky script files such as JS (for JavaScript), VBS (Visual Basic Script), PS1 (Powershell) and many others that are plain old text files to the untrained eye, but are treated as a series of system commands when processed by Windows itself.
+We’ve even taught ourelves to be wary of the extent to which Windows itself misleads us because of its default approach to filenames – as in the case of the files alert and alert.txt below, which go out of their way to convince us they’re just innocent text:
+
+Forget what they look like: those old-school icons on the left that give the impression of being medieval scrolls don’t denote plain old written text at all.
+Ironically, however, the icon in the middle that looks like a crisply modern digital document, and that goes with a file that’s actually called document, really is a text file.
+By default, Windows suppresses filename extensions, which are the all-important characters that follow the last dot in a filename, such as the .docx at the end of the Word file TaxReturn.docx or the .exe at the end of the program Notepad.exe.
+Annoyingly, Windows itself very often uses extensions to decide what to do when you click on a file – for example, whether to view it harmlessly or to execute it riskily.
+Yet the operating system rather patronisingly assumes that you don’t need to bother yourself with those pesky extra letters at the end of your filenames.
+Indeed, if we turn on the View > File name extensions option (highly recomended!) in File Explorer, you’ll see the dangerous truth behind those “scroll icon” files that looked above as though they were called alert and alert.txt:
+
+In real life, those are .js files, and if you double click on them thinking you are about to open them up to view their contents, then you will get an unpleasant surprise.
+Windows will automatically run them as all-powerful JavaScript programs – not in the comparative safety of your web browser, but directly on your computer as local apps.
+(Apparently that icon doesn’t represent a scroll. It’s meant to be a script. Who knew?)
+At right hand side of the images above, you’ll see files with the extension .theme, denoted by icons that depict what look like a series of background images.
+We’re willing to bet that if you’ve ever downloaded and used .theme files (or .themepack files, which are just a collection of .theme files bundled together), you’ve not worried too much about security.
+Very loosely speaking, Windows Themes are just INI-style text files that specify various settings for background colours, wallpapers, and visual effects.
+Here’s a simple example, a copy of the file justatest.theme depicted above:
+(No, we don’t know what the text MTSM=DABJDKT in the last line means or what it’s for; we just know that Microsoft insists that you have it in the file and says, “You do not have a choice of values for this parameter.”)
+Admittedly, just loading untrusted image files, such as the Wallpaper file specified above, can theoretically be dangerous.
+That’s assuming there’s an unpatched vulnerability in one of your apps, or in Windows itself, that can be reliably exploited to trick your computer into running a fragment of executable code when a deliberately crafted image file is opened.
+In practice, however, that type of vulnerability is rare these days – those that are found are either quickly patched or jealously guarded, and can usually be triggered by delivering a booby-trapped image directly to your computer in a web page or an email rather than relying on a Theme file to reference them indirectly.
+The danger posed by booby-trapped Themes is therefore both small and manageable – giving .theme files a justifiable assessment of mostly harmless.
+Despite their generally low direct risk, .theme files nevertheless received a public airing in in the notorious “Vault 7” data dump back in 2017, when WikiLeaks exposed a massive trove of confidential documents allegedly stolen from the CIA. Vault 7 included a knowledgebase article, supposedly from the CIA’s Information Operations Centre, remarking that Themes might be handy as a way of amplifying the effect of an existing exploit by allowing multiple variants of the exploit to be delivered in one go: “[I]n the cases where your execution vector uses icon rendering/file previews to exploit (link files, font files), a theme file can allow you to point to up to three other files and render them from one.”
+But some recent digging by a security researcher going by @bohops revealed that Themes are open to abuse by cybercrimals after all – albeit in an indirect way to phish for passwords rather than directly to implant malware on your computer.
+[Credential Harvesting Trick] Using a Windows .theme file, the Wallpaper key can be configured to point to a remote auth-required http/s resource. When a user activates the theme file (e.g. opened from a link/attachment), a Windows cred prompt is displayed to the user 1/4 pic.twitter.com/rgR3a9KP6Q
+— bohops (@bohops) September 5, 2020
+
+Traditionally, .theme files are used simply as a way of triggering the automatic installation and rendering of one or more local files – indeed, that’s how the CIA envisaged using them for activating exploits:
+
+In the animation above, you can see how double-clicking a .theme file launches the Windows Settings app, automatically navigates to the Preferences > Themes section, and then opens, copies, selects and renders the new wallpaper file justatest.png onto our desktop.
+So far, things haven’t been very worrying.
+Bohops, however, put his “What if?” cybersecurity research hat on, and wondered what might happen if he used a Theme file to reference images out on the internet, using web URLs instead of regular filenames.
+Like this, taken from the file called justahack.theme seen above:
+All we’ve changed is the DisplayName of the Theme itself and the “filename” specified on the Wallpaper line. 
+In our real-world tests, we used a genuine domain name pointing at a test server of our own, fitted out with a genuine HTTPS certificate from Let’s Encrypt. Here, however, we have redacted the site name and replaced it with a special use domain name, as detailed in RFC 2606 and RFC 6761. We urge you to follow these RFCs in your own cybersecurity articles and documentation. By sticking to IP numbers and domain names that are realistic but will never be allocated in real life, you avoid the risk that someone might blindly copy and paste your examples into one of their own tests and subject some innocent third party to an inadvertent, annoying and possibly even dangerous attack.
+Bohops realised that the Settings app will honour the URL in the Theme file, automatically connecting to it without showing you any sort of browser window, and attempting to fetch the file that’s referenced.
+That’s slightly more worrying that reading a file that’s already on your computer, but probably still not enough to reclassify Themes as much worse than mostly harmless.
+Bohops was able to go one step further, however.
+The trick he figured out was simple but surprisingly effective: point the Theme file at a web server you control, configure your website to require authentication, and see if the Windows computer will supply you with a password.
+We did that by mocking up a web server of our own in a few lines of Lua so we could track how the Settings app behaved.
+In our server script, we collected the HTTP headers and used a basic HTTP 401 response (“must authenticate”) when the Settings app first came calling.
+Here, we check that the web request doesn’t yet contain an Authorization header, which is how a web client denotes that it has already gone through the logon process:
+
+Note that with HTTP Basic authentication, we get to choose the message that we’d like the the other end to display when it prompts for your credentials.
+The client responds to a 401 Must authenticate reply by collecting your username and password somehow, combining them into a text string with a colon (:) between, encoding them using Base64, and including the result in its next attempt to fetch the file.
+Here’s what happened:
+
+Notice how the credential popup is tagged as belonging to the Windows Settings app rather than your browser, giving it a credibility it doesn’t really deserve.
+You should spot the subterfuge, of course, because the password dialog explicitly states the website name it’s connecting to, and makes it clear that it’s the website that’s asking for the password and providing the explanatory text, not Windows itself:
+The Settings app will even connect to a non-HTTPS site to fetch Theme files (we tried it to see), though it will warn you not to put in your password due to the lack of encryption:
+(If you try to use HTTPS but don’t supply a valid web certificate that Windows trusts, the Settings app will give up silently.)
+As Bohops and others have pointed out, you can use a Windows UNC path instead of a website name in a Theme file, which tells Windows to use its file-based networking instead of a regular HTTP connection to retrieve the file.
+UNC paths are well-known to users of Windows networking, and usually rely on Windows computer names and network share names, such as \\YOURPC\C$\Windows\System32\NOTEPAD.EXE
+But you can put an internet domain name or an IP number into a Windows UNC name, and Windows will automatically trigger its built-in WebDAV client to fetch the file, instead of using its own networking protocols.
+WebDAV is short for Web Distributed Authoring and Versioning and it’s a modified flavour of HTTP used to support network-based data stores that support files and directories like a regular local or networked filing system such as NTFS or CIFS.
+We were able to get Settings to use WebDAV over TLS by specifying our wallpaper like this:
+In theory, getting Windows to connect to a WebDAV resource that requires authentication ought to provoke a Windows-style network login popup, using Windows NTLM (native) authentication rather than the less convincing HTTP-style credential popup that we saw above.
+This would make it more likely that a rogue Theme file could trick you into putting in your regular Windows username and password, although NTLM authentication uses a challenge-response hashing system that means the plaintext of your password would not be revealed as it was above when we forced HTTP Basic authentication.
+An attacker using the UNC approach would therefore have to collect a hash of your password and crack it – somewhere between very difficult and impossible if you have chosen wisely.
+Nevertheless, cybercriminals might be able to recover a poorly-chosen password if they have plenty of computer power to throw at the cracking task (which can be done offline).
+We weren’t able to get anywhere using UNC filenames, however.
+We were able to get Windows to make a secure WebDAV connection to our mocked-up WebDAV server, where could monitor the requests from the Settings app.
+Once again, we used a stripped down Lua server, and  this time we recorded this transcript:
+The session opens with an OPTIONS command, where the client verifies that it’s talking to a WebDAV server rather than to an HTTP server that lacks the WebDAV extensions.
+The command PROPFIND that follows is essentially the WebDAV equivalent of the Windows function pair FindFirstFile()/FindNextFile(),and shows us which file Windows wants to download.
+We replied to Windows and requested the use of HTTP NTLM authentication 
+Other researchers who have looked into WebDAV behaviour in the past have reported that the WebDAV client reacts to HTTP NTLM authentication demands by repeating its original unauthenticated request several times, before finally conceding defeat and going through the NTLM challenge-response process.
+This ultimately reveals a hashed version of your Windows password that can be attacked, and possibly cracked if the attacker is lucky.
+However, in the tests where we double-clicked on Theme files that specified a remote UNC resource, we were not able to provoke Settings into attempting authentication at all, let alone revealing a Windows password hash.
+After 19 attempts to locate the nowwithwebdav.png file without authentication, the Settings app gave up every time.
+What we can’t tell you is whether that’s down to a deliberate security restriction in the relevant part of the Settings app, to a default Windows NTLM setting that’s specific to the operating system version we were using (Windows 10 Enterprise 19041.450), to a limitation in our fake WebDAV server, or to something else entirely.
+If you get further than we did with UNC paths, let us know in the comments below!
+Fortunately, this isn’t a critical security problem and should be easy to avoid, even if the crooks decided to start trying it out in earnest.
+Here are our six tips to stay safe:

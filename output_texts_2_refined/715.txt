@@ -1,0 +1,17 @@
+A researcher has stumbled on a big security flaw affecting OpenWrt, an open source operating system used by millions of home and small business routers and embedded devices.
+OpenWrt has become a popular Linux alternative to the stock software that vendors ship with home routers. Other examples of this type of router software include DD-WRT and Tomato.
+It can used to replace the factory firmware on any router product with the correct hardware, for example, models from NetGear, Linksys, Zyxel and others.
+Discovered by Guido Vranken of ForAllSecure, the OpenWrt flaw is in the OPKG package manager, a program used to install or update OpenWrt.
+To ensure these files aren’t corrupted or tampered with before being applied, their integrity is verified against an SHA-256 hash. If the two checksums don’t match, the file should be discarded.
+Although served over an insecure HTTP connection, OpenWrt’s files are digitally signed, which implicitly guarantees that the listed hash is correct.
+The bug arises when installation starts, during which Vranken discovered that the SHA256sum field is not read correctly due to a simple programming error, something which fails invisibly.
+This means that as long as an attacker can create a file that matches the stated size, they can sneak malicious software on to the user’s router or device instead of the correct OpenWrt software.
+Vranken suggests that attackers could either hijack the OpenWrt server or interfere with the domain’s DNS to redirect users to a rogue server.
+Neither attack would be easy to pull off but if achieved, the user’s router and its traffic would be invisibly compromised by what had looked like legitimate software.
+Compromising a legitimate download source is the equivalent of battering down the front door. Because many attackers will never use more effort than they have to, it seems more likely that anyone targeting OpenWrt would try their luck with a brute force attack on its management credentials first.
+But it’s still a tempting flaw to aim for and one that deserves immediate attention.
+OpenWrt recommends upgrading to the latest version. The bug (CVE-2020-7982) was introduced in early 2017 and affects OpenWrt versions 18.06.0 through 18.06.6 and 19.07.0, and separately LEDE (an OpenWrt fork) 17.01.0 through 17.01.7.
+The fix was applied to versions 18.06.7 and 19.07.1, released at the beginning of February.
+OpenWRT’s full advisory can be viewed on the maintainers’ website.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

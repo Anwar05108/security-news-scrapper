@@ -1,0 +1,29 @@
+Apple has just announced its latest round of security updates.
+As usual, Apple’s fixes arrived unheralded, given the company’s insistence that security fixes are best handled simply by publishing them when they’re ready, rather than following any sort of formal schedule.
+Not everyone agrees – Microsoft has followed its Patch Tuesday process for many years (updates arrive on the second Tuesday of every month), for example, and Firefox has its own Fortytwosday calendar (major updates arrive every 42 days, i.e. six  weeks, on a Tuesday).
+But Apple’s theory seems to be that security updates fall into the “least said, best done” category, and that you should always play your patching cards close to your chest.
+Whether a security update is delivered to a schedule or pushed out suddenly, we do know that both researchers and criminals alike scramble to work backwards from patches, using the differences between old and new program files to figure out the specifics of the errors that were fixed.
+Microsoft’s Patch Tuesday for January 2020, for instance, fixed a bug in Windows 10’s certificate checking, whereby a crook could adopt the digital identity of someone else’s website, or pretend to be a well-known software vendor. Within about a day, security experts were publicly showcasing their reverse engineering skills by publishing tools allowing you to exploit the so-called CryptoApi or crypt33 hole by yourself, no research skills required.
+There are plenty of critical holes patched in this raft of updates – so we strongly advise you to patch right away, before anyone figures out how to abuse these newly-documented holes for fun or profit.
+In particular, both iOS 13 and the most recent three versions of macOS get fixes for several kernel-level security problems (the relevant macOS versions are 10.13, 10.14 and 10.15, better known as High Sierra, Mojave and Catalina).
+Five kernel bugs are listed for iOS (and iPadOS) and macOS alike, denoted as follows:
+Interestingly, iOS 12, which is still supported for older iPhones such as the 6 and 6+ that can’t run iOS 13, also gets an update.
+But the new version, iOS 12.4.5, wasn’t announced via Apple’s Security Advisory email service, which mystified us until we checked the overall Apple security updates webpage, where the update is officially listed but downplayed from a security point of view:
+iOS 12.4.5: This update has no published CVE entries. 	
+(iPhone 5s, iPhone 6, iPhone 6 Plus, iPad Air, iPad mini 2, iPad mini 3, and iPod touch 6th generation, 28 Jan 2020.)
+CVE, short for Common Vulnerabilities and Exposures, is a system, sponsored by the US government, that allocates unique numeric identifiers to bugs that are considered “publicly known cybersecurity vulnerabilities”.
+Whether this means that the new iOS 12 contains only unimportant or minor fixes, or that it patches serious holes that simply haven’t been assigned CVE numbers yet, we can’t say – so we recommend you get the update anyway.
+We applied it this morning – it was quick to download and didn’t take long to install – without any apparent issues.
+A newsworthy change that arrived in iOS 13.3.1, but that Apple didn’t count as a security fix, is listed on Apple’s general About iOS 13 Updates page.
+You may remember the brouhaha, back in December 2019, when well-known cybersecurity journalist Brian Krebs asked aloud why his iPhone 11 sometimes flashed up the “accessing location data” icon even if he had location tracking turned off in every app and all his system services.
+Apple later clarified that the only way to turn off location tracking entirely was to turn it off with the main “Location services” toggle.
+In other words, the individual “system services” toggles for the location-aware parts of the operating system didn’t necessarily cover all the features in the kernel – and that included a new high-speed data transfer feature added in the iPhone 11 known as UWB, short for Ultra Wideband.
+As we explained at the time:
+A few countries have regulated [the use of UWB], apparently for fear that it might mess with existing radio communications, and Apple therefore added system software [in the iPhone 11] that uses your location data, as long as the master location switch is turned on, to disable UWB automatically as required.
+Mystery unravelled!
+Well, Apple has now provided a new system service toggle that “adds a setting to control the use of location services by the U1 Ultra Wideband chip.”
+You can find the new toggle in the Settings > Privacy > Location Services > System Services:
+Note that to access the System Services list, you have to turn on Location Services first, or else all the per-app and per-service toggles are removed from the screen.
+(We wish that weren’t the case, and that you could check your per-app location settings before turning location services on in the first place, but Apple doesn’t see it that way.)
+To check you’re up to date:
+If your device has already updated automatically, the update screen will tell you; if not it will let you know about the update and offer to install it for you.

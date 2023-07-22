@@ -1,0 +1,34 @@
+Well-known Google Project Zero researcher Ian Beer has just published a blog post that is attracting a lot of media attention.
+The article itself has a perfectly accurate and interesting title, namely: An iOS zero-click radio proximity exploit odyssey.
+But it’s headlines like the one we’ve used above that capture the practical essence of Beer’s attack.
+The exploit sequence he figured out really does allow an attacker to break into a nearby iPhone and steal personal data – using wireless connections only, and with no clicks needed by, or warnings shown to, the innocently occupied user of the device.
+Indeed, Beer’s article concludes with a short video showing him automatically stealing a photo from his own phone using hacking kit set up in the next room:
+That’s the bad news.
+
+The good news is that the core vulnerability that Beer relied upon is one that he himself found many months ago, reported to Apple, and that has already been patched. 
+(According to Beer’s report: “This specific issue was fixed before the launch of Privacy-Preserving Contact Tracing in iOS 13.5 in May 2020.“)
+So if you have updated your iPhone in the past few months, you should be safe from this particular attack.
+The other sort-of-good news is that it took Beer, by his own admission, six months of detailed and dedicated work to figure out how to exploit his own bug.
+To give you an idea of just how much effort went into the 5-minute “teddy bear’s data theft picnic” video above, and as a fair warning if you are thinking of studying Beer’s excellent article in detail, bear in mind that his blog post runs to more than 30,000 words – longer than the novel Animal Farm by George Orwell, or A Christmas Carol by Charles Dickens.
+You may, of course, be wondering why Beer bothered to take a bug he’d found and already reported, yet went to so much effort to weaponise it, to use the paramilitary jargon common in cybersecurity.
+Well, Beer gives the answer himself, right at the start of his article:
+The takeaway from this project should not be: no one will spend six months of their life just to hack my phone, I’m fine.
+Instead, it should be: one person, working alone in their bedroom, was able to build a capability which would allow them to seriously compromise iPhone users they’d come into close contact with.
+To be clear: Beer, via Google, did report the original bug promptly, and as far as we know no one else had figured it out before he did, so there is no suggestion that this bug was exploited by anyone in real life.
+But the point is that it is reasonable to assume that once a kernel-level buffer overflow has been discovered, even in the face of the latest and greatest exploit mitigations, a determined attacker could produce a dangerous exploit from it.
+Even though security controls such as address space layout randomisation and pointer authentication codes increase our cybersecurity enormously, they’re not silver bullets on their own.
+As Mozilla rather drily puts it when fixing any memory mismangement flaws in Firefox, even apparently mild or arcane errors that the team couldn’t or didn’t figure out how to exploit themselves: “Some of these bugs showed evidence of memory corruption and we presume that with enough effort some of these could have been exploited to run arbitrary code.”
+In short, finding bugs is vital; patching them is critical; learning from our mistakes is important; but we must nevertheless continue to evolve our cybersecurity defences at all times.
+It’s hard to do justice to Beer’s magnum opus in a brief summary like this, but here is a (perhaps recklessly oversimplified) description of just some of the hacking skills he used:
+At this point, Beer had already reached a proof-of-concept result where most of us would have stopped in triumph.
+With kernel read-write powers he could remotely force the Calc app to pop up on your phone, as long as you had AWDL networking enabled, for example while you were using the “Share” icon in the Photos app to send your own files via AirDrop.
+Nevertheless, he was determined to convert this into a so-called zero-click attack, where the victim doesn’t have to be doing anything more specific that simply “using their phone” at the time.
+As you can imagine, a zero-click attack is much more dangerous, because even a well-informed user wouldn’t see any tell-tale signs in advance that warned of impending trouble.
+So Beer also figured out out techniques for:
+In the video above, the attack took over an app that was already running (the teddy bear was watching YouTube, if you recall); “unsandboxed” the app from inside the kernel so it was no longer limited to viewing its own data; used the app to access the DCIM (camera) directory belonging to the Photos app; stole the latest image file; and then exfiltrated it using an innocent-looking TCP connection.
+Wow.
+Tip 1. Make sure you are up to date with security fixes, because the bug at the heart of Beer’s attack chain was found and disclosed by him in the first place, so it’s already been patched. Go to Settings > General > Software Update.
+Tip 2. Turn off Bluetooth when you don’t need it. Beer’s attack is a good reminder that “less is more”, because he needed Bluetooth in order to turn this into a true zero-click attack.
+Tip 3. Never assume that because a bug sounds “hard” that it will never be exploited. Beer admits that this one was hard – very hard – to exploit, but ultimately not impossible. 
+Tip 4. If you are a programmer, be strict with data. It’s never a bad idea to do good error checking.
+For all the coders out there: expect the best, i.e. hope that everyone who calls your code has checked for errors at least once already; but prepare for the worse, i.e. assume that they haven’t.

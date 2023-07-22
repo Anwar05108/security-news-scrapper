@@ -1,0 +1,46 @@
+The cybersecurity meganews of the week, of course, is anything to do with HAFNIUM.
+(To be clear, we’re going to write it as Hafnium from now on, as Microsoft does in its top-level incident disclosure document, so that it doesn’t look as though we’re shouting all the time.)
+Strictly speaking, Hafnium is the name that Microsoft uses to denote a specific gang of cybercriminals, allegedly operating out of China via cloud services in the US.
+According to Microsoft, these crooks are primarily interested in “exfiltrating information from a number of industry sectors, including infectious disease researchers, law firms, higher education institutions, defense contractors, policy think tanks and NGOs.”
+The newsworthiness of this cybergang right now is that they have been connected with a number of brand new exploits recently patched in Microsoft Exchange. 
+These patches were deemed so critical that they came out the week before March 2021’s regular Patch Tuesday, instead of being made to wait for the rest of the month’s fixes.
+These zero-day bugs can be used, amongst other things, to get access into, and to implant malware onto, Exchange systems, giving the crooks a sneaky entry pathway that avoids the need for cracked or guessed passwords.
+The bugs, dubbed CVE-2021-26855, CVE-2021-26857, CVE-2021-26858 and CVE-2021-27065, present a number of different loopholes to attackers, including ways for cybercriminals to:
+Unfortunately, the Hafnium crooks aren’t the only ones using these flaws at the moment – it seems that their techniques for exploiting the bugs are already widely known.
+At this point, you might be wondering how attackers can turn a remote file write bug, where they can drop a file of their choice somewhere on your computer, into a remote code execution (RCE) bug, where they can reliably and immediately run the file they just created.
+Note, of course, that the crooks don’t have to be able to run uploaded files right away in order to do serious damage.
+It’s dangerous enough if they are able to leave malicious code where you might later launch it yourself by mistake, or if they can put it where it will run next time you reboot. (Cybercrooks aren’t always in a tearing hurry.)
+Nevertheless, if cybercrooks can not only drop malware but also activate it whenever they want, they will do just that.
+And in the recent Hafnium attacks, you’ve probably seen numerous mentions of the attackers using things known as webshells as a trick to launch files that they just infiltrated.
+Although the words shell and webshell are widely used and at least loosely understood, we thought this would be a good opportunity to explain what these terms mean, how they work, and why they’re popular with crooks.
+So, here goes.
+To start with, we’re going to use a compact and stripped-down scripting language called Lua as an example. (Lua is a bit like Perl, Python, Ruby and their ilk, only much smaller.)
+Like all those languages, it comes with a shell, often also referred to as a REPL, short for read-evaluate-print loop, which does what the name suggests.
+Simply put, instead of running an existing program directly, a REPL typically prints a prompt and waits for you to type in a command or language statement, whereupon it executes the statement immediately, prints any results and goes back for more.
+You can therefore work interactively, computing results, constructing new programs in memory and running them, building data structures, creating files, and even running external programs found elsewhere on your computer.
+With a REPL or a shell you can quite literally make it all up as you go along, rather than being stuck with a program you created earlier.
+In the Lua shell, the > character is a prompt to indicate that the REPL is waiting for input, and the text after the prompt is what we typed in for the REPL to execute.
+Lines that start without a > are the printed output from the REPL:
+If you could implant a REPL like this on a remote computer and then send it lines of text one at a  time, you’ve have a very simple remote shell that you could use to do pretty much whatever you wanted – you wouldn’t be limited to a predetermined set of already-coded features.
+As it happens, we started the Lua shell above from an even more general purpose Linux shell, namely Bash.
+Where Lua favours the > character for its prompt, Bash prefers $, and Bash lets you run other programs directly, without needing special functions such as io.popen() to open a sub-process:
+You can see why crooks love to set up remote shells they can access later, because it gives them the manoeuvrability to develop their attacks as they go to work, instead of implanting a specific item of malware up front that isn’t as flexible.
+Here’s the thing: many, if not most, web servers use a scripting system, a bit like the Lua engine we tinkered with above, to help them generate and serve up content.
+Common scripting engines used alongside web servers include PHP, Perl and Python on Linux or Unix systems, and PHP, VBScript, JavaScript and C# on Windows systems.
+Usually, if you use your browser to ask for a file with a name such as index.html or image.jpg, and such a file exists, the server will simply read that file into memory and send it back as the content of the requested page, along with the necessary HTTP (web protocol) headers.
+These are known in the jargon as static pages, for obvious reasons: the file stored on the server is the content that gets served every time.
+We set up a Windows IIS server and created this simple hello.html file for it to use:
+Visiting the relevant URL returns precisely the contents of that file, unmodified:
+
+The upper pane shows how the page was rendered and the bottom pane shows the exact HTML source code that was served up.
+Clearly, a crook who could write a new hello.html file could cause real trouble for your server by causing you to serve up fake news, malware content, or bogus links, so a web server bug that allows arbitrary file writes always spells trouble.
+But the side-effects of a bogus HTML file would, in general, be restricted to users who browsed to your site and who received the malicious content.
+That HTML file couldn’t and wouldn’t directly affect the server itself.
+Life isn’t that simple, however, so let’s see what happens if we create a file called hello.asp instead. 
+(ASP is Windows jargon for Active Server Pages, though many other scriptable extensions are used, notably PHP files with the extension .php on Unix and Linux servers, but the underlying run-time principles are the same.)
+Here’s the HTML source code:
+But this time, the page that’s served up looks like this:
+
+The extension .asp in the URL automatically tells the Windows IIS server not to read and return the hello.asp file from the server directly, but to process it through the Windows ASP scripting service first.
+Any regular HTML content is used unmodified, but the parts of the file between the special markers <% and %> are treated as miniature programs.
+They’re actually executed as scripts on the server itself and the output of the script is inserted into the HTML file to create a 

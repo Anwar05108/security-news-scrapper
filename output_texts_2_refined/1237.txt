@@ -1,0 +1,62 @@
+You’ve probably heard of Let’s Encrypt, an organisation that makes it easy and cheap (in fact, free) to get HTTPS certificates for your web servers.
+HTTPS, short for secure HTTP, relies on the encryption protocol known as TLS, which is short for transport layer security.
+TLS encrypts and protects the data you send back and forth during a network session so that it can’t easily be snooped on in transit, and so it can’t sneakily be altered along the way.
+Because of these features, protecting both the confidentiality of your browsing and the integrity of the data you download, most of us agree these days that HTTPS is vitally important when we use the web.
+Even if the data you’re looking at is neither private nor secret, crooks can learn a lot about you by keeping an eye on your interests, so why make it easy for them learn to more than they need to know?
+Likewise, if you’re downloading a report (or an app) from a site you trust, why make it easy for cybercriminals to switch out your download along the way with a fake news document (or to poke malware-laden content into the middle of an otherwise harmless program)?
+Why not use simply use HTTPS for everything, just in case, in the same way that you wear your seatbelt every time you travel in a car, instead of using it only when you think road conditions are at their most dangerous?
+If you go back a decade or so, HTTPS was not universally or even widely used, and there were two main reasons:
+Indeed, until about 2010, our attitudes to HTTPS were much more lax than today, to the point that even mainstream websites such as social media, webmail and online shopping only bothered with TLS at so-called “critical moments”.
+Before 2010, the page at the start of a browsing session that asked for your password, for example, might use HTTPS (on well-known websites, at any rate), to prevent your password being sniffed out.
+Likewise, the page that took your credit card details at the end would probably (though sadly not always) be encrypted, too.
+But the vast bulk of your browsing would skip HTTPS altogether, because a snappy browsing experience was considered much more important than a secure one.
+This minimalist approach to online security so that it protected only “truly personal” data such as passwords and payment card details was widely considered satisfactory at the time.
+If high-traffic, big-name sites could get away with using HTTPS only some of the time, it was unsurprising that many other sites followed suit, or didn’t bother with HTTPS at all.
+In 2010, however, our collective attitude suddenly changed, in no small part due to a Firefox plugin called Firesheep.
+This provocative toolkit was created in the hope of convincing us not to be a bunch of sheep, and not blindly to follow the crowd in accepting unencrypted web content as an unavoidable necessity.
+Secure websites are insecure – ask Firesheep
+
+
+With Firesheep, anyone who felt like having a go at being a network hacker could sit in a coffee shop, open up an innocent looking Firefox browsing session, and let the plugin monitor all the unencrypted traffic on the network.
+Firesheep’s goal was to watch out for data going to and from other users on the network who had already completed their “secure” login to a site such as Facebook or Twitter.
+Those unencrypted network packets didn’t reveal the user’s actual password, but they did expose the current authentication token, or secret session cookie, that was added to each request to prove that this user had already logged in.
+Firesheep would automatically slurp up these authentication tokens and inject them into fake Facebook and Twitter traffic in order to compromise other people’s accounts.
+By this means, a wannabe attacker – who could already read your posts anyway, even if they were not intended for public broadcast, because they were not using HTTPS – could subvert your account by making posts in your name.
+Directly from the click-to-hack simplicity of a browser window.
+This dramatic reminder that we ought to be using web encryption all the time, not just some of the time, resulted in increasingly strident calls for “HTTPS everywhere”.
+(Naked Security’s contribution to the early debate was an open letter to Facebook, penned back in 2011; similar pressure from voices across the internet gradually led to networking giants such as Facebook, Microsoft and Google adopting HTTPS for everything.)
+An open letter to Facebook about safety and privacy
+
+
+Indeed, those early adopters of “HTTPS for everything” showed that on modern computing hardware, the computational overhead imposed by TLS was much less dramatic than many people had feared…
+…but this didn’t solve the problem of cost, notably for websites run by enthusiasts and small businesses.
+Each server certificate you needed might cost $100 a year, and you had to make sure you didn’t forget to renew the certificates in time, or else your visitors would start getting scary looking “untrusted site – certificate has expired” warnings every time.
+Creating your own TLS certificates, as it happens, takes seconds and can be done for free.
+For example, these OpenSSL commands will generate a public/private keypair in the file key.pem, and then create a TLS certificate for the website naksec.test, signed with the newly created private key:
+The problem is that a self-signed key (in the example above, the matching Subject and Issuer fields make it clear that we signed this key ourselves) won’t get you very far if you want to run a webserver in the real world.
+You need to get someone (an organisation known as a CA, short for certificate authority) to carry out at least a basic check that you actually operate the website you’re claiming to represent, and then to sign your certificate in order to vouch for you.
+And you need to use a CA that is already trusted by the vast majority of browsers out there, so that your newly signed certificate will automatically work unimpeded for the vast majority of users.
+Otherwise your visitors would be confronted with scary looking “Attackers might be trying to steal your information” or “Warning: potential security risk ahead” messages every time.
+Started back in 2014, a non-profit organisation called Let’s Encrypt set out to change the HTTPS landscape not only by acting as a CA that offered TLS certificates for free, but also by automating and therefore greatly simplifying the process of acquiring and renewing them.
+(Let’s Encrypt wasn’t the first project to do free certificates, but it has been one of the most successful at making its free certificates widely accepted and easy to use.)
+The only slightly unusual thing about Let’s Encrypt certificates at the outset was that it couldn’t easily act as a CA to itself, given that it was brand new, making it tricky to gain interest and acceptance.
+Most HTTPS certificates have a “chain of trust” three links long:
+Here’s the verification chain for the website of Digicert, for example, a well-known CA:
+In contrast, we’ve shown below how an older browser might decide to trust letsencrypt.com.
+In the command below, we’ve use a home-made utility that excludes all of our operating system’s trusted root CAs and relies entirely on a CA from Digital Signature Trust Co., also known as IdenTrust, a company that helped Let’s Encrypt get started by acting as a “CA for the new kid on the block”, starting back in 2015.
+(The letters CN=... below are standard nomenclature for Certificate Name is ..., and the IdenTrust root certificate that gave Let’s Encrypt its leg-up is the final one in the verification chain, denoted CN=DST Root CA X3, where the letters DST are short for Digital Signature Trust Co.)
+The HTTPS interaction below simulates the situation back when Let’s Encrypt was unknown, and needed the injection of faith from IdenTrust in order for its certificates to be trusted automatically by browsers:
+In this example, similar to what an outdated operating system or browser might experience, the final “your computer found a root CA to vouch for everything below it” step (step 4 above), required the system to refer to Intrust’s DST Root CA X3 to put the stamp of approval on Let’s Encrypt’s certificate chain from that point downwards.
+The good news is that most browsers and operating systems now directly trust the third certificate in the verification chain above.
+If we re-run the command, but get it to use our operating system’s built-in CAs automatically (in this case, by omitting the -nobuiltincas option), we get this:
+And that’s just as well, because the DST Root CA X3 certificate that started it all will expire shortly after 3pm UK time on Thursday 30 September 2021 [2021-09-30T14:01:15Z].
+The data to look for is labelled Validity Not After:
+Given that Let’s Encrypt’s root CA is just one of more than 140 currently trusted by Firefox, for instance, why focus on this one “magic” expiry date?
+We felt this was a timely story because it’s a good reminder of why cryptography and cryptographic progress is often so slow, sometimes taking years to achieve by earned consensus what a dictatorial pronouncement that did nothing to build collective trust could achieve overnight.
+Simply put, trust is understandably hard and time-consuming to acquire, but easy to lose.
+So, well done to Let’s Encrypt for sticking to its plan of making HTTPS easy and cheap to add even to the tiniest website, and thanks to IdenTrust for vouching for Let’s Encrypt back in the early days.
+And thanks to everyone who decided to bite the bullet and adopt HTTPS back when there were still plenty of detractors out there suggesting that HTTPS was just a needless complexity thrust on us by online giants such as Facebook and Google, who clearly had the staff and the budget to do it easily.
+Lastly, to those who still claim that HTTPS is an unnecessary evil that plays into the hands of cybercriminals because they, too, can now easily get HTTPS certificates if they want, don’t forget that crooks who wanted to use HTTPS were perfectly able to do so long before Let’s Encrypt came onto the scene.
+After all, in the days when cybercriminals still had to stump up credit card details to pay $99 for a TLS certificate to make their sites look “mainstream”…
+…do you think for a moment that they were using their own credit cards?
+Or do you think they were using card details that they’d slurped up with ease from websites that refused to use HTTPS “because to do so would play into the hands of cybercriminals”?

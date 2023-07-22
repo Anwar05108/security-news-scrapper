@@ -1,0 +1,48 @@
+We’re sure you’ve heard of OpenSSL, and even if you aren’t a coder yourself, you’ve almost certainly used it.
+OpenSSL is one of the most popular open-source cryptography libraries out there, and lots of well-known products rely on it, especially on Linux, which doesn’t have a standard, built-in encryption toolkit of its own.
+Even on Windows and macOS, which do have encryption toolkits built into their distributions, you may have software installed that includes and uses OpenSSL instead of the operating system’s standard cryptographic libraries.
+As its name suggests, OpenSSL is very commonly used for supporting network-based encryption using TLS, which is the contemporary name for what used to be called SSL.
+TLS, or transport layer security, is what puts the padlock into your browser, and it’s probably what encrypts your email in transit these days, along with protecting many other online communications initiated by your computer.
+So,  when an OpenSSL security advisory reports exploitable vulnerabilities in the software…
+…it’s worth paying attention, and upgrading as soon as you can.
+The latest patches, which came out in OpenSSL 1.1.1k on 2021-03-25, fix two high-severity bugs that you should definitely know about:
+Even though we think the second bug is the more interesting of the two, we’ve seen several reports that have focused their attention on the first one, perhaps because it threatens immediate and disruptive drama.
+The bug can be triggered by a TLS feature called renegotiation, where two computers that are already connected over TLS agree to set up a new secure connection, typically with different (supposedly more secure) settings.
+To exploit the bug, a TLS client asks for renegotiation but deliberately leaves out one of the settings it used when it first connected.
+The OpenSSL server code fails to notice that the needed data was not supplied this time, and incorrectly tries to use the non-existent data anyway, given that it was used last time…
+…thus reading from a non-existent memory location, causing the server software to crash.
+This means that a malicious client could, in theory, deliberately crash a vulnerable web server or email server at will, leading to a dangerous Denial of Service (DoS) situation that could be repeated ad nauseam every time the server came back up.
+Session renegotiation, which is complex and considered error-prone (an opinion that is only strengthened by the appearance of this bug), was removed from TLS 1.3, the latest version of the protocol. However, very few web servers we know of have switched entirely to TLS 1.3 yet, and will still happily accept TLS 1.2 connections for reasons of backwards compatibility. You can turn off renegotiation for TLS 1.2 if you want, but it’s enabled by default in OpenSSL. Many servers that rely on OpenSSL may therefore be vulnerable to this flaw.
+The second bug, CVE-2021-3450, is slightly more complex to exploit, but could end up being more damaging than a DoS attack, because it allows security checks to be circumvented.
+After all, in many ways, a server that stops working altogether, as disruptive as that sounds, is better than a server that keeps on running but that behaves insecurely.
+The CVE-2021-3450 vulnerability involves a special setting that an OpenSSL client program can turn on called X509_V_­FLAG_­X509_STRICT. (We’ll shorten this from now on to just X509_STRICT.)
+This setting, which is not enabled by default, tells the OpenSSL code to perform additional checks when it is establishing a TLS connection.
+Ironically, however, turning it on activates a dangerous bug.
+As you probably know, the server side of a TLS connection usually submits a so-called digital certificate right at the start of proceedings.
+This certificate asserts that the holder of the certificate has the right to operate the domain name that you just connected to, e.g. www.sophos.com, and includes a digital signature from a third party, known as a CA, that vouches for that assertion.
+CA is short for certificate authority, a company that is supposed to check up on newly-created certificates to verify that the certificate creator does indeed have the authority over the domain name that they claim, after which the CA signs and issues the certificate, as depicted here:
+
+Without CA verification, literally anyone could issue certificates for literally any domain name, including those for well-known brands and services, and you would have no way of telling that they were an imposter.
+So, your browser, or whatever program is setting up the TLS connection, typically checks the certificates it receives to ensure that they are correctly signed by a CA, and then looks up that CA in a list of “trusted authorities” that either the browser or your operating system considers competent to sign certificates.
+If the signature checks out and the CA checks out, then the TLS connection is considered verified; if not, you will see one of those “certificate warning” pages that fraudulent or misconfigured sites provoke.
+Very greatly simplified, OpenSSL has code that looks like this to verify the CA of a certificate before it validates a connection:
+However, as mentioned above, there’s a non-default X509_STRICT option to do some extra certificate checks, including a special check that was introduced recently (in OpenSSL 1.1.1h, just three versions ago) to detect the use of non-standard cryptographic settings.
+We won’t go into detail here, but you need to know that one sort of TLS certificate uses what is called Elliptic Curve Cryptography (ECC), which is an algorithm based on mathematical computations using equations that define what are known as elliptic curves. 
+If you did high school mathematics, you may rememer x2 + y2 = 1 as the equation for a conventional circle, which is just an ellipse that is perfectly round, and (x/A)2 + (y/B)2 = 1 as the equation for ellipses that look more like rugby balls. 
+In this formula, A and B are parameters that determine the width and the height of the resulting shape. 
+The elliptical formulas and calculations used in ECC are somewhat more complex and include a greater number of curve parameters, which aren’t meant to be secret, but that must nevertheless be chosen wisely.
+For an analogy of why parameters matter in elliptical formulas, consider the “oval” ellipses you studied at school. In the formula we gave above, for example, you mustn’t let A or B be zero or the formula won’t work at all. And if you make A very tiny and B very large then you will end up with a super-stretched ellipse that will look like a stick if you draw a graph, and will be much harder to work with than if you simply chose, say, A=3 and B=2.
+Unfortunately, choosing ECC parameters carelessly could result in weakened encryption.
+Even worse, attackers could deliberately choose bad parameters to weaken the encryption on purpose, in order to boost their chances of hacking into your network traffic later on.
+As a result, various standards bodies have come up with lists of supposedly “known good” ECC parameters that you are expected to choose from in order to avoid this problem.
+And, from OpenSSL 1.1.1h and later, turning on OpenSSL’s X509_STRICT mode causes the code to ensure that any TLS connections that rely on ECC use only standard elliptic curve settings.
+The updated code goes something like this:
+If you read the code above carefully, you will see that if an attacker wants to present a fake certificate that is not correctly verified by a CA, and knows you have strict checks enabled…
+…then if they configure their server to use a bog-standard elliptic curve certificate with standard parameters, the certificate test above will always succeed at the end, even if the CA verification step failed earlier on.
+Almost all web browsers these days will accept either RSA or Elliptic Curve Cryptography certificates. ECC certificates are increasingly popular because they’re typically a lot smaller than RSA certificates with a comparable security strength. That’s a simple side-effect of the size of the numbers used in the mathematical calculations that go on behind the scenes in ECC and RSA cryptography.
+In the code, you can see that if the CA check fails then the variable result is set to BAD in order to remember that there was an error.
+But if the certificate is using ECC with standard parameters, and strict checking is turned on, then the variable result later gets “upgraded” to GOOD when the ECC check is done, and the previous error simply gets overwritten.
+So the code correctly detects that the certificate is fake, but then “forgets” that fact and reports that the certificate is valid instead.
+The CVE-2021-3450 bug is strangely reminiscent of Apple’s infamous “goto fail” flaw (CVE-2014-1266) from 2014. In that vulnerability, careless coding in the TLS connection verification function meant that by deliberately provoking what should have been an error, you could skip over the certificate validation process entirely. At the 2014 Black Hat conference, that bug notoriously won Apple the Pwnie Award for Most Epic Fail, one of a number of humorous “prizes” given out each year for security blunders made during the previous 12 months.
+Also, if you are a programmer, try not to write error-checking code the way that it was done in OpenSSL’s certificate verification routines.
+There are several other approaches you can take:

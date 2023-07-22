@@ -1,0 +1,44 @@
+We know what you’re thinking: “I bet you this is what they call a supply chain attack.”
+And you’d be right.
+The “one man” in the headline is cybersecurity researcher Alex Birsan, and his paper Dependency Confusion: How I Hacked Into Apple, Microsoft and Dozens of Other Companies, which came out last week, will tell you how his “attack” worked.
+Of course, Birsan didn’t literally do it alone and unaided (see the end of his paper for the section of shout-outs to others who helped directly or inspired him indirectly during his research), and he didn’t really attack anyone in the way that a criminal hacker or cracker would.
+His work was done in accordance with bug bounty rules or pre-arranged penetration testing agreements, and Birsan actually includes bug bounties in his credits:
+
+[A shout-out to] all of the companies who run public bug bounty programs, making it possible for us to spend time chasing ideas like this one. Thank you!
+
+LEARN MORE – How NOT to be a bug bounty hunter
+You can also listen directly on Soundcloud.
+Loosely speaking, the corporate vulnerabilities that Birsan uncovered have the same cause as many malware-by-software-update stories we’ve written about before – a problem perhaps best described as a dependency disaster situation, although Birsan more graciously refers to it as dependency confusion.
+Many programming languages these days come with an enormous treasure trove of community-contributed content that helps you to write even complex software very quickly, by giving you easy and automatic access to add-on libraries that solve programming problems that might take weeks, months or even years of work to code from scratch.
+If you’ve ever programmed in C on Windows, for example, and you’ve wanted to add cryptographic capabilities to your software – to encrypt and decrypt data with AES, for example, or to validate file hashes, or to access high-quality random numbers…
+…you’ll know that you don’t have to implement all that complex (and easy-to-get-wrong) stuff yourself.
+You can just load and use the built-in system library BCrypt.dll (BCrypt is short for basic cryptography) and call the function BCryptGenRandom() in that library directly.
+Your software is then said to be dependent on BCrypt.dll, inasmuch as your program won’t run if that DLL isn’t present (although on Windows it always is), and because your program automatically inherits all BCrypt’s strengths and weaknesses.
+When it comes to popular open source coding environments such as Node.js (basically JavaScript running outside your browser), Python and Ruby, these dependency trails can become much wider and much deeper, and therefore correspondingly much, much bigger and harder to control.
+A few years ago, for instance, we wrote an article entitled NPM update changes critical Linux filesystem permissions, breaks everything.
+To set the scene in that article, we asked you to imagine that you had been set the task of writing a JavaScript program to match two images of human faces.
+To solve this problem from scratch on your own might take years, but thanks to a ready-made library called facenet, you can literally do it in a few lines of code of your own. (There’s a working code example in the facenet package that is just 16 lines long, including comments.)
+But, as we described back in 2018, facenet itself depends on @types/ndarray, argparse, blessed, blessed-contrib, brolog, canvas, chinese-whispers and many other packages; chinese-whispers, in turn, needs jsnetworkx, knuth-shuffle and numjs; of these, jsnetworkx needs babel-runtime, lodash, through and tiny-sprintf; and babel-runtime in turn needs regenerator-runtime, and so it goes, on, and on, and on.
+As British mathematician Augustus De Morgan famously wrote in his 1872 book A Budget of Paradoxes:
+In other words, even though a decision to use facenet in your program will reduce the complexity of your code enormously, it will greatly increase the complexity of the “hierarchy of fleas” on which your code depends.
+For better or worse, modern package management tools, including PyPi (for Python), RubyGems (for Ruby) and NPM (for Node.js) can hide this dependency complexity from you by automatically identifying, fetching, downloading, configuring and installing the packages you need, plus the packages on which they depend, and so on.
+As handy as this sounds, you’re probably thinking that there’s a lot that could go wrong here, and you’d be right.
+A complex dependency tree means a complex package supply chain, and a complex supply chain means a greatly increased attack surface area for you, and thus indirectly for your customers.
+After all, whenever one of the packages in your own sea of dependencies gets updated, your package manager can fetch and install the update for you by itself – automatically distributing it to your whole network, and even onwards to your customers, if you aren’t careful.
+So, any mis-step in the curation of any of the packages you rely upon, by any one of the hundreds or even thousands of coders in the community whose programming, testing and software publishing skills you have implicitly chosen to trust, could lead to a security disaster.
+Worse still, updated packages that are fetched and installed by your dependency manager can introduce malware into the heart of your coding ecosystem even if the source code in the package itself remains the exactly the same.
+That’s because software packages of this sort typically include general-purpose installation scripts that are run just once, at install or update time, so a malicious installation script could sneakily mess with your network without visibly altering the directory trees full of source code that your developers rely on.
+With a modified and booby-trapped package installation script, but unsullied and unmodified package source code, your developers won’t notice or experience any changes in the behaviour of the software that they’re working on, because the source code theydepende upon will remain unaltered.
+In Birsan’s research, he found numerous cases where source code published by a variety of major vendors, including Apple, Microsoft, Telsa, Uber, Yelp and dozens of others, contained clearly documented dependencies on internal (company-created) packages written in a variety of different languages.
+As you can imagine, these internal packages – ones that weren’t available in public repositories like PyPi, Gems and the NPM archives – had internal names, for example because the functions they performed would never be needed in other software and would therefore be no use to anyone else.
+(In your own network, for example, your coders might have JavaScript packages with unique names such as our-own-file-verifier or our-own-modified-authentication-check. There’s nothing wrong with that, not least because it makes it easy to spot your own customised internal packages at a glance.) 
+So Birsan wondered:
+As you can probably guess from the headline, the answers to these questions were: Yes; None; They get accepted; and Yes, dozens of them.
+In short, Birsan and his fellow researchers found a way to infiltrate updates into many corporate development environments in which the package source code they injected was unchanged, and thus would have gone unnoticed during code comparisons (diffs), code reviews and testing…
+…but where the package update scripts, which get run just once during a remotely triggered update, were programs of their own choice. 
+Birsan didn’t actually install real malware – he just used a simple call-home script to confirm that his remotely injected “malware” had indeed been executed inside the “victim’s” development network, and from there had been able to connect outwards.
+And there you have it – full-on remote code execution (RCE) holes that could be deployed at will, using popular public code repositories as unwitting malware carriers.
+No passwords to hack; no 2FA codes to guess; no VPN vulnerabilities to unravel; no elevation of privilege exploits to acquire sysadmin rights; no malware or hacking tools to deploy; in fact, no access needed to the victim’s network at all.
+Birsan himself additionally recommends reading a paper from Microsoft entitled Three ways to mitigate risk using private package feeds.
+In the jargon, go for a zero trust approach: take nothing on trust, but verify everything instead.
+As we’ve known since Homer’s time, there’s many a slip ‘twixt the cup and lip.

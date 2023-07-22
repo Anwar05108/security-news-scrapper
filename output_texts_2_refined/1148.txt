@@ -1,0 +1,38 @@
+It’s only a week since Apple’s last product updates, but it’s already time to update again.
+As you probably know, Apple, unusually amongst major operating system and application producers, doesn’t have any sort of predictable schedule for its security patches.
+Unlike vendors such as Microsoft (monthly), Google Android (monthly) and Mozilla (every fourth Tuesday), security updates emerge from Cupertino HQ whenever Apple thinks the time is right.
+And unlike Linux, where updates come thick and fast but you can at least track the issues that are being worked on at any moment, Apple’s updates arrive not only as-and-when, but also under an official cloak of undisclosure:
+For the protection of our customers, Apple doesn’t disclose, discuss, or confirm security issues until an investigation has occurred and patches or releases are generally available.
+As we’ve said before, Apple rarely deviates from this stony-faced silence, which can be annoying when there’s a security problem in Apple’s code that is commonly known and already being discussed widely, yet the company still won’t say whether it’s working on a fix at all.
+After all, if you’ve reported what you think is a bug but you don’t hear anything more about the issue, it’s hard to know where you stand. 
+Were you wrong, and it wasn’t a bug after all? 
+Are you being ignored because no one even noticed your report? 
+Or is the bug so deep and complex that it simply can’t or won’t be fixed and no one is ever going to tell you?
+This time, the reason for the latest patches, which apply to macOS, iOS, iPadOS and watchOS, is clear, because four CVE-numbered critical bugs have been squashed, described as follows:
+Impact: Processing maliciously crafted web content may lead to arbitrary code execution. Apple is aware of a report that this issue may have been actively exploited.
+Shortened into contemporary jargon, that means “drive-by, web-based zero-day RCE exploit.”
+Drive-by means that just visiting a website and viewing it is enough to trigger the bug, so you only need to be lured onto a booby-trapped site to take a look.
+The crooks don’t need to lure you in and then also convince you to download and run a file, or to install a browser plugin, or to enter loads of personal data into an online form you didn’t expect.
+Web-based means that the attack can happen right inside your browser, despite all the sandboxing and other protection that is supposed to keep browsing safe.
+Zero-day means that there were zero days that you could have patched in advance, because the crooks found and started exploiting the bug first, before a patch was available.
+And RCE means just what it says, namely remote code execution, where the crooks get to run remotely supplied code of their choice, decided at the time you visit their booby-trapped website. 
+Loosely speaking, RCE means not only that the crooks can inject and install malware onto your computer without any warnings or popups that would otherwise tip you off, but also that they can vary their attack as they choose.
+The squashed bugs are:
+Interestingly, the bug dubbed CVE-2021-30661 was already patched on 2021-04-26 (a week ago) in iOS 14.5 and macOS 11.3, but not in iOS 12, which didn’t get an update at that time.
+From this, you might have inferred that the security hole was introduced to Apple’s codebase after iOS 12 came out, and therefore didn’t apply to the older iOS 12 version at all.
+However, that turns out not to have been the the case, given that the CVE-2021-30661 and CVE-2021-30666 bugs fixed this time are listed as applying only to iOS 12.
+As far as we can tell, no bug matching CVE-2021-30666 has yet been patched in iOS 14 or macOS 11, which once again leaves us wondering, given Apple’s notorious “no comment” attitude to the bugs it is working on, whether this bug exists in Apple’s more recent operating system versions or not.
+Is this an old bug from iOS 12 that was carried forward into the current Apple codebase but has still not yet been patched there?
+Or is it a bug that is unique to the older iOS 12 code that doesn’t appear in the more recent operating system releases and can therefore now be considered to have been eliminated everywhere?
+Reminder. There is no iOS 13 any more. Older devices are stuck with iOS 12, which is still getting patches. But any Apple device that supported iOS 13 when it came out must now be upgraded to iOS 14.5.1 in order to be up to date with security fixes. That’s because iOS 14 replaced iOS 13, which is no longer supported at all and therefore dangerously far behind on security updates.
+Don’t delay. Get the updates today.
+Even if the “in the wild” exploits for these vulnerabilities are known only to selected crooks who are keeping them carefully up their sleeves and using them only in highly targeted attacks…
+… that’s no reason to be complacent about updating. 
+After all, security holes that one lot of crooks already know about could just as well be rediscovered, or be bought, or get stolen, by someone else. 
+(Don’t forget that the infamous ETERNALBLUE exploit, notoriously abused by the WannaCry virus, was apparently stolen from the US National Security Agency, even though the NSA had every reason to keep it to itself, well, eternally.)
+In other words, why stay one step behind known attackers when you could move ahead?
+On iDevices, go to Settings > General > Software Update. 
+On a Mac, it’s Apple menu > System Preferences > Software Update.
+If you’re already up to date, then the updater will say so; if not, it will offer you an immediate opportunity to catch up.
+The latest versions to look out for at the time of this article [2021-05-04T12:00Z] are: iOS 12.5.3, iOS/iPadOS 14.5.1, watchOS 7.4.1 and macOS 11.3.1.
+If you’re still using macOS 10.14 or 10.15 (Mojave or Catalina by name), you’ll be offered an update [2021-05-05T00:05Z] entitled simply Safari 14.1, rather than an update denoted by the operating system number or name.

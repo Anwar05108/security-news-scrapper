@@ -1,0 +1,79 @@
+Here’s a ransomware story with a difference.
+The sample we studied in this article is detected by Sophos products as Troj/Ransom-FXO, but you’ll also hear it called Vcrypt after the filename extension used by the malware.
+Neither of those monikers is how it describes itself, of course – it installs itself with the harmless-looking name video_driver.exe and claims to be just that, a video driver:
+
+The bad news is that whoever wrote this malware decided to be doubly destructive: it scrambles the files on your C: drive using a secret decryption key, but it wipes out the files on all your other drives, looping through all the letters A: to Z: except C:, issuing commands to delete all the files and directories it can find.
+The good news is that the programmer of Ransom-FXO didn’t take much care over the encryption part, and used a hardcoded cryptographic key that can fairly easily be extracted from the malware file.
+Actually, that bit of good news is just as well, because there’s no way to buy back the unscrambling key.
+Unusually, the criminal behind this attack didn’t use Tor or the dark web to host the “buy page” where you find out how much it’s going to cost and where to send the bitcoins…
+…they used a regular web page on a free hosting service that has now removed the offending content, so you couldn’t negotiate for the password even if you wanted to.
+Ransom-FXO is unusual because although the ransomware itself is written in C, it doesn’t use its own C code to do the encryption.
+If you’re a Naked Security podcast listener (if you aren’t yet, please give it a try!), you’ll probably remember that a few episodes back we discussed a concept we wryly referred to as “malwareless ransomware“.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.
+In the case we discussed in the podcast (jump to 13’43” for the section on ransomware) the encryption was carried out by hand by crooks who were already able to logon to the victim’s network and run commands as if they were genuine sysadmins.
+That attack saw the crooks using a free and open source full-disk encryption program called DiskCryptor, leaving you stuck at a password prompt you weren’t expecting – and for which you didn’t know the access code – when you next rebooted your computer.
+In the Ransom-FXO sample, the author used the free file archiving tool 7-Zip for the encryption, so that all the video_drive.exe ransomware program has to do is call the Windows system() function to run the 7-Zip program as a operating system command, just as if you’d typed it in yourself at a Windows command prompt.
+This makes the main part of the ransomware very simple, as you can see from this directory listing taken after the ransomware had installed itself in order to launch its attack:
+
+The malware copies itself to your %TEMP% folder (which is where temporary files typically go), as you see above, and is 794KB in size.
+However, 733KB of the video_driver.exe consists of a copy of the mod_01.exe file that the malware extracts into a program of its own at the start, so that it can call on it later.
+The mod_01.exe file is simply a pirated copy of the 7-Zip archiving and compression program, which lets you package entire directory structures into individual archive files, optionally encrypting them using the AES algorithm.
+Stripped of the copy of 7-Zip bundled into it, the video_driver.exe is incredibly simple.
+Almost all it does is to start two threads of execution that run side-by-side, each running a sequence of system() commands over and over again via the built-in Windows cmd.exe program:
+
+The first thread repeatedly does the following:
+
+The author left out the C: drive from the list of drives to wipe because that’s where the other thread looks for files to scramble.
+You can see what seem to be two fortuitous mistakes above. 
+The B: drive (if there is one, which is admittedly unlikely these days) doesn’t get wiped because the programmer checks for the existence of B: but then wipes the A: drive again in the second part of the line.
+And the F: drive was omitted altogether – we’re assuming that was a copy-and-paste blunder rather than that the criminal had in mind to spare that particular content.
+The second thread repeatedly runs a sequence of commands that are stored inside the malware like this:
+
+As weird as that text looks, it’s actually obfuscated using a good old Caesar cipher, where all the characters are shifted back three places just before the system() command gets called.
+Using the ASCII character set as the decryption table for the text above, li moved back three letters gives if, the hash sign (#) turns into a space, and XVHU comes out as USER, and so on.
+So, what actually executes is:
+
+As mentioned above, the file %TEMP%\mod_01.exe program name seen here refers to the pirated copy of the 7-Zip command brought along by the malware.
+You can see the password in the command line above – it’s the text immediately following the command option -p, namely:
+There are actually twelve variations of the above command in the malware, each having a go at scrambling one of the folders in this list:
+If any of these folders exist and have files in them, their contents end up in encrypted 7-Zip archives with the extension .vcrypt, like this:
+
+In the listing above, you can also see two other files created by the malware: help.html (shown below), which gives you the bad news that your files have been scrambled, and new_background.bmp, which is an all-black rectangle that gloomily replaces your desktop wallpaper for dramatic effect.
+The twelve file encrypting commands actually run over and over until you shut down or log out, so that any files you save into one of the above folders after the malware has started running will soon get noticed, added into to the relevant .vcrypt archive, and then deleted.
+The malware adds itself to the Windows registry entry as follows:
+This means that every time you logon to Windows, the file-deleting-and-encrypting threads start up again in the background.
+Thanks to the wallpaper change and the help.html file, you’re confronted with a dispriting, all-black Windows desktop with no file icons or shortcuts on it, like this:
+
+
+Oooopppssss…
+Q: Qu’ai t’il arrivé à mes fichiers ?
+A: Tous vos fichiers ont étés chiffrés et placés dans une zone de sécurité.
+Q: Comment récupérez mes documents !! ?
+A: Suivez les instructions disponibles via cette page web. Si la page ne s’ouvre pas, veuillez vérifier votre connexion internet.
+——
+Oooopppssss…
+Q: What happened to my files?
+A: All your files were encrypted and stored in a secure area.
+Q: How do I get my documents back !! ?
+A: Follow the instructions [here]. If you can’t open the page, check your internet connection.
+
+As we mentioned above, the web page that is supposed to tell you what to do has been taken down, so checking your internet connection won’t help you access it:
+
+
+Erreur 404 – Document non trouvé
+—–
+Error 404 – Document not found
+
+You can use an anti-virus program to remove the malware, or stop it running yourself as follows:
+You can recover your files by hand by installing the 7-Zip utility and then opening up the .vcrypt files in your home folder one by one.
+For example, here’s what our deleted Desktop folder looked like, packaged up inside the archive created by the malware, showing the filenames, sizes, and a + sign to denote that the files themselves are encrypted:
+
+(You can view the names of the files in this archive without putting in the password – the malware didn’t turn on the “encrypt filenames” option in 7-Zip, so only the file contents are encrypted.)
+When you ask 7-Zip to extract the files, a password prompt will pop up.
+For the malware sample described here, the password was:
+Unfortunately, there’s no quick way to get back files deleted from other drive letters than C:…
+…but if you’re in the habit of making regular and frequent backups, and of keeping at least one copy offline where it can’t be deleted during an attack, you should be able to recover anyway.
+Don’t delay, do a backup today!
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

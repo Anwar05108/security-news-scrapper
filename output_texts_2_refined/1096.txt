@@ -1,0 +1,27 @@
+Ransomware gets the big headlines, because of the enormous blackmail demands that typically arrive at the end of ransomware attacks.
+Indeed, the word “ransom” only expresses half the drama these days, because modern ransomware attacks usually involve the crooks making copies of all your data first before scrambling it.
+The crooks then demand a combination payout, part ransom and part hush-money.
+You’re not only paying to get the local copies of your data unscrambled, but also paying for a promise from the crooks that they’ll delete all the data they just stole instead of releasing it to the public.
+But what about the very start of a ransomware attack?
+Technically, that’s often a lot more interesting – and often more important, too, given that many ransomware attacks are merely the final blow to your network at the end of what may well have been an extended attack lasting days, weeks or even months.
+Given the danger that arises as soon as the crooks sneak into your network, it’s as important to learn how malware gets delivered in the first place as it is to know what happens to your files when ransomware finally scrambles them.
+With this in mind, SophosLabs has just published an intriguing report on a malware delivery ecosystem dubbed Gootloader.
+You may have heard reference to Gootkit, a name given to the malware family of which Gootloader forms a part, because it’s been around for several years already.
+But SophosLabs decided to give the initial delivery mechanism a name of its own and study it in its own right:
+The Gootkit malware family has been around more than half a decade – a mature Trojan with functionality centered around banking credential theft. In recent years, almost as much effort has gone into improvement of its delivery method as has gone into the NodeJS-based malware itself.
+In the past, Sophos and other security experts have bundled the discussion of the malware itself with analysis of the delivery mechanism, but as this method has been adopted to deliver a wider range of malicious code, we assert that this mechanism deserves scrutiny (and its own name), distinct from its payload, which is why we’ve decided to call it Gootloader.
+The report goes into the sort of detail that is well worth knowing if you’re interested in how modern malware embeds and extends itself inside a network, including a discussion of so-called “fileless” attacks.
+
+The term fileless attack is a bit of a misnomer, because “fileless” malware often involves at least one physical file to get the malware started, and may also rely on various intermediate files along the way. But fileless malware is entirely unlike regular software in the way it operates. Well-behaved software typically installs its executable code into a self-contained directory on your hard disk, uses the registry to save its configuration settings, and relies on the operating system to load its various software modules into memory and keep them under control. Fileless malware flouts these conventions (ironically, it often uses the registry as a sneaky place to store obfuscated versions of its executable code), loading its malware code directly into memory in order to bypass the regular tools that sysadmins use to monitor the system for unexpected and unwanted processes.
+Even if you aren’t an assembly language expert or a malware analyst, the SophosLabs paper is well worth reading for its description of how the Gootloader criminals lure well-meaning users into installing the Gootloader malware in the first place.
+Simply put, the crooks game Google’s search engine, tricking Google into treating hacked websites as trustworthy sources, and presenting innocent users with apparently “perfect matches” to their search queries. 
+(As far as we can tell, this gang has focused its effort on poisoning Google searches, but the tricks below could be used against other search engines, too.)
+The report explains the process in detail, but we’ll summarise it here:
+SophosLabs has encountered Gootloader’s fake message board pages in a variety of different languages, including English, German, French and Korean, with different campaigns targeted at different regions.
+Here’s an English-language example from the paper, where the unfortunate visitor had searched for information along the lines of intercompany settlement agreement (chart) alberta:
+As you can see, the search term doesn’t fit very naturally into the boilerplate text used by the Gootloader crooks, but it looks realistic enough at a glance.
+The vote of thanks from the “happy user”, together with the fact that the datestamps are recent, gives the content a veneer of believability.
+The title of the “message board” web page that’s presented, the download link that shows up, and the name of the file offered for download, are all constructed from the search phrase in order to make the fake page seem like a perfect fit for the query.
+Note that although the hacked site displays the malicious download link, the link itself points off to a different download server.
+We’re assuming that the crooks are using this two-stage approach so that the Gootloader malware files themselves don’t show up on the hacked site, which helps the hacked site to keep a clean reputation for a lot longer than it otherwise might.
+To tell Windows to show file extensions, go to File Explorer, click on the View item in the menu bar and then turn on the option File name extensions. If the Explorer window is narrow you may need to open the Show/hide tab first.

@@ -1,0 +1,41 @@
+Swiss cybersecurity researchers recently found security holes in Composer, the software tool that programming teams use to access Packagist, the PHP ecosystems’s major online repository of PHP software modules.
+These bugs could have allowed cybercriminals to poison the Packagist system itself, thus tainting the very watering hole at which a large part of the PHP community comes to drink.
+That sort of cyberassault is known, for obvious reasons, as a supply chain attack.
+Fortunately the Composer team responded with a hotfix within just 12 hours, and an official patch within five days.
+Even though the researchers reported that “[s]ome of the vulnerable code [was] present since the first versions of Composer, 10 years ago,” it seems that this was the first time these flaws were spotted.
+In other words, it looks as though the Good Guys got to these bugs before any Bad Guys did.
+If you’re surprised that so many software vendors, both open source and commercial, rely directly on central code repositories that they don’t themselves control, don’t be.
+After all, few businesses (or hobbyists) make all their own components these days.
+Most jobbing builders order bricks from a supply company rather than operating a miniature brickworks in their back yard, for example; even companies as big as Apple get their phones and computers made in other people’s factories, with many or most of the parts bought in from external suppliers.
+Almost all modern software development communities have giant, online treasure troves of source code already packaged up and ready to slurp up into your own software, as a way of promoting what’s known in the trade as code re-use.
+The idea is to obviate the need for every programmer and every software company in the world to reinvent, redesign and reimplement core software components.
+Even companies that compete head-to-head in the marketplace often have programmers working informally with their counterparts from competitors, along with volunteers, hobbyists and other interested individuals, on software packages that everyone needs.
+Simply put, last millennium’s attitude known as NIH (short for not invented here) has largely been stood on its head in the 21st century, because it’s now often seen to be more dangerous, or perhaps to be inefficient and even arrogant, to insist on reimplementing as much code as you can from scratch.
+When it comes to cryptography, for instance, using well-known, public code that has had years of scrutiny from the community is generally considered much safer than trying to knit your own, unless you are a cryptographer yourself. Even though open source cryptography tools are not perfect (the infamous Heartbleed bug in OpenSSL springs to mind), they rarely turn out to contain the sort of disastrous “flawed by poor design” problems that regularly show up in home-made cryptographic programming.
+Of course, when many or most of a programming community all “shop at the same store”, as it were, a dangerous bug in the store itself is likely to affect many more people very much more quickly than if everyone used different code of their own…
+…but there is a good-news flipside to this, given that patches are usually devised, tested and published much more quickly in an active community that’s open to public scrutiny.
+Better yet, any software suppliers who needlessly drag their heels in deploying those patches are likely to get noticed and pressured into doing the right thing by everyone else.
+The Packagist problem that the Swiss researchers found was similar to, but more subtle than, the critical Packagist flaw that we reported on in 2018.
+Back then, supply chain researcher Max Justicz noticed that he could upload new PHP packages that would trick the Packagist system into running commands of his choice, rather than simply dowloading and publishing his submission.
+This sort of bug constitutes an exploitable vulnerability dubbed RCE, short for remote code execution.
+At this point, you may be wondering what all the fuss is about, given that by supplying the Packagist system with a rogue URL that links to a booby-trapped package, anyone with a Packagist account can abuse the the repository by uploading malware anyway.
+However, that sort of attack only affects those other users who decide for themselves to trust the new package, and to download and start using it before anyone spots the malware.
+(Compare this situation to Android malware in Google Play, which is both regrettable and dangerous, but doesn’t directly affect the security of all of Google Play itself, or of other apps already in the Play Store.)
+Justicz’s trick didn’t involve adding booby-trapped commands that would run on a victim’s computer if they chose to download his dodgy package.
+Instead, his trick involved running booby-trapped commands inside the Packagist system itself right at the time his package was uploaded, thus potentially compromising the entire ecosystem, including other packages already hosted there.
+Simply put, his booby-trapped uploads wouldn’t just passively affect Packagist and thereby potentially attack some of its users, but actively infected Packagist itself and from there possibly all its users.
+The bug fixes put into the Composer software after Justicz’s bug report made an identical attack unlikely in 2021.
+The 2018 exploit involved  simply swapping out a URL for a system command, and instead of Composer downloading data from a URL, it would inadvertently run the command inserted where the URL was supposed to be.
+The Composer programmers added a step to their code to do what’s known as a command line sanitising, so that any URL that contains sneaky system commands no longer works as an attacker intended.
+Notably, the programmers took extra care to ensure that supplied data such $(value) in a Bash command-line argument would be treated directly as the text “[DOLLAR SIGN]­[LEFT BRACKET]­value[RIGHT BRACKET]”, rather than processed as a special shell trick that means “run the command called value and use its output as the data instead”, a dangerous feature in bash known as command subsitution.
+This time, the Swiss researchers found a way of supplying a dangerous command-line option to the Composer process that was supposed to donwnload their package into the Packagist ecosystem.
+For example, one of the Composer functions they tried ultimately relied on calling out to the cURL software on the Packagist server itself to fetch the source code they’d specified.
+Thanks to the command line sanitising above, the researchers couldn’t supply a booby-trapped URL to mislead the remote cURL command, as Max Justicz did in 2018.
+But they did figure out a way to add an extra command-line option to cURL by which they were able instruct cURL to run a command of their choice.
+That’s remote code execution (RCE) right there.
+This time, the problem was that Composer didn’t check whether the URL supplied started with two dashes (“--)”, which signifies an command-line option used to configure the command itself, rather than the URL that the command is supposed to fetch.
+Even though the researchers couldn’t embed a command directly inside the URL, they could nevertheless turn the URL, which should have been pure data consumed by cURL, into a command-line option, which is effectively metadata that controls cURL instead.
+Fortunately, there was a quick fix for this problem, namely for the Composer code to insert the special command-line option consisting of just two dashes (in other words, “--” immediately followed by a space character) in front of the user-supplied URL.
+The special double-dash option is supposed to tell the program being run that “this is the end of the options, and no arguments after this point are to be processed as options, no matter how enticing they look”.
+The primary reason for having a standardised “there are no more options” option is so that you don’t get stuck if you have a filename that happens to look like an option when you put it on the command line.
+It’s always a security problem if you have legal filenames that can cause trouble if they are passed to system commands and misinterpreted as command options rather than command arguments.

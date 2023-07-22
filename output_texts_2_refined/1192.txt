@@ -1,0 +1,57 @@
+About a month ago, a security researcher revealed what turned out to be zero-day bug in Apple’s Wi-Fi software, apparently without meaning to:
+After joining my personal WiFi with the SSID “%p%s%s%s%s%n”, my iPhone permanently disabled it’s WiFi functionality. Neither rebooting nor changing SSID fixes it :~) pic.twitter.com/2eue90JFu3
+— Carl Schou (@vm_call) June 18, 2021
+
+Carl Schou, founder of an informal hacker collective known as Secret Club, “created originally as a gag between friends who are passionate about technical subjects”, seems to have been doing what bug-hunters do…
+…and trying out a range of potentially risky values in the Wi-Fi settings on his iPhone.
+Schou set up a Wi-Fi access point with a network name (ESSID) of %p%s%s%s%s%n, and then deliberately connected his iPhone to it in order to check for what are known as format string vulnerabilities.
+This sort of vulnerability is considered somewhat old-school these days, but as we have had good reason to say many times on Naked Security, “never assume anything” in the world of cybersecurity, and it seems that Schou followed this advice, and unexpectedly unearthed up a genuine bug.
+The name format string vulnerability comes from a standard, widely-used system function, found in almost every operating system, known as printf(), shorthand for format and print data.
+In practice, programmers may not actually call the printf() function directly, but frequently write code that ends up calling either printf() itself or a related system function that works in the same way.
+As the Linux/Unix documentation puts it:
+The idea is simple: you use a so-called format string to specify how you want the output to look, and you then hand the function all the values that you want to print out.
+In the format string, a percent (%) character acts as a placeholder for each of the values you want to print, typically followed by a letter to denote how to do the formatting.
+For example, %s means print as a text string, %c says to print a single character, %d denotes print as a decimal integer, and %p (intended for debugging output) means print as a formatted memory address, also known as a pointer.
+The format string is, by convention, the first argument to the printf() function, followed by the values you want to display, like this (the character 10 is a line feed, which moves the output to the next line):
+You can clearly see in the output line how the second, third and fourth parameters passed to the printf() function have been wrangled into the format specified by the first parameter.
+As you can probably imagine, you need to be careful not to mix up the parameters: at a system level, strings (stored as pointers, i.e. raw addresses in memory) and integers (stored directly as a binary representation of the number) aren’t interchangeable.
+If you swap over the parameters "hello" and 42, then you will be asking the printf() function to treat the memory address where the string “hello” is stored if if were a number, which is unlikely to make any sense. 
+Memory addresses are allocated either by the compiler or the operating system, so they don’t mean anything from an arithmetical point of view.
+Worse still, you will be telling printf() to use the number 42 as a memory address to be accessed, which is unlikely either to be valid or safe.
+A good compiler will do its best to protect you from this sort of mixup:
+Sometimes, however, the compiler can’t help you because the format string isn’t known when the program is compiled, but instead gets generated at runtime and sent to printf(), which then has to trust that it is correctly constructed.
+Even worse, and this is something that programmers should go out of their way to avoid, is when you have code that constructs the format string from untrusted input that an attacker could have chosen.
+In that case, someone else gets to decide how printf() consumes its arguments, so a malicious user (or a determined researcher) could mix up the format string on purpose.
+In this miniature demonstration, we allow the person running the program to specify the format string on the command line, making it easy to see what happens when we mix things up intentionally:
+So far, so good, because we have scrupulously replicated the format string from the original code and respected the order of the parameters supplied.
+But watch what happens if we swap round the %s and the %d in order to trick the code into using 42 as a memory address, not merely as a number:
+A segmentation fault is archaic Unix jargon for a memory access violation, meaning that we purposefully crashed the program by deliberately mixing up pointers and integers.
+With this in mind, you can imagine why Schou took the trouble to create a Wi-Fi access point with the unusual and unlikely name %p%s%s%s%s%n.
+He wanted to see whether Apple’s networking software would choke when it tried to process the name.
+Unfortunately, not only did something crash, it seems to have kept trying again, and again, and again…
+…even after a reboot, because the system would try again, and again, and again, preventing Schou from connecting to his usual access point instead:
+Can confirm this works with an open / unsecured WiFi network with that SSID, and that using the "reset network settings" feature fixes it. Neat find!
+It also completely breaks AirDrop! 🤣 pic.twitter.com/D3J7mVGBHN
+— Jaimyn (@jaimyn_m) June 19, 2021
+
+As well-known researcher CodeColorist subsequently discovered by decompiling the offending code in iOS, the bug does indeed arise due to the untrusted ESSID name being mixed into the format string of a subsequent system call that relies on printf()-like functionality.
+A %s inserted at the wrong place in a network name could trigger what is essentially a network Denial of Service (DoS) attack against an innocent user’s iPhone.
+(The ESSID doesn’t have to be an obviously weird string such as %p%s%s%s%s%n, but could be written to look as though any unwanted %s strings were simply innocent typos or a misplaced apostrophes, such as “Hacker%s Delight” or “Your %superstore”.)
+One potential fix, quickly circulated, is to use Settings > Reset > Reset Network Settings to return to a “disconnected from everything” state, and then to reconnect manually to a legitimate access point that doesn’t trigger this bug.
+Apparently, however, this fix doesn’t always work, depending on what other ESSIDs you have connected to before.
+Amusingly, though it probably wasn’t funny to Schou himself, who was the first person to reveal this bug to the world, he found out how much more serious the bug was than he first thought after locking himself out of his own network, ultimately begging for help on Twitter :
+Seriously, I still don’t have WiFi pic.twitter.com/AaF9IQBvCp
+— Carl Schou (@vm_call) July 4, 2021
+
+Schou, who reported the bug to Apple once its more serious side was revealed, was able to get control back over his network settings without doing a total firmware reset, but not without considerable hassle.
+Schou, it seems, had to backup his phone to his laptop, find the wireless network settings configuration file (com.apple.wifi.known-networks.plist) amongst the thousands of backed-up items, edit out all reference to hackily-named wireless networks, and then restore the modified data to his phone.
+Sadly, Apple iPhone backups aren’t stored as regular copies of the files and directories on your device, so files can’t be located by name.
+Instead, each file is stored using a name that’s a cryptographic hash of its content, and a large SQLite database called Manifest.db is used to keep track of where all the now uninformatively named backup files came from on the original device.
+If you end up in Schou’s position (admittedly, he went looking for trouble on purpose, but you might end up there by mistake), take heart from the fact that researcher Alex Skalozub, also known as @pieceofsummer, has come up with a Python script that will do the recovery work for you.
+His script will pore through a local iPhone backup (you can backup an iPhone to Mac or Windows computers via a USB cable), attempt to find the troublesome configuration file, and repair it automatically, although, as he wryly notes: “Not tested, use at your own risk.”
+Automatic bad SSID remover: https://t.co/mZPhULPjyp
+Supports both encrypted and unencrypted backups. Not tested, use at your own risk 🙈
+— Alex Skalozub (@pieceofsummer) July 6, 2021
+
+As an cybersecurity aside, we recommend using the Settings > Reset > Reset Network Settings feature from time to time anyway, simply to reduce the number of known networks that your device will connect to automatically.
+You might be surprised how many known networks your phone or laptop has in its list, even ones that you last connected to months or years ago and that might be under new ownership or have adopted new terms and conditions of use since you last used them.

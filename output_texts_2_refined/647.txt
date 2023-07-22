@@ -1,0 +1,47 @@
+We’re not sure quite how dangerous this problem is likely to be in real life, but it has the most piratical name for a bug that we’ve seen in quite some time, me hearties.
+TRRespass is how it’s known (rrrroll those Rs if you can!) – or plain old CVE-2020-10255 to the landlubber types amongst us.
+Trespass is the legal name for the offence of going onto or into someone else’s property when you aren’t supposed to.
+And TRR is short for Target Row Refresh, a high-level term used to describe a series of hardware protections that the makers of memory chips (RAM) have been using in recent years to protect against rowhammering.
+So TRRespass is a series of cybersecurity tricks involving rowhammering to fiddle with data in RAM that you’re not supposed to, despite the presence of low-level protections that are supposed to keep you out.
+Rowhammering is a dramatically but aptly named problem whereby RAM storage cells – usually constructed as a grid of minuscule electrical capacitors in a silicon chip – are so tiny these days that they can be influenced by their neighbours or near neighbours.
+It’s a bit like writing the address on an envelope in which you’ve sealed a letter – a ghostly impression of the words in the address is impinged onto the paper inside the envelope.
+With a bit of care, you might figure out a way to write on the envelope in such a way that you alter the appearance of parts of the letter inside, making it hard to read, or even permanently altering critical parts (obscuring the decimal points in a list of numbers, for example).
+The difference with rowhammering, however, is that you don’t need to write onto the envelope to impinge on the letter within – just reading it over and over again is enough.
+In a rowhammering attack, then, the idea is to be able to modify RAM that you aren’t supposed to access at all (so you are writing to it, albeit in a somewhat haphazard way), merely by reading from RAM that you are allowed to look at, which means that write-protection alone isn’t enough to prevent the attack.
+To simplify the otherwise enormous number of individual control connections that would be needed, you can’t read just one bit at a time from most RAM chips.
+Instead, the cells storing the individual bits are arranged in a series of rows that can only be read out one full row at a time.
+To read cell C3 above, for example, you would tell the row-selection chip to apply power along row wire 3, which would discharge the capacitors A3, B3, C3 and D3 down column wires A, B, C and D, allowing their values to be determined. (Bits without any charge will read out as 0; bits that were storing a charge as 1.)
+You’ll therefore get the value of four bits, even if you only need to know one of them.
+Incidentally, reading out a row essentially wipes its value by discharging it, so immediately after any read, the row is refreshed by saving the extracted data back into it, where it’s ready to be accessed again.
+Also, because the charge in any cell leaks away over time anyway, every row needs regularly refreshing whether it is used or not.
+The RAM circuitry does this automatically, by default every 64 milliseconds (that’s about 16 times a second, or just under 1,000 times a minute).
+That’s why this sort of memory chip is known as DRAM, short for dynamic RAM, because it won’t keep its value without regular external help.
+(SRAM, or static RAM, holds its value as long as it’s connected to a power supply; Flash RAM will hold its value indefinitely, even when the power is turned off.)
+One problem with this 64ms refresh cycle is, if a RAM row loses its charge or otherwise gets corrupted between two cycles, that the corruption won’t be noticed – the “recharge” will kick in and refresh the value using the incorrect bits.
+And that’s where rowhammering comes in.
+In 64ms you can trigger an enormous number of memory reads along one memory row, and this may generate enough electromagnetic interference to flip some of the stored values in the rows on either side of it.
+The general rule is that the more you hammer and the longer the cell has been leaking away its charge, the more likely you are to get a bitflip event.
+You can even do what’s called double-sided rowhammering, assuming you can work out what memory addresses in your program are stored in which physical regions of the chip, and hammer away by provoking lots of electrical activity on both sides of your targeted row at the same time.
+Think of it as if you were listening to a lecture on your headphones: if attackers could add a heap of audio noise into your left ear, you’d find it hard to hear what the lecturer was saying, and might even misunderstand some words; if they could add interference into both ears at the same time, you’d hear even less, and misunderstand even more.
+Numerous ways have emerged, in recent years, to reduce the risk of rowhammering, and to make real-world memory-bodging attacks harder to pull off.
+Anti-rowhammering techniques include:
+In other words, TRR pretty much does what the name suggests: if a DRAM memory row appears to be the target of a rowhammer attack, intervene automatically to refresh it earlier than usual.
+That way, you don’t need to ramp up the DRAM refresh rate for every row, all the time, just in case a rowhammer happens to one row, some of the time.
+So, the authors of the TRRespass paper set out to measure the effectiveness of the TRR mitigations in 42 different DRAM chips manufactured in the past five years.
+They wanted to find out:
+We’ll leave you to work through the details of the report, if you wish to do so, though be warned that it’s quite heavy going – there’s a lot of jargon, some of which doesn’t get explained for quite a while, and the content and point-making is rather repetitive (perhaps a side-effect of having eight authors from three different organisations).
+Nevertheless, the researchers found that they were able to provoke unauthorised and probably exploitable memory modifications on 13 of the 42 chips they tested, despite the presence of hardware-based TRR protections.
+Fortunately, they didn’t find any common form of attack that worked against every vendor’s chip – each vulnerable chip typically needed a different pattern of memory accesses unleashed at a different rate.
+Even though you can’t change the memory chips in your servers or laptops every few days, this suggests that any successful attack would require the crooks to get in and carry out a fair bit of “hardware reconnaissance and research” on your network first…
+…in which case, they probably don’t need to use rowhammering, because they’ve already got a dangerous foothold in your network already.
+It also suggests that, in the event of attacks being seen in the wild, changes to various hardware settings in your own systems (admittedly with a possible drop in performance) might be an effective way to frustrate the crooks.
+Fortunately, rowhammering doesn’t seem to have become a practical problem in real-life attacks, even though it’s widely known and has been extensively researched.
+So there’s no need to stop using your existing laptops, servers and mobile phones until memory manufacturers solve the problem entirely.
+But at least part of the issue is down to the race to squeeze more and more performance out of the hardware we’ve already got, because faster processors mean we can hammer memory rows more rapidly than ever, while higher-capacity RAM modules gives us more rows to hammer at any time.
+As we said last time we reported on rowhammering:
+[Whenever] you add features and performance – whether that’s [ramping up memory and processing power], building GPUs into mobile phone chips, or adding fancy graphics programming libraries into browsers – you run the risk of reducing security at the same time.
+If that happens, IT’S OK TO BACK OFF A BIT, deliberately reducing performance to raise security back to acceptable levels.
+Sometimes, if we may reduce our advice to just seven words, it’s OK to step off the treadmill.
+Diagram of DRAM cells reworked from Wikimedia under CC BY-SA-3.0.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

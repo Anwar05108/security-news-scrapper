@@ -1,0 +1,22 @@
+Articles in our Serious Security series are often fairly technical, although we nevertheless aim to keep them free from jargon.
+In the past, we’ve dug into into topics that include: website hacking (and how to avoid it), numeric computation (and how to get it right), and post-quantum cryptography (and why we’re getting it).
+
+
+
+This time, however, the Serious Security aspect of the article isn’t really technical at all.
+Instead, this article is a reminder of how you can make it easy for people to to help you with cybersecurity, and why you want to help them to do just that.
+After all, lots of companies these days either run bug bounties, or hire an outside company to look after bug submissions, which shows that they are genuinely interested in knowing about security vulnerabilities in their products or services.
+But that still doesn’t answer the questions, “Where to report? Whom to tell? How to do it?”
+Relying on bug-finders to work it out for themselves, especially when a third-party bug bounty company is involved, is prone to failure.
+Firstly, some bug-hunters aren’t interested in communicating via an external service in order to tell you about a problem they’ve discovered, and would prefer simply to tell you directly.
+Some aren’t interested in receiving a bounty; some don’t don’t want the hassle of creating what might be yet another account with a third-party provider; and others simply want the option of communicating with you easily and privately.
+Secondly, even researchers who do this sort of thing for a living need to know the right place to start, and having a standardised storage place for contact details makes bug reporting easier for everyone.
+Problems with the issue of “where to report” were illuminated amusingly in the media last week, when a UK developer called Connor Greig received a promotional email from fast-food giant MacDonald’s…
+…into which a bunch of Azure database connection text had leaked, apparently including authentication credentials.
+At a glance, it looks as though some of the confidential input data from the database query that was used in generating Greig’s email had accidentally been repeated in the output data he was sent, dumped inadvertently into the body of the email.
+That’s a bit like entering your password up front in order to login to your chosen webmail service, and then accidentally pasting the password text into the body of all the emails you subsequently sent out.
+As it happens, Connor Greig runs a boutique web-based company of his own that aims to improve revenues and analytics for social media creators, so he not only realised that he was looking at data he wasn’t supposed to have, but also recognised the value of reporting the problem so it wouldn’t happen again.
+To cut a roundabout journey short, he couldn’t figure out where to start, despite apparently trying the most obvious phone numbers and email addresses he could find. 
+The problem with sending comments such as bug reports to email addresses that aren’t clearly listed as “the right place to send notifications about cybersecurity issues” is that you can’t be sure that the email reached anyone, or even if it did that the recipient themselves knew what to do with it. After all, if you can’t easily find out where to send this stuff, it’s reasonable to assume, in a large company, that insiders might have exactly the same problem, leaving your report bouncing from pillar to post while the problem persists.
+So Greig took an unusual step.
+He published a bug report via the medium of TikTok!

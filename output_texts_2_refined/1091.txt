@@ -1,0 +1,30 @@
+Nvidia, the graphics chip company that wants to buy ARM, made a unusual announcement last week.
+The company is about to launch its latest GeForce GPU (graphics processing unit) chip, the RTX 3060, and wants its users know that the chip is “tailored to meet the needs of gamers and those who create digital experiences.”
+Nvidia says:
+ Our GeForce RTX GPUs introduce cutting-edge technologies — such as RTX real-time ray-tracing, DLSS AI-accelerated image upscaling technology, Reflex super-fast response rendering for the best system latency, and many more.
+Ray-tracing is an algorithm used in generating synthetic images that are almost unbelievably realistic, correctly modelling complex optical interactions such as reflection, transparency and refraction, but this sort of realism comes at huge computational cost.
+You can therefore see why gamers and digital artists might be very keen to get their hands on the latest special-purpose hardware that can speed up the creation of images rendered in this way.
+The dilemma that modern GPUs face, however, is that they’re also pretty good at performing cryptographic calculations, like computing hashes such as as SHA-2 and SHA-3 at high speed.
+This sort of algorithm is used at the heart of many cryptocurrency mining calculations.
+You can therefore see why cryptocurrency fans might be very keen to get their hands on the latest special-purpose hardware that can speed up the calculations needed to earn cryptocoins.
+This tension between graphics-cards-used-for-graphics and graphics-cards-used-for-cryptomining has regularly led to new product releases from GPU makers selling out almost immediately, followed by the inevitable price gouging by buyers who were able to get hold of retail stock and then to flip their cards for a quick online profit.
+Selling plenty of product may be a great outcome for GPU vendors, but the artifical price inflation caused by stock shortages is a less welcome look for any mainstream company.
+The company’s true customers – the end users who were after the product in the first place – end up feeling outmanoeuvred by and aggrieved at the company itself, not the buyers who flipped for quick money.
+For its new product, Nvidia has therefore openly stated in advance that its software drivers for the RTX 3060 are deliberately biased against cryptomining:
+With the launch of GeForce RTX 3060 on Feb. 25, we’re taking an important step to help ensure GeForce GPUs end up in the hands of gamers. […] RTX 3060 software drivers are designed to detect specific attributes of the Ethereum cryptocurrency mining algorithm, and limit the hash rate, or cryptocurrency mining efficiency, by around 50 percent.
+Simply put, Nvidia will try to detect the code you’re running, and purposefully – but not secretly, given its public announcement – take out what amounts to “denial of service” (DoS) actions against software it thinks is trying to do Ethereum calculations on the GPU.
+If you want to do cryptomining, says Nvidia, you need to buy a different product:
+To address the specific needs of Ethereum mining, we’re announcing the NVIDIA CMP [Cryptocurrency Mining Processor] product line for professional mining. CMP products, which don’t do graphics, are [… ]optimized for the best mining performance and efficiency. They don’t meet the specifications required of a GeForce GPU and thus don’t impact the availability of GeForce GPUs to gamers.
+If you’re a cryptocoin enthusiast, you might be wondering why Nvidia is focused here on Ethereum (and its associated cryptocurrency Ether, or ETH) instead of the current media darling of cryptocurrencies, Bitcoin (BTC).
+After all, BTC calculations can be accelerated enormously with GPUs, just like ETH calculations.
+However, Bitcoin mining can be accelerated even more dramatically by using special-purpose chips built for the sole purpose of mining, so many BTC mining consortiums splash out on custom mining hardware instead of buying in general-purpose GPUs.
+That’s because BTC depends almost entirely on computing SHA-256 cryptographic hashes over and over again, starting with a randomly chosen value each time.
+Ethereum calculations, however, currently use a weird mix of several different hashes, some cryptographic and others simply basic bit-stirring hashes, based on inputs drawn pseudo-randomly from a enormous pseudo-randomly generated pool of data known as the dataset.
+This dataset needs recomputing every few days, takes up gigabytes of memory, and needs to be directly accessible in RAM throughout all your mining calculations.
+That’s because the ETH algorithm, currently known as Ethash but often referred to by its original and much cooler name of Dagger-Hashimoto, was specifically designed to make it difficult to compute quickly on special-purpose hardware.
+Any dedicated Ethereum mining hardware would not only need to include customised and accelerated hash calculating chips that could outperform your GPU, but also need to be based on a better performing motherboard with better memory management hardware and faster RAM than your gaming rig.
+Reports we’ve seen suggest that Nvidia’s anti-crypto drivers work by detecting memory usage that looks like a Dagger-Hashimoto computation, which needs to follow unusual but unavoidable memory access patterns, and cutting the speed of ETH hashing in half.
+Sadly, this isn’t likely to discourage cryptojackers – the name given to cybercriminals who implant malware that uses your computer to mine cryptocoins for them without permission.
+Even though these new Nvidia drivers will halve the earning rate of the cybercriminals, the crooks aren’t paying for the electricity (you are!), so any unlawfully mined cryptcoins are still essentially “free money” for them.
+We’re also wondering just how long it will take for unofficial patches to appear for Nvidia’s drivers in order to bypass the “Dagger-detector” slowdown code.
+Hacking the Nvidia drivers would break their digital signatures, but on your own Windows computer you can load modified and unsigned drivers easily enough.

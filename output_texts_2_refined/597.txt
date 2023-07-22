@@ -1,0 +1,26 @@
+Slickwraps, a Kansas company that makes vinyl wraps for phones and other electronics, announced last week that it had suffered a data breach.
+This was no ordinary data breach. This was a breach that earned the deep scorn of both the hacker – who was twice blocked by Slickwraps for reporting the vulnerability – and observers after some other hacker went ahead and exploited the company’s vulnerable setup.
+The Verge, for one, called the breach and the aftermath “comically bad”. One of the commenters on The Verge’s story, trost79muh, had this to say about when a company with garbage security meets a bug reporter with an attitude:
+The whole thing on both sides was clownshoes, when an unpiercably large ego meets an unfathomably dense IT staff.
+The initial hacker – who calls themselves a white-hat security researcher – isn’t coming out of this smelling like roses either. Slickwraps was given little time to follow up on their vulnerability report and they then proceeded to run amok getting and exploiting root and taunting the company instead of clearly explaining the vulnerability.
+Read your article. It should remain down. You are not a white hat. You breached their network illegally and taunted them when they didn't take you serious enough. Most people on /r/hacking agree. https://t.co/ilYkcTYHYd
+Not saying slickwrap is right, but you could have done better in “notifying” them before all this. pic.twitter.com/rR6C0UpwVz
+The hacker who initially found Slickwraps’ vulnerability goes by the handle Lynx0x00. They recently posted an article to Medium (here’s the archived version) detailing how they pulled off the hack and how pathetic Slickwraps’ response was.
+You can read the Medium post or The Verge’s writeup for all the gory details, but in essence, Hacker 1 –  Lynx0x00 – found a vulnerability on Slickwraps’ phone case customization page that would enable anyone with the right toolkit to upload “any file to any location in the highest directory on their server (i.e. the ‘web root’).”
+From there, an attacker could get at current and former employees’ resumes (including their selfies, email addresses, home addresses, phone numbers and more) and backed-up customer photos (including porn), among many other things.
+Then, Hacker 2 came along, read the Medium post, exploited the vulnerability, and gang-emailed 377,428 email addresses from the company’s records using the hacked email address hello@slickwraps.com. Some customers shared the hacked email on Twitter:
+Well that's a big old yikes from @SlickWraps pic.twitter.com/28SOEMIBZ9
+The responses to this breach are all over the map, but they generally fall into two camps: contempt for Slickwraps, and contempt for the way that Hacker 1 and Hacker 2 handled disclosure by breaching the company – not exactly “white hat” behavior, that. Here’s one such critique from Reddit’s r/hacking forum:
+[All typos are sic] Theres just so much glaringly wrong with how this person went about this. This wasnt a “oh i found a vuln” this was an “i compromised their entire company, stole customer data and then failed to properly convey the severity”
+tagging someone and telling them they failed a “vibe check” is a joke. no wonder noone at the company took the disclosure seriously. and then posting a complaint email and assuming the social media person would put 2 and 2 together that they have been compromised? also not the way to go about a breach report.
+Last i checked a fairly common disclosure cycle is about 90 days, not the 7 this person gave them to figure out by vague twitter posts they had been compromised. If youre going to approach a company about your findings at least tell them you have something to disclose dont just tweet about “vibe checks” and then throw a hissy fit when they dont reply right away.
+As far as the breached data goes, Slickwraps CEO Jonathan Endicott said in his announcement that the “Slickwraps Family” need not worry, as passwords and financial data are safe and weren’t involved in this breach.
+The information did not contain passwords or personal financial data.
+The information did contain names, user emails, addresses If you ever checked out as “GUEST” none of your information was compromised.
+However, some commenters said that their information was compromised in spite of having registered only as guests on the site.
+In their Medium post, Lynx0x00 said that they used the vulnerability to access an extensive list of sensitive information:
+…all of which the hacker accessed only after exploiting the vulnerability to get remote code execution (RCE), decrypting the local config file, and finding the credentials to get into the company’s database.
+Readers, do the actions and disclosure style of this “white-hat” hacker pass your “vibe test?” Is that how responsible disclosure works? I’m a “No” on both counts, but please, do tell us what you think.
+Slickwraps says the exploit has been fixed, and it’s working hard to get back customer trust.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.

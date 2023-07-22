@@ -1,0 +1,25 @@
+Here’s one for the books: ransomware that’s disguised as a free anti-ransomware decryption tool.
+The sample we looked at claims to be a decryptor for the DJVU ransomware, which gets its name from the .djvu extension it appends to files that it’s just scrambled.
+
+You’re invited to put in your “personal ID” and a file extension, presumably to give the program a veneer of legitimacy, but as far as we can see it ignores what you enter, using the dialog simply as a launcher for the encryptor-within-the-bogus-decryptor.
+If fact, the fake decryptor simply extracts a copy of another program called crab.exe (not to be confused with the GandCrab ransomware family) that’s embedded inside it as a data resource .
+The fake decryptor writes crab.exe to your TEMP folder, launches it and then deletes itself.
+The crab.exe file is unreconstructed ransomware: it goes through your files looking for matches against a long list of file extensions to encrypt, and scrambles them with a randomly-chosen encryption key.
+The extension .djvu, added by the very ransomware that this double-crossing malware claims to be able to fix, is on the list.
+So if you are running this in the desperate hope that you might be able to recover from one ransomware attack for free…
+…you’ll end up in a double-whammy situation, with any files that DJVU didn’t yet attack scrambled once, and with any already-encrypted files now scrambled twice.
+This malware uses the extension .ZRB, so doubly-encrypted files will now end .djvu.ZRB
+After the scrambling finishes, your Windows wallpaper is set to a black background for dramatic effect, and a file called --DECRYPT--ZORAB.txt is added to your desktop to tell you what to do next:
+
+There’s no price shown here, no web page to visit, and no cryptocoin wallet to send any funds to, just a “personal ID” and a pseudo-anonymous ProtonMail email address that supposedly puts you in touch with the crooks.
+Note that by simply changing a few text strings in their malware and recompiling it, these crooks could easily turn it into a variant that claims to “fix” other ransomware strains – it’s just the window title and the .djvu extension string that target this sample at DJVU victims.
+We’re guessing that DJVU was targeted this time because early versions of that malware could be decrypted for free, but it seems that the DJVU crooks made some recent “improvements” to make it harder to unscramble without paying.
+As a result, we assume that at least some victims might now be willing to search outside their usual comfort zone for free tools that claim to help, given that the reputable ones they’ve already tried didn’t work.
+For what it’s worth, the crab.exe scrambler didn’t seem very well programmed – in our tests it failed to scramble some files for reasons that could easily be avoided (we shan’t say why- we’ll leave the crooks to find the bug for themselves), and in some directories it managed to scramble its own --DECRYPT--ZORAB.txt ransom note shortly after creating it.
+We don’t know how this particular sample was distributed, or how many people have run it, but if you have been the victim of one ransomware attack already, please don’t let your guard down in your search for a free tool to recover…
+…only to find out you’ve made a bad thing worse.
+Ransomware isn’t only about attacks on big companies and corporate networks.
+At home, you can protect yourself with some simple precautions:
+Both the fake decryptor and the ransomware it contains are blocked by Sophos products as Troj/Ransom-FYU. Other names you may hare for this threat include Zorab (the name it gives itself) and Zorba, an anagram of that.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

@@ -1,0 +1,39 @@
+As you know, our usual advice for Patch Tuesday boils down to four words, “Patch early, patch often.”
+There were 56 newly-reported vulnerabilities fixed in this month’s patches from Microsoft, with four of them offering attackers the chance of finding remote code execution (RCE) exploits.
+Remote code execution is where otherwise innocent-looking data that’s sent in from outside your network can trigger a bug and take over your computer.
+Bugs that make it possible for booby-trapped chunks of data to trick your computer into executing untrusted code are much sought after by cybercriminals, because they typically allow crooks to break in and implant malware…
+…without popping up any “are you sure” warnings, without needing niceties like a username and a password, and sometimes without even leaving any obvious traces in your system logs.
+With all of that in mind, the statistic “56 fixes including 4 RCEs” signals more than enough risk on its own to make patching promptly a priority.
+READ MORE – FEB 2021 PATCH TUESDAY IN DETAIL
+Frag out: four remote attack bugs fixed in Microsoft’s February Patch Tuesday
+
+
+As well as the four potential RCE holes mentioned above, there’s also a patch for a bug dubbed CVE-2021-1732 that is already being abused in the wild by hackers.
+The situation where an attack is known before a patch comes out is known as a zero-day bug: the crooks got there first, so there were zero days on which you could have patched to be ahead of them.
+Fortunately, this zero-day bug isn’t an RCE hole, so crooks can’t use it to gain access to your network in the first place.
+Unfortunately, it’s an elevation of privilege (EoP) bug in the Windows kernel itself, which means that crooks who have already broken into your computer can almost certainly abuse the flaw to give themselves almighty powers.
+Having crooks inside your network is bad enough, but if their network privileges are the same as a regular user, the damage they can do is often fairly limited. (That’s why your own sysadmins almost certainly don’t let you run with Administrator rights any more like they used to back in the 2000s.)
+Ransomware criminals, for example, typically spend time at the start of their attack looking for an unpatched EoP bug that they can exploit to boost themselves to have the same power and authority as your own sysadmins.
+If they can grab domain administrator rights, they’re suddenly on an equal footing with your own IT department, so they can pretty much do whatever they like.
+Intruders who have access to an EoP exploit will probably be able to: access and map out your entire network; alter your security settings; install or remove any software they like on any computer; copy or modify any file they like; tamper with your system logs; find and destroy your online backups; and even to create secret “backdoor” accounts that they can use to break back in if you find them this time and kick them out.
+If you’re still not convinced to patch early, patch often, you might also want to read Microsoft’s special security bulletin entitled Multiple Security Updates Affecting TCP/IP.
+The three vulnerabilities listed in this bulletin are the uninterestingly named CVE-2021-24074, CVE-2021-24094, and CVE-2021-24086.
+The bugs they represent, however, are very interesting indeed.
+Even though Microsoft admits that two of them could, in theory, be exploited for remote code execution purposes (thus they make up 2 of the 4 RCE bugs mentioned above), that’s not what Microsoft is most worried about right now:
+
+The two RCE vulnerabilities are complex which make it difficult to create functional exploits, so they are not likely [to be abused] in the short term. We believe attackers will be able to create DoS exploits much more quickly and expect all three issues might be exploited with a DoS attack shortly after release. Thus, we recommend customers move quickly to apply Windows security updates this month. 
+The DoS exploits for these CVEs would allow a remote attacker to cause a stop error. Customers might receive a blue screen on any Windows system that is directly exposed to the internet with minimal network traffic.
+
+DoS, of course, is short for denial of service – a type of vulnerability that’s often downplayed as the “last amongst equals” when compared to security holes such as RCE and EoP.
+Denial of service means exactly what it says: crooks can’t take over a vulnerable service, software program or system, but they can stop it working altogether.
+Unfortunately, these three DoSsable holes are low-level bugs right down in the Windows kernel driver tcpip.sys, and the flaws can, in theory, be tickled-and-triggered simply by your computer receiving incoming network packets.
+In other words, just proceesing the packets in order to decide whether to accept and trust them in the first place could be enough to crash the targeted computer – which could, of course, be a mission critical internet-facing server.
+Microsoft itself is warning you to prioritise these patches if you like to do your updates one-at-a-time, and has even come up with scriptable workarounds for those who are still afraid of the “patch early” principle:
+
+It is essential that customers apply Windows updates to address these vulnerabilities as soon as possible. If applying the update quickly is not practical, workarounds are detailed in the CVEs that do not require restarting a server.
+
+Despite the workarounds, we’re with Microsoft here, and we agree wholeheartedly with the words essential and as soon as possible.
+Don’t delay. Do it today!
+JARGONBUSTER VIDEO: BUGS, VULNS, EXPLOITS AND 0-DAYS IN PLAIN ENGLISH
+
+Watch directly on YouTube if the video won’t play here.Click the Settings cog to speed up playback or show subtitles.

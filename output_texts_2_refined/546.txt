@@ -1,0 +1,12 @@
+Users of Dell SupportAssist should patch their software immediately to fix a software bug that could lead to arbitrary code execution, the PC vendor said this week.
+SupportAssist is a Dell software product that comes preinstalled on most of its Windows-based endpoints. It performs diagnostic tasks and streamlines the creation of support tickets for Dell machines by sending back the appropriate data to Dell operatives. It can even provide predictive maintenance for users with premium accounts, warning of components that look like they’re close to failure.
+According to a Dell advisory, a vulnerability in the program lets a locally-authenticated low-privilege user force the SupportAssist program binaries to load arbitrary dynamic-link libraries (DLLs). DLLs are executable files that can contain data and other resources, and they’re often used as a way to break down applications into modular parts.
+By forcing the SupportAssist software to run a DLL, an attacker could have it run with the Dell application’s privileges, effectively mounting a privilege elevation attack.
+The flaw that enables the attacker to run a DLL is an uncontrolled search path vulnerability. These bugs allow malicious actors to manipulate file paths, making their malicious files executable by the target system.
+The vulnerability affects versions of SupportAssist dating back to 2.0, but Dell has fixed the problem in the latest versions of its software. For business PCs, version 2.1.4 contains the fix. For home PCs, it’s version 3.4.1.
+The good news is that for some users the problem will resolve itself thanks to the SupportAssist application’s auto-update facility. If this option is enabled, SupportAssist will automatically upgrade to the latest version.
+Users that don’t have the automatic update feature enabled can implement the fix by opening the software, clicking the ‘Settings‘ icon at the top right, and clicking ‘About SupportAssist‘. The program will then check to see if there’s a new version available. If it finds one, it’ll display an ‘Update Now‘ link for you to click.
+The vulnerability has been assigned CVE-2020-5316, which has not yet been updated at the time of writing.
+This isn’t the first uncontrolled path vulnerability that Dell has grappled with. The company found a similar flaw in the PC Doctor component of SupportAssist in June 2019.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

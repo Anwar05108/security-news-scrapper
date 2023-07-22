@@ -1,0 +1,21 @@
+Google, whose Project Zero bug-hunting team is often surprisingly vocal when describing and discussing software vulnerabilities, has taken a very quiet approach to a just-patched bug in its Chrome browser.
+In this case, the low-key announcement is understandable, because the patch fixes a hole that cybercrooks are apparently already abusing:
+The phrase “exploit exists in the wild” is shorthand for “the crooks found this vulnerability before we did and are already using it in real-life attacks”.
+This situation is also known as a zero day, or 0-day as you may see it written, because there were zero days in the past on which even the most diligent user could have patched ahead of the crooks.
+Simply put, the word exploit refers to any trick that allows an attacker actively to abuse a software vulnerability and thereby to pull off some sort of unauthorised activity.
+Fortunately, even though all buffer overflows and similar bugs can be considered vulnerabilities, not all of them can reliably be exploited.
+For example, many (if not most) buffer overflows could cause a program to exit unexpectedly with an error, or even to crash without a proper error message, but nothing more dangerous than that.
+Sometimes, however, a buffer overflow can be abused not only to crash the affected program but also to take over its flow of execution before the operating system, or any other security software, can detect and control the crash.
+That’s known as remote code execution, or RCE, and RCE exploits against browsers are worth a lot of money these days in the cyberunderworld, because they provide an ideal conduit for cybercrime.
+That’s because browsers spend most of their time downloading, decoding, rendering and displaying unknown and untrusted files from anywhere and everywhere on the internet.
+Crooks with access to a reliable browser RCE exploit – for example, one that can be triggered by a deliberately booby-trapped image file or a purposefully malformed HTML document – have a powerful and treacherous way of injecting unauthorised program code into your browser.
+By simply luring you to a web page that contains a suitably booby-trapped exploit file, the crooks can trick your browser into downloading, processing, and choking on, their exploit.
+This sort of attack, which you will sometimes hear referred to as a drive-by because it can be triggered merely by viewing a malicious web page, bypasses any of the telltale “are you sure” warnings or popups that would otherwise alert you to malicious activity.
+Once the crooks get that far, you have to assume that they can pull off a variety of additional attacks, such as reading private browser data, including authentication cookies; snooping on your browsing activity; modifying the pages served up by other websites; and implanting malware that will keep on running even after you exit the subverted browser process.
+In this case, we’re assuming that the exploit is triggered using booby-trapped JavaScript files, given that the buffer overflow bug exists in V8, which is the name of the JavaScript processing code used by Chrome and Chromium-based browsers.
+To check what version you have, click the three-lines icon (the “hamburger menu”) in the top right corner. For Chrome, go to Help > About Chrome. For Chromium simply click About Chromium.
+(In either browser, you can also put the special URL chrome://settings/help into the address bar.)
+The version you are looking for is 88.0.4324.150 or above.
+If you aren’t up-to-date, use the Update Google Chrome option on Windows or Mac to force an update.
+If you’re on Linux and your version of Chrome or Chromium is provided by your distro maker, check back with your distro for update details.
+Note for Edge users. According to Microsoft, this bug affects Edge, but Edge version numbering differs from that in Chrome. The Edge version number that fixes this vulnerability is 88.0.705.63. (See @Edward Stallard’s comment below.).

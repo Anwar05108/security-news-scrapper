@@ -1,0 +1,59 @@
+An article published on the open-to-allcomers blogging site Medium earlier this week has made for some scary headlines.
+Written as an independent research piece by an author going only by nusenu, the story is headlined:
+How Malicious Tor Relays are Exploiting Users in 2020 (Part I)
+[More than] 23% of the Tor network’s exit capacity has been attacking Tor users
+Loosely speaking, that strapline implies that if you visit a website using Tor, typically in the hope of remaining anonymous and keeping away from unwanted surveillance, censorship or even just plain old web tracking for marketing purposes…
+…then one in four of those visits (perhaps more!) will be subject to the purposeful scrutiny of cybercriminals.
+That sounds more than just worrying – it makes it sound as though using Tor could be making you even less secure than you already are, and therefore that going back to a regular browser for everything might be an important step.
+So let’s look quickly at how Tor works, how crooks (and countries with strict rules about censorship and surveillance) might abuse it, and just how scary the abovementioned headline really is.
+The Tor network (Tor is short for the onion router, for reasons that will be obvious in a moment if you imagine an onion coming apart as you peel it), which was originally designed by the US Navy, aims:
+At this point, you might be thinking, “But that’s exactly what a VPN does, and not just for my browsing but for everything I do online.”
+But it’s not.
+A VPN (virtual private network) encrypts all your network traffic and relays it in scrambled form to a VPN server run by your VPN provider, where it’s unscrambled and “injected” onto the internet as if it originated from that VPN server.
+Any network replies are therefore received by your VPN provider on your behalf, and delivered back to you in encrypted form.
+The encrypted connection between your computer is dubbed a VPN tunnel, and is, in theory, invisible to, or at least unsnoopable by, other people online.
+So, as you can see, a VPN deals with the first issue listed above: disguising your true location on the network.
+But a VPN doesn’t deal with the second issue, namely making it difficult for anyone to “join the dots”.
+Sure, a VPN makes it difficult for most people to join the dots, but it doesn’t prevent everyone from doing do, for the simple reason that the VPN provider always knows where your requests come from, where they’re going, and what data you ultimately send and receive.
+Your VPN provider therefore essentially becomes your new ISP, with the same degree of visibility into your online life that a regular ISP has.
+At this point, you’re probably thinking, “Why not use two VPNs in sequence? In jargon terms, why not build a tunnel-inside-a-tunnel?
+You’d encrypt your network traffic for VPN2 to decrypt, then encrypt it again for VPN1 to decrypt, and send it off to VPN1.
+So VPN1 would know where your traffic came from and VPN2 would know where it was going, but unless the two providers colluded they’d each know only half the story.
+In theory, you’d have fulfilled both of the aims above by a sort of divide-and conquer approach, because anyone who wanted to track you back would first need to get decrypted traffic logs from VPN2, and then to get username details from VPN1 before they could start to “join the dots”.
+As you can imagine, even using two VPNs, you’re not totally home and dry.
+Firstly, by using the same two VPNs every time, there is an obvious pattern to your connections, and therefore a consistency in the trail that an investigator (or a crook) could follow to try to trace you back.
+For all that your traffic follows a complicated route, it nevertheless takes the same route every time, so it might be worth the time and effort for a criminal (or a cop) to work backwards through both layers of VPN, even if that means double the amount of hacking or twice as many warrants.
+Secondly, there’s always a possibility that the two VPN providers you choose might ultimately be owned or operated by the same company.
+In other words, the technical, physical and legal separation between the two VPNs might not be as significant as you might expect – to the point that they might not even need to collude at all to track you back.
+So why not use three VPNs, with one in middle that knows neither who you are nor where you’re ultimately going?
+And why not chop and change those VPNs on a regular basis, to add yet more mix-and-mystery into the equation?
+Well, very greatly simplified, that’s pretty much how Tor works.
+A pool of computers, offered up by volunteers around the world, act as anonymising relays to provide what is essentially a randomised, multi-tunnel “mix-and-mystery” VPN for people who browse via the Tor network.
+For most of the past year the total number of relays available to the Tor network has wavered between about 6000 and 7000, with every Tor circuit that’s set up using three relays, largely at random, to form a sort-of three-tunnel VPN.
+Your computer chooses which relays to use, not the network itself, so there is indeed a lot of ever-changing mix-and-mystery involved in bouncing your traffic through the Tor network and back.
+
+Your computer fetches the public encryption keys for each of the relays in the circuit that it’s setting up, and then scrambles the data you’re sending using three onion-like layers of encryption, so that at each hop in the circuit, the current relay can only strip off the outermost layer of encryption before handing over the data to the next.
+Relay 1 knows who you are, but not where you are going or what you want to say.
+Relay 3 knows where you are going but not who you are.
+Relay 2 keeps the other two relays apart without knowing either who you are or where you are going, making it much harder for relays 1 and 3 to collude even if they are minded to do so.
+In the chart above, you’ll notice that the green line in the middle denotes special Tor relays known as guards, or entry guards in full, which are the subset of working relays deemed suitable for the first hop in a 3-relay circuit.
+(For technical reasons, Tor actually uses the same entry guard for all your connections for about two months at time, which reduces the randomness in your Tor circuits somehwat, but we shall ignore that detail here.)
+Similarly, the orange line at the bottom denotes exits, or exit nodes in full, which are relays that are deemed reliable enough to be selected for the last hop in a circuit.
+Note that here are only about 1000 exit nodes active at any time, from the 6000 to 7000 relays available overall.
+You can probably see where this is going.
+Although Tor’s exit nodes can’t tell where you are, thanks to the anonymising effects of the entry guard and middle relay (which changes frequently), they do get to see your final, decrypted traffic and its ultimate destination, because it’s the exit node that strips off Tor’s final layer of mix-and-mystery encryption.
+(When you browse to regular websites via Tor, the network has no choice but to emit your raw, original, decrypted data for its final hop on the internet, or else the site you were visiting wouldn’t be able to make any sense of it.)
+In other words, if you use Tor to browse to a non-HTTPS (unencrypted) web page, then the Tor exit node that handles your traffic can not only snoop on and modify your outgoing web requests but also mess with any replies that come back.
+And with just 1000 exit nodes available on average, a crook who wants to acquire control of a sizeable percentage of exits doesn’t need to set up thousands or tens of thousands of servers – a few hundred will do.
+And this sort of intervention is what nusenu claims to have detected in the Tor network on a scale that may sometimes involved up to a quarter of the exit nodes available.
+More specifically, Nusenu claims that, at times during 2020, hundreds of Tor relays in the “exit node” list were set up by criminally-minded volunteers with ulterior motives:
+The full extent of their operations is unknown, but one motivation appears to be plain and simple: profit. They perform person-in-the-middle attacks on Tor users by manipulating traffic as it flows through their exit relays. […] It appears that they are primarily after cryptocurrency related websites — namely multiple bitcoin mixer services. They replaced bitcoin addresses in HTTP traffic to redirect transactions to their wallets instead of the user provided bitcoin address. Bitcoin address rewriting attacks are not new, but the scale of their operations is. It is not possible to determine if they engage in other types of attacks.
+Simply put, Nusenu alleges that these crooks are waiting to prey upon cryptocurrency users who think that Tor on its own is enough to secure both their anonymity and their data, and who therefore browse via Tor but don’t take care to put https:// at the start of new URLs that they type in.
+.
+For better or worse, a lot of the time you can ignore the https:// when you type URLs into your browser, and you’ll still end up on an HTTPS site, encrypted and padlock-protected.
+Often, the server at the other end will react to an HTTP request with a reply that says, “From now on, please don’t use plain old HTTP any more,” and your browser will remember this and automatically upgrade all future connections to that site so they use HTTPS.
+Those “never use HTTP again” replies implement what is known as HSTS, short for HTTP Strict Transport Security, and they are supposed to keep you secure from snooping and traffic manipulation even if you never stop to think about it.
+But there’s a chicken-and-egg problem, namely that if the crooks intercept your very first non-HTTPS connection to a website that you really ought to be accessing via HTTPS only, before the “no more HTTPS” message gets across, they may be able to:
+Here are some tips:
+HOW TO ENABLE HTTPS-ONLY MODE IN FIREFOX 79
+(Sadly, Firefox’s “HTTPS-only” option isn’t yet available [2020-08-13T19:00Z] in the Tor browser, which is still using an Extended Support Release version where this feature hasn’t yet appeared.)

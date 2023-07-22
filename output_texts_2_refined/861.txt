@@ -1,0 +1,37 @@
+A security reseacher from Delhi in India is a tidy $100,000 richer thanks to a bug bounty payout from Apple for an account takeover flaw that he discovered in the Sign in with Apple system.
+Bhavuk Jain, a serial bug bounty hunter, has described how he found the sort of bug that leaves you thinking, “It can’t have been that simple!”
+Apparently, however, it was.
+When we say “simple”, of course, we don’t mean that the bug itself was glaringly obvious to find and that anyone could have done it in 60 seconds.
+Fortunately, a lot of security holes that leave you with a facepalm feeling after you hear about them depend on a researcher knowing where to look in the first place.
+Finding “simple” bugs is often an intangible mixture of skill, experience, doggedness, intuition and – we have to be honest here – at least a bit of luck, 
+What’s simple about this one was the theoretical ease with which anyone who knew how to trigger it could have exploited it.
+Sign in with Apple, like similar services offered by companies such as Facebook and Google, is a way for users to authenticate against your site or service by putting in their Apple credentials instead of a username and password specific to your site.
+That’s nowhere near as crazy as it sounds: you’re not asking people to share their actual Apple (or Facebook, or Google) passwords with you, which would not only be dangerous but also against Apple’s (or Facebook’s, or Google’s) terms of service.
+What you are doing is outsourcing the task of verifying a user’s identity to a large, well-known and trusted brand so that you don’t have to knit your own authentication software, or maintain a user account database of your own.
+Your users don’t actually sign in on your site – they sign in via the third party’s system and acquire an authentication token specific to your site that they use to access their account on your server.
+You can then verify for yourself, via the authentication provider, that the token they provide – think of it as a temporary ID badge specific to your site for that user – is both genuine and current.
+The benefits are as follows: you get top-quality cryptography and authentication “for free”; your users can use login credentials they already have; and Apple gets to encourage users to have Apple accounts in the first place.
+On that basis, the concept of using a major player’s existing and presumably secure login system sounds like a win-win-win situation.
+Apple, or whoever is the authentication broker, doesn’t get access to your users’ accounts via this process, and likewise you don’t get access to their Apple accounts.
+So this approach seems like a great way for you, if you’re a boutique website operator, to offer your users the sort of super-duper protection against password breaches that Apple and its ilk simply can’t afford not to have in place, but that would be a huge business distraction (and expense) if you were to try to do it yourself.
+The hole that Jain found has already been shut down by Apple, which is why he’s able to talk about it now.
+He’s cautiously not given all the details away (presumably to stop copycats from trying to exploit the hole anyway, which would be a fruitless waste of everyone’s time at this point), but exploiting the flaw seems to start off like this:
+Apparently, you can choose to let Apple share your login name – the email associated with your Apple ID – directly with the site that is using Sign in with Apple, which is convenient if you want to use the same email for logging in on both, or get Apple to generate a temporary email identifier to use during the login if you have a different login name on the third party site.
+Either way, the pre-authentication reply comes back to you as a chunk of JSON data that includes an email address that acts as your moniker for logging into the third party site. 
+There’s a bunch of other data in there, too, such as the time it was issued, the time it expires, and more, but it’s the email address that’s important here.
+One thing’s for sure – that JSON reply isn’t meant to be enough on its own for you to log in, merely enough for you to complete the rest of the login process, including proving your identity in some secure way, such as providing a valid Apple ID password and doing any necessary two-step verification dance.
+At the end of the whole process, once Apple knows it’s you, you’ll get back a current, valid authentication token that you add into your future traffic to the third party site to prove you’ve logged in. (To be clear, the third party site will itself validate that token with Apple behind the scenes, so you can’t just make up a token code of your own.)
+Unfortunately, Jain found an unexpected URL that was accessible on Apple’s login servers (he has redacted it to https://appleid.apple.com/XXXX/XXXX) to which he could send just the email address from the reply described above…
+…and he’d get back a current, valid authentication token to use with the third party site, just as though he’d gone through the entire login process and proved who he was.
+Just like that – no password required!
+Simply put, he vaulted over the bit where regular users would need to identify themselves, so just knowing someone’s email address could have been enough to get access to one of their Sign in with Apple accounts.
+In theory, any online service that supports Sign in with Apple, and that didn’t have any additional login checks of its own, could have been vulnerable to this “login sidestep” flaw.
+Although the Sign in with Apple service is relatively new, and isn’t yet ubiquitous, the Mac Observer website has a lengthy list of sites where it can be used, apparently including Adobe, Airbnb, Dropbox, eBay, Grindr, Medium, Strava, Tik Tok and WordPress.
+But the good news is that because Jain practised what’s known as responsible disclosure – where he agreed to give the vendor exclusive access to his findings and wait until after it was fixed to say anything about it – you don’t need to update or to patch any software of your own.
+This bug existed on Apple’s own servers and could therefore, in a happy ending, be fixed unilaterally.
+Now he has gone public, Jain says that:
+Apple […] did an investigation of their logs and determined there was no misuse or account compromise due to this vulnerability.
+And that’s a good result for everyone.
+Jain is $100k better off for his work, and this issue never became what’s called a zero-day, where a flaw is figured out and exploited before a fix is available.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

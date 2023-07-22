@@ -1,0 +1,9 @@
+The venerable Apache web server has just been updated to fix a dangerous remote code execution (RCE) bug.
+This bug is already both widely-known and trivial to exploit, with examples now circulating freely on Twitter, and a single, innocent-looking web request aimed at your server could be enough for an attacker to take it over completely.
+Estimates of Apache’s prevalence vary, but a good guess is that somewhere between a quarter and a third of internet-facing web services will end up getting handled by an instance of Apache.
+Remember that even if you don’t run your organisation’s public-facing web servers on Apache (perhaps you use the popular nginx product on Unix, or Microsoft IIS on Windows), you may nevertheless have Apache running somewhere on your network.
+Indeed, any software product that has its own HTTP interface, such as a document management system or a support ticketing system, might, for all you know, be using Apache as its built-in web server.
+You should therefore review your network not just for traditional web servers made for external visitors, but also for HTTP servers inside your network that cybercriminals such as ransomware gangs could use to extend or expand an attack that is already underway.
+Intriguingly, given the nature of the bug, this flaw, dubbed CVE-2021-41773, was introduced less than a month ago, in Apache 2.4.49. 
+Ironically, this means that Apache users who were sloppy about updating last time, and are still back on 2.4.48 or earlier, will skip over this vulnerability altogether.
+To patch against the bug, upgrade immediately to Apache 2.4.51

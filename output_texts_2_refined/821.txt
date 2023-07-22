@@ -1,0 +1,47 @@
+This month’s Patch Tuesday fixes just came out in what we’re calling a “bumper update“.
+Microsoft pushed out fixes for 111 different CVE-tagged vulnerabilities, 16 of which are deemed critical.
+That includes bugs that could in theory be remotely exploited, for example via rogue attachments or booby-trapped web pages, to implant malware without popping up any dialogs or warnings.
+However, there’s one apparently minor vulnerability that you may have seen in the media, because it’s created quite a stir: CVE-2020-1048.
+Here’s how Microsoft describes it:
+
+Windows Print Spooler Elevation of Privilege Vulnerability
+An elevation of privilege vulnerability exists when the Windows Print Spooler service improperly allows arbitrary writing to the file system. An attacker who successfully exploited this vulnerability could run arbitrary code with elevated system privileges. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. To exploit this vulnerability, an attacker would have to log on to an affected system and run a specially crafted script or application.
+
+Security researchers Alex Ionescu and Yarden Shafir of technical seminar company Winsider have just published a very lengthy blog post in which they present this bug with the catchy name of PrintDemon.
+For those not familiar with Unix, that’s a pun on the word daemon, pronounced “demon” and essentially the same word in a more Greek-like spelling, which is the Linux and Unix equivalent of a Windows service. 
+The name “PrintDemon” seems to have given this bug a fearsomeness that it probably doesn’t deserve.
+Both Windows and Unix still use the archaic computing word spooler to describe background software that handles printing jobs.
+That word almost certainly derives from spools of magnetic or punched tape that were used for intermediate storage in the early days of computing.
+Computers are fast but printers are slow and may go offline unpredictably, for example due to a paper jam or the toner running out.
+So it makes sense to write printed output, or to spool it in the jargon, into some intermediate storage for later processing, where it won’t take up system resources such as RAM that would be better used for more pressing and complex tasks.
+What the researchers discovered, very greatly simplified, is that with some simple PowerShell commands, any user (not just a system administrator) can setup a new printer device on Windows, provided that there’s already a low-level driver program installed to support the destination printer.
+By combining the built-in printer driver called Generic / Text Only (which produces plain old text-only output, as its name suggests) with a local printer spoolfile for temporary output, anyone can set up a “new” printer with any name they like.
+For example, a trio of PowerShell commmands of this sort…
+…will set up a printer called MyPrinter, and pretty much whatever you print to it will end up sitting around, until you print something else, in the intermediate file called spoolfilename.
+The problem, according to the Winsider researchers, is that you can specify a spoolfilename that you aren’t allowed to write to yourself at the time you do the Add-PrinterPort…
+…but when you come to print to the MyPrinter device, then maybe, just maybe, you’ll be able to trick the Windows Print Spooler into writing its temporary output into spoolfilename anyway.
+As you can imagine, this means that commands such as the following could lead to the printer being a sneaky way to “output” rogue software where it wouldn’t normally be allowed:
+Apparently, if the Print Spooler is able to process the printing job immediately, then it will use your own account privileges to access the spoolfile, and so the print job will fail because you are blocked from changing or adding files in the system folders.
+But if the print job can be deferred, for example until after a reboot, then the Print Spooler will try to catch up on unfinished print jobs later on, this time using its own account, which has SYSTEM privileges.
+And thus an unprivileged user can get the Print Spooler to send untrusted data where it’s not supposed to go.
+Ironically, it looks as though this bug has been around in Windows quite literally for decades.
+According to the researchers, it was partially but not completely patched following its abuse by the infamous Stuxnet virus more than a decade ago, but it nevertheless remained potentially expolitable until yesterday’s patches came out.
+The PrintDemon article authors finish up with the claim that:
+
+So yes, walk to any unpatched system out there […] and just write Add-PrinterPort -Name c:\windows\system32\[REDACTED] in a PowerShell window. Congratulations! You’ve just given yourself a persistent backdoor on the system.
+
+But we agree with the public assessment of Rapid-7 researcher Brendan Watters, who offered the opinion that the authors of the PrintDemon article have overstated the dangers somewhat.
+As Watters points out, “this is not a single command to [a] root backdoor. It is more like several thousand lines of code and some well-timed execution gets you a rooted backdoor.”
+In particular, we couldn’t figure out how to use just one line of PowerShell to control exactly what would get printed to the rogue spoolfile, so we couldn’t write any content that came out as a legal Windows executable. 
+That’s because, by default, even the Generic / Text Only printer driver doesn’t blindly copy the characters that you print into the spoolfile – it adds blank lines at the top of the output, and space characters after every line’s worth of output, to create page margins.
+By default, nothing we printed out ever led to a spoolfile that actually started with the characters MZ, even if we put the literal characters MZ at the start of our output. 
+But Windows programs will be ignored by the operating system unless they start with exactly those characters.
+(Amusingly, the text MZ is a magic marker formed from the initials of Mark Zbikowski, the Microsoft programmer who invented the EXE file format many decades ago.)
+It’s definitely a bug, and it’s a bad one, but:
+You can guess what we are going to say.
+Patch early, patch often!
+Oh, and if you are a programmer, never ignore bug reports just because you think you fixed the hole more than a decade ago.
+It’s tempting to assume that a known hole that was patched and then never re-exploited for more than ten years must surely have stood the test of time…
+…but cybersecurity isn’t like that.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

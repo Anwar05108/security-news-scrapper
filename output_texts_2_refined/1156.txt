@@ -1,0 +1,59 @@
+Earlier this week we wrote about a jailbreak hack against Apple’s newly introduced AirTag product.
+In that story, the researcher @ghidraninja was able to modify the firmware on the AirTag itself, despite the anti-tampering protection implemented by Apple’s own AirTag firmware programming.
+But this “attack” (if that is the right word) is different, because it doesn’t involve modifying or cracking the AirTag itself.
+Instead, it involves using the AirTag protocol on a Bluetooth device that doesn’t have internet connectivity in order to “trick” (if that is the right word) nearby Apple devices into sending data over the internet on its behalf.
+Very loosely put: free internet access! 
+(But with some spectacular limitations on bandwidth and latency,as we shall see below.)
+In the paper describing the hack, the device used was a cheap and easily programmable ESP32 Bluetooth/Wi-Fi chip commonly used in IoT devices and readily available from hobby electronics websites. 
+Fabian Bräunlein, the researcher who came up with this proof of concept. has dubbed it Send My.
+That’s a pun on Apple’s own Find My service by which AirTags “call home” when they’re lost, even though they don’t have internet connections of their own.
+Given that AirTags can call home all the way to Apple even though the AirTag has no internet connectivity of its own…
+…Bräunlein wondered if the process could be subverted by a Bluetooth-based non-Apple chip, using Apple Find My reports as Send My transmissions instead.
+Greatly simplified, AirTags let themselves get tracked something like this:
+That’s all the AirTag does: spray-and-pray.
+If any internet connected Apple device such as an iPhone or MacBook is in range and just happens to receive AirTag HERE-I-AM messages, it acts as a relay and completes the delivery of each message as follows.
+The Apple device:
+Bräunlein describes this as an “elegant design” with some useful privacy and security properties.
+Firstly, AirTags don’t need unique identifiers that get transmitted every time, because the ID they use is simply one half of an ever-changing cryptographic public-private keypair. 
+Secondly, neither the Apple device that relays the message for free on the AirTag’s behalf nor Apple itself ever know any of the private keys used.
+In other words:
+At this point, you are probably wondering how you query Apple’s service to track down a lost AirTag, given that all Apple keeps is a giant and anonymous list of location messages encrypted by randomly generated public keys.
+The answer is that you, as the owner of the AirTag, know the secret cryptographic seed from which your AirTag generates its public-private keypairs every 15 minutes. 
+So if you want to track down your AirTag over, say, a two-hour period, you simply calculate the list of eight public keys that your AirTag would have used during that period (one x 2 hour window = 8 x 15 minute windows), hash them up with SHA256, and ask Apple, “Are any of these hashes on your list?”
+In theory, you might be able to retrieve messages from other AirTags simply by lying about the hashes you send in, but there’s not really much point.
+Firstly, the chance that you’ll guess a valid hash (out of 2256 possible choices) is vanishingly small; and secondly, if you did get a reply you wouldn’t be able to do anything with it because you couldn’t decrypt it or tell which AirTag sent it.
+Now, the question is, “Can you use these public keys not as cryptographic objects used to scramble the data you want to send, but to encode the data you want to send instead?”
+Bräunlein came up with an effective way to do just that.
+He programmed a Bluetooth device to transmit AirTag public keys that weren’t actually keys at all: his “public keys” were in fact a series of encoded message packets that contained his hidden data.
+Sure, many or even most of the messages would probably get lost in the Bluetooth ether, and those Bluetooth broadcasts that did get picked up by nearby iDevices and Macs might never get forwarded onwards to Apple, or might take ages to arrive…
+…but by limiting the length of the hidden message and repeating the same Bluetooth “public keys” over and over again, Bräunlein’s hope was that eventually a complete copy of all the data packets containing the hidden data might make it to Apple.
+At this point, the recipient, knowing what to expect, could query Apple’s Find My servers to see which messages had arrived, and thus decode the message.
+Intriguingly, the location data encrypted in the actual Find My message by the relaying device is completely irrelevant to Bräunlein’s system – in fact, it’s useless for his purpose because he has no control of what that location data is going to be given that it is injected by the intermediate relay device.
+In the end, it’s simply the list of Find My message “public keys” that arrives at Apple that tells the recipient what hidden data got sent.
+Right now, you are no doubt wondering how these “public keys” convey any data if the recipient needs to know the hash of each “public key” in order to retrieve it.
+For example, if you send a fake “public key” that consists of the bytes THE DATA IS 42, then in order to recover that message, surely I would need to know the text THE DATA IS 42 in advance, in order to calculate the hash I’d need to see the message had been delivered?
+Actiually, you can be a bit trickier than that.
+Imagine that you want to send me a two-digit number, and we agree that you will do so by using one, and only one, of these possible “public keys”:
+If you mock up AirTag broadcasts using one and only one of those messages as a public key, and you send it many times to improve its chance of getting through, I can figure out which hidden message you sent by working out the SHA256 hashes of all possible 100 messages…
+…and asking Apple about all of them.
+Bingo!
+Apple would know nothing about 99 of the 100 messages (the ones that didn’t get transmitted), but the one that did show up in Apple’s database would uniquely identify the hidden data you sent in the first place.
+Bräunlein’s system was rather more sophisticated and generalised that the process above: he used longer “public keys” for encoding his data and followed a predetermined pattern.
+Each “public key” included a message ID, a message index, and a single “hidden data” bit that was either set or clear. (There was a bit more to it that: we have simplified things slightly here to save space, but the principle is the same.)
+For example, if the recipient were expecting a 16-bit message with, say, an ID of 0xCAFEF00D, the “public keys” might look like this:
+16 different “public keys” would be transmitted, typically repeated many times each to improve the chance of them being picked up and delivered.
+The recipient would then query Apple’s Find My servers for 32 different “public keys”, like this:
+Half of these “public keys” would be missing from Apple’s list, corresponding to the messages that never got sent; the other half would be reported as “found”, corresponding to the individual bits in the hidden data.
+Simply put, I will only ever receive one of the two messages CA FE F0 0D  00 00 00 0E  00 and CA FE F0 0D  00 00 00 0E  01, and the one that does arrive will surreptitiously tell me the value of bit 14 (0x0E) in the hidden data.
+The counter field in each “public key” message means that the bits can be stitched back together in the right order no matter when they arrive, and also that partial data can be reconstructed even if some of the bits never make it through.
+Free (and stealthy) internet access!
+However, as you’ve probably already figured out, this system may be “free”, but it’s not fast or efficient.
+Bräunlein reported that he could send at about 20 bits/second and receive at about 25 bits/second, but that his hidden data “messages” took anywhere from a minute to an hour to arrive.
+Is this a risk? 
+Not really.
+As Bräunlein points out, Apple may not easily be able to prevent this sort of misuse of its Find My system, and may not even want to, given that it designed the system to be anonymous and private. 
+(We suspect that Apple will introduce some sort of rate limiting to reduce the already limited send-and-receive bandwidth of Send My even further, but that would reduce rather than eliminate this technique.)
+Bräunlein speculates, however, that his Send My technique could be used for exfiltrating data from semi-secure environments in which trusted mobile phones containing only trusted apps are allowed, and all internet-connected devices are monitored and controlled.
+That’s because this trick (we’ve decided that, yes, that is the right word!) gives untrusted, anonymous Bluetooth devices a way to transmit data over the internet via nearby trusted phones without ever authenticating to those phones or any of their apps.
+The hidden Send My data gets exfiltrated as an apparently anonymous an unimportant part of Apple’s own system software.
+If you’re worried about that sort of risk, then you probably shouldn’t be allowing users to take their mobile phones into your secure areas anyway, or you should be insisting that they are switched into Airplane Mode first.

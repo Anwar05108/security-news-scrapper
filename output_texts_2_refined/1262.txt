@@ -1,0 +1,35 @@
+When we wrote about Apple’s latest security patches earlier this week, we noted that:
+There are 37 listed fixes covering everything from AppKit to zsh. 15 of these were of the “malicious application may be able to execute arbitrary code” sort, with 9 of those bugs dealing with code execution bugs in the kernel itself.
+We mentioned zsh, Apple’s default command shell program, mainly because it starts with the letter Z, and thus gave us an opportunity to use the A-to-Z metaphor.
+Apple’s own description of the bug, dubbed CVE-2021-30892, said simply:
+Linux users (and, increasingly, Windows users with the Subsystem for Linux installed) are probably more familiar with bash, which used to be Apple’s command shell of choice, but Apple adopted the similar-and-mostly compatible zsh variant almost exactly two years ago for licensing reasons.
+Apple ships Monterey with security updates, fixes 0-day in Watch and TV products, updates iDevices
+
+
+As we now know, following an article published by Microsoft researchers after Apple’s patches came out, there was a bit more to it that just “modifying protected parts” of the file system.
+Simply put, the bug was gloriously simple (or ingloriously so, if you prefer).
+Like many command shells, zsh consults a range of different configuration files when it starts up, so that sysadmins can tweak its behaviour to suit corporate needs, and individual users can add their own customisation on top of that.
+Unix and Unix-like system commands are full of these “magic files”, as a glance at the /etc directory will remind you.
+Some system utilities have individual files that adapt their behaviour, such as /etc/resolv.conf to control how the operating system’s low-level DNS software looks up server names online.
+Others services have subdirectories to tell them how to behave on startup, such as /etc/ssh/ to configure vital options used by the SSH remote access software.
+And some software has both, such as bash and various other Unix shells, which consult both the file /etc/profile and the contents of the directory /etc/profile.d/ to look for shell scripts to run before launching the user’s chosen script or opening a terminal window.
+Well, zsh has a comprehensive set of pre-execution configuration files of its own, including:
+(In the list above, taken from the zsh manual page, the text string $ZDOTDIR/ is usually, but not necessarily, replaced with the name of your home directory, e.g. /home/yourusername/.)
+That’s a lot of places where a maliciously minded person could implant their own script code to subvert the behaviour of almost every launch of the shell…
+…and shell scripts are widely used not only by users wanting to automate repetitive tasks (in the same way that Windows users deploy BAT or PS1 files), but also by system configuration and installation utilities.
+Of course, anyone who already has sysdmin powers via the root account (user ID zero) on a traditional Unix-like system, and who could therefore modify files such as /etc/zshenv, would already have the sort of power needed to do almost anything they wanted anyway.
+Apple’s attempt to rein in the traditionally unimpeded and absolute power of the Unix root user is known formally as SIP, short for System Integrity Protection, or informally by the cooler name rootless.
+The idea is to define system operations that even the root user can’t perform, such as loading unsigned kernel drivers, accessing key files on the disk, altering the boot-time configuration, or peeking into the kernel with a debugger.
+SIP therefore creates a sort of “ueberoot” user whose blessing is required even for root itself to do certain dangerous functions, such as tweaking the kernel.
+There’s a Catch-22, though, namely that SIP has to have a special, seamless way of allowing certain programs or processes to run with at least partial ueberoot powers, for example during a system security update, wher critical operating system files may need to be removed, modified or added.
+As Microsoft researcher Jonathan Bar Or explains, Apple’s approach to the need for occasional exceptions to the strict SIP lockdown rules involves a secure installation process called system_­installd.
+The suffix -d on a Unix process name typically denotes a daemon (properly pronounced “die-moan” in English), the Unix equivalent of a Windows service. Daemons execute in the background and keep on running even after the user who started them logs out.
+The system_installd daemon regulates the execution of privileged Apple .pkg files (short for software package installer), ensuring, amongst other checks, that they are digitally signed by Apple itself.
+And, like many Unix/Linux package file formats, .pkg bundles can contain various shell scripts that run as part of the package installation or upgrade process, including a special post-install script for finalising the operation.
+You can guess where this is going.
+Bar Or noticed that even though system_installd was essentially “blessing” any package scripts it ran with ueberroot powers, it nevertheless executed those post-install scripts by running zsh in the regular way.
+So, even those trusted invocations of zsh-with-ueberoot-powers consulted the regular /etc/zshenv file first, and executed any commands in that file with system_installd privileges.
+In other words, a writable-by-root file could be used to inject runnable-by-ueberroot commands into Apple’s trusted system configuration and update process.
+Bar Or named this vulnerability shrootless, because it’s a way of getting a rootless shell without having rootless superpowers already, a classic EoP, or elevation of privilege attack. 
+(We’d have gone down the satirical path and called this one shrootmore, but we didn’t figure out the bug so we don’t get a say.)
+Forcing secure programmers to “say explicitly what they mean” when they want use your code securely is a convenience and a strength, not an inconvenience or a weakness.

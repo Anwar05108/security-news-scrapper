@@ -1,0 +1,59 @@
+Regular Naked Security readers will know we’re huge fans of Alan Turing OBE FRS.
+He was chosen in 2019 to be the scientist featured on the next issue of the Bank of England’s biggest publicly available banknote, the bullseye, more properly Fifty Pounds Sterling.
+(It’s called a bullseye because that’s the tiny, innermost circle on a dartboard, also known as double-25, that’s worth 2×25 = 50 points if you hit it.)
+Turing beat out an impressive list of competitors, including STEM visionaries and pioneers such as Mary Anning (first to unravel the paleontological mysteries of what is now known as Dorset’s Jurassic Coast), Rosalind Franklin (who unlocked the structure of DNA before dying young and largely unrecognised), and the nineteenth-century computer hacking duo of Ada Lovelace and Charles Babbage.
+Turing was the groundbreaking computer scientist who first codified the concept of a “universal computing machine”, way back in 1936.
+At that time, and indeed for many years afterwards, all computing devices then in existence could typically solve only one specific variant of one specific problem.
+They would need rebuilding, not merely “reinstructing” or “reprogramming”, to take on other problems.
+Turing showed, if you will pardon our sweeping simplification, that if you could build a computing device (what we now call a Turing machine) that could perform a certain specific but simple set of fundamental operations, then you could, in theory, program that device to do any sort of computation you wanted.
+The device would remain the same; only the input to the device, which Turing called the “tape”, which started off with what we’d now call a “program” encoded onto it, would need to be changed.
+So you could program the same device to be an adding machine, a subtracting machine, or a multiplying machine.
+You could compute numerical sequences such as mathematical tables to any desired precision or length.
+You could even, given enough time, enough space, enough tape and a suitably agreed system of encoding, produce all possible alphabetic sequences of any length…
+…and therefore ultimately, like the proverbially infinite number of monkeys working at an infinite number of typewriters, reproduce the complete works of William Shakespeare.
+
+As Turing himself wrote, in his seminal paper ON COMPUTABLE NUMBERS, WITH AN APPLICATION TO THE ENTSCHEIDUNGSPROBLEM:
+
+It is possible to invent a single machine which can be used to compute any computable sequence.
+
+The date of this, don’t forget, was 1936.
+All modern electronic digital computers are nearly-but-not-quite Turing machines – our real-world computers have enormous, but not infinite, storage capacity, so there are some interesting problems they can still only compute in theory, not in practice.
+Also, programming languages that are expressive enough to simulate a Turing machine, and therefore could be used to program a theoretical solution to any computational problem, are known as Turing complete.
+Intriguingly, Turing showed in the same paper that even with a universal computing device, it’s not possible to write a program that can unerringly examine another program and predict its final behaviour.
+Specifically – and this is where the Entscheidungsproblem, or “halting problem” comes in – you can’t tell in advance whether a program written for a Turing Machine will ever actually run to completion and therefore come up with the final answer you wanted.
+You can write the code needed to give you an answer, but you can’t always be certain in advance that the answer will be computable – the algorithm might run for ever.
+Clearly, you can prove by examination that some programs will terminate correctly, such as a loop that is coded to iterate exactly 10 times.
+And you can show that some programs won’t terminate, for example if you were to write a loop to find three positive integers X, Y and Z for which X3 + Y3 = Z3. (Fermat’s Last Theorem tells us that no such solution exists.)
+Indeed, if the halting problem were not a problem, and you could write a program to tell you if another program would terminate or not, you could use that “will-it-halt” program to solve a whole raft of mathematical conundrums.
+Here’s an example, based on the fact that we strongly suspect that there are no odd perfect numbers.
+A perfect number is equal to the sum of the numbers that divide exactly into it. Thus 6 is exactly divisible by 1, 2 and 3, and 6 = 1+2+3, so 6 is perfect. 12 is divisible by 1, 2, 3, 4 and 6, but 1+2+3+4+6 = 16, so 12 is not perfect. The numbers 1, 2, 4, 7 and 14 divide 28, and 28 = 1+2+4+7+14, the second perfect number. Then comes 496 and 8128, from which you might hope that the fifth perfect number would have five digits, then six, and so on. But they thin out really quickly, with the tenth perfect number already being 54 digits long. The 50th perfect number (that we know of, anyway) runs to nearly 50 million digits. All perfect numbers found so are are even, i.e. can be divided by 2.
+It’s trivial to write a program to test all the odd numbers, one by one, until you find an odd perfect number, then to print it out and terminate, which would prove that not all perfects are even:
+But as long as the program keeps running you will never be sure whether all perfects are even, or whether you just haven’t waited long enough yet to prove there’s an odd one out there.
+However, if there existed a program that could analyse your perfect number calculator and reliably predict if it would terminate or not, then you could prove whether any odd perfect numbers existed simply by running your will-it-halt detector:
+You wouldn’t find out the actual value of any odd perfect numbers, if indeed they exist, because you wouldn’t actually be running your perfect number testing function.
+You’d simply be running your will-it-halt program to determine the outcome of the detector, and that on its own would complete your proof: you would know whether all perfects were even or not.
+But you can’t rely on completing the proof that way, because of the halting problem, and Turing proved this before computers as we know them even existed.
+You can extend the halting problem result in important ways for cybersecurity, as we wrote on what would have been Turing’s 100th birthday in 2012:
+[The halting problem means, for example,] that you can’t write an anti-virus program which never needs updating. All those criticisms about the imperfection of anti-virus are true!
+But the halting problem applies to everyone. Not just to anti-virus, but to code analysers, behaviour blockers, [machine learning systems, intrusion monitors], network flow correlators, [exploit detectors] and so forth. No security solution can be perfect, because no solution can decide all the answers. That’s why defence in depth is really important, and why you should run a mile from any security vendor who still makes claims like “never needs updating.”
+By the way, Turing’s result can be turned around to make it a bit more optimistic: you can’t write [malware] that will be undetectable by all possible [anti-malware] programs. So the good guys always win in the end.
+
+As you may already know, Alan Turing distinguished himself in many other ways beyond his pioneering work on Turing machines:
+A fascinating insight into Turing’s interest in the field of morphogenesis – how living structures develop – can be gleaned from an archived letter he wrote to one of the Pilot ACE team shortly before the first computer was delivered:
+
+Dear Woodger,
+[. . .] Our new machine is to start arriving on Monday. I am hoping as one of the first jobs to do something about ‘chemical embryology’. In particular I think one can account for the appearance of Fibonacci numbers in connection with fir-cones.
+Yours, A.M. Turing
+[Received 12 Feb 1951]
+
+Sadly, little more than three years later, Turing was dead.
+Turing was gay in an era when that was proscribed by law in Britain.
+This ultimately led to his prosecution and conviction in court, where he was sentenced to undergo the administration of a carcinogenic hormone, apparently as an alternative to prison.
+Turing was also formally ostracised by the Establishment – who had, of course, conveniently ignored the law when his wartime contribution was so desperately needed – and, in the ultimate tragedy, killed himself in 1954.
+It’s now official: the Bank of England has just unveiled the Alan Turing £50 originally announced in 2019.
+The “Turing bullseye” banknote will enter circulation in three months’ time.
+As we said in 2019:
+[T]he £50 is the biggest English banknote in circulation, in both size and value, so perhaps it is a fitting tribute for Turing after all – one that will remind us of the huge value of mathematicians and scientists who can blend theory and practice in ways that advance the world as a whole.
+As the Bank of England’s website proclaims, “Think science and celebrate Alan Turing.”
+
+Details we like:

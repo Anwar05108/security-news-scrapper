@@ -1,0 +1,25 @@
+In case you’ve never heard of it, Have I Been Pwned, or HIBP as it is widely known, is an online service run out of Queensland in Australia by a data breach researcher called Troy Hunt.
+The idea behind HIBP is straightforward: to give you a quick way of checking your own online accounts against data breaches that are already known to be public.
+Of course, you’d hope that a company that suffered a data breach would let you know itself, so you wouldn’t need a third party website like HIBP to find out.
+But there are numerous problems with relying on the combined goodwill and ability of a company that’s just suffered a breach, not least that the scale of the breach might not be obvious at first, if the company even realises at all.
+And even if the company does do its best to identify the victims of the breach, it may not have up-to-date contact data for you; its warning emails might get lost in transit; or it might not be sure which users were affected.
+In case you’re unusure, the word pwned is pronounced to rhyme with owned, and it’s what you might call doubleslang – a new jargon word created by deliberately misspelling the existing jargon word “owned”, used to describe a database or a computer system that has been breached by an attacker.
+Ironically, perhaps, the fact that it’s hard for a company to be certain how many records were stolen during an attack can have two different outcomes:
+Indeed, Hunt’s HIBP database started back in 2013, when Adobe suffered a massive data breach that proved just how hard it can be even for a large and well-established company to figure out what happened after a cyberattack.
+The art-and-design software giant admitted in October 2013 that its network had been breached, with its Chief Security Officer claiming that “certain information relating to 2.9 million Adobe customers” had been stolen.
+That estimate was soon increased to 38 million, but the breach utltimately turned out to have exposed the encrypted-but-highly-crackable passwords of about 150 million accounts, making the breach 50 times bigger that first thought.
+Hunt therefore set out to collect and collate personal information from data breaches that had already become public and make it securely searchable via his HIBP service.
+After all, this was stolen data that was as good as available to anyone with enough patience to hunt it down for themselves for evil purposes, so why not try to use it for good instead?
+The first 10 breach data dumps that he processed were as follows [link gives JSON data]:
+Astonishingly, his service now includes billions of records from 538 breaches over the past eight years.
+Fortunately, not every breached data record directly exposes the victim’s password, even if password data was amongst the information stolen.
+Organisations that care about cybersecurity avoid storing actual passwords at all, typically saving a one-way hashed representation of your password instead. 
+This hashed version of the password can be quickly computed from the real password, which only ever needs to be stored temporarily in memory, but a cryptographic hash can’t be wrangled backwards to extract the original password, or indeed to learn anything about it.
+Serious Security: How to store your users’ passwords safely
+
+
+Hashing stored passwords doesn’t absolve you from keeping the hashes secure, of course, because stolen hashes can be “cracked” one-at-a-time by trying passwords one after the other, based on a list of likely choices known as a dictionary. 
+The hashing process is a second layer of defence: the more unusual your choice of password, and the longer it is, the less likely it is that a crook will be able to find a hash to match it in a stolen database, and therefore the less useful a database of stolen hashes will be.
+Note that properly-stored authentication databases don’t just store a hash of your password, they also store a unique random string of characters colloquially known as a salt that is combined with your password before it’s hashed. This ensures that if two users choose the same password, their hashes are nevertheless completely different, so every possible password needs to be tried separately for every possible user. If salts are used, there’s no way to compute a general-purpose lookup table that converts hashes directly back to passwords, because you’d need a new lookup table for each user.
+But what about passwords that were acquired by crooks in their raw, unhashed form?
+That’s not supposed to happen, but:

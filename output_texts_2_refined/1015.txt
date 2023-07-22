@@ -1,0 +1,53 @@
+As we’ve warned before, phishing via SMS, or smishing for short, is still popular with cybercriminals.
+Sure, old-fashioned text messages have fallen out of favour for personal communications, superseded round the world by instant messaging apps such as WhatsApp, WeChat, Instagram, Telegram and Signal.
+But for brief, one-off business communications such as “Your home delivery will arrive at 11:30 today” or “Your one-time login code is 217828”, SMS is still a popular and useful messaging system.
+That’s because pretty much every mobile phone in the world can receive text messages, regardless of its age, feature set or ability to access the internet.
+Even if you’ve got no credit to send messages or make calls, no third-party apps installed, and no Wi-Fi connectivity, SMSes sent to you will still show up.
+Such as this one, fraudulently claiming to be from UK mobile phone provider O2:
+
+As it happened, the UK reader who kindly sent in this sample (use tips@sophos.com if you have anything you’d like to share, by the way) wasn’t an O2 subscriber, so the message was obviously phoney in any case.
+But O2 is one of the UK’s “big four” providers, with a market share of around 25%, giving the crooks in this case a 1-in-4 hit rate on purely random grounds.
+Additionally, the first few digits of a UK mobile number are determined by the network that first issued it.
+So, for any user who hasn’t switched networks, or who dumped their old number when switching to a new SIM card, their current network provider can be deduced correctly anyway.
+Assuming that the crooks have guessed your mobile provider correctly, it’s understandable to take a message like this one seriously.
+Even if you know your account is paid up, it’s reasonable to assume that the error lies at the other end and needs checking out. (How often have you received a bill from a utility company that insists you owe money, tells you to pay up at once, yet also advises you to ignore the demand if you recently made a payment, because the legacy accounting system sometimes takes a while to catch up with internet reality?)
+So it’s tempting to check anyway, just in case.
+Of course, you should spot that this message is fraudulent because even though the left-hand end of the website name in the clickable link looks realistic (o2.uk), it’s the right-hand end of any domain name that determines the owner.
+In this case, the domain is [REDACTED].com – we’ve suppressed the actual name used here, but it was a string of unlikely characters that as good as told you that “this has nothing to do with O2 and is merely a random dot-com domain name that happened to be available”.
+Once you have the right to use, say, example.com, you also have the right to use all the subdomains that end in example.com, all the way from aa.example.com to zz.zz.​zz.​[up to 254 characters in total].​example.com.
+We strongly recommend that you pay close attention to links not only before you click them, especially if they arrived in an email, but also after you get to the final destination, which could be several hops – known as web redirects – from where you thought you would end up.
+But in this case, there’s a better way to handle the situation than looking at the domain name – because if the crooks had tried harder they could have acquired a more believable, less phishy-looking name to use in their scam.
+That better way is to avoid login links altogether.
+After all, even though o2.uk.pnkduiwv.com looks obviously bogus, where do you draw the line between clearly fraudulent and possibly correct?
+Many large companies have numerous variations of their mainstream domain name as landing pages for different parts of the business, in the way that Microsoft has the obvious microsoft.com, but also uses domains such as live.com, outlook.com and even microsoftedgeinsider.com, which is the official starting point for experimental builds of the Edge browser.
+So, although o2.uk.pnkduiwv.com just doesn’t look legitimate, what about a domain such as o2-accounts-global.com, or a URL such as mobile-billing-and-payment.co.uk/o2?
+Those would both be fake, but much less obviously so.
+Both those domains were available when we checked. For under £4 we could have acquired them for a year, in both their dot-com and dot-co-dot-uk forms. Furthermore, the domain name company we used to get pricing has a default registration option that “send[s] our details to the domain registry, rather than yours, giving you anonymity and privacy.”
+The obvious solution in cases like this, where you want to check if there really is a problem with your mobile phone account balance – or your credit card statement, or, your latest home delivery, or your streaming video subscription, or whatever it might be…
+…is to go directly to the account provider’s login page yourself, following a trusted link that you figured out for yourself earlier.
+For O2, the genuine link right now seems to be https://accounts.o2.uk/signin, but don’t take our word for it, or anyone else’s word, for that matter.
+If you know you are going to be paying O2 regularly, or any other online provider, get hold of the right web address directly from the company, or via the paperwork you received when you opened the account, and store it somewhere safe.
+A password manager works well here: if you tell it exactly which login pages to use for which accounts and passwords, you’ll avoid being phished by fake URLs because your password manager simply won’t be able to help you on fake sites.
+Browser bookmarks are another option; so is a simple text file saved on your laptop; or even a written list that you keep at home in your desk drawer for emergencies.
+In this case, the scam site that asks you to sign in will look and feel familiar to any O2 customer:
+
+It’s surprisingly close to the real deal – not pixel-perfect, but nearly so:
+
+Amusingly, the crooks made one ironic mistake in cloning the text of the real sign-in page, mis-spelling the word “out” as “oot” (see the second-last line in each image), which we suspect will make our Canadian readers smile, eh?
+You might expect that hovering over the [Sign in] button in the login forms above would pop up the URL to which your data is about to be sent, in the same way that hovering over a regular web link generally shows you where you will end up next.
+But as we’ve lamented before, no mainstream browser does this, and the only way we know that helps you find out where your data is about to go is to use your browser’s developer tools and manually search the raw HTML for the relevant <form> tag.
+In Chrome/Chromium and Edge, you can use 3 dots menu > More tools > Developer tools > Sources; in Firefox, we used Hamburger icon > Web Developer > Page Source to reveal the following HTML source code in the bogus page shown above:
+
+If the <form> tag has an attribute (i.e. text of the form key=value) stating action=, that’s where the data will ultimately end up.
+In the example above, the absence of an http[s]://domain.example/ prefix means that the data will go to the same website as listed in the address bar, which you should check carefully. (If there is no action= at all, then the data will be uploaded using exactly the same URL you are already on.)
+In comparison, the legitimate O2 sign-in page has a <form> tag like this:
+
+Here, an explicit URL is clearly visible, including the all-important https:// prefix that tells you the upload will be encrypted to inhibit snooping on your password.
+By the way, many browsers let you type Ctrl-U in a web page to pop up the HTML in source form, but many rogue sites (and some legitimate ones) use JavaScript in their web pages to detect when you hit that combination in order to deceive you or to make it harder to view the raw content.
+One scam site we examined recently, for instance, used this simple JavaScript to inhibit numerous keyboard shortcuts:
+Trying to view the source of a scam web form directly from the page with Ctrl-U therefore produced a popup like this:
+
+Use the Developer menus instead, as noted above, and – as far as we are aware – you will reliably get to the source code of the web page, because the browser’s user interface itself can’t be reprogrammed from JavaScript inside a web page you just visited.
+LEARN MORE ABOUT SMISHING AND HOW TO STAY SAFE
+
+(Watch directly on YouTube if the video won’t play here.)

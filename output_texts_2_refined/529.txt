@@ -1,0 +1,24 @@
+An engineer has detailed how graphics tablet company Wacom’s privacy policy allows it to collect data unconnected to its products, such as which applications users open on their computers.
+In a blog, software developer Robert Heaton said he was first alerted to the behaviour when he read the company’s Experience Program Privacy Policy while installing some Wacom drivers on his computer. Wrote Heaton:
+In section 3.1 of their privacy policy, Wacom wondered if it would be OK if they sent a few bits and bobs of data from my computer to Google Analytics, [including] aggregate usage data, technical session information and information about [my] hardware device.
+This struck him as intrusive for a drawing tablet which is “essentially a mouse.” Why would such a thing need a privacy policy anyway?
+The official answer is for the same reason many other companies’ applications do the same thing – to analyse how customers are using a product to see whether it can be improved.
+The Privacy Notice posted to GitHub by Heaton relates to users in the EU and is upfront about this when it explains in a succinct 770 words what data Google Analytics collects, including things like when during the day tablets are used, and which functions are popular.
+This data should not reveal real identities:
+As the IP anonymize function is activated in the Tablet Driver, your IP address will, within Member States of the European Union or other contracting states of the Agreement on the European Economic Area, first be shortened by Google […]
+The privacy policy for US-based users is a lot more permissive, although not all sections of this would apply when simply installing a driver.
+The earliest mentions of Wacom integrating Google Analytics with tablet Windows and macOS drivers for the Intuos range appear to date back to version 6.3.27 released for Windows and macOS in late 2017.
+With perseverance and a lot of fiddling, Heaton was eventually able to proxy the driver’s traffic to Google Analytics to take a more detailed look at the data being collected.
+Some of this was as expected – when the Wacom driver was started and stopped – which he decided was justifiable. However:
+What requires more explanation is why Wacom think it’s acceptable to record every time I open a new application, including the time, a string that presumably uniquely identifies me, and the application’s name.
+The latter behaviour isn’t referred to in the privacy policy, or at least it’s not mentioned explicitly.
+Heaton even uncovered a killswitch function that Wacom could use to remotely turn Google Analytics collection off and on.
+In Wacom’s defence, using systems such as Google Analytics to gather data on how customers are using a product might be justified on two counts:
+A more general defence is that almost every software and hardware product in existence these days will have a similar feedback system, so it’s not as if Wacom is unusual. This includes many products that users trust (for example, Mozilla and Microsoft), although the latter do at least ask rather than enable through a driver installation.
+Heaton’s discovery is highly unlikely to be a sinister plot to carry out surveillance on customers for commercial purposes although monitoring third-party software use is stretching things a bit.
+The application nosiness could also be something to do with understanding the sort of software Wacom customers use more generally, in order to draw anonymised marketing inferences about their expertise and interests. Or perhaps someone in the Experience Program just got carried away.
+What remains striking is the way tech companies seem to regard the gathering of this kind of data as something users don’t need to know about.
+This can quickly become self-serving. Privacy is already tough enough without every product creating its own silo of potential problems and expecting users to keep up.
+Wacom should not be singled out in this regard. Suspicion is a valid response to all privacy policies. Trust should always be earned.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

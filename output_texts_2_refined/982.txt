@@ -1,0 +1,55 @@
+Sadly, we’ve written many times before about RaaS, short for Ransomware-as-a-Service:
+Satan ransomware: old name, new business model
+
+
+That’s where the crooks who actually write the ransomware keep themselves out of the limelight by hiring in other crooks to identify victims, get into their networks, spread the malware and trigger the damage:
+5 ransomware as a service (RaaS) kits – SophosLabs investigates
+
+
+The operators themselves then collect the ransom payments from a distance, squeezing the victims for payment using one or another form of mostly-anonymous cryptocurrency.
+The spamming, phishing, scamming, hacking, malware unleashing and attacking part of the operation – the hands-on part, if you like – is left to a crew of affiliates.
+Perhaps unsurprisingly, the crimeware-as-a-service ecosystem seems to have settled on the same sort of divide-the-spoils arithmetic used by Apple and Google in the App Store and the Play Store, perhaps simply because it’s a ratio that everyone is familiar with.
+In general, each affiliate gets a 70% cut of the turnover they bring in themselves, while the crooks get 30% of everyone’s ill-gotten gains.
+One of the well-known names in the RaaS scene is a gang known as REvil, and – worryingly for the rest of us – they’re hiring, allegedly “depositing” $1m up front into the payment pot of an underground hacking forum as an incentive to attract new partners-in crime.
+As security researcher @Raj_Samani tweeted earlier today:
+Very concerning developments with the Revil/Sodinokibi #ransomware crew actively hiring affiliates that are "skilled hackers at penetration testing" https://t.co/7RyL67eMBi #malware #cybercrime H/T @Damian1338 pic.twitter.com/VHMBEizBj8
+As we’ll explain below, the curiously mangled phrase “to increase the quality and quantity of waste material” doesn’t just refer to the ruined files that a ransomware attack leaves behind after they’ve been scrambled with a cryptographic key known only to the crooks.
+It almost certainly also refers to the confidential files that the infiltrators now steal up front and threaten to dump in public to embarrass your company, to incite the wrath of your customers, or to leave you facing a regulatory enquiry.
+Unless you pay up.
+As reported by security news site Bleeping Computer, the REvil crew are explicitly looking for:
+In case you’re wondering, the first three abbreviations above refer to so-called grey hat tools – software products created for cybersecurity research and testing purposes but that are just as widely used for evil:
+How I learned to stop worrying and love ‘grey hat’ tools
+
+
+They’re sold or given away as legitimate security tools so you can see if your own network is secure, and then improve your protection if it isn’t.
+As you can imagine, however, these same tools are of inestimable value to cybercriminals too, who use them to see if your network is secure, and then break in automatically if it isn’t.
+NAS (network attached storage) and tape, of course, are two popular backup technologies that today’s ransomware attackers try to identify on your network and wipe out in advance to make it harder for you to recover on your own.
+And Hyper-V is Microsoft’s virtual machine (VM) software, commonly used on Windows networks to let powerful servers pretend to be multiple computers at the same time, allowing IT teams to scale their server workloads up and down as needed.
+Typically, you can’t scramble the files that act as the virtual hard disks in use by each VM on a server because they’re in use and locked by the virtualisation software.
+But if you can infiltrate the management tools that may be looking after dozens of hundreds of VMs at the same time, you can attack the VMs “from inside” just as if they were regular computers containing regular files.
+Ironically, virtualisation tools are now being used by ransomware criminals themselves, with VMs sneakily fired up in which the crooks can run their ransomware without exposing its files or processes directly to the security scrutiny of the host computer that they’re about to attack:
+The ransomware that attacks you from inside a virtual machine
+
+
+We wrote last year about the alleged end of an infamous ransomware-as-a-service group known as GandCrab – a shutdown occasioned, sadly, not by the arrest and conviction of the crooks but by their own claims that:
+All the good things come to an end. […] Earnings with us per week averaged $2,500,000. We personally earned more than 150 million dollars per year. [… We are leaving for a well-deserved retirement.
+However, even though the twisted history of ransomware groups can be hard to follow – at least, those who haven’t been caught and prosecuted – it looked as right away as though the report of the gang’s demise was a scam all of its own, and that they almost immediately returned with a ransomware strain known as Sodinokibi.
+Or, to use its other name, REvil:
+GandCrab ransomware revisited – is it back under a (R)evil new guise?
+
+
+Back then, Sodinokibi ransomware demands were running at about $2500 per computer, jumping to $5000 after four days.
+As you probably know, extortion demands don’t really work like that any more.
+Ransomware gangs, including the REvil crew, have taken to setting up attacks on one or just a few networks at a time, rather than trying to scramble thousands of computers individually in a widespread attack.
+The attackers can then “negotiate”, if that is the right word, directly with the IT teams or the CISOs who look after the networks they do manage to breach, and if the criminals have locked up all the computers in one company at the same time, they have much more leverage.
+As a result, they’re often demanding six-figure or even seven-figure sums each time.
+(Less than two weeks ago we wrote about an attack by the Maze ransomware criminals where a astonishing eight-figure demand was made, with the crooks opening the bidding at $10,000,000. In that case, the victim refused to pay.)
+As we mentioned above, ransomware attacks are now routinely preceded by a data-stealing binge by the attackers, so that victims are faced with two-pronged extortion demands.
+These days, the criminals don’t just squeeze you to pay up for the decryption key to unscramble your whole network and get your business going again.
+They also menace you to pay for their “co-operation” in deleting the data they stole instead of leaking it to the world, or auctioning it off to other crooks, or both.
+It’s a bit like being kidnapped and blackmailed at the same time: even if you have a way out of one crisis, such as a recent and reliable backup to recover your own files, the crooks have a second hold over you.
+Suddenly, and rather shockingly, that million-dollar “investment” by rhe REvil crew sounds like up-front money that the gang can easily afford and expect to recoup quickly, possibly even in a single well-planned attack.
+Instead of offering you a list of technical tips, we’re simply going to reiterate what our chums at Bleeping Computer already said.
+Don’t pay.
+If the worst should happen, do your very best not to get squeezed into paying up.
+If you will afford us the chance to be upbeat about it, we’d like to repeat what we said earlier this month to encourage companies not to reach for the giant-sized chequebook straight after a ransomware attack:

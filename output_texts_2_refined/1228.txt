@@ -1,0 +1,41 @@
+You know what we’re going to say, so we’ll say it right away.
+Patch early, patch often.
+Canadian privacy and cybersecurity activist group The Citizen Lab just announced a zero-day security hole in Apple’s iPhone, iPad and Macintosh operating systems.
+They’ve given the attack the nickname FORCEDENTRY, for rather obvious reasons, though its official designation is CVE-2021-30860.
+Citizen Lab has attributed the vulnerability, and the code that exploits it, to controversial device surveillance company NSO Group, already well-known for its so-called Pegasus line of spyware-like products.
+According to Citizen Lab, this exploit relies on booby-trapped PDF files, and was spotted in the wild when a Saudi Arabian activist handed over their phone for analysis after suspecting that spyware had somehow been implanted on the device.
+The Citizen Lab report coincides with Apple’s own security bulletin HT21807, which credits Citizen Lab for reporting the hole, and says simply:
+Processing a maliciously crafted PDF may lead to arbitrary code execution. Apple is aware of a report that this issue may have been actively exploited. […] An integer overflow was addressed with improved input validation.
+Although Citizen Lab specifically claims that the phone it examined was infected via an iMessage communication, Apple’s bulletin describes this PDF-handling bug as existing in the Core Graphics system component, which implies that the vulnerability is not limited to the iMessage app.
+Integer overflows happen when an arithmetic calculation doesn’t fit into the numeric precision available, often leading to some sort of memory buffer overflow later on.
+Computers typically use a fixed number of bits, typically 16, 32 or 64, to do arithmetic on integers (whole numbers, such as 1, 42 and 2021), so some combinations of inputs will produce outputs that won’t fit into the available space.
+This is the same class of flaw as the infamous Y2K bug, where programs that used two digits to store the year would compute the year that followed 1999 as 99+1 = 100, using this as “shortcut” instead of calculating 1999+1 = 2000 in full.
+Of course, with only two digits to store the answer, the result would lose the leading 1-digit denoting “one hundred years”, and wrap back round to 00, causing the time and date at the stroke of midnight to shoot backwards by a century instead of advancing by just one second.
+In memory management code, numeric wraparounds of this sort can easily lead to chunks of data being written to memory blocks into which they simply won’t fit.
+For example, a program that relies on 16-bit numbers to store the width and height of an image would happily allow you to specify images up to 65535 pixels wide by 65535 pixels high (0xFFFF in hexadecimal, or 16 bits’ worth of 111...111 in binary).
+At first thought, that sounds like a bigger image than you’d ever need.
+But if the programmer forgot to specify a 32-bit number for the number of pixels needed (width × height), and out of habit allocated another 16-bit integer for the result, then even an image of, say, 1000×1000 pixels would cause serious trouble.
+The product of 1000×1000 should come out at 1,000,000 pixels, or 0xF4240 in hexadecimal, but that number requires 20 bits to store in full, or 5 hexadecimal digits, because of integer overflow. (When you multiply two N-digit numbers together, the result can be up to 2N digits long.)
+If that answer gets shoehorned into a 16-bit integer, the 0xF at the start of the number gets discarded, leaving just four hex digits (16 bits), so the computed “image size” wraps around to 0x4240 in hex, like a old-school car speedo that’s gone past 99,999 kilometres and started again from zero.
+That produces an incorrect answer of 16,960 instead of 1,000,000.
+If the software then blindly allocates just 16,960 bytes of storage space, having miscalculated that as the “correct” size of a 1000×1000 pixel image, a huge and catastrophic buffer overflow would happen as soon as the image was copied into the undersized buffer.
+Intriguingly, Apple also fixed another in-the-wild bug at the same time, dubbed CVE-2021-30858.
+This second zero-day hole was found in Apple’s web rendering software, WebKit, which forms the heart of the built-in Safari browser on all Apple operating systems.
+In fact, all iPhone and iPad programs in the App Store (right from the most basic games and utilities to the most powerful web browsers) that can render and display HTML content are compelled by Apple to use WebKit.
+Even browsers such as Edge and Firefox, which usually use the Chromium and Gecko web rendering software respectively, have to use via WebKit instead, so WebKit security bugs can have widespread consequences on iPhones and iPads.
+The CVE-2021-30858 bug is a use-after-free vulnerability, where a program hands back to the operating system memory that it no longer needs, so it can be used elsewhere…
+…but then inadvertently keeps on using it anyway, trampling over any new data that’s been stored there for some other purpose.
+This sort of bug almost always leads to application crashes, and occasionally gives attackers the chance to come up with full-on remote code execution (RCE) exploits, which seems to be what happened here.
+We have no idea whether the two bugs in this story are related – the Citizen Labs report mentions only CVE-2021-30860, and the WebKit CVE-2021-30858 flaw is credited simply to “an anonymous researcher”.
+With two apparently independent bugs in the wild at the same time, and with little indication so far of what to watch out for in booby trapped PDF files or web pages, there’s not much you can do…
+…other than patch early, patch often.
+Current patches [2021-09-14T00:01Z] are documented in Apple’s latest security bulletins as follows:
+This means that on macOS Catalina, there are presently two patches you’ll need, one for the operating system itself, and the other for WebKit/Safari.
+To check for updates (and automatically fetch them if they haven’t been downloaded automatically yet), do this:
+As far as we can tell, the Citizen Lab bug affects “all iPhones with iOS versions prior to 14.8”, which we assume includes iOS 12, still officially supported by Apple.
+But we can’t find any current security bulletins that mention iOS 12, which means that older phones might be vulnerable but not yet patched.
+Bulletin HT212803, which immediately precedes this batch of zero-day patches, covers the recent and perhaps unsurprising news that attaching an iPhone directly to a high-powered motorcycle, or to a mountain bike used on hard-core offroad rides, might cause premature vibration damage to the precision engineering components in the lens of your phone. Bulletin HT212809, the next in sequence after this batch, doesn’t yet exist [2021-09-14T00:01Z].
+For users of older iPhones, all we can suggest at the moment is for you to be more cautious than usual about whom you accept PDF files from, and the sites from which you download them.
+In particular, don’t be swayed just because the document you’re being tempted with apparently relates to your own job or hobbies.
+Cybercriminals can easily figure out your interests, in both your professional life and your home life, simply by reading your job description or peeking at your social media pages.
+If in doubt, leave it out!

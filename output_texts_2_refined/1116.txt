@@ -1,0 +1,31 @@
+It’s three weeks since the word HAFNIUM hit the news.
+The word Hafnium refers to a cybergang who are said to focus on stealing data from pretty much anyone and everyone they can infiltrate, across an eclectic range of industry sectors, and this time they hit a sort-of cybercrime jackpot.
+The Hafnium crew, it turned out, not only knew about four zero-day vulnerabilities in Microsoft Exchange, but also knew how to exploit these bugs reliably in order to walk into unprotected networks almost at will.
+The Exchange bugs didn’t include a remote code exeution (RCE) hole to give the crooks the direct and immediate access to a compromised server, but the bugs did allow the crooks to rig up RCE using a trick known as a webshell.
+Greatly simplified, the attack goes like this:
+Unfortunately, as we explained when this news first broke, the name Hafnium caused fourfold confusion:
+It’s the last of these issues that concerns us here, because the Sophos Managed Threat Response team recently investigated a number of cases in which networks that hadn’t been patched against the abovementioned Exchange bugs had been infiltrated and attacked by a strain of ransomware going by the dramatic name of BlackKingdom.
+In case you’re wondering, the crooks variously refer to their own ransomware using two words, weirdly written Black KingDom, as well using one word, as we’ve written it here. (We’ll stick to BlackKingdom in order to make it clear that we are talking about a specific threat, in the same way that we might write WannaCry or TeslaCrypt.)
+The bugs exploited in this case are now widely referred to as ProxyLogon, which is the popular name used to refer to attacks that start off by using the Exchange bug CVE-2021-26855, typically followed by using CVE-2021-27065 and perhaps CVE-2021-26857 and CVE-2021-26858. The name ProxyLogin is a better word to use than Hafnium if you’re specifically talking about an intrusion initiated by those bugs, because the name isn’t tied to any criminal gang, and doesn’t imply any specific reason for the attack.
+If you’re after the low-level details of BlackKingdom, you’ll be glad to know that SophosLabs has published a technical analysis of the malware program that does the dirty work.
+Read the Labs report if you want to find out exactly how the malware works, and to get indicators of compromise you can look for on your network and in your own logs.
+Although BlackKingdom is not technically sophisticated, that’s cold comfort if it’s just scrambled all your files.
+As SophosLabs put it:
+[O]ur early analysis reveals that it is somewhat rudimentary and amateurish in its composition, but it can still cause a great deal of damage.
+Black Kingdom ransomware begins appearing on Exchange servers
+
+
+Like many families of ransomware, this one:
+The blackmail demand starts like this:
+The amount demanded is $10,000 in Bitcoin for each computer attacked:
+Whether or not the criminals behind this attack really are routinely stealing their victims’ files before scrambling them, we aren’t sure.
+However, as you will see from the SophosLabs analysis, the ransomware program that produces this message was installed and executed using the ProxyLogon exploits, which allow remote crooks to implant and run almost any program they want.
+So even if they didn’t steal all your data first, they almost certainly could have…
+…and so could any other crooks who came across your unpatched servers before, during or after the BlackKingdom attack.
+By the way, there are a few peculiarities about the BlackKingdom malware that give you a small (though it may admittedly only be a very small) chance of recovering your data, even if you don’t have a backup, without paying the criminals for the decryption key.
+So if you do end up as a victim of this attack, talk to someone you know and trust for advice before you rush into any ill-considered response.
+If you have suffered any sort of cybercrime attack, including but not limited to ransomware, and you don’t have an IT partner of your own to turn to, the Sophos Managed Threat Response or Sophos Rapid Response team would be happy to hear from you.
+LEARN MORE: HAFNIUM EXPLAINED IN PLAIN ENGLISH
+
+Original video here: https://www.youtube.com/watch?v=xVasO4k-mMQ
+Click the cog icon to speed up playback or show live subtitles.

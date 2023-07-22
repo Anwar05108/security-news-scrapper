@@ -1,0 +1,39 @@
+Many, if not most, organisations will tell you that they have processes and procedures that they follow when employees leave.
+In particular, most companies have a slick and quick procedure for removing ex-staff from the payroll.
+Firstly, it doesn’t make economic sense to pay someone who is no longer entitled to the money; secondly, many countries require employers to withhold payroll taxes automatically, to pay those taxes in promptly, and to account for them accurately.
+Why get into trouble with the tax office over former employees when you can have a simple “staff leaving” checklist that will help to keep you compliant and solvent at the same time?
+Unfortunately, we’re not always quite so switched on (or, to be more precise, not quite so good at switching things off) when it comes to ex-staff and cybersecurity.
+History is full of stories of havoc wreaked by ex-employees who maintained both their grudges and their passwords or access tokens after being fired or laid off.
+Some of these revenge attacks have acquired legendary status, like the man from the splendidly named town of Maroochydore in Maroochy Shire in Queensland, Australia, who used insider information and a purloined computer to “hack” the council’s waste management system.
+This crook quite literally, if you will pardon the expression, showered the shire with… well, with 1,000,000 litres of raw sewage, by operating all the right pumps in all the wrong ways.
+As amusing as this crime sounds with 20 years of hindsight – it happened in the year 2000 –  the disgruntled former contractor caused an environmental hazard, including polluting a tidal canal, that took days to clean up. 
+He was caught, tried and convicted of 27 counts of unauthorised computer access, and one count of wilfully and unlawfully causing serious environmental harm:
+“Marine life died, the creek water turned black and the stench was unbearable for residents,” said Janelle Bryant, investigations manager for the Australian Environmental Protection Agency.
+Then there was the US sysadmin who was fired in 2009 and decided to get his own back by planting keyloggers on his former employee’s network, harvesting passwords until he had access to the accounts of senior staff, and then remotely hacking into a presentation by the CEO to the board of directors.
+You can probably imagine what happened nort.
+Zoom bombing may be a new phrase in our vocabulary, but the technique of, ahem, replacing someone’s presentation in real time with NSFW material – porn, in a word – is not a new thing at all. 
+The offender in this case received a two-year sentence, but avoided prison because the judge suspended it.
+And 2019, a former sysadmin for a US Senator went on trial for stealing and revealing – what’s known in the trade as “doxxing” – the confidential personal data of several US members of Congress.
+Ironically, the offender in this case had his logon accounts closed down when he was fired, but was still able to get physical access to his ex-workplace to install keyloggers and copy off gigabytes of confidential files.
+Simply put, there’s a lot that can go wrong if your cybersecurity processes don’t deal reliably and rapidly with shutting down the access of staff who no longer work for you.
+Sadly, however, it’s not always grudge-filled ex-staff or rogue insiders whose accounts end up getting abused.
+The Sophos Rapid Response team has just written up a recent case study of a network attack that involved the account of a sysadmin who had died three months before.
+The account of the late employee wasn’t shut down because various internal services had been configured to use it, presumably because the deceased had been involved in setting up those services in the first place.
+Closing down the account, we assume, would have stopped those services working, so keeping the account going was probably the most convenient way of letting the dead person’s work live on.
+Indeed, we think it’s a rather nice memorial; a way of honouring the work of the departed sysadmin as well as ensuring business continuity in a part of the system that was already working properly.
+Unfortunately, given that the dead person was not logging into and actively using the account any more, no one was there to notice that the account wasn’t being used in the expected way.
+Cybercrooks love orphaned or abandoned accounts, because they’re less likely to get caught out by the account’s regular user – in much the same way that Goldilocks would probably have avoided the attention of the Three Bears if she hadn’t visibly had a go at everyone’s porridge, sat on everyone’s chairs, and slept in all their beds.
+In this case, the active use of the account of a recently deceased colleague ought to have raised suspicions immediately – except that the account was deliberately and knowingly kept going, making its abuse look perfectly normal and therefore unexceptionable, rather than making it seem weirdly  paranormal and therefore raising an alarm.
+Unfortunately, the attackers weren’t spotted until significant damage had been done, namely after they had unleashed the Netfilim ransomware (also known as Nemty) on the victim’s network and brought more than 100 computers to a standstill by scrambling all their data.
+Even worse, when Sophos Rapid Response began investigating, having been called in almost immediately after the ransomware attack, they realised that the crooks had already had access to the network for a full month.
+As you probably know, many ransomware attackers these days use the final scramble-all-the-files stage not as their primary vehicle to blackmail the unfortunate victim, but merely as a sort of attention-grabbing finale.
+After all, you can recover from file-scrambling ransomware without paying if you have a recent and reliable backup…
+…but what you can’t do after it’s happened is “unsteal” files that the criminals have quietly copied off your network in the days leading up to the final drama of the encryption attack.
+Sadly, many of today’s ransomware extortion demands have two prongs of blackmail: pay up or we will delete the decryption key to get your precious files back, and pay up or we will not delete the files we’ve already stolen.
+If you don’t pay, the crooks threaten to send your confidential data – and data about your customers, which the crooks have probably got hold of as well – to the regulators, to the media, to other crooks, and even, in many cases, to publish them on their own darkweb “name-and-shame” sites where anyone can download them for any nefarious purpose they like.
+Sophos Rapid Response discovered that the data exfiltration in this attack was already finished by Day 24 of the crooks’ 31-day infiltration – the attackers had apparently used the well-known (some might even say infamous) encrypted New Zealand-based cloud service MEGA to stash the stolen data.
+For two weeks before that, the crooks had been snooping around quite generally, quietly setting up additional accounts – this time, not of dead staff but of people that didn’t exist at all. 
+Incidentally, one of the reasons the crooks take their time before adding their own accounts, directories, registry entries, programs and services is that they like to get a feel for your network and your nomenclature first, so their unauthorised additions don’t stand out as unusual.
+The crooks also like to discover what system administration and hacking tools you already have on your network, so that they can “borrow” ones that exist already, thus raising less suspicion than if they downloaded their own favourites – a technique known in the jargon as “living off the land”, or simply “fitting in well” to you and me.
+LISTEN NOW: 20 YEARS OF CYBERTHREATS THAT SHAPED INFOSEC
+Click-and-drag above to skip to any point in the podcast. You can also listen directly on Soundcloud.

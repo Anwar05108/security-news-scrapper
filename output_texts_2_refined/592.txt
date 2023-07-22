@@ -1,0 +1,18 @@
+To most iOS users, pasteboard is simply part of the way to copy and paste data from one place to another.
+You take a picture, fancy sharing it with friends, and your phone uses the pasteboard to move the image to the desired app.
+Now an app developer called Mysk has discovered pasteboard’s dark side – malicious apps could exploit it to work out a user’s location even when that user has locked down app location sharing.
+The weakness here is caused by the fact that, unless GPS permissions were refused, images taken with the embedded camera app on iPhones and iPads are saved with embedded GPS metadata recording where each was taken.
+In the simplest scenario, an iPhone user would take a photo, copy it between apps using the pasteboard, from which a malicious app could extract location metadata while comparing it with timestamps to determine whether it was current or taken in the past.
+Images taken from third-party web sources could be filtered out by comparing aspects of an image’s metadata with the device’s hardware and software properties to detect differences.
+Although a malicious app should only be able to access pasteboard data while active, Mysk’s bypass was to write a demo app, KlipboardSpy, paired to a foreground widget visible in Today View, to prove the hack worked under real-world conditions. Moreover:
+As the pasteboard is designed to store all types of data, the exploit is not only restricted to leaking location information. By gathering all these types of content, a malicious app can covertly build a rich profile for each user, and what it can do with this content is limitless.
+That’s not only location data, then, but potentially anything the user has copied into pasteboard, including passwords and bank details.
+There was a time when the ability to siphon GPS location history from smartphone images would have sounded of marginal use to a surveillance app. These days, however, image- and data-sharing has exploded, as any visit to social media will attest.
+And yet when Mysk reported the issue to Apple, the response was muted:
+We submitted this article and source code to Apple on January 2, 2020. After analyzing the submission, Apple informed us that they don’t see an issue with this vulnerability.
+Arguably, Apple is correct because the pasteboard is working exactly as intended – it allows users to exchange data within and between applications while the latter are in the foreground.
+That is, while it’s true that data can be slurped from the pasteboard in theory, that hypothetical downside is outweighed by the certainty that people need to access copy-and-paste on a daily basis.
+Mysk’s view is that Apple could protect the iOS pasteboard by integrating it inside its permissions system, allowing users to grant access one app at a time, or by limiting the time apps can access it to the copy-and-paste action.
+Currently, this is a theoretical weakness that, as far as anyone knows, has never been exploited. It’s likely that Apple will patch up this risk at some point as the permissions system inside iOS evolves.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.

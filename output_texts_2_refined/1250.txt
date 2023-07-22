@@ -1,0 +1,50 @@
+If you’re a Naked Security Podcast listener (and if you aren’t, please give it a try and subscribe if you like it!), you may remember a humorous remark about ‘sideband’ attacks and sneaky data exfiltration tricks that Sophos expert Chester Wisniewski made in a recent episode.
+We were talking about how to stop cybercriminals from stealing cryptocurrency wallets, and I noted that the modest size of wallet files made them not only easier to identify but also quicker to sneak out of a network once they’d been located.
+Chester’s quip at this point was:
+
+As soon as you said that, my mind went to those researchers at Ben Gurion University who are always doing some sort of sideband attack… [for example,] they vary the frequency of the light bulbs to leak 11 bytes of data from the computer. I’m just waiting for them to leak a Bitcoin wallet by playing music through the speakers, or something like that!
+
+Well, Chester’s wait might be over. (In theory, at least.)
+Mordechai Guri from the abovementioned Ben Gurion University of the Negev (BGU) in Israel has recently published a new ‘data exfiltration’ paper detailing an unexpectedly effective way of sneaking very small amounts of data out of a cabled network without using any obvious sort of interconnection.
+This one is entitled LANTENNA: Exfiltrating Data from Air-Gapped Networks via Ethernet Cables, and it’s the latest of many BGU publications in recent years dealing with a tricky problem in cybersecurity, namely…
+…how to split a network into two parts, running at different security levels, that can nevertheless co-operate and even exchange data when needed, but only in strictly controlled and well-monitored ways.
+Physically disconnecting the two networks so that human intervention is needed to move data between them seems like an obvious solution, creating the proverbial “airgap” mentioned in the title of Guri’s paper.
+Typically, this also means disallowing “free air” communications protocols such as Bluetooth and Wi-Fi, at least on the more secure side of the network, so that any interconnection points genuinely require some sort of physical interaction.
+You might, however, allow (possibly limited) wireless technologies on the less secure side of the network, as long as no emanations from the insecure side can be received, whether by accident or design, on the secure side, and as long as there aren’t any detectable emanations at all from the secure side that could be picked up on the insecure side.
+At one time, physical airgaps such as plugging a network cable into a special socket, or using a carefully vetted USB device in a specific USB port, were considered a good solution to this problem, although even USB-based airgaps can sometimes be breached, as anyone who has studied the infamous Stuxnet virus will know.
+Stuxnet was programmed to damage a specific piece of industrial control equipment if ever it found itself running on a computer that was hooked up in the right way to the right sort of device.
+For the longest time, no one could work out what the “right” (or wrong) sort of equipment was, because the virus didn’t identify the hardware by name but merely by some arbitrary characteristics that needed to match.
+The puzzle was a bit like trying to find a single person on earth based only on a partial fingerprint and their approximate age.
+Eventually, a device was tracked down that matched the “does it look like the one we want?” rule coded into Stuxnet, and it turned out to be a type of industrial centrifuge (used for separating tricky substances with nearly-but-not-quite-identical characteristics, such as different isotopes of uranium) known to be used in Iran.
+You can probably extrapolate the rest of the Stuxnet saga for yourself if you aren’t familiar with it already.
+But what about data exfiltration across an airgap in a post-Stuxnet world, where the operators of airgapped networks have become much stricter about the “border controls” between the two sides of the network?
+What covert channels could be used, even if they offered only the most modest data rates? 
+How could you detect and prevent the abuse of these channels if they were indeed exploitable by corrupt insiders (perhaps with the innocent help of unknowingly co-opted colleagues), if the tricks used were abstruse enough not to arouse suspicion in the first place?
+BGU’s previous research has warned of low-bandwith data leakage tricks that can be orchestrated using techniques as varied as:
+STEGANOGRAPHY EXPLAINED
+
+Original video here: https://www.youtube.com/watch?v=q2hD4v8_8-sClick the cog icon to speed up playback or show live subtitles.
+LANtenna is more of the same, this time abusing the staple of any so-called secure network: the LAN cables themselves.
+With Wi-Fi off the menu for the simple reason that you can’t see (or easily control) where it’s going, because it is an electromagnetic broadcast medium using an invisible part of the radio spectrum, most secure networks rely on visible runs of traditional network cabling and switches.
+In cabled networks, which mostly use so-called shielded twisted pair cables such as CAT5e, CAT6 and higher specifications, a suspicious connector can be physically traced to its source or destination (assuming it’s noticed, of course). 
+Making each conductor in the cable from a pair of wires twisted around each other along their length reduces electromagnetic leakage, and thus interference, a property first discovered and exploited in the earliest days of the telephone industry. Additional shielding around each conductor pair and around the entire cable, plus tighter twists using more wire, improve performance and reduce stray emissions even further.
+Additionally, any device or segment of a cabled network can be quickly, reliably and visibly disconnected by unplugging either end of a cable.
+But just how shielded are those twisted-pair cables? 
+More importantly, if their shielding isn’t perfect, just how big and expensive and obvious would the equipment be that you’d need to detect it?
+In other words, if a collaborator on the secure side of the network could arrange for innocent-looking data with a hidden meaning to be sent on the network…
+…how surreptitously and uncontroversially could you (and you might be your own collaborator, of course) pick up the steganographically encoded data with an innocent-looking device on the insecure side?
+If you’d need a two-metre long Uda-Yagi antenna to pick up the stray emissions, and specialised detection hardware in a case the size of one of Spinal Tap’s sound cabinets, you’d be unlikely to get away with it.
+Guri found that he was able to emit encoded data, via the LANtenna attack, using two different techniques:
+Guri discovered that he could detect these stray emissions reliably from up to three metres away using commodity “software radio” hardware that is available in the form of cheap and modestly-sized USB dongles that are easy to conceal, or to disguise as more innocent-looking hardware devices.
+The first technique was much more reliable and gave faster exfiltration rates, but generally requires root (sysadmin) access on the computer used to leak the data.
+Speed toggling is also likely to get spotted and routinely logged by network monitoring hardware, not least because network cards that keep switching speed suggest hardware problems as well as being suspicious from a security perspective.
+This trick is also unlikely to work in a virtual machine environment, because the guest operating system generally works with a virtual network card that simply pretends to switch its speed, while the physical interaction with the network itself is handled by the host computer, which combines all the virtual machine traffic and sends it at a constant speed.
+So, the second method was easier to exploit, even in virtual computers…
+…but the data rates that Guri was able to achieve were modest to say the very least.
+We’re talking about just one bit per second (that’s about 400 bytes an hour, or about one movie per millennium) using the “innocent data packets” technique, with a reliable range of 2m using a PC, from which emissions were stronger, or just 1m using a laptop.
+But that’s still enough to leak numerous typical symmetric cryptographic keys, or several cryptocurrency private keys, within a single working day, so Chester’s remark in S3 Ep46 of the podcast may have come true after all.
+Guri has several recommendations for countermeasures, of which the most obvious and easiest to implement are:
+Guri also suggests that you could consider emitting your own counter-surveillance jamming signals in the bandwidth ranges he monitored with his software radio dongles (typically 125MHz and above), and emitting randomised, background UDP traffic of your own to confuse anyone using the “innocent data packet” signalling technique.
+These last two countermeasures are, of course, specific to the LANtenna attack as described in the paper, so a variation on Guri’s theme might bypass them.
+Happy hunting! 
+(If you’re a secure area Blue Teamer, it’s a great excuse for budget to purchase some Software Defined Radio gear!)

@@ -1,0 +1,36 @@
+Lots of things that we rely on, and that are generally regarded as bringing value, convenience and benefit to our lives…
+…can be used for harm as well as good.
+Even the proverbial double-edged sword, which theoretically gave ancient warriors twice as much fighting power by having twice as much attack surface, turned out to be, well, a double-edged sword.
+With no “safe edge” at the rear, a double-edged sword that was mishandled, or driven back by an assailant’s counter-attack, became a direct threat to the person wielding it instead of to their opponent.
+Sadly, there are lots of metaphorically double-edged swords amidst modern technology.
+And no IT technology feels quite as double-edged as encryption, the process of scrambling data securely in such a way that only the intended recipient can ever unscramble it later on.
+Almost everything about encryption makes it feel as though it is both immeasurably useful and dispiritingly dangerous at the same time.
+Consider some of these dilemmas:
+This last dilemma is one that has been creeping up on us steadily over the last few years on the web.
+TLS (transport layer security), the protocol used to encrypt the majority of today’s web and email traffic, is what puts the padlock in your browser’s address bar.
+By doing so, TLS makes it very much harder for crooks to do three things:
+Ten years ago, even the biggest and most popular online services in the world, such as Facebook, Gmail and Hotmail (now Outlook.com) didn’t use TLS all the time – it was thought to be too complicated, too slow, and not always necessary.
+Sure, social media sites or online stores would encrypt the important stuff, such as when you actually logged in, or paid for something, or edited your private profile.
+But the rest of the time, they’d often just use unencrypted web pages, figuring that you didn’t really needed protection against snooping, tampering and spoofing when you were “just looking”.
+Well, that sort of simplification won’t wash any more, because we give away more than enough to put us in harm’s way just during regular browsing.
+These days, therefore, we expect our web browsing to be protected by TLS all the time.
+And most of the time these days, it is.
+Guess what?
+The crooks have fallen in love with TLS as well. 
+By using TLS to conceal their malware machinations inside an encrypted layer, cybercriminals can make it harder for us to figure out what they’re up to.
+That’s because one stream of encrypted data looks much the same as any other.
+Given a file that contains properly-encrypted data, you have no way of telling whether the original input was the complete text of the Holy Bible, or the compiled code of the world’s most dangerous ransomware.
+After they’re encrypted, you simply can’t tell them apart – indeed, a well-designed encryption algorithm should convert any input plaintext into an output ciphertext that is indistinguishable from the sort of data you get by repeatedly rolling a die.
+Paradoxically, then, as more and more of the internet gets encrypted, thus keeping us more secure…
+…it also gets harder and harder to keep track of anomalous, unwanted and dangerous content.
+At this point, you’re probably wondering just exactly what the crooks are getting up to these days with TLS, and how much they’re using it.
+And the excellent news is that Sean Gallagher of SophosLabs has just completed an extensive survey, based on data gathered from all around the world via our own software, to answer exactly those questions.
+In his paper, published today, entitled Nearly half of malware now use TLS to conceal communications, he takes you through the tricks used by today’s cybercriminals to help them hide in plain sight, simply by making their bad traffic look much the same as our good traffic.
+
+From just under a quarter of malware-related traffic using TLS a year ago to just under half today, this is definitely an issue you should be aware of.
+As Sean writes:
+
+The most concerning trend we’ve noted is the use of commercial cloud and web services as part of malware deployment, command and control. Malware authors’ abuse of legitimate communication platforms gives them the beneﬁt of encrypted communications provided by Google Docs, Discord, Telegram, Pastebin and others—and, in some cases, they also beneﬁt from the “safe” reputation of those platforms.
+We also see the use of off-the-shelf offensive security tools and other ready-made tools and application programming interfaces that make using TLS-based communications more accessible continuing to grow.
+
+Learn how these attacks work, and how SophosLabs is able to keep on top of them even though they’re encrypted.

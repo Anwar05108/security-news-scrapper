@@ -1,0 +1,25 @@
+Apple engineers think they’ve come up with a simple way to make SMS two-factor authentication (2FA) one-time codes less susceptible to phishing attacks: agree a common text format so their use can be automated without the need for risky user interaction.
+The concept proposed by the company’s Safari WebKit team is that apps such as mobile browsers will automatically process SMS text codes as they are received, submitting them to the correct website.
+This dodges today’s hazard that phishing websites can first fool people into entering their password and username, before asking them to submit the correct 2FA code sent to their phone to the same bogus site.
+But for the idea to be feasible, three problems must be overcome.
+The first of these is that today’s codes are sent in a range of text formats that makes extracting the correct 2FA data and website domain difficult.
+For example, PayPal’s 2FA codes look something like this:
+Your security code is 123456. You code expires in 5 minutes. Please don’t reply.
+Or gaming platform Steam:
+Your Steam verification code is AB1C2.
+Or Facebook:
+Use 123456 to login to Facebook.
+And so on, with each system sending slightly different equivalents that even heuristic analysis technology struggles to interpret without making errors. The messages also rarely embed the domains to which the codes relate.
+Apple’s suggestion is a lightweight text format designed to be “about as simple as it gets,” which would look like this:
+747723 is your XYZ.com authentication code.
+@XYZ.com #747723
+The first line being used to identify the message to the recipient, the second being the part that apps would process, including the correct URL.
+Users receiving one of the new 2FA texts wouldn’t have to do anything. The data would be automatically extracted by the app doing the authentication.
+Now for the second problem – to become universal, this is something all the big names would need to sign up for.  So far only Google seems interested while Mozilla and Microsoft have yet to make their positions clear.
+But even if they jump aboard there’s a third problem lurking, namely the growing feeling that SMS text verification is an inherently insecure idea companies need to stop using, period.
+Bolting on improved security would be to ignore deeper worries such as SIM swap fraud where criminals receive security codes after hijacking the mobile user’s account.
+A lot will depend on Google, which in recent times has promoted what it sees as more secure alternatives to receiving SMS codes such as authentication apps, the WebAuthn standard or hardware tokens.
+More recently, however, it’s taken a more pragmatic approach and suggested improving SMS communication using initiatives such as Verified SMS for Messages designed to authenticate organisations sending SMS messages including, in theory, their 2FA codes.
+This looks like an acceptance that imperfect security channels such as SMS aren’t going away and that the world will continue to use them for a while yet. Better, then, to get on with improving their security while they last.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

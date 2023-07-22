@@ -1,0 +1,37 @@
+Our chums over at online IT publication The Register just spotted an interesting code change in the Chromium browser from last week.
+Google, it seems, is joining Apple in limiting the maximum validity of web security certificates – those digitally signed blobs of data that put the S in TLS and the padlock in your address bar – to just one year.
+The code change is headlined Enforce 398-day validity for certificates issued on-or-after 2020-09-01, and it looks like this:
+
+Enforce publicly trusted TLS server certificates have a lifetime of 398 days or less, if they are issued on or after 2020-09-01.
+Certificates that violate this will be rejected with ERR_CERT_VALIDITY_TOO_LONG and will be treated as misissued.
+Apple announced back in February 2020 that it was going to start doing this in its Safari browser.
+Safari comes as part of the macOS distribution on Macs, so it’s always available and widely used.
+Even if it’s not the first choice for most Mac users, it’s commonly fired up as an “alternative” browser, for example when you want to be logged onto the same site using two different accounts, or logged on in one browser but not logged on in another.
+And Safari, or at least its programmatic core known as WebKit, is the only browser code allowed on iOS.
+As you probably know, web certificates have two parts: a public key, presented to the world to identify your server; and a private key, used by your server to prove that it really does own the public key it is presenting as its identity.
+You can think of the public key like the blue slip (or white disk, or pink sheet, or or whatever colour it is in your country) that goes with your car to show that it’s registered to the owner YOUR NAME, and you can think of the private key as the formal ID you show when you need to prove that you really are the person YOUR NAME listed on the slip.
+The slip isn’t meant to be a secret – in some countries it’s a sticker that actually goes on the vehicle – and the data on it can be copied easily, because it doesn’t really mean anything without your ID to vouch for it.
+Well, in the context of web certificates, crooks who get hold of your private key are like car thieves with a clone of your ID: they can pass themselves off as you and therefore convince people that your property belongs to them.
+And if crooks can set up a server that can “prove” it’s yours, those same crooks can trick other people into trusting fake content on their fake site as if it were yours, vouched for cryptographically by you.
+Of course, crooks can bask in the trust conferred by your certificate without stealing your private key, for example by hacking into your site and modifying or adding fake or malicious content to your server.
+If the content comes from your site, then it will automatically have the imprimatur of your certificate and thus be vouched for by you and your brand.
+But crooks who get hold of your private key can go much further than that, and they can do it without having to rely on your server at all – they can effectively create a clone of your server, pretty much anywhere in the world they like, where you can’t easily shut it down or remove the offending content. 
+If they use your name, brand, logos and everything – including your web certificate – then anyone who visits their bogus server will almost certainly be willing to trust as if it were yours.
+Apple’s argument is that the longer the life left in a certificate, the longer that crooks have to abuse it if it’s stolen or turns out to have been fraudulently signed, so why not cap the upper limit at a single year?
+Everyone in the industry generally agrees that some sort of limit is necessary, as the Chromium source code below reveals. (We’ve edited the comments, which are lines that start // for non-technical clarity.)
+Don’t worry if you aren’t fluent in C++ because the basic ideas here are easy to follow.
+The code below comes from a function called HasTooLongValidity(), which returns true if a certificate is not to be trusted, and false if it’s OK. 
+(We think the function should be named the other way around, so that true would mean HasAcceptableValidity() and false that it was no good, but that’s a discussion for another time.)
+BR is short for Baseline Requirements, the agreed principles that set minimum standards for certificates:
+
+As you can see above, the limit on certificate lifetime has been reduced many times over the years, from 10 years to 5, then to 3¼ and then again to 2¼.
+Now, Google and Apple are homing in on 398 days, which is a full year plus a full month plus at least two extra days.
+Not everyone is delighted by this change, given that it was essentially implemented by Apple unilaterally early this year, apparently without industry consensus, and is now being copied by Google in its Chromium browser.
+In other words, it feels to some people like a sort of “policy by stealth”, given that with both Apple and Google now behind it, the opinion of everyone else doesn’t matter because everyone else will need to follow suit.
+Some observers ask why it’s necessary to have such a strict expiry limits on certificates, given that it’s unneccessary for certificates that have been looked after properly and is therefore largely forcing change for change’s sake.
+In the same way that few companies still force regular password changes “just because”, but save password resets for when they’re really needed, why force certificate updates even for people who haven’t had their private keys stolen?
+Others ask why a year is seen as “too long” given that certificate authorities such as Let’s Enrcypt are already issuing certificates that are only valid for three months at a time, thanks to a smoothly automated process for renewal.
+If millions, or even hundreds of millions, of boutique websites using Let’s Encrypt’s free certificates can manage three-monthly renewals with ease, how can one year be considered too short for certificates from more mainstream, traditional certificate authorities?
+For what it’s worth, these new limits in Apple’s and Google’s browsers don’t apply to certificates you’ve authorised yourself with signing certificates of your own, so you can set any sort of expiry limits you like in your own ecosystem.
+But for the rest of us: any web certificate issued after September 2020 that you hoped would last for two years will be rejected by both Apple’s and Google’s browsers with the error CERT_­VALIDITY­_TOO_LONG.
+You can fight it – or you can go with the flow and adapt your certificate renewal workflow to acquire and use one-year certificates.

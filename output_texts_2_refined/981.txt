@@ -1,0 +1,39 @@
+We saw it in a tweet. How about you?
+pic.twitter.com/aNYt07qKsI
+— DEY! (@RoninDey) September 24, 2020
+
+If the reports are to be believed, someone has just leaked a mega-torrent (pun intended – allegedly some of the files have also been uploaded to Kiwi file-sharing service Mega) of Microsoft source code going all the way back to MS-DOS 6.
+Zooming in on the image in the abovementioned tweet reveals some interesting artifacts:
+
+Take these numbers with a pinch of salt, of course – not only are these stolen files, we can’t tell you how complete they are or even if they can be compared at all.
+NT 5, for example, covers a whole range of different Windows flavours, officially listed by Microsoft as shown below, so it seems likely that the NT 5 archive includes everything already in the Windows 2000 archive shown above, and more:
+In case you are wondering, Vista was 6.0, and Microsoft stuck with 6.x for Server 2008, Server 2012 and even, rather weirdly, for the versions outwardly known numerically as Windows 7 and 8.
+There was no Windows 9, of course, though we were never exactly sure why, and for Windows 10 the version number took a logical leap forward to 10.0 to match up with the product name. (Server 2016 and Server 2019 are also considered 10.0 releases.)
+Intriguingly, Microsoft has officially released old-school source code before, such as when the source of MS-DOS 1.25 (1982) and Word 1.1a (1984) were made public a few years back.
+And in recent years, the company has officially and enthusiatically embraced open source for some of its projects, which is where you not only show people your code but also allow them to use it for themselves freely.
+But a full and publicly accessible dump of Windows XP source code has never, to our knowledge, happened before.
+The rumour mill suggests that much if not most of this code has been quietly circulating in underground forums for years.
+It certainly seems unlikely that a lone hacker suddenly acquired all these files at once, directly from a previously-unknown “mother lode” archive at Microsoft itself.
+But as far as we know this is the first claimed Windows XP source code that’s appeared as an all-in-one, come-and-get-it-one-and-all mega-dump.
+(We have seen rumours that if you try to compile the 64-bit version of XP you’ll end up with errors caused by missing files, so the archive may not be complete even now.)
+So, is this leak a security disaster that will inevitably lead to a raft of new exploits using bugs in XP that are still there in today’s versions of Windows?
+Or is it just a mostly harmless, if unlawful, opportunity to take a trip down memory lane, assuming that you have the time, inclination and bandwidth to torrent gigabytes of stolen stuff?
+We suspect that it’s more of the latter.
+All things being equal, serious security flaws are easier to find if you have commented source code in front of you as well as the compiled binaries.
+That’s because you have more to go on if you are on the lookout for flaws such as buffer overflows, dangling pointers (where you free up memory but then carry on using it anyway even after it’s been handed over to someone else), integer arithmetic errors or cryptographic blunders.
+Sometimes, the comments alone can help you zoom in on problematic code, especially if you come across snippets where a programmer has left behind reminders such as /* FIX ME!!! */ or // Asked original author but they can't remember if it ever worked properly.
+However, experienced bug hunters can find vulnerabilities and exploits without needing source code, as the number of bugs patched each month in products such as Windows and the closed-source parts of macOS, iOS and Android remind us only too well.
+Also, even though latent bugs in XP sometimes turn out to have been carried forward all the way to today’s versions of Windows, those bugs are less and less likely still to be exploitable thanks to huge security changes in the core of Windows.
+For example, before Windows XP Service Pack 3, pretty much any stack buffer overflow vulnerability you could find in any widely-used Windows application was enough to produce an exploit.
+There was no data execution prevention, no address space layout randomisation and almost no other mitigations in place that could soften the blow of a buffer overwite.
+If you could overwrite the return address of the current function, you wouldn’t just have a way to crash the running program – you could as good as guarantee to turn the bug into a working remote code execution exploit.
+If you’re interested in programming, cybersecurity or  the history of technology – or even just curious to know what sort of comments Microsoft programmers were apt to write back in the more carefree coding days at the start of the 21st century…
+…it’s tempting to take a look.
+But unless you really need to look, we’d suggest that you simply let this one go, especially if your interest is just a passingly casual one.
+After all, you can’t unsee the code after you’ve looked at it.
+And if ever you are in a position where you need to show that you couldn’t possibly have copied someone else’s proprietary code, even if you’d wanted to, you’ll find that harder to do if the other side can show that you definitely did look at it at some point.
+Oh, and if you’re a programmer, even if you only ever work on proprietary code that you expect to remain a trade secret for evermore, remember that your code is a little bit like a professional resume:
+Firstly, you’ll write better code if you keep to these rules.
+Secondly, those comments that seemed so wry and amusingly edgy back in the day might not age as well as you thought.
+Write your code as though your mum were going to see it, and test it as though she were going to depend upon it. 
+Because, for all you know, she might very well end up doing both.

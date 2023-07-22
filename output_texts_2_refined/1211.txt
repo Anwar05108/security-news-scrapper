@@ -1,0 +1,53 @@
+Remember Mt. Gox? Sure you do!
+Although it’s usually said aloud as “Mount Gox”, as if it were a topographic feature, it actually started life as MTGOX, short for Magic: The Gathering Online Exchange, where MTG fans could trade cards via the internet.
+The web domain was eventually repurposed for what was, back in 2014, the world’s biggest Bitcoin cryptocurrency exchange.
+Mt. Gox was headquartered in Japan, holding what was then a mind-blowing $500,000,000 in other people’s bitcoins (BTC).
+And then a strange thing happened: the money, or at least the bitcoins, vanished, just like that.
+We’ve never really found out what happened.
+Early suggestions blamed a cryptographic flaw known as transaction malleability, but sceptics argued that this sort of treachery, even if if were possible on such an epic scale, would be visible in the Bitcoin transaction record, also known as the blockchain.
+Simply put, transaction malleability means that two different transactions can be rigged to have the same supposedly unique identifier. Crooked transactors could, in theory, fraudulently concoct duplicate-yet-different transaction pairs, and use these transactions to trick a naive exchange into thinking that something had gone wrong. Them the crooks could dishonestly repudiate one of the transactions in each pair and demand a refund. 
+Some people suspected Mt. Gox insiders of simply taking the missing bitcoins (or some of them, anyway) for themselves.
+Indeed, on New Year’s Day 2015, Japanese newspaper Yomiuri Shimbun publicly stated that there was “strong suspicion” that most of the missing Bitcoins were ripped off from inside.
+Yomiuri Shimbun’s considered opinion was that no more than 1% of the loss could be explained by external hacking or cyberscamming – for example due to transaction malleability tricks – and therefore that 99% of the loot had simply been plundered from within.
+Intriguingly, Mt. Gox founder Mark Karpelès was arrested, and ultimately given a suspended prison sentence in Japan, but not because of the missing bitcoins – he was found guilty of mispreresenting the value of his company to make it look like a better investment.
+Even more weirdly, lawyers for Ross Ulbricht, currently serving two life sentences in the US for running the infamous Silk Road site on the dark web, argued – without success, given that their client was convicted – that it was Karpelès, not Ulbricht, who was behind the notorious website.
+And in what may be the weirdest cryptocurrency twist of all in this part of our story, a federal agent from the US Secret Service, Shaun Bridges, who investigated the Silk Road case, was himself convicted of stealing several hundreds of thousands of dollars of bitcoins from the Silk Road site.
+Bridges (and you have probably guessed this by now) stashed his ill-gotten gains on the Mt. Gox exchange.
+You couldn’t make this stuff up… and, at the end of it all,  we still can’t answer the question, “What really happened when Mt. Gox got hacked?”
+Well, we’re now in the middle of In other episode of the “Cryptocurrency Truth is Stranger than Fiction” saga.
+Online blockchain company Poly Networks, which describes itself as a company that was “built to implement interoperability between multiple [block]chains in order to build the next generation internet infrastructure”, has been hacked.
+A blockchain, simply put, is a public ledger that lists details such as financial payments or contractual agreements.
+A contract might be some sort of algorithm such as “when Pete sends me the $50 he owes me, I’ll automatically pay $20 of that to Jane, send $15 to Naledi, and keep the rest in my cryptocoin wallet.”
+A transaction might record that “wallet B457F has transferred $30 to wallet 7EE19, with $4.50 of transaction fees claimed from B457F by wallet 1445A”.
+As you can imagine, a hacker who could inject fraudulent contracts and transfers into a system of this sort could wreak havoc, for example by triggering a series of automated payments into cryptocoin wallets of their own, and then running off with the proceeds.
+And that it exactly what seems to have happened to Poly Networks, apparently to the tune of $600,000,000, dizzyingly breaking the Mt. Gox “megahack” record by some $100 million. 
+How the hack happened is not yet certain. 
+Some reports are blaming the attack on “stolen private keys”, which basically implies that the hacker got hold of the authentication codes needed to approve a whole raft of fraudulent activities.
+Twitter user @kelvinfichter, however, who tweets under the self-assured name of God-like Natural Number Creator Person (TM, R), claims to have identified various cryptographic blunders in Poly Network’s transaction protoocol.
+For anyone still confused, here's the hack depicted as a beautiful gif pic.twitter.com/Shg5Tdf21Z
+— God-like Natural Number Creator Person (TM, R) (@kelvinfichter) August 10, 2021
+
+Fichter says that this blunder would have allowed the hacker to set the fraudulent transactions in train using cryptographic keypairs they had created themselves.
+This means that, instead of being forced to use public keys that could only be verified by private keys held by other principals in the transaction, the hacker was able to use public keys for which they themselves had the matching private keys.
+That’s a bit like appearing on a criminal charge where your defence attorney not only gets to present your case to the court, but then also gets to act as judge and jury in deciding whether to acquit you.
+Astonishingly, the hacker decided to send a note to Poly Networks.
+And what better way than to generate a public transaction with no value, but with some added data, like this:
+
+The Input Data field above, 52454144 5920544f 20524554 55524e20 54484520 46554e44 21, is the ASCII encoding of the message:
+That was followed a minute later by another hidden message:
+
+This time, the hexadecimal data above decodes as:
+Since then, Poly Networks has asked as follows:
+
+As far as we can see [2021-08-11T15:00Z], the ETH account above has only received about $3000 so far.
+But the Polygon wallet has picked up $1,010,100.
+That “binary-like” number is apparently the result of three transactions in quick succession this morning, first of $100, then $10,000 and then a full $1,000,000:
+
+Update. Another $84m was returned via this wallet at about 2021-08-12T20:00Z. The BSC address listed in Poly Networks tweet above has seems to have received just over $250m. [2021-08-12T00:45Z] On Thursday evening, at 2021-08-12T17:22Z, Poly Networks tweeted to say that a bunch more assets had been returned, but that “the repayment process has not yet been completed”. [2021-08-13T11:130Z]
+According to other reports, Poly Networks has also received a repayment of $622,000 in a cryptocoin known as Fei, and a whopping 260 billions’ worth of SHIBA INU cryptocoins.
+As dramatic as the last “refund” might sound, the current exchange rate for SHIBA INU is about 125,000 SHIBs to the US dollar, assuming you could find anyone to cash them out into hard currency, so the nominal value there is about $2,000,000.
+As in the Mt. Gox case, we may never discover the full truth of what happened.
+Poly Networks may never get all the funds back, and as for how much the company’s customers stand to lose, we can only guess.
+Perhaps the hacker or hackers will eventually return all, or at least most, of the vanishing cryptocoins?
+Only time will tell.
+In the meantime, we will leave you with two suggestions:

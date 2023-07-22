@@ -1,0 +1,26 @@
+Security researchers at WordFence, a company that’s focused on securing WordPress, have reported a burst of old-school attacks that are after your WordPress configuration data.
+In a default installation of WordPress, whether you’ve installed it yourself or are using a hosted service, the configuration file wp-config.php should be off limits to outsiders.
+That’s just as well, given how WordPress itself describes the file:
+One of the most important files in your WordPress installation is the wp-config.php file. This file is located in the root of your WordPress file directory and contains your website’s base configuration details, such as database connection information.
+Given that any PHP code you put into wp-config.php will run every time your website handles a request, it’s an obvious target for attackers to modify, but it’s also a sought-after gift to cybercrooks if they can access it at all.
+Normal WordPress requests received from outside are constrained to the part of your WordPress installation where your site data lives, so in theory it’s impossible to construct a URL that reaches “across and upwards” from the directory that holds your public data into the directory that holds your site’s configuration files and internal data.
+WordPress itself goes out of its way to recognise malicioiusly constructed URLs that try to trick the system into visiting unexpected parts of the filing system, and so-called directory traversal exploits are rare these days.
+But if you have a forgotten plugin or a neglected WordPress theme installed, the code in it might contain a bug that allows an attacker to read prohibited files anyway, for example by tricking a plugin into including confidential content in a reply that it constructs.
+Researchers at WordFence say that over the past month they’ve seen close to a million different WordPress sites receive malicious requests designed to shake loose their wp-config.php files.
+We’re assuming that these attacks were orchestrated using a botnet, also known as zombie malware, because more than 20,000 different IP numbers appeared in the list of computers involved in the attack.
+Bots, or zombies, are computers infected with malware that regularly – and usually very quietly – calls home to one or more command-and-control (C&C) servers run by the crooks.
+By calling home on outgoing connections to fetch their malevolent instructions, and by using innocent looking traffic such as web requests, bots work fine even on home networks and at hosting companies where the provider blocks all or most incoming connections for legal or security reasons.
+Of course, with 20,000 different IP numbers in the list, many of which are probably home computers with IP numbers that change every few days or after a reboot, it’s hard to use a blocklist to head off troublemakers because the list is such a moving target.
+Indeed, crooks love bots not only because they’re hard to block quickly, but also because it means that someone else is paying for the traffic and that attempts to trace the attack back to its source fail end up in the wrong place – 20,000 different places, in this case.
+As we’ve mentioned, crooks who can overwrite your wp-config.php file can pretty much do anything they want to your server because the code in there runs on the server for every request.
+That means a crook who can modify the configuration file doesn’t have to wait for you restart WordPress or reboot your server – they can just visit the home page of your site.
+But even with read access to your configuration file, a crook may be able to use the security information in it to get unauthorised access to your WordPress databases.
+That means an attacker could come back later to steal confidential data, add new users, and alter or delete content.
+WordPress can update itself, but even if you’re relying on automatic updating, don’t forget to check that it’s working correctly.
+(Ironically, perhaps, the easiest way to configure autoupdating is via the wp-config.php file.)
+WordPress can also update many plugins and themes for you, too…
+…but not all of them.
+Many plugins and themes either still need manual attention for updates, or are old and tired enough that they haven’t had updates even though they contain bugs that the crooks already know about.
+Remember that less is more: if you’re still using plugins or themes that are no longer under active development, see if you can manage without them, or find replacements that are still being maintained and getting security fixes.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

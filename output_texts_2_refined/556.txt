@@ -1,0 +1,20 @@
+Google has abruptly pulled over 500 Chrome extensions from its Web Store that researchers discovered were stealing browsing data and executing click fraud and malvertising after installing themselves on the computers of millions of users.
+Depending on which way you look at it, that’s either a good result because they’re no longer free to infect users, or an example of how easy it is for malicious extensions to sneak on the Web Store and stay there for years without Google noticing.
+That they were noticed at all is thanks to researcher Jamila Kaya who used Duo Security’s CRXcavator tool (also available at CRXcavator.io) to spot a handful of extensions that seemed suspicious, mostly themed around marketing and advertising.
+Spotting dodgy extensions was only the start – she still had to connect them to one another to uncover recurring patterns that might highlight other offenders.
+The first giveaway was that the extension code often looked like copycats of one another despite small changes to the names of internal functions designed to obscure this.
+Another troubling similarity was the number of permissions requested. Enough to allow them to access browsing data and run when visiting websites using HTTPS.
+Working with Duo Security, they eventually identified 70 extensions that seemed to be related to one another. All also contacted similar command and control networks and seemed to have been designed to detect and counteract sandbox analysis.
+Ad fraud was the biggest activity – contacting domains without the user being aware – as well as redirecting users to malware and phishing domains.
+Many of the extensions had been active for nearly a year, with evidence some had been around for much longer.
+Google carried out its own fingerprinting based on the research and the number of dubious extensions ballooned to over 500. Google later said:
+We do regular sweeps to find extensions using similar techniques, code, and behaviors, and take down those extensions if they violate our policies.
+Except, an infected user might point out, not often or effectively enough to stop 500 malicious extensions from finding a home inside the Chrome Web Store.
+The extensions discovered by Duo Security and Kaya had been installed a total of 1.7 million times.
+Google’s Chrome Web Store has around 190,000 extensions, which puts the loss of 500 dubious ones into perspective. That said, a report by Extension Monitor last August estimated that three-quarters of these have between zero and a handful of installs.
+Perhaps the sheer number is part of the problem. Malicious extensions have a large population of unused software in which to hide.
+Mozilla’s Firefox has experienced the same issue on a smaller scale to the extent that it recently banned 197 risky extensions and reminded everyone that it no longer tolerates extensions that execute remote code.
+Anyone using one of the now-suspended 500 extensions will find they’ve automatically been deactivated in their browser, with warnings that mark them as malicious. Deinstallation must be done from the user’s side, however.
+The lesson is not to assume that because an extension is hosted from an official web store that means it is safe to use. The best advice:
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

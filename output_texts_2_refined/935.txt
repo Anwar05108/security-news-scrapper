@@ -1,0 +1,39 @@
+What do you do when you need to send a file to someone you don’t interact with a lot?
+Many of us use email attachments for small files, because it’s quick and easy to share modest amounts of data that way.
+Sure, the attachment will probably lie around in the recipient’s mailbox for days, or months, or even years, which might not be quite what you had in mind…
+…but when you send someone else a file, you can’t control what they do with it anyway, or how long they keep it, or how widely visible it is on their corporate network after they save it.
+But email is no good for large files such as audio data or videos, because most email servers quite reasonably have a low limit on message sizes to stop the system getting clogged up by attachments.
+So the usual fallback for sending files that you can’t or don’t want to transmit via email is to use a file sharing service instead, which is rather like using webmail, only without the messaging part.
+You upload the file to a file sharing site, optionally setting various options that describe which other users can see it, and for how long, and then send the recipient an email that contains a download link where they can fetch the file at their leisure.
+If you routinely use file sharing services, however, we’re sure you’ve experienced that worrying feeling that comes whenever you browse through the list of files you’ve shared in the past, especially if you were sending a file to someone you don’t deal with often.
+What on earth was that file test-footage-march-unedited.mov you once sent, and who on earth are the four users on the access control list?
+Can you delete the file temporary-backup-of-event-pics.zip that you shared two years ago, and did you ever make a permanent backup, and if so, where did the file backup-to-keep-forever.zip end up anyway?
+The annoyance – and the small but ever-present cybersecurity risk – in leaving a litter of old files behind in various third-party websites is one that affects many of us…
+…which is why we are occasional but enthusiastic users of Firefox Send, a free service from Mozilla that aims to let you share large files easily, but without the worry of what gets left behind and forgotten about.
+When you upload a file to send DOT firefox DOT com, it gets encrypted in your browser before any data is send into the cloud; the decryption key is encoded into the URL for downloading the file; and the link thus generated is (by default, at least) valid for one download or 24 hours, whichever comes first.
+If the recipient downloads the file using the link you send them, the data gets decrypted in their browser only after it has been downloaded, and then it vanishes from Mozilla’s servers forever.
+If both you and the recipient forget about the uploaded file altogether, then it vanishes anyway and you don’t have to wonder if it’s still sitting around somewhere for someone else to download.
+While the file is still on Mozilla’s servers, the pre-upload encryption means that even Mozilla can’t decrypt the file anyway, because only the encrypted data was uploaded and not the key.
+(In fact, given that the temporarily stored files are no more use than shredded cabbage to Mozilla – or to any network hackers, law enforcment agents, data protection regulators and so on – there is every incentive for Mozilla delete the files as promised, in order to recover disk space that would be completely wasted otherwise.)
+Unfortunately, as with so many simple, free and effective online services, what’s good for the goose is good for the gander, too.
+In other words, crooks love Firefox Send just as much as we do, because it lets them generate short-term links based on trusted URLs for sharing arbitrary files without leaving any leftover data in the cloud.
+The problem is that in the case of the crooks, they’re typically using Firefox Send for what you might call “data infiltration” – a way of importing malware files or attack tools onto a network they’ve already broken into without drawing undue attention to themselves.
+That sort of operational tactic goes by the name of living off the land – a slightly misplaced metaphor, to be sure, but one that is now widely used in the cybersecurity industry to mean “fitting right in with everyday behaviour on the network”. 
+By using Firefox Send, the crooks don’t need to set up a file sharing server of their own at a legitimate-looking URL, and they don’t have to worry about making sure their URLs expire automatically after use.
+Links that work only once are a thorn in the side of security researchers, because even if you manage to acquire a full URL as an indicator of compromise, you can’t go back to the URL to investigate what malevolent baggage it might have served up when it was used.
+The crooks also make themselves harder to track because their malicious content is effectively hiding in plain sight at an IP number operated by Mozilla.
+Hats off to Mozilla and the Firefox team: following recent suggestions from cybersecurity researchers that some tweaks to the service might be a good idea, such as a [Report Abuse] button to make it quick and easy to get dodgy links blocked…
+…the company has suspended its service temporarily to address the issues, rather than simply handing out vague promises to look at changes in the future:
+
+
+Firefox Send is temporarily unavailable while we work on product improvements.
+We appreciate your patience while we make the Firefox Send experience better.
+
+The holding page doesn’t actually say that the outage relates to the problem of abuse by cybercriminals, but Mozilla has issued a statement to say:
+
+Before relaunching, we will be adding an abuse reporting mechanism to augment the existing Feedback form, and we will require all users wishing to share content using Firefox Send to sign in with a Firefox Account.
+
+Until now, you could use Firefox Send without creating a Firefox account, although that limited your links to at most 24 hours, but it looks as though the days of free-in-all-senses use of Firefox Send are over.
+We’re not sure quite how much of a dent Mozilla will make in the abuse of the service by requiring even occasional users to stump up email addresses and create yet another cloud account, but the organisation seems determined to keep the service alive while addressing the community’s geniune concerns.
+Does your organisation block sites like Firefox Send anyway? 
+If so, do you think these changes will make you rethink your policy, given that Send’s auto-encrypt-before-upload and auto-purge-after-download features gives you two less things to worry when sending files via the cloud?

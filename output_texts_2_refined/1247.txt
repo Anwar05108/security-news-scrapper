@@ -1,0 +1,19 @@
+It’s been a wild few weeks for Apple, or perhaps an “in-the-wild” few weeks, with several zero-day bugs necessitating emergency updates.
+We were going to say “unexpected updates”, but all (or almost all) Apple security patches are, of course, unexpected by design. 
+Apple deliberately announces security fixes only after they’ve been published, so you couldn’t plan for them even if you wanted.
+Apple claims that this is for “customers’ protection”, because it prevents crooks who may have heard rumours about a security hole but haven’t figured it our for themselves from working out where to start looking for it. 
+On the other hand, it also means that you will hardly ever hear about official workarounds or threat mitigations from Apple, even if those workarounds might keep you safe during the gap between the zero-day hole appearing and the patch being created, tested and released.
+Remember that zero-day vulnerabilities refer to bugs that cybercriminals know how to exploit before a patch is available, with the result that even a well-informed user or sysadmin would have had zero days to get officially ahead of the Bad Guys.
+Apple’s clipped-as-ever prose [2021-10-11T23:55Z] says simply:
+As we’ve mentioned before, memory corruption bugs that affect the kernel itself are usually much more serious than bugs that only affect regular apps.
+Apps in iOS and iPadOS are insulated from each other to the point that even if you can crash an app and take it over, you usually can’t get access to anything other than the files and saved data that belong to the app.
+Each app effectively runs as if it were a separate user, with its own account and access control settings, so apps can only interact or read each others’ files in carefully regulated ways. 
+This contrasts with typical laptop and desktop apps, where your email software can typically read your documents, your document processing app can typically read your spreadsheets, your spreadsheets can peek at your accounting databases, and so on.
+But the app separation on iPhones and iPads is set up and regulated by the kernel, making the kernel itself into a kind of “ueberapp” that is a trophy target for any jailbreaker, threat researcher or cybercriminal.
+In other words, a remote code execution bug in the kernel could allow an attacker to trick an otherwise legitimate and harmless app into compromising the very core of the operating system.
+When the kernel is exploited, the side-effects may blow away iOS’s inter-app protection entirely and allow a single rogue app to snoop on and take control over everything.
+In several previous emergency update situations where Apple has witheld its official email security bulletins, the reason seems to have been  that related updates were also needed for other operating system in Apple’s menagerie, including macOS and older flavours of iOS.
+As a result, Apple said nothing much about anything until all the updates were ready.
+Does this mean, in this case, that iOS 14, iOS 12, macOS Big Sur and macOS Catalina are vulnerable too, and will be receiving patches in due course?
+As usual, we can’t say, but we advise you to keep your eye on Apple’s core security page, numbered HT20122, in case there’s any additional news you need to keep up with over the next few days.
+Update. We received an Apple security bulletin for iOS 15.0.2 and iPadOS 15.0.2 by email shortly after writing this article. However, the HT201222 security update portal page has not yet been updated [2021-10-12T12:00Z].

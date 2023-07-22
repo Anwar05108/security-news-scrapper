@@ -1,0 +1,25 @@
+Yesterday morning I got a Skype message from an ex-colleague, somebody I’d not heard from in some time but was happy to reconnect with.
+I say “message”, it wasn’t much of one, it was just a link. Out of the blue.
+It was clearly a phish, but it caught my eye because it didn’t link to some obviously scummy or incongruous URL. It was a link to Google, and that got me wondering, how does that work?
+
+I’ve blurred some of the URL, but the important thing is that it it looks like this:
+I wasn’t interested in where the link would lead me (for the record, it redirects to a punycode encoded URL that redirects to a malicious site), but I was interested to see how a Google URL was being used to get me there.
+It reminded me of a very similar Skype message I’d received a few years ago, one that abused an open redirect in Google Maps, and I wondered if there was another.
+Over the years, scammers have realised that keeping things simple works for them, and the simplest message of all is like this one – nothing more than a malicious link. Of course, if all they have is a link they don’t want one that’s going to put you off.
+And that’s a problem, because their domains often are off-putting. Malicious websites are destined to be block listed and don’t have a very long shelf life, so there’s no mileage for them in trustworthy-looking dot coms. Instead, they often hack into legitimate websites and use those, either to host their content or to act as intermediaries.
+The resulting collection of compromised dentistry blogs and mom-and-pop travel company website domains are incongruous and not widely known.
+The crooks need a way to dress them up as more trustworthy.
+One answer is to find an open redirect on a legitimate website – a redirection facility that can be abused to bounce users from a trustworthy website to another, less trustworthy one.
+Open redirects tend to be bugs though, and they are likely to be closed sooner or later. The holy grail is a legitimate website with an open redirect function that’s a feature, not a bug.
+Well, there is just such a feature, and it’s on the biggest website of them all.
+In some browsers, like Firefox or Safari, Google search results don’t lead directly to the listed websites. Instead, Google links to itself. When you click on a search result link you’re bounced through another Google URL, which then redirects you to your destination. It does this so it can log which link you’ve clicked on. (If you use Chrome, or Chrome-based browsers like Brave, you aren’t redirected like this, but the same link back to Google tracks you via the rarely-seen ping parameter.)
+The URL Google uses for redirects is https://www.google.com/url which serves, by design, as an open redirect. It will redirect you to any URL on the web, if you add an appropriate url parameter:
+And that looks an awful lot like the phishing URL I received.
+If you pasted the link above into a browser you’ll have noticed that you didn’t go straight to example.org. Instead, you were shown a Google web page saying “The page you were on is trying to send you to an invalid URL”.
+
+So why doesn’t that appear when you click on Google Search results and, more to the point, why didn’t it appear when I probed the Skype phish?
+The answer is that the phishing URL contained a second parameter, sa=t, and a third usg, which contains some kind of unique identifier. After a bit of cursory research I couldn’t find anyone that knows how to make a usg identifier, but crooks don’t have to make them. If a website is listed on Google Search, it has a usg, which is easily retrieved from the source code of the search results page.
+It means the crooks can only use Google’s open redirect with a site that’s listed in the Google Search index. But that’s not a barrier if you’re already hijacking legitimate websites.
+Google search results have worked this way for a long time, and I imagine the tactic I’ve described here has been used for almost as long. So why does Google tolerate it? Well, Google (which, whether you like the company or not, takes security very seriously) doesn’t consider open redirects to be a security issue.
+It says that “improperly designed redirectors can lead to more serious flaws” and it’s happy to hear about those. So, for example, Google would consider the scam site I ended up at a security threat, but not the subterfuge the scammer used to get me there.
+Even if you’re familiar with the way that scammers operate there’s always a chance you’ll run in to new tactics, or (as I was) be surprised by old tactics you’ve just never seen before.

@@ -1,0 +1,76 @@
+One of the hot new jargon terms in cybersecurity is supply chain attack.
+The phrase itself isn’t new, of course, because the idea of attacking someone indirectly by attacking someone they get their supplies from, or by attacking one of their supplier’s suppliers, and so on, is not new.
+Perhaps the best-known example of a software-based supply chain attack in the past year is the notorious SolarWinds hack.
+SolarWinds is a supplier of widely-used IT monitoring products, and was infiltrated by cybercriminals who deliberately poisoned the company’s product development process.
+As a result, the company ended up inadvertently serving up malware bundled in with its official product updates, and therefore indirectly infecting some of its customers.
+More recently, but fortunately less disastrously, the official code repository of the popular web programming language PHP was hacked, via a bogus patch, to include a webshell backdoor.
+This backdoor would have allowed a crook to run any command they liked on your server simply by including a special header in an otherwise innocent web request.
+The PHP team noticed the hack very quickly and managed to remove the malicious code in a few hours, so it was never included in an official release and (as far as we can tell) no harm was ultimately done in the real world.
+PHP web language narrowly avoids “backdoor” supply chain attack
+
+
+As you can imagine, it’s difficult to conduct what you might call a “penetration test” to judge a software project’s resistance to malevolent bug patches.
+You’d have to submit fake bug fixes and then wait to see if they got accepted into the codebase, by which time the damage would already have been done, even if you quickly submitted a followup report to admit your treachery and to urge that the bug fix be reverted.
+Indeed, by that time, it might be too late to prevent your fake patch from making it into real life, especially in open source projects that have a public code repository and a rapid release cycle.
+In other words, it’s a tricky process to test a project’s ability to handle malevolent “fixes” in the form of unsolicited and malicious patches, and by some measures it’s an ultimately pointless one.
+You might even compare the purposeful, undercover submission of known-bad code to the act of anonymously flinging a stone though a householder’s window to “prove” that they are at risk from anti-social vandals, which is surely the sort of “test” that benefits neither party.
+Of course, that hasn’t stopped apparently well-meaning but sententious researchers from trying anyway.
+For example, we recently wrote about a coder going by the grammatically curious name of Remind Supply Chain Risks who deliberately submitted bogus packages to the Python community to, well, to remind us about supply chain risks…
+…not just once or twice but 3951 times in quick succession.
+Even a job not worth doing, it seems, was worth overdoing.
+Poison packages – “Supply Chain Risks” user hits Python community with 4000 fake modules
+
+
+In 2020, something similar but potentially more harmful was done in the name of research by academics at the University of Minnesota.
+A student called Qiushi Wu, and his professor Kangjie Lu, published a paper entitled On the Feasibility of Stealthily Introducing Vulnerabilities in Open-Source Software [OSS] via Hypocrite Commits.
+Unfortunately, the paper included what the authors described as a “proof of concept”: 
+We [took] the Linux kernel as target OSS and safely demonstrate[d]  that  it is practical for a  malicious committer to introduce use-after-free  bugs.
+The Linux kernel team was unsurprisingly unamused at being used as part of an unannounced experiment, especially one that was aimed at delivering a research paper about supply chain attacks by actually setting out to perpetrate them under cover.
+After all, given that the researchers themselves came up with the name Hypocrite Commits, and then deliberately submitted some under false pretences and without the sort of official permission that professional penetration testers always negotiate up front…
+…didn’t that make them into exactly what their paper title suggested, namely hypocrites?
+Fortunately, it looked as though that brouhaha was resolved late in 2020.
+The authors of the paper published a clarification in which they admitted that:
+We respect OSS volunteers and honor their efforts. We have never intended to hurt any OSS or OSS users. […]
+Does this project waste certain efforts of maintainers? Unfortunately, yes. We would like to sincerely apologize to the maintainers involved in the corresponding patch review process; this work indeed wasted their precious time.
+
+Despite the apology, however, the researchers insisted in their clarification that this wasn’t what a Computer Science ethics committee might call “human research”, or social engineering as it is often known.
+Sure, some officially-endorsed tests that IT departments conduct do indeed carry out what amounts to social engineering, such as phishing tests in which unsuspecting users are lured in to click a bogus web link and then confronted with a warning, along with advice on how to avoid getting caught out next time.
+But you can argue that this “hypocrite commit” research goes much further than that, and is more like getting a penetration testing team to call up users on the phone and then talking them into actually revealing their passwords, or setting up fraudulent bank payment instructions on the company’s account.
+That sort of behaviour is almost always expressly excluded from penetration testing work, for much the same reason that fire alarm tests rarely involve getting a real employee in a real office to start a real fire in their real trash basket.
+Well, the war of words between the University and the Linux kernel team has just re-intensified, after it transpired that a doctoral student in the same research group has apparently been submitting fake bug reports again.
+This prompted one of the Head Honchos of the Linux world (not that one, we mean Greg Kroah-Hartman, aka Greg KH) to declare:
+
+Please stop submitting known-invalid patches. Your professor is playing around with the review process in order to achieve a paper in some strange and bizarre way.
+This is not ok, it is wasting our time, and we will have to report this, AGAIN, to your university…
+
+Even if you excuse the researcher because you think that kernel team is over-reacting due to embarrassment, given that numerous of these fake patches had already been accepted into the codebase, it’s hard not to feel sympathy with Greg KH’s personal tweet on the subject:
+Linux kernel developers do not like being experimented on, we have enough real work to do: https://t.co/vWvtxjt7A5
+— Greg K-H (@gregkh) April 21, 2021
+
+A real war of words has now erupted.
+Apparently, the researcher in this case admitted that what he did was wrong, but in an unrepentant way, saying:
+
+I respectfully ask you to cease and desist from making wild accusations that are bordering on slander.
+These patches were sent as part of a new static analyzer that I wrote and it’s sensitivity is obviously not great. I sent patches on the hopes to get feedback. We are not experts in the linux kernel and repeatedly making these statements is disgusting to hear.
+Obviously, it is a wrong step but your preconceived biases are so strong that you make allegations without merit nor give us any benefit of doubt.
+I will not be sending any more patches due to the attitude that is not only unwelcome but also intimidating to newbies and non experts.
+
+Which provoked Greg KH to respond with:
+
+You, and your group, have publicly admitted to sending known-buggy patches to see how the kernel community would react to them, and published a paper based on that work.
+Now you submit a new series of obviously-incorrect patches again, so what am I supposed to think of such a thing? […]
+Because of this, I will now have to ban all future contributions from your University and rip out your previous contributions as they were obviously submitted in bad-faith with the intent to cause problems.
+*plonk*
+
+We assume that the word *plonk* is an onomatopoeic description of the ball (a hardball, by the sound and *volume* of it) landing back in the other player’s court.
+And the University is officially involved now, pledging to investigate and to consider its position:
+Leadership in the University of Minnesota Department of Computer Science & Engineering learned today about the details of research being conducted by one of its faculty members and graduate students into the security of the Linux Kernel. pic.twitter.com/QE9rrAyyMX
+— UMNComputerScience (@UMNComputerSci) April 21, 2021
+
+We’re not sure how the University is likely to respond, and how long the “ban” is likely to be upheld, but we are waiting with interest for the next installment in the saga.
+In the meantime, we have two suggestions:
+There are plenty of real bugs to find and fix (and many companies will pay you for doing so).
+So, if you’re genuinely interested in bugs, we urge you to focus your time on finding and fixing them, whichever side you support in this specific case.
+LEARN MORE ABOUT MANAGING SUPPLY CHAIN RISKS
+Securing your supply chain from third party risk
+

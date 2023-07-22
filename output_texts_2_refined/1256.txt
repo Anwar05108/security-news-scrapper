@@ -1,0 +1,257 @@
+Here’s the second in our series of Naked Security Podcast minisodes for Week 4 of Cybersecurity Awareness month.
+To access all four presentations on one page, please go to:https://nakedsecurity.sophos.com/tag/sos-2021
+This article is an interview with Sophos expert Chester Wisniewski, Principal Research Scientist at Sophos, and it’s full of useful and actionable advice on dealing with supply chain attacks.
+This year’s big-news cyberattacks on Kaseya and SolarWinds remind us just how hard it is to defend against these threats, so Chester explains how to control the risk.
+LISTEN TO THE AUDIO
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+READ THE TRANSCRIPT
+[FX: MORSE CODE GREETING AND SYNTH VOICE]
+PD. Hello, everybody, welcome to this Security SOS 2021 webinar. 
+I’m Paul Ducklin, and today’s guest is Chester Wisniewski. 
+Hello, Chester. 
+CW. Hey, Duck! 
+PD. We’re going to be talking about supply chain attacks. 
+I think we’ve all got a vague idea what “supply chain attack” means, because it’s an old term, from physical supply chain days…
+But there’s a bit more to it when it comes to IT and cybersecurity, isn’t there?
+CW. Yes, absolutely. 
+When I think of “supply chain”, the first thing that comes to mind is a foreign government wanting to break into a military contractor.
+Probably pretty difficult to get into one of your Tier One military contractors…
+So, instead, you might target a supplier to that company, that maybe provides remote IT access for those people to provide some sort of service, and you come in through the side door, if you will. 
+And certainly, when we’re talking about IT in particular, more and more IT is being provided as a service – outsourced management, this kind of thing. 
+And that certainly increases the amount of access that a lot of organizations provide to those trusted third parties that can now be targeted as a side door on the way in. 
+I don’t want to call it a “backdoor”, but it’s certainly not coming in the front door!
+PD. There’s no need for that to be just one step up the chain either, is there? 
+If you know that you rely on a company to provide you with updates, that are in turn provided by another company, and that they get those updates built by a software vendor somewhere else… you could go after that software vendor’s build process. 
+They poison the vendor that licenses their stuff. 
+They poison the update server that your outsourcer relies upon.
+And they poison you.
+CW. Sure! 
+And, not only that, you also can look at it as how wide a net might be cast by any given type of supply chain attack. 
+ASUS computers had some poisoned software that they used for driver updating, that appeared to hit millions of computers, but we never figured out which ones the adversaries were actually going to eventually put their payload on. 
+They were very scattershot in that case. 
+Whereas, other times we see much more specificity,  only affecting people that are directly victims. 
+Actually, one I know you wrote about, Duck… I think there was an NPM package, a JavaScript package, in the NPM repository a couple of years ago, that was poisoned to steal cryptocurrency wallets.
+Of course, that package might have ended up on thousands of people’s computers, but only a fraction of them maybe had a cryptocurrency wallet that would have kicked that poison-pill package into action to then start stealing those wallets. 
+Historically, it’s a big national security concern, as it should be, whether other governments might be poison-pilling some of our software and supply chains…
+But it’s a whole different kettle of fish now that we see ransomware criminals and others getting involved in the supply chain game, and the outcomes are going to be far more impactful and concerning for the average person’s online safety if criminals continue down this path.
+Cryptocurrency attack thwarted by npm team
+
+
+PD. So, in the Kaseya incident that happened recently, where, with essentially one ransomware attack, thousands of networks got ransomed at the same time… I think it’s reasonable to assume that the intention of what was essentially a supply chain attack there was the amplification.
+It wasn’t, “Well let’s try and reach everybody so we’ll just get the few people we’re targeting.” 
+It wass, “Let’s get everybody in one go.” 
+It does show the scale of that problem that, with essentially one intrusion, a thousand networks got hit.
+CW. It almost reminds me of a New Age worm, right? 
+We used to have worms because we had lots of software exposed to the internet that had remotely exploitable holes in it, and then things like WannaCry happened. 
+Now, as it’s getting harder and harder to write wormable malware, rather than worming through exploits, maybe it’s more efficient to worm through trusted suppliers.
+Kaseya ransomware attackers say: “Pay $70 million and we’ll set everyone free”
+
+
+PD. Chester, let’s move on to Part Two, which is, “How do these things typically happen?” 
+If you like, what are the ingress points that the crooks can use? 
+Because I think a lot of people have the idea that supply chain attacks… they’re physical things, like they would be if you wanted to substitute defective products in the old days. 
+Most supply chain attacks – the ones that make the news and that we probably need to be most concerned about – don’t really involve hardware at all do they? 
+They could, but actually the clear and present danger is the risk that comes through automatic software updating that percolates downwards through many layers…
+CW. Yes, and the origins have been around for a while, but there’s lots of different ways that happens, right? 
+I mean, we’ve been writing about malware that would automatically infect people’s projects when they were compiling them, for example, through compromising the build environment. 
+And that’s, of course, one of the ways these attacks still happen. 
+But the example I raised a few minutes ago of that NPM package being compromised is another way that you might be able to slip in code that does just about anything. 
+I mean, the example we used was stealing cryptocoin wallets, but there’s nothing that would have stopped that code from providing a backdoor, or delivering further software malicious packages, or being ransomware itself. 
+The options are limitless when you have the opportunity to introduce code into legitimate software. 
+PD. In at least one case that I’m aware of, the poisoning of open source package management tools, like Ruby Gems, Packagist packages for PHP, NPM… the crooks who wanted to put the additional “naughty software components” into packages that lots of people used actually joined the community first, and made themselves useful, and hung around a bit, and were willingly given the community keys to the castle. 
+That was when they unleashed their malicious code on everybody else. 
+These can be plots that take a long time in the hatching!
+CW. Obviously, most code these days needs to be signed in some way, so you need to find a way of getting a signature on it so it will be accepted by the updating system. 
+There are quite a few different ways of doing it, right? 
+The example you used is you just “pretend to be friends”, until somebody gives you the keys. [LAUGHS]
+We’ve seen nation states for years using all their malware to break into organizations and stealing their signing keys, and then using those keys to sign their malware.
+PD. Yes.
+CW. We’ve seen people pretend to be legitimate to certificate authorities, and acquire legitimate certificates from certificate authorities by impersonating legitimate organizations. 
+And of course the final way is the first example I used, which was compromising the build environment itself so that the company that’s delivering the poisoned payload is inadvertently signing it themselves.
+PD. Yes!
+That was a huge problem going back more than a decade now, to anybody who remembers the W32/Induc virus, which infected your Delphi build environment, if you were a programmer. 
+And then every program that you compiled thereafter had this virus in it. 
+I remember, in our support group, having terrible trouble explaining to people that the reason that this virus was spreading so continually in their organization was that it was coming from inside the house, as it were.
+W32/Induc-A virus being spread by Delphi software houses
+
+
+CW. It did reconfirm my theory that all Delphi software is malware… if you’ve ever looked at Brazilian banking Trojans, you’ll know what I’m talking about. [LAUGHS]
+PD. [LAUGHS] Yes, that used to be the malware writers tool of choice, didn’t it? 
+Seems it’s probably C-Sharp these days.
+CW. Well, of course, that’s exactly what happened in the SolarWinds attack as well, right?
+PD. Yes.
+CW. SolarWinds, in their attack, were inadvertently signing their own software that contained some of this malicious code that was uncovered in December of 2020.
+PD. Yes. 
+My understanding is that the crooks would inject the malicious file just at the point that the build happened, and then remove it afterwards. 
+I presume, if you had to do a test build or an out-of-tree build by just copying the files, it would all come out absolutely fine. 
+But the one that was officially built, and had the imprimatur of the company on it ,and was therefore accepted by everyone downstream, was the one that had the malware in it.
+CW. Of course, there’s a fifth way to pull this off as well, which was used in the Kaseya attack.
+That is using a signed legitimate executable that has a vulnerability in it, and then using that vulnerability in order to inject your own malicious code. 
+In the case of the Kaseya ransomware from REvil, Microsoft Defender had a vulnerability in it that allowed a DLL to be loaded instead of a legitimate one – called “sideloading”. 
+And the criminals just used that legitimate binary from Microsoft, with Microsoft’s signature on it, to then inject that malicious ransomware code into the otherwise legitimate Windows Defender process.
+That was an older version that was vulnerable, but it still had a Microsoft stamp of approval on it.
+PD. The jargon term for that is BYOB, isn’t it? 
+Short for “Bring Your Own Bug.”. 
+RobbinHood – the ransomware that brings its own bug
+
+
+CW. All of this to me, Duck, just demonstrates that this is not a simple problem, right? 
+This is a challenge for organizations that provide security tools, services, software services, any kind of programs, especially things that rely on being kept up to date because of their critical nature within an enterprise environment. 
+And there’s a lot of different places that practitioners need to look in order to secure their systems, and ensure that they aren’t exposed to this vulnerability.
+PD. Yes, because it’s a rather crashing irony, isn’t it, that if the crooks can poison the components in the updating process that you’re inclined to trust, for example because of their digital signatures… then it’s very hard to put your finger on why you’re full of untrusted code afterwards.
+Because, as far as you can see, nobody’s been downloading anything they shouldn’t. 
+So, Chester, “What to do?” 
+How do you reduce the risk of supply chain attacks, both as a supplier, let’s start with that, and as a consumer? 
+What can you do as an IT provider, as a software vendor, as a managed service provider, so that when you say to your customers and your prospects, “We take your cybersecurity seriously,” you really mean it?
+What you sound like after a data breach
+
+
+CW. Well, certainly one place to start with as a software provider is understanding that the security of your software is only as good as the security of your entire environment that’s used to build and maintain that software. 
+And that includes the security of your developer’s desktops and how they authenticate, how they’re maintained and patched, that kind of thing, all the way on to the computers that actually compile the code and package that code up for distribution. 
+So, I think in a lot of cases we focus too singularly on product security itself, and ignore the process with which that software was born, if you will. 
+The security of all those things around the software that build it are equally as important to that software security as the code in the software itself.
+PD. So, for a company that makes its own software and then publishes it publicly for automatic updates with digital signatures… 
+That build environment, where the final trusted build is done, and where the digital signatures are actually created, that should really be at least as secure as any other part of your network. 
+It doesn’t matter how secure the code is that you put in if the process of constructing the final version can inject insecure code at the last minute. 
+CW. Yes!.
+It’s not an easy thing, because you need people to have a lot of flexibility when they’re developing code… it’s not like you want to airgap all your developers, right? 
+People need to be able to use the internet to search things, and look things up, and access manuals. 
+There are a million things that often end up with looser security for software engineers compared to the rest of the organization, not tighter.
+So it is a very difficult balancing act.
+I think it’s one of these things we have to look at similarly to defending our networks in general. 
+We’re going to do everything we can to prevent it from happening, so we’re going to continuously improve the security of our build environments, our engineering environments, and monitor, monitor, monitor, right? 
+But on top of that, we can’t spend all our time there. 
+We also need to think about how would we detect if it occurs, and then how could we respond? 
+And we can learn from what we saw in some of these other attacks and go, “Well, what would my company do?” 
+We saw Kaseya very quickly was able to disable their entire cloud infrastructure while they were investigating what was going on. 
+So, that was operationally a really good thing – it only took them a few minutes to turn off that infrastructure. 
+So, we can take lessons from these examples and say, “Well, if this happened to my company, how would I detect it?” 
+Would I likely hear it because *I* found it because I’m looking,  or would I likely hear it from a third party because I’m *not* looking? 
+And then when I do find out about it, what can I do to respond to that, to minimize the harm to the people that are downstream from me that might be impacted?
+PD. I guess one example might be a thought experiment that you can conduct with respect to your entire development process…
+Imagine that one of your developers, with the best will in the world, does some kind of update of a package that they use. 
+And that package uses five other packages, and those packages each use 10 other packages – you know how this goes, where you end up with this huge dependency tree that you don’t realize.
+If one of those 274 packages that the package you’re using depends upon were found to be poisoned… how quickly could you replace it with one that wasn’t? 
+How quickly could you advise your customers on how to find whether they had the poison package in the distribution they downloaded?
+And how quickly and how reliably could you fix it in a way that people would be inclined to trust you the second time?
+That sounds as though I’m saying you should plan for failure, but really what I’m saying is that the time to practice what to do when something goes wrong is before it happens. 
+Don’t try and make it up as you go along, because you will not have time.
+CW. Absolutely. 
+I personally reviewed my earthquake kit this weekend as some fun things to do on a Sunday, but there’s a reason for that, right? 
+Geologically, the likelihood of there being a severe earthquake here [in the Pacific North West] is one in 40,000, or something, in a given year. 
+And that sounds like it’s probably not going to happen… but you know what, I’m going to be pretty grateful for that fresh water and those batteries that aren’t dead that I replaced in my bag this week, if it does happen. 
+And it only took me a few minutes of thought to be prepared for a crisis event that might happen to my family. 
+I think we need to be similarly prepared for crisis events in the workplace. 
+Have we thought about it? 
+Do we know how we would do it? 
+Do we know who can approve it if it needs approval to turn something on or off or retract a software package? 
+And then, when it does happen, if it does happen, you’ll be able to respond in minutes, not days, and that’ll make all the difference to your reputation, to the safety of your customers, and anybody that’s been impacted.
+PD. OK, Chester, let’s go to the other side of that coin. 
+Imagine that we’re not the IT supplier worried about how bad it might be, and how awful it might look if we allow untrusted stuff to float downstream to our paying customers, with our checkmark of approval on it. 
+But before we go to the final consumers of the stuff coming downstream, what can the people traditionally in the middle, let’s call them service providers, managed service providers… 
+What can those MSPs do to make sure that they don’t become what you might call an “attack magnifier”, which is I think pretty much what happened in the Kaseya incident, isn’t it? 
+CW. It is.
+Of course that was not a lot of negligence on behalf of the suppliers or the service providers in that case, because it was a zero-day vulnerability being exploited. 
+But it certainly is a great example of how widely an attack can spread by manipulating service providers and their trusted access to so many people’s computers. 
+This is something that’s not new, but I think it’s a great example to inform us of how service providers can do a better job of protecting.
+This reminds me, about 10 years ago on the Chet Chat [Podcast] that you and I used to do…  we were talking a lot about credit card theft, and there was service provider after service provider in that space that managed those little machines you swipe your card through when you’re at restaurants, fast food stores, chemists, and this kind of thing – a lot of that is outsourced to service providers. 
+Many of those service providers had one password on all 40,000 terminals that they remotely managed. 
+And we saw how credit card theft after credit card theft was happening by abusing that shared password.
+Is it *really* such a bad idea to use a password twice?
+
+
+PD. “Password123”. 
+CW. [LAUGHS] Exactly. 
+We do still see that in managed service provider environments, even if we’re not talking about credit card machines. 
+You may have any of six different technicians that are going to provide services to this customer. 
+And so it’s much easier to have one password for all the customers, or maybe even one password for each customer, but it’s shared amongst 5, 10, 20 people, which of course means if those people are dismissed or decide to leave the organization, you don’t change the password because it’s too hard, because 20 different people are using it. 
+There’s a lot of this behavior still going on. 
+And certainly that has been abused to distribute ransomware, not just through zero-days like in the Kaseya incident…
+In the past 18 months we saw service providers that specialize in providing services to dental offices, end up deploying ransomware to all their customers. 
+We saw a similar thing with real estate agents. 
+There have been many different examples where specialized service providers, who manage large numbers of people in a given space on their behalf, were sharing passwords, were not using multifactor authentication, and had all of the remote access tools directly exposed to the internet.
+And so I think those are the three things that come to mind for me specifically when we’re talking about service providers.
+Don’t provide access to all of your employees: limit it to the employees that actually need the access. 
+Make sure they all have unique access, and make sure that access is protected by multifactor authentication. 
+If you’re a professional technician providing services, you should have no objection to using a security key or an app in order to log into a customer’s environment where full administrative trust has been granted to you.
+Two-factor authentication: Understanding the options
+
+
+PD. Exactly. 
+And if you do work for an MSP and you work with say three out of the 10 customers, the fact that you’re deliberately locked out of helping the other seven customers is not a sign that your employer doesn’t trust you. 
+It protects you, as much as it protects your employer, as much as it protects the person further down the line. 
+And I guess that’s an example of what the jargon calls “zero trust”, isn’t it, or “need to know”?
+If there are things you do not need to be able to do in order to complete your job, then it’s actually better to be locked out of them, because then nothing can go wrong, whether by accident or by design.
+CW. Absolutely. 
+And a few of our partners I know that I’ve talked to actually have teams that provide services to different groups of customers.
+So if you’re this restaurant customer, you have team A assigned to you, and it’s five or six people so that you can cover shifts, you can cover vacations, you can cover maternity leave, whatever you need to cover.
+But it’s not all 75 technicians that can access the team A customer accounts.
+PD. Right, Chester!
+Let’s go to what you might call the mouth of the estuary – the IT consumer. 
+And I don’t mean consumer as in a home user, necessarily… I mean somebody who accepts things like updates, security advice, security configuration changes, operational configurations from somebody upstream. 
+What about the person at the end of it all?
+CW. Well, I would hope that most organizations have some sort of onboarding process for purchasing software from vendors, and deciding how to evaluate those vendors, and what criteria they must meet in order to qualify to be a vendor to their organization. 
+That may not occur in really small organizations, although I would still encourage them to do so. 
+Most organizations do have some sort of process for this. 
+And what you need to ensure is that security is part of that onboarding process, that the approvals process for them to be onboarded as a vendor ensures that they’re up to the quality that you like. 
+This is a complicated thing to do from the outside, because you’re unlikely to send in your own team of auditors to audit how they do security.
+So, it does get rather complicated.
+PD. In fact, Chester, somebody sent in a question and his comment was along the lines of:
+“Everybody tells me they take my cybersecurity seriously when I sign up for their service. But then they use exactly the same words when they send me one of those, ‘Oh, sorry. We had a data breach’ emails. 
+So how on earth am I supposed to tell whether they really do take my cybersecurity seriously or not?” 
+And that’s the $64,000 question, isn’t it? 
+CW. Yes. 
+Because in essence, what you’re trying to do is you’re trying to judge the maturity level of their security program. 
+And that sounds like weasel words, but you’re not really trying to assess any given one thing. 
+You’re trying to look at the whole picture of how seriously they take security, and how far are they along in providing all of the latest and best practices. 
+And sometimes that can be a lot harder for a big, older company that it can be for a young, nimble one, right? 
+If you look at securing software supply chains, it’s often much easier to do when you’re using modern tooling. 
+And if you’ve been around for 20 years, you might have old tooling that’s incredibly difficult to swap out for more modern tooling. 
+So there’s really no hard and fast rule.
+PD. On the other hand, you could be dead modern, and you do everything by just saying, “Well, NPM will look after all the dependencies. I only use one module. It will figure out the other 1,879 that I need. And let’s hope none of them got hacked lately.” 
+So that can cut both ways, can’t it?
+How one man silently infiltrated dozens of high-tech networks
+
+
+CW. It can. 
+And so, one of the things that I’ve been telling people to do, and it’s certainly something I do, even as a consumer looking at software… is I like to look at the release notes. 
+I’m the kind of nerd that reads the terms of service before I install an app on my phone.
+So maybe I’m not really fitting the normal mould here, but those release notes, to me, are a key component to say, ” All software has vulnerabilities and bugs, and we’re fixing them on a regular basis.”
+PD. I agree very strongly with you on that, Chester. 
+And I think you don’t necessarily need to be technically savvy and understand all the jargon that’s in the release notes. 
+I think that tone of the company really comes out quite strongly, if you know what to listen for in among the words.
+CW. Yes. 
+I think an organization that’s being open and continually improving their security typically will tell you about it. 
+They won’t hide it – they’ll give you some sort of detail. 
+Depending on the size of the company, they may list CVE numbers that are vulnerabilities that have been officially registered. 
+PD. Yes.
+CW. If they’re a smaller company they might not, but they might still make a note saying, “This software has been updated to improve the security. You should apply it now. There were things reported to us by these bug bounty people,” or whatever.
+That’s another thing you can look to. 
+Organizations that run a bug bounty are typically higher up on that security maturity spectrum, because they’re inviting people to scrutinize their software and help them improve the security.
+These are all very positive signs that a company feels confident in their ability to defend that software well, or website for that matter, if it’s some sort of cloud service that you’re subscribing to.
+And if they have had any security incidents, gosh… those root cause analyses that are published very commonly now by a lot of vendors when they have a public security incident are another one of those things that you can get that tone from.
+What is their confidence in what they’re telling you? 
+Are they being open and honest about the details? 
+If they are, they’re probably learning from that incident and improving, and it’s not necessarily a bad sign, because we all have incidents in the end.
+PD. How does that saying go? 
+“Once is misfortune, twice is carelessness.”
+CW. And I think another sign of this stuff, often, is how well the team at that organization is working. 
+Are all parts of the company involved? 
+Because, when you have an incident, you want to make sure that your legal team is involved, your communication team is involved, certainly the software developers that may be responsible for the bug, or whatever. 
+Those groups need to be groups that are comfortable working together – they need to have trust. 
+You can read the tea leaves on the confidence of that organization and their statement and the accuracy of the statements they make.
+Because, when those people are working together, they give you the truth accurately, and they continually provide you updates during the incident, and during the crisis. 
+Those are all really positive signs that a company takes these things very seriously. 
+I add into that: are there warning signs in their management that they don’t have a tight-knit team? 
+I go on LinkedIn and if they’re continually rotating in CISOs or CTOs, where they’re there six months and another one comes in, and then they’re there nine months, and then somebody is there three months…
+You’re going, “Well, that doesn’t sound like a program that’s well-integrated and mature.” 
+It sounds like they’re constantly going in different directions.. and of course that usually ends poorly.
+PD. Chester, I think that’s a great point on which to end…
+The idea that, although we’ll never stop all supply chain attacks, collectively – if we all lift our game a little bit, and we lift our game all the time – we can actually do an awful lot to keep ourselves much safer than perhaps we have been in the past. 
+So, Chester, thank you so much for your time. 
+Thanks to everybody for listening. 
+Until next time…
+CW. Stay secure.
+PD. Stay secure.
+[FX: MORSE CODE SIGNOFF]
+Learn more about Sophos Managed Threat Response:Sophos MTR – Expert Led Response  ▶24/7 threat hunting, detection, and response  ▶

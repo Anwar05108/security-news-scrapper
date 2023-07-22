@@ -1,0 +1,13 @@
+Heads up, Firefox users who rely on FTP: the browser is eliminating support for this venerable protocol.
+First written in 1971, the file transfer protocol predates TCP/IP, the protocol stack that underpins the modern internet. In its original form, the protocol is insecure. For example, it transmits login credentials in plain text. In 1999, the IETF published a draft RFC listing its various shortcomings. These included everything from problems in the way it responded to invalid login attempts through to an inability to segment file permissions when using anonymous FTP (which doesn’t require user credentials at all).
+Now, Mozilla is planning to turn off FTP by default in version 77 of Firefox, which will ship this June. Users will be able to turn it on again temporarily so that they can carry on using FTP from within the browser. Firefox Extended Support Release (ESR) will continue to have FTP turned on by default in ESR version 78.
+The real crunch will come at the start of next year, when Michal Novotny, a software consultant at Mozilla, said that the Foundation will remove FTP code from the browser altogether. He added:
+We’re doing this for security reasons. FTP is an insecure protocol and there are no reasons to prefer it over HTTPS for downloading resources.
+Also, a part of the FTP code is very old, unsafe and hard to maintain and we found a lot of security bugs in it in the past.
+There are more secure versions of FTP available. SSH FTP uses the secure shell protocol for FTP sessions, which is encrypted. FTP over TLS (FTPS) runs the protocol over SSL/TLS. However, Mozilla seems uninterested in supporting these.
+Its reasons may be the same as Google’s, which is also deprecating FTP in Chrome. In a status report on its support for FTP, Google said that so few people use FTP in the browser that it isn’t worth the effort to improve the client.
+Google announced its intent to remove the protocol from the browser in August 2019. According to its status report, it had already turned off the ability to render top-level FTP resources directly in Chrome. This means you can’t click on a picture in an FTP directory and have it appear in Chrome – instead, it downloads the image instead.
+The advertising giant set a flag for controlling FTP support in version 80, leaving it enabled by default. Version 81 will see that flag set to off by default, and then version 82 will eliminate the FTP code entirely.
+What should you do if you’re unwilling to abandon FTP? One option is to use a dedicated FTP client, such as the free FileZilla program, which also supports SFTP.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

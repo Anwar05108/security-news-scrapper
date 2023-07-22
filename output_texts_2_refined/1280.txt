@@ -1,0 +1,23 @@
+At the start of this month, CVE-2021-42321 was technically an Exchange zero-day flaw.
+This bug could be exploited for unauthorised remote code execution (RCE) on Microsoft Exchange 2016 and 2019, and was patched in the November 2021 Patch Tuesday updates.
+Microsoft officially listed the bug with the words “Exploitation Detected”, meaning that someone, somewhere, was already using it to mount cyberttacks.
+The silver lining, if there is such a thing for any zero-day hole, is that the attacker first needs to be authenticated (logged on, if you like) to the Exchange server.
+This means that anyone in the position to exploit the CVE-2021-42321 vulnerability would almost certainly already either be logged on to the network itself or signed in to a user’s email account, which at least rules out anonymous, remote attacks mounted by just about anyone from just about anywhere.
+Nevertheless, a bug of this sort still represents a critical security issue, because regular users aren’t supposed to be able to upload and run arbitrary programs on any of your network servers, least of all your mail server.
+Although cybercriminals who can read your email are already a serious concern, crooks who can infiltrate the email server itself, without needing to be a sysadmin to start with, are a very much greater threat.
+With control over the entire mail server, rather than just a single user’s email account, attackers could potentially implant malware to spy on all corporate email, in and out; send bogus emails in anyone’s name right from inside the organisation; implant RAM-scraping malware to watch for business secrets held only temporarily in memory, or to retreive temporary network passwords; snoop on network activity from a central location; and much more.
+If you’re the sort of person who is conservative about patching, and likes to delay for a while to see if other people have problems first…
+…we’re hoping that the “zero-day/already in the wild” tag on this bug encouraged you not to wait too long, and that you have already applied this month’s updates.
+If you haven’t, don’t delay any longer.
+For better or worse, a security researcher going by Janggggg (yes, with five Gs), also known as @testanull, has recently published a proof-of-concept (PoC) exploit for the CVE-2021-42321 hole. 
+By his own admission, his attack code (ironically published on Microsoft’s GitHub site) “just pop[s] mspaint.exe on the target”, meaning that the published exploit can’t directly be used to run arbitrary code.
+But Janggggg has also provided a link to a “grey hat” tool that he says will help you to generate your own so-called shellcode (executable code masquerading as data) that can be embedded into the exploit in place of simply launching Microsoft Paint.
+Bluntly, this means you can adapt Jangggg’s PoC so that instead of merely requesting it to do something, you can instruct it to do anything.
+This is a good example of how Patch Tuesday is often followed by what is jocularly referred to as Weaponised Wednesday or Takeback Thursday, when security practioners scramble to reverse engineer the patch itself in order to get insights into what was fixed, and how.
+This sort of patch analysis isn’t trivial, but it does frequently help researchers and attackers alike to “rediscover” the bug, and also to get helpful insights into how it might actively be exploited.
+As you can imagine, finding and exploiting a security hole in any software product is much easier and quicker if you know where to start looking, in the same way that you’re much more likely to win at blackjack if you know which cards have already been dealt from the pack.
+Often, the details of how a bug was patched – for example, new error-checking code added to detect and reject invalid input data – can provide a handy shortcut to understanding not only how the bug works, but also how to construct booby-trapped input that allows the vulnerable program to be taken over completely, instead of simply crashed.
+Patch at once!
+To verify that your Exchange servers are safe against this and other known security holes, you can use Microsoft’s official Exchange Server HealthChecker PowerShell script.
+This extensive script reports on numerous aspects of your Exchange configuration, including advising you about missing security updates.
+Note. Microsoft added Exchange 2013 to the list of vulnerable versions on 2021-11-16, only to change its mind on 2021-11-17 and report that it had “removed Exchange Server 2013 from the Security Updates table as it is not affected by this vulnerability.”

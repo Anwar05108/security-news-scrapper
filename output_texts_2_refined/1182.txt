@@ -1,0 +1,28 @@
+For details about the emergency patch released by Microsoft on 2021-07-06,please see:  PrintNightmare official patch is out – update now!
+There’s a critical Windows bug out there that’s not only known by three different names, but also listed variously as having three different severities.
+The first name you will see is the official MITRE identifier CVE-2021-1675, fixed in the Microsoft June 2020 Patch Tuesday update that was issued on 08 June 2021.
+You’ll also hear and see the flaw referred to as the Print Spooler bug, based on the headline on Microsoft’s security update guide that describes the flaw as a Windows Print Spooler Vulnerability.
+The bug was initially documented by Microsoft as opening up an EoP (elevation of privilege) hole in pretty much every supported Windows version, all the way from Windows 7 SP1 to Server 2019.
+ARM64 versions of Windows, Server Core builds (minimalist installs of Windows Server products) and even Windows RT 8.1 made the list of affected platforms.
+But on 21 June 2021, Microsoft upgraded the CVE-2021-1675 security update page to admit that the bug could be used for RCE (remote code execution) as well, making it a more serious vulnerability than an EoP-only hole.
+As you probably know, EoP means that someone who has already compromised your computer, but is stuck with the sort of access that you would have yourself when logged on as a regular user, can promote themselves to a more privileged account without needing to know the password for that account.
+That’s bad enough, but RCE refers to a bug by which cybercriminals can break into your computer in the first place, without needing any password for any account on your computer.
+If an RCE bug also permits EoP, then that’s even worse, because it essentially combines breaking in and taking over into a single, high-drama security hole.
+Of course, the upgrade in the severity of CVE-2021-1675 from EoP to RCE didn’t matter – or so everyone thought – as long as you’d already applied the Patch Tuesday update.
+After all, closing a security hole protects you whether that hole is an EoP, an RCE, or both.
+Apparently, what happened next was an unfortunate publication mistake.
+Researchers from the cybersecurity company Sangfor, who were preparing to present a paper on Print Spooler bugs at a forthcoming Black Hat conference in August 2021, seem to have decided that it would be safe to disclose their proof-of-concept work earlier than intended.
+After all, what harm in discussing and demonstrating the Print Spooler RCE-and-EoP bug openly, given that it was now publicly documented and had been patched two weeks earlier?
+You can probably guess where this is going.
+It seems that the newly-disclosed Print Spooler bug discovered by the Sangfor researchers wasn’t actually the same security hole that was fixed on Patch Tuesday.
+In short, the Sangfor crew inadvertently documented an as-yet-undisclosed RCE bug, thus unintentionally unleashing a zero-day exploit.
+The researchers apparently took down the offending information once the mistake was figured out…
+…but by then it was too late, because the exploit code had already been downloaded and republished elsewhere.
+Pandora’s jar had already been opened, and it was too late to close it up again.
+The new-and-unpatched bug is now widely being described by the nickname PrintNightmare.
+It’s a Windows Print Spooler Remote Code Execution Vulnerability, just like CVE-2021-1675, but it’s not prevented by the latest Patch Tuesday update.
+Indeed, several independent researchers have published screenshots on Twitter showing the new exploit succeeding on a Windows server that already has Microsoft’s June 2021 patches installed.
+There’s no official patch yet [2021-06-30T21:00Z].
+We’re assuming that a fix will be released by Microsoft as soon as possible – perhaps even before next month’s Patch Tuesday updates are scheduled to arrive (12 July 2021), if a reliable patch can be created in time.
+Watch out for a patch and deploy it as soon as you can once it’s out.
+Update. [2021-07-07T14:30Z] Microsoft released an emergency patch on 2021-07-06,described here:

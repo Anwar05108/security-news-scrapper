@@ -1,0 +1,13 @@
+VMWare’s VMware Cloud Director has a security flaw that researchers believe could be exploited to compromise multiple customer accounts using the same cloud infrastructure.
+Formerly known as vCloud Director, Cloud Director is a popular enterprise platform for managing virtual datacenters across multiple sites.
+A few weeks back, security pen testing company Citadelo chanced upon what looks like a significant vulnerability while it was carrying out an audit for a VMware customer.
+The vulnerability was a code injection flaw, now identified as CVE-2020-3956. The researchers developed a proof-of-concept that used the web-based interface or the platform’s Application Programming Interface (API) capable of taking over multiple private clouds on any vulnerable provider.
+That would have allowed an attacker to modify the Cloud Director login page to capture credentials, take over account privileges for a provider, access some sensitive data such as IP addresses, email addresses, names, and password hashes, and tinker with virtual machines (VMs):
+The vulnerability would enable a user to gain control over all customers within the cloud. It also grants access to an attacker to modify the login section of the entire infrastructure to capture the username and password of another customer.
+VMware learned of the flaw in early April, issuing patches for affected versions of vCloud Director and Cloud Director during early May.
+The updated, fixed versions are vCloud Director versions 9.7.0.5, 10.0.0.2, 9.1.0.4, and 9.5.0.6 (some older versions are not affected so it’s important to check the version matrix), with the patch alert going out on 19 May.
+Organisations that can’t update for whatever reason are offered suggestions for mitigating the issue.
+It seems that the only reason that the flaw is rated ‘important’ (CVSS score 8.8) rather than ‘critical’ on VMware’s security advisory (VMSA-2020-0010) is that an attacker would require an authenticated account to start an attack.
+But that might not be as hard to achieve as it sounds given that Citadelo says some providers offer free trial accounts.
+These days, despite numerous layers of encryption and segmentation, VMware still needs careful attention, having fixed a significant but lower-level VM flaw in March.
+The fact that Citadelo only discovered the flaw during pen-testing is a lucky break for VMware customers and an encouraging sign that large companies are not taking cloud platforms and tools for granted.

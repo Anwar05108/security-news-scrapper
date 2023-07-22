@@ -1,0 +1,21 @@
+As the world’s second-largest software company, Oracle has become an organisation built on big numbers.
+This includes the number of security patches it issues – which with the January 2020 update reached a joint record of 334, matching an identical number released in July 2018.
+Unlike rivals such as Microsoft, Oracle only releases security patches every three months so that’s part of the explanation for the size of its updates, which now routinely head towards 300.
+Another factor is simply the volume of software in the company’s stable – with around a hundred products and product components in January’s update alone.
+Something that jumps out is that 60 individuals and companies are credited with reporting January’s batch of flaws to Oracle, including one, Alexander Kornbrust, credited with 41 CVEs on his own.
+Oracle, then, has lots of flaws to fix because, as with rival Microsoft, it has lots of people looking for them. This can only be a good thing.
+Database Server
+A modest 12 CVEs in total, three of which are stated as being remotely exploitable. Five are ranked ‘High’ severity, which in Oracle’s nomenclature is the top severity level, factoring in how easy it would be to exploit.
+Oracle communications applications
+A relatively small application category but still able to offer patches for 23 flaws which could be remotely exploited without authentication, six of which have ‘Critical’ CVSS scores above 9.
+Oracle Enterprise Manager
+A total of 50 patches in all, 10 of which can be exploited remotely without authentication, including four rated with CVSS scores over 9. These depend on the version of Oracle Database and Fusion Middleware being used.
+Oracle Fusion Middleware
+A total of 30 vulnerabilities which could be exploited remotely without authentication, including three Criticals rated over 9 on CVSS.
+Oracle Virtualization
+A total of 22 flaws, three of which could be remotely exploited with authentication. This doesn’t include the two highest-rated flaws, CVE-2020-2674 and CVE-2020-2682, affecting VM VirtualBox, which both require local access. That sounds reassuring but it isn’t – attackers would exploit this class of flaw having gained access via other means.
+The sheer number of vulnerabilities and the complex dependencies between them can make understanding Oracle’s update page a chore.
+However, there are some standout CVEs, for example CVE-2019-2904, rated a ‘Critical’ 9.8 on CVSS and affecting multiple products in the stable.
+This dates to October 2019, but Oracle has presumably expanded the products affected by it, hence its reappearance. That’s another facet of Oracle patching – flaws can kick around for a while before they work their way out of the system as they are patched.
+Oracle offers the same patching advice it does every month:
+Oracle continues to periodically receive reports of attempts to maliciously exploit vulnerabilities for which Oracle has already released security patches. In some instances, it has been reported that attackers have been successful because targeted customers had failed to apply available Oracle patches.

@@ -1,0 +1,19 @@
+Imagine a computer user from 2010 dreaming of a world in which Microsoft is not only an enthusiastic proponent of open source software but actively contributes to it with its own ideas.
+It would have sounded fanciful and yet a decade on and this is exactly the world a growing number of Microsoft’s in-house developers find themselves working towards.
+The latest twist in the romance arrived this week when the company published details of Integrity Policy Enforcement (IPE), a Linux Security Module (LSM) designed to check the authenticity of binaries at runtime.
+The Linux kernel has long supported LSMs for different specialised purposes, but Microsoft has spotted a gap in the protections these offer in server environments, specifically its own Azure Sphere IoT platform.
+Using IPE would allow admins to ensure that only authorised code has permission to execute using code signing and by checking software against its known properties.
+While not for general Linux computing, use cases for the IPE would include embedded Internet of Things (IoT) systems, data center firewalls where the admins have full control over what should be running, and where binary code is “immutable”.
+Ideally, for the highest level of security:
+Platform firmware should verify the kernel and optionally the root filesystem (e.g. via U-Boot verified boot). This allows the entire system to be integrity verified.
+Importantly, however, the verification carried out by IPE doesn’t rely on filesystem metadata, which could be unreliable.
+Microsoft lists three categories of threat as the motivation for its interest in IPE:
+But what might this amount to in less abstract terms?
+A generic example is the Cloud Snooper malware identified by Sophos Labs, a rootkit which could be deployed on almost any Linux server, including those hosted in the cloud.
+There is some complexity to Cloud Snooper, but the key point is that it hides in plain site by deploying a kernel-level driver.
+Although a general rootkit, the same principle applies to embedded devices and firewalls. These should not be running rogue code but knowing they aren’t isn’t as easy as it could be.
+Other examples of Linux malware popping up where it shouldn’t include the GoLang cryptomining malware.
+However, the biggest hazard is there is a lot of Linux around which is all too easy to spin up without considering security, especially when it comes to IoT systems. These make inviting targets.
+Up for discussion as an RFC (Request for Comments), Microsoft’s interest in proposing IPE underlines how much the software world has changed in a decade. Under the direction of CEO Satya Nadella, the initiative also shows much Microsoft has changed too.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

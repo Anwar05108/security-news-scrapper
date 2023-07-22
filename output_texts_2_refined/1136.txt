@@ -1,0 +1,68 @@
+Remember Rowhammer?
+Well, it’s back, and this time it’s called SMASH.
+Rowhammering is a reliability problem that besets many computer memory chips, notably including the sort of RAM in your laptop or mobile phone.
+Simply put, rowhammering means that if you read the same memory addresses over and over and over again, millions of times…
+…the repeated nanoscopic electrical activity in the part of the chip where your data is actually stored may cause enough interference to affect the values in neighbouring memory cells.
+Typically, each data bit in RAM is stored physically in a tiny silicon capacitor (an electronic component that can hold electrical charge), where a charged-up capacitor denotes a binary 1, and a capacitor without any charge signals 0.
+The faster and more aggressively you charge and discharge the capacitors in one part of a RAM chip, the more likely it is that electrons will leak across into, or leak away from, next-door cells.
+This can cause unexpected “bitflips”, where memory cells that haven’t been accessed nevertheless leak out enough electrons to flip from 1 to 0, or pick enough stray charge to flip from 0 to 1.
+Bluntly put: using a rowhammer attack, you can make modifications, albeit hapazardly, to memory that has nothing to do with you, just by reading repetitively from memory that’s allocated to your program
+Illegal writes simply by performing legal reads!
+You’d need an enormous number of internal control connections on the chip to construct RAM where you could read exactly one bit (or even one byte) at time.
+So, electrically at least, that’s not how most RAM chips work.
+Instead, the cells storing the individual bits are arranged in a series of rows that can only be read out one full row at a time, like a string of fairy lights that are controlled by a single switch:
+To read cell C3 above, for example, you would tell the row-selection chip to apply power along row wire 3, which would discharge the capacitors A3, B3, C3 and D3 down column wires A, B, C and D, allowing their values to be determined. 
+Bits without any charge will read out as 0; bits that were storing a charge as 1.
+You’ll therefore get the value of all four bits in the row, even if you only wanted to know one of them. 
+(The above diagram is enormously simplified: in real life, contemporary laptop RAM chips typically have rows from 16kbits to 256kbits long.)
+Incidentally, reading a row wipes out the value of all its bits by discharging it, so immediately after any read, the row is refreshed by saving the extracted data back into it, so it’s ready to be accessed again.
+In other words, reading even a single byte of your program’s memory causes a whole row of RAM to be discharged and then recharged by writing back the same data to it.
+And it’s these repeated row-by-row rewrites that may occasionally trigger bitflips in adjacent rows on the physical chip.
+In day-to-day use of your computer, several factors combine to make bitflips caused by rowhammering an unusual and unlikely problem.
+The first mitigating factor is that modern CPUs automatically keep local copies of memory addresses that you access frequently
+Reading data out of special internal storage called a cache, located physically on the CPU itself, is much faster than reading from RAM.
+In other words, reading the same memory address over and over doesn’t automatically cause the RAM circuitry to be activated over and over again, because the cached values are used for the second and subsequent accesses instead.
+The second mitigating factor is that almost all computer RAM today is what’s known as DRAM, where the D stands for dynamic.
+This means that the capacitors used as memory cells need recharging regulary whether they’ve been accessed or not, otherwise their charge leaks away, causing them to “go flat” and lose their value.
+This cycle, called DRAM refresh, happens about 16 times a second, and involves redundantly reading every memory row, thus immediately and automatically rewriting its data to refresh its charge.
+Freshly re-written memory capacitors are much less likely to bitflip, because each bit has a charge that is either close enough to full voltage or close enough to zero that its charge level can unambiguously be detected as 0 or 1.
+So, the CPU cache reduces the number of times that any row is typically impinged upon by its neighbouring rows between refreshes, reducing the likelihood of bitflips caused by overzealous memory reads between each DRAM refresh.
+In other words, rowhammering is not much of a problem in an ideal world.
+Of course, we don’t live in an ideal world, and if you provide cybercrooks with any trick that might deliberately cause your computer hardware to misbehave, you can be sure that they’ll try it out.
+Nevertheless, even if attackers deliberately set out to provoke memory access patterns to cause bitflips on purpose, you might imagine that actively exploiting those bitflips to run malware or steal data would be enormously complicated.
+The attackers would need not only to bypass the CPU cache in order to force fast and repetitive access to the RAM chip itself, but also to trick the operating system into allocating memory in a predictable way to ensure that the RAM assigned to their code landed up in a suitable place on the physical chip.
+Additionally, modern DRAM chips include built-in hardware known as TRR, short for for target row refresh, which automatically refreshes DRAM rows that are next to rows that have been accessed repeatedly.
+At a small cost in inefficiency (a few extra row refreshes that aren’t strictly needed), TRR helps to prevent at-risk memory capacitors from reaching an ambiguous charge level where their data can’t be trusted.
+LEARN MORE ABOUT TARGET ROW REFRESH
+TRRespass research reveals rowhammering is alive and well
+
+
+As for exploiting the rowhammer issue in a browser, where you have to rely on code written in JavaScript and therefore have no direct control over allocating memory at all, you might think that it would be impossible.
+Browser code can’t directly control the CPU cache, and isn’t even able to measure elapsed time accurately these days, because all major browsers have now deliberately and synthetically reduced both the precision and the accuracy of the timing functions available to JavaScript programs. 
+Even the authors of the SMASH paper admit:
+[Existing … rowhammer] attacks require frequent cache flushes, large physically contiguous regions, and certain access patterns to bypass in-DRAM TRR, all challenging in JavaScript.
+Timing plays a part in rowhammer attacks not only because of the 64-millisecond “DRAM refresh clock” (about 16 times a second) that is always ticking in the background, but also because timing memory accesess lets you differentiate cached memory access from uncached access, which leaks information about what data lives where in RAM, helping you to organise your data layout for the attack.
+Of course, when it comes to cybersecurity, you should never say never. 
+If nothing else, confidently saying that a cybersecurity problem “can’t happen” – unless you have a formal mathematical proof – is an invitation both to crooks and to hackers to prove you wrong.
+Indeed, having come up last year with an attack that bypassed the protection afforded by TRR, researchers at the Vrije Universiteit (VU) Amsterdam and ETH Zurich have done it again.
+Last time, they called their attack TRRespass (like many hackers, they seem to enjoy puns and speaking like pirates).
+This time they have dubbed their attack SMASH, short for Synchronized Many-sided Rowhammer Attacks from JavaScript. 
+(We’d have gone the whole nine yards and called it SMASHAFROJ, but perhaps they thought that would be OTT, even for a BWAIN.)
+You can read about SMASH in an overview article on the VU website, or delve into the (note: long and jargon-rich) full academic paper, which will be presented at a Usenix conference later in 2021.
+Greatly simplified, when using Firefox 81.0.1 (admittedly now six months old) on a Linux 4.15 kernel (no longer officialy supported by the Linux team), they were able to:
+As we said when we wrote about rowhammering in 2020:
+Fortunately, rowhammering doesn’t seem to have become a practical problem in real-life attacks, even though it’s widely known and has been extensively researched.
+The SMASH research is a masterpiece of hard-core hacking, but each attack would probably need to be tailored for the type of CPU you have, the vendor of the RAM chips you’re using, the browser and operating system you’re using, and then might not work reliably or even at all…
+…so we’re not surprised that cybercriminals have stuck to attack vectors that they know can be exploited reliably.
+However, the SMASH researchers did find a useful mitigation for their new attack.
+In their research, they relied on a Linux computer configured to use what are known Transparent Huge Pages (THP).
+Linux THP means that when a program asks for memory, the operating system can choose to allocate it either in chunks of 4KB each (“small” memory pages) or of 2MB (“huge” pages).
+The SMASH attack relies on a 2MB JavaScript buffer allocated all in one “huge” memory page, so that the attackers can be sure in advance that it will be assigned to one contiguous block of memory cells on the RAM chip itself, and will therefore span multiple adjacent DRAM rows.
+So, if you turn off THP on your Linux laptop, you might notice or be able to measure a tiny loss in performance (we didn’t and couldn’t)…
+…but you will neutralise the currently documented SMASH attacks altogether. 
+To turn off THP, run this command as root:
+To see the current setting of THP, print out the abovementioned THP “file” from /sys:
+The square brackets show you which of the three valid options is currently selected. (Most Linux distros are set to [always] or [madvise] by default.)
+Always means that the feature is enabled for every app; madvise means it’s off by default but apps can opt in; and never means that all kernel memory allocation will be done in 4KB “small” pages.
+Don’t forget, however, that turning off THP isn’t a generic and future-proof defence against rowhammering attacks, merely a defence that seems to protect your browser against the current state of the art. 
+Small pages are efficient for programs that do lots of small allocations, but have a much higher memory management overhead when a program needs a big chunk of memory for a single purpose, because each 4KB block in the chunk has to be accounted for separately. Huge pages are efficient for large allocations, but waste space whenever a block less than 2MB is needed. Linux THP therefore aims to provide a “best of both worlds” approach to memory management.

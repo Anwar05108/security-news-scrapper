@@ -1,0 +1,26 @@
+Here’s some goodish news: the Snake ransomware seems to have made the news last week on account of its name rather than its prevalence.
+Because, well, SNAKE!
+Like most ransomware, Snake doesn’t touch your operating system files and programs, so your computer will still boot up, log in, and let you open your favourite apps, so that in purely technical terms you have a working system…
+…but all your important data files, such as documents, spreadsheets, photos, videos, music, tax returns, business plans, accounts payable and accounts receivable, are scrambled with a randomly chosen encryption key.
+Scrambled files consist of the encrypted content written back over the original data, with decryption information added at the end:
+The original filename and directory are recorded, the decryption key is stored too, and the special tag EKANS, which is SNAKE written backwards, finishes off the encrypted file.
+Note that the decryption key for each file is itself encrypted using public-key encryption, which is a special sort of encryption algorithm in which there are two keys, rather than one, so that the key used to lock data can’t be used to unlock it.
+The key used for locking data is called the public key, because you can reveal it to anyone; the unlocking key is called the private key, because as long as you keep it private, you’re the only one who can later unlock the encrypted data.
+Most modern ransomware uses this sort of hybrid encryption system.
+The malware generates a random key to encrypt the file, using what’s called a symmetric or secret-key encryption algorithm where the same key both locks and unlocks; then uses a public key to lock up the random key.
+To decrypt the file, you need the private key to unlock the symmetric key; then the symmetric key to unlock the file.
+Why not just use public key cryptography alone to lock and unlock the file? Why the extra complexity of generating a random secret key to lock the data and then using a public key to lock the secret key? The answer is that symmetric crypto is ideally suited for scrambling large amounts of data, but public key crypto is much slower and suited only for scrambling small amounts of data at a time. Thus you use fast encryption to deal with whole files, followed by slow encryption to keep the secret key safe for the fast decryption safe.
+But why the Snake part?
+Why add the EKANS marker, unencrypted, at the end of every encrypted file?
+We assume that the crooks behind the ransomware did this as an easy way of identifying an encrypted file if you decide to pay up and buy back the decryption key from them.
+Most ransomware denotes scrambled files by adding a unusual extension to filenames so they stand out.
+Sometimes this special extension adds ironic insult to injury, as in the case of the infamous SamSam ransomware, which added the truthless text .weapologize to the end of all your scrambled files.
+But the Snake malware adds a different, randomly chosen string of characters to the names of encrypted files, so that they can’t reliably be picked out by name alone:
+Once it’s scrambled your data, Snake dumps a “What happened to your files?” document on your desktop:
+This malware actually writes this file, called Fix-Your-Files.txt, into what Windows calls the ‘public desktop’, usually in the directory C:\Users\Public, where it shows up in the background for every user on the system.
+If the malware isn’t run with administrator privileges, then although it will be able to overwrite all your files, it won’t be able to write to the Public folder, and will end up in a special folder called \Users\[yourname]\AppData\Local\VirtualStore, where you’re likely to miss it.
+We think these crooks expect to have administrator access across a compromised network to inflict maximum damage, and have programmed their malware on that basis.
+As the “What happened to your files?” document itself says:
+We breached your corporate network and encrypted the data on your computers. The encrypted data includes documents, databases, photos and more.
+So here’s the bad news to counter the goodish news we started with: the crooks behind this ransomware don’t intend to target individual users on your network, but instead take their time and go after everyone, for a more shocking effect.
+Sophos products detect and block this malware as Troj/Ransom-FUJ.

@@ -1,0 +1,21 @@
+It’s less than a week since Apple’s iOS 13.4 appeared and already researchers have discovered a bug that puts at risk the privacy of Virtual Private Network (VPN) connections.
+Publicised by ProtonVPN, the issue is a bypass flaw caused by iOS not closing existing connections as it establishes a VPN tunnel, affecting iOS 13.3.1 as well as the latest version.
+The company said it was disclosing the issue despite there being no patch because it believed it was better that providers and users knew about it now. Remote working and VPN use has increased as more workers self-isolate to avoid COVID-19.
+Luckily, ProtonVPN has also discovered a workaround which involves turning airplane (or flight) mode on and off to reset all connections (see below for full instructions).
+A VPN app should open a private connection to a dedicated server through which all internet traffic from the device is routed before being forwarded to the website or service someone is accessing.
+This means the ISPs and public Wi-Fi routers can’t snoop on the user’s traffic while websites and services can’t see the real IP address of the user.
+This is more comprehensive than HTTPS, which only secures connections to individual websites or installed apps, one at a time. HTTPS also doesn’t hide other revealing traffic such as that to Domain Name Servers (DNS), which ISPs monitor to see which web domains someone is visiting.
+A ProtonVPN researcher fired up a monitoring tool called Wireshark and noticed that even when the VPN was turned on it was still possible to see that traffic was passing between the device and third-party IP addresses.
+That means that iOS wasn’t closing those connections when the VPN started. What it should have been doing was terminating them before reconnecting them once the VPN has been established.
+In short, everything that starts after the VPN is loaded will be secure but everything before that moment might not be if it doesn’t reset the connection of its own accord (some being longer-lasting than others).
+This wouldn’t expose the information being passed inside those connections, which on iOS will use HTTPS. However:
+An attacker could see the users’ IP address and the IP address of the servers they’re connecting to. Additionally, the server you connect to would be able to see your true IP address rather than that of the VPN server.
+The IP address might sound less important than the information passed from, say, an installed app, but it reveals the ISP location and, potentially, the identity of the end-user. It also leaks information on the IPs the device has previously connected to, for example, a website or service.
+A patch might not appear for weeks, which leaves users with two workarounds.
+The first, suggested by Apple, is to configure the Always-on VPN setting via mobile device management (MDM). That should be possible for some business users.
+However, it won’t be an option for home users running a third-party VPN app they downloaded from the App Store, which leads us to the second option:
+Of course, users still have to remember to do this each time they connect, possibly several times a day. It’s far from ideal.
+At least Apple knows about the issue. ProtonVPN said:
+We have been in contact with Apple, which has acknowledged the VPN bypass vulnerability and is looking into options to mitigate it. Until an update is available from Apple, we recommend the above workarounds.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

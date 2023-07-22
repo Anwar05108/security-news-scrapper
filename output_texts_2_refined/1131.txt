@@ -1,0 +1,35 @@
+Here’s another BWAIN, which is our shorthand for Bug With An Impressive Name.
+That’s the abbreviation we use for bugs that end up with names, logos and even dedicated websites that are catchy, cool, fancy, important or dramatic, and sometimes even all of these at the same time.
+Classic examples of the genre include:
+This time, we’re talking about NAME:WRECK, a bunch of somewhat related bugs in the core DNS software used by several different operating systems.
+This “bug cluster” features in a report released yesterday by researchers from Forescout and JSOF.
+The nickname comes from the word “name” in DNS, combined with the fact all the bugs could theoretically let an attacker crash an affected device, or perhaps worse.
+DNS, as you probably know, is short for domain name system, which converts names like nakedsecurity.sophos.com into IP numbers such as 192.0.66.200 [correct at 2021-04-13T16:20Z].
+Technically, you can run a TCP/IP network stack without DNS, simply by referring to each device by its network number only.
+But even the most limited and self-contained test networks quickly end up crying out for DNS, and if ever you want to hook up your device or devices to the internet, you can consider DNS support a must.
+That’s why any TCP/IP device, no matter how tiny and resource-constrained it might be, and any operating system, no matter how much it might have been miniaturised, includes code for what’s known as DNS resolution or DNS lookup.
+That code needs to know how to formulate DNS requests, which are compactly encoded binary network packets specified in RFC 1035, published way back in 1987 when every byte really mattered.
+DNS lookup code also needs to know how to deconstruct the similarly formatted DNS replies that come back, even though that code didn’t create those packets in the first place, and doesn’t know whether it can trust the person who did.
+As you probably know only too well, making sense of binary data, known as parsing in the jargon, is very easy to do badly.
+The fact that a program can reliably parse billions of well-formed packets without a hitch doesn’t mean it won’t misbehave when faced with deliberately malformed packets that would never occur in regular use.
+As the old joke goes: “A penetration tester walks into a bar and says, ‘4,294,967,297 beers, please’, just to see how good the bartender is.”
+The NAME:WRECK report isn’t just one bug or one vulnerability, and all of them date back to last year except for one.
+Fortunately, they are all patched (at least one has had an update out for nearly a year already) but together they constitute a worthwhile reminder that even in the modern age, programmers continue to make old-school coding mistakes.
+The vulnerabilities that have been lumped together under the NAME:WRECK “brand” were found in three different operating systems.
+Two were low-level operating systems, often known as RTOSes (short for real-time operating systems) dedicated to internet-of-things (IoT) devices, namely Nucleus NET from Siemens and NetX from Microsoft.
+The third was FreeBSD, widely used as both a mainstream server operating system and as an operating system for embedded devices. (As the name suggests, FreeBSD is available for free, like Linux, but it uses a much more easy-going and liberal open source licence.)
+Six of the bugs involved parsing errors, where the data sent back in DNS replies was carelessly processed, leading to buffer overflows.
+Some of these could be exploited to cause the DNS lookup code to read data where it shouldn’t, causing a crash, or denial of service) (DoS).
+Others could be exploited not just to read from the wrong place but to write to the wrong place as well, leading to remote code execution (RCE).
+RCE generally means that an attacker can quietly inject malware into your computer simply by sending rogue packets, without needing to login first or to know any kind of password.
+One bug involved a loop limit bug, where the code added no bytes to a text string, decided that the string wasn’t full yet, and went back for more, vainly adding zero bytes over and over again for ever and ever, in the hope that the string would eventually get longer.
+The last bug involved poor randomness, where one-time random numbers added as transaction identifiers into DNS replies were not random enough.
+As a result, attackers could create fake DNS replies that would pass muster and perform DNS poisoning on the local device’s stored list of known DNS replies.
+By feeding an internet device a list of server names and fake IP numbers, criminals could trick that device into visiting imposter sites, replacing the real IP numbers of well-known servers with IP numbers controlled by the crooks.
+The bugs were:
+The NAME:WRECK report includes a ninth bug, though this one was actually found back in 2016 by researchers at Exodus Intelligence. Somehow, that bug never received a CVE identifier at the time, but one has been issued retrosepctively, namely CVE-2016-20009. That bug was a buffer overwrite in WindRiver’s IPNet software, apparently leading to remote code execution. We’re not sure if it was ever fixed, or if it’s still exploitable in current IPNet versions. If you are a WindRiver user, we recommend consulting the Exodus report for further details to help you work out if you are vulnerable.
+As so often, patching is the cure in this case.
+Regular FreeBSD users will almost certainly have updated their laptops and servers by now, and almost certainly don’t need to worry.
+However, if you have an embedded device based on FreeBSD, you may want to contact the maker of the device for confirmation that the patch has been included in the current device firmware.
+Given the media interest in this report, devlopers using Nucleus NET or NetX in their products should consider publishing a note for their customers to say whether their devices are vulnerable or not.
+Programmers interested in the sort of the low-level coding errors that led to these bugs might want to take a look at the Forescout/JSOF report, which gives six practical examples of the coding blunders to look for!

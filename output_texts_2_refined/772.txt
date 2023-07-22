@@ -1,0 +1,38 @@
+Cybersecurity outfit ZecOps just published a blog post that is intriguingly entitled You’ve Got (0-click) Mail!
+According to the article, the company recently did a forensic investigation into iPhones that had apparently been hacked.
+Amongst the artefacts they found were suspiciously-constructed emails, dating right back to January 2018, that seemed to be targeting some sort of unknown iOS bug.
+Fast-forward through what was no doubt a lot of serious machine code spelunking, and ZecOps worked out that the suspicious emails were, indeed, deliberately booby-trapped.
+Just viewing or opening the emails, without clicking anything in the email itself, could cause one of two different crashes in the Apple mail app, and the crashes were provoked by content in the email that almost certainly didnt arise by chance.
+For example, several of the so-called indicators of compromise (IoCs) published by ZecOps include the text strings AAA...AAA.
+When strings of As appear in suspicious content, and then numbers that come out as 0x4141...4141 in hexadecimal show up in crash dumps provoked by that suspicious content (0x41414141 is the ASCII code for AAAA), there’s something very PoC-like (a PoC is a proof of concept) about what you’re seeing.
+The string AAA...AAA is very commonly used in bug-hunting because it’s easy to type in; it’s a valid string of pure ASCII capital letters; it stands out notably in binary form as 0x4141...4141; and, on Intel chips at least, the string itself decompiles neatly into a sequence of single-byte machine code instructions (INC RCX operations on 64-bit Intel, as it happens) that don’t themselves mess with memory.
+In ZecOps’s own words, the company has formed the opinion that an unknown attack group “purchased the exploit from a third-party researcher in a Proof of Concept (POC) [form] and used [it] ‘as-is’ or with minor modifications (hence the 4141..41 strings)“.
+By tracing and analysing the crashes that the booby-trapped messages provoked, the researchers uncovered not one but two different memory overflow bugs in the message-handling library used by Apple’s email app.
+Modern email messages are usually formatted as text laid out in a format called MIME, short for Multipurpose Internet Mail Extensions.
+MIME allows emails to be split into multiple parts, including the message body, embedded images, and attachments such as images, videos and documents.
+Apple’s MIME-processing library, it turns out, keeps its data in memory until a certain data size is reached (2Mbytes, apparently), after which it is saved to disk storage and accessed as needed.
+This is a common programming technique – it helps to ensure not only that small data objects can be processed quickly, but also that big ones don’t bog down the rest of the device by eating up too much RAM.
+The bugs here related to the point at which the MIME software library switched from caching message data in RAM to caching it on disk.
+Ironically, the first vulnerability they found didn’t seem much use to an attacker on its own – it seems to have been an unintended side effect of the second vulnerability they uncovered, which they consider to be the one that the attackers were relying upon.
+ZecOps disclosed the problems to Apple in February 2020, and was able to supply a PoC by the end of March 2020 to help Apple work on the bug .
+The good news is that Apple has already worked a fix into the next release of iOS, currently denoted 13.4.5 Beta, but as the version name indicates, this isn’t an official full release yet.
+The other good news is that even though these newly disclosed bugs are technically zero day vulnerabilities, and even though at least one attack group seems to have been using them as one component in targeted attacks in the wild, they’re apparently not exploitable on their own.
+As ZecOps says:
+
+Q: Does the vulnerability require additional information to succeed? 
+A: Yes, an attacker would need to leak an address from the memory in order to bypass ASLR. We did not focus on this vulnerability in our research.
+
+ASLR, of course, is address space layout randomisation, by which the operating system avoids using predictable memory locations for loading code and data.
+This means that even if remote attackers can poke dangerous content into RAM – what’s often called shellcode in the jargon – they have little or no idea where it will end up, so they can’t reliably transfer control over it to take over the app. (Most likely, the app will simply crash.)
+Additionally, attackers would need a secondary kernel-level vulnerability to get system-level control and thereby to escape from the strictures of the vulnerable app.
+Of course, email apps typically contain plenty of juicy data all of their own, so a double-vulnerability compromise of the email app alone is still a worthwhile result for any attacker.
+As we’ve mentioned, the good news is that a permanent patch is due when the current iOS version (13.4.5) emerges from its Beta release.
+So watch out for Apple’s next iOS update and make sure you get it as soon as it’s ready.
+The other good news is these holes don’t seem to be directly exploitable, so their public disclosure during the current Beta program isn’t a direct invitation to crooks to start piling into iPhones around the world.
+If you’re worried because you think your company profile aligns with the possible victims alluded to in ZecOps’s blog article, you could consider switching to a different email app until the next iOS update comes out.
+Gmail and Outlook, for example, have their own email apps that you can use instead of Apple’s one, even if it means using two or more apps instead of leaving all your messsages to the built-in iPhone app.
+Even though Apple’s own email app comes with iOS, it can be removed from your device (unlike core apps such as Safari, Phone and Messages).
+To remove an app, hold down any app icon until all your icons start shaking (that’s the signal that you can move them around), and any removable apps will show up with an [X] button in the top left corner.
+You can reinstall removed system apps via the App Store at any time – the built-in email app is called simply Mail by Apple.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.

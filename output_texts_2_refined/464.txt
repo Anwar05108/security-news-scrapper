@@ -1,0 +1,17 @@
+Citrix has issued its first set of patches fixing a nasty vulnerability that’s been hanging over some of its biggest products.
+The flaw, identified as CVE-2019-19781 on 17 December 2019, affected Citrix’s Application Delivery Controller (ADC) load and application balancer, and the Citrix Gateway Virtual Private Network (VPN) appliance (previously known as the NetScaler ADC or NetScaler Gateway).
+Citrix was vague about what the flaw might allow an attacker to do beyond saying that it “could allow an unauthenticated attacker to perform arbitrary code execution.”
+However, it’s been clear from the start that it was serious, an impression reinforced by speculation (based on analysis of Citrix’s proposed mitigations) that the issue allows directory traversal, that is offering attackers a way to access to restricted directories without having to authenticate.
+That’s potentially disastrous – the Citrix Gateway, for example, is used to enable VPN remote access so an attacker able to crawl into a network through that route could exploit that in numerous horrible ways.
+Patches for ADC and Citrix Gateway 11.1 (11.1.63.15) and 12.0 (12.0.63.13) were made available on 19 January with versions 12.1 (12.1.55.x), 10.5 (10.5.70.x), and 13.0 (13.0.47.x) to follow on 24 January.
+Versions 10.2.6 and 11.0.3 of the SD-WAN WANOP, used for accelerating WAN traffic, will also get patches later this week.
+Until products are patched, Citrix advises customers apply the suggested mitigations, while bearing in mind…
+While all the mitigations associated with CVE-2019-19781 are effective across all known scenarios, we strongly encourage customers to apply the permanent fixes as soon as possible.
+Admins can test whether their appliances are vulnerable using a tool released by the US Cybersecurity and Infrastructure Security Agency (CISA).
+As noted in Naked Security’s recent coverage, the importance of the patches has been underlined by the recent detection of mass scanning for vulnerable appliances.
+Since then, a security company says it has detected at least one known threat actor scanning for targets, possibly to introduce backdoors for later exploitation. If attackers get to that stage, appliances will not only need to be patched but fully reinstated from scratch.
+It appears that thousands of vulnerable appliances have not yet been patched or perhaps even had mitigations applied. Some of this might be the effect of holidays but it’s likely others either don’t know about the issue or are having problems getting to them all.
+It’s serious enough that the Dutch NCSC has even recommended turning off affected systems until patches can be applied just in case the official mitigations aren’t foolproof.
+Patching systems organisations rely on is never easy an easy job. But it’s better than not patching a vulnerability that is now almost certainly being discussed on dark web forums.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast.

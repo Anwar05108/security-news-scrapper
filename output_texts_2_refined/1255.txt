@@ -1,0 +1,277 @@
+We’ve just entered the last week of Cybersecurity Awareness Month 2021, and this week’s theme is something dear to our hearts here on Naked Security: Cybersecurity First!
+This is where we remind, urge, cajole, encourage, provoke, enthuse and remind you to put cybersecurity first in any IT project, for the simple reason that it’s a losing game (as well as expensive and frustrating) to try to retrofit it afterwards.
+We’re publishing four Naked Security Podcast minisodes this week, in both audio and written form, so you can enjoy four expert presentations from this year’s Sophos Security SOS series, and learn from the best!
+To access all four presentations on one page, please go to:https://nakedsecurity.sophos.com/tag/sos-2021
+First up is Fraser Howard, Director of Threat Research at Sophos, whose breadth and depth of knowledge in the threat-fighting field is second to none.
+LISTEN TO THE AUDIO
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+READ THE TRANSCRIPT
+[FX: MORSE CODE GREETING AND SYNTH VOICE]
+PD. Hello, everybody – welcome to the Security SOS 2021 webinar series. 
+I’m Paul Ducklin, and today my guest is Fraser Howard, whom I always like to describe as “The Malware Specialist in Everything.”
+Fraser, welcome back to the SOS series!
+FH. Hi, Duck, good to be here.
+PD. Today’s topic, as you can see, is the intriguing sounding: “Malware – the never-ending story.” 
+Why we chose that topic – that was actually me remembering… this is going back to the late Eighties or the early Nineties.
+It was a year when I think we were only in March and [DRAMATIC VOICE] we’d already had 28 viruses.
+FH. [LAUGHS]
+PD. And colleagues said, “Wow, you’re really busy at the moment, but what do you think you’ll do when this fad burns out?” 
+And I’m still wondering [LAUGHS] what the answer is to that question, because it really has turned into a never-ending story, hasn’t it, Fraser?
+FH. It has!
+I mean, I can’t even imagine… I think even 10 or 15 years ago, we still counted things…
+PD. Yes!
+FH. …and things then were in the tens, if not hundreds of thousands. 
+I think nowadays I’ve stopped counting, there’s just too much.
+PD. Particularly when the crooks are often not delivering those malware samples by themselves, are they? 
+They’re working in an environment where there’s an affiliate network, if you like.
+The core malware creators, the crooks at the core – if you look at the ransomware gangs – write the malware, and then they recruit a whole load of affiliates to go out and do the dirty work with it.
+REvil ransomware crew dangles $1,000,000 cybercrime carrot
+
+
+FH. Yes, exactly that.
+And people build all sorts of services around this whole ecosystem that provide them additional capabilities, from simple capabilities like using obfuscation and packing techniques to try and make their creation less easy to detect…
+PD. And even worse, some of the packing technologies that the malware authors use, the first time you see them, or if you show them to someone who’s technical but hasn’t looked at them before, they’ll go, “Well, that’s easy to detect. It’s so suspicious!”
+But yet some of the tools they use are also used for packing and copy protection on legitimate software.
+FH. Yes. 
+That’s the annoying part, when  benign, legitimate software that uses those very same tools.
+This makes it hard –  hard for humans and also hard for technology like deep learning. 
+It makes it harder to train automation when the legitimate and the malicious files have very similar characteristics.
+RATicate malware gang goes commercial
+
+
+PD. In terms of Malware-as-a-Service, where affiliates are being recruited, it’s way more than just ransomware, isn’t it? 
+There are whole market niches in the cybercrime ecosystem where different malware service providers provide different sorts of tools.
+FH. Yes, definitely. 
+And in many senses, if you’re a cybercriminal looking to maybe steal data, you probably like the fact that ransomware has taken all the headlines. 
+Cybercrime history is full of cases where one or a few kind of notorious criminal groups, or a few notorious threats, have the sole focus of law enforcement and press. 
+And the reality is, behind that, under the radar if you like, there has always been a whole bunch of other threats that, in many cases, might be more important and more of a risk to lots of people out there.
+Malware-as-a-service “Fully UnDetectable” operators busted
+
+
+PD. The crooks that unleashed that ransomware attack, and finally lit the blue touch paper in July – they may have been in your network since April, March…
+FH. Yes.
+PD. …or even December of the year before. 
+FH. Yes.
+PD. And who knows what else they’ve done? 
+They’ve almost certainly created new accounts so they can get back in later; they’ve probably stolen all your trophy data; they’ve almost certainly wiped out all the backups they can, in case you think you can recover without paying. 
+And who knows how many keystrokes they’ve logged and how many passwords they’ve captured during that time? 
+It can be very hard to tell after the fact, can’t it?
+FH. So, you mentioned keystrokes there…
+It’s funny, because I remember, a few years ago, doing a demo on what was at that time was some notorious piece of malware.
+Actually, we then got into conversation about simplistic keylogging trojans, and how that type of malware is one of those insidious kind of threats that you can have in your network. 
+And if you think of the type of data that you type, and if someone’s harvesting that data on a continual basis… it’s very easy to see how  you can lose credentials, lots of sensitive IP data. 
+And lots of threats today, and lots of ransomware attacks, they get onto a network at some point, and from there, they co-ordinate the rest of the attack… 
+…in many cases, that initial access is through stolen credentials, essentially credentials that have been stolen by one cybercriminal and then sold online to facilitate crime from others.
+And on that same topic, things that just take simple screenshots, and take a screenshot every few minutes or every hour… again, lots of very sensitive data can be stolen.
+Maybe that data then enables a second attacker to access those systems, or realize there’s some kind of highly prized data that could be available.
+PD. Fraser, I just want to jump back to something you mentioned earlier about these criminal operations where there’s a service that’s provided. 
+Talk to us a little bit about perhaps one of the more infamous malware-as-a-service groups, namely: Emotet.
+FH. Yes, the notorious Emotet! 
+So, that was one of the good stories that came out of this year. 
+In January of this year, multiple law enforcement organizations worked together to take out a lot of the infrastructure that was being used by Emotet. 
+And as weeks, months have ticked on since then, they essentially took out that particular threat family.
+Emotet itself has been… I said notorious – that’s an understatement – for probably 12, 18, 24 months.
+It was certainly the number one non-ransomware threat family that was regularly discussed by law enforcement, by various kinds of news articles, and the like.
+That was primarily due to the aggressive nature in which the attackers sought to maintain their presence, and the size of their botnet, through things like aggressive spam campaigns to continually infect new victims and essentially conscript new victims into their botnet. 
+And also the way in which Emotet itself was used as a malware delivery service, basically infected machines had other malware pushed to them.
+So, the bad guys were essentially using that network as a means to distribute other malware. 
+Other people would pay them money to push malware through their botnet.
+Emotet takedown – Europol attacks “world’s most dangerous malware”
+
+
+PD. Yes, because for many attacks, the Emotet malware family and the Emotet service, that was the beginning of an attack that may have led to ransomware, wasn’t it? 
+Because Emotet wasn’t about ransomware, it was… how would you describe it? 
+It’s “malware delivery malware”, basically.
+FH. Essentially, yes. 
+Once part of that botnet, you as the victim would be completely unaware that your machine was infected.
+The malware was designed to run in the background; there was nothing visible; no visible damage in terms of file encryption or in terms of messages.
+It was simply a service that was running alongside all the other hundreds of Windows services in the background, but this particular service was used by the Bad Guys to push other malicious activity later on…
+PD. …waiting for some other gang of crooks to come along, say to the Emotet guys, “I need a thousand infected computers by tomorrow, all in one network. What have you got?” 
+And they’d say, “Yeah, we can do that. We can do that, how much are you willing to pay?”
+Then they’d use their botnet (in case you’re wondering, that’s short for “robot network”), and the Emotet guys would just deliver pre-infected computers to paying “customers”.
+FH. Yes. 
+Emotet certainly was not the first kind of malware family to do this, far from it, but it was just one of the more recent ones, and they did it in a way where they did it very effectively. 
+And so they were individually responsible for quite a lot of victims being hit with a whole variety of different threats.
+PD. Just to be clear, for those of our listeners who are wondering, “Well, how can botnets be controlled through a firewall?” 
+Because, particularly if you’re in a small network or a home network, you’ve probably got a router that doesn’t allow incoming connections – many ISPs even prohibit that, you can’t set it up even if you want. 
+Modern zombies or bots, in fact, for years, they just don’t work that way, do they? 
+They don’t wait for the crooks to send them instructions, they just regularly and gently call home, possibly to one of thousands of ever-varying servers, so it’s not obvious where they’re going.
+Then they download the instructions on, “Dear Boss, what should I do next?”
+FH. Yes. 
+And they typically use HTTPS, so it just blends in with other web traffic that’s also using HTTPS from the victim machine, so it can be very hard to spot.
+How bots and zombies work, and why you should care
+
+
+PD. So the Emotet guys, the “malware delivery malware” experts, they got taken down… 
+What happened next? 
+Because often you see that almost as soon as one gang gets taken out, either they don’t get arrested and they just pop up with a new name somewhere else, or somebody else figures, “Woo hoo, that’s my competitive advantage,” and new crooks fill the vacuum. 
+What happened after the Emotet takedown?
+FH. Yes, the next chapter in this story, and the one that people expect to hear, is, “What threat family fills that void as soon as Emotet has gone?”
+And the reality is that there are multiple threat families that are already doing something similar to Emotet, even whilst Emotet is active. 
+And, no doubt, those same families have, to whatever extent, filled that void. 
+To date, there isn’t a single one that stands out as having replaced Emotet, but there are a few notorious families, several of which have been spoken about and posted about on Naked Security, families like BuerLoader, Dridex, BazarLoader…
+These families are getting used, and some of their functionality enables the bad guys to use them as a service to distribute other components of malware and other parts of an attack.
+Buer Loader “malware-as-a-service” joins Emotet for ransomware delivery
+
+
+PD. I guess that’s an important reminder that malware detection and prevention is not all about the shiny visible stuff! 
+For example, let’s say we got rid of all ransomware… we’d still have to worry about all the other malware of the past.
+The problem really retains the cumulative history of all the malware that went before…
+FH. It does. 
+And actually, that’s an interesting example you just brought up there. 
+So in some senses, for a well-protected network, using some of the technologies that are available in today’s security products, actually ransomware is quite hard – technologies like CryptoGuard can make it really hard for the Bad Guys to actually encrypt your data. 
+Partly for that reason, ransomware authors, the attackers, have already shifted to what we call “double extortion” type models, where rather than just encrypting the data, actually they’re siphoning it off your network, they’re copying it off your network, somewhere up into the cloud. 
+And they’re still looking to blackmail you, they’re still looking to extort money from you… not to get your data back after having been encrypted, but to stop the attacker publicly exposing your data because they’ve already stolen it.
+PD. So Fraser, we’ve spoken about Emotet, the “malware delivery malware” guys.
+But there’s… not exactly a new kid on the block, but perhaps a new term for many people: the so-called “supply chain attack”, where you fetch software from what you think is a trusted source, but instead of attacking you, the crooks have attacked the person upstream from you. 
+How’s that panning out?
+FH. Again, it’s a technique that’s been around for a long time, and over the last few months, we’ve seen two major attacks that have used it. 
+First one, just before Christmas, was the SolarWinds attack, where criminals who had managed to compromise that software chain were able to subsequently hit people that were already using the software. 
+And more recently, just a couple of a few weeks ago in fact, the Kaseya ransomware attack, where people who were using Kaseya software… that software was used to distribute malicious commands, which initiated a ransomware attack.
+So from the Gad Guys’ point of view, you can see why it’s so attractive. 
+Earlier on, we spoke about “initial access”.
+How does the attack get onto a network and potentially laterally move across that network in order to deliver the attack? 
+Actually, the supply chain can solve that problem for them entirely. 
+So, in the case of the Kaseya attack, this Kaseya agent was already running on lots of these endpoints, and by compromising higher up the chain, the bad guys are able to issue their malicious commands across all of the machines that were running that particular software. 
+So, that solves the problem for the attacker of that initial access, gives them it for free.
+Kaseya ransomware attackers say: “Pay $70 million and we’ll set everyone free”
+
+
+PD. So, loosely speaking, from a software point of view, a supply chain attack simply means that instead of attacking you directly, the crooks just attack someone one or two or three steps up the chain… 
+Where you fetch stuff that you assume you can trust because you’re not downloading it from some weird link that someone just sent you in an email.
+FH. Yes, exactly. 
+And, essentially, that software is backdoored. 
+You’re using legitimate software, but there’s essentially a backdoor in that software that allows cybercriminals to use that software to deliver something bad.
+PD. And this is a particular problem for software development teams, isn’t it, in the modern era, if you’re using languages like Python, or JavaScript, or Ruby or something like that?
+FH. Yes.
+PD. And you’ve got RubyGems, NPM, PyPI… these package manager tools that go out to the public cloud and download often open source packages that are meant to be open to everybody. 
+So, it actually requires quite a big attention to detail by development, quality assurance, and build engineering teams inside software companies.
+FH. If you’re a cybercriminal group looking to attack a very high profile organization… we already know that those groups invest months, years; they invest hundreds of thousands, probably millions of pounds, in looking to target those particular organizations. 
+Actually, if you think about it, a supply-chain type attack is a very powerful way of hitting those various organizations.
+So, rather than dedicating all that effort into building up your attack weaponry, you could invest that same effort into building up developers with high reputation on some of these open source projects, contributing positively…
+…only at some point in time to drop a backdoor in somewhere.
+It’s a perfectly plausible scenario in terms of how these attacks might go in the future.
+How one man silently infiltrated dozens of high-tech networks
+
+
+PD. So, one way to attack a single business is to find some software module that’s used by a *million* businesses that have no reason to distrust it, attack all the million businesses, and one of them just happens to be the victim you really wanted. 
+And the flip side of that is, if you’re the kind of crook that wants to attack a million businesses, you can either attack them one at a time like the CryptoLocker ransomware guys used to do back in what was it, 2013? 
+Or you can go, “OK, let’s find the common watering hole and let’s go and poison that.” 
+So, supply chain attacks can actually be used for broadening and deepening attacks, possibly even at the same time.
+FH. Yes. 
+And as you said at the start, they’re very, very hard for the good guys to defend against. 
+Common sense; good practice in terms of what extensions you trust and what tools you merge into your projects, or even the actual tooling that you use; maybe your development environment; what extensions you might choose to use;  all of those considerations become important… 
+Because, when you choose to kind of use one of those extensions, as you said, it’s probably doing exactly what you described: it’s connecting out to the internet, pulling down some third-party code…
+…but how could it be abused by an attacker as well?
+PD.Yes! 
+And it’s not just the case that the crooks will poison the code that you download to build into your own software.
+They can poison the package that you download so that the malware runs when you install or update the package.
+FH. Yes.
+PD. And now the crooks haven’t poisoned one particular build you’ve made, they’ve poisoned your whole build environment for next time as well.
+FH. Yes, and we’ve seen attacks like that in the past where they’ve targeted certain build environments or certain high-level languages, in a way to hit organizations that build and ship packages to customers.
+PHP community sidesteps its third supply chain attack in three years
+
+
+PD. Fraser, perhaps this is a good time, given that we’ve just opened up this huge number of ways you can deliver the malware… 
+Maybe this is a good time to talk about something that’s getting a lot of popularity these days, and that is an attempt to codify all this, namely the MITRE ATT&CK framework, which is A-T-T-ampersand-C-K. 
+Tell us something about that, because I know you’ve been doing a lot of work lately with the so-called ATT&CK framework… which is a framework for defence, not actually for attack.
+FH. So, we talk about attacks, and we talk about how threats work and then inevitably these conversations become quite detailed quite quickly, and quite technical quite quickly. 
+To lots of people that aren’t involved in cybersecurity, it can be hard to follow and hard to properly characterize, “What exactly are you talking about?” 
+And so the MITRE ATT&CK framework is essentially a knowledge base.
+And the framework provides tactics and techniques based on real world observations. 
+So, observations into how attacks actually happen, what different techniques the attackers use, and trying to basically break that down and providing a structure by which we can label things. 
+You have, for example, tactics like: execution; initial access; lateral movement; discovery; command-and-control; and there’s a variety of other ones as well. 
+And within each one of these tactics, you have a whole variety of different techniques, as well. 
+For example, brute forcing would be one particular tactic…
+PD. That’s where you try every possible password rather than just guessing the most likely eight?
+FH. …yes. 
+Sniffing network traffic; using Windows management instrumentation… there are literally hundreds of different techniques. 
+Basically, the matrix provides a labelling structure so when we, for example, block some malicious activity on a machine, we make an effort to try and associate that block with the most appropriate technique. 
+That can be useful for the customer that has that protection event firing within their organization, because they can then use that technique reference to better understand what type of activity is being blocked in this particular instance.
+PD. Which also tells them, if they want to do threat hunting, where’s the right place to look…
+FH. Yes. 
+And perhaps most crucially, as well, by adopting the ATT&CK kind of matrix framework, it’s a common language across different security products. 
+And so “Technique ABC” is “Technique ABC”, regardless of which particular security product might have referred to it.
+So, it provides that common language, which makes it  easier for customers, for security teams, and incident response teams to  talk the same language when they’re trying to identify the characteristics of an attack.
+PD. Yes, because malware and threat vocabulary, for want of a better word, has always been a bit of a problem, hasn’t it? 
+Right back to the 1980s: “Is it the Italian virus? Is it the Bouncing Ball virus, or is it the Ping Pong virus?”
+FH. [LAUGHS] Yes.
+PD. Is it the Stoned virus, or the New Zealand virus?
+FH. The way we see MITRE-related labeling and classification being used will change drastically in the next 12, 24 months and it will become a much more integral part of how organizations manage their protection.
+But more importantly, as you just touched on, how they manage their response to malware incidents, or even just user activity – users doing unusual or inappropriate actions on their machines, even without malicious intent.
+PD. Yes, things that could open up a hole that they never intended, but didn’t think of. 
+So, Fraser to finish up, because I’m conscious of time, I’d actually like to look at this whole threat response idea. 
+These days, just relying on “find the malware – detect the malware – block the malware – remediate the malware – print a lo -, pat yourself on the back – get ready for next week’s attacks”… that doesn’t work anymore, does it? 
+Because, often, attacks may be done deliberately by the crooks, just so they can sound out your defences. 
+So, even if you successfully defend today, what you could be looking at is actually a little bit of a hint that something much worse is likely to happen tomorrow!
+Sophos 2021 Threat Report: Navigating cybersecurity in an uncertain world
+
+
+FH. Yes, and that’s actually a very, very common scenario. 
+The biggest change between those times you talk about and today is actually human-led attacks. 
+So, we talk about “human adversaries”, and what we’re really talking about is one or more cybercriminals who already have presence within your network – they’ve already got in. 
+Maybe it’s an unmanaged machine; maybe it’s a machine without security patches; maybe it’s a machine where the security has been disabled. 
+Regardless of any of that, the attacker is already on the network.
+They’re going to then use that persistence, use that presence, to map out the network, to laterally move across the network, and ultimately to deliver their attack.
+PD. And let’s be clear, at this point, there are no flaming skulls on your website homepage…
+FH. Correct!
+PD. … to give away that the crooks are in your network. [LAUGHS]
+FH. Yes.
+PD. Because it’s a human-led attack, it’s not like software pretending to a sysadmin. 
+If they’ve managed to promote themselves to an administrator account, they basically *are* sysadmins…
+FH. Yes.
+PD. …they’re not *your* sysadmins, unfortunately.
+FH. Yes. 
+So, you tend to find that they try and initiate an attack, and a good security product will block that attack, but they’re still on the network. 
+And so they try something different, and they can continually repeat this whole process until, eventually, they win. 
+And so, whatever security product you have has to succeed 100% of the time to prevent that particular attack succeeding. 
+This is where services like Managed Threat Response (MTR) can help, because they can recognize these early signs of that type of attack, and they can boot that person off the network and remediate the attack before the truly malicious part is delivered, be it ransomware, data theft or whatever.
+PD. Just booting them off the network… even that’s not enough, is it?
+FH. No.
+PD. Because you have to get in your… what I like to call the “Network Time Machine”, and go backwards…
+When these guys were making themselves sysadmins, they probably created a few other accounts…
+FH. Yes.
+PD. …and they probably spent the time to learn what your network and account naming system looks like. 
+So, if they’ve created fake accounts, they’re not going to have weird or outrageous names – they’re going to look like somebody else on the network.
+They really do try to blend in, don’t they? 
+That’s what we call “living off the land”, isn’t it?
+Living off another land: Ransomware borrows vulnerable driver to remove security software
+
+
+FH. It is.
+Using tools ideally that are already present on these systems, or if they aren’t, minimizing the amount of new tools that they’re introducing to the victim machines. 
+And it’s all to stay sub-radar. 
+As you said, any good Managed Threat Response service, aside from just kind of getting these criminals off your network, will then try to work out, “OK, well, well, what did they do?” 
+“What do we need to undo?”
+And also, perhaps most crucially, “How did they get onto the network in the first place?”
+PD. Exactly.
+FH. What was it about your security posture that made it easy, or made it possible, for them to get on the network?
+The case is not really closed until all of those ducks are lined up, if you like.
+PD. Fraser, let’s finish up, then, by me asking you…
+If you’re a business, and you don’t have a huge amount of time and money leftover, but you figure, “I actually want to get into this modern threat hunting mindset, rather than just thinking of security as a sort of set and forget thing,” which never really worked well, but definitely doesn’t now…
+…what would your primary advice be?
+FH. If the budget allowed, I would use a Managed Threat Response type service.
+Use people with the skillset to manage all these indicators that are flowing from your network, and give you a heads-up warning to potential or imminent attacks.
+PD. It is *not* an admission of defeat, is it?
+FH. Not at all, no! 
+It’s essentially acknowledging the real threat that pretty much all businesses face today. 
+If that isn’t in budget, my focus would be on using the security product that you deploy effectively. 
+So: visibility – maintaining visibility of what’s happening in the network.
+Make somebody in IT responsible for keeping track of what’s going on in your dashboard.
+Don’t live with a security environment where 20, 30, 40 alerts are going through each day, each week, and no one’s really following up. 
+In any well-managed environment, you will have a good handle of what is normal.
+And finally: control. 
+Use some of the tools that your security application almost certainly already offers that you might not yet use. 
+Use the control features that, for example, your operating system might provide to help lock down systems, and help empower your employees to get their work done, but actually to treat your systems with respect.
+MTR in Real Time: Hand-to-hand combat with REvil ransomware chasing a $2.5 million pay day
+
+
+PD. Because, as we like to say on the Naked Security podcast: “When it comes to cybersecurity, sometimes an injury to one really can be an injury to all.”
+FH. Yes.
+PD. Fraser, I think that’s a great place on which to end. 
+Thank you so much for your time.
+Thanks to everybody who tuned in. 
+And it remains for me only to say:  “Until next time, stay secure.”
+FH. Stay secure!
+[FX: MORSE CODE SIGNOFF]
+Learn more about Sophos Managed Threat Response here:Sophos MTR – Expert Led Response  ▶24/7 threat hunting, detection, and response  ▶

@@ -1,0 +1,39 @@
+Yesterday, we wrote about a vaguely mysterious zero-day patch pushed out by Apple. 
+Like almost all Apple security fixes, the update arrived without any sort of warning, but unlike most Apple updates, only a single bug was listed on the “fix list,” and even by Apple’s brisk and efficient bug-listing standards, the information published was thin.
+The update was issued only for the very latest supported incarnations of iOS, iPadOS and macOS (major release numbers iOS/iPadOS 14 and macOS 11).
+Older but still-supported versions of iOS and macOS (iOS 12, as well as macOS 10.15 Catalina and 10.14 Mojave), along with watchOS and tvOS, didn’t get a mention at all.
+Whether those not-yet-patched versions are vulnerable but are proving harder to fix, are vulnerable but simply aren’t going to be fixed, or don’t actually contain the buggy code at all, we aren’t yet sure.
+This lone bug is known only by the impersonal, database-issued name of CVE-2021-30807, and is attributed to “an anonymous researcher”.
+Update. An additional patch, watchOS 7.6.1, has been issued to extend this fix to that platform. [2021-07-30T12:58Z]
+Was the new bug the secret heart of a new jailbreak that got leaked to Apple ahead of time? Was it an exploit built for a cybercrime attack that never took place? Was it part of a law enforcement phone cracking toolkit that wasn’t supposed to become known but did? 
+We don’t know.
+All we know is that Apple says that  it “is aware of a report that this issue may have been actively exploited”. 
+That statement has a fair amount of distance in it: not that it was exploited, but that it may have been; and not first-hand experience but merely awareness of a report about it.
+Of course, none of that really matters given that Apple made it clear that this was a dangerous vulnerability (a likely code execution hole with kernel privileges), and pushed out patch to fix it.
+Many, if not most, eligible iPhone users will already have received the update automatically, and the rest can get easily it on demand via Settings > General > Software Update.
+Well, no sooner was Apple’s pach out than security researcher Saar Amar added a whole new splash of intrigue into the existing puddle of mystery.
+Saar Amar, who describes himself as working at MSRC (Microsoft Security Response Center) and being into “reversing, exploits, Windows internals, virtualization, [and] mitigations”, tweeted that he’d discovered this very vulnerability back in March 2021, but hadn’t had time to exploit it properly and therefore hadn’t bothered to report it to Apple.
+Of course, when the unannounced patch arrived, Saar Amar realised that someone else must have reproduced his research work independently in the meantime.
+Technically, he had tweeted that he’d discovered the vulnerability back in March 2021, but he didn’t disclose it at the time.
+Back in March, he tweeted a SHA-512 hash of a file he’d created called description_and_poc.txt:
+This one is not accessible from the app sandbox, but still pretty cool 🙂 sha512(description_and_poc.txt)=d36248d389e069acf611f8f69f93c0ec8b96da1ac9c84e3323355db7e4892fc26394bcef3cf1ef17a1a591f3a0443141534960e011da6371f03c70c7967b484b
+— Saar Amar (@AmarSaar) March 29, 2021
+
+Tweeting a cryptographic hash is a simple way of proving that you know something at time X without revealing it until later on.
+It would be impossible (or at least be computationally infeasbile, in the jargon) for someone else to come up with a file of their own that just happens to have the same hash as yours, even if they were to spend decades on the problem.
+In other words, if you can later produce a file with the same hash that you declared at time X, you can convince everyone that you must indeed have had that file in your possession since at least X.
+You couldn’t have constructed the file from scratch after you published the hash, therefore the file must have preceded the hash.
+A similar technique for establishing “primacy of discovery” has been used for centuries. Oxford physicist Robert Hooke, for example, gave advance notice of his discovery of what is now Hooke’s Law by writing a teaser, in 1660, that said: The true theory of elasticity or springiness […]: ceiiinosssttuu“. When unscrambled, the letters at the end can be arranged to read: ut tensio, sic uis, which is Latin for the extension is proportional to the force, the result that he finally published in 1678. (If you hang a 2kg mass on the end of a spring, it will stretch twice as much as if you hang 1kg on it. That’s the essence of Hooke’s Law, which you may have been required to learn at school, and possibly to validate experimentally with rubber bands and steel weights.)
+
+On the same day that Apple announced the fix for CVE-2021-30807, Saar Amar published a document on Github that had that very SHA-512 hash, as you can check for yourself.
+The document includes proof-of-concept code for a local privilege escalation in the very same kernel function noted by Apple in its latest bulletin.
+So, the secret’s now out about the nature of the mystery bug!
+But why hold back?
+Saar Amar says he put the basic vulnerability to one side in March because he intended to come back to it in August and to groom his code into a full-blown exploit (essentially, a proof of concept capable of delivering an actual jailbreak, not merely the promise of one) before disclosing it to Apple as a “high-quality submission”.
+Holding onto bugs in this way in not unusual, for several reasons, including: 
+In this case, Saar Amar reported in his hashed document that this was a “very straightforward vulnerability”, and has subsequently written that “the vulnerability is as trivial and straightforward as it can get”.
+With this in mind, of course, you could argue that putting the bug on ice for an expected five months (March to August) created a realistic risk that someone else would find it in the meantime, and that the bug-hunter who rediscovered it might decide to use it as a zero-day, and not for the purposes of responsible research.
+(Indeed, that seems to be what happened.)
+Would you have disclosed the PoC directly to Apple back in March, as unpolished as you thought your work to be, in the hope that it would then be patched?
+Or would you merely have staked your claim to it, in the tradition of Robert Hooke and many other enlightenment scientists, in the hope of writing up a bigger, better and more complete research article later in the year, and unquestionably getting it patched?
+Have your say in the comments below! (You may remain anonymous.)

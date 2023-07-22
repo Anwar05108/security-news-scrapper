@@ -1,0 +1,20 @@
+Remember HAFNIUM?
+Of course you do – it was the name behind a foursome of Exchange bugs that got patched in an emergency update early in March 2021.
+Even though there was just a week to go until March 2021’s Patch Tuesday, Microsoft decided to issue what have become known as the “Hafnium fixes” in a so-called out-of-band update.
+The fixes closed four security holes that could be chained together to produce an attack that has now been dubbed ProxyLogon.
+Using the ProxyLogin trick, a cybercriminal outside your network could sneakily install malware onto your server without needing to go through any sort of authentication process or password check first.
+“Out of band” is a metaphor borrowed from radio and network signalling, where it refers to a separate communication channel reserved for special data or commands in order to improve reliability. Usually, out-of-band data and commands are used to avoid to the dual risks that [a] the commands or urgent data might get missed if mingled with regular transmission, and [b] innocent data in regular transmission might dangerously be misrecognised as a command that was never actually issued. When referring to software updates, “out of band” simply means a patch or fix that unexpectedly arrives outside any pre-announced update schedule. Usually, that means it’s both urgent and important because it fixes a zero-day hole: a bug that attackers are already exploiting.
+As we explained in a recent Serious Security article on Naked Security, a crook who can upload a file into a Windows server directory where web data is stored doesn’t merely get a chance to pollute your web server with fake content, as bad as that would be on its own.
+By uploading a web file that doesn’t just contain HTML but also includes what’s called a server-side script…
+…crooks can create a booby-trap on your server that will execute that server-side script whenever they later visit the URL of the file they uploaded.
+Using the ProxyLogon attack, crooks can turn the trick of uploading an arbitrary file into a remote code execution exploit, so they can come back whenever they want and run code they uploaded earlier.
+Even worse, the crooks don’t need to upload a single, specific command to run later, as harmful as that would be on its own.
+By uploading what’s known as a webshell – a remotely executable command script that is programmed to run arbitrary additional commands provided at runtime – the crooks can come back whenever they want to execute whatever they want. (Read the boldfaced part of that sentence out aloud!)
+Webshells provide attackers with same sort of general-purpose power as a local Command Prompt or a PowerShell window, but without requiring them to work their way past any firewall rules or logon prompts.
+Serious Security: Webshells explained in the aftermath of HAFNIUM attacks
+
+
+Hafnium, as it happens, doesn’t refer to the attack described above, but merely to a specific gang of attackers who were using the ProxyLogon trick before Microsoft became aware of the bugs, and whose activities provoked the emergency patches.
+Unfortunately, once news of the Hafnium attackers came out, interest in the exploits they had been using surged.
+Ready-to-use attack code was soon made public, so that anyone could exploit the ProxyLogon hole, and a spate of “me-too” cyberattacks followed.
+The original Hafnium gang seems to have been interested in stealing data, presumably for industrial espionage, but some of the follow-up attackers had different ideas, such as the BlackKingdom gang, who used ProxyLogon to spread their ransomware.

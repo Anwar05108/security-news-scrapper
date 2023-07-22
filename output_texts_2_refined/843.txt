@@ -1,0 +1,44 @@
+Note. This article is not a “howto” list of tricks for skipping any of the steps in Signal’s official account setup process, such as deliberately bypassing the part where you have to put in a phone number.(In fact, as this article explains below, you can’t. [2021-02-14T22:00Z].)
+Signal is a popular instant messaging (IM) app with a difference.
+That difference – or at least its major difference – is simple: it’s not owned and operated by an industry behemoth.
+WhatsApp belongs to Facebook, Skype is part of Microsoft, and iMessage is owned by Apple, but the open-source app Signal belongs, inasmuch as it belongs to anyone, to Signal.
+Signal is a US-registered non-profit organisation that was founded entirely around making and supporting the messaging app.
+As a result, Signal’s big selling point is, well, that it isn’t selling anything.
+Sharing information about you with third parties isn’t part of Signal’s business model, so there’s actually no point in it figuring out how to do so…
+…which means that there’s a much more compelling reason to believe the organisation when it claims to have an unbending focus on end-to-end encryption.
+Signal not only has no desire, but also has no need, to take any interest in what you’re saying, or whom you’re saying it to.
+Signal is also endorsed by a privacy celebrity that other IM service providers can’t match, namely Edward Snowden.
+Snowden is quoted on Signal’s website with the five simple words, “I use Signal every day.”
+(With apologies to well-known cryptographers Bruce Schneier and Matt Green, who are two of Signal’s other celebrity endorsers.)
+Signal, however, has one curious aspect that puts some people off, this author included.
+We’ve never bothered with Signal for the reason that signing up means handing over your phone number.
+Conveniently, a phone number is all you need to sign up, but you can’t sign up with your name instead, or with an email address.
+You need to use a working phone number that really is yours.
+Basing the identity of accounts on a phone number makes a lot of sense, not least because a phone number is something you can easily and cheaply acquire in many countries, and it guarantees that the user has a satisfactory way of verifying their identity.
+But in some countries, getting hold of a phone number isn’t an easy process, and may involve proving not only your identity but also your address.
+Indeed, getting hold of an “anonymous” SIM card, or using an improperly registered one, is a criminal offence in some jurisdictions.
+And there’s something unappealing about entrusting your identity on a secure online service (one that prides itself on immunity to surveillance) to a cryptographic chip that must by law be registered with a central authority so it can keep tabs on you via that same chip.
+There’s something even less appealing about the worry that you could be locked out of your own account simply by losing the right to the phone number you used for the account.
+This irony isn’t lost on Signal, and it has just announced a new feature called Signal PINs that allow you to keep control of your account even if you lose your phone or are forced to switch numbers and can’t get your old one back.
+Signal aims to be easy and safe to use for everyone, which is why it hasn’t insisted on using long and hard-to-remember “recovery codes”.
+Signal PINs can be as long and complex as you like, including letters as well as digits, if that’s what you prefer, but you can safely use a short PIN if you want something that’s easy to remember and doesn’t need writing down, an act that could be a risk for some Signal users.
+Signal is using a technique it announced late last year called SVR, short for Secure Value Recovery.
+One obvious problem with short PINs used as recovery codes for databases that aren’t stored in secure memory on your smartphone is the issue of what’s called an “offline attack”.
+For example, your iPhone can get away with a 6-digit PIN because you can only type in the PIN on the phone, and the only way to verify the PIN (unless there is a bug somewhere) is to communicate directly with a tamper-resistant chip inside the phone.
+That chip can’t be opened up, modified or cloned, so the internal counter it maintains of how many guesses you’ve had at the PIN can’t be reset or bypassed – you get 10 goes and then it’s game over.
+You can’t make 10,000 copies of the chip and have 9 guesses on each copy without getting locked out forever.
+But regular server databases aren’t as easy to protect against attacks where the crooks aren’t hindered by the presence of dedicated, tamper resistant hardware.
+Signal has therefore put a lot of effort into developing hacker-resistant storage “enclaves” that the company can run on its own servers – using Intel’s Software Guard Extensions (SGX) – to keep your master secrets secure with a pass code that’s easy to remember.
+As we mentioned, however, you don’t need to use a PIN to secure your Signal account – you can just use your phone number alone, as before, or choose a proper pass-phrase that’s as long as you like. (We recommend the latter, SVR or no SVR.)
+The disappointing news here, at least in our opinion, is that Signal isn’t yet announcing a way to use its product without handing over a phone number at all.
+We’ve seen excitable reports in the media suggesting that this marks the beginning of the end of phone-based identity for Signal, but we don’t think it does.
+You still can’t use the laptop versions of the app without setting Signal up on your phone first, and you can’t set it up on your phone without handing over a real, live phone number right at the start of the installation.
+As Signal itself says, PINs aren’t a replacement for phone numbers but they do provide a safer way to recover your account in an emergency than a phone number alone.
+In the latest version of our apps, we’re introducing Signal PINs. Signal PINs are based on Secure Value Recovery, which we previewed in December, to allow supporting data like your profile, settings, and who you’ve blocked to be securely recovered should you lose or switch devices. PINs will also help facilitate new features like addressing that isn’t based exclusively on phone numbers, since the system address book will no longer be a viable way to maintain your network of contacts.
+It’s a start, not least because it means an interfering government or mobile phone company can’t lock you out of your account simply by cancelling your SIM card.
+But you still need a phone to get onto Signal in the first place.
+LISTEN NOW
+Click-and-drag on the soundwaves below to skip to any point in the podcast. You can also listen directly on Soundcloud.
+</div
+Follow @NakedSecurity on Twitter for the latest computer security news.
+Follow @NakedSecurity on Instagram for exclusive pics, gifs, vids and LOLs!
